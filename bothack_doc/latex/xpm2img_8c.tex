@@ -1,0 +1,461 @@
+\hypertarget{xpm2img_8c}{\section{nethack/win/gem/xpm2img.c File Reference}
+\label{xpm2img_8c}\index{nethack/win/gem/xpm2img.\+c@{nethack/win/gem/xpm2img.\+c}}
+}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bitmfile.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structTtable}{Ttable}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+U\+E}~1
+\item 
+\#define \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}~0
+\item 
+\#define \hyperlink{xpm2img_8c_a31b360112a92c0c6c5022a58229ac96a}{bufsz}~2048
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{xpm2img_8c_a01af01497a1d61b28687de33d72f3f32}{get\+\_\+color} (unsigned int colind, struct \hyperlink{structRGB}{R\+G\+B} $\ast$rgb)
+\item 
+void \hyperlink{xpm2img_8c_a316727fc42e6c5bb7a61738bce7450d6}{get\+\_\+pixel} (int x, int y, unsigned int $\ast$colind)
+\item 
+char $\ast$ \hyperlink{xpm2img_8c_aa12f6cdcac5f11c0d3b862ce8eff62b8}{xpmgetline} ()
+\item 
+int \hyperlink{xpm2img_8c_afced8478b91af5c169926dfa4426333d}{main} (int argc, argv)
+\item 
+\hyperlink{xpm2img_8c_abf07d68cc860a025f5b00d6037583184}{fopen\+\_\+xpm\+\_\+file} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$fn, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$mode)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int $\ast$$\ast$ \hyperlink{xpm2img_8c_aab23ae2366f50bd6bdb3e1fb3294ae4f}{Bild\+\_\+daten}
+\item 
+struct \hyperlink{structTtable}{Ttable} \hyperlink{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{ttable} \mbox{[}256\mbox{]}
+\item 
+struct \hyperlink{structRGB}{R\+G\+B} $\ast$ \hyperlink{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{Color\+Map}
+\item 
+int \hyperlink{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}{num\+\_\+colors} = 0
+\item 
+int \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width} =0
+\item 
+int \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height} =0
+\item 
+int \hyperlink{xpm2img_8c_a37b318383ca653e8042174ab53cfb827}{initflag}
+\item 
+F\+I\+L\+E $\ast$ \hyperlink{xpm2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}
+\item 
+F\+I\+L\+E $\ast$ \hyperlink{xpm2img_8c_a03a385be2697f3ec6f00684a93c21367}{xpmfh} = 0
+\item 
+char \hyperlink{xpm2img_8c_a1bb12ff1743613e41c54dc028dc5e09b}{initbuf} \mbox{[}200\mbox{]}
+\item 
+char $\ast$ \hyperlink{xpm2img_8c_a211326c7a323a6e9b1d69b73af0bf627}{xpmbuf} = \hyperlink{xpm2img_8c_a1bb12ff1743613e41c54dc028dc5e09b}{initbuf}
+\item 
+char \hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf} \mbox{[}\hyperlink{xpm2img_8c_a31b360112a92c0c6c5022a58229ac96a}{bufsz}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{xpm2img_8c_a31b360112a92c0c6c5022a58229ac96a}{\index{xpm2img.\+c@{xpm2img.\+c}!bufsz@{bufsz}}
+\index{bufsz@{bufsz}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{bufsz}]{\setlength{\rightskip}{0pt plus 5cm}\#define bufsz~2048}}\label{xpm2img_8c_a31b360112a92c0c6c5022a58229ac96a}
+
+
+Definition at line 147 of file xpm2img.\+c.
+
+
+
+Referenced by xpmgetline().
+
+\hypertarget{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{\index{xpm2img.\+c@{xpm2img.\+c}!F\+A\+L\+S\+E@{F\+A\+L\+S\+E}}
+\index{F\+A\+L\+S\+E@{F\+A\+L\+S\+E}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{F\+A\+L\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+A\+L\+S\+E~0}}\label{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}
+
+
+Definition at line 10 of file xpm2img.\+c.
+
+
+
+Referenced by fopen\+\_\+xpm\+\_\+file().
+
+\hypertarget{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{\index{xpm2img.\+c@{xpm2img.\+c}!T\+R\+U\+E@{T\+R\+U\+E}}
+\index{T\+R\+U\+E@{T\+R\+U\+E}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{T\+R\+U\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+R\+U\+E~1}}\label{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}
+
+
+Definition at line 9 of file xpm2img.\+c.
+
+
+
+Referenced by fopen\+\_\+xpm\+\_\+file(), and main().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{xpm2img_8c_abf07d68cc860a025f5b00d6037583184}{\index{xpm2img.\+c@{xpm2img.\+c}!fopen\+\_\+xpm\+\_\+file@{fopen\+\_\+xpm\+\_\+file}}
+\index{fopen\+\_\+xpm\+\_\+file@{fopen\+\_\+xpm\+\_\+file}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{fopen\+\_\+xpm\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}fopen\+\_\+xpm\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{fn, }
+\item[{{\bf const} char $\ast$}]{mode}
+\end{DoxyParamCaption}
+)}}\label{xpm2img_8c_abf07d68cc860a025f5b00d6037583184}
+
+
+Definition at line 98 of file xpm2img.\+c.
+
+
+
+References R\+G\+B\+::b, Ttable\+::col, exit(), F\+A\+L\+S\+E, Ttable\+::flag, R\+G\+B\+::g, height, index(), malloc(), num\+\_\+colors, R\+G\+B\+::r, Ttable\+::slot, temp, T\+R\+U\+E, ttable, width, xpmbuf, xpmfh, and xpmgetline().
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+98                                                 \{
+99     \textcolor{keywordtype}{int} \hyperlink{makedefs_8c_a1eb0cd7f6bb3372ee8b5373484271c74}{temp};
+100     \textcolor{keywordtype}{char} *xb;
+101     \textcolor{keywordflow}{if}(strcmp(mode, \textcolor{stringliteral}{"r"}))\textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}; \textcolor{comment}{/* no choice now */}
+102     \textcolor{keywordflow}{if}(\hyperlink{xpm2img_8c_a03a385be2697f3ec6f00684a93c21367}{xpmfh})\textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};            \textcolor{comment}{/* one file at a time */}
+103     \hyperlink{xpm2img_8c_a03a385be2697f3ec6f00684a93c21367}{xpmfh} = fopen(fn, mode);
+104     \textcolor{keywordflow}{if}(!\hyperlink{xpm2img_8c_a03a385be2697f3ec6f00684a93c21367}{xpmfh})\textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};           \textcolor{comment}{/* I'm hard to please */}
+105         \textcolor{comment}{/* read the header */}
+106     xb = \hyperlink{xpm2img_8c_aa12f6cdcac5f11c0d3b862ce8eff62b8}{xpmgetline}();
+107     \textcolor{keywordflow}{if}(xb == 0)\textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+108     \textcolor{keywordflow}{if}(4 != sscanf(xb,\textcolor{stringliteral}{"%d %d %d %d"},
+109         &\hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, &\hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height},&\hyperlink{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors}, &temp))
+110             \textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};  \textcolor{comment}{/* bad header */}
+111         \textcolor{comment}{/* replace the original buffer with one big enough for}
+112 \textcolor{comment}{         * the real data}
+113 \textcolor{comment}{         */}
+114 \textcolor{comment}{/* XXX */}
+115     \hyperlink{xpm2img_8c_a211326c7a323a6e9b1d69b73af0bf627}{xpmbuf} = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(\hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width} * 2);
+116     \textcolor{keywordflow}{if}(!\hyperlink{xpm2img_8c_a211326c7a323a6e9b1d69b73af0bf627}{xpmbuf})\{
+117         fprintf(stderr,\textcolor{stringliteral}{"ERROR: Can't allocate line buffer\(\backslash\)n"});
+118         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+119     \}
+120     \textcolor{keywordflow}{if}(temp != 1)\textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};     \textcolor{comment}{/* limitation of this code */}
+121     \{
+122         \textcolor{comment}{/* read the colormap and translation table */}
+123         \textcolor{keywordtype}{int} ccount = -1;
+124         \hyperlink{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{ColorMap} = (\textcolor{keyword}{struct }\hyperlink{structRGB}{RGB} *)\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}((\textcolor{keywordtype}{long})\hyperlink{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors}*\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }
+      \hyperlink{structRGB}{RGB}));
+125         \textcolor{keywordflow}{while}(ccount++ < (\hyperlink{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors}-1))\{
+126             \textcolor{keywordtype}{char} \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index};
+127             \textcolor{keywordtype}{int} \hyperlink{structRGB_a6eac0c096c68d7367b091228f15ba61c}{r}, \hyperlink{structRGB_a012d05dd3c39172027362cd9582d62f4}{g}, \hyperlink{structRGB_adc33eddd7bf2ca2370f551dfd2f4456e}{b};
+128             xb = \hyperlink{xpm2img_8c_aa12f6cdcac5f11c0d3b862ce8eff62b8}{xpmgetline}();
+129             \textcolor{keywordflow}{if}(xb==0)\textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+130             \textcolor{keywordflow}{if}(4 != sscanf(xb,\textcolor{stringliteral}{"%c c #%2x%2x%2x"},&index,&r,&g,&b))\{
+131                 fprintf(stderr,\textcolor{stringliteral}{"Bad color entry: %s\(\backslash\)n"},xb);
+132                 \textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+133             \}
+134             \hyperlink{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{ttable}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structTtable_ada8267088c0519d324397d9535813595}{flag} = 1;  \textcolor{comment}{/* this color is valid */}
+135             \hyperlink{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{ttable}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structTtable_af8cf3aa9a2e0a40f01ca818ca7f83567}{col}.\hyperlink{structRGB_a6eac0c096c68d7367b091228f15ba61c}{r} = \hyperlink{structRGB_a6eac0c096c68d7367b091228f15ba61c}{r};
+136             \hyperlink{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{ttable}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structTtable_af8cf3aa9a2e0a40f01ca818ca7f83567}{col}.\hyperlink{structRGB_a012d05dd3c39172027362cd9582d62f4}{g} = \hyperlink{structRGB_a012d05dd3c39172027362cd9582d62f4}{g};
+137             \hyperlink{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{ttable}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structTtable_af8cf3aa9a2e0a40f01ca818ca7f83567}{col}.\hyperlink{structRGB_adc33eddd7bf2ca2370f551dfd2f4456e}{b} = \hyperlink{structRGB_adc33eddd7bf2ca2370f551dfd2f4456e}{b};
+138             \hyperlink{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{ttable}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structTtable_ad02a3434456dfb79c9fb5b055e9664b9}{slot} = ccount;
+139             \hyperlink{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{ColorMap}[ccount].\hyperlink{structRGB_a6eac0c096c68d7367b091228f15ba61c}{r}=\hyperlink{structRGB_a6eac0c096c68d7367b091228f15ba61c}{r};
+140             \hyperlink{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{ColorMap}[ccount].\hyperlink{structRGB_a012d05dd3c39172027362cd9582d62f4}{g}=\hyperlink{structRGB_a012d05dd3c39172027362cd9582d62f4}{g};
+141             \hyperlink{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{ColorMap}[ccount].\hyperlink{structRGB_adc33eddd7bf2ca2370f551dfd2f4456e}{b}=\hyperlink{structRGB_adc33eddd7bf2ca2370f551dfd2f4456e}{b};
+142         \}
+143     \}
+144     \textcolor{keywordflow}{return} \hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+145 \}
+\end{DoxyCode}
+\hypertarget{xpm2img_8c_a01af01497a1d61b28687de33d72f3f32}{\index{xpm2img.\+c@{xpm2img.\+c}!get\+\_\+color@{get\+\_\+color}}
+\index{get\+\_\+color@{get\+\_\+color}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{get\+\_\+color}]{\setlength{\rightskip}{0pt plus 5cm}void get\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{colind, }
+\item[{struct {\bf R\+G\+B} $\ast$}]{rgb}
+\end{DoxyParamCaption}
+)}}\label{xpm2img_8c_a01af01497a1d61b28687de33d72f3f32}
+
+
+Definition at line 84 of file xpm2img.\+c.
+
+
+
+References R\+G\+B\+::b, R\+G\+B\+::g, and R\+G\+B\+::r.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+84                                                     \{
+85     rgb->\hyperlink{structRGB_a6eac0c096c68d7367b091228f15ba61c}{r}=(1000L*(long)\hyperlink{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{ColorMap}[colind].\hyperlink{structRGB_a6eac0c096c68d7367b091228f15ba61c}{r})/0xFF;
+86     rgb->\hyperlink{structRGB_a012d05dd3c39172027362cd9582d62f4}{g}=(1000L*(long)\hyperlink{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{ColorMap}[colind].\hyperlink{structRGB_a012d05dd3c39172027362cd9582d62f4}{g})/0xFF;
+87     rgb->\hyperlink{structRGB_adc33eddd7bf2ca2370f551dfd2f4456e}{b}=(1000L*(long)\hyperlink{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{ColorMap}[colind].\hyperlink{structRGB_adc33eddd7bf2ca2370f551dfd2f4456e}{b})/0xFF;
+88 \}
+\end{DoxyCode}
+\hypertarget{xpm2img_8c_a316727fc42e6c5bb7a61738bce7450d6}{\index{xpm2img.\+c@{xpm2img.\+c}!get\+\_\+pixel@{get\+\_\+pixel}}
+\index{get\+\_\+pixel@{get\+\_\+pixel}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{get\+\_\+pixel}]{\setlength{\rightskip}{0pt plus 5cm}void get\+\_\+pixel (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{unsigned int $\ast$}]{colind}
+\end{DoxyParamCaption}
+)}}\label{xpm2img_8c_a316727fc42e6c5bb7a61738bce7450d6}
+
+
+Definition at line 89 of file xpm2img.\+c.
+
+
+
+References Bild\+\_\+daten.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+89                                                   \{
+90     *colind=\hyperlink{xpm2img_8c_aab23ae2366f50bd6bdb3e1fb3294ae4f}{Bild\_daten}[y][x];
+91 \}
+\end{DoxyCode}
+\hypertarget{xpm2img_8c_afced8478b91af5c169926dfa4426333d}{\index{xpm2img.\+c@{xpm2img.\+c}!main@{main}}
+\index{main@{main}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)}}\label{xpm2img_8c_afced8478b91af5c169926dfa4426333d}
+
+
+Definition at line 27 of file xpm2img.\+c.
+
+
+
+References Bild\+\_\+daten, bitmap\+\_\+to\+\_\+file(), exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, fopen\+\_\+xpm\+\_\+file(), fp, get\+\_\+color(), get\+\_\+pixel(), height, initflag, malloc(), num\+\_\+colors, planes, printf, Ttable\+::slot, T\+R\+U\+E, ttable, width, X\+I\+M\+G, and xpmgetline().
+
+
+\begin{DoxyCode}
+30 \{
+31     \textcolor{keywordtype}{int} i;
+32     \textcolor{keywordtype}{int} row, col, planeno;
+33     \textcolor{keywordtype}{int} farben, \hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes};
+34     \textcolor{keywordflow}{if} (argc != 3) \{
+35         fprintf(stderr, \textcolor{stringliteral}{"usage: tile2img infile.xpm outfile.img\(\backslash\)n"});
+36         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+37     \}
+38     \hyperlink{xpm2img_8c_a37b318383ca653e8042174ab53cfb827}{initflag} = 0;
+39     \hyperlink{xpm2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp} = fopen(argv[2],\textcolor{stringliteral}{"wb"});
+40     \textcolor{keywordflow}{if} (!\hyperlink{xpm2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}) \{
+41         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Error creating IMG-file %s, aborting.\(\backslash\)n"},argv[2]);
+42         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+43     \}
+44     fclose(\hyperlink{xpm2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp});
+45     \textcolor{keywordflow}{if}(\hyperlink{xpm2img_8c_abf07d68cc860a025f5b00d6037583184}{fopen\_xpm\_file}(argv[1],\textcolor{stringliteral}{"r"})!=\hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE})\{
+46         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Error reading xpm-file %s, aborting.\(\backslash\)n"},argv[1]);
+47         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+48     \}
+49     \hyperlink{xpm2img_8c_aab23ae2366f50bd6bdb3e1fb3294ae4f}{Bild\_daten}=(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} **)\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}((\textcolor{keywordtype}{long})\hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *));
+50     \textcolor{keywordflow}{for}(i=0;i<\hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height};i++)
+51         \hyperlink{xpm2img_8c_aab23ae2366f50bd6bdb3e1fb3294ae4f}{Bild\_daten}[i]=(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} *)\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}((\textcolor{keywordtype}{long})\hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}));
+52     \textcolor{keywordflow}{for}(row = 0;row<\hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height};row++)\{
+53         \textcolor{keywordtype}{char} *xb = \hyperlink{xpm2img_8c_aa12f6cdcac5f11c0d3b862ce8eff62b8}{xpmgetline}();
+54         \textcolor{keywordtype}{int} plane\_offset;
+55         \textcolor{keywordflow}{if}(xb==0)\{
+56             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Error to few lines in xpm-file %s, aborting.\(\backslash\)n"},argv[1]);
+57             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+58         \}
+59         \textcolor{keywordflow}{for}(col = 0;col<\hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width};col++)\{
+60             \textcolor{keywordtype}{int} color = xb[col];
+61             \textcolor{keywordflow}{if}(!\hyperlink{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{ttable}[color].\hyperlink{structflag}{flag})
+62                 fprintf(stderr, \textcolor{stringliteral}{"Bad image data\(\backslash\)n"});
+63             \hyperlink{xpm2img_8c_aab23ae2366f50bd6bdb3e1fb3294ae4f}{Bild\_daten}[row][col]= \hyperlink{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{ttable}[color].\hyperlink{structTtable_ad02a3434456dfb79c9fb5b055e9664b9}{slot};
+64         \}
+65     \}
+66     \textcolor{keywordflow}{if}(\hyperlink{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors}>256)\{
+67         fprintf(stderr,\textcolor{stringliteral}{"ERROR: zuviele Farben\(\backslash\)n"});
+68         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+69     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors}>16)\{
+70         farben=256;
+71         planes=8;
+72     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors}>2)\{
+73         farben=16;
+74         planes=4;
+75     \}\textcolor{keywordflow}{else}\{
+76         farben=2;
+77         planes=1;
+78     \}
+79     \hyperlink{bitmfile_8h_a6bc7283882df3d5b3b8d2bfa213601fb}{bitmap\_to\_file}(\hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06aa751c5502279504952b0f2ff9b0233e46}{XIMG}, width, height, 372, 372, planes, farben, argv[2], 
+      \hyperlink{xpm2img_8c_a01af01497a1d61b28687de33d72f3f32}{get\_color}, \hyperlink{xpm2img_8c_a316727fc42e6c5bb7a61738bce7450d6}{get\_pixel} );
+80     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+81     \textcolor{comment}{/*NOTREACHED*/}
+82     \textcolor{keywordflow}{return} 0;
+83 \}
+\end{DoxyCode}
+\hypertarget{xpm2img_8c_aa12f6cdcac5f11c0d3b862ce8eff62b8}{\index{xpm2img.\+c@{xpm2img.\+c}!xpmgetline@{xpmgetline}}
+\index{xpmgetline@{xpmgetline}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{xpmgetline}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ xpmgetline (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{xpm2img_8c_aa12f6cdcac5f11c0d3b862ce8eff62b8}
+
+
+Definition at line 150 of file xpm2img.\+c.
+
+
+
+References buf, bufsz, and xpmfh.
+
+
+
+Referenced by fopen\+\_\+xpm\+\_\+file(), and main().
+
+
+\begin{DoxyCode}
+150             \{
+151     \textcolor{keywordtype}{char} *bp;
+152     \textcolor{keywordflow}{do} \{
+153         \textcolor{keywordflow}{if}(fgets(\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \hyperlink{xpm2img_8c_a31b360112a92c0c6c5022a58229ac96a}{bufsz}, \hyperlink{xpm2img_8c_a03a385be2697f3ec6f00684a93c21367}{xpmfh}) == 0)\textcolor{keywordflow}{return} 0;
+154     \} \textcolor{keywordflow}{while}(\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[0] != \textcolor{charliteral}{'"'});
+155         \textcolor{comment}{/* strip off the trailing <",> if any */}
+156     \textcolor{keywordflow}{for}(bp = \hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf};*bp;bp++);
+157     bp--;
+158     \textcolor{keywordflow}{while}(isspace(*bp))bp--;
+159     \textcolor{keywordflow}{if}(*bp==\textcolor{charliteral}{','})bp--;
+160     \textcolor{keywordflow}{if}(*bp==\textcolor{charliteral}{'"'})bp--;
+161     bp++;
+162     *bp = \textcolor{charliteral}{'\(\backslash\)0'};
+163     \textcolor{keywordflow}{return} &\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[1];
+164 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{xpm2img_8c_aab23ae2366f50bd6bdb3e1fb3294ae4f}{\index{xpm2img.\+c@{xpm2img.\+c}!Bild\+\_\+daten@{Bild\+\_\+daten}}
+\index{Bild\+\_\+daten@{Bild\+\_\+daten}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{Bild\+\_\+daten}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int$\ast$$\ast$ Bild\+\_\+daten}}\label{xpm2img_8c_aab23ae2366f50bd6bdb3e1fb3294ae4f}
+
+
+Definition at line 14 of file xpm2img.\+c.
+
+
+
+Referenced by get\+\_\+pixel(), and main().
+
+\hypertarget{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{\index{xpm2img.\+c@{xpm2img.\+c}!buf@{buf}}
+\index{buf@{buf}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{buf}]{\setlength{\rightskip}{0pt plus 5cm}char buf\mbox{[}{\bf bufsz}\mbox{]}}}\label{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}
+
+
+Definition at line 148 of file xpm2img.\+c.
+
+
+
+Referenced by xpmgetline().
+
+\hypertarget{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}{\index{xpm2img.\+c@{xpm2img.\+c}!Color\+Map@{Color\+Map}}
+\index{Color\+Map@{Color\+Map}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{Color\+Map}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf R\+G\+B}$\ast$ Color\+Map}}\label{xpm2img_8c_ae20673b2716913a9a92e13add67b8a4f}
+
+
+Definition at line 21 of file xpm2img.\+c.
+
+\hypertarget{xpm2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{\index{xpm2img.\+c@{xpm2img.\+c}!fp@{fp}}
+\index{fp@{fp}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{fp}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ fp}}\label{xpm2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}
+
+
+Definition at line 25 of file xpm2img.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{\index{xpm2img.\+c@{xpm2img.\+c}!height@{height}}
+\index{height@{height}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}int height =0}}\label{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}
+
+
+Definition at line 23 of file xpm2img.\+c.
+
+
+
+Referenced by create\+\_\+subroom(), display\+\_\+text\+\_\+window(), Do\+Extension(), fopen\+\_\+xpm\+\_\+file(), ghack\+\_\+init\+\_\+map\+\_\+window(), ghack\+\_\+map\+\_\+cliparound(), ghack\+\_\+reinit\+\_\+map\+\_\+window(), main(), map\+\_\+exposed(), positionpopup(), post\+\_\+process\+\_\+tiles(), Qt\+Table\+View\+::repaint(), Retrieve\+Size(), Sane\+Positions(), Save\+Size(), and Save\+Window\+Size().
+
+\hypertarget{xpm2img_8c_a1bb12ff1743613e41c54dc028dc5e09b}{\index{xpm2img.\+c@{xpm2img.\+c}!initbuf@{initbuf}}
+\index{initbuf@{initbuf}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{initbuf}]{\setlength{\rightskip}{0pt plus 5cm}char initbuf\mbox{[}200\mbox{]}}}\label{xpm2img_8c_a1bb12ff1743613e41c54dc028dc5e09b}
+
+
+Definition at line 93 of file xpm2img.\+c.
+
+\hypertarget{xpm2img_8c_a37b318383ca653e8042174ab53cfb827}{\index{xpm2img.\+c@{xpm2img.\+c}!initflag@{initflag}}
+\index{initflag@{initflag}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{initflag}]{\setlength{\rightskip}{0pt plus 5cm}int initflag}}\label{xpm2img_8c_a37b318383ca653e8042174ab53cfb827}
+
+
+Definition at line 24 of file xpm2img.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}{\index{xpm2img.\+c@{xpm2img.\+c}!num\+\_\+colors@{num\+\_\+colors}}
+\index{num\+\_\+colors@{num\+\_\+colors}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{num\+\_\+colors}]{\setlength{\rightskip}{0pt plus 5cm}int num\+\_\+colors = 0}}\label{xpm2img_8c_a5dd47736942141b628a52481f0f37ab4}
+
+
+Definition at line 22 of file xpm2img.\+c.
+
+
+
+Referenced by fopen\+\_\+xpm\+\_\+file(), and main().
+
+\hypertarget{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}{\index{xpm2img.\+c@{xpm2img.\+c}!ttable@{ttable}}
+\index{ttable@{ttable}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{ttable}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Ttable} ttable\mbox{[}256\mbox{]}}}\label{xpm2img_8c_a5a24517d28848f7c2b7e939264d4c32f}
+
+
+Referenced by fopen\+\_\+xpm\+\_\+file(), and main().
+
+\hypertarget{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{\index{xpm2img.\+c@{xpm2img.\+c}!width@{width}}
+\index{width@{width}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}int width =0}}\label{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}
+
+
+Definition at line 23 of file xpm2img.\+c.
+
+
+
+Referenced by add\+\_\+to\+\_\+text\+\_\+window(), create\+\_\+subroom(), depack\+\_\+img(), display\+\_\+text\+\_\+window(), Do\+Extension(), fopen\+\_\+xpm\+\_\+file(), get\+\_\+name\+\_\+width(), get\+\_\+value\+\_\+width(), get\+\_\+widths(), ghack\+\_\+init\+\_\+map\+\_\+window(), ghack\+\_\+map\+\_\+cliparound(), ghack\+\_\+reinit\+\_\+map\+\_\+window(), main(), make\+\_\+menu(), map\+\_\+exposed(), positionpopup(), post\+\_\+process\+\_\+tiles(), Qt\+Table\+View\+::repaint(), Retrieve\+Size(), Sane\+Positions(), Save\+Size(), Save\+Window\+Size(), and Set\+Dialog\+Response().
+
+\hypertarget{xpm2img_8c_a211326c7a323a6e9b1d69b73af0bf627}{\index{xpm2img.\+c@{xpm2img.\+c}!xpmbuf@{xpmbuf}}
+\index{xpmbuf@{xpmbuf}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{xpmbuf}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ xpmbuf = {\bf initbuf}}}\label{xpm2img_8c_a211326c7a323a6e9b1d69b73af0bf627}
+
+
+Definition at line 94 of file xpm2img.\+c.
+
+
+
+Referenced by fopen\+\_\+xpm\+\_\+file().
+
+\hypertarget{xpm2img_8c_a03a385be2697f3ec6f00684a93c21367}{\index{xpm2img.\+c@{xpm2img.\+c}!xpmfh@{xpmfh}}
+\index{xpmfh@{xpmfh}!xpm2img.\+c@{xpm2img.\+c}}
+\subsubsection[{xpmfh}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ xpmfh = 0}}\label{xpm2img_8c_a03a385be2697f3ec6f00684a93c21367}
+
+
+Definition at line 92 of file xpm2img.\+c.
+
+
+
+Referenced by fopen\+\_\+xpm\+\_\+file(), and xpmgetline().
+

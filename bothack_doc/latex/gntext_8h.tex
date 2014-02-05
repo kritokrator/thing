@@ -1,0 +1,275 @@
+\hypertarget{gntext_8h}{\section{nethack/win/gnome/gntext.h File Reference}
+\label{gntext_8h}\index{nethack/win/gnome/gntext.\+h@{nethack/win/gnome/gntext.\+h}}
+}
+{\ttfamily \#include $<$gnome.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Gtk\+Widget $\ast$ \hyperlink{gntext_8h_af958efca510bd51e9b9bc0dc0f4026d3}{ghack\+\_\+init\+\_\+text\+\_\+window} ()
+\item 
+void \hyperlink{gntext_8h_ac11b2b420e4518341c4550fcd44b71e3}{ghack\+\_\+text\+\_\+window\+\_\+clear} (Gtk\+Widget $\ast$widget, gpointer data)
+\item 
+void \hyperlink{gntext_8h_a8e0b67fa56b7dc8fdb660b1ca1d2ee69}{ghack\+\_\+text\+\_\+window\+\_\+destroy} ()
+\item 
+void \hyperlink{gntext_8h_a26f576716c49378f939edfc2773c0a6f}{ghack\+\_\+text\+\_\+window\+\_\+display} (Gtk\+Widget $\ast$widget, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} block, gpointer data)
+\item 
+void \hyperlink{gntext_8h_aa24415e863f181aa8c275ac6c26f13f5}{ghack\+\_\+text\+\_\+window\+\_\+put\+\_\+string} (Gtk\+Widget $\ast$widget, int attr, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$text, gpointer data)
+\item 
+void \hyperlink{gntext_8h_aa00e0def3deb293fdbc3d2de1d45603a}{ghack\+\_\+text\+\_\+window\+\_\+rip\+\_\+string} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$rip\+String)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gntext_8h_af958efca510bd51e9b9bc0dc0f4026d3}{\index{gntext.\+h@{gntext.\+h}!ghack\+\_\+init\+\_\+text\+\_\+window@{ghack\+\_\+init\+\_\+text\+\_\+window}}
+\index{ghack\+\_\+init\+\_\+text\+\_\+window@{ghack\+\_\+init\+\_\+text\+\_\+window}!gntext.\+h@{gntext.\+h}}
+\subsubsection[{ghack\+\_\+init\+\_\+text\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}Gtk\+Widget$\ast$ ghack\+\_\+init\+\_\+text\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{gntext_8h_af958efca510bd51e9b9bc0dc0f4026d3}
+
+
+Definition at line 80 of file gntext.\+c.
+
+
+
+References F\+A\+L\+S\+E, ghack\+\_\+get\+\_\+main\+\_\+window(), ghack\+\_\+text\+\_\+window\+\_\+clear(), ghack\+\_\+text\+\_\+window\+\_\+display(), ghack\+\_\+text\+\_\+window\+\_\+put\+\_\+string(), gless, N\+U\+L\+L, R\+I\+P, R\+I\+P\+\_\+\+D\+R\+A\+W\+\_\+\+H\+E\+I\+G\+H\+T, R\+I\+P\+\_\+\+D\+R\+A\+W\+\_\+\+W\+I\+D\+T\+H, R\+I\+P\+\_\+\+D\+R\+A\+W\+\_\+\+X, R\+I\+P\+\_\+\+D\+R\+A\+W\+\_\+\+Y, R\+I\+P\+\_\+\+I\+M\+A\+G\+E\+\_\+\+H\+E\+I\+G\+H\+T, R\+I\+P\+\_\+\+I\+M\+A\+G\+E\+\_\+\+W\+I\+D\+T\+H, R\+I\+Plabel, T\+R\+U\+E, and T\+W\+\_\+window.
+
+
+
+Referenced by gnome\+\_\+create\+\_\+nhwindow\+\_\+by\+\_\+id().
+
+
+\begin{DoxyCode}
+81 \{
+82     GtkWidget *pixmap;
+83     \textcolor{keywordflow}{if}(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window})
+84         \textcolor{keywordflow}{return}(GTK\_WIDGET(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}));
+85     
+86     \hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window} = gnome\_dialog\_new(\textcolor{stringliteral}{"Text Window"}, GNOME\_STOCK\_BUTTON\_OK, 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+87     gtk\_window\_set\_default\_size( GTK\_WINDOW(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), 500, 400);
+88     gtk\_window\_set\_policy(GTK\_WINDOW(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+89     gtk\_window\_set\_title(GTK\_WINDOW(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \textcolor{stringliteral}{"Text Window"});
+90     
+91     \textcolor{comment}{/* create GNOME pixmap object */}
+92     pixmap = gnome\_pixmap\_new\_from\_xpm\_d (rip\_xpm);
+93     g\_assert (pixmap != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+94     gtk\_widget\_show (GTK\_WIDGET (pixmap));
+95 
+96     \textcolor{comment}{/* create label with our "death message", sized to fit into the}
+97 \textcolor{comment}{    * tombstone */}
+98     \hyperlink{gntext_8c_ab5f9add7737e9d690c54a3d3e0876078}{RIPlabel} = gtk\_label\_new (\textcolor{stringliteral}{"RIP"});
+99     g\_assert (\hyperlink{gntext_8c_ab5f9add7737e9d690c54a3d3e0876078}{RIPlabel} != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+100     \textcolor{comment}{/* gtk\_label\_set\_justify is broken? */}
+101     gtk\_label\_set\_justify (GTK\_LABEL (\hyperlink{gntext_8c_ab5f9add7737e9d690c54a3d3e0876078}{RIPlabel}), GTK\_JUSTIFY\_CENTER); 
+102     gtk\_label\_set\_line\_wrap (GTK\_LABEL (\hyperlink{gntext_8c_ab5f9add7737e9d690c54a3d3e0876078}{RIPlabel}), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+103     gtk\_widget\_set\_usize (\hyperlink{gntext_8c_ab5f9add7737e9d690c54a3d3e0876078}{RIPlabel}, \hyperlink{gntext_8c_a9fe198cd97911f549c31dcfc0fc5642f}{RIP\_DRAW\_WIDTH}, 
+      \hyperlink{gntext_8c_a58613a0e6b6e0b6bb6d35e0bec8abb6c}{RIP\_DRAW\_HEIGHT});
+104     gtk\_widget\_show (\hyperlink{gntext_8c_ab5f9add7737e9d690c54a3d3e0876078}{RIPlabel});
+105 
+106     \textcolor{comment}{/* create a fixed sized widget for the RIP pixmap */}
+107     \hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP} = gtk\_fixed\_new ();
+108     g\_assert (\hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP} != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+109     gtk\_widget\_set\_usize (\hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP}, \hyperlink{gntext_8c_a3e8c2269883f072caa77c6187945010a}{RIP\_IMAGE\_WIDTH}, 
+      \hyperlink{gntext_8c_a26d8295d01493fb5e9539bf4a8c947ea}{RIP\_IMAGE\_HEIGHT});
+110     gtk\_fixed\_put (GTK\_FIXED (\hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP}), pixmap, 0, 0);
+111     gtk\_fixed\_put (GTK\_FIXED (\hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP}), \hyperlink{gntext_8c_ab5f9add7737e9d690c54a3d3e0876078}{RIPlabel}, \hyperlink{gntext_8c_a366029846931effd1292d2179237df2d}{RIP\_DRAW\_X}, 
+      \hyperlink{gntext_8c_a2a897644dd978e09d9adfa4757d79166}{RIP\_DRAW\_Y});
+112     gtk\_widget\_show (\hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP});
+113     gtk\_box\_pack\_start(GTK\_BOX(GNOME\_DIALOG(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window})->vbox), \hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP},
+114                        \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 0);
+115     
+116     \textcolor{comment}{/* create a gnome Less widget for the text stuff */}
+117     \hyperlink{gntext_8c_a6fada5e9e468ba9d7d2d0b24c2a84ca5}{gless} = GNOME\_LESS (gnome\_less\_new ());
+118     g\_assert (\hyperlink{gntext_8c_a6fada5e9e468ba9d7d2d0b24c2a84ca5}{gless} != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+119     gtk\_widget\_show (GTK\_WIDGET (\hyperlink{gntext_8c_a6fada5e9e468ba9d7d2d0b24c2a84ca5}{gless}));
+120     gtk\_box\_pack\_start(GTK\_BOX(GNOME\_DIALOG(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window})->vbox), 
+121         GTK\_WIDGET (\hyperlink{gntext_8c_a6fada5e9e468ba9d7d2d0b24c2a84ca5}{gless}), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 0);
+122     
+123     \textcolor{comment}{/* Hook up some signals */}
+124     gtk\_signal\_connect(GTK\_OBJECT(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \textcolor{stringliteral}{"ghack\_putstr"},
+125             GTK\_SIGNAL\_FUNC(\hyperlink{gntext_8c_aa24415e863f181aa8c275ac6c26f13f5}{ghack\_text\_window\_put\_string}),
+126             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+127 
+128     gtk\_signal\_connect(GTK\_OBJECT(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \textcolor{stringliteral}{"ghack\_clear"},
+129             GTK\_SIGNAL\_FUNC(\hyperlink{gntext_8c_ac11b2b420e4518341c4550fcd44b71e3}{ghack\_text\_window\_clear}),
+130             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+131 
+132     gtk\_signal\_connect(GTK\_OBJECT(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \textcolor{stringliteral}{"ghack\_display"},
+133                        GTK\_SIGNAL\_FUNC(\hyperlink{gntext_8c_a26f576716c49378f939edfc2773c0a6f}{ghack\_text\_window\_display}),
+134                        \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+135 
+136     \textcolor{comment}{/* Center the dialog over over parent */}
+137     gnome\_dialog\_set\_parent( GNOME\_DIALOG (\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), 
+138         GTK\_WINDOW(\hyperlink{gnmain_8c_a103200f2f57b9258dfa18159191ea650}{ghack\_get\_main\_window}()) );
+139 
+140     gtk\_window\_set\_modal( GTK\_WINDOW(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+141     gtk\_widget\_show\_all(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window});
+142     gtk\_widget\_hide (GTK\_WIDGET ( \hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP}));
+143     gnome\_dialog\_close\_hides (GNOME\_DIALOG (\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+144 
+145     \textcolor{keywordflow}{return} GTK\_WIDGET(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window});
+146 
+147 \}
+\end{DoxyCode}
+\hypertarget{gntext_8h_ac11b2b420e4518341c4550fcd44b71e3}{\index{gntext.\+h@{gntext.\+h}!ghack\+\_\+text\+\_\+window\+\_\+clear@{ghack\+\_\+text\+\_\+window\+\_\+clear}}
+\index{ghack\+\_\+text\+\_\+window\+\_\+clear@{ghack\+\_\+text\+\_\+window\+\_\+clear}!gntext.\+h@{gntext.\+h}}
+\subsubsection[{ghack\+\_\+text\+\_\+window\+\_\+clear}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+text\+\_\+window\+\_\+clear (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{widget, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}}\label{gntext_8h_ac11b2b420e4518341c4550fcd44b71e3}
+
+
+Definition at line 35 of file gntext.\+c.
+
+
+
+References gless, and N\+U\+L\+L.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+text\+\_\+window().
+
+
+\begin{DoxyCode}
+36 \{
+37     g\_assert (\hyperlink{gntext_8c_a6fada5e9e468ba9d7d2d0b24c2a84ca5}{gless} != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+38     gtk\_editable\_delete\_text (GTK\_EDITABLE (\hyperlink{gntext_8c_a6fada5e9e468ba9d7d2d0b24c2a84ca5}{gless}->text), 0, 0);
+39 \}
+\end{DoxyCode}
+\hypertarget{gntext_8h_a8e0b67fa56b7dc8fdb660b1ca1d2ee69}{\index{gntext.\+h@{gntext.\+h}!ghack\+\_\+text\+\_\+window\+\_\+destroy@{ghack\+\_\+text\+\_\+window\+\_\+destroy}}
+\index{ghack\+\_\+text\+\_\+window\+\_\+destroy@{ghack\+\_\+text\+\_\+window\+\_\+destroy}!gntext.\+h@{gntext.\+h}}
+\subsubsection[{ghack\+\_\+text\+\_\+window\+\_\+destroy}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+text\+\_\+window\+\_\+destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{gntext_8h_a8e0b67fa56b7dc8fdb660b1ca1d2ee69}
+
+
+Definition at line 41 of file gntext.\+c.
+
+
+
+References N\+U\+L\+L, and T\+W\+\_\+window.
+
+
+
+Referenced by ghack\+\_\+text\+\_\+window\+\_\+display().
+
+
+\begin{DoxyCode}
+42 \{
+43     \hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window} = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+44 \}
+\end{DoxyCode}
+\hypertarget{gntext_8h_a26f576716c49378f939edfc2773c0a6f}{\index{gntext.\+h@{gntext.\+h}!ghack\+\_\+text\+\_\+window\+\_\+display@{ghack\+\_\+text\+\_\+window\+\_\+display}}
+\index{ghack\+\_\+text\+\_\+window\+\_\+display@{ghack\+\_\+text\+\_\+window\+\_\+display}!gntext.\+h@{gntext.\+h}}
+\subsubsection[{ghack\+\_\+text\+\_\+window\+\_\+display}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+text\+\_\+window\+\_\+display (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{widget, }
+\item[{{\bf boolean}}]{block, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}}\label{gntext_8h_a26f576716c49378f939edfc2773c0a6f}
+
+
+Definition at line 46 of file gntext.\+c.
+
+
+
+References ghack\+\_\+text\+\_\+window\+\_\+destroy(), N\+U\+L\+L, R\+I\+P, show\+R\+I\+P, and T\+W\+\_\+window.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+text\+\_\+window().
+
+
+\begin{DoxyCode}
+48 \{
+49     \textcolor{keywordflow}{if}(\hyperlink{gntext_8c_adc7b3183afeae091b29a8aa8bdd81268}{showRIP} == 1) \{
+50     gtk\_widget\_show (GTK\_WIDGET ( \hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP}));
+51     gtk\_window\_set\_title(GTK\_WINDOW( \hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \textcolor{stringliteral}{"Rest In Peace"});
+52     \}
+53    
+54     gtk\_signal\_connect (GTK\_OBJECT (\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \textcolor{stringliteral}{"destroy"},
+55     (GtkSignalFunc) \hyperlink{gntext_8c_a8e0b67fa56b7dc8fdb660b1ca1d2ee69}{ghack\_text\_window\_destroy}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+56     \textcolor{keywordflow}{if} (block)
+57     gnome\_dialog\_run(GNOME\_DIALOG(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}));
+58     \textcolor{keywordflow}{else}
+59     gnome\_dialog\_run\_and\_close(GNOME\_DIALOG(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}));
+60     
+61     \textcolor{keywordflow}{if}(\hyperlink{gntext_8c_adc7b3183afeae091b29a8aa8bdd81268}{showRIP} == 1) \{
+62     \hyperlink{gntext_8c_adc7b3183afeae091b29a8aa8bdd81268}{showRIP} = 0;
+63     gtk\_widget\_hide (GTK\_WIDGET ( \hyperlink{gntext_8c_a04168eda21698accd2a2c3353bed293d}{RIP}));
+64     gtk\_window\_set\_title(GTK\_WINDOW(\hyperlink{gntext_8c_aea28aea740127870fb338ca9b20e0b8c}{TW\_window}), \textcolor{stringliteral}{"Text Window"});
+65     \}
+66 \}
+\end{DoxyCode}
+\hypertarget{gntext_8h_aa24415e863f181aa8c275ac6c26f13f5}{\index{gntext.\+h@{gntext.\+h}!ghack\+\_\+text\+\_\+window\+\_\+put\+\_\+string@{ghack\+\_\+text\+\_\+window\+\_\+put\+\_\+string}}
+\index{ghack\+\_\+text\+\_\+window\+\_\+put\+\_\+string@{ghack\+\_\+text\+\_\+window\+\_\+put\+\_\+string}!gntext.\+h@{gntext.\+h}}
+\subsubsection[{ghack\+\_\+text\+\_\+window\+\_\+put\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+text\+\_\+window\+\_\+put\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{widget, }
+\item[{int}]{attr, }
+\item[{{\bf const} char $\ast$}]{text, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}}\label{gntext_8h_aa24415e863f181aa8c275ac6c26f13f5}
+
+
+Definition at line 68 of file gntext.\+c.
+
+
+
+References gless, and N\+U\+L\+L.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+text\+\_\+window().
+
+
+\begin{DoxyCode}
+70 \{
+71     \textcolor{keywordflow}{if}(text == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+72         \textcolor{keywordflow}{return};
+73     
+74     \textcolor{comment}{/* Don't bother with attributes yet */}
+75     gtk\_text\_insert (GTK\_TEXT (\hyperlink{gntext_8c_a6fada5e9e468ba9d7d2d0b24c2a84ca5}{gless}->text), \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, text, -1);
+76     gtk\_text\_insert (GTK\_TEXT (\hyperlink{gntext_8c_a6fada5e9e468ba9d7d2d0b24c2a84ca5}{gless}->text), \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \textcolor{stringliteral}{"\(\backslash\)n"}, -1);
+77 \}
+\end{DoxyCode}
+\hypertarget{gntext_8h_aa00e0def3deb293fdbc3d2de1d45603a}{\index{gntext.\+h@{gntext.\+h}!ghack\+\_\+text\+\_\+window\+\_\+rip\+\_\+string@{ghack\+\_\+text\+\_\+window\+\_\+rip\+\_\+string}}
+\index{ghack\+\_\+text\+\_\+window\+\_\+rip\+\_\+string@{ghack\+\_\+text\+\_\+window\+\_\+rip\+\_\+string}!gntext.\+h@{gntext.\+h}}
+\subsubsection[{ghack\+\_\+text\+\_\+window\+\_\+rip\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+text\+\_\+window\+\_\+rip\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{rip\+String}
+\end{DoxyParamCaption}
+)}}\label{gntext_8h_aa00e0def3deb293fdbc3d2de1d45603a}
+
+
+Definition at line 150 of file gntext.\+c.
+
+
+
+References R\+I\+Plabel, and show\+R\+I\+P.
+
+
+
+Referenced by gnome\+\_\+outrip().
+
+
+\begin{DoxyCode}
+151 \{
+152     \textcolor{comment}{/* This is called to specify that the next message window will}
+153 \textcolor{comment}{     * be a RIP window, which will include this text */}
+154 
+155     \hyperlink{gntext_8c_adc7b3183afeae091b29a8aa8bdd81268}{showRIP} = 1;
+156     gtk\_label\_set( GTK\_LABEL( \hyperlink{gntext_8c_ab5f9add7737e9d690c54a3d3e0876078}{RIPlabel}), \textcolor{keywordtype}{string});
+157 \}
+\end{DoxyCode}

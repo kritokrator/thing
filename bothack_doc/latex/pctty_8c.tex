@@ -1,0 +1,143 @@
+\hypertarget{pctty_8c}{\section{nethack/sys/share/pctty.c File Reference}
+\label{pctty_8c}\index{nethack/sys/share/pctty.\+c@{nethack/sys/share/pctty.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wintty.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{pctty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}~/$\ast$ Uses ... $\ast$/	/$\ast$ \hyperlink{thintile_8c_a2b99606d56c8d0fc4c2fb00852128f19}{comment} line for pre-\/compiled headers $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{pctty_8c_a373d362cb59d42622763edf0206cc038}{gettty} ()
+\item 
+void \hyperlink{pctty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}{settty} (char $\ast$s) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{pctty_8c_aaa4a2930941423d431515f11436497b6}{setftty} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{pctty_8c_a290d0adea4016784acb151e2620c902a}{erase\+\_\+char}
+\item 
+char \hyperlink{pctty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{kill\+\_\+char}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{pctty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}{\index{pctty.\+c@{pctty.\+c}!N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S@{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}}
+\index{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S@{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}!pctty.\+c@{pctty.\+c}}
+\subsubsection[{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S~/$\ast$ Uses ... $\ast$/	/$\ast$ {\bf comment} line for pre-\/compiled headers $\ast$/}}\label{pctty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}
+
+
+Definition at line 7 of file pctty.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{pctty_8c_a373d362cb59d42622763edf0206cc038}{\index{pctty.\+c@{pctty.\+c}!gettty@{gettty}}
+\index{gettty@{gettty}!pctty.\+c@{pctty.\+c}}
+\subsubsection[{gettty}]{\setlength{\rightskip}{0pt plus 5cm}void gettty (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{pctty_8c_a373d362cb59d42622763edf0206cc038}
+
+
+Definition at line 19 of file pctty.\+c.
+
+
+
+References instance\+\_\+flags\+::cbreak, erase\+\_\+char, iflags, kill\+\_\+char, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+19         \{
+20     \hyperlink{pctty_8c_a290d0adea4016784acb151e2620c902a}{erase\_char} = \textcolor{charliteral}{'\(\backslash\)b'};
+21     \hyperlink{pctty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{kill\_char} = 21;        \textcolor{comment}{/* cntl-U */}
+22     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_acc12d1d0c33d63aee349eac10eec35a5}{cbreak} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+23 \textcolor{preprocessor}{#if !defined(TOS) }
+24     disable\_ctrlP();    \textcolor{comment}{/* turn off ^P processing */}
+25 \textcolor{preprocessor}{#endif}
+26 \textcolor{preprocessor}{#if defined(MSDOS) && defined(NO\_TERMS)}
+27     gr\_init();
+28 \textcolor{preprocessor}{#endif}
+29 \}
+\end{DoxyCode}
+\hypertarget{pctty_8c_aaa4a2930941423d431515f11436497b6}{\index{pctty.\+c@{pctty.\+c}!setftty@{setftty}}
+\index{setftty@{setftty}!pctty.\+c@{pctty.\+c}}
+\subsubsection[{setftty}]{\setlength{\rightskip}{0pt plus 5cm}void setftty (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{pctty_8c_aaa4a2930941423d431515f11436497b6}
+
+
+Definition at line 49 of file pctty.\+c.
+
+
+
+References start\+\_\+screen.
+
+
+\begin{DoxyCode}
+50 \{
+51     \hyperlink{winprocs_8h_a3e68a74ac942b6042d4aadbdb33f9af5}{start\_screen}();
+52 \}
+\end{DoxyCode}
+\hypertarget{pctty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}{\index{pctty.\+c@{pctty.\+c}!settty@{settty}}
+\index{settty@{settty}!pctty.\+c@{pctty.\+c}}
+\subsubsection[{settty}]{\setlength{\rightskip}{0pt plus 5cm}void settty (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+) const}}\label{pctty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}
+
+
+Definition at line 33 of file pctty.\+c.
+
+
+
+References end\+\_\+screen, and raw\+\_\+print.
+
+
+\begin{DoxyCode}
+35 \{
+36 \textcolor{preprocessor}{#if defined(MSDOS) && defined(NO\_TERMS)}
+37     gr\_finish();
+38 \textcolor{preprocessor}{#endif}
+39     \hyperlink{winprocs_8h_ad07041de3a8f09c2e440adba39093b6b}{end\_screen}();
+40     \textcolor{keywordflow}{if}(s) \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(s);
+41 \textcolor{preprocessor}{#if !defined(TOS)}
+42     enable\_ctrlP();     \textcolor{comment}{/* turn on ^P processing */}
+43 \textcolor{preprocessor}{#endif}
+44 
+45 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{pctty_8c_a290d0adea4016784acb151e2620c902a}{\index{pctty.\+c@{pctty.\+c}!erase\+\_\+char@{erase\+\_\+char}}
+\index{erase\+\_\+char@{erase\+\_\+char}!pctty.\+c@{pctty.\+c}}
+\subsubsection[{erase\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char erase\+\_\+char}}\label{pctty_8c_a290d0adea4016784acb151e2620c902a}
+
+
+Definition at line 11 of file pctty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{pctty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{\index{pctty.\+c@{pctty.\+c}!kill\+\_\+char@{kill\+\_\+char}}
+\index{kill\+\_\+char@{kill\+\_\+char}!pctty.\+c@{pctty.\+c}}
+\subsubsection[{kill\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char kill\+\_\+char}}\label{pctty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}
+
+
+Definition at line 11 of file pctty.\+c.
+
+
+
+Referenced by gettty().
+

@@ -1,0 +1,393 @@
+\hypertarget{win_2win32_2mhfont_8c}{\section{nethack/win/win32/mhfont.c File Reference}
+\label{win_2win32_2mhfont_8c}\index{nethack/win/win32/mhfont.\+c@{nethack/win/win32/mhfont.\+c}}
+}
+{\ttfamily \#include \char`\"{}mhfont.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structfont__table__entry}{font\+\_\+table\+\_\+entry}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{win_2win32_2mhfont_8c_ac108d78d76235e3c7cada0c2e56b7e2d}{M\+A\+X\+F\+O\+N\+T\+S}~64
+\item 
+\#define \hyperlink{win_2win32_2mhfont_8c_a73fbdee996b853e53e93270fe8962a41}{N\+H\+F\+O\+N\+T\+\_\+\+C\+O\+D\+E}(win, attr)~(((attr\&0x\+F\+F)$<$$<$8)$\vert$(win\+\_\+type\&0x\+F\+F))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \+\_\+\+\_\+cdecl \hyperlink{win_2win32_2mhfont_8c_a9835f9edcbfe14bfb3057e9753231358}{font\+\_\+table\+\_\+cleanup} (void)
+\item 
+void \hyperlink{win_2win32_2mhfont_8c_af183ec81747c907c779d089ba1556ad2}{mswin\+\_\+init\+\_\+splashfonts} (H\+W\+N\+D h\+Wnd)
+\item 
+void \hyperlink{win_2win32_2mhfont_8c_aedda99a174cadffcb558af5d5c29c0cd}{mswin\+\_\+destroy\+\_\+splashfonts} ()
+\item 
+H\+G\+D\+I\+O\+B\+J \hyperlink{win_2win32_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{mswin\+\_\+get\+\_\+font} (int win\+\_\+type, int attr, H\+D\+C hdc, B\+O\+O\+L replace)
+\item 
+\hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T} \hyperlink{win_2win32_2mhfont_8c_af970523ac3adefc3a252ad43200ef52b}{mswin\+\_\+charset} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static struct \hyperlink{structfont__table__entry}{font\+\_\+table\+\_\+entry} \hyperlink{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}{font\+\_\+table} \mbox{[}\hyperlink{win_2win32_2mhfont_8c_ac108d78d76235e3c7cada0c2e56b7e2d}{M\+A\+X\+F\+O\+N\+T\+S}\mbox{]}
+\item 
+static int \hyperlink{win_2win32_2mhfont_8c_a870a1589aac5ea704e9c345c2f5d7579}{font\+\_\+table\+\_\+size} = 0
+\item 
+H\+F\+O\+N\+T \hyperlink{win_2win32_2mhfont_8c_a0d004a3aaea8816abf5163eb27c1c246}{version\+\_\+splash\+\_\+font}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{win_2win32_2mhfont_8c_ac108d78d76235e3c7cada0c2e56b7e2d}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!M\+A\+X\+F\+O\+N\+T\+S@{M\+A\+X\+F\+O\+N\+T\+S}}
+\index{M\+A\+X\+F\+O\+N\+T\+S@{M\+A\+X\+F\+O\+N\+T\+S}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{M\+A\+X\+F\+O\+N\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+F\+O\+N\+T\+S~64}}\label{win_2win32_2mhfont_8c_ac108d78d76235e3c7cada0c2e56b7e2d}
+
+
+Definition at line 8 of file mhfont.\+c.
+
+
+
+Referenced by mswin\+\_\+get\+\_\+font().
+
+\hypertarget{win_2win32_2mhfont_8c_a73fbdee996b853e53e93270fe8962a41}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!N\+H\+F\+O\+N\+T\+\_\+\+C\+O\+D\+E@{N\+H\+F\+O\+N\+T\+\_\+\+C\+O\+D\+E}}
+\index{N\+H\+F\+O\+N\+T\+\_\+\+C\+O\+D\+E@{N\+H\+F\+O\+N\+T\+\_\+\+C\+O\+D\+E}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{N\+H\+F\+O\+N\+T\+\_\+\+C\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+F\+O\+N\+T\+\_\+\+C\+O\+D\+E(
+\begin{DoxyParamCaption}
+\item[{}]{win, }
+\item[{}]{attr}
+\end{DoxyParamCaption}
+)~(((attr\&0x\+F\+F)$<$$<$8)$\vert$(win\+\_\+type\&0x\+F\+F))}}\label{win_2win32_2mhfont_8c_a73fbdee996b853e53e93270fe8962a41}
+
+
+Definition at line 18 of file mhfont.\+c.
+
+
+
+Referenced by mswin\+\_\+get\+\_\+font().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{win_2win32_2mhfont_8c_a9835f9edcbfe14bfb3057e9753231358}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!font\+\_\+table\+\_\+cleanup@{font\+\_\+table\+\_\+cleanup}}
+\index{font\+\_\+table\+\_\+cleanup@{font\+\_\+table\+\_\+cleanup}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{font\+\_\+table\+\_\+cleanup}]{\setlength{\rightskip}{0pt plus 5cm}void \+\_\+\+\_\+cdecl font\+\_\+table\+\_\+cleanup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhfont_8c_a9835f9edcbfe14bfb3057e9753231358}
+
+
+Definition at line 197 of file mhfont.\+c.
+
+
+
+References font\+\_\+table, and font\+\_\+table\+\_\+size.
+
+
+
+Referenced by mswin\+\_\+get\+\_\+font().
+
+
+\begin{DoxyCode}
+198 \{
+199     \textcolor{keywordtype}{int} i;
+200     \textcolor{keywordflow}{for}(i=0; i<\hyperlink{win_2win32_2mhfont_8c_a870a1589aac5ea704e9c345c2f5d7579}{font\_table\_size}; i++) \{
+201         DeleteObject(\hyperlink{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}{font\_table}[i].hFont);
+202     \}
+203     font\_table\_size = 0;
+204 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhfont_8c_af970523ac3adefc3a252ad43200ef52b}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!mswin\+\_\+charset@{mswin\+\_\+charset}}
+\index{mswin\+\_\+charset@{mswin\+\_\+charset}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{mswin\+\_\+charset}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U\+I\+N\+T} mswin\+\_\+charset (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhfont_8c_af970523ac3adefc3a252ad43200ef52b}
+
+
+Definition at line 182 of file mhfont.\+c.
+
+
+
+References instance\+\_\+flags\+::\+I\+B\+Mgraphics, and iflags.
+
+
+\begin{DoxyCode}
+183 \{
+184     CHARSETINFO cis;
+185     \textcolor{keywordflow}{if}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a50993380c2db8f82946efa771d779154}{IBMgraphics} )
+186         \textcolor{keywordflow}{if}( TranslateCharsetInfo((DWORD*)GetOEMCP(), &cis, TCI\_SRCCODEPAGE) ) 
+187             \textcolor{keywordflow}{return} cis.ciCharset;
+188         \textcolor{keywordflow}{else}
+189             \textcolor{keywordflow}{return} OEM\_CHARSET;
+190     \textcolor{keywordflow}{else} 
+191         \textcolor{keywordflow}{if}( TranslateCharsetInfo((DWORD*)GetACP(), &cis, TCI\_SRCCODEPAGE) ) 
+192             \textcolor{keywordflow}{return} cis.ciCharset;
+193         \textcolor{keywordflow}{else}
+194             \textcolor{keywordflow}{return} ANSI\_CHARSET;
+195 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhfont_8c_aedda99a174cadffcb558af5d5c29c0cd}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!mswin\+\_\+destroy\+\_\+splashfonts@{mswin\+\_\+destroy\+\_\+splashfonts}}
+\index{mswin\+\_\+destroy\+\_\+splashfonts@{mswin\+\_\+destroy\+\_\+splashfonts}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{mswin\+\_\+destroy\+\_\+splashfonts}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+destroy\+\_\+splashfonts (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhfont_8c_aedda99a174cadffcb558af5d5c29c0cd}
+
+
+Definition at line 46 of file mhfont.\+c.
+
+
+
+References version\+\_\+splash\+\_\+font.
+
+
+
+Referenced by mswin\+\_\+display\+\_\+splash\+\_\+window().
+
+
+\begin{DoxyCode}
+47 \{
+48     DeleteObject (\hyperlink{sys_2wince_2mhfont_8c_a0d004a3aaea8816abf5163eb27c1c246}{version\_splash\_font});
+49 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!mswin\+\_\+get\+\_\+font@{mswin\+\_\+get\+\_\+font}}
+\index{mswin\+\_\+get\+\_\+font@{mswin\+\_\+get\+\_\+font}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{mswin\+\_\+get\+\_\+font}]{\setlength{\rightskip}{0pt plus 5cm}H\+G\+D\+I\+O\+B\+J mswin\+\_\+get\+\_\+font (
+\begin{DoxyParamCaption}
+\item[{int}]{win\+\_\+type, }
+\item[{int}]{attr, }
+\item[{H\+D\+C}]{hdc, }
+\item[{B\+O\+O\+L}]{replace}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhfont_8c_a480013e685b85460be07910c65a1ef51}
+
+
+Definition at line 53 of file mhfont.\+c.
+
+
+
+References A\+T\+R\+\_\+\+B\+L\+I\+N\+K, A\+T\+R\+\_\+\+B\+O\+L\+D, A\+T\+R\+\_\+\+I\+N\+V\+E\+R\+S\+E, A\+T\+R\+\_\+\+U\+L\+I\+N\+E, font\+\_\+table\+\_\+entry\+::code, F\+A\+L\+S\+E, font\+\_\+table, font\+\_\+table\+\_\+cleanup(), font\+\_\+table\+\_\+size, font\+\_\+table\+\_\+entry\+::h\+Font, iflags, M\+A\+X\+F\+O\+N\+T\+S, mswin\+\_\+charset(), N\+H\+\_\+\+A2\+W, N\+H\+F\+O\+N\+T\+\_\+\+C\+O\+D\+E, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, N\+U\+L\+L, panic(), T\+R\+U\+E, instance\+\_\+flags\+::wc\+\_\+font\+\_\+menu, instance\+\_\+flags\+::wc\+\_\+font\+\_\+message, instance\+\_\+flags\+::wc\+\_\+font\+\_\+status, instance\+\_\+flags\+::wc\+\_\+font\+\_\+text, instance\+\_\+flags\+::wc\+\_\+fontsiz\+\_\+menu, instance\+\_\+flags\+::wc\+\_\+fontsiz\+\_\+message, instance\+\_\+flags\+::wc\+\_\+fontsiz\+\_\+status, and instance\+\_\+flags\+::wc\+\_\+fontsiz\+\_\+text.
+
+
+\begin{DoxyCode}
+54 \{
+55     HFONT fnt = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+56     LOGFONT lgfnt;
+57     \textcolor{keywordtype}{int} font\_size;
+58     \textcolor{keywordtype}{int} font\_index;
+59     \textcolor{keyword}{static} BOOL once = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+60 
+61     \textcolor{keywordflow}{if}( !once ) \{
+62         once = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+63         atexit(\hyperlink{win_2win32_2mhfont_8c_a9835f9edcbfe14bfb3057e9753231358}{font\_table\_cleanup});
+64     \}
+65 
+66     ZeroMemory( &lgfnt, \textcolor{keyword}{sizeof}(lgfnt) );
+67 
+68     \textcolor{comment}{/* try find font in the table */}
+69     \textcolor{keywordflow}{for}(font\_index=0; font\_index<\hyperlink{win_2win32_2mhfont_8c_a870a1589aac5ea704e9c345c2f5d7579}{font\_table\_size}; font\_index++)
+70         \textcolor{keywordflow}{if}(\hyperlink{win_2win32_2mhfont_8c_a73fbdee996b853e53e93270fe8962a41}{NHFONT\_CODE}(win\_type, attr)==\hyperlink{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}{font\_table}[font\_index].code)
+71             \textcolor{keywordflow}{break};
+72 
+73     \textcolor{keywordflow}{if}( !replace && font\_index<font\_table\_size )
+74         \textcolor{keywordflow}{return} \hyperlink{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}{font\_table}[font\_index].\hyperlink{structfont__table__entry_af0c047e6f34a07dcaacef8c48d73de5a}{hFont};
+75 
+76     \textcolor{keywordflow}{switch}(win\_type) \{
+77     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}:
+78         lgfnt.lfHeight          =   -\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_afc85b364ccf07dbaf9e752ed5989d55e}{wc\_fontsiz\_status}*GetDeviceCaps(hdc, 
+      LOGPIXELSY)/72;  \textcolor{comment}{// height of font}
+79         lgfnt.lfWidth           =   0;                   \textcolor{comment}{// average character width}
+80         lgfnt.lfEscapement      =   0;                   \textcolor{comment}{// angle of escapement}
+81         lgfnt.lfOrientation     =   0;                   \textcolor{comment}{// base-line orientation angle}
+82         lgfnt.lfWeight          =   FW\_BOLD;             \textcolor{comment}{// font weight}
+83         lgfnt.lfItalic          =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};              \textcolor{comment}{// italic attribute option}
+84         lgfnt.lfUnderline       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};              \textcolor{comment}{// underline attribute option}
+85         lgfnt.lfStrikeOut       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};              \textcolor{comment}{// strikeout attribute option}
+86         lgfnt.lfCharSet         =   \hyperlink{sys_2wince_2mhfont_8c_af970523ac3adefc3a252ad43200ef52b}{mswin\_charset}();     \textcolor{comment}{// character set identifier}
+87         lgfnt.lfOutPrecision    =   OUT\_DEFAULT\_PRECIS;  \textcolor{comment}{// output precision}
+88         lgfnt.lfClipPrecision   =   CLIP\_DEFAULT\_PRECIS; \textcolor{comment}{// clipping precision}
+89         lgfnt.lfQuality         =   DEFAULT\_QUALITY;     \textcolor{comment}{// output quality}
+90         \textcolor{keywordflow}{if}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a6b5bba710c4e80b026a4c1e77d015489}{wc\_font\_status} &&
+91             *\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a6b5bba710c4e80b026a4c1e77d015489}{wc\_font\_status} ) \{
+92             lgfnt.lfPitchAndFamily = DEFAULT\_PITCH;      \textcolor{comment}{// pitch and family}
+93             \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a6b5bba710c4e80b026a4c1e77d015489}{wc\_font\_status}, lgfnt.lfFaceName, LF\_FACESIZE);
+94         \} \textcolor{keywordflow}{else} \{
+95             lgfnt.lfPitchAndFamily = FIXED\_PITCH;        \textcolor{comment}{// pitch and family}
+96         \}
+97         \textcolor{keywordflow}{break};
+98 
+99     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}:
+100         lgfnt.lfHeight          =   -\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adc1e0097a78217c13f627b0ded61338d}{wc\_fontsiz\_menu}*GetDeviceCaps(hdc, 
+      LOGPIXELSY)/72;  \textcolor{comment}{// height of font}
+101         lgfnt.lfWidth           =   0;                   \textcolor{comment}{// average character width}
+102         lgfnt.lfEscapement      =   0;                   \textcolor{comment}{// angle of escapement}
+103         lgfnt.lfOrientation     =   0;                   \textcolor{comment}{// base-line orientation angle}
+104         lgfnt.lfWeight          =   (attr==\hyperlink{wintype_8h_a3bdd83c2b946e860e76de6aac6a4edfe}{ATR\_BOLD} || attr==\hyperlink{wintype_8h_a043c5fd85034778be335623e273d0777}{ATR\_INVERSE})? FW\_BOLD : 
+      FW\_NORMAL;   \textcolor{comment}{// font weight}
+105         lgfnt.lfItalic          =   (attr==\hyperlink{wintype_8h_a9d66a94b42076440893a6250fe72a8a8}{ATR\_BLINK})? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}: \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};            \textcolor{comment}{// italic
+       attribute option}
+106         lgfnt.lfUnderline       =   (attr==\hyperlink{wintype_8h_a9825a0f34fbbf473f8495b785fe54f7c}{ATR\_ULINE})? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};       \textcolor{comment}{// underline
+       attribute option}
+107         lgfnt.lfStrikeOut       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};             \textcolor{comment}{// strikeout attribute option}
+108         lgfnt.lfCharSet         =   \hyperlink{sys_2wince_2mhfont_8c_af970523ac3adefc3a252ad43200ef52b}{mswin\_charset}();     \textcolor{comment}{// character set identifier}
+109         lgfnt.lfOutPrecision    =   OUT\_DEFAULT\_PRECIS;  \textcolor{comment}{// output precision}
+110         lgfnt.lfClipPrecision   =   CLIP\_DEFAULT\_PRECIS; \textcolor{comment}{// clipping precision}
+111         lgfnt.lfQuality         =   DEFAULT\_QUALITY;     \textcolor{comment}{// output quality}
+112         \textcolor{keywordflow}{if}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2feb69a3cf238cd4018f1c76f622ad17}{wc\_font\_menu} &&
+113             *\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2feb69a3cf238cd4018f1c76f622ad17}{wc\_font\_menu} ) \{
+114             lgfnt.lfPitchAndFamily  = DEFAULT\_PITCH;         \textcolor{comment}{// pitch and family}
+115             \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2feb69a3cf238cd4018f1c76f622ad17}{wc\_font\_menu}, lgfnt.lfFaceName, LF\_FACESIZE);
+116         \} \textcolor{keywordflow}{else} \{
+117             lgfnt.lfPitchAndFamily = FIXED\_PITCH;        \textcolor{comment}{// pitch and family}
+118         \}
+119         \textcolor{keywordflow}{break};
+120 
+121     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}:
+122         font\_size = (attr==\hyperlink{wintype_8h_a043c5fd85034778be335623e273d0777}{ATR\_INVERSE})? \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_a926efa0da25728957b82ffd8ac0c2ef9}{wc\_fontsiz\_message}+1 : \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a926efa0da25728957b82ffd8ac0c2ef9}{wc\_fontsiz\_message};
+123         lgfnt.lfHeight          =   -font\_size*GetDeviceCaps(hdc, LOGPIXELSY)/72;    \textcolor{comment}{// height of font}
+124         lgfnt.lfWidth           =   0;                   \textcolor{comment}{// average character width}
+125         lgfnt.lfEscapement      =   0;                   \textcolor{comment}{// angle of escapement}
+126         lgfnt.lfOrientation     =   0;                   \textcolor{comment}{// base-line orientation angle}
+127         lgfnt.lfWeight          =   (attr==\hyperlink{wintype_8h_a3bdd83c2b946e860e76de6aac6a4edfe}{ATR\_BOLD} || attr==\hyperlink{wintype_8h_a043c5fd85034778be335623e273d0777}{ATR\_INVERSE})? FW\_BOLD : 
+      FW\_NORMAL;   \textcolor{comment}{// font weight}
+128         lgfnt.lfItalic          =   (attr==\hyperlink{wintype_8h_a9d66a94b42076440893a6250fe72a8a8}{ATR\_BLINK})? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}: \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};            \textcolor{comment}{// italic
+       attribute option}
+129         lgfnt.lfUnderline       =   (attr==\hyperlink{wintype_8h_a9825a0f34fbbf473f8495b785fe54f7c}{ATR\_ULINE})? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};       \textcolor{comment}{// underline
+       attribute option}
+130         lgfnt.lfStrikeOut       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};              \textcolor{comment}{// strikeout attribute option}
+131         lgfnt.lfCharSet         =   \hyperlink{sys_2wince_2mhfont_8c_af970523ac3adefc3a252ad43200ef52b}{mswin\_charset}();     \textcolor{comment}{// character set identifier}
+132         lgfnt.lfOutPrecision    =   OUT\_DEFAULT\_PRECIS;  \textcolor{comment}{// output precision}
+133         lgfnt.lfClipPrecision   =   CLIP\_DEFAULT\_PRECIS; \textcolor{comment}{// clipping precision}
+134         lgfnt.lfQuality         =   DEFAULT\_QUALITY;     \textcolor{comment}{// output quality}
+135         \textcolor{keywordflow}{if}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a1cd982dcf1dd4bebc211a2d38dc74eea}{wc\_font\_message} &&
+136             *\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a1cd982dcf1dd4bebc211a2d38dc74eea}{wc\_font\_message} ) \{
+137             lgfnt.lfPitchAndFamily  = DEFAULT\_PITCH;         \textcolor{comment}{// pitch and family}
+138             \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a1cd982dcf1dd4bebc211a2d38dc74eea}{wc\_font\_message}, lgfnt.lfFaceName, LF\_FACESIZE);
+139         \} \textcolor{keywordflow}{else} \{
+140             lgfnt.lfPitchAndFamily  = VARIABLE\_PITCH;        \textcolor{comment}{// pitch and family}
+141         \}
+142         \textcolor{keywordflow}{break};
+143 
+144     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}:
+145         lgfnt.lfHeight          =   -\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_aed0e7dbf1efecc62fb651e1e6042cb78}{wc\_fontsiz\_text}*GetDeviceCaps(hdc, 
+      LOGPIXELSY)/72;  \textcolor{comment}{// height of font}
+146         lgfnt.lfWidth           =   0;                   \textcolor{comment}{// average character width}
+147         lgfnt.lfEscapement      =   0;                   \textcolor{comment}{// angle of escapement}
+148         lgfnt.lfOrientation     =   0;                   \textcolor{comment}{// base-line orientation angle}
+149         lgfnt.lfWeight          =   (attr==\hyperlink{wintype_8h_a3bdd83c2b946e860e76de6aac6a4edfe}{ATR\_BOLD} || attr==\hyperlink{wintype_8h_a043c5fd85034778be335623e273d0777}{ATR\_INVERSE})? FW\_BOLD : 
+      FW\_NORMAL;   \textcolor{comment}{// font weight}
+150         lgfnt.lfItalic          =   (attr==\hyperlink{wintype_8h_a9d66a94b42076440893a6250fe72a8a8}{ATR\_BLINK})? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}: \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};            \textcolor{comment}{// italic
+       attribute option}
+151         lgfnt.lfUnderline       =   (attr==\hyperlink{wintype_8h_a9825a0f34fbbf473f8495b785fe54f7c}{ATR\_ULINE})? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};       \textcolor{comment}{// underline
+       attribute option}
+152         lgfnt.lfStrikeOut       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};              \textcolor{comment}{// strikeout attribute option}
+153         lgfnt.lfCharSet         =   \hyperlink{sys_2wince_2mhfont_8c_af970523ac3adefc3a252ad43200ef52b}{mswin\_charset}();     \textcolor{comment}{// character set identifier}
+154         lgfnt.lfOutPrecision    =   OUT\_DEFAULT\_PRECIS;  \textcolor{comment}{// output precision}
+155         lgfnt.lfClipPrecision   =   CLIP\_DEFAULT\_PRECIS; \textcolor{comment}{// clipping precision}
+156         lgfnt.lfQuality         =   DEFAULT\_QUALITY;     \textcolor{comment}{// output quality}
+157         \textcolor{keywordflow}{if}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adadc7a55169eda5a908c200536396872}{wc\_font\_text} &&
+158             *\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adadc7a55169eda5a908c200536396872}{wc\_font\_text} ) \{
+159             lgfnt.lfPitchAndFamily  = DEFAULT\_PITCH;         \textcolor{comment}{// pitch and family}
+160             \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adadc7a55169eda5a908c200536396872}{wc\_font\_text}, lgfnt.lfFaceName, LF\_FACESIZE);
+161         \} \textcolor{keywordflow}{else} \{
+162             lgfnt.lfPitchAndFamily  = FIXED\_PITCH;       \textcolor{comment}{// pitch and family}
+163         \}
+164         \textcolor{keywordflow}{break};
+165     \}
+166 
+167     fnt = CreateFontIndirect(&lgfnt);
+168 
+169     \textcolor{comment}{/* add font to the table */}
+170     \textcolor{keywordflow}{if}( font\_index==font\_table\_size ) \{
+171         \textcolor{keywordflow}{if}( font\_table\_size>=\hyperlink{win_2win32_2mhfont_8c_ac108d78d76235e3c7cada0c2e56b7e2d}{MAXFONTS} ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"font table overflow!"} );
+172         font\_table\_size++;
+173     \} \textcolor{keywordflow}{else} \{
+174         DeleteObject(\hyperlink{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}{font\_table}[font\_index].hFont);
+175     \}
+176 
+177     \hyperlink{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}{font\_table}[font\_index].\hyperlink{structfont__table__entry_a613ac8f9549d6cf562d60f7dc1bab5a4}{code} = \hyperlink{win_2win32_2mhfont_8c_a73fbdee996b853e53e93270fe8962a41}{NHFONT\_CODE}(win\_type, attr);
+178     \hyperlink{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}{font\_table}[font\_index].\hyperlink{structfont__table__entry_af0c047e6f34a07dcaacef8c48d73de5a}{hFont} = fnt;
+179     \textcolor{keywordflow}{return} fnt;
+180 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhfont_8c_af183ec81747c907c779d089ba1556ad2}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!mswin\+\_\+init\+\_\+splashfonts@{mswin\+\_\+init\+\_\+splashfonts}}
+\index{mswin\+\_\+init\+\_\+splashfonts@{mswin\+\_\+init\+\_\+splashfonts}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{mswin\+\_\+init\+\_\+splashfonts}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+init\+\_\+splashfonts (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhfont_8c_af183ec81747c907c779d089ba1556ad2}
+
+
+Definition at line 22 of file mhfont.\+c.
+
+
+
+References F\+A\+L\+S\+E, N\+H\+\_\+\+A2\+W, N\+U\+L\+L, and version\+\_\+splash\+\_\+font.
+
+
+
+Referenced by mswin\+\_\+display\+\_\+splash\+\_\+window().
+
+
+\begin{DoxyCode}
+23 \{
+24     HDC hdc = GetDC(hWnd);
+25     HFONT fnt = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+26     LOGFONT lgfnt;
+27     ZeroMemory( &lgfnt, \textcolor{keyword}{sizeof}(lgfnt) );
+28     lgfnt.lfHeight      = -80;   \textcolor{comment}{// height of font}
+29     lgfnt.lfWidth       =   0;                   \textcolor{comment}{// average character width}
+30     lgfnt.lfEscapement  =   0;                   \textcolor{comment}{// angle of escapement}
+31     lgfnt.lfOrientation     =   0;                   \textcolor{comment}{// base-line orientation angle}
+32     lgfnt.lfWeight      =   FW\_BOLD;   \textcolor{comment}{// font weight}
+33     lgfnt.lfItalic          =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};          \textcolor{comment}{// italic attribute option}
+34     lgfnt.lfUnderline       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};      \textcolor{comment}{// underline attribute option}
+35     lgfnt.lfStrikeOut       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};              \textcolor{comment}{// strikeout attribute option}
+36     lgfnt.lfCharSet     =   ANSI\_CHARSET;     \textcolor{comment}{// character set identifier}
+37     lgfnt.lfOutPrecision    =   OUT\_DEFAULT\_PRECIS;  \textcolor{comment}{// output precision}
+38     lgfnt.lfClipPrecision   =   CLIP\_DEFAULT\_PRECIS; \textcolor{comment}{// clipping precision}
+39     lgfnt.lfQuality     =   DEFAULT\_QUALITY;     \textcolor{comment}{// output quality}
+40     lgfnt.lfPitchAndFamily  = DEFAULT\_PITCH;         \textcolor{comment}{// pitch and family}
+41     \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}( \textcolor{stringliteral}{"Times New Roman"}, lgfnt.lfFaceName, LF\_FACESIZE);
+42     \hyperlink{sys_2wince_2mhfont_8c_a0d004a3aaea8816abf5163eb27c1c246}{version\_splash\_font} = CreateFontIndirect(&lgfnt);
+43     ReleaseDC(hWnd, hdc);
+44 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!font\+\_\+table@{font\+\_\+table}}
+\index{font\+\_\+table@{font\+\_\+table}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{font\+\_\+table}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf font\+\_\+table\+\_\+entry}  font\+\_\+table\mbox{[}{\bf M\+A\+X\+F\+O\+N\+T\+S}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhfont_8c_ad892a139c7d69fc6fd5e07364902e3bc}
+
+
+Referenced by font\+\_\+table\+\_\+cleanup(), and mswin\+\_\+get\+\_\+font().
+
+\hypertarget{win_2win32_2mhfont_8c_a870a1589aac5ea704e9c345c2f5d7579}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!font\+\_\+table\+\_\+size@{font\+\_\+table\+\_\+size}}
+\index{font\+\_\+table\+\_\+size@{font\+\_\+table\+\_\+size}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{font\+\_\+table\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}int font\+\_\+table\+\_\+size = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhfont_8c_a870a1589aac5ea704e9c345c2f5d7579}
+
+
+Definition at line 15 of file mhfont.\+c.
+
+
+
+Referenced by font\+\_\+table\+\_\+cleanup(), and mswin\+\_\+get\+\_\+font().
+
+\hypertarget{win_2win32_2mhfont_8c_a0d004a3aaea8816abf5163eb27c1c246}{\index{win/win32/mhfont.\+c@{win/win32/mhfont.\+c}!version\+\_\+splash\+\_\+font@{version\+\_\+splash\+\_\+font}}
+\index{version\+\_\+splash\+\_\+font@{version\+\_\+splash\+\_\+font}!win/win32/mhfont.\+c@{win/win32/mhfont.\+c}}
+\subsubsection[{version\+\_\+splash\+\_\+font}]{\setlength{\rightskip}{0pt plus 5cm}H\+F\+O\+N\+T version\+\_\+splash\+\_\+font}}\label{win_2win32_2mhfont_8c_a0d004a3aaea8816abf5163eb27c1c246}
+
+
+Definition at line 16 of file mhfont.\+c.
+
+
+
+Referenced by N\+H\+Splash\+Wnd\+Proc().
+

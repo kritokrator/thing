@@ -1,0 +1,1957 @@
+\hypertarget{mactty_8c}{\section{nethack/sys/mac/mactty.c File Reference}
+\label{mactty_8c}\index{nethack/sys/mac/mactty.\+c@{nethack/sys/mac/mactty.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mttypriv.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$Resources.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mactty_8c_ab52356d0779337bdd5e646a56256fd2b}{M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+R\+G\+I\+N}~30000
+\item 
+\#define \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S}(record)
+\item 
+\#define \hyperlink{mactty_8c_a059829b8cc391048ca220b5c8e8d353a}{D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T}~(\hyperlink{mactty_8h_a6527765fd23d57f21985e03bf3adde94}{T\+A\+\_\+\+A\+L\+W\+A\+Y\+S\+\_\+\+R\+E\+F\+R\+E\+S\+H} \& record-\/$>$attribute \mbox{[}\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608a1df7281ec9ce854cabde370e5eb45296}{T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+F\+L\+A\+G\+S}\mbox{]})
+\item 
+\#define \hyperlink{mactty_8c_a2791416224c1e8fe1d7889b11b88446d}{C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}~0\+X00002581
+\item 
+\#define \hyperlink{mactty_8c_ae10ea351def1786cdc21a5a82e300dc2}{R\+A\+W\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}~1
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mactty_8c_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (char $\ast$,...)
+\item 
+static void \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\+\_\+onscreen\+\_\+window} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record)
+\item 
+static void \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\+\_\+offscreen\+\_\+port} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record)
+\item 
+static short \hyperlink{mactty_8c_ae6b9ab9b7a3ab8644932ea3bb458df79}{mem\+\_\+err} (void)
+\item 
+static void \hyperlink{mactty_8c_a7313e36ac71d2f2a41098eb02c2f0557}{empty\+\_\+rect} (Rect $\ast$r)
+\item 
+static void \hyperlink{mactty_8c_a7afde90e439ea9f0bbfb5e5e7aeb76db}{union\+\_\+rect} (Rect $\ast$r1, Rect $\ast$r2, Rect $\ast$dest)
+\item 
+static short \hyperlink{mactty_8c_a517ba4c6dcc7e719ed75dfa7e1c3b3b8}{dispose\+\_\+ptr} (void $\ast$ptr)
+\item 
+static short \hyperlink{mactty_8c_ae454ce51d0fbc7aa094a49854f4082e9}{allocate\+\_\+offscreen\+\_\+world} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record)
+\item 
+static short \hyperlink{mactty_8c_a9fa774f0b972a9bf9aefe4482ade4ae9}{deallocate\+\_\+gworld} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record)
+\item 
+static short \hyperlink{mactty_8c_a9612af7028a5a33733e255319f5d9e74}{free\+\_\+bits} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record)
+\item 
+short \hyperlink{mactty_8c_ab2f52b1873ab0b881ce7c9cc6183a874}{create\+\_\+tty} (Window\+Ref $\ast$window, short resource\+\_\+id, Boolean in\+\_\+color)
+\item 
+short \hyperlink{mactty_8c_a8ae8dca464dd05ce95feb7f4dc04e57c}{init\+\_\+tty\+\_\+number} (Window\+Ptr window, short font\+\_\+number, short font\+\_\+size, short x\+\_\+size, short y\+\_\+size)
+\item 
+short \hyperlink{mactty_8c_aaf9ac2a85080f86e67a695302976a45c}{destroy\+\_\+tty} (Window\+Ptr window)
+\item 
+static void \hyperlink{mactty_8c_ae882bd201293f0260b391217fd409502}{do\+\_\+set\+\_\+port\+\_\+font} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record)
+\item 
+static void \hyperlink{mactty_8c_a1cbd0236cc27533665fde75bc17a3f36}{calc\+\_\+font\+\_\+sizes} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record)
+\item 
+static short \hyperlink{mactty_8c_a83542ffdde7f4df3481441a76322cd56}{alloc\+\_\+bits} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record)
+\item 
+static void \hyperlink{mactty_8c_ad6ff43bd67b5ce275aca82ab24822f23}{save\+\_\+port} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, void $\ast$save)
+\item 
+static void \hyperlink{mactty_8c_a8cad63504a43179f53e28923934e3219}{use\+\_\+port} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, void $\ast$port)
+\item 
+static void \hyperlink{mactty_8c_a6ddce6b80efd1881b0cf24b5fbc9bcd5}{copy\+\_\+bits} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, Rect $\ast$bounds, short xfer\+\_\+mode, Rgn\+Handle mask\+\_\+rgn)
+\item 
+static void \hyperlink{mactty_8c_a6bdcf11f357229f29d159244fa074cb5}{erase\+\_\+rect} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, Rect $\ast$area)
+\item 
+short \hyperlink{mactty_8c_a59d8b4c6d33b9ab3bcfe3f341d7310c6}{force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc} (Window\+Ptr window)
+\item 
+short \hyperlink{mactty_8c_aa8fb454d1bb476ff33b80e8ad794474c}{get\+\_\+tty\+\_\+metrics} (Window\+Ptr window, short $\ast$x\+\_\+size, short $\ast$y\+\_\+size, short $\ast$x\+\_\+size\+\_\+pixels, short $\ast$y\+\_\+size\+\_\+pixels, short $\ast$font\+\_\+number, short $\ast$font\+\_\+size, short $\ast$char\+\_\+width, short $\ast$row\+\_\+height)
+\item 
+static void \hyperlink{mactty_8c_a1430ed1a2b0850e69f8f5e9027af46cd}{pos\+\_\+rect} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, Rect $\ast$r, short x\+\_\+pos, short y\+\_\+pos, short x\+\_\+end, short y\+\_\+end)
+\item 
+static void \hyperlink{mactty_8c_a2fed4d184e806b417f14542aafccaaf8}{accumulate\+\_\+rect} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, Rect $\ast$\hyperlink{rect_8c_a58a1301fcdb736034a47900ee20578ec}{rect})
+\item 
+short \hyperlink{mactty_8c_a187b36e5499a1258ebe1b9cbfcfcee51}{get\+\_\+invalid\+\_\+region} (Window\+Ptr window, Rect $\ast$inval\+\_\+rect)
+\item 
+short \hyperlink{mactty_8c_a4ea4e291eecbce9e906ba87c42b2b7bd}{set\+\_\+invalid\+\_\+region} (Window\+Ptr window, Rect $\ast$inval\+\_\+rect)
+\item 
+static void \hyperlink{mactty_8c_a583dba93dfd738ae8a11a49b9b8e6085}{curs\+\_\+pos} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, short x\+\_\+pos, short y\+\_\+pos, short to\+\_\+state)
+\item 
+short \hyperlink{mactty_8c_acf7813b07cb9be95a335bffa9736c85a}{move\+\_\+tty\+\_\+cursor} (Window\+Ptr window, short x\+\_\+pos, short y\+\_\+pos)
+\item 
+short \hyperlink{mactty_8c_ac0b16837332e27f742be785310a9e901}{update\+\_\+tty} (Window\+Ptr window)
+\item 
+static void \hyperlink{mactty_8c_a36c5c3883b4fd68d5c0e1ee9398b95ff}{do\+\_\+add\+\_\+string} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, char $\ast$str, short len)
+\item 
+static void \hyperlink{mactty_8c_a51ee2506c71ac55061555d598d4d2d88}{do\+\_\+add\+\_\+cursor} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, short x\+\_\+pos)
+\item 
+static void \hyperlink{mactty_8c_a6d40a86558d87d6a7bf4df7f99e38c51}{do\+\_\+control} (\hyperlink{structtty__record}{tty\+\_\+record} $\ast$record, short character)
+\item 
+short \hyperlink{mactty_8c_ac593ac9763d3c91a53bd2c43d0ab7ca6}{add\+\_\+tty\+\_\+char} (Window\+Ptr window, short character)
+\item 
+short \hyperlink{mactty_8c_a1a00a277a801815d026aebf450ac9a02}{add\+\_\+tty\+\_\+string} (Window\+Ptr window, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$string)
+\item 
+short \hyperlink{mactty_8c_a439b5cf18a51d246e1822b9ac42cf7fe}{get\+\_\+tty\+\_\+attrib} (Window\+Ptr window, \hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608}{tty\+\_\+attrib} attrib, long $\ast$value)
+\item 
+short \hyperlink{mactty_8c_a465a8e33435ecd541769a2bfc857da4e}{set\+\_\+tty\+\_\+attrib} (Window\+Ptr window, \hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608}{tty\+\_\+attrib} attrib, long value)
+\item 
+short \hyperlink{mactty_8c_a9f84b3b8c71ce4abb340458ecccb9791}{scroll\+\_\+tty} (Window\+Ptr window, short delta\+\_\+x, short delta\+\_\+y)
+\item 
+short \hyperlink{mactty_8c_a061a5c2ee16ffd5964b2008db085311c}{clear\+\_\+tty} (Window\+Ptr window)
+\item 
+short \hyperlink{mactty_8c_ac6868a9c0841b9cf67e6ad4b1333b96b}{blink\+\_\+cursor} (Window\+Ptr window, long when)
+\item 
+short \hyperlink{mactty_8c_a3e14fbe6e806321dd65e663c14c041d2}{image\+\_\+tty} (Event\+Record $\ast$the\+Event, Window\+Ptr window)
+\item 
+short \hyperlink{mactty_8c_ac0640cddeb2f35b19d8148a799edab6b}{clear\+\_\+tty\+\_\+window} (Window\+Ptr window, short from\+\_\+x, short from\+\_\+y, short to\+\_\+x, short to\+\_\+y)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{mactty_8c_a312aaf7b101e387746a054cfcec0266b}{game\+\_\+active} = 0
+\item 
+Window\+Ptr \hyperlink{mactty_8c_abfbaff06a50aea7b2035a3c443bb63ce}{\+\_\+mt\+\_\+window}
+\item 
+static unsigned long \hyperlink{mactty_8c_a88191fbe6681c49ab1e35849654f2937}{s\+\_\+control} = \hyperlink{mactty_8c_a2791416224c1e8fe1d7889b11b88446d}{C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{mactty_8c_a2791416224c1e8fe1d7889b11b88446d}{\index{mactty.\+c@{mactty.\+c}!C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S@{C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}}
+\index{C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S@{C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S~0\+X00002581}}\label{mactty_8c_a2791416224c1e8fe1d7889b11b88446d}
+
+
+Definition at line 53 of file mactty.\+c.
+
+
+
+Referenced by set\+\_\+tty\+\_\+attrib().
+
+\hypertarget{mactty_8c_a059829b8cc391048ca220b5c8e8d353a}{\index{mactty.\+c@{mactty.\+c}!D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T@{D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T}}
+\index{D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T@{D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T~({\bf T\+A\+\_\+\+A\+L\+W\+A\+Y\+S\+\_\+\+R\+E\+F\+R\+E\+S\+H} \& record-\/$>$attribute \mbox{[}{\bf T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+F\+L\+A\+G\+S}\mbox{]})}}\label{mactty_8c_a059829b8cc391048ca220b5c8e8d353a}
+
+
+Definition at line 46 of file mactty.\+c.
+
+
+
+Referenced by clear\+\_\+tty\+\_\+window(), curs\+\_\+pos(), and do\+\_\+add\+\_\+string().
+
+\hypertarget{mactty_8c_ab52356d0779337bdd5e646a56256fd2b}{\index{mactty.\+c@{mactty.\+c}!M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+R\+G\+I\+N@{M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+R\+G\+I\+N}}
+\index{M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+R\+G\+I\+N@{M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+R\+G\+I\+N}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+R\+G\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+R\+G\+I\+N~30000}}\label{mactty_8c_ab52356d0779337bdd5e646a56256fd2b}
+
+
+Definition at line 32 of file mactty.\+c.
+
+
+
+Referenced by allocate\+\_\+offscreen\+\_\+world().
+
+\hypertarget{mactty_8c_ae10ea351def1786cdc21a5a82e300dc2}{\index{mactty.\+c@{mactty.\+c}!R\+A\+W\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S@{R\+A\+W\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}}
+\index{R\+A\+W\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S@{R\+A\+W\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{R\+A\+W\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+A\+W\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S~1}}\label{mactty_8c_ae10ea351def1786cdc21a5a82e300dc2}
+
+
+Definition at line 54 of file mactty.\+c.
+
+
+
+Referenced by set\+\_\+tty\+\_\+attrib().
+
+\hypertarget{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{\index{mactty.\+c@{mactty.\+c}!R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S@{R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S}}
+\index{R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S@{R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S(
+\begin{DoxyParamCaption}
+\item[{}]{record}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{structtty__record}{tty\_record} * record; \(\backslash\)
+    if (!window || !(record = (\hyperlink{structtty__record}{tty\_record} *) GetWRefCon (window))) \(\backslash\)
+        return \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+\end{DoxyCode}
+
+
+Definition at line 37 of file mactty.\+c.
+
+
+
+Referenced by add\+\_\+tty\+\_\+char(), add\+\_\+tty\+\_\+string(), blink\+\_\+cursor(), clear\+\_\+tty(), clear\+\_\+tty\+\_\+window(), destroy\+\_\+tty(), force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc(), get\+\_\+invalid\+\_\+region(), get\+\_\+tty\+\_\+attrib(), get\+\_\+tty\+\_\+metrics(), image\+\_\+tty(), init\+\_\+tty\+\_\+number(), move\+\_\+tty\+\_\+cursor(), scroll\+\_\+tty(), set\+\_\+invalid\+\_\+region(), set\+\_\+tty\+\_\+attrib(), and update\+\_\+tty().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{mactty_8c_a2fed4d184e806b417f14542aafccaaf8}{\index{mactty.\+c@{mactty.\+c}!accumulate\+\_\+rect@{accumulate\+\_\+rect}}
+\index{accumulate\+\_\+rect@{accumulate\+\_\+rect}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{accumulate\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}static void accumulate\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{Rect $\ast$}]{rect}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a2fed4d184e806b417f14542aafccaaf8}
+
+
+Definition at line 598 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::invalid\+\_\+rect, and union\+\_\+rect().
+
+
+
+Referenced by clear\+\_\+tty(), clear\+\_\+tty\+\_\+window(), curs\+\_\+pos(), do\+\_\+add\+\_\+string(), and set\+\_\+invalid\+\_\+region().
+
+
+\begin{DoxyCode}
+598                                                  \{
+599 \textcolor{preprocessor}{#if CLIP\_RECT\_ONLY}
+600     \hyperlink{mactty_8c_a7afde90e439ea9f0bbfb5e5e7aeb76db}{union\_rect} (\hyperlink{rect_8c_a58a1301fcdb736034a47900ee20578ec}{rect}, &(record->\hyperlink{structtty__record_a023de9278dd71dd9872bd6de0f3aed05}{invalid\_rect}), &(record->
+      \hyperlink{structtty__record_a023de9278dd71dd9872bd6de0f3aed05}{invalid\_rect}));
+601 \textcolor{preprocessor}{#else}
+602 RgnHandle rh = NewRgn ();
+603 
+604     RectRgn (rh, \hyperlink{rect_8c_a58a1301fcdb736034a47900ee20578ec}{rect});
+605     UnionRgn (record->invalid\_part, rh, record->invalid\_part);
+606     DisposeRgn (rh);
+607 \textcolor{preprocessor}{#endif}
+608 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ac593ac9763d3c91a53bd2c43d0ab7ca6}{\index{mactty.\+c@{mactty.\+c}!add\+\_\+tty\+\_\+char@{add\+\_\+tty\+\_\+char}}
+\index{add\+\_\+tty\+\_\+char@{add\+\_\+tty\+\_\+char}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{add\+\_\+tty\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}short add\+\_\+tty\+\_\+char (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{short}]{character}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_ac593ac9763d3c91a53bd2c43d0ab7ca6}
+
+
+Definition at line 832 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::attribute, curs\+\_\+pos(), tty\+\_\+record\+::curs\+\_\+state, do\+\_\+add\+\_\+cursor(), do\+\_\+add\+\_\+string(), do\+\_\+control(), R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, s\+\_\+control, T\+A\+\_\+\+W\+R\+A\+P\+\_\+\+A\+R\+O\+U\+N\+D, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+F\+L\+A\+G\+S, tty\+\_\+record\+::x\+\_\+curs, tty\+\_\+record\+::x\+\_\+size, and tty\+\_\+record\+::y\+\_\+curs.
+
+
+
+Referenced by term\+\_\+putc().
+
+
+\begin{DoxyCode}
+832                                                  \{
+833 \textcolor{keyword}{register} \textcolor{keywordtype}{char} is\_control;
+834 \textcolor{keywordtype}{char} ch;
+835 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+836 
+837     \textcolor{keywordflow}{if} (!(record->attribute [\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608a1df7281ec9ce854cabde370e5eb45296}{TTY\_ATTRIB\_FLAGS}] & \hyperlink{mactty_8h_a99569ea5db9d1b664478c3b4757c3f71}{TA\_WRAP\_AROUND}) && 
+838         record->x\_curs >= record->x\_size)
+839         \textcolor{keywordflow}{return} noErr;       \textcolor{comment}{/* Optimize away drawing across border without wrap */}
+840 
+841     \textcolor{keywordflow}{if} (record->curs\_state != 0)
+842         \hyperlink{mactty_8c_a583dba93dfd738ae8a11a49b9b8e6085}{curs\_pos} (record, record->x\_curs, record->y\_curs, 0);
+843 
+844     ch = character;
+845     is\_control = (ch < \textcolor{keyword}{sizeof}(long) * 8) && ((\hyperlink{mactty_8c_a88191fbe6681c49ab1e35849654f2937}{s\_control} & (1 << ch)) != 0L);
+846     \textcolor{keywordflow}{if} (is\_control)
+847         \hyperlink{mactty_8c_a6d40a86558d87d6a7bf4df7f99e38c51}{do\_control} (record, ch);
+848     \textcolor{keywordflow}{else} \{
+849         \hyperlink{mactty_8c_a36c5c3883b4fd68d5c0e1ee9398b95ff}{do\_add\_string} (record, (\textcolor{keywordtype}{char} *)&ch, 1);
+850         \hyperlink{mactty_8c_a51ee2506c71ac55061555d598d4d2d88}{do\_add\_cursor} (record, record->x\_curs + 1);
+851     \}
+852 
+853     \textcolor{keywordflow}{return} noErr;
+854 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a1a00a277a801815d026aebf450ac9a02}{\index{mactty.\+c@{mactty.\+c}!add\+\_\+tty\+\_\+string@{add\+\_\+tty\+\_\+string}}
+\index{add\+\_\+tty\+\_\+string@{add\+\_\+tty\+\_\+string}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{add\+\_\+tty\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}short add\+\_\+tty\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{{\bf const} char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a1a00a277a801815d026aebf450ac9a02}
+
+
+Definition at line 861 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::attribute, curs\+\_\+pos(), tty\+\_\+record\+::curs\+\_\+state, do\+\_\+add\+\_\+cursor(), do\+\_\+add\+\_\+string(), do\+\_\+control(), R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, s\+\_\+control, T\+A\+\_\+\+W\+R\+A\+P\+\_\+\+A\+R\+O\+U\+N\+D, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+F\+L\+A\+G\+S, tty\+\_\+record\+::x\+\_\+curs, tty\+\_\+record\+::x\+\_\+size, and tty\+\_\+record\+::y\+\_\+curs.
+
+
+
+Referenced by backsp(), and xputs().
+
+
+\begin{DoxyCode}
+862 \{
+863     \textcolor{keyword}{register} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} * start\_c;
+864     \textcolor{keyword}{register} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} * the\_c;
+865     \textcolor{keyword}{register} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} ch, is\_control = 0, tty\_wrap;
+866     \textcolor{keyword}{register} \textcolor{keywordtype}{short} max\_x, pos\_x;
+867     \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+868 
+869     \textcolor{keywordflow}{if} (record->curs\_state != 0)
+870         \hyperlink{mactty_8c_a583dba93dfd738ae8a11a49b9b8e6085}{curs\_pos} (record, record->x\_curs, record->y\_curs, 0);
+871 
+872     the\_c = (\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *) \textcolor{keywordtype}{string};
+873     max\_x = record->x\_size;
+874     tty\_wrap = (record->attribute [\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608a1df7281ec9ce854cabde370e5eb45296}{TTY\_ATTRIB\_FLAGS}] & 
+      \hyperlink{mactty_8h_a99569ea5db9d1b664478c3b4757c3f71}{TA\_WRAP\_AROUND});
+875     \textcolor{keywordflow}{for} (;;) \{
+876         pos\_x = record->x\_curs;
+877         \textcolor{keywordflow}{if} (!tty\_wrap && pos\_x >= max\_x) 
+878             \textcolor{keywordflow}{break};      \textcolor{comment}{/* Optimize away drawing across border without wrap */}
+879 
+880         start\_c = the\_c;
+881         ch = *the\_c;
+882         \textcolor{keywordflow}{while} (pos\_x < max\_x) \{
+883             is\_control = (ch < \textcolor{keyword}{sizeof}(long) * 8) && ((\hyperlink{mactty_8c_a88191fbe6681c49ab1e35849654f2937}{s\_control} & (1 << ch)) != 0L);
+884             \textcolor{keywordflow}{if} (is\_control)
+885                 \textcolor{keywordflow}{break};
+886             the\_c ++; ch = *the\_c;
+887             pos\_x ++;
+888         \}
+889         \hyperlink{mactty_8c_a36c5c3883b4fd68d5c0e1ee9398b95ff}{do\_add\_string} (record, (\textcolor{keywordtype}{char} *) start\_c, the\_c - start\_c);
+890         \hyperlink{mactty_8c_a51ee2506c71ac55061555d598d4d2d88}{do\_add\_cursor} (record, pos\_x);
+891         \textcolor{keywordflow}{if} (!ch)
+892             \textcolor{keywordflow}{break};
+893 
+894         \textcolor{keywordflow}{if} (is\_control) \{
+895             \hyperlink{mactty_8c_a6d40a86558d87d6a7bf4df7f99e38c51}{do\_control} (record, ch);
+896             the\_c ++;
+897         \}
+898     \}
+899 
+900     \textcolor{keywordflow}{return} noErr;
+901 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a83542ffdde7f4df3481441a76322cd56}{\index{mactty.\+c@{mactty.\+c}!alloc\+\_\+bits@{alloc\+\_\+bits}}
+\index{alloc\+\_\+bits@{alloc\+\_\+bits}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{alloc\+\_\+bits}]{\setlength{\rightskip}{0pt plus 5cm}static short alloc\+\_\+bits (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a83542ffdde7f4df3481441a76322cd56}
+
+
+Definition at line 352 of file mactty.\+c.
+
+
+
+References allocate\+\_\+offscreen\+\_\+world(), tty\+\_\+record\+::char\+\_\+width, tty\+\_\+record\+::its\+\_\+bits, tty\+\_\+record\+::offscreen\+\_\+port, tty\+\_\+record\+::row\+\_\+height, tty\+\_\+record\+::uses\+\_\+gworld, tty\+\_\+record\+::x\+\_\+size, and tty\+\_\+record\+::y\+\_\+size.
+
+
+
+Referenced by force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc().
+
+
+\begin{DoxyCode}
+352                                 \{
+353 \textcolor{keywordtype}{short} s\_err;
+354 
+355     SetRect (&record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.bounds, 0, 0,
+356         record->\hyperlink{structtty__record_a2c85d65343bb145a61dd70945019e42b}{char\_width} * record->\hyperlink{structtty__record_a39cb4eed8f87f26b1ab56d6d65d051e2}{x\_size},
+357         record->\hyperlink{structtty__record_ac0d2808f8a463594770388a1a61d92fc}{row\_height} * record->\hyperlink{structtty__record_aa44dcd9633186917f63209752768be6d}{y\_size});
+358 
+359 \textcolor{comment}{/*}
+360 \textcolor{comment}{ * Clear two highest and lowest bit - not a color pixMap, and even in size}
+361 \textcolor{comment}{ */}
+362     record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.rowBytes = ((record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.bounds.right + 15)
+363         >> 3) & 0x1ffe;
+364 
+365     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld}) \{
+366         s\_err = \hyperlink{mactty_8c_ae454ce51d0fbc7aa094a49854f4082e9}{allocate\_offscreen\_world} (record);
+367 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+368     \} \textcolor{keywordflow}{else} \{
+369         s\_err = alloc\_ptr ((\textcolor{keywordtype}{void} **) &(record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.baseAddr),
+370             record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.rowBytes * record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.bounds.bottom);
+371         \textcolor{keywordflow}{if} (!s\_err) \{
+372             s\_err = alloc\_ptr ((\textcolor{keywordtype}{void} **) &(record->\hyperlink{structtty__record_ac93a01eec2960fa101e62517d59d0837}{offscreen\_port}),
+373                 sizeof (GrafPort));
+374         \}
+375         \textcolor{keywordflow}{if} (!s\_err) \{
+376             OpenPort (record->\hyperlink{structtty__record_ac93a01eec2960fa101e62517d59d0837}{offscreen\_port});
+377             SetPort (record->\hyperlink{structtty__record_ac93a01eec2960fa101e62517d59d0837}{offscreen\_port});
+378             ClipRect (&(record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.bounds));
+379             SetPortBits (&(record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}));
+380         \}
+381 \textcolor{preprocessor}{#endif}
+382     \}
+383     \textcolor{keywordflow}{return} s\_err;
+384 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ae454ce51d0fbc7aa094a49854f4082e9}{\index{mactty.\+c@{mactty.\+c}!allocate\+\_\+offscreen\+\_\+world@{allocate\+\_\+offscreen\+\_\+world}}
+\index{allocate\+\_\+offscreen\+\_\+world@{allocate\+\_\+offscreen\+\_\+world}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{allocate\+\_\+offscreen\+\_\+world}]{\setlength{\rightskip}{0pt plus 5cm}static short allocate\+\_\+offscreen\+\_\+world (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_ae454ce51d0fbc7aa094a49854f4082e9}
+
+
+Definition at line 124 of file mactty.\+c.
+
+
+
+References dprintf(), tty\+\_\+record\+::its\+\_\+bits, M\+E\+M\+O\+R\+Y\+\_\+\+M\+A\+R\+G\+I\+N, tty\+\_\+record\+::offscreen\+\_\+world, select\+\_\+offscreen\+\_\+port(), and select\+\_\+onscreen\+\_\+window().
+
+
+
+Referenced by alloc\+\_\+bits().
+
+
+\begin{DoxyCode}
+124                                               \{
+125 GWorldPtr \hyperlink{structgw}{gw} = (GWorldPtr)0;
+126 GWorldFlags world\_flags = 0;
+127 \textcolor{keywordtype}{long} mem\_here, mem\_there, other, required\_mem;
+128 Point p = \{0, 0\};
+129 Rect r\_screen;
+130 GDHandle gdh;
+131 \textcolor{keywordtype}{short} s\_err;
+132 
+133     \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+134     LocalToGlobal (&p);
+135     r\_screen = record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.bounds;
+136     OffsetRect (&r\_screen, p.h, p.v);
+137 
+138     gdh = GetMaxDevice (&r\_screen);
+139     required\_mem = (long) (*((*gdh)->gdPMap))->pixelSize *
+140         ((\textcolor{keywordtype}{long}) record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.bounds.right *
+141         record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.bounds.bottom) >> 3;
+142 
+143     PurgeSpace (&other, &mem\_here);
+144     \textcolor{keywordflow}{if} (other < mem\_here + \hyperlink{mactty_8c_ab52356d0779337bdd5e646a56256fd2b}{MEMORY\_MARGIN}) \{
+145         mem\_here = other - \hyperlink{mactty_8c_ab52356d0779337bdd5e646a56256fd2b}{MEMORY\_MARGIN};
+146     \}
+147     \hyperlink{mactty_8c_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"Heap %ld Required %ld"}, mem\_here, required\_mem);
+148     \textcolor{keywordflow}{if} (required\_mem > mem\_here) \{
+149         mem\_there = required\_mem;
+150         \textcolor{keywordflow}{if} (required\_mem > TempMaxMem (&mem\_there)) \{
+151             \hyperlink{mactty_8c_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"No memory"});
+152             \textcolor{keywordflow}{return} memFullErr;
+153         \}
+154         world\_flags |= useTempMem;
+155     \}
+156     s\_err = NewGWorld (&gw, 0, &r\_screen, (CTabHandle) 0, (GDHandle) 0, world\_flags);
+157     \textcolor{keywordflow}{if} (!s\_err) \{
+158         record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world} = gw;
+159         \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\_offscreen\_port} (record);
+160         SetOrigin (0, 0);
+161         \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+162         \hyperlink{mactty_8c_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"New GWorld @ %lx;dm"}, gw);
+163     \}
+164     \textcolor{keywordflow}{return} s\_err;
+165 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ac6868a9c0841b9cf67e6ad4b1333b96b}{\index{mactty.\+c@{mactty.\+c}!blink\+\_\+cursor@{blink\+\_\+cursor}}
+\index{blink\+\_\+cursor@{blink\+\_\+cursor}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{blink\+\_\+cursor}]{\setlength{\rightskip}{0pt plus 5cm}short blink\+\_\+cursor (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{long}]{when}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_ac6868a9c0841b9cf67e6ad4b1333b96b}
+
+
+Definition at line 1028 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::attribute, curs\+\_\+pos(), tty\+\_\+record\+::curs\+\_\+state, tty\+\_\+record\+::last\+\_\+cursor, R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, T\+A\+\_\+\+B\+L\+I\+N\+K\+I\+N\+G\+\_\+\+C\+U\+R\+S\+O\+R, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+C\+U\+R\+S\+O\+R, update\+\_\+tty(), tty\+\_\+record\+::x\+\_\+curs, and tty\+\_\+record\+::y\+\_\+curs.
+
+
+
+Referenced by tgetch(), and tty\+\_\+delay\+\_\+output().
+
+
+\begin{DoxyCode}
+1028                                                  \{
+1029     \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+1030 
+1031     \textcolor{keywordflow}{if} ((record->attribute [\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608adff6c3a40f7c317a92d1bedc3e92780c}{TTY\_ATTRIB\_CURSOR}] & 
+      \hyperlink{mactty_8h_a76cf3fc16b7d984b8b129be22991503d}{TA\_BLINKING\_CURSOR})) \{
+1032         \textcolor{keywordflow}{if} (when > record->last\_cursor + GetCaretTime ()) \{
+1033             \hyperlink{mactty_8c_a583dba93dfd738ae8a11a49b9b8e6085}{curs\_pos} (record, record->x\_curs, record->y\_curs, !record->curs\_state);
+1034             record->last\_cursor = when;
+1035             \hyperlink{mactty_8c_ac0b16837332e27f742be785310a9e901}{update\_tty} (window);
+1036         \}
+1037     \}
+1038     \textcolor{keywordflow}{return} 0;
+1039 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a1cbd0236cc27533665fde75bc17a3f36}{\index{mactty.\+c@{mactty.\+c}!calc\+\_\+font\+\_\+sizes@{calc\+\_\+font\+\_\+sizes}}
+\index{calc\+\_\+font\+\_\+sizes@{calc\+\_\+font\+\_\+sizes}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{calc\+\_\+font\+\_\+sizes}]{\setlength{\rightskip}{0pt plus 5cm}static void calc\+\_\+font\+\_\+sizes (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a1cbd0236cc27533665fde75bc17a3f36}
+
+
+Definition at line 336 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::ascent\+\_\+height, tty\+\_\+record\+::char\+\_\+width, do\+\_\+set\+\_\+port\+\_\+font(), and tty\+\_\+record\+::row\+\_\+height.
+
+
+
+Referenced by force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc().
+
+
+\begin{DoxyCode}
+336                                      \{
+337 FontInfo font\_info;
+338 
+339     \hyperlink{mactty_8c_ae882bd201293f0260b391217fd409502}{do\_set\_port\_font} (record);
+340 
+341     GetFontInfo (&font\_info);
+342     record->\hyperlink{structtty__record_a2c85d65343bb145a61dd70945019e42b}{char\_width} = font\_info.widMax;
+343     record->\hyperlink{structtty__record_a079690b95f37c6e5622ec6a8ad94f494}{ascent\_height} = font\_info.ascent + font\_info.leading;
+344     record->\hyperlink{structtty__record_ac0d2808f8a463594770388a1a61d92fc}{row\_height} = record->\hyperlink{structtty__record_a079690b95f37c6e5622ec6a8ad94f494}{ascent\_height} + font\_info.descent;
+345 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a061a5c2ee16ffd5964b2008db085311c}{\index{mactty.\+c@{mactty.\+c}!clear\+\_\+tty@{clear\+\_\+tty}}
+\index{clear\+\_\+tty@{clear\+\_\+tty}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{clear\+\_\+tty}]{\setlength{\rightskip}{0pt plus 5cm}short clear\+\_\+tty (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a061a5c2ee16ffd5964b2008db085311c}
+
+
+Definition at line 1012 of file mactty.\+c.
+
+
+
+References accumulate\+\_\+rect(), tty\+\_\+record\+::curs\+\_\+state, erase\+\_\+rect(), tty\+\_\+record\+::its\+\_\+bits, R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, select\+\_\+offscreen\+\_\+port(), and update\+\_\+tty().
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), clear\+\_\+screen(), and force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc().
+
+
+\begin{DoxyCode}
+1012                                    \{
+1013 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+1014 
+1015     record->curs\_state = 0;
+1016     \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\_offscreen\_port} (record);
+1017     \hyperlink{mactty_8c_a6bdcf11f357229f29d159244fa074cb5}{erase\_rect} (record, &(record->its\_bits.bounds));
+1018     \hyperlink{mactty_8c_a2fed4d184e806b417f14542aafccaaf8}{accumulate\_rect} (record, &(record->its\_bits.bounds));
+1019     \hyperlink{mactty_8c_ac0b16837332e27f742be785310a9e901}{update\_tty} (window);
+1020 
+1021     \textcolor{keywordflow}{return} noErr;
+1022 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ac0640cddeb2f35b19d8148a799edab6b}{\index{mactty.\+c@{mactty.\+c}!clear\+\_\+tty\+\_\+window@{clear\+\_\+tty\+\_\+window}}
+\index{clear\+\_\+tty\+\_\+window@{clear\+\_\+tty\+\_\+window}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{clear\+\_\+tty\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}short clear\+\_\+tty\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{short}]{from\+\_\+x, }
+\item[{short}]{from\+\_\+y, }
+\item[{short}]{to\+\_\+x, }
+\item[{short}]{to\+\_\+y}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_ac0640cddeb2f35b19d8148a799edab6b}
+
+
+Definition at line 1070 of file mactty.\+c.
+
+
+
+References accumulate\+\_\+rect(), D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T, erase\+\_\+rect(), general\+\_\+failure, pos\+\_\+rect(), R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, select\+\_\+offscreen\+\_\+port(), select\+\_\+onscreen\+\_\+window(), and update\+\_\+tty().
+
+
+
+Referenced by cl\+\_\+end(), and cl\+\_\+eos().
+
+
+\begin{DoxyCode}
+1071                             \{
+1072 Rect r;
+1073 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+1074 
+1075     \textcolor{keywordflow}{if} (from\_x > to\_x || from\_y > to\_y) \{
+1076         \textcolor{keywordflow}{return} \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+1077     \}
+1078     \hyperlink{mactty_8c_a1430ed1a2b0850e69f8f5e9027af46cd}{pos\_rect} (record, &r, from\_x, from\_y, to\_x, to\_y);
+1079     \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\_offscreen\_port} (record);
+1080     \hyperlink{mactty_8c_a6bdcf11f357229f29d159244fa074cb5}{erase\_rect} (record, &r);
+1081     \hyperlink{mactty_8c_a2fed4d184e806b417f14542aafccaaf8}{accumulate\_rect} (record, &r);
+1082     \textcolor{keywordflow}{if} (\hyperlink{mactty_8c_a059829b8cc391048ca220b5c8e8d353a}{DRAW\_DIRECT}) \{
+1083         \hyperlink{mactty_8c_ac0b16837332e27f742be785310a9e901}{update\_tty} (window);
+1084     \} \textcolor{keywordflow}{else}
+1085         \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+1086     \textcolor{keywordflow}{return} noErr;
+1087 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a6ddce6b80efd1881b0cf24b5fbc9bcd5}{\index{mactty.\+c@{mactty.\+c}!copy\+\_\+bits@{copy\+\_\+bits}}
+\index{copy\+\_\+bits@{copy\+\_\+bits}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{copy\+\_\+bits}]{\setlength{\rightskip}{0pt plus 5cm}static void copy\+\_\+bits (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{Rect $\ast$}]{bounds, }
+\item[{short}]{xfer\+\_\+mode, }
+\item[{Rgn\+Handle}]{mask\+\_\+rgn}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a6ddce6b80efd1881b0cf24b5fbc9bcd5}
+
+
+Definition at line 459 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::its\+\_\+bits, tty\+\_\+record\+::its\+\_\+window, tty\+\_\+record\+::offscreen\+\_\+world, and tty\+\_\+record\+::uses\+\_\+gworld.
+
+
+
+Referenced by do\+\_\+add\+\_\+string(), and update\+\_\+tty().
+
+
+\begin{DoxyCode}
+460 \{
+461     GWorldFlags pix\_state;
+462     BitMap * source;
+463 
+464     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld}) \{
+465         pix\_state = GetPixelsState (GetGWorldPixMap (record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world}));
+466         LockPixels (GetGWorldPixMap (record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world}));
+467         source = (BitMapPtr) *GetGWorldPixMap(record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world});
+468     \}
+469     \textcolor{keywordflow}{else}    source = &record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits};
+470 
+471     SetPortWindowPort(record->\hyperlink{structtty__record_a96fac4cadd626dc4cfd9e0d3f64709a8}{its\_window});
+472     CopyBits(source, GetPortBitMapForCopyBits(GetWindowPort(record->\hyperlink{structtty__record_a96fac4cadd626dc4cfd9e0d3f64709a8}{its\_window})),
+473         bounds, bounds, xfer\_mode, mask\_rgn);
+474 
+475     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld}) \{
+476         SetPixelsState (GetGWorldPixMap (record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world}), pix\_state);
+477     \}
+478 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ab2f52b1873ab0b881ce7c9cc6183a874}{\index{mactty.\+c@{mactty.\+c}!create\+\_\+tty@{create\+\_\+tty}}
+\index{create\+\_\+tty@{create\+\_\+tty}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{create\+\_\+tty}]{\setlength{\rightskip}{0pt plus 5cm}short create\+\_\+tty (
+\begin{DoxyParamCaption}
+\item[{Window\+Ref $\ast$}]{window, }
+\item[{short}]{resource\+\_\+id, }
+\item[{Boolean}]{in\+\_\+color}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_ab2f52b1873ab0b881ce7c9cc6183a874}
+
+
+Definition at line 217 of file mactty.\+c.
+
+
+
+References destroy\+\_\+tty(), empty\+\_\+rect(), tty\+\_\+record\+::its\+\_\+window, mem\+\_\+err(), and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+218 \{
+219     \hyperlink{structtty__record}{tty\_record} * record;
+220     Boolean was\_allocated = !!*window;
+221 
+222     \textcolor{keywordflow}{if} (in\_color) \{
+223         *window = GetNewCWindow (resource\_id, (Ptr) *window, (WindowRef) -1L);
+224     \} \textcolor{keywordflow}{else} \{
+225         *window = GetNewWindow (resource\_id, (Ptr) *window, (WindowRef) -1L);
+226     \}
+227     \textcolor{keywordflow}{if} (!*window) \{
+228         \textcolor{keywordflow}{return} \hyperlink{mactty_8c_ae6b9ab9b7a3ab8644932ea3bb458df79}{mem\_err} ();
+229     \}
+230 
+231     record = (\hyperlink{structtty__record}{tty\_record} *) NewPtrClear (\textcolor{keyword}{sizeof} (\hyperlink{structtty__record}{tty\_record}));
+232     \textcolor{keywordflow}{if} (!record) \{
+233 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+234         \textcolor{keywordflow}{if} (was\_allocated) \{
+235             CloseWindow (*window);
+236         \} \textcolor{keywordflow}{else} \{
+237 \textcolor{preprocessor}{#endif}
+238             DisposeWindow (*window);
+239 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+240         \}
+241 \textcolor{preprocessor}{#endif}
+242         \textcolor{keywordflow}{return} \hyperlink{mactty_8c_ae6b9ab9b7a3ab8644932ea3bb458df79}{mem\_err} ();
+243     \}
+244     record->\hyperlink{structtty__record_a96fac4cadd626dc4cfd9e0d3f64709a8}{its\_window} = *window;
+245     SetWRefCon (*window, (\textcolor{keywordtype}{long}) record);
+246     record->\hyperlink{structtty__record_a3d92b2b933fbf1829bff1560b6888e2f}{was\_allocated} = was\_allocated;
+247     record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.baseAddr = (\textcolor{keywordtype}{char} *)0;
+248     record->\hyperlink{structtty__record_acacb69c42d33de982846359bcc476767}{curs\_state} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+249 
+250 \textcolor{comment}{/*}
+251 \textcolor{comment}{ * We need to keep the window world around if we switch worlds}
+252 \textcolor{comment}{ */}
+253     record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world} = (GWorldPtr) 0;
+254     record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld} = in\_color;
+255     \textcolor{keywordflow}{if} (in\_color) \{
+256     GDHandle gh;
+257 
+258         SetPortWindowPort(*window);
+259         GetGWorld(&(record->\hyperlink{structtty__record_ad4b8e1a3473cbb12a1a5546d5cd5c56d}{its\_window\_world}), &gh);
+260     \} \textcolor{keywordflow}{else} \{
+261         record->\hyperlink{structtty__record_ad4b8e1a3473cbb12a1a5546d5cd5c56d}{its\_window\_world} = (GWorldPtr)0;
+262     \}
+263 
+264 \textcolor{preprocessor}{#if CLIP\_RECT\_ONLY}
+265     \hyperlink{mactty_8c_a7313e36ac71d2f2a41098eb02c2f0557}{empty\_rect} (&(record->\hyperlink{structtty__record_a023de9278dd71dd9872bd6de0f3aed05}{invalid\_rect}));
+266 \textcolor{preprocessor}{#else}
+267     record->invalid\_part = NewRgn ();
+268     \textcolor{keywordflow}{if} (!record->invalid\_part) \{
+269         \textcolor{keywordflow}{return} \hyperlink{mactty_8c_aaf9ac2a85080f86e67a695302976a45c}{destroy\_tty} (*window);
+270     \}
+271 \textcolor{preprocessor}{#endif}
+272 
+273     \textcolor{keywordflow}{return} noErr;
+274 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a583dba93dfd738ae8a11a49b9b8e6085}{\index{mactty.\+c@{mactty.\+c}!curs\+\_\+pos@{curs\+\_\+pos}}
+\index{curs\+\_\+pos@{curs\+\_\+pos}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{curs\+\_\+pos}]{\setlength{\rightskip}{0pt plus 5cm}static void curs\+\_\+pos (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{short}]{x\+\_\+pos, }
+\item[{short}]{y\+\_\+pos, }
+\item[{short}]{to\+\_\+state}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a583dba93dfd738ae8a11a49b9b8e6085}
+
+
+Definition at line 644 of file mactty.\+c.
+
+
+
+References accumulate\+\_\+rect(), tty\+\_\+record\+::curs\+\_\+state, D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T, pos\+\_\+rect(), save\+\_\+port(), select\+\_\+onscreen\+\_\+window(), and use\+\_\+port().
+
+
+
+Referenced by add\+\_\+tty\+\_\+char(), add\+\_\+tty\+\_\+string(), blink\+\_\+cursor(), and move\+\_\+tty\+\_\+cursor().
+
+
+\begin{DoxyCode}
+644                                                                         \{
+645 Rect r;
+646 
+647     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_acacb69c42d33de982846359bcc476767}{curs\_state} == to\_state) \{
+648         \textcolor{keywordflow}{return};
+649     \}
+650     record->\hyperlink{structtty__record_acacb69c42d33de982846359bcc476767}{curs\_state} = to\_state;
+651     \hyperlink{mactty_8c_a1430ed1a2b0850e69f8f5e9027af46cd}{pos\_rect} (record, &r, x\_pos, y\_pos, x\_pos, y\_pos);
+652 
+653     \textcolor{keywordflow}{if} (\hyperlink{mactty_8c_a059829b8cc391048ca220b5c8e8d353a}{DRAW\_DIRECT}) \{
+654     \textcolor{keywordtype}{void} *old\_port;
+655 
+656         \hyperlink{mactty_8c_ad6ff43bd67b5ce275aca82ab24822f23}{save\_port} (record, &old\_port);
+657         \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+658         InvertRect (&r);
+659         \hyperlink{mactty_8c_a8cad63504a43179f53e28923934e3219}{use\_port} (record, old\_port);
+660     \} \textcolor{keywordflow}{else} \{
+661         \hyperlink{mactty_8c_a2fed4d184e806b417f14542aafccaaf8}{accumulate\_rect} (record, &r);
+662     \}
+663 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a9fa774f0b972a9bf9aefe4482ade4ae9}{\index{mactty.\+c@{mactty.\+c}!deallocate\+\_\+gworld@{deallocate\+\_\+gworld}}
+\index{deallocate\+\_\+gworld@{deallocate\+\_\+gworld}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{deallocate\+\_\+gworld}]{\setlength{\rightskip}{0pt plus 5cm}static short deallocate\+\_\+gworld (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a9fa774f0b972a9bf9aefe4482ade4ae9}
+
+
+Definition at line 172 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::offscreen\+\_\+world.
+
+
+
+Referenced by free\+\_\+bits().
+
+
+\begin{DoxyCode}
+172                                        \{
+173     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world}) \{
+174         DisposeGWorld (record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world});
+175         record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world} = (GWorldPtr) 0;
+176     \}
+177     \textcolor{keywordflow}{return} noErr;
+178 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_aaf9ac2a85080f86e67a695302976a45c}{\index{mactty.\+c@{mactty.\+c}!destroy\+\_\+tty@{destroy\+\_\+tty}}
+\index{destroy\+\_\+tty@{destroy\+\_\+tty}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{destroy\+\_\+tty}]{\setlength{\rightskip}{0pt plus 5cm}short destroy\+\_\+tty (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_aaf9ac2a85080f86e67a695302976a45c}
+
+
+Definition at line 296 of file mactty.\+c.
+
+
+
+References dispose\+\_\+ptr(), free\+\_\+bits(), and R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S.
+
+
+
+Referenced by create\+\_\+tty().
+
+
+\begin{DoxyCode}
+296                                \{
+297 \textcolor{keywordtype}{short} s\_err;
+298 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+299 
+300     s\_err = \hyperlink{mactty_8c_a9612af7028a5a33733e255319f5d9e74}{free\_bits} (record);
+301     \textcolor{keywordflow}{if} (!s\_err) \{
+302 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+303         \textcolor{keywordflow}{if} (record->was\_allocated) \{
+304             CloseWindow (window);
+305         \} \textcolor{keywordflow}{else} \{
+306 \textcolor{preprocessor}{#endif}
+307             DisposeWindow (window);
+308 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+309         \}
+310 \textcolor{preprocessor}{#endif}
+311         s\_err = \hyperlink{mactty_8c_a517ba4c6dcc7e719ed75dfa7e1c3b3b8}{dispose\_ptr} (record);
+312     \}
+313     
+314     \textcolor{keywordflow}{return} s\_err;
+315 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a517ba4c6dcc7e719ed75dfa7e1c3b3b8}{\index{mactty.\+c@{mactty.\+c}!dispose\+\_\+ptr@{dispose\+\_\+ptr}}
+\index{dispose\+\_\+ptr@{dispose\+\_\+ptr}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{dispose\+\_\+ptr}]{\setlength{\rightskip}{0pt plus 5cm}static short dispose\+\_\+ptr (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{ptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a517ba4c6dcc7e719ed75dfa7e1c3b3b8}
+
+
+Definition at line 99 of file mactty.\+c.
+
+
+
+Referenced by destroy\+\_\+tty(), and free\+\_\+bits().
+
+
+\begin{DoxyCode}
+99                         \{
+100     \textcolor{keywordflow}{if} (!ptr) \{
+101         \textcolor{keywordflow}{return} noErr; \textcolor{comment}{/* Silently accept disposing nulls */}
+102     \}
+103     DisposePtr (ptr);
+104     \textcolor{keywordflow}{return} MemError ();
+105 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a51ee2506c71ac55061555d598d4d2d88}{\index{mactty.\+c@{mactty.\+c}!do\+\_\+add\+\_\+cursor@{do\+\_\+add\+\_\+cursor}}
+\index{do\+\_\+add\+\_\+cursor@{do\+\_\+add\+\_\+cursor}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{do\+\_\+add\+\_\+cursor}]{\setlength{\rightskip}{0pt plus 5cm}static void do\+\_\+add\+\_\+cursor (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{short}]{x\+\_\+pos}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a51ee2506c71ac55061555d598d4d2d88}
+
+
+Definition at line 759 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::attribute, tty\+\_\+record\+::its\+\_\+window, scroll\+\_\+tty(), T\+A\+\_\+\+I\+N\+H\+I\+B\+I\+T\+\_\+\+V\+E\+R\+T\+\_\+\+S\+C\+R\+O\+L\+L, T\+A\+\_\+\+W\+R\+A\+P\+\_\+\+A\+R\+O\+U\+N\+D, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+F\+L\+A\+G\+S, tty\+\_\+record\+::x\+\_\+curs, tty\+\_\+record\+::x\+\_\+size, tty\+\_\+record\+::y\+\_\+curs, and tty\+\_\+record\+::y\+\_\+size.
+
+
+
+Referenced by add\+\_\+tty\+\_\+char(), and add\+\_\+tty\+\_\+string().
+
+
+\begin{DoxyCode}
+759                                                 \{
+760 
+761     record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} = x\_pos;
+762     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} >= record->\hyperlink{structtty__record_a39cb4eed8f87f26b1ab56d6d65d051e2}{x\_size}) \{
+763         \textcolor{keywordflow}{if} (0L != (record->\hyperlink{structtty__record_ae4ea37472a5d6cdcb3d2022780a8d75d}{attribute} [\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608a1df7281ec9ce854cabde370e5eb45296}{TTY\_ATTRIB\_FLAGS}] & 
+      \hyperlink{mactty_8h_a99569ea5db9d1b664478c3b4757c3f71}{TA\_WRAP\_AROUND})) \{
+764             record->\hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs} ++;
+765             record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} = 0;
+766             \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs} >= record->\hyperlink{structtty__record_aa44dcd9633186917f63209752768be6d}{y\_size}) \{
+767                 \textcolor{keywordflow}{if} (0L != (record->\hyperlink{structtty__record_ae4ea37472a5d6cdcb3d2022780a8d75d}{attribute} [\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608a1df7281ec9ce854cabde370e5eb45296}{TTY\_ATTRIB\_FLAGS}] &
+768                     \hyperlink{mactty_8h_a6e3298af2bcc8c763b7195bdcb7e5b79}{TA\_INHIBIT\_VERT\_SCROLL})) \{
+769                     record->\hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs} = record->\hyperlink{structtty__record_aa44dcd9633186917f63209752768be6d}{y\_size};
+770                 \} \textcolor{keywordflow}{else} \{
+771                     \hyperlink{mactty_8c_a9f84b3b8c71ce4abb340458ecccb9791}{scroll\_tty} (record->\hyperlink{structtty__record_a96fac4cadd626dc4cfd9e0d3f64709a8}{its\_window}, 0, 1 + record->
+      \hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs} -
+772                         record->\hyperlink{structtty__record_aa44dcd9633186917f63209752768be6d}{y\_size});
+773                 \}
+774             \}
+775         \} \textcolor{keywordflow}{else} \{
+776             record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} = record->\hyperlink{structtty__record_a39cb4eed8f87f26b1ab56d6d65d051e2}{x\_size};
+777         \}
+778     \}
+779 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a36c5c3883b4fd68d5c0e1ee9398b95ff}{\index{mactty.\+c@{mactty.\+c}!do\+\_\+add\+\_\+string@{do\+\_\+add\+\_\+string}}
+\index{do\+\_\+add\+\_\+string@{do\+\_\+add\+\_\+string}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{do\+\_\+add\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}static void do\+\_\+add\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{char $\ast$}]{str, }
+\item[{short}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a36c5c3883b4fd68d5c0e1ee9398b95ff}
+
+
+Definition at line 732 of file mactty.\+c.
+
+
+
+References accumulate\+\_\+rect(), tty\+\_\+record\+::ascent\+\_\+height, tty\+\_\+record\+::char\+\_\+width, copy\+\_\+bits(), D\+R\+A\+W\+\_\+\+D\+I\+R\+E\+C\+T, pos\+\_\+rect(), tty\+\_\+record\+::row\+\_\+height, select\+\_\+offscreen\+\_\+port(), select\+\_\+onscreen\+\_\+window(), tty\+\_\+record\+::x\+\_\+curs, and tty\+\_\+record\+::y\+\_\+curs.
+
+
+
+Referenced by add\+\_\+tty\+\_\+char(), and add\+\_\+tty\+\_\+string().
+
+
+\begin{DoxyCode}
+732                                                          \{
+733 Rect r;
+734 
+735     \textcolor{keywordflow}{if} (len < 1) \{
+736         \textcolor{keywordflow}{return};
+737     \}
+738     \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\_offscreen\_port} (record);
+739 
+740     MoveTo (record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} * record->\hyperlink{structtty__record_a2c85d65343bb145a61dd70945019e42b}{char\_width}, record->\hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs} *
+741         record->\hyperlink{structtty__record_ac0d2808f8a463594770388a1a61d92fc}{row\_height} + record->\hyperlink{structtty__record_a079690b95f37c6e5622ec6a8ad94f494}{ascent\_height});
+742     DrawText (str, 0, len);
+743 
+744     \hyperlink{mactty_8c_a1430ed1a2b0850e69f8f5e9027af46cd}{pos\_rect} (record, &r, record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs}, record->\hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs},
+745         record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} + len - 1, record->\hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs});
+746     \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+747     \textcolor{keywordflow}{if} (\hyperlink{mactty_8c_a059829b8cc391048ca220b5c8e8d353a}{DRAW\_DIRECT}) \{
+748         \hyperlink{mactty_8c_a6ddce6b80efd1881b0cf24b5fbc9bcd5}{copy\_bits} (record, &r, srcCopy, (RgnHandle)0);
+749     \} \textcolor{keywordflow}{else} \{
+750         \hyperlink{mactty_8c_a2fed4d184e806b417f14542aafccaaf8}{accumulate\_rect} (record, &r);
+751     \}
+752 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a6d40a86558d87d6a7bf4df7f99e38c51}{\index{mactty.\+c@{mactty.\+c}!do\+\_\+control@{do\+\_\+control}}
+\index{do\+\_\+control@{do\+\_\+control}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{do\+\_\+control}]{\setlength{\rightskip}{0pt plus 5cm}static void do\+\_\+control (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{short}]{character}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a6d40a86558d87d6a7bf4df7f99e38c51}
+
+
+Definition at line 786 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::attribute, C\+H\+A\+R\+\_\+\+B\+E\+L\+L, C\+H\+A\+R\+\_\+\+B\+S, C\+H\+A\+R\+\_\+\+C\+R, C\+H\+A\+R\+\_\+\+L\+F, tty\+\_\+record\+::its\+\_\+window, scroll\+\_\+tty(), T\+A\+\_\+\+C\+R\+\_\+\+A\+D\+D\+\_\+\+N\+L, T\+A\+\_\+\+N\+L\+\_\+\+A\+D\+D\+\_\+\+C\+R, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+C\+U\+R\+S\+O\+R, tty\+\_\+nhbell(), tty\+\_\+record\+::x\+\_\+curs, tty\+\_\+record\+::y\+\_\+curs, and tty\+\_\+record\+::y\+\_\+size.
+
+
+
+Referenced by add\+\_\+tty\+\_\+char(), and add\+\_\+tty\+\_\+string().
+
+
+\begin{DoxyCode}
+786                                                  \{
+787     \textcolor{keywordtype}{int} recurse = 0;
+788 
+789 \textcolor{comment}{/*}
+790 \textcolor{comment}{ * Check recursion because nl\_add\_cr and cr\_add\_nl may both be set and invoke each other}
+791 \textcolor{comment}{ */}
+792     \textcolor{keywordflow}{do} \{
+793         \textcolor{keywordflow}{switch} (character) \{
+794         \textcolor{keywordflow}{case} \hyperlink{mactty_8h_a96f70aecaff003e01fc8bcf2f070c5ef}{CHAR\_CR} :
+795             record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} = 0;
+796             \textcolor{keywordflow}{if} (!recurse && (record->\hyperlink{structtty__record_ae4ea37472a5d6cdcb3d2022780a8d75d}{attribute} [\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608adff6c3a40f7c317a92d1bedc3e92780c}{TTY\_ATTRIB\_CURSOR}] & 
+      \hyperlink{mactty_8h_a5b220e34493bc3f394e6a9e56cf304c3}{TA\_CR\_ADD\_NL})) \{
+797                 recurse = 1;
+798             \}
+799             \textcolor{keywordflow}{else} \{
+800                 recurse = 0;
+801                 \textcolor{keywordflow}{break};
+802             \}   \textcolor{comment}{/* FALL-THROUGH: if CR-LF, don't bother with loop */}
+803         \textcolor{keywordflow}{case} \hyperlink{mactty_8h_ab278969e0bc4296056adb7b18aa43227}{CHAR\_LF} :
+804             record->\hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs}++;
+805             \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs} >= record->\hyperlink{structtty__record_aa44dcd9633186917f63209752768be6d}{y\_size}) \{
+806                 \hyperlink{mactty_8c_a9f84b3b8c71ce4abb340458ecccb9791}{scroll\_tty} (record->\hyperlink{structtty__record_a96fac4cadd626dc4cfd9e0d3f64709a8}{its\_window}, 0, 1 + record->
+      \hyperlink{structtty__record_a76f07e1747d0f844f3a1f428b4677032}{y\_curs} - record->\hyperlink{structtty__record_aa44dcd9633186917f63209752768be6d}{y\_size});
+807             \}
+808             \textcolor{keywordflow}{if} (!recurse && (record->\hyperlink{structtty__record_ae4ea37472a5d6cdcb3d2022780a8d75d}{attribute} [\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608adff6c3a40f7c317a92d1bedc3e92780c}{TTY\_ATTRIB\_CURSOR}] & 
+      \hyperlink{mactty_8h_ac7e4e7608d375ecabccf9cdf0a7cc888}{TA\_NL\_ADD\_CR})) \{
+809                 character = \hyperlink{mactty_8h_a96f70aecaff003e01fc8bcf2f070c5ef}{CHAR\_CR};
+810                 recurse = 1;
+811             \}
+812             \textcolor{keywordflow}{else} recurse = 0;
+813             \textcolor{keywordflow}{break};
+814         \textcolor{keywordflow}{case} \hyperlink{mactty_8h_a40b17cd359bc432be0dc83617cc4bea1}{CHAR\_BELL} :
+815             \hyperlink{mactty_8h_a8318f9158c219dbf8bee6773079e6fcc}{tty\_nhbell}();
+816             \textcolor{keywordflow}{break};
+817         \textcolor{keywordflow}{case} \hyperlink{mactty_8h_a7154bc375ffe132355526d649296cca4}{CHAR\_BS} :
+818             \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} > 0)
+819                 record->\hyperlink{structtty__record_a71665a1dfb9be5900cc5849c78025794}{x\_curs} --;
+820         \textcolor{keywordflow}{default} :
+821             \textcolor{keywordflow}{break};
+822         \}
+823     \} \textcolor{keywordflow}{while} (recurse);
+824 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ae882bd201293f0260b391217fd409502}{\index{mactty.\+c@{mactty.\+c}!do\+\_\+set\+\_\+port\+\_\+font@{do\+\_\+set\+\_\+port\+\_\+font}}
+\index{do\+\_\+set\+\_\+port\+\_\+font@{do\+\_\+set\+\_\+port\+\_\+font}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{do\+\_\+set\+\_\+port\+\_\+font}]{\setlength{\rightskip}{0pt plus 5cm}static void do\+\_\+set\+\_\+port\+\_\+font (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_ae882bd201293f0260b391217fd409502}
+
+
+Definition at line 319 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::attribute, tty\+\_\+record\+::font\+\_\+number, tty\+\_\+record\+::font\+\_\+size, T\+A\+\_\+\+O\+V\+E\+R\+S\+T\+R\+I\+K\+E, and T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+F\+L\+A\+G\+S.
+
+
+
+Referenced by calc\+\_\+font\+\_\+sizes(), and force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc().
+
+
+\begin{DoxyCode}
+319                                       \{
+320 
+321     PenNormal ();
+322     TextFont (record->\hyperlink{structtty__record_a4ff99f974e680a360f9b2d8ac95947a4}{font\_number});
+323     TextSize (record->\hyperlink{structtty__record_a715bf280d2dbfe8b29a0c18271e13410}{font\_size});
+324     \textcolor{keywordflow}{if} (0L != (record->\hyperlink{structtty__record_ae4ea37472a5d6cdcb3d2022780a8d75d}{attribute} [\hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608a1df7281ec9ce854cabde370e5eb45296}{TTY\_ATTRIB\_FLAGS}] & 
+      \hyperlink{mactty_8h_aa5a3e80435b2efa854c84aa7ff517a6b}{TA\_OVERSTRIKE})) \{
+325         TextMode (srcOr);
+326     \} \textcolor{keywordflow}{else} \{
+327         TextMode (srcCopy);
+328     \}
+329 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{\index{mactty.\+c@{mactty.\+c}!dprintf@{dprintf}}
+\index{dprintf@{dprintf}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{dprintf}]{\setlength{\rightskip}{0pt plus 5cm}void dprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a3dd9b2ac1832b3e4c3baadd9cb8d5018}
+
+
+Definition at line 18 of file dprintf.\+c.
+
+
+
+References flag\+::debug, D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R, D\+O\+\_\+\+P\+L\+I\+N\+E, flags, iflags, Nh\+Window\+::its\+\_\+window, Key\+Down(), mac\+Flags, the\+Windows, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, and instance\+\_\+flags\+::window\+\_\+inited.
+
+
+
+Referenced by allocate\+\_\+offscreen\+\_\+world(), and force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc().
+
+
+\begin{DoxyCode}
+19 \{
+20 \textcolor{keywordtype}{char} buffer [500];
+21 va\_list list;
+22 \textcolor{keywordtype}{int} doit;
+23 \textcolor{preprocessor}{#define DO\_DEBUGSTR 1}
+24 \textcolor{preprocessor}{#define DO\_PLINE 2}
+25 
+26     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ac2d732f796f18d283c1675e7fa3b7dd5}{debug}) \{
+27         doit = 0;
+28         \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.hasDebugger && \hyperlink{dprintf_8c_abf2f468ea79cbc94987e1fb0f27504a5}{KeyDown} (0x39)) \{                    \textcolor{comment}{/* Caps Lock */}
+29             doit = \hyperlink{dprintf_8c_a8268088d95b0fccd54961b2226ff3212}{DO\_DEBUGSTR};
+30         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dprintf_8c_abf2f468ea79cbc94987e1fb0f27504a5}{KeyDown} (0x3B) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2fc6c78c4c5f6e1d0027ac575135426f}{window\_inited} &&          \textcolor{comment}{/* Control 
+      */}
+31             (\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} != -1) && \hyperlink{macwin_8h_a114fc4587c1401f816a5510dc026eec0}{theWindows} [\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}].
+      \hyperlink{structNhWindow_a68dc7295b79e14f4a78a0040c15888e5}{its\_window}) \{
+32             doit = \hyperlink{dprintf_8c_a453cad18673746c1daed12917dcb594e}{DO\_PLINE};
+33         \}
+34         
+35         \textcolor{keywordflow}{if} (doit) \{
+36             va\_start (list, format);
+37             vsprintf (&buffer [1], format, list);
+38             va\_end (list) ;
+39 
+40             \textcolor{keywordflow}{if} (doit == \hyperlink{dprintf_8c_a8268088d95b0fccd54961b2226ff3212}{DO\_DEBUGSTR}) \{
+41                 buffer [0] = strlen (&buffer [1]);
+42                 DebugStr ((\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} *) buffer);
+43             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (doit == \hyperlink{dprintf_8c_a453cad18673746c1daed12917dcb594e}{DO\_PLINE})        
+44                 pline (\textcolor{stringliteral}{"%s"}, &buffer [1]);
+45         \}
+46     \}
+47 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a7313e36ac71d2f2a41098eb02c2f0557}{\index{mactty.\+c@{mactty.\+c}!empty\+\_\+rect@{empty\+\_\+rect}}
+\index{empty\+\_\+rect@{empty\+\_\+rect}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{empty\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}static void empty\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{Rect $\ast$}]{r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a7313e36ac71d2f2a41098eb02c2f0557}
+
+
+Definition at line 75 of file mactty.\+c.
+
+
+
+Referenced by create\+\_\+tty(), and update\+\_\+tty().
+
+
+\begin{DoxyCode}
+75                      \{
+76     r->right = -20000;
+77     r->left = 20000;
+78     r->top = 20000;
+79     r->bottom = -20000;
+80 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a6bdcf11f357229f29d159244fa074cb5}{\index{mactty.\+c@{mactty.\+c}!erase\+\_\+rect@{erase\+\_\+rect}}
+\index{erase\+\_\+rect@{erase\+\_\+rect}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{erase\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}static void erase\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{Rect $\ast$}]{area}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a6bdcf11f357229f29d159244fa074cb5}
+
+
+Definition at line 485 of file mactty.\+c.
+
+
+
+References \+\_\+mt\+\_\+window, game\+\_\+active, iflags, tty\+\_\+record\+::its\+\_\+window, u, and you\+::uhp.
+
+
+
+Referenced by clear\+\_\+tty(), and clear\+\_\+tty\+\_\+window().
+
+
+\begin{DoxyCode}
+485                                             \{
+486     \textcolor{keywordflow}{if} (\hyperlink{mactty_8c_a312aaf7b101e387746a054cfcec0266b}{game\_active} && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} > 0 && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.use\_stone && record->
+      \hyperlink{structtty__record_a96fac4cadd626dc4cfd9e0d3f64709a8}{its\_window} == \hyperlink{mactty_8c_abfbaff06a50aea7b2035a3c443bb63ce}{\_mt\_window}) \{
+487         PixPatHandle ppat;
+488         
+489         ppat = GetPixPat(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.use\_stone + 127); \textcolor{comment}{/* find which pat to get */}
+490         \textcolor{keywordflow}{if} (ppat) \{ \textcolor{comment}{/* in game window, using backgroung pattern, and have pattern */}
+491             FillCRect (area, ppat);
+492             DisposePixPat (ppat);
+493             \textcolor{keywordflow}{return};
+494         \}
+495     \}
+496     EraseRect (area);
+497 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a59d8b4c6d33b9ab3bcfe3f341d7310c6}{\index{mactty.\+c@{mactty.\+c}!force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc@{force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc}}
+\index{force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc@{force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc}]{\setlength{\rightskip}{0pt plus 5cm}short force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a59d8b4c6d33b9ab3bcfe3f341d7310c6}
+
+
+Definition at line 505 of file mactty.\+c.
+
+
+
+References alloc\+\_\+bits(), calc\+\_\+font\+\_\+sizes(), clear\+\_\+tty(), do\+\_\+set\+\_\+port\+\_\+font(), dprintf(), free\+\_\+bits(), R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, and select\+\_\+offscreen\+\_\+port().
+
+
+
+Referenced by init\+\_\+tty\+\_\+number().
+
+
+\begin{DoxyCode}
+505                                                       \{
+506 \textcolor{keywordtype}{short} s\_err;
+507 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+508 
+509     s\_err = \hyperlink{mactty_8c_a9612af7028a5a33733e255319f5d9e74}{free\_bits} (record);
+510     \textcolor{keywordflow}{if} (s\_err) \{
+511         \textcolor{keywordflow}{return} s\_err;
+512     \}
+513     \hyperlink{mactty_8c_a1cbd0236cc27533665fde75bc17a3f36}{calc\_font\_sizes} (record);
+514 
+515     s\_err = \hyperlink{mactty_8c_a83542ffdde7f4df3481441a76322cd56}{alloc\_bits} (record);
+516     \textcolor{keywordflow}{if} (s\_err) \{
+517 \textcolor{comment}{/*}
+518 \textcolor{comment}{ * Catastrophe! We could not allocate memory for the bitmap! Things may go very}
+519 \textcolor{comment}{ * much downhill from here!}
+520 \textcolor{comment}{ */}
+521         \hyperlink{mactty_8c_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"alloc\_bits returned null in force\_tty\_coordinate\_system\_recalc!"});
+522         \textcolor{keywordflow}{return} s\_err;
+523     \}
+524     \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\_offscreen\_port} (record);
+525     \hyperlink{mactty_8c_ae882bd201293f0260b391217fd409502}{do\_set\_port\_font} (record);
+526     \textcolor{keywordflow}{return} \hyperlink{mactty_8c_a061a5c2ee16ffd5964b2008db085311c}{clear\_tty} (window);
+527 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a9612af7028a5a33733e255319f5d9e74}{\index{mactty.\+c@{mactty.\+c}!free\+\_\+bits@{free\+\_\+bits}}
+\index{free\+\_\+bits@{free\+\_\+bits}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{free\+\_\+bits}]{\setlength{\rightskip}{0pt plus 5cm}static short free\+\_\+bits (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a9612af7028a5a33733e255319f5d9e74}
+
+
+Definition at line 187 of file mactty.\+c.
+
+
+
+References deallocate\+\_\+gworld(), dispose\+\_\+ptr(), tty\+\_\+record\+::its\+\_\+bits, tty\+\_\+record\+::offscreen\+\_\+port, and tty\+\_\+record\+::uses\+\_\+gworld.
+
+
+
+Referenced by destroy\+\_\+tty(), and force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc().
+
+
+\begin{DoxyCode}
+187                                \{
+188     \textcolor{keywordtype}{short} s\_err;
+189 
+190     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld}) \{
+191         s\_err = \hyperlink{mactty_8c_a9fa774f0b972a9bf9aefe4482ade4ae9}{deallocate\_gworld} (record);
+192 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+193     \} \textcolor{keywordflow}{else} \{
+194         s\_err = \hyperlink{mactty_8c_a517ba4c6dcc7e719ed75dfa7e1c3b3b8}{dispose\_ptr} (record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.baseAddr);
+195         \textcolor{keywordflow}{if} (!s\_err) \{
+196             record->\hyperlink{structtty__record_a31376f33821be3f31ed01040d5888a72}{its\_bits}.baseAddr = (\textcolor{keywordtype}{char} *)0;
+197             \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ac93a01eec2960fa101e62517d59d0837}{offscreen\_port}) \{
+198                 ClosePort (record->\hyperlink{structtty__record_ac93a01eec2960fa101e62517d59d0837}{offscreen\_port});
+199                 s\_err = \hyperlink{mactty_8c_a517ba4c6dcc7e719ed75dfa7e1c3b3b8}{dispose\_ptr} (record->\hyperlink{structtty__record_ac93a01eec2960fa101e62517d59d0837}{offscreen\_port});
+200                 \textcolor{keywordflow}{if} (!s\_err) \{
+201                     record->\hyperlink{structtty__record_ac93a01eec2960fa101e62517d59d0837}{offscreen\_port} = (GrafPtr) 0;
+202                 \}
+203             \}
+204         \}
+205 \textcolor{preprocessor}{#endif}
+206     \}
+207     \textcolor{keywordflow}{return} s\_err;
+208 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a187b36e5499a1258ebe1b9cbfcfcee51}{\index{mactty.\+c@{mactty.\+c}!get\+\_\+invalid\+\_\+region@{get\+\_\+invalid\+\_\+region}}
+\index{get\+\_\+invalid\+\_\+region@{get\+\_\+invalid\+\_\+region}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{get\+\_\+invalid\+\_\+region}]{\setlength{\rightskip}{0pt plus 5cm}short get\+\_\+invalid\+\_\+region (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{Rect $\ast$}]{inval\+\_\+rect}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a187b36e5499a1258ebe1b9cbfcfcee51}
+
+
+Definition at line 616 of file mactty.\+c.
+
+
+
+References general\+\_\+failure, tty\+\_\+record\+::invalid\+\_\+rect, and R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S.
+
+
+
+Referenced by Handle\+Update().
+
+
+\begin{DoxyCode}
+616                                                               \{
+617     \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+618 \textcolor{preprocessor}{#if CLIP\_RECT\_ONLY}
+619     \textcolor{keywordflow}{if} (record->invalid\_rect.right <= record->invalid\_rect.left ||
+620         record->invalid\_rect.bottom <= record->invalid\_rect.top) \{
+621         \textcolor{keywordflow}{return} \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+622     \}
+623     *inval\_rect = record->invalid\_rect;
+624 \textcolor{preprocessor}{#else}
+625     \textcolor{keywordflow}{if} (EmptyRgn (record->invalid\_part)) \{
+626         \textcolor{keywordflow}{return} \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+627     \}
+628     *inval\_rect = (*(record->invalid\_part))->rgnBBox;
+629 \textcolor{preprocessor}{#endif}
+630     \textcolor{keywordflow}{return} noErr;
+631 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a439b5cf18a51d246e1822b9ac42cf7fe}{\index{mactty.\+c@{mactty.\+c}!get\+\_\+tty\+\_\+attrib@{get\+\_\+tty\+\_\+attrib}}
+\index{get\+\_\+tty\+\_\+attrib@{get\+\_\+tty\+\_\+attrib}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{get\+\_\+tty\+\_\+attrib}]{\setlength{\rightskip}{0pt plus 5cm}short get\+\_\+tty\+\_\+attrib (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{{\bf tty\+\_\+attrib}}]{attrib, }
+\item[{long $\ast$}]{value}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a439b5cf18a51d246e1822b9ac42cf7fe}
+
+
+Definition at line 909 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::attribute, general\+\_\+failure, R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, and T\+T\+Y\+\_\+\+N\+U\+M\+B\+E\+R\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+S.
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), setftty(), and settty().
+
+
+\begin{DoxyCode}
+909                                                                         \{
+910 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+911 
+912     \textcolor{keywordflow}{if} (attrib < 0 || attrib >= \hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608ab7905c89135b9fb8e31a0364a6dcb6f0}{TTY\_NUMBER\_ATTRIBUTES}) \{
+913         \textcolor{keywordflow}{return} \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+914     \}
+915     *value = record->attribute [attrib];
+916 
+917     \textcolor{keywordflow}{return} noErr;
+918 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_aa8fb454d1bb476ff33b80e8ad794474c}{\index{mactty.\+c@{mactty.\+c}!get\+\_\+tty\+\_\+metrics@{get\+\_\+tty\+\_\+metrics}}
+\index{get\+\_\+tty\+\_\+metrics@{get\+\_\+tty\+\_\+metrics}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{get\+\_\+tty\+\_\+metrics}]{\setlength{\rightskip}{0pt plus 5cm}short get\+\_\+tty\+\_\+metrics (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{short $\ast$}]{x\+\_\+size, }
+\item[{short $\ast$}]{y\+\_\+size, }
+\item[{short $\ast$}]{x\+\_\+size\+\_\+pixels, }
+\item[{short $\ast$}]{y\+\_\+size\+\_\+pixels, }
+\item[{short $\ast$}]{font\+\_\+number, }
+\item[{short $\ast$}]{font\+\_\+size, }
+\item[{short $\ast$}]{char\+\_\+width, }
+\item[{short $\ast$}]{row\+\_\+height}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_aa8fb454d1bb476ff33b80e8ad794474c}
+
+
+Definition at line 558 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::char\+\_\+width, tty\+\_\+record\+::font\+\_\+number, tty\+\_\+record\+::font\+\_\+size, general\+\_\+failure, tty\+\_\+record\+::its\+\_\+bits, tty\+\_\+record\+::offscreen\+\_\+world, R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, tty\+\_\+record\+::row\+\_\+height, tty\+\_\+record\+::uses\+\_\+gworld, tty\+\_\+record\+::x\+\_\+size, and tty\+\_\+record\+::y\+\_\+size.
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), and mac\+\_\+create\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+560                                                             \{
+561 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+562 
+563 \textcolor{comment}{/*}
+564 \textcolor{comment}{ * First, test that we actually have something to draw to...}
+565 \textcolor{comment}{ */}
+566     \textcolor{keywordflow}{if} ((((\textcolor{keywordtype}{char} *)0 == record->its\_bits.baseAddr) && !record->uses\_gworld) ||
+567         (((GWorldPtr)0 == record->offscreen\_world) && record->uses\_gworld)) \{
+568         \textcolor{keywordflow}{return} \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+569     \}
+570 
+571     *x\_size = record->x\_size;
+572     *y\_size = record->y\_size;
+573     *x\_size\_pixels = record->its\_bits.bounds.right;
+574     *y\_size\_pixels = record->its\_bits.bounds.bottom;
+575     *font\_number = record->font\_number;
+576     *font\_size = record->font\_size;
+577     *char\_width = record->char\_width;
+578     *row\_height = record->row\_height;
+579 
+580     \textcolor{keywordflow}{return} noErr;
+581 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a3e14fbe6e806321dd65e663c14c041d2}{\index{mactty.\+c@{mactty.\+c}!image\+\_\+tty@{image\+\_\+tty}}
+\index{image\+\_\+tty@{image\+\_\+tty}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{image\+\_\+tty}]{\setlength{\rightskip}{0pt plus 5cm}short image\+\_\+tty (
+\begin{DoxyParamCaption}
+\item[{Event\+Record $\ast$}]{the\+Event, }
+\item[{Window\+Ptr}]{window}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a3e14fbe6e806321dd65e663c14c041d2}
+
+
+Definition at line 1047 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::invalid\+\_\+rect, tty\+\_\+record\+::its\+\_\+bits, R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, and update\+\_\+tty().
+
+
+\begin{DoxyCode}
+1047                                                     \{
+1048 \textcolor{preprocessor}{#if defined(\_\_SC\_\_) || defined(\_\_MRC\_\_)}
+1049 \textcolor{preprocessor}{# pragma unused(theEvent)}
+1050 \textcolor{preprocessor}{#endif}
+1051 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+1052 
+1053 \textcolor{preprocessor}{#if CLIP\_RECT\_ONLY}
+1054     record->invalid\_rect = record->its\_bits.bounds;
+1055 \textcolor{preprocessor}{#else}
+1056 RgnHandle rh = NewRgn ();
+1057 
+1058     RectRgn (rh, record ->its\_bits.bounds);
+1059     UnionRgn (record->invalid\_part, rh, record->invalid\_part);
+1060     DisposeRgn (rh);
+1061 \textcolor{preprocessor}{#endif}
+1062     \textcolor{keywordflow}{return} \hyperlink{mactty_8c_ac0b16837332e27f742be785310a9e901}{update\_tty} (window);
+1063 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a8ae8dca464dd05ce95feb7f4dc04e57c}{\index{mactty.\+c@{mactty.\+c}!init\+\_\+tty\+\_\+number@{init\+\_\+tty\+\_\+number}}
+\index{init\+\_\+tty\+\_\+number@{init\+\_\+tty\+\_\+number}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{init\+\_\+tty\+\_\+number}]{\setlength{\rightskip}{0pt plus 5cm}short init\+\_\+tty\+\_\+number (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{short}]{font\+\_\+number, }
+\item[{short}]{font\+\_\+size, }
+\item[{short}]{x\+\_\+size, }
+\item[{short}]{y\+\_\+size}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a8ae8dca464dd05ce95feb7f4dc04e57c}
+
+
+Definition at line 278 of file mactty.\+c.
+
+
+
+References force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc(), and R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S.
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff().
+
+
+\begin{DoxyCode}
+279                                 \{
+280 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+281 
+282     record->font\_number = font\_number;
+283     record->font\_size = font\_size;
+284     record->x\_size = x\_size;
+285     record->y\_size = y\_size;
+286 
+287     \textcolor{keywordflow}{return} \hyperlink{mactty_8c_a59d8b4c6d33b9ab3bcfe3f341d7310c6}{force\_tty\_coordinate\_system\_recalc} (window);
+288 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ae6b9ab9b7a3ab8644932ea3bb458df79}{\index{mactty.\+c@{mactty.\+c}!mem\+\_\+err@{mem\+\_\+err}}
+\index{mem\+\_\+err@{mem\+\_\+err}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{mem\+\_\+err}]{\setlength{\rightskip}{0pt plus 5cm}static short mem\+\_\+err (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_ae6b9ab9b7a3ab8644932ea3bb458df79}
+
+
+Definition at line 62 of file mactty.\+c.
+
+
+
+References general\+\_\+failure.
+
+
+
+Referenced by create\+\_\+tty().
+
+
+\begin{DoxyCode}
+62                \{
+63     \textcolor{keywordtype}{short} ret\_val = MemError();
+64     \textcolor{keywordflow}{if} (!ret\_val) \{
+65         ret\_val = \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+66     \}
+67     \textcolor{keywordflow}{return} ret\_val;
+68 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_acf7813b07cb9be95a335bffa9736c85a}{\index{mactty.\+c@{mactty.\+c}!move\+\_\+tty\+\_\+cursor@{move\+\_\+tty\+\_\+cursor}}
+\index{move\+\_\+tty\+\_\+cursor@{move\+\_\+tty\+\_\+cursor}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{move\+\_\+tty\+\_\+cursor}]{\setlength{\rightskip}{0pt plus 5cm}short move\+\_\+tty\+\_\+cursor (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{short}]{x\+\_\+pos, }
+\item[{short}]{y\+\_\+pos}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_acf7813b07cb9be95a335bffa9736c85a}
+
+
+Definition at line 671 of file mactty.\+c.
+
+
+
+References curs\+\_\+pos(), general\+\_\+failure, R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, tty\+\_\+record\+::x\+\_\+curs, tty\+\_\+record\+::x\+\_\+size, tty\+\_\+record\+::y\+\_\+curs, and tty\+\_\+record\+::y\+\_\+size.
+
+
+
+Referenced by cmov().
+
+
+\begin{DoxyCode}
+671                                                              \{
+672 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+673 
+674     \textcolor{keywordflow}{if} (record->x\_curs == x\_pos && record->y\_curs == y\_pos) \{
+675         \textcolor{keywordflow}{return} noErr;
+676     \}
+677     \textcolor{keywordflow}{if} (record->x\_size <= x\_pos || x\_pos < 0 ||
+678         record->y\_size <= y\_pos || y\_pos < 0) \{
+679         \textcolor{keywordflow}{return} \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+680     \}
+681     \hyperlink{mactty_8c_a583dba93dfd738ae8a11a49b9b8e6085}{curs\_pos} (record, record->x\_curs, record->y\_curs, 0);
+682     record->x\_curs = x\_pos;
+683     record->y\_curs = y\_pos;
+684     \hyperlink{mactty_8c_a583dba93dfd738ae8a11a49b9b8e6085}{curs\_pos} (record, x\_pos, y\_pos, 1);
+685 
+686     \textcolor{keywordflow}{return} noErr;
+687 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a1430ed1a2b0850e69f8f5e9027af46cd}{\index{mactty.\+c@{mactty.\+c}!pos\+\_\+rect@{pos\+\_\+rect}}
+\index{pos\+\_\+rect@{pos\+\_\+rect}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{pos\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}static void pos\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{Rect $\ast$}]{r, }
+\item[{short}]{x\+\_\+pos, }
+\item[{short}]{y\+\_\+pos, }
+\item[{short}]{x\+\_\+end, }
+\item[{short}]{y\+\_\+end}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a1430ed1a2b0850e69f8f5e9027af46cd}
+
+
+Definition at line 588 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::char\+\_\+width, and tty\+\_\+record\+::row\+\_\+height.
+
+
+
+Referenced by clear\+\_\+tty\+\_\+window(), curs\+\_\+pos(), do\+\_\+add\+\_\+string(), and update\+\_\+tty().
+
+
+\begin{DoxyCode}
+589                               \{
+590  
+591     SetRect (r, x\_pos * (record->\hyperlink{structtty__record_a2c85d65343bb145a61dd70945019e42b}{char\_width}), y\_pos * (record->
+      \hyperlink{structtty__record_ac0d2808f8a463594770388a1a61d92fc}{row\_height}),
+592         (1 + x\_end) * (record->\hyperlink{structtty__record_a2c85d65343bb145a61dd70945019e42b}{char\_width}) , (1 + y\_end) *
+593         (record->\hyperlink{structtty__record_ac0d2808f8a463594770388a1a61d92fc}{row\_height}));
+594 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ad6ff43bd67b5ce275aca82ab24822f23}{\index{mactty.\+c@{mactty.\+c}!save\+\_\+port@{save\+\_\+port}}
+\index{save\+\_\+port@{save\+\_\+port}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{save\+\_\+port}]{\setlength{\rightskip}{0pt plus 5cm}static void save\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{void $\ast$}]{save}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_ad6ff43bd67b5ce275aca82ab24822f23}
+
+
+Definition at line 391 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::uses\+\_\+gworld.
+
+
+
+Referenced by curs\+\_\+pos().
+
+
+\begin{DoxyCode}
+391                                            \{
+392 GWorldPtr \hyperlink{structgw}{gw};
+393 GDHandle gh;
+394 GrafPtr gp;
+395 
+396     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld}) \{
+397         GetGWorld (&gw, &gh);
+398         *(GWorldPtr *) save = gw;
+399     \} \textcolor{keywordflow}{else} \{
+400         GetPort (&gp);
+401         *(GrafPtr *) save = gp;
+402     \}
+403 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a9f84b3b8c71ce4abb340458ecccb9791}{\index{mactty.\+c@{mactty.\+c}!scroll\+\_\+tty@{scroll\+\_\+tty}}
+\index{scroll\+\_\+tty@{scroll\+\_\+tty}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{scroll\+\_\+tty}]{\setlength{\rightskip}{0pt plus 5cm}short scroll\+\_\+tty (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{short}]{delta\+\_\+x, }
+\item[{short}]{delta\+\_\+y}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a9f84b3b8c71ce4abb340458ecccb9791}
+
+
+Definition at line 981 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::char\+\_\+width, tty\+\_\+record\+::its\+\_\+bits, R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, tty\+\_\+record\+::row\+\_\+height, select\+\_\+offscreen\+\_\+port(), select\+\_\+onscreen\+\_\+window(), update\+\_\+tty(), tty\+\_\+record\+::x\+\_\+curs, and tty\+\_\+record\+::y\+\_\+curs.
+
+
+
+Referenced by do\+\_\+add\+\_\+cursor(), and do\+\_\+control().
+
+
+\begin{DoxyCode}
+981                                                                   \{
+982 RgnHandle rgn;
+983 \textcolor{keywordtype}{short} s\_err;
+984 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+985 
+986     s\_err = \hyperlink{mactty_8c_ac0b16837332e27f742be785310a9e901}{update\_tty} (window);
+987 
+988     rgn = NewRgn ();
+989 
+990     \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\_offscreen\_port} (record);
+991     ScrollRect (&(record->its\_bits.bounds), -delta\_x * record->char\_width,
+992         -delta\_y * record->row\_height, rgn);
+993     EraseRgn (rgn);
+994     SetEmptyRgn (rgn);
+995 
+996     \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+997     ScrollRect (&(record->its\_bits.bounds), -delta\_x * record->char\_width,
+998         -delta\_y*record->row\_height, rgn);
+999     EraseRgn (rgn);
+1000     DisposeRgn (rgn);
+1001 
+1002     record->y\_curs -= delta\_y;
+1003     record->x\_curs -= delta\_x;
+1004 
+1005     \textcolor{keywordflow}{return} noErr;
+1006 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_aa3d98e168af2c32be95a965add00913a}{\index{mactty.\+c@{mactty.\+c}!select\+\_\+offscreen\+\_\+port@{select\+\_\+offscreen\+\_\+port}}
+\index{select\+\_\+offscreen\+\_\+port@{select\+\_\+offscreen\+\_\+port}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{select\+\_\+offscreen\+\_\+port}]{\setlength{\rightskip}{0pt plus 5cm}static void select\+\_\+offscreen\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_aa3d98e168af2c32be95a965add00913a}
+
+
+Definition at line 432 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::offscreen\+\_\+port, tty\+\_\+record\+::offscreen\+\_\+world, use\+\_\+port(), and tty\+\_\+record\+::uses\+\_\+gworld.
+
+
+
+Referenced by allocate\+\_\+offscreen\+\_\+world(), clear\+\_\+tty(), clear\+\_\+tty\+\_\+window(), do\+\_\+add\+\_\+string(), force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc(), scroll\+\_\+tty(), and set\+\_\+tty\+\_\+attrib().
+
+
+\begin{DoxyCode}
+432                                            \{
+433     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld}) \{
+434         \hyperlink{mactty_8c_a8cad63504a43179f53e28923934e3219}{use\_port} (record, record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world});
+435     \} \textcolor{keywordflow}{else} \{
+436         \hyperlink{mactty_8c_a8cad63504a43179f53e28923934e3219}{use\_port} (record, record->\hyperlink{structtty__record_ac93a01eec2960fa101e62517d59d0837}{offscreen\_port});
+437     \}
+438 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{\index{mactty.\+c@{mactty.\+c}!select\+\_\+onscreen\+\_\+window@{select\+\_\+onscreen\+\_\+window}}
+\index{select\+\_\+onscreen\+\_\+window@{select\+\_\+onscreen\+\_\+window}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{select\+\_\+onscreen\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}static void select\+\_\+onscreen\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}
+
+
+Definition at line 445 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::its\+\_\+window, tty\+\_\+record\+::its\+\_\+window\+\_\+world, use\+\_\+port(), and tty\+\_\+record\+::uses\+\_\+gworld.
+
+
+
+Referenced by allocate\+\_\+offscreen\+\_\+world(), clear\+\_\+tty\+\_\+window(), curs\+\_\+pos(), do\+\_\+add\+\_\+string(), scroll\+\_\+tty(), set\+\_\+tty\+\_\+attrib(), and update\+\_\+tty().
+
+
+\begin{DoxyCode}
+445                                             \{
+446     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld}) \{
+447         \hyperlink{mactty_8c_a8cad63504a43179f53e28923934e3219}{use\_port} (record, record->\hyperlink{structtty__record_ad4b8e1a3473cbb12a1a5546d5cd5c56d}{its\_window\_world});
+448         SetPortWindowPort(record->\hyperlink{structtty__record_a96fac4cadd626dc4cfd9e0d3f64709a8}{its\_window});
+449     \} \textcolor{keywordflow}{else} \{
+450         \hyperlink{mactty_8c_a8cad63504a43179f53e28923934e3219}{use\_port}(record, record->\hyperlink{structtty__record_a96fac4cadd626dc4cfd9e0d3f64709a8}{its\_window});
+451     \}
+452 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a4ea4e291eecbce9e906ba87c42b2b7bd}{\index{mactty.\+c@{mactty.\+c}!set\+\_\+invalid\+\_\+region@{set\+\_\+invalid\+\_\+region}}
+\index{set\+\_\+invalid\+\_\+region@{set\+\_\+invalid\+\_\+region}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{set\+\_\+invalid\+\_\+region}]{\setlength{\rightskip}{0pt plus 5cm}short set\+\_\+invalid\+\_\+region (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{Rect $\ast$}]{inval\+\_\+rect}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a4ea4e291eecbce9e906ba87c42b2b7bd}
+
+
+Definition at line 633 of file mactty.\+c.
+
+
+
+References accumulate\+\_\+rect(), and R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S.
+
+
+
+Referenced by Handle\+Update().
+
+
+\begin{DoxyCode}
+633                                                               \{
+634     \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+635     \hyperlink{mactty_8c_a2fed4d184e806b417f14542aafccaaf8}{accumulate\_rect} (record, inval\_rect);
+636     \textcolor{keywordflow}{return} noErr;
+637 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a465a8e33435ecd541769a2bfc857da4e}{\index{mactty.\+c@{mactty.\+c}!set\+\_\+tty\+\_\+attrib@{set\+\_\+tty\+\_\+attrib}}
+\index{set\+\_\+tty\+\_\+attrib@{set\+\_\+tty\+\_\+attrib}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{set\+\_\+tty\+\_\+attrib}]{\setlength{\rightskip}{0pt plus 5cm}short set\+\_\+tty\+\_\+attrib (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window, }
+\item[{{\bf tty\+\_\+attrib}}]{attrib, }
+\item[{long}]{value}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_a465a8e33435ecd541769a2bfc857da4e}
+
+
+Definition at line 921 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::attribute, C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S, general\+\_\+failure, R\+A\+W\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S, R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, s\+\_\+control, select\+\_\+offscreen\+\_\+port(), select\+\_\+onscreen\+\_\+window(), T\+A\+\_\+\+A\+L\+W\+A\+Y\+S\+\_\+\+R\+E\+F\+R\+E\+S\+H, T\+A\+\_\+\+R\+A\+W\+\_\+\+O\+U\+T\+P\+U\+T, T\+A\+\_\+\+T\+O\+\_\+\+R\+G\+B, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+B\+A\+C\+K\+G\+R\+O\+U\+N\+D, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+C\+U\+R\+S\+O\+R, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+F\+L\+A\+G\+S, T\+T\+Y\+\_\+\+A\+T\+T\+R\+I\+B\+\_\+\+F\+O\+R\+E\+G\+R\+O\+U\+N\+D, T\+T\+Y\+\_\+\+N\+U\+M\+B\+E\+R\+\_\+\+A\+T\+T\+R\+I\+B\+U\+T\+E\+S, and update\+\_\+tty().
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), \+\_\+mt\+\_\+set\+\_\+colors(), setftty(), and settty().
+
+
+\begin{DoxyCode}
+921                                                                        \{
+922 RGBColor rgb\_color;
+923 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+924 
+925     \textcolor{keywordflow}{if} (attrib < 0 || attrib >= \hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608ab7905c89135b9fb8e31a0364a6dcb6f0}{TTY\_NUMBER\_ATTRIBUTES}) \{
+926         \textcolor{keywordflow}{return} \hyperlink{mactty_8h_ad89789ce0110f07ae3b0948402ced161}{general\_failure};
+927     \}
+928     record->attribute [attrib] = value;
+929     \textcolor{comment}{/*}
+930 \textcolor{comment}{     * Presently, no attributes generate a new bitmap.}
+931 \textcolor{comment}{     */}
+932     \textcolor{keywordflow}{switch} (attrib) \{
+933     \textcolor{keywordflow}{case} \hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608adff6c3a40f7c317a92d1bedc3e92780c}{TTY\_ATTRIB\_CURSOR} :
+934 \textcolor{comment}{/*}
+935 \textcolor{comment}{ * Check if we should change tables}
+936 \textcolor{comment}{ */}
+937         \textcolor{keywordflow}{if} (0L != (value & \hyperlink{mactty_8h_a2e497f94cdf6f46fa37b1dfd0f1377e7}{TA\_RAW\_OUTPUT})) \{
+938             \hyperlink{mactty_8c_a88191fbe6681c49ab1e35849654f2937}{s\_control} = \hyperlink{mactty_8c_ae10ea351def1786cdc21a5a82e300dc2}{RAW\_CONTROLS};
+939         \} \textcolor{keywordflow}{else} \{
+940             \hyperlink{mactty_8c_a88191fbe6681c49ab1e35849654f2937}{s\_control} = \hyperlink{mactty_8c_a2791416224c1e8fe1d7889b11b88446d}{COOKED\_CONTROLS};
+941         \}
+942         \textcolor{keywordflow}{break};
+943     \textcolor{keywordflow}{case} \hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608a1df7281ec9ce854cabde370e5eb45296}{TTY\_ATTRIB\_FLAGS} :
+944 \textcolor{comment}{/*}
+945 \textcolor{comment}{ * Check if we should flush the output going from cached to draw-direct}
+946 \textcolor{comment}{ */}
+947         \textcolor{keywordflow}{if} (0L != (value & \hyperlink{mactty_8h_a6527765fd23d57f21985e03bf3adde94}{TA\_ALWAYS\_REFRESH})) \{
+948             \hyperlink{mactty_8c_ac0b16837332e27f742be785310a9e901}{update\_tty} (window);
+949         \}
+950         \textcolor{keywordflow}{break};
+951     \textcolor{keywordflow}{case} \hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608ad63f6f063def914013a5fd19cfdce276}{TTY\_ATTRIB\_FOREGROUND} :
+952 \textcolor{comment}{/*}
+953 \textcolor{comment}{ * Set foreground color}
+954 \textcolor{comment}{ */}
+955         \hyperlink{mttypriv_8h_a7eb0f78e7474f68132ecde044d1c6c74}{TA\_TO\_RGB} (value, rgb\_color);
+956         \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\_offscreen\_port} (record);
+957         RGBForeColor (&rgb\_color);
+958         \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+959         \textcolor{keywordflow}{break};
+960     \textcolor{keywordflow}{case} \hyperlink{mactty_8h_ad7212e28d805c885a5acbb8f84d09608a7d99cad51c86be538907371d72ed75ad}{TTY\_ATTRIB\_BACKGROUND} :
+961 \textcolor{comment}{/*}
+962 \textcolor{comment}{ * Set background color}
+963 \textcolor{comment}{ */}
+964         \hyperlink{mttypriv_8h_a7eb0f78e7474f68132ecde044d1c6c74}{TA\_TO\_RGB} (value, rgb\_color);
+965         \hyperlink{mactty_8c_aa3d98e168af2c32be95a965add00913a}{select\_offscreen\_port} (record);
+966         RGBBackColor (&rgb\_color);
+967         \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+968         \textcolor{keywordflow}{break};
+969     \textcolor{keywordflow}{default} :
+970         \textcolor{keywordflow}{break};
+971     \}
+972     \textcolor{keywordflow}{return} noErr;
+973 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a7afde90e439ea9f0bbfb5e5e7aeb76db}{\index{mactty.\+c@{mactty.\+c}!union\+\_\+rect@{union\+\_\+rect}}
+\index{union\+\_\+rect@{union\+\_\+rect}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{union\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}static void union\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{Rect $\ast$}]{r1, }
+\item[{Rect $\ast$}]{r2, }
+\item[{Rect $\ast$}]{dest}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a7afde90e439ea9f0bbfb5e5e7aeb76db}
+
+
+Definition at line 87 of file mactty.\+c.
+
+
+
+References max, and min.
+
+
+
+Referenced by accumulate\+\_\+rect().
+
+
+\begin{DoxyCode}
+87                                             \{
+88     dest->left = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min} (r1->left, r2->left);
+89     dest->top = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min} (r1->top, r2 ->top);
+90     dest->bottom = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max} (r1->bottom, r2->bottom);
+91     dest->right = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max} (r1->right, r2->right);
+92 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_ac0b16837332e27f742be785310a9e901}{\index{mactty.\+c@{mactty.\+c}!update\+\_\+tty@{update\+\_\+tty}}
+\index{update\+\_\+tty@{update\+\_\+tty}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{update\+\_\+tty}]{\setlength{\rightskip}{0pt plus 5cm}short update\+\_\+tty (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{window}
+\end{DoxyParamCaption}
+)}}\label{mactty_8c_ac0b16837332e27f742be785310a9e901}
+
+
+Definition at line 695 of file mactty.\+c.
+
+
+
+References copy\+\_\+bits(), tty\+\_\+record\+::curs\+\_\+state, empty\+\_\+rect(), tty\+\_\+record\+::invalid\+\_\+rect, pos\+\_\+rect(), R\+E\+C\+O\+R\+D\+\_\+\+E\+X\+I\+S\+T\+S, select\+\_\+onscreen\+\_\+window(), tty\+\_\+record\+::x\+\_\+curs, and tty\+\_\+record\+::y\+\_\+curs.
+
+
+
+Referenced by backsp(), blink\+\_\+cursor(), clear\+\_\+tty(), clear\+\_\+tty\+\_\+window(), image\+\_\+tty(), scroll\+\_\+tty(), set\+\_\+tty\+\_\+attrib(), settty(), and term\+\_\+flush().
+
+
+\begin{DoxyCode}
+695                               \{
+696 Rect r;
+697 \hyperlink{mactty_8c_aefb73a70a894d1829db3791cfaa5daeb}{RECORD\_EXISTS} (record);
+698 
+699 \textcolor{preprocessor}{#if CLIP\_RECT\_ONLY}
+700     \textcolor{keywordflow}{if} (record->invalid\_rect.right <= record->invalid\_rect.left ||
+701         record->invalid\_rect.bottom <= record->invalid\_rect.top) \{
+702         \textcolor{keywordflow}{return} noErr;
+703     \}
+704     r = record->invalid\_rect;
+705 \textcolor{preprocessor}{#else}
+706     \textcolor{keywordflow}{if} (EmptyRgn (record->invalid\_part)) \{
+707         \textcolor{keywordflow}{return} noErr;
+708     \}
+709     r = (*(record->invalid\_part))->rgnBBox;
+710 \textcolor{preprocessor}{#endif}
+711     \hyperlink{mactty_8c_a3b08ad76d3e903c56706b103bc68a78e}{select\_onscreen\_window} (record);
+712     \hyperlink{mactty_8c_a6ddce6b80efd1881b0cf24b5fbc9bcd5}{copy\_bits} (record, &r, srcCopy, (RgnHandle) 0);
+713 \textcolor{preprocessor}{#if CLIP\_RECT\_ONLY}
+714     \hyperlink{mactty_8c_a7313e36ac71d2f2a41098eb02c2f0557}{empty\_rect} (&(record->invalid\_rect));
+715 \textcolor{preprocessor}{#else}
+716     SetEmptyRgn (record->invalid\_part);
+717 \textcolor{preprocessor}{#endif}
+718     \textcolor{keywordflow}{if} (record->curs\_state) \{   
+719         \hyperlink{mactty_8c_a1430ed1a2b0850e69f8f5e9027af46cd}{pos\_rect} (record, &r, record->x\_curs, record->y\_curs,
+720             record->x\_curs, record->y\_curs);
+721         InvertRect (&r);
+722     \}
+723 
+724     \textcolor{keywordflow}{return} noErr;
+725 \}
+\end{DoxyCode}
+\hypertarget{mactty_8c_a8cad63504a43179f53e28923934e3219}{\index{mactty.\+c@{mactty.\+c}!use\+\_\+port@{use\+\_\+port}}
+\index{use\+\_\+port@{use\+\_\+port}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{use\+\_\+port}]{\setlength{\rightskip}{0pt plus 5cm}static void use\+\_\+port (
+\begin{DoxyParamCaption}
+\item[{{\bf tty\+\_\+record} $\ast$}]{record, }
+\item[{void $\ast$}]{port}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a8cad63504a43179f53e28923934e3219}
+
+
+Definition at line 410 of file mactty.\+c.
+
+
+
+References tty\+\_\+record\+::offscreen\+\_\+world, and tty\+\_\+record\+::uses\+\_\+gworld.
+
+
+
+Referenced by curs\+\_\+pos(), select\+\_\+offscreen\+\_\+port(), and select\+\_\+onscreen\+\_\+window().
+
+
+\begin{DoxyCode}
+410                                           \{
+411     \textcolor{keywordflow}{if} (record->\hyperlink{structtty__record_ae3a431435a1b84faf10f4b41471ca5fc}{uses\_gworld}) \{
+412         PixMapHandle pix\_map;
+413 
+414         SetGWorld ((GWorldPtr) port, (GDHandle) 0);
+415         pix\_map = GetGWorldPixMap (record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world});
+416         \textcolor{keywordflow}{if} (pix\_map) \{
+417             \textcolor{keywordflow}{if} (port == record->\hyperlink{structtty__record_ad125bdc62544af4f31425739ab2930dc}{offscreen\_world})
+418                 LockPixels (pix\_map);
+419             \textcolor{keywordflow}{else}
+420                 UnlockPixels (pix\_map);
+421         \}
+422     \} \textcolor{keywordflow}{else} \{
+423         SetPort ((GrafPtr) port);
+424     \}
+425 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{mactty_8c_abfbaff06a50aea7b2035a3c443bb63ce}{\index{mactty.\+c@{mactty.\+c}!\+\_\+mt\+\_\+window@{\+\_\+mt\+\_\+window}}
+\index{\+\_\+mt\+\_\+window@{\+\_\+mt\+\_\+window}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{\+\_\+mt\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}Window\+Ptr \+\_\+mt\+\_\+window}}\label{mactty_8c_abfbaff06a50aea7b2035a3c443bb63ce}
+
+
+Definition at line 188 of file mttymain.\+c.
+
+
+
+Referenced by erase\+\_\+rect().
+
+\hypertarget{mactty_8c_a312aaf7b101e387746a054cfcec0266b}{\index{mactty.\+c@{mactty.\+c}!game\+\_\+active@{game\+\_\+active}}
+\index{game\+\_\+active@{game\+\_\+active}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{game\+\_\+active}]{\setlength{\rightskip}{0pt plus 5cm}char game\+\_\+active = 0}}\label{mactty_8c_a312aaf7b101e387746a054cfcec0266b}
+
+
+Definition at line 19 of file mactty.\+c.
+
+
+
+Referenced by erase\+\_\+rect(), and main().
+
+\hypertarget{mactty_8c_a88191fbe6681c49ab1e35849654f2937}{\index{mactty.\+c@{mactty.\+c}!s\+\_\+control@{s\+\_\+control}}
+\index{s\+\_\+control@{s\+\_\+control}!mactty.\+c@{mactty.\+c}}
+\subsubsection[{s\+\_\+control}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long s\+\_\+control = {\bf C\+O\+O\+K\+E\+D\+\_\+\+C\+O\+N\+T\+R\+O\+L\+S}\hspace{0.3cm}{\ttfamily [static]}}}\label{mactty_8c_a88191fbe6681c49ab1e35849654f2937}
+
+
+Definition at line 55 of file mactty.\+c.
+
+
+
+Referenced by add\+\_\+tty\+\_\+char(), add\+\_\+tty\+\_\+string(), and set\+\_\+tty\+\_\+attrib().
+

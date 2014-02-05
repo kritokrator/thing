@@ -1,0 +1,655 @@
+\hypertarget{wintext_8c}{\section{nethack/win/\+X11/wintext.c File Reference}
+\label{wintext_8c}\index{nethack/win/\+X11/wintext.\+c@{nethack/win/\+X11/wintext.\+c}}
+}
+{\ttfamily \#include $<$X11/\+Intrinsic.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+String\+Defs.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Shell.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xos.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Form.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Ascii\+Text.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Cardinals.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xatom.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}win\+X.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}xwindow.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{wintext_8c_a871513d8c7abd319565c0f9393d28f9a}{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/
+\item 
+\#define \hyperlink{wintext_8c_aadfbdcc413d92875b8e0504dca988d9f}{T\+R\+A\+N\+S\+I\+E\+N\+T\+\_\+\+T\+E\+X\+T}~/$\ast$ text window is a transient window (no positioning) $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{wintext_8c_afa24874d5a7ab8b1be0dc5b6a0a0363a}{delete\+\_\+text} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+void \hyperlink{wintext_8c_af1fa5b88e785f168ad98639ec04b8362}{dismiss\+\_\+text} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+void \hyperlink{wintext_8c_acc615165f2e6ae928071f55b3dde4f82}{key\+\_\+dismiss\+\_\+text} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+void \hyperlink{wintext_8c_a4e72b90d28521f6ddf527f853da4da19}{add\+\_\+to\+\_\+text\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, int attr, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$str)
+\item 
+void \hyperlink{wintext_8c_a92de4ec81ceb189ccbbe173f2d95a5c2}{display\+\_\+text\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} blocking)
+\item 
+void \hyperlink{wintext_8c_a0dccc5015017bceaf1a83415011a3510}{create\+\_\+text\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{wintext_8c_a46548d5d68947c0fcfcc9114e082dac8}{destroy\+\_\+text\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{wintext_8c_a887ee8692ef33e2070d97375261eb9bd}{clear\+\_\+text\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{wintext_8c_af7e35ccc4e55ed329e4a9c1ab2b9b41f}{append\+\_\+text\+\_\+buffer} (struct \hyperlink{structtext__buffer}{text\+\_\+buffer} $\ast$tb, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$str, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} concat)
+\item 
+void \hyperlink{wintext_8c_abbc4c07e653407050689ffa5a337cac4}{init\+\_\+text\+\_\+buffer} (struct \hyperlink{structtext__buffer}{text\+\_\+buffer} $\ast$tb)
+\item 
+void \hyperlink{wintext_8c_a51b1795736caae631e72f26ff9f8d029}{clear\+\_\+text\+\_\+buffer} (struct \hyperlink{structtext__buffer}{text\+\_\+buffer} $\ast$tb)
+\item 
+void \hyperlink{wintext_8c_a276629b48024ec17d207902f43f349ca}{free\+\_\+text\+\_\+buffer} (struct \hyperlink{structtext__buffer}{text\+\_\+buffer} $\ast$tb)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{wintext_8c_a68041c958e2634303a6a861d59f709fd}{text\+\_\+translations} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{wintext_8c_a871513d8c7abd319565c0f9393d28f9a}{\index{wintext.\+c@{wintext.\+c}!P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}}
+\index{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/}}\label{wintext_8c_a871513d8c7abd319565c0f9393d28f9a}
+
+
+Definition at line 12 of file wintext.\+c.
+
+\hypertarget{wintext_8c_aadfbdcc413d92875b8e0504dca988d9f}{\index{wintext.\+c@{wintext.\+c}!T\+R\+A\+N\+S\+I\+E\+N\+T\+\_\+\+T\+E\+X\+T@{T\+R\+A\+N\+S\+I\+E\+N\+T\+\_\+\+T\+E\+X\+T}}
+\index{T\+R\+A\+N\+S\+I\+E\+N\+T\+\_\+\+T\+E\+X\+T@{T\+R\+A\+N\+S\+I\+E\+N\+T\+\_\+\+T\+E\+X\+T}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{T\+R\+A\+N\+S\+I\+E\+N\+T\+\_\+\+T\+E\+X\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+R\+A\+N\+S\+I\+E\+N\+T\+\_\+\+T\+E\+X\+T~/$\ast$ text window is a transient window (no positioning) $\ast$/}}\label{wintext_8c_aadfbdcc413d92875b8e0504dca988d9f}
+
+
+Definition at line 40 of file wintext.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wintext_8c_a4e72b90d28521f6ddf527f853da4da19}{\index{wintext.\+c@{wintext.\+c}!add\+\_\+to\+\_\+text\+\_\+window@{add\+\_\+to\+\_\+text\+\_\+window}}
+\index{add\+\_\+to\+\_\+text\+\_\+window@{add\+\_\+to\+\_\+text\+\_\+window}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{add\+\_\+to\+\_\+text\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void add\+\_\+to\+\_\+text\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{int}]{attr, }
+\item[{{\bf const} char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_a4e72b90d28521f6ddf527f853da4da19}
+
+
+Definition at line 135 of file wintext.\+c.
+
+
+
+References append\+\_\+text\+\_\+buffer(), F\+A\+L\+S\+E, text\+\_\+info\+\_\+t\+::fs, text\+\_\+info\+\_\+t\+::max\+\_\+width, text\+\_\+info\+\_\+t\+::text, and width.
+
+
+
+Referenced by X11\+\_\+putstr().
+
+
+\begin{DoxyCode}
+139 \{
+140     \textcolor{keyword}{struct }\hyperlink{structtext__info__t}{text\_info\_t} *text\_info = wp->text\_information;
+141     \textcolor{keywordtype}{int} \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width};
+142 
+143     \hyperlink{wintext_8c_af7e35ccc4e55ed329e4a9c1ab2b9b41f}{append\_text\_buffer}(&text\_info->\hyperlink{structtext__info__t_a5f680972356bbaddd025996082d0c389}{text}, str, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+144 
+145     \textcolor{comment}{/* Calculate text width and save longest line */}
+146     width = XTextWidth(text\_info->\hyperlink{structtext__info__t_aca6a8ac387270498884c09d6ca405ed0}{fs}, str, (\textcolor{keywordtype}{int}) strlen(str));
+147     \textcolor{keywordflow}{if} (width > text\_info->\hyperlink{structtext__info__t_a2c55a95fd96aa06a6a2910929affdb92}{max\_width})
+148     text\_info->\hyperlink{structtext__info__t_a2c55a95fd96aa06a6a2910929affdb92}{max\_width} = \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width};
+149 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_af7e35ccc4e55ed329e4a9c1ab2b9b41f}{\index{wintext.\+c@{wintext.\+c}!append\+\_\+text\+\_\+buffer@{append\+\_\+text\+\_\+buffer}}
+\index{append\+\_\+text\+\_\+buffer@{append\+\_\+text\+\_\+buffer}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{append\+\_\+text\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}void append\+\_\+text\+\_\+buffer (
+\begin{DoxyParamCaption}
+\item[{struct {\bf text\+\_\+buffer} $\ast$}]{tb, }
+\item[{{\bf const} char $\ast$}]{str, }
+\item[{{\bf boolean}}]{concat}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_af7e35ccc4e55ed329e4a9c1ab2b9b41f}
+
+
+Definition at line 349 of file wintext.\+c.
+
+
+
+References alloc(), free(), index(), panic(), and printf.
+
+
+
+Referenced by add\+\_\+to\+\_\+text\+\_\+window(), and adjust\+\_\+status().
+
+
+\begin{DoxyCode}
+353 \{
+354     \textcolor{keywordtype}{char} *copy;
+355     \textcolor{keywordtype}{int} length;
+356 
+357     \textcolor{keywordflow}{if} (!tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"append\_text\_buffer:  null text buffer"});
+358 
+359     \textcolor{keywordflow}{if} (str) \{
+360     length = strlen(str);
+361     \} \textcolor{keywordflow}{else} \{
+362     length = 0;
+363     \}
+364 
+365     \textcolor{keywordflow}{if} (length + tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last} + 1 >= tb->\hyperlink{structtext__buffer_ac664b06fbe050d6bf4058fdcd42e6076}{text\_size}) \{
+366     \textcolor{comment}{/* we need to go to a bigger buffer! */}
+367 \textcolor{preprocessor}{#ifdef VERBOSE}
+368     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"append\_text\_buffer: text buffer growing from %d to %d bytes\(\backslash\)n"},
+369                 tb->\hyperlink{structtext__buffer_ac664b06fbe050d6bf4058fdcd42e6076}{text\_size}, 2*tb->\hyperlink{structtext__buffer_ac664b06fbe050d6bf4058fdcd42e6076}{text\_size});
+370 \textcolor{preprocessor}{#endif}
+371     copy = (\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned})tb->\hyperlink{structtext__buffer_ac664b06fbe050d6bf4058fdcd42e6076}{text\_size}*2);
+372     (void) memcpy(copy, tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}, tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last});
+373     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text});
+374     tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text} = copy;
+375     tb->\hyperlink{structtext__buffer_ac664b06fbe050d6bf4058fdcd42e6076}{text\_size} *= 2;
+376     \}
+377 
+378     \textcolor{keywordflow}{if} (tb->\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines}) \{   \textcolor{comment}{/* not first --- append a newline */}
+379     \textcolor{keywordtype}{char} appchar = \textcolor{charliteral}{'\(\backslash\)n'};
+380 
+381     \textcolor{keywordflow}{if}(concat && !\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\textcolor{stringliteral}{"!.?'\(\backslash\)")"}, tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}[tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last}-1])) \{
+382         appchar = \textcolor{charliteral}{' '};
+383         tb->\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines}--; \textcolor{comment}{/* offset increment at end of function */}
+384     \}
+385 
+386     *(tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text} + tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last}) = appchar;
+387     tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last}++;
+388     \}
+389 
+390     \textcolor{keywordflow}{if} (str) \{
+391     (void) memcpy((tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}+tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last}), str, length+1);
+392     \textcolor{keywordflow}{if}(length) \{
+393         \textcolor{comment}{/* Remove all newlines. Otherwise we have a confused line count. */}
+394         copy = (tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}+tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last});
+395         \textcolor{keywordflow}{while} ((copy = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(copy, \textcolor{charliteral}{'\(\backslash\)n'})) != (\textcolor{keywordtype}{char}*)0)
+396         *copy = \textcolor{charliteral}{' '};
+397     \}
+398 
+399     tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last} += length;
+400     \}
+401     tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}[tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last}] = \textcolor{charliteral}{'\(\backslash\)0'};
+402     tb->\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines}++;
+403 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_a51b1795736caae631e72f26ff9f8d029}{\index{wintext.\+c@{wintext.\+c}!clear\+\_\+text\+\_\+buffer@{clear\+\_\+text\+\_\+buffer}}
+\index{clear\+\_\+text\+\_\+buffer@{clear\+\_\+text\+\_\+buffer}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{clear\+\_\+text\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}void clear\+\_\+text\+\_\+buffer (
+\begin{DoxyParamCaption}
+\item[{struct {\bf text\+\_\+buffer} $\ast$}]{tb}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_a51b1795736caae631e72f26ff9f8d029}
+
+
+Definition at line 419 of file wintext.\+c.
+
+
+
+References text\+\_\+buffer\+::text\+\_\+last.
+
+
+
+Referenced by adjust\+\_\+status(), and clear\+\_\+text\+\_\+window().
+
+
+\begin{DoxyCode}
+421 \{
+422     tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last} = 0;
+423     tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}[0]   = \textcolor{charliteral}{'\(\backslash\)0'};
+424     tb->\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines} = 0;
+425 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_a887ee8692ef33e2070d97375261eb9bd}{\index{wintext.\+c@{wintext.\+c}!clear\+\_\+text\+\_\+window@{clear\+\_\+text\+\_\+window}}
+\index{clear\+\_\+text\+\_\+window@{clear\+\_\+text\+\_\+window}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{clear\+\_\+text\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void clear\+\_\+text\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_a887ee8692ef33e2070d97375261eb9bd}
+
+
+Definition at line 338 of file wintext.\+c.
+
+
+
+References clear\+\_\+text\+\_\+buffer().
+
+
+
+Referenced by X11\+\_\+clear\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+340 \{
+341     \hyperlink{wintext_8c_a51b1795736caae631e72f26ff9f8d029}{clear\_text\_buffer}(&wp->text\_information->text);
+342 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_a0dccc5015017bceaf1a83415011a3510}{\index{wintext.\+c@{wintext.\+c}!create\+\_\+text\+\_\+window@{create\+\_\+text\+\_\+window}}
+\index{create\+\_\+text\+\_\+window@{create\+\_\+text\+\_\+window}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{create\+\_\+text\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void create\+\_\+text\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_a0dccc5015017bceaf1a83415011a3510}
+
+
+Definition at line 242 of file wintext.\+c.
+
+
+
+References alloc(), text\+\_\+info\+\_\+t\+::blocked, text\+\_\+info\+\_\+t\+::destroy\+\_\+on\+\_\+ack, text\+\_\+info\+\_\+t\+::extra\+\_\+height, text\+\_\+info\+\_\+t\+::extra\+\_\+width, F\+A\+L\+S\+E, text\+\_\+info\+\_\+t\+::fs, init\+\_\+text\+\_\+buffer(), killer, text\+\_\+info\+\_\+t\+::max\+\_\+width, N\+H\+W\+\_\+\+T\+E\+X\+T, text\+\_\+info\+\_\+t\+::text, text\+\_\+translations, toplevel, T\+R\+U\+E, W\+I\+N\+\_\+\+E\+R\+R, and W\+I\+N\+\_\+\+M\+A\+P.
+
+
+
+Referenced by X11\+\_\+create\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+244 \{
+245     \textcolor{keyword}{struct }\hyperlink{structtext__info__t}{text\_info\_t} *text\_info;
+246     Arg args[8];
+247     Cardinal num\_args;
+248     Position top\_margin, bottom\_margin, left\_margin, right\_margin;
+249     Widget form;
+250 
+251     wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT};
+252 
+253     wp->text\_information = text\_info =
+254             (\textcolor{keyword}{struct }\hyperlink{structtext__info__t}{text\_info\_t} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structtext__info__t}{text\_info\_t}));
+255 
+256     \hyperlink{wintext_8c_abbc4c07e653407050689ffa5a337cac4}{init\_text\_buffer}(&text\_info->\hyperlink{structtext__info__t_a5f680972356bbaddd025996082d0c389}{text});
+257     text\_info->\hyperlink{structtext__info__t_a2c55a95fd96aa06a6a2910929affdb92}{max\_width}      = 0;
+258     text\_info->\hyperlink{structtext__info__t_a849d2019f93623095ae8f4134a2ffd77}{extra\_width}    = 0;
+259     text\_info->\hyperlink{structtext__info__t_ad80f9412dbbf0aed0f1093b6097d4c63}{extra\_height}   = 0;
+260     text\_info->\hyperlink{structtext__info__t_a95cb312644df31bee2bc628a30096525}{blocked}         = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+261     text\_info->\hyperlink{structtext__info__t_a69f8614343afa947cebede852bbb74a6}{destroy\_on\_ack} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}; \textcolor{comment}{/* Ok to destroy before display */}
+262 \textcolor{preprocessor}{#ifdef GRAPHIC\_TOMBSTONE}
+263     text\_info->is\_rip         = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+264 \textcolor{preprocessor}{#endif}
+265 
+266     num\_args = 0;
+267     XtSetArg(args[num\_args], XtNallowShellResize, True); num\_args++;
+268     XtSetArg(args[num\_args], XtNtranslations,
+269         XtParseTranslationTable(\hyperlink{wintext_8c_a68041c958e2634303a6a861d59f709fd}{text\_translations}));   num\_args++;
+270 
+271 \textcolor{preprocessor}{#ifdef TRANSIENT\_TEXT}
+272     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = XtCreatePopupShell(\textcolor{stringliteral}{"text"}, transientShellWidgetClass,
+273                    \hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel}, args, num\_args);
+274 \textcolor{preprocessor}{#else}
+275     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = XtCreatePopupShell(\textcolor{stringliteral}{"text"}, topLevelShellWidgetClass,
+276                    \hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel}, args, num\_args);
+277 \textcolor{preprocessor}{#endif}
+278     XtOverrideTranslations(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup},
+279     XtParseTranslationTable(\textcolor{stringliteral}{"<Message>WM\_PROTOCOLS: delete\_text()"}));
+280 
+281     num\_args = 0;
+282     XtSetArg(args[num\_args], XtNallowShellResize, True);    num\_args++;
+283     form = XtCreateManagedWidget(\textcolor{stringliteral}{"form"}, formWidgetClass, wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup},
+284         args, num\_args);
+285 
+286     num\_args = 0;
+287     XtSetArg(args[num\_args], XtNdisplayCaret, False);       num\_args++;
+288     XtSetArg(args[num\_args], XtNresize, XawtextResizeBoth); num\_args++;
+289     XtSetArg(args[num\_args], XtNtranslations,
+290         XtParseTranslationTable(\hyperlink{wintext_8c_a68041c958e2634303a6a861d59f709fd}{text\_translations}));   num\_args++;
+291 
+292     wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} = XtCreateManagedWidget(
+293         \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer} && \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} == \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} ?
+294                   \textcolor{stringliteral}{"tombstone"} : \textcolor{stringliteral}{"text\_text"}, \textcolor{comment}{/* name */}
+295         asciiTextWidgetClass,
+296         form,           \textcolor{comment}{/* parent widget */}
+297         args,           \textcolor{comment}{/* set some values */}
+298         num\_args);      \textcolor{comment}{/* number of values to set */}
+299 
+300     \textcolor{comment}{/* Get the font and margin information. */}
+301     num\_args = 0;
+302     XtSetArg(args[num\_args], XtNfont,         &text\_info->\hyperlink{structtext__info__t_aca6a8ac387270498884c09d6ca405ed0}{fs}); num\_args++;
+303     XtSetArg(args[num\_args], XtNtopMargin,    &top\_margin);    num\_args++;
+304     XtSetArg(args[num\_args], XtNbottomMargin, &bottom\_margin); num\_args++;
+305     XtSetArg(args[num\_args], XtNleftMargin,   &left\_margin);   num\_args++;
+306     XtSetArg(args[num\_args], XtNrightMargin,  &right\_margin);  num\_args++;
+307     XtGetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+308 
+309     text\_info->\hyperlink{structtext__info__t_a849d2019f93623095ae8f4134a2ffd77}{extra\_width}  = left\_margin + right\_margin;
+310     text\_info->\hyperlink{structtext__info__t_ad80f9412dbbf0aed0f1093b6097d4c63}{extra\_height} = top\_margin + bottom\_margin;
+311 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_afa24874d5a7ab8b1be0dc5b6a0a0363a}{\index{wintext.\+c@{wintext.\+c}!delete\+\_\+text@{delete\+\_\+text}}
+\index{delete\+\_\+text@{delete\+\_\+text}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{delete\+\_\+text}]{\setlength{\rightskip}{0pt plus 5cm}void delete\+\_\+text (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_afa24874d5a7ab8b1be0dc5b6a0a0363a}
+
+
+Definition at line 58 of file wintext.\+c.
+
+
+
+References text\+\_\+info\+\_\+t\+::blocked, text\+\_\+info\+\_\+t\+::destroy\+\_\+on\+\_\+ack, destroy\+\_\+text\+\_\+window(), exit\+\_\+x\+\_\+event, find\+\_\+widget(), nh\+\_\+\+Xt\+Popdown(), xwindow\+::popup, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+63 \{
+64     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+65     \textcolor{keyword}{struct }\hyperlink{structtext__info__t}{text\_info\_t} *text\_info;
+66 
+67     wp = \hyperlink{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{find\_widget}(w);
+68     text\_info = wp->text\_information;
+69 
+70     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+71 
+72     \textcolor{keywordflow}{if} (text\_info->\hyperlink{structtext__info__t_a95cb312644df31bee2bc628a30096525}{blocked}) \{
+73     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+74     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (text\_info->\hyperlink{structtext__info__t_a69f8614343afa947cebede852bbb74a6}{destroy\_on\_ack}) \{
+75     \hyperlink{wintext_8c_a46548d5d68947c0fcfcc9114e082dac8}{destroy\_text\_window}(wp);
+76     \}
+77 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_a46548d5d68947c0fcfcc9114e082dac8}{\index{wintext.\+c@{wintext.\+c}!destroy\+\_\+text\+\_\+window@{destroy\+\_\+text\+\_\+window}}
+\index{destroy\+\_\+text\+\_\+window@{destroy\+\_\+text\+\_\+window}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{destroy\+\_\+text\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+\_\+text\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_a46548d5d68947c0fcfcc9114e082dac8}
+
+
+Definition at line 314 of file wintext.\+c.
+
+
+
+References text\+\_\+info\+\_\+t\+::blocked, text\+\_\+info\+\_\+t\+::destroy\+\_\+on\+\_\+ack, free(), free\+\_\+text\+\_\+buffer(), N\+H\+W\+\_\+\+N\+O\+N\+E, text\+\_\+info\+\_\+t\+::text, and T\+R\+U\+E.
+
+
+
+Referenced by delete\+\_\+text(), dismiss\+\_\+text(), and X11\+\_\+destroy\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+316 \{
+317     \textcolor{comment}{/* Don't need to pop down, this only called from dismiss\_text(). */}
+318 
+319     \textcolor{keyword}{struct }\hyperlink{structtext__info__t}{text\_info\_t} *text\_info = wp->text\_information;
+320 
+321     \textcolor{comment}{/*}
+322 \textcolor{comment}{     * If the text window was blocked, then the user has already ACK'ed}
+323 \textcolor{comment}{     * it and we are free to really destroy the window.  Otherwise, don't}
+324 \textcolor{comment}{     * destroy until the user dismisses the window via a key or button}
+325 \textcolor{comment}{     * press.}
+326 \textcolor{comment}{     */}
+327     \textcolor{keywordflow}{if} (text\_info->\hyperlink{structtext__info__t_a95cb312644df31bee2bc628a30096525}{blocked} || text\_info->\hyperlink{structtext__info__t_a69f8614343afa947cebede852bbb74a6}{destroy\_on\_ack}) \{
+328     XtDestroyWidget(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+329     \hyperlink{wintext_8c_a276629b48024ec17d207902f43f349ca}{free\_text\_buffer}(&text\_info->\hyperlink{structtext__info__t_a5f680972356bbaddd025996082d0c389}{text});
+330     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})text\_info),  wp->text\_information = 0;
+331     wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{winX_8h_ad149374e5170c08d2036a33dbf0f7b23}{NHW\_NONE};    \textcolor{comment}{/* allow reuse */}
+332     \} \textcolor{keywordflow}{else} \{
+333     text\_info->\hyperlink{structtext__info__t_a69f8614343afa947cebede852bbb74a6}{destroy\_on\_ack} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}; \textcolor{comment}{/* destroy on next ACK */}
+334     \}
+335 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_af1fa5b88e785f168ad98639ec04b8362}{\index{wintext.\+c@{wintext.\+c}!dismiss\+\_\+text@{dismiss\+\_\+text}}
+\index{dismiss\+\_\+text@{dismiss\+\_\+text}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{dismiss\+\_\+text}]{\setlength{\rightskip}{0pt plus 5cm}void dismiss\+\_\+text (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_af1fa5b88e785f168ad98639ec04b8362}
+
+
+Definition at line 86 of file wintext.\+c.
+
+
+
+References text\+\_\+info\+\_\+t\+::blocked, text\+\_\+info\+\_\+t\+::destroy\+\_\+on\+\_\+ack, destroy\+\_\+text\+\_\+window(), exit\+\_\+x\+\_\+event, find\+\_\+widget(), nh\+\_\+\+Xt\+Popdown(), xwindow\+::popup, and T\+R\+U\+E.
+
+
+
+Referenced by key\+\_\+dismiss\+\_\+text().
+
+
+\begin{DoxyCode}
+91 \{
+92     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+93     \textcolor{keyword}{struct }\hyperlink{structtext__info__t}{text\_info\_t} *text\_info;
+94 
+95     wp = \hyperlink{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{find\_widget}(w);
+96     text\_info = wp->text\_information;
+97 
+98     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+99 
+100     \textcolor{keywordflow}{if} (text\_info->\hyperlink{structtext__info__t_a95cb312644df31bee2bc628a30096525}{blocked}) \{
+101     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+102     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (text\_info->\hyperlink{structtext__info__t_a69f8614343afa947cebede852bbb74a6}{destroy\_on\_ack}) \{
+103     \hyperlink{wintext_8c_a46548d5d68947c0fcfcc9114e082dac8}{destroy\_text\_window}(wp);
+104     \}
+105 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_a92de4ec81ceb189ccbbe173f2d95a5c2}{\index{wintext.\+c@{wintext.\+c}!display\+\_\+text\+\_\+window@{display\+\_\+text\+\_\+window}}
+\index{display\+\_\+text\+\_\+window@{display\+\_\+text\+\_\+window}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{display\+\_\+text\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void display\+\_\+text\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{{\bf boolean}}]{blocking}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_a92de4ec81ceb189ccbbe173f2d95a5c2}
+
+
+Definition at line 152 of file wintext.\+c.
+
+
+
+References text\+\_\+info\+\_\+t\+::blocked, text\+\_\+info\+\_\+t\+::destroy\+\_\+on\+\_\+ack, E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+E\+X\+I\+T, text\+\_\+info\+\_\+t\+::extra\+\_\+height, text\+\_\+info\+\_\+t\+::extra\+\_\+width, F\+A\+L\+S\+E, height, text\+\_\+info\+\_\+t\+::max\+\_\+width, nh\+\_\+\+Xt\+Popdown(), nh\+\_\+\+Xt\+Popup(), nh\+Font\+Height(), text\+\_\+buffer\+::num\+\_\+lines, positionpopup(), text\+\_\+buffer\+::text, text\+\_\+info\+\_\+t\+::text, width, wm\+\_\+delete\+\_\+window, and x\+\_\+event().
+
+
+
+Referenced by X11\+\_\+display\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+155 \{
+156     \textcolor{keyword}{struct }\hyperlink{structtext__info__t}{text\_info\_t} *text\_info;
+157     Arg args[8];
+158     Cardinal num\_args;
+159     Dimension \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}, font\_height;
+160     \textcolor{keywordtype}{int} nlines;
+161 
+162     text\_info = wp->text\_information;
+163     width  = text\_info->\hyperlink{structtext__info__t_a2c55a95fd96aa06a6a2910929affdb92}{max\_width} + text\_info->\hyperlink{structtext__info__t_a849d2019f93623095ae8f4134a2ffd77}{extra\_width};
+164     text\_info->\hyperlink{structtext__info__t_a95cb312644df31bee2bc628a30096525}{blocked} = blocking;
+165     text\_info->\hyperlink{structtext__info__t_a69f8614343afa947cebede852bbb74a6}{destroy\_on\_ack} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+166     font\_height = \hyperlink{winX_8c_ae3632fa17aaccf5e4d8465051d42c658}{nhFontHeight}(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+167 
+168     \textcolor{comment}{/*}
+169 \textcolor{comment}{     * Calculate the number of lines to use.  First, find the number of}
+170 \textcolor{comment}{     * lines that would fit on the screen.  Next, remove four of these}
+171 \textcolor{comment}{     * lines to give room for a possible window manager titlebar (some}
+172 \textcolor{comment}{     * wm's put a titlebar on transient windows).  Make sure we have}
+173 \textcolor{comment}{     * \_some\_ lines.  Finally, use the number of lines in the text if}
+174 \textcolor{comment}{     * there are fewer than the max.}
+175 \textcolor{comment}{     */}
+176     nlines = (XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})->height - text\_info->\hyperlink{structtext__info__t_ad80f9412dbbf0aed0f1093b6097d4c63}{extra\_height}) / font\_height;
+177     nlines -= 4;
+178 
+179     \textcolor{keywordflow}{if} (nlines > text\_info->\hyperlink{structtext__info__t_a5f680972356bbaddd025996082d0c389}{text}.\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines})
+180     nlines = text\_info->\hyperlink{structtext__info__t_a5f680972356bbaddd025996082d0c389}{text}.\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines};
+181     \textcolor{keywordflow}{if} (nlines <= 0) nlines = 1;
+182 
+183     height = nlines * font\_height + text\_info->\hyperlink{structtext__info__t_ad80f9412dbbf0aed0f1093b6097d4c63}{extra\_height};
+184 
+185     num\_args = 0;
+186 
+187     \textcolor{keywordflow}{if} (nlines < text\_info->\hyperlink{structtext__info__t_a5f680972356bbaddd025996082d0c389}{text}.\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines}) \{
+188     \textcolor{comment}{/* add on width of scrollbar.  Really should look this up,}
+189 \textcolor{comment}{     * but can't until the window is realized.  Chicken-and-egg problem.}
+190 \textcolor{comment}{     */}
+191     width += 20;
+192     \}
+193 
+194 \textcolor{preprocessor}{#ifdef GRAPHIC\_TOMBSTONE}
+195     \textcolor{keywordflow}{if} (text\_info->is\_rip) \{
+196     Widget rip = create\_ripout\_widget(XtParent(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}));
+197     XtSetArg(args[num\_args], XtNfromVert, rip); num\_args++;
+198     \}
+199 \textcolor{preprocessor}{#endif}
+200 
+201     \textcolor{keywordflow}{if} (width > (Dimension) XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})->width) \{ \textcolor{comment}{/* too wide for screen */}
+202     \textcolor{comment}{/* Back off some amount - we really need to back off the scrollbar */}
+203     \textcolor{comment}{/* width plus some extra.                      */}
+204     width = XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})->width - 20;
+205     \}
+206     XtSetArg(args[num\_args], XtNstring, text\_info->\hyperlink{structtext__info__t_a5f680972356bbaddd025996082d0c389}{text}.\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text});  num\_args++;
+207     XtSetArg(args[num\_args], XtNwidth,  width);         num\_args++;
+208     XtSetArg(args[num\_args], XtNheight, height);        num\_args++;
+209     XtSetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+210 
+211 \textcolor{preprocessor}{#ifdef TRANSIENT\_TEXT}
+212     XtRealizeWidget(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+213     XSetWMProtocols(XtDisplay(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}), XtWindow(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}),
+214             &\hyperlink{winX_8h_ae061cf257d8ee1f9907008f160d340b7}{wm\_delete\_window}, 1);
+215     \hyperlink{dialogs_8c_a710147c680e59c5715d771d7b709a8b1}{positionpopup}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+216 \textcolor{preprocessor}{#endif}
+217 
+218     \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, (\textcolor{keywordtype}{int})XtGrabNone, wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+219 
+220     \textcolor{comment}{/* Kludge alert.  Scrollbars are not sized correctly by the Text widget */}
+221     \textcolor{comment}{/* if added before the window is displayed, so do it afterward. */}
+222     num\_args = 0;
+223     \textcolor{keywordflow}{if} (nlines < text\_info->\hyperlink{structtext__info__t_a5f680972356bbaddd025996082d0c389}{text}.\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines}) \{  \textcolor{comment}{/* add vert scrollbar */}
+224     XtSetArg(args[num\_args], XtNscrollVertical, XawtextScrollAlways);
+225                                 num\_args++;
+226     \}
+227     \textcolor{keywordflow}{if} (width >= (Dimension) (XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})->width-20)) \{    \textcolor{comment}{/* too wide */}
+228     XtSetArg(args[num\_args], XtNscrollHorizontal, XawtextScrollAlways);
+229                                 num\_args++;
+230     \}
+231     \textcolor{keywordflow}{if} (num\_args) XtSetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+232 
+233     \textcolor{comment}{/* We want the user to acknowlege. */}
+234     \textcolor{keywordflow}{if} (blocking) \{
+235     (void) \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\_event}(\hyperlink{winX_8h_a819d0a7d125d95a69564c36141d32159}{EXIT\_ON\_EXIT});
+236     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+237     \}
+238 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_a276629b48024ec17d207902f43f349ca}{\index{wintext.\+c@{wintext.\+c}!free\+\_\+text\+\_\+buffer@{free\+\_\+text\+\_\+buffer}}
+\index{free\+\_\+text\+\_\+buffer@{free\+\_\+text\+\_\+buffer}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{free\+\_\+text\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+text\+\_\+buffer (
+\begin{DoxyParamCaption}
+\item[{struct {\bf text\+\_\+buffer} $\ast$}]{tb}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_a276629b48024ec17d207902f43f349ca}
+
+
+Definition at line 429 of file wintext.\+c.
+
+
+
+References free().
+
+
+
+Referenced by destroy\+\_\+text\+\_\+window().
+
+
+\begin{DoxyCode}
+431 \{
+432     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text});
+433     tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text} = (\textcolor{keywordtype}{char} *) 0;
+434     tb->\hyperlink{structtext__buffer_ac664b06fbe050d6bf4058fdcd42e6076}{text\_size} = 0;
+435     tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last} = 0;
+436     tb->\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines} = 0;
+437 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_abbc4c07e653407050689ffa5a337cac4}{\index{wintext.\+c@{wintext.\+c}!init\+\_\+text\+\_\+buffer@{init\+\_\+text\+\_\+buffer}}
+\index{init\+\_\+text\+\_\+buffer@{init\+\_\+text\+\_\+buffer}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{init\+\_\+text\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+text\+\_\+buffer (
+\begin{DoxyParamCaption}
+\item[{struct {\bf text\+\_\+buffer} $\ast$}]{tb}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_abbc4c07e653407050689ffa5a337cac4}
+
+
+Definition at line 407 of file wintext.\+c.
+
+
+
+References alloc(), S\+T\+A\+R\+T\+\_\+\+S\+I\+Z\+E, and text\+\_\+buffer\+::text.
+
+
+
+Referenced by create\+\_\+status\+\_\+window(), and create\+\_\+text\+\_\+window().
+
+
+\begin{DoxyCode}
+409 \{
+410     tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}      = (\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{winX_8h_af4c591671caaeffb2dee2b4d20b596e5}{START\_SIZE});
+411     tb->\hyperlink{structtext__buffer_addf46d0312deaf1c33baacc8fd147acb}{text}[0]   = \textcolor{charliteral}{'\(\backslash\)0'};
+412     tb->\hyperlink{structtext__buffer_ac664b06fbe050d6bf4058fdcd42e6076}{text\_size} = \hyperlink{winX_8h_af4c591671caaeffb2dee2b4d20b596e5}{START\_SIZE};
+413     tb->\hyperlink{structtext__buffer_ae35a9a063efe6fe0686ddd0243422219}{text\_last} = 0;
+414     tb->\hyperlink{structtext__buffer_afd2611bf52cc00933ff169370a8799cf}{num\_lines} = 0;
+415 \}
+\end{DoxyCode}
+\hypertarget{wintext_8c_acc615165f2e6ae928071f55b3dde4f82}{\index{wintext.\+c@{wintext.\+c}!key\+\_\+dismiss\+\_\+text@{key\+\_\+dismiss\+\_\+text}}
+\index{key\+\_\+dismiss\+\_\+text@{key\+\_\+dismiss\+\_\+text}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{key\+\_\+dismiss\+\_\+text}]{\setlength{\rightskip}{0pt plus 5cm}void key\+\_\+dismiss\+\_\+text (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)}}\label{wintext_8c_acc615165f2e6ae928071f55b3dde4f82}
+
+
+Definition at line 109 of file wintext.\+c.
+
+
+
+References dismiss\+\_\+text(), and key\+\_\+event\+\_\+to\+\_\+char().
+
+
+\begin{DoxyCode}
+114 \{
+115     \textcolor{keywordtype}{char} ch = \hyperlink{winX_8c_af3b290f389630afad6dbf7b302f20606}{key\_event\_to\_char}((XKeyEvent *) event);
+116     \textcolor{keywordflow}{if} (ch) \hyperlink{wintext_8c_af1fa5b88e785f168ad98639ec04b8362}{dismiss\_text}(w, event, params, num\_params);
+117 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{wintext_8c_a68041c958e2634303a6a861d59f709fd}{\index{wintext.\+c@{wintext.\+c}!text\+\_\+translations@{text\+\_\+translations}}
+\index{text\+\_\+translations@{text\+\_\+translations}!wintext.\+c@{wintext.\+c}}
+\subsubsection[{text\+\_\+translations}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char text\+\_\+translations\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{wintext_8c_a68041c958e2634303a6a861d59f709fd}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"#override\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <BtnDown>: dismiss\_text()\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>: key\_dismiss\_text()"}
+\end{DoxyCode}
+
+
+Definition at line 42 of file wintext.\+c.
+
+
+
+Referenced by create\+\_\+text\+\_\+window().
+

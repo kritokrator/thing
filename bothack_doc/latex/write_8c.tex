@@ -1,0 +1,300 @@
+\hypertarget{write_8c}{\section{nethack/src/write.c File Reference}
+\label{write_8c}\index{nethack/src/write.\+c@{nethack/src/write.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{write_8c_a358725fac7909e84535362ee75731cbc}{F\+D\+E\+C\+L} (\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost},(struct \hyperlink{structobj}{obj} $\ast$))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+int \hyperlink{write_8c_a8f9414b2859183e062b76514c97d4f8d}{dowrite} (struct \hyperlink{structobj}{obj} $\ast$pen)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{write_8c_a1be890ed8602490b8e05a4960a257a30}{write\+\_\+on} \mbox{[}$\,$\mbox{]} = \{ \hyperlink{objclass_8h_ac23f261da0f9e2a4c6afccecfc167a96}{S\+C\+R\+O\+L\+L\+\_\+\+C\+L\+A\+S\+S}, \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{S\+P\+B\+O\+O\+K\+\_\+\+C\+L\+A\+S\+S}, 0 \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{write_8c_aaf2152e1481c26add921563dc560f4ae}{\index{write.\+c@{write.\+c}!cost@{cost}}
+\index{cost@{cost}!write.\+c@{write.\+c}}
+\subsubsection[{cost}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int cost (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{otmp}
+\end{DoxyParamCaption}
+)}}\label{write_8c_aaf2152e1481c26add921563dc560f4ae}
+
+
+Definition at line 12 of file write.\+c.
+
+
+
+References objects, and S\+P\+B\+O\+O\+K\+\_\+\+C\+L\+A\+S\+S.
+
+
+
+Referenced by add\+\_\+dirty\+\_\+rect(), and dowrite().
+
+
+\begin{DoxyCode}
+14 \{
+15 
+16     \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{SPBOOK\_CLASS})
+17         \textcolor{keywordflow}{return}(10 * \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_level);
+18 
+19     \textcolor{keywordflow}{switch} (otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}) \{
+20 \textcolor{preprocessor}{# ifdef MAIL}
+21     \textcolor{keywordflow}{case} SCR\_MAIL:
+22         \textcolor{keywordflow}{return}(2);
+23 \textcolor{comment}{/*      break; */}
+24 \textcolor{preprocessor}{# endif}
+25     \textcolor{keywordflow}{case} SCR\_LIGHT:
+26     \textcolor{keywordflow}{case} SCR\_GOLD\_DETECTION:
+27     \textcolor{keywordflow}{case} SCR\_FOOD\_DETECTION:
+28     \textcolor{keywordflow}{case} SCR\_MAGIC\_MAPPING:
+29     \textcolor{keywordflow}{case} SCR\_AMNESIA:
+30     \textcolor{keywordflow}{case} SCR\_FIRE:
+31     \textcolor{keywordflow}{case} SCR\_EARTH:
+32         \textcolor{keywordflow}{return}(8);
+33 \textcolor{comment}{/*      break; */}
+34     \textcolor{keywordflow}{case} SCR\_DESTROY\_ARMOR:
+35     \textcolor{keywordflow}{case} SCR\_CREATE\_MONSTER:
+36     \textcolor{keywordflow}{case} SCR\_PUNISHMENT:
+37         \textcolor{keywordflow}{return}(10);
+38 \textcolor{comment}{/*      break; */}
+39     \textcolor{keywordflow}{case} SCR\_CONFUSE\_MONSTER:
+40         \textcolor{keywordflow}{return}(12);
+41 \textcolor{comment}{/*      break; */}
+42     \textcolor{keywordflow}{case} SCR\_IDENTIFY:
+43         \textcolor{keywordflow}{return}(14);
+44 \textcolor{comment}{/*      break; */}
+45     \textcolor{keywordflow}{case} SCR\_ENCHANT\_ARMOR:
+46     \textcolor{keywordflow}{case} SCR\_REMOVE\_CURSE:
+47     \textcolor{keywordflow}{case} SCR\_ENCHANT\_WEAPON:
+48     \textcolor{keywordflow}{case} SCR\_CHARGING:
+49         \textcolor{keywordflow}{return}(16);
+50 \textcolor{comment}{/*      break; */}
+51     \textcolor{keywordflow}{case} SCR\_SCARE\_MONSTER:
+52     \textcolor{keywordflow}{case} SCR\_STINKING\_CLOUD:
+53     \textcolor{keywordflow}{case} SCR\_TAMING:
+54     \textcolor{keywordflow}{case} SCR\_TELEPORTATION:
+55         \textcolor{keywordflow}{return}(20);
+56 \textcolor{comment}{/*      break; */}
+57     \textcolor{keywordflow}{case} SCR\_GENOCIDE:
+58         \textcolor{keywordflow}{return}(30);
+59 \textcolor{comment}{/*      break; */}
+60     \textcolor{keywordflow}{case} SCR\_BLANK\_PAPER:
+61     \textcolor{keywordflow}{default}:
+62         impossible(\textcolor{stringliteral}{"You can't write such a weird scroll!"});
+63     \}
+64     \textcolor{keywordflow}{return}(1000);
+65 \}
+\end{DoxyCode}
+\hypertarget{write_8c_a8f9414b2859183e062b76514c97d4f8d}{\index{write.\+c@{write.\+c}!dowrite@{dowrite}}
+\index{dowrite@{dowrite}!write.\+c@{write.\+c}}
+\subsubsection[{dowrite}]{\setlength{\rightskip}{0pt plus 5cm}int dowrite (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{pen}
+\end{DoxyParamCaption}
+)}}\label{write_8c_a8f9414b2859183e062b76514c97d4f8d}
+
+
+Definition at line 70 of file write.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, bases, Blind, B\+U\+F\+S\+Z, cost(), monst\+::data, F\+A\+L\+S\+E, F\+I\+N\+G\+E\+R, getlin, Glib, u\+\_\+conduct\+::literate, M\+A\+X\+U\+L\+E\+V, nohands, O\+B\+J\+\_\+\+D\+E\+S\+C\+R, O\+B\+J\+\_\+\+N\+A\+M\+E, objects, objclass\+::oc\+\_\+uname, obj\+::oclass, obj\+::otyp, plname, Q\+B\+U\+F\+S\+Z, rn1, Role\+\_\+if, S\+P\+B\+O\+O\+K\+\_\+\+C\+L\+A\+S\+S, obj\+::spe, Sprintf, strcmpi, Strcpy, strncmpi(), T\+R\+U\+E, u, you\+::uconduct, you\+::ulevel, update\+\_\+inventory, and youmonst.
+
+
+\begin{DoxyCode}
+72 \{
+73     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *paper;
+74     \textcolor{keywordtype}{char} namebuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}], *nm, *bp;
+75     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *new\_obj;
+76     \textcolor{keywordtype}{int} basecost, actualcost;
+77     \textcolor{keywordtype}{int} curseval;
+78     \textcolor{keywordtype}{char} qbuf[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+79     \textcolor{keywordtype}{int} first, last, i;
+80     \textcolor{keywordtype}{boolean} by\_descr = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+81     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *typeword;
+82 
+83     \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_ae13d4a4d0a9842348cffbb5dae990771}{nohands}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) \{
+84         You(\textcolor{stringliteral}{"need hands to be able to write!"});
+85         \textcolor{keywordflow}{return} 0;
+86     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_afa8a7e926d960a90cabc72d52cd13ae1}{Glib}) \{
+87         pline(\textcolor{stringliteral}{"%s from your %s."},
+88           Tobjnam(pen, \textcolor{stringliteral}{"slip"}), makeplural(body\_part(\hyperlink{hack_8h_a08ca2d5c1d54f87b137e95b8abf5561d}{FINGER})));
+89         dropx(pen);
+90         \textcolor{keywordflow}{return} 1;
+91     \}
+92 
+93     \textcolor{comment}{/* get paper to write on */}
+94     paper = getobj(\hyperlink{write_8c_a1be890ed8602490b8e05a4960a257a30}{write\_on},\textcolor{stringliteral}{"write on"});
+95     \textcolor{keywordflow}{if}(!paper)
+96         \textcolor{keywordflow}{return}(0);
+97     typeword = (paper->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{SPBOOK\_CLASS}) ? \textcolor{stringliteral}{"spellbook"} : \textcolor{stringliteral}{"scroll"};
+98     \textcolor{keywordflow}{if}(\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} && !paper->dknown) \{
+99         You(\textcolor{stringliteral}{"don't know if that %s is blank or not!"}, typeword);
+100         \textcolor{keywordflow}{return}(1);
+101     \}
+102     paper->dknown = 1;
+103     \textcolor{keywordflow}{if}(paper->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != SCR\_BLANK\_PAPER && paper->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != SPE\_BLANK\_PAPER) \{
+104         pline(\textcolor{stringliteral}{"That %s is not blank!"}, typeword);
+105         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+106         \textcolor{keywordflow}{return}(1);
+107     \}
+108 
+109     \textcolor{comment}{/* what to write */}
+110     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(qbuf, \textcolor{stringliteral}{"What type of %s do you want to write?"}, typeword);
+111     \hyperlink{winprocs_8h_ab09682cb017e224c23b0c4e7989a81a7}{getlin}(qbuf, namebuf);
+112     (void)mungspaces(namebuf);  \textcolor{comment}{/* remove any excess whitespace */}
+113     \textcolor{keywordflow}{if}(namebuf[0] == \textcolor{charliteral}{'\(\backslash\)033'} || !namebuf[0])
+114         \textcolor{keywordflow}{return}(1);
+115     nm = namebuf;
+116     \textcolor{keywordflow}{if} (!\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(nm, \textcolor{stringliteral}{"scroll "}, 7)) nm += 7;
+117     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(nm, \textcolor{stringliteral}{"spellbook "}, 10)) nm += 10;
+118     \textcolor{keywordflow}{if} (!\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(nm, \textcolor{stringliteral}{"of "}, 3)) nm += 3;
+119 
+120     \textcolor{keywordflow}{if} ((bp = strstri(nm, \textcolor{stringliteral}{" armour"})) != 0) \{
+121         (void)strncpy(bp, \textcolor{stringliteral}{" armor "}, 7);    \textcolor{comment}{/* won't add '\(\backslash\)0' */}
+122         (void)mungspaces(bp + 1);   \textcolor{comment}{/* remove the extra space */}
+123     \}
+124 
+125     first = \hyperlink{decl_8h_a6ebf295ea3e833b4a1e95f5a672e1821}{bases}[(int)paper->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass}];
+126     last = \hyperlink{decl_8h_a6ebf295ea3e833b4a1e95f5a672e1821}{bases}[(\textcolor{keywordtype}{int})paper->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} + 1] - 1;
+127     for (i = first; i <= last; i++) \{
+128         \textcolor{comment}{/* extra shufflable descr not representing a real object */}
+129         \textcolor{keywordflow}{if} (!\hyperlink{objclass_8h_aaa71280f2bfe02894ab8c39af548d6ae}{OBJ\_NAME}(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[i])) \textcolor{keywordflow}{continue};
+130 
+131         \textcolor{keywordflow}{if} (!\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(\hyperlink{objclass_8h_aaa71280f2bfe02894ab8c39af548d6ae}{OBJ\_NAME}(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[i]), nm))
+132             \textcolor{keywordflow}{goto} found;
+133         \textcolor{keywordflow}{if} (!\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(\hyperlink{objclass_8h_aeab69e2f227c2e8ac9c45dea8090ce38}{OBJ\_DESCR}(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[i]), nm)) \{
+134             by\_descr = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+135             \textcolor{keywordflow}{goto} found;
+136         \}
+137     \}
+138 
+139     There(\textcolor{stringliteral}{"is no such %s!"}, typeword);
+140     \textcolor{keywordflow}{return} 1;
+141 found:
+142 
+143     \textcolor{keywordflow}{if} (i == SCR\_BLANK\_PAPER || i == SPE\_BLANK\_PAPER) \{
+144         You\_cant(\textcolor{stringliteral}{"write that!"});
+145         pline(\textcolor{stringliteral}{"It's obscene!"});
+146         \textcolor{keywordflow}{return} 1;
+147     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (i == SPE\_BOOK\_OF\_THE\_DEAD) \{
+148         pline(\textcolor{stringliteral}{"No mere dungeon adventurer could write that."});
+149         \textcolor{keywordflow}{return} 1;
+150     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (by\_descr && paper->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{SPBOOK\_CLASS} &&
+151             !\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[i].oc\_name\_known) \{
+152         \textcolor{comment}{/* can't write unknown spellbooks by description */}
+153         pline(
+154           \textcolor{stringliteral}{"Unfortunately you don't have enough information to go on."});
+155         \textcolor{keywordflow}{return} 1;
+156     \}
+157 
+158     \textcolor{comment}{/* KMH, conduct */}
+159     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac34f4744daa7ff78a6ff556ade5b9601}{uconduct}.\hyperlink{structu__conduct_a77dfbeafba9b3246900584c73eded17d}{literate}++;
+160 
+161     new\_obj = mksobj(i, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+162     new\_obj->bknown = (paper->bknown && pen->bknown);
+163 
+164     \textcolor{comment}{/* shk imposes a flat rate per use, not based on actual charges used */}
+165     check\_unpaid(pen);
+166 
+167     \textcolor{comment}{/* see if there's enough ink */}
+168     basecost = \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}(new\_obj);
+169     \textcolor{keywordflow}{if}(pen->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} < basecost/2)  \{
+170         Your(\textcolor{stringliteral}{"marker is too dry to write that!"});
+171         obfree(new\_obj, (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+172         \textcolor{keywordflow}{return}(1);
+173     \}
+174 
+175     \textcolor{comment}{/* we're really going to write now, so calculate cost}
+176 \textcolor{comment}{     */}
+177     actualcost = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(basecost/2,basecost/2);
+178     curseval = bcsign(pen) + bcsign(paper);
+179     exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+180     \textcolor{comment}{/* dry out marker */}
+181     \textcolor{keywordflow}{if} (pen->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} < actualcost) \{
+182         pen->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = 0;
+183         Your(\textcolor{stringliteral}{"marker dries out!"});
+184         \textcolor{comment}{/* scrolls disappear, spellbooks don't */}
+185         \textcolor{keywordflow}{if} (paper->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{SPBOOK\_CLASS}) \{
+186             pline\_The(
+187                \textcolor{stringliteral}{"spellbook is left unfinished and your writing fades."});
+188             \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}(); \textcolor{comment}{/* pen charges */}
+189         \} \textcolor{keywordflow}{else} \{
+190             pline\_The(\textcolor{stringliteral}{"scroll is now useless and disappears!"});
+191             useup(paper);
+192         \}
+193         obfree(new\_obj, (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+194         \textcolor{keywordflow}{return}(1);
+195     \}
+196     pen->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} -= actualcost;
+197 
+198     \textcolor{comment}{/* can't write if we don't know it - unless we're lucky */}
+199     \textcolor{keywordflow}{if}(!(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[new\_obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_name\_known) &&
+200        !(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[new\_obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].\hyperlink{structobjclass_a2556428315c0776ce8f5c88ecf6508bc}{oc\_uname}) &&
+201        (rnl(\hyperlink{you_8h_a6087f5b8605964c19078b777da740258}{Role\_if}(PM\_WIZARD) ? 3 : 15))) \{
+202         You(\textcolor{stringliteral}{"%s to write that!"}, by\_descr ? \textcolor{stringliteral}{"fail"} : \textcolor{stringliteral}{"don't know how"});
+203         \textcolor{comment}{/* scrolls disappear, spellbooks don't */}
+204         \textcolor{keywordflow}{if} (paper->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{SPBOOK\_CLASS}) \{
+205             You(
+206        \textcolor{stringliteral}{"write in your best handwriting:  \(\backslash\)"My Diary\(\backslash\)", but it quickly fades."});
+207             \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}(); \textcolor{comment}{/* pen charges */}
+208         \} \textcolor{keywordflow}{else} \{
+209             \textcolor{keywordflow}{if} (by\_descr) \{
+210                 \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(namebuf, \hyperlink{objclass_8h_aeab69e2f227c2e8ac9c45dea8090ce38}{OBJ\_DESCR}(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[new\_obj->
+      \hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}]));
+211                 wipeout\_text(namebuf, (6+\hyperlink{global_8h_aaa4bacb3e5383df368bf5c824bdd0087}{MAXULEV} - \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel})/6, 0);
+212             \} \textcolor{keywordflow}{else}
+213                 \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(namebuf, \textcolor{stringliteral}{"%s was here!"}, \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+214             You(\textcolor{stringliteral}{"write \(\backslash\)"%s\(\backslash\)" and the scroll disappears."}, namebuf);
+215             useup(paper);
+216         \}
+217         obfree(new\_obj, (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+218         \textcolor{keywordflow}{return}(1);
+219     \}
+220 
+221     \textcolor{comment}{/* useup old scroll / spellbook */}
+222     useup(paper);
+223 
+224     \textcolor{comment}{/* success */}
+225     \textcolor{keywordflow}{if} (new\_obj->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{SPBOOK\_CLASS}) \{
+226         \textcolor{comment}{/* acknowledge the change in the object's description... */}
+227         pline\_The(\textcolor{stringliteral}{"spellbook warps strangely, then turns %s."},
+228               \hyperlink{objclass_8h_aeab69e2f227c2e8ac9c45dea8090ce38}{OBJ\_DESCR}(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[new\_obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}]));
+229     \}
+230     new\_obj->blessed = (curseval > 0);
+231     new\_obj->cursed = (curseval < 0);
+232 \textcolor{preprocessor}{#ifdef MAIL}
+233     \textcolor{keywordflow}{if} (new\_obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == SCR\_MAIL) new\_obj->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = 1;
+234 \textcolor{preprocessor}{#endif}
+235     new\_obj = hold\_another\_object(new\_obj, \textcolor{stringliteral}{"Oops!  %s out of your grasp!"},
+236                            The(aobjnam(new\_obj, \textcolor{stringliteral}{"slip"})),
+237                            (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)0);
+238     \textcolor{keywordflow}{return}(1);
+239 \}
+\end{DoxyCode}
+\hypertarget{write_8c_a358725fac7909e84535362ee75731cbc}{\index{write.\+c@{write.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!write.\+c@{write.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf cost}}]{, }
+\item[{(struct {\bf obj} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{write_8c_a358725fac7909e84535362ee75731cbc}
+
+
+\subsection{Variable Documentation}
+\hypertarget{write_8c_a1be890ed8602490b8e05a4960a257a30}{\index{write.\+c@{write.\+c}!write\+\_\+on@{write\+\_\+on}}
+\index{write\+\_\+on@{write\+\_\+on}!write.\+c@{write.\+c}}
+\subsubsection[{write\+\_\+on}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} {\bf const} char write\+\_\+on\mbox{[}$\,$\mbox{]} = \{ {\bf S\+C\+R\+O\+L\+L\+\_\+\+C\+L\+A\+S\+S}, {\bf S\+P\+B\+O\+O\+K\+\_\+\+C\+L\+A\+S\+S}, 0 \}\hspace{0.3cm}{\ttfamily [static]}}}\label{write_8c_a1be890ed8602490b8e05a4960a257a30}
+
+
+Definition at line 67 of file write.\+c.
+

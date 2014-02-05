@@ -1,0 +1,181 @@
+\hypertarget{amiwind_8c}{\section{nethack/sys/amiga/amiwind.c File Reference}
+\label{amiwind_8c}\index{nethack/sys/amiga/amiwind.\+c@{nethack/sys/amiga/amiwind.\+c}}
+}
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/windefs.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winext.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winproto.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{amiwind_8c_ad5451da499ab9d3907da8dd7060ab677}{kbhit} ()
+\item 
+void \hyperlink{amiwind_8c_acd807e8b552ad939e3ae2fcb45e14c46}{Abort} (long rc)
+\item 
+void \hyperlink{amiwind_8c_abfc30f91ab75c6f4552003f777672e74}{Clean\+Up} ()
+\item 
+void \hyperlink{amiwind_8c_a34202204b8a823ec191848d8210df54c}{amiv\+\_\+loadlib} (void)
+\item 
+void \hyperlink{amiwind_8c_a9c8bfd055bcb4a11d7cb73477faf8811}{amii\+\_\+loadlib} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{amiwind_8c_acd807e8b552ad939e3ae2fcb45e14c46}{\index{amiwind.\+c@{amiwind.\+c}!Abort@{Abort}}
+\index{Abort@{Abort}!amiwind.\+c@{amiwind.\+c}}
+\subsubsection[{Abort}]{\setlength{\rightskip}{0pt plus 5cm}void Abort (
+\begin{DoxyParamCaption}
+\item[{long}]{rc}
+\end{DoxyParamCaption}
+)}}\label{amiwind_8c_acd807e8b552ad939e3ae2fcb45e14c46}
+
+
+Definition at line 741 of file amiwind.\+c.
+
+
+
+References Abort(), amii\+\_\+getret(), amii\+\_\+procs, chdir(), exit(), orgdir, printf, and windowprocs.
+
+
+
+Referenced by Abort(), amii\+\_\+create\+\_\+nhwindow(), and amii\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+743 \{
+744     \textcolor{keywordtype}{int} fault = 1;
+745 \textcolor{preprocessor}{#ifdef CHDIR}
+746     \textcolor{keyword}{extern} \textcolor{keywordtype}{char} \hyperlink{pcmain_8c_a660405f8daeac10e2bcc02e76a58dc83}{orgdir}[];
+747     \hyperlink{wceconf_8h_ae6d5c38f8d7036c9010142bf4291d5ca}{chdir}(orgdir);
+748 \textcolor{preprocessor}{#endif}
+749 \textcolor{preprocessor}{#ifdef AMII\_GRAPHICS}
+750     \textcolor{keywordflow}{if} (\hyperlink{amidos_8c_a55b41cec1916f4628807321204d03d9f}{Initialized}
+751       && ConsoleDevice
+752       && \hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.win\_init\_nhwindows==\hyperlink{amidos_8c_a15de23af499d6c155c1ba39cec0e1cb2}{amii\_procs}.win\_init\_nhwindows) \{
+753       \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"\(\backslash\)n\(\backslash\)nAbort with alert code %08lx...\(\backslash\)n"}, rc);
+754       \hyperlink{winkey_8c_afaf5347d355ac4af27caba3454fc448a}{amii\_getret}();
+755     \} \textcolor{keywordflow}{else}
+756 \textcolor{preprocessor}{#endif}
+757       \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"\(\backslash\)n\(\backslash\)nAbort with alert code %08lx...\(\backslash\)n"},rc);
+758       \textcolor{comment}{/* Alert(rc);              this is too severe */}
+759 \textcolor{preprocessor}{#ifdef \_\_SASC}
+760 \textcolor{preprocessor}{# ifdef INTUI\_NEW\_LOOK}
+761     \textcolor{keywordflow}{if}( IntuitionBase->LibNode.lib\_Version >= 37 )
+762     \{
+763         \textcolor{keyword}{struct }EasyStruct es =
+764         \{
+765             \textcolor{keyword}{sizeof}( \textcolor{keyword}{struct }EasyStruct ),
+766             0,
+767             "NetHack Panic Request",
+768             "NetHack is Aborting with code == 0x%08lx\textcolor{stringliteral}{",}
+769 \textcolor{stringliteral}{        "}Continue \hyperlink{amiwind_8c_acd807e8b552ad939e3ae2fcb45e14c46}{Abort}|Return to Program|Clean up and \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}\textcolor{stringliteral}{",}
+770 \textcolor{stringliteral}{        \};}
+771 \textcolor{stringliteral}{        fault = EasyRequest( NULL, &es, NULL, (long)rc );}
+772 \textcolor{stringliteral}{        if( fault == 2 )}
+773 \textcolor{stringliteral}{            return;}
+774 \textcolor{stringliteral}{    \}}
+775 \textcolor{stringliteral}{# endif}
+776 \textcolor{stringliteral}{    if( fault == 1 )}
+777 \textcolor{stringliteral}{    \{}
+778 \textcolor{stringliteral}{/*  \_\_emit(0x4afc); */    /* illegal instruction */}
+779 \textcolor{stringliteral}{    \_\_emit(0x40fc);     /* divide by */}
+780 \textcolor{stringliteral}{    \_\_emit(0x0000);     /*  #0  */}
+781 \textcolor{stringliteral}{      /* NOTE: don't move amii\_cleanup() above here - */}
+782 \textcolor{stringliteral}{      /* it is too likely to kill the system     */}
+783 \textcolor{stringliteral}{      /* before it can get the SnapShot out, if  */}
+784 \textcolor{stringliteral}{      /* there is something really wrong.    */}
+785 \textcolor{stringliteral}{    \}}
+786 \textcolor{stringliteral}{#endif}
+787 \textcolor{stringliteral}{#ifdef AMII\_GRAPHICS}
+788 \textcolor{stringliteral}{    if(windowprocs.win\_init\_nhwindows==amii\_procs.win\_init\_nhwindows)}
+789 \textcolor{stringliteral}{      amii\_cleanup();}
+790 \textcolor{stringliteral}{#endif}
+791 \textcolor{stringliteral}{#undef exit}
+792 \textcolor{stringliteral}{#ifdef AZTEC\_C}
+793 \textcolor{stringliteral}{    \_abort();}
+794 \textcolor{stringliteral}{#endif}
+795 \textcolor{stringliteral}{    exit((int) rc);}
+796 \textcolor{stringliteral}{\}}
+\end{DoxyCode}
+\hypertarget{amiwind_8c_a9c8bfd055bcb4a11d7cb73477faf8811}{\index{amiwind.\+c@{amiwind.\+c}!amii\+\_\+loadlib@{amii\+\_\+loadlib}}
+\index{amii\+\_\+loadlib@{amii\+\_\+loadlib}!amiwind.\+c@{amiwind.\+c}}
+\subsubsection[{amii\+\_\+loadlib}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+loadlib (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{amiwind_8c_a9c8bfd055bcb4a11d7cb73477faf8811}
+
+
+Definition at line 932 of file amiwind.\+c.
+
+
+\begin{DoxyCode}
+933 \{
+934 \}
+\end{DoxyCode}
+\hypertarget{amiwind_8c_a34202204b8a823ec191848d8210df54c}{\index{amiwind.\+c@{amiwind.\+c}!amiv\+\_\+loadlib@{amiv\+\_\+loadlib}}
+\index{amiv\+\_\+loadlib@{amiv\+\_\+loadlib}!amiwind.\+c@{amiwind.\+c}}
+\subsubsection[{amiv\+\_\+loadlib}]{\setlength{\rightskip}{0pt plus 5cm}void amiv\+\_\+loadlib (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{amiwind_8c_a34202204b8a823ec191848d8210df54c}
+
+
+Definition at line 927 of file amiwind.\+c.
+
+
+\begin{DoxyCode}
+928 \{
+929 \}
+\end{DoxyCode}
+\hypertarget{amiwind_8c_abfc30f91ab75c6f4552003f777672e74}{\index{amiwind.\+c@{amiwind.\+c}!Clean\+Up@{Clean\+Up}}
+\index{Clean\+Up@{Clean\+Up}!amiwind.\+c@{amiwind.\+c}}
+\subsubsection[{Clean\+Up}]{\setlength{\rightskip}{0pt plus 5cm}void Clean\+Up (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{amiwind_8c_abfc30f91ab75c6f4552003f777672e74}
+
+
+Definition at line 799 of file amiwind.\+c.
+
+
+
+Referenced by nethack\+\_\+exit().
+
+
+\begin{DoxyCode}
+800 \{
+801     \hyperlink{winproto_8h_aa0ab31344b2d7cf560f9c39c419139b7}{amii\_cleanup}();
+802 \}
+\end{DoxyCode}
+\hypertarget{amiwind_8c_ad5451da499ab9d3907da8dd7060ab677}{\index{amiwind.\+c@{amiwind.\+c}!kbhit@{kbhit}}
+\index{kbhit@{kbhit}!amiwind.\+c@{amiwind.\+c}}
+\subsubsection[{kbhit}]{\setlength{\rightskip}{0pt plus 5cm}int kbhit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{amiwind_8c_ad5451da499ab9d3907da8dd7060ab677}
+
+
+Definition at line 544 of file amiwind.\+c.
+
+
+
+References amii\+\_\+procs, amikbhit(), and windowprocs.
+
+
+\begin{DoxyCode}
+545 \{
+546     \textcolor{keywordtype}{int} c;
+547 \textcolor{preprocessor}{# ifdef TTY\_GRAPHICS}
+548         \textcolor{comment}{/* a kludge to defuse the mess in allmain.c */}
+549         \textcolor{comment}{/* I hope this is the right approach */}
+550     \textcolor{keywordflow}{if}(\hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.win\_init\_nhwindows==\hyperlink{amidos_8c_a15de23af499d6c155c1ba39cec0e1cb2}{amii\_procs}.win\_init\_nhwindows)\textcolor{keywordflow}{return} 0;
+551 \textcolor{preprocessor}{# endif}
+552     c = \hyperlink{winproto_8h_ac506d1c2744895972ab13c3b19d702c3}{amikbhit}();
+553     \textcolor{keywordflow}{if}( c <= 0 )
+554         \textcolor{keywordflow}{return}( 0 );
+555     \textcolor{keywordflow}{return}( c );
+556 \}
+\end{DoxyCode}

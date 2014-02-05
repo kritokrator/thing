@@ -1,0 +1,865 @@
+\hypertarget{txt2iff_8c}{\section{nethack/sys/amiga/txt2iff.c File Reference}
+\label{txt2iff_8c}\index{nethack/sys/amiga/txt2iff.\+c@{nethack/sys/amiga/txt2iff.\+c}}
+}
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$dos/dos.\+h$>$}\\*
+{\ttfamily \#include $<$dos/dosextens.\+h$>$}\\*
+{\ttfamily \#include $<$graphics/gfx.\+h$>$}\\*
+{\ttfamily \#include $<$graphics/gfxbase.\+h$>$}\\*
+{\ttfamily \#include $<$graphics/view.\+h$>$}\\*
+{\ttfamily \#include $<$libraries/iffparse.\+h$>$}\\*
+{\ttfamily \#include $<$libraries/dos.\+h$>$}\\*
+{\ttfamily \#include $<$clib/dos\+\_\+protos.\+h$>$}\\*
+{\ttfamily \#include $<$clib/iffparse\+\_\+protos.\+h$>$}\\*
+{\ttfamily \#include $<$proto/exec.\+h$>$}\\*
+{\ttfamily \#include $<$proto/iffparse.\+h$>$}\\*
+{\ttfamily \#include $<$proto/dos.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structBitMapHeader}{Bit\+Map\+Header}
+\item 
+struct \hyperlink{structAmiColorMap}{Ami\+Color\+Map}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}{I\+D\+\_\+\+B\+M\+A\+P}~M\+A\+K\+E\+\_\+\+I\+D( '\hyperlink{objects_8c_a111da81ae5883147168bbb8366377b10}{B}', '\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}', '\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}', '\hyperlink{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{P}' )	/$\ast$ instead of I\+L\+B\+M $\ast$/
+\item 
+\#define \hyperlink{txt2iff_8c_abcd1dcd9c8074c20b650110c487ec826}{I\+D\+\_\+\+B\+M\+H\+D}~M\+A\+K\+E\+\_\+\+I\+D( '\hyperlink{objects_8c_a111da81ae5883147168bbb8366377b10}{B}', '\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}', 'H', 'D' )	/$\ast$ Same as I\+L\+B\+M $\ast$/
+\item 
+\#define \hyperlink{txt2iff_8c_a83e89c32c825101821f40b21289218a9}{I\+D\+\_\+\+C\+A\+M\+G}~M\+A\+K\+E\+\_\+\+I\+D( '\hyperlink{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}', '\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}', '\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}', 'G' )	/$\ast$ Same as I\+L\+B\+M $\ast$/
+\item 
+\#define \hyperlink{txt2iff_8c_adbfe39990b0b760a79f0192db7961bd8}{I\+D\+\_\+\+C\+M\+A\+P}~M\+A\+K\+E\+\_\+\+I\+D( '\hyperlink{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}', '\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}', '\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}', '\hyperlink{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{P}' )	/$\ast$ Same as I\+L\+B\+M $\ast$/
+\item 
+\#define \hyperlink{txt2iff_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}{I\+D\+\_\+\+P\+D\+A\+T}
+\item 
+\#define \hyperlink{txt2iff_8c_af25d25b688b21e610cab14b3774cc3fb}{I\+D\+\_\+\+P\+L\+N\+E}~M\+A\+K\+E\+\_\+\+I\+D( '\hyperlink{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{P}', 'L', 'N', '\hyperlink{win_2win32_2winMS_8h_a07484107e6d9fdf38b53edf631d6511d}{E}' )	/$\ast$ The \hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes} of the \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image} $\ast$/
+\item 
+\#define \hyperlink{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{C\+O\+L\+S}~20
+\item 
+\#define \hyperlink{txt2iff_8c_a3cfd3aa62338d12609f6d65bce97e9cd}{R\+O\+W\+S}~((tiles + \hyperlink{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{C\+O\+L\+S}-\/1) / \hyperlink{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{C\+O\+L\+S})
+\item 
+\#define \hyperlink{txt2iff_8c_a85924da2f6234854721c6ebb27dab370}{C\+X\+\_\+\+B\+L\+A\+C\+K}~0
+\item 
+\#define \hyperlink{txt2iff_8c_af922f32fc6ce121af06d38531d5e9ba1}{C\+X\+\_\+\+W\+H\+I\+T\+E}~1
+\item 
+\#define \hyperlink{txt2iff_8c_adb51fa73dd2f86996112b9ae9468e572}{C\+X\+\_\+\+B\+R\+O\+W\+N}~11
+\item 
+\#define \hyperlink{txt2iff_8c_a92c3846d3f69dd037e3a3c595199737a}{C\+X\+\_\+\+C\+Y\+A\+N}~2
+\item 
+\#define \hyperlink{txt2iff_8c_a70db7afef7c68013440c575b9659677d}{C\+X\+\_\+\+G\+R\+E\+E\+N}~5
+\item 
+\#define \hyperlink{txt2iff_8c_a0e0b6eb6e45914d9f42d5cf14e11b09c}{C\+X\+\_\+\+M\+A\+G\+E\+N\+T\+A}~10
+\item 
+\#define \hyperlink{txt2iff_8c_a8814a5d76363d7a550a91102194542fe}{C\+X\+\_\+\+B\+L\+U\+E}~4
+\item 
+\#define \hyperlink{txt2iff_8c_abc1ca1e2d968eaf46545b4fcf644ac2e}{C\+X\+\_\+\+R\+E\+D}~7
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$)
+\item 
+void \hyperlink{txt2iff_8c_ac93bd392ea1b95cc8db73bde769d95c3}{map\+\_\+colors} (void)
+\item 
+int \hyperlink{txt2iff_8c_af58270dc8570dad8170e2df4b40bd37a}{Best\+Match} (int, int, int)
+\item 
+int \hyperlink{txt2iff_8c_a1962cd35278f64d8ca69ac0a265199b4}{findcolor} (\hyperlink{mkmaze_8c_a24ac627a7839caecddfc66f1d46033f0}{register} \hyperlink{structpixel}{pixel} $\ast$pix)
+\item 
+void \hyperlink{txt2iff_8c_ab8b979a38e2508b2e304bc158b3b5222}{packwritebody} (\hyperlink{structpixel}{pixel}($\ast$\hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile})\mbox{[}\hyperlink{win_2win32_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{T\+I\+L\+E\+\_\+\+X}\mbox{]}, char $\ast$$\ast$\hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes}, int tileno)
+\item 
+void \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error} (char $\ast$str)
+\item 
+\hyperlink{txt2iff_8c_a5ea466849f21e6c2be4ef9b2eb8868d3}{main} (int argc, char $\ast$$\ast$argv)
+\item 
+long $\ast$ \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc} (unsigned int n)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tile_8h_aa6367451fcfe2de81dffaeb485b7a59c}{pixval} \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{Color\+Map} \mbox{[}3\mbox{]}\mbox{[}\hyperlink{tile_8h_a321fcd6ec582309d0779ddc457ec5d62}{M\+A\+X\+C\+O\+L\+O\+R\+M\+A\+P\+S\+I\+Z\+E}\mbox{]}
+\item 
+int \hyperlink{txt2iff_8c_aff516215666b583bb7940b37a907fb6d}{colorsinmap}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>int \hyperlink{txt2iff_8c_aaadefba794062a2ca7e58ceb10b955a1}{Height}\\
+\>int \hyperlink{txt2iff_8c_abbe7749c3b402f7dfe64f936774cfcd4}{Width}\\
+\} \hyperlink{txt2iff_8c_aefac2950f4fb8c0fb0efa57d58b0fe2b}{IFFScreen}\\
+
+\end{tabbing}\item 
+struct Library $\ast$ \hyperlink{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}{I\+F\+F\+Parse\+Base}
+\item 
+int \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes}
+\item 
+\hyperlink{structpixel}{pixel} \hyperlink{txt2iff_8c_a6313a761da46b29ba554302d6d36d116}{pixels} \mbox{[}\hyperlink{win_2win32_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{T\+I\+L\+E\+\_\+\+Y}\mbox{]}\mbox{[}\hyperlink{win_2win32_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{T\+I\+L\+E\+\_\+\+X}\mbox{]}
+\item 
+\hyperlink{structAmiColorMap}{Ami\+Color\+Map} $\ast$ \hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap}
+\item 
+int \hyperlink{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}{colrmap} \mbox{[}$\,$\mbox{]} = \{ 0, 6, 9, 15, 4, 10, 2, 3, 5, 11, 7, 13, 8, 1, 14, 12 \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+O\+L\+S@{C\+O\+L\+S}}
+\index{C\+O\+L\+S@{C\+O\+L\+S}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+O\+L\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+L\+S~20}}\label{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}
+
+
+Definition at line 109 of file txt2iff.\+c.
+
+
+
+Referenced by main(), and packwritebody().
+
+\hypertarget{txt2iff_8c_a85924da2f6234854721c6ebb27dab370}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+X\+\_\+\+B\+L\+A\+C\+K@{C\+X\+\_\+\+B\+L\+A\+C\+K}}
+\index{C\+X\+\_\+\+B\+L\+A\+C\+K@{C\+X\+\_\+\+B\+L\+A\+C\+K}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+X\+\_\+\+B\+L\+A\+C\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+X\+\_\+\+B\+L\+A\+C\+K~0}}\label{txt2iff_8c_a85924da2f6234854721c6ebb27dab370}
+
+
+Definition at line 370 of file txt2iff.\+c.
+
+
+
+Referenced by map\+\_\+colors().
+
+\hypertarget{txt2iff_8c_a8814a5d76363d7a550a91102194542fe}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+X\+\_\+\+B\+L\+U\+E@{C\+X\+\_\+\+B\+L\+U\+E}}
+\index{C\+X\+\_\+\+B\+L\+U\+E@{C\+X\+\_\+\+B\+L\+U\+E}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+X\+\_\+\+B\+L\+U\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+X\+\_\+\+B\+L\+U\+E~4}}\label{txt2iff_8c_a8814a5d76363d7a550a91102194542fe}
+
+
+Definition at line 376 of file txt2iff.\+c.
+
+
+
+Referenced by map\+\_\+colors().
+
+\hypertarget{txt2iff_8c_adb51fa73dd2f86996112b9ae9468e572}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+X\+\_\+\+B\+R\+O\+W\+N@{C\+X\+\_\+\+B\+R\+O\+W\+N}}
+\index{C\+X\+\_\+\+B\+R\+O\+W\+N@{C\+X\+\_\+\+B\+R\+O\+W\+N}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+X\+\_\+\+B\+R\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+X\+\_\+\+B\+R\+O\+W\+N~11}}\label{txt2iff_8c_adb51fa73dd2f86996112b9ae9468e572}
+
+
+Definition at line 372 of file txt2iff.\+c.
+
+\hypertarget{txt2iff_8c_a92c3846d3f69dd037e3a3c595199737a}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+X\+\_\+\+C\+Y\+A\+N@{C\+X\+\_\+\+C\+Y\+A\+N}}
+\index{C\+X\+\_\+\+C\+Y\+A\+N@{C\+X\+\_\+\+C\+Y\+A\+N}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+X\+\_\+\+C\+Y\+A\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+X\+\_\+\+C\+Y\+A\+N~2}}\label{txt2iff_8c_a92c3846d3f69dd037e3a3c595199737a}
+
+
+Definition at line 373 of file txt2iff.\+c.
+
+\hypertarget{txt2iff_8c_a70db7afef7c68013440c575b9659677d}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+X\+\_\+\+G\+R\+E\+E\+N@{C\+X\+\_\+\+G\+R\+E\+E\+N}}
+\index{C\+X\+\_\+\+G\+R\+E\+E\+N@{C\+X\+\_\+\+G\+R\+E\+E\+N}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+X\+\_\+\+G\+R\+E\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+X\+\_\+\+G\+R\+E\+E\+N~5}}\label{txt2iff_8c_a70db7afef7c68013440c575b9659677d}
+
+
+Definition at line 374 of file txt2iff.\+c.
+
+
+
+Referenced by map\+\_\+colors().
+
+\hypertarget{txt2iff_8c_a0e0b6eb6e45914d9f42d5cf14e11b09c}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+X\+\_\+\+M\+A\+G\+E\+N\+T\+A@{C\+X\+\_\+\+M\+A\+G\+E\+N\+T\+A}}
+\index{C\+X\+\_\+\+M\+A\+G\+E\+N\+T\+A@{C\+X\+\_\+\+M\+A\+G\+E\+N\+T\+A}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+X\+\_\+\+M\+A\+G\+E\+N\+T\+A}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+X\+\_\+\+M\+A\+G\+E\+N\+T\+A~10}}\label{txt2iff_8c_a0e0b6eb6e45914d9f42d5cf14e11b09c}
+
+
+Definition at line 375 of file txt2iff.\+c.
+
+\hypertarget{txt2iff_8c_abc1ca1e2d968eaf46545b4fcf644ac2e}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+X\+\_\+\+R\+E\+D@{C\+X\+\_\+\+R\+E\+D}}
+\index{C\+X\+\_\+\+R\+E\+D@{C\+X\+\_\+\+R\+E\+D}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+X\+\_\+\+R\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+X\+\_\+\+R\+E\+D~7}}\label{txt2iff_8c_abc1ca1e2d968eaf46545b4fcf644ac2e}
+
+
+Definition at line 377 of file txt2iff.\+c.
+
+
+
+Referenced by map\+\_\+colors().
+
+\hypertarget{txt2iff_8c_af922f32fc6ce121af06d38531d5e9ba1}{\index{txt2iff.\+c@{txt2iff.\+c}!C\+X\+\_\+\+W\+H\+I\+T\+E@{C\+X\+\_\+\+W\+H\+I\+T\+E}}
+\index{C\+X\+\_\+\+W\+H\+I\+T\+E@{C\+X\+\_\+\+W\+H\+I\+T\+E}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{C\+X\+\_\+\+W\+H\+I\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+X\+\_\+\+W\+H\+I\+T\+E~1}}\label{txt2iff_8c_af922f32fc6ce121af06d38531d5e9ba1}
+
+
+Definition at line 371 of file txt2iff.\+c.
+
+
+
+Referenced by map\+\_\+colors().
+
+\hypertarget{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}{\index{txt2iff.\+c@{txt2iff.\+c}!I\+D\+\_\+\+B\+M\+A\+P@{I\+D\+\_\+\+B\+M\+A\+P}}
+\index{I\+D\+\_\+\+B\+M\+A\+P@{I\+D\+\_\+\+B\+M\+A\+P}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{I\+D\+\_\+\+B\+M\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+B\+M\+A\+P~M\+A\+K\+E\+\_\+\+I\+D( '{\bf B}', '{\bf M}', '{\bf A}', '{\bf P}' )	/$\ast$ instead of I\+L\+B\+M $\ast$/}}\label{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}
+
+
+Definition at line 51 of file txt2iff.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{txt2iff_8c_abcd1dcd9c8074c20b650110c487ec826}{\index{txt2iff.\+c@{txt2iff.\+c}!I\+D\+\_\+\+B\+M\+H\+D@{I\+D\+\_\+\+B\+M\+H\+D}}
+\index{I\+D\+\_\+\+B\+M\+H\+D@{I\+D\+\_\+\+B\+M\+H\+D}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{I\+D\+\_\+\+B\+M\+H\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+B\+M\+H\+D~M\+A\+K\+E\+\_\+\+I\+D( '{\bf B}', '{\bf M}', 'H', 'D' )	/$\ast$ Same as I\+L\+B\+M $\ast$/}}\label{txt2iff_8c_abcd1dcd9c8074c20b650110c487ec826}
+
+
+Definition at line 52 of file txt2iff.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{txt2iff_8c_a83e89c32c825101821f40b21289218a9}{\index{txt2iff.\+c@{txt2iff.\+c}!I\+D\+\_\+\+C\+A\+M\+G@{I\+D\+\_\+\+C\+A\+M\+G}}
+\index{I\+D\+\_\+\+C\+A\+M\+G@{I\+D\+\_\+\+C\+A\+M\+G}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{I\+D\+\_\+\+C\+A\+M\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+C\+A\+M\+G~M\+A\+K\+E\+\_\+\+I\+D( '{\bf C}', '{\bf A}', '{\bf M}', 'G' )	/$\ast$ Same as I\+L\+B\+M $\ast$/}}\label{txt2iff_8c_a83e89c32c825101821f40b21289218a9}
+
+
+Definition at line 53 of file txt2iff.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{txt2iff_8c_adbfe39990b0b760a79f0192db7961bd8}{\index{txt2iff.\+c@{txt2iff.\+c}!I\+D\+\_\+\+C\+M\+A\+P@{I\+D\+\_\+\+C\+M\+A\+P}}
+\index{I\+D\+\_\+\+C\+M\+A\+P@{I\+D\+\_\+\+C\+M\+A\+P}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{I\+D\+\_\+\+C\+M\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+C\+M\+A\+P~M\+A\+K\+E\+\_\+\+I\+D( '{\bf C}', '{\bf M}', '{\bf A}', '{\bf P}' )	/$\ast$ Same as I\+L\+B\+M $\ast$/}}\label{txt2iff_8c_adbfe39990b0b760a79f0192db7961bd8}
+
+
+Definition at line 54 of file txt2iff.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{txt2iff_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}{\index{txt2iff.\+c@{txt2iff.\+c}!I\+D\+\_\+\+P\+D\+A\+T@{I\+D\+\_\+\+P\+D\+A\+T}}
+\index{I\+D\+\_\+\+P\+D\+A\+T@{I\+D\+\_\+\+P\+D\+A\+T}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{I\+D\+\_\+\+P\+D\+A\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+P\+D\+A\+T}}\label{txt2iff_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+MAKE\_ID( \textcolor{charliteral}{'P'}, \textcolor{charliteral}{'D'}, \textcolor{charliteral}{'A'}, \textcolor{charliteral}{'T'} )   \textcolor{comment}{/* Extra data describing plane}
+\textcolor{comment}{                         * size due to graphics.library}
+\textcolor{comment}{                         * rounding requirements.}
+\textcolor{comment}{                         */}
+\end{DoxyCode}
+
+
+Definition at line 55 of file txt2iff.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{txt2iff_8c_af25d25b688b21e610cab14b3774cc3fb}{\index{txt2iff.\+c@{txt2iff.\+c}!I\+D\+\_\+\+P\+L\+N\+E@{I\+D\+\_\+\+P\+L\+N\+E}}
+\index{I\+D\+\_\+\+P\+L\+N\+E@{I\+D\+\_\+\+P\+L\+N\+E}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{I\+D\+\_\+\+P\+L\+N\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+P\+L\+N\+E~M\+A\+K\+E\+\_\+\+I\+D( '{\bf P}', 'L', 'N', '{\bf E}' )	/$\ast$ The {\bf planes} of the {\bf image} $\ast$/}}\label{txt2iff_8c_af25d25b688b21e610cab14b3774cc3fb}
+
+
+Definition at line 59 of file txt2iff.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{txt2iff_8c_a3cfd3aa62338d12609f6d65bce97e9cd}{\index{txt2iff.\+c@{txt2iff.\+c}!R\+O\+W\+S@{R\+O\+W\+S}}
+\index{R\+O\+W\+S@{R\+O\+W\+S}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{R\+O\+W\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+W\+S~((tiles + {\bf C\+O\+L\+S}-\/1) / {\bf C\+O\+L\+S})}}\label{txt2iff_8c_a3cfd3aa62338d12609f6d65bce97e9cd}
+
+
+Definition at line 110 of file txt2iff.\+c.
+
+
+
+Referenced by main().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{\index{txt2iff.\+c@{txt2iff.\+c}!alloc@{alloc}}
+\index{alloc@{alloc}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{alloc}]{\setlength{\rightskip}{0pt plus 5cm}long$\ast$ alloc (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{n}
+\end{DoxyParamCaption}
+)}}\label{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}
+
+
+Definition at line 443 of file txt2iff.\+c.
+
+
+
+References error(), exit(), and malloc().
+
+
+
+Referenced by add\+\_\+id\+\_\+mapping(), add\+\_\+line(), add\+\_\+mon\+\_\+to\+\_\+reg(), add\+\_\+rect\+\_\+to\+\_\+reg(), add\+\_\+region(), amii\+\_\+add\+\_\+menu(), amii\+\_\+create\+\_\+nhwindow(), amii\+\_\+init\+\_\+nhwindows(), amii\+\_\+putstr(), append\+\_\+text\+\_\+buffer(), autopick(), construct\+\_\+qtlist(), copy\+\_\+of(), create\+\_\+map\+\_\+window(), create\+\_\+menu\+\_\+window(), create\+\_\+message\+\_\+window(), create\+\_\+region(), create\+\_\+status\+\_\+window(), create\+\_\+text\+\_\+window(), create\+\_\+widget(), filecopy(), fopen\+\_\+gif\+\_\+file(), fopen\+\_\+ppm\+\_\+file(), get\+\_\+saved\+\_\+games(), gnome\+\_\+display\+\_\+file(), gnome\+\_\+player\+\_\+selection(), init\+\_\+extended\+\_\+commands\+\_\+popup(), init\+\_\+oracles(), init\+\_\+text(), init\+\_\+text\+\_\+buffer(), init\+\_\+tiles(), load\+\_\+common\+\_\+data(), load\+\_\+maze(), load\+\_\+one\+\_\+engraving(), load\+\_\+one\+\_\+monster(), load\+\_\+one\+\_\+object(), load\+\_\+rooms(), mac\+\_\+select\+\_\+menu(), main(), make\+\_\+menu(), make\+\_\+menu\+\_\+items(), mk\+\_\+bubble(), mkmap(), movebubbles(), My\+Alloc\+Bit\+Map(), next\+\_\+opt(), parseoptions(), query\+\_\+category(), query\+\_\+objlist(), rest\+\_\+regions(), restdamage(), restlevchn(), restnames(), restore\+\_\+oracles(), restore\+\_\+waterlevel(), set\+\_\+circle\+\_\+buf(), set\+\_\+duplicate\+\_\+opt\+\_\+detection(), tmp\+\_\+at(), wc\+\_\+set\+\_\+font\+\_\+name(), wc\+\_\+set\+\_\+window\+\_\+colors(), X11\+\_\+add\+\_\+menu(), X11\+\_\+display\+\_\+file(), X11\+\_\+player\+\_\+selection(), X11\+\_\+select\+\_\+menu(), yy\+\_\+flex\+\_\+alloc(), yylex(), and yyparse().
+
+
+\begin{DoxyCode}
+444 \{
+445     \textcolor{keywordtype}{long} *ret = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}( n );
+446     \textcolor{keywordflow}{if}(!ret)\{
+447     \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Can't allocate memory"});
+448     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+449     \}
+450     \textcolor{keywordflow}{return}( ret );
+451 \}
+\end{DoxyCode}
+\hypertarget{txt2iff_8c_af58270dc8570dad8170e2df4b40bd37a}{\index{txt2iff.\+c@{txt2iff.\+c}!Best\+Match@{Best\+Match}}
+\index{Best\+Match@{Best\+Match}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{Best\+Match}]{\setlength{\rightskip}{0pt plus 5cm}Best\+Match (
+\begin{DoxyParamCaption}
+\item[{int}]{r, }
+\item[{int}]{g, }
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)}}\label{txt2iff_8c_af58270dc8570dad8170e2df4b40bd37a}
+
+
+Definition at line 419 of file txt2iff.\+c.
+
+
+
+References C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, and printf.
+
+
+
+Referenced by map\+\_\+colors().
+
+
+\begin{DoxyCode}
+421 \{
+422     \textcolor{keywordtype}{int} x;
+423     \textcolor{keywordtype}{int} bestslot;
+424     \textcolor{keywordtype}{int} bestrate=99999999L;
+425     \textcolor{keywordflow}{for}(x=0;x<16;x++)\{
+426         \textcolor{keywordtype}{int} rr = r-\hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][x];
+427         \textcolor{keywordtype}{int} gg = g-ColorMap[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][x];
+428         \textcolor{keywordtype}{int} bb = b-ColorMap[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][x];
+429         \textcolor{keywordtype}{int} rate = rr*rr + gg*gg + bb*bb;
+430         \textcolor{keywordflow}{if}(bestrate > rate)\{
+431             bestrate = rate;
+432             bestslot = x;
+433         \}
+434     \}
+435 \textcolor{preprocessor}{#ifdef DBG}
+436     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"map (%d,%d,%d) -> %d (error=%d)\(\backslash\)n"},r,g,b,bestslot,bestrate);
+437 \textcolor{preprocessor}{#endif}
+438     \textcolor{keywordflow}{return} bestslot;
+439 \}
+\end{DoxyCode}
+\hypertarget{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{\index{txt2iff.\+c@{txt2iff.\+c}!error@{error}}
+\index{error@{error}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{error}]{\setlength{\rightskip}{0pt plus 5cm}void error (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{txt2iff_8c_a64e632a682e311bde915784e6a17da31}
+
+
+Definition at line 96 of file txt2iff.\+c.
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), alloc(), bitmap\+\_\+to\+\_\+img(), chdirx(), depack\+\_\+img(), getlock(), init\+\_\+objects(), mac\+\_\+add\+\_\+menu(), mac\+\_\+clear\+\_\+nhwindow(), mac\+\_\+create\+\_\+nhwindow(), mac\+\_\+destroy\+\_\+nhwindow(), mac\+\_\+display\+\_\+file(), mac\+\_\+display\+\_\+nhwindow(), mac\+\_\+init\+\_\+nhwindows(), mac\+\_\+putstr(), main(), mread(), mswin\+\_\+select\+\_\+map\+\_\+mode(), and packwritebody().
+
+
+\begin{DoxyCode}
+97 \{
+98     fprintf( stderr, \textcolor{stringliteral}{"ERROR: %s\(\backslash\)n"}, str );
+99 \}
+\end{DoxyCode}
+\hypertarget{txt2iff_8c_a1962cd35278f64d8ca69ac0a265199b4}{\index{txt2iff.\+c@{txt2iff.\+c}!findcolor@{findcolor}}
+\index{findcolor@{findcolor}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{findcolor}]{\setlength{\rightskip}{0pt plus 5cm}findcolor (
+\begin{DoxyParamCaption}
+\item[{{\bf register} {\bf pixel} $\ast$}]{pix}
+\end{DoxyParamCaption}
+)}}\label{txt2iff_8c_a1962cd35278f64d8ca69ac0a265199b4}
+
+
+Definition at line 291 of file txt2iff.\+c.
+
+
+
+References pixel\+::b, C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, pixel\+::g, M\+A\+X\+C\+O\+L\+O\+R\+M\+A\+P\+S\+I\+Z\+E, and pixel\+::r.
+
+
+
+Referenced by packwritebody().
+
+
+\begin{DoxyCode}
+292 \{
+293     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+294 
+295     \textcolor{keywordflow}{for}( i = 0; i < \hyperlink{tile_8h_a321fcd6ec582309d0779ddc457ec5d62}{MAXCOLORMAPSIZE}; ++i )
+296     \{
+297     \textcolor{keywordflow}{if}( (pix->r == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[ \hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED} ][i] ) &&
+298         (pix->g == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[ \hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN} ][i] ) &&
+299         (pix->b == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[ \hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE} ][i] ) )
+300     \{
+301         \textcolor{keywordflow}{return}( i );
+302     \}
+303     \}
+304     \textcolor{keywordflow}{return}( -1 );
+305 \}
+\end{DoxyCode}
+\hypertarget{txt2iff_8c_a5ea466849f21e6c2be4ef9b2eb8868d3}{\index{txt2iff.\+c@{txt2iff.\+c}!main@{main}}
+\index{main@{main}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{txt2iff_8c_a5ea466849f21e6c2be4ef9b2eb8868d3}
+
+
+Definition at line 112 of file txt2iff.\+c.
+
+
+
+References Ami\+Color\+Map\+::b, Close, C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, colorsinmap, C\+O\+L\+S, Bit\+Map\+Header\+::compression, error(), exit(), fclose\+\_\+text\+\_\+file(), fopen\+\_\+text\+\_\+file(), Ami\+Color\+Map\+::g, Bit\+Map\+Header\+::h, I\+D\+\_\+\+B\+M\+A\+P, I\+D\+\_\+\+B\+M\+H\+D, I\+D\+\_\+\+C\+A\+M\+G, I\+D\+\_\+\+C\+M\+A\+P, I\+D\+\_\+\+P\+D\+A\+T, I\+D\+\_\+\+P\+L\+N\+E, I\+F\+F\+Parse\+Base, I\+F\+F\+Screen, malloc(), map\+\_\+colors(), Bit\+Map\+Header\+::masking, nplanes, Bit\+Map\+Header\+::n\+Planes, packwritebody(), Bit\+Map\+Header\+::page\+Height, Bit\+Map\+Header\+::page\+Width, perror, planes, printf, Ami\+Color\+Map\+::r, read\+\_\+text\+\_\+tile(), Bit\+Map\+Header\+::reserved1, R\+O\+W\+S, stdout, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, Bit\+Map\+Header\+::transparent\+Color, T\+R\+U\+E, Bit\+Map\+Header\+::w, Bit\+Map\+Header\+::x, Bit\+Map\+Header\+::x\+Aspect, xsize, Bit\+Map\+Header\+::y, Bit\+Map\+Header\+::y\+Aspect, and ysize.
+
+
+\begin{DoxyCode}
+113 \{
+114     \textcolor{keywordtype}{int} colors;
+115     \textcolor{keyword}{struct }\{
+116     \textcolor{keywordtype}{long} \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes};
+117     \textcolor{keywordtype}{long} pbytes;
+118     \textcolor{keywordtype}{long} across;
+119     \textcolor{keywordtype}{long} down;
+120     \textcolor{keywordtype}{long} npics;
+121     \textcolor{keywordtype}{long} \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize};
+122     \textcolor{keywordtype}{long} \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize};
+123     \} pdat;
+124     \textcolor{keywordtype}{long} pbytes;    \textcolor{comment}{/* Bytes of data in a plane */}
+125     \textcolor{keywordtype}{int} i, cnt;
+126     \hyperlink{structBitMapHeader}{BitMapHeader} bmhd;
+127     \textcolor{keyword}{struct }IFFHandle *iff;
+128     \textcolor{keywordtype}{long} camg = HIRES|LACE;
+129     \textcolor{keywordtype}{int} tiles=0;
+130     \textcolor{keywordtype}{char} **\hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes};
+131 
+132     \textcolor{keywordflow}{if}(argc != 3)\{
+133     fprintf(stderr, \textcolor{stringliteral}{"Usage: %s source destination\(\backslash\)n"}, argv[0]);
+134     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+135     \}
+136 
+137 \textcolor{preprocessor}{#if defined(\_DCC) || defined(\_\_GNUC\_\_)}
+138     \hyperlink{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}{IFFParseBase} = OpenLibrary( \textcolor{stringliteral}{"iffparse.library"}, 0 );
+139     \textcolor{keywordflow}{if}( !\hyperlink{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}{IFFParseBase} ) \{
+140     \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}( \textcolor{stringliteral}{"unable to open iffparse.library"} );
+141     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}( 1 );
+142     \}
+143 \textcolor{preprocessor}{#endif}
+144 
+145     \textcolor{comment}{/* First, count the files in the file */}
+146     \textcolor{keywordflow}{if}( \hyperlink{tiletext_8c_afd96856d9b9d8dd587b735c54e9c2765}{fopen\_text\_file}( argv[1], \textcolor{stringliteral}{"r"} ) != \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} )
+147     \{
+148     \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}( argv[1] );
+149     \textcolor{keywordflow}{return}( 1 );
+150     \}
+151 
+152     \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes} = 0;
+153     i = \hyperlink{txt2iff_8c_aff516215666b583bb7940b37a907fb6d}{colorsinmap}-1; \textcolor{comment}{/*IFFScreen.Colors - 1; */}
+154     \textcolor{keywordflow}{while}( i != 0 )
+155     \{
+156     \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes}++;
+157     i >>= 1;
+158     \}
+159 
+160     planes = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}( \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes} * \textcolor{keyword}{sizeof}( \textcolor{keywordtype}{char} * ) );
+161     \textcolor{keywordflow}{if}( planes == 0 )
+162     \{
+163     \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}( \textcolor{stringliteral}{"can not allocate planes pointer"} );
+164     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}( 1 );
+165     \}
+166 
+167     \textcolor{keywordflow}{while}( \hyperlink{tiletext_8c_a8bfc171583fff7761a8ae79103b6aa89}{read\_text\_tile}( \hyperlink{txt2iff_8c_a6313a761da46b29ba554302d6d36d116}{pixels} ) == \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} )
+168     ++tiles;
+169     \hyperlink{tiletext_8c_a52166aa84ff4882399d7699bb074b55b}{fclose\_text\_file}();
+170 
+171     \hyperlink{txt2iff_8c_aefac2950f4fb8c0fb0efa57d58b0fe2b}{IFFScreen}.Width = \hyperlink{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{COLS} * \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+172     \hyperlink{txt2iff_8c_aefac2950f4fb8c0fb0efa57d58b0fe2b}{IFFScreen}.Height = \hyperlink{txt2iff_8c_a3cfd3aa62338d12609f6d65bce97e9cd}{ROWS} * \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y};
+173 
+174     pbytes = (\hyperlink{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{COLS} * \hyperlink{txt2iff_8c_a3cfd3aa62338d12609f6d65bce97e9cd}{ROWS} * TILE\_X + 15) / 16 * 2 * TILE\_Y;
+175 
+176     \textcolor{keywordflow}{for}( i = 0; i < \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes}; ++i )
+177     \{
+178     planes[ i ] = calloc( 1, pbytes );
+179     \textcolor{keywordflow}{if}( planes[ i ] == 0 )
+180     \{
+181         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}( \textcolor{stringliteral}{"can not allocate planes pointer"} );
+182         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}( 1 );
+183     \}
+184     \}
+185 
+186     \textcolor{comment}{/* Now, process it */}
+187     \textcolor{keywordflow}{if}( \hyperlink{tiletext_8c_afd96856d9b9d8dd587b735c54e9c2765}{fopen\_text\_file}( argv[1], \textcolor{stringliteral}{"r"} ) != \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} )
+188     \{
+189     \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}( argv[1] );
+190     \textcolor{keywordflow}{return}( 1 );
+191     \}
+192 
+193     iff = AllocIFF();
+194     \textcolor{keywordflow}{if}( !iff )
+195     \{
+196     \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}( \textcolor{stringliteral}{"Can not allocate IFFHandle"} );
+197     \textcolor{keywordflow}{return}( 1 );
+198     \}
+199 
+200     iff->iff\_Stream = Open( argv[2], MODE\_NEWFILE );
+201     \textcolor{keywordflow}{if}( !iff->iff\_Stream )
+202     \{
+203     \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}( \textcolor{stringliteral}{"Can not open output file"} );
+204     \textcolor{keywordflow}{return}( 1 );
+205     \}
+206 
+207     InitIFFasDOS( iff );
+208     OpenIFF( iff, IFFF\_WRITE );
+209 
+210     PushChunk( iff, \hyperlink{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, ID\_FORM, IFFSIZE\_UNKNOWN );
+211 
+212     bmhd.\hyperlink{structBitMapHeader_addb60a981d49eed2185521b722fda07a}{w} = \hyperlink{txt2iff_8c_aefac2950f4fb8c0fb0efa57d58b0fe2b}{IFFScreen}.Width;
+213     bmhd.\hyperlink{structBitMapHeader_a207123a0ebb6f3ac8803fb486184347d}{h} = \hyperlink{txt2iff_8c_aefac2950f4fb8c0fb0efa57d58b0fe2b}{IFFScreen}.Height;
+214     bmhd.\hyperlink{structBitMapHeader_a8e6de2b624a77aee2695f35f1b340645}{x} = 0;
+215     bmhd.\hyperlink{structBitMapHeader_a5abfd91fa563f69f77555e151292c431}{y} = 0;
+216     bmhd.\hyperlink{structBitMapHeader_af1b1ea355b635d40198d9d97989bc733}{nPlanes} = \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes};
+217     bmhd.\hyperlink{structBitMapHeader_a5178ba1e7c3d285038be1436643fc625}{masking} = 0;
+218     bmhd.\hyperlink{structBitMapHeader_a92825e3c952c151ee3f81630ced3e298}{compression} = 0;
+219     bmhd.\hyperlink{structBitMapHeader_af0d7f0f49e119ffbe3d4691c186702f2}{reserved1} = 0;
+220     bmhd.\hyperlink{structBitMapHeader_acb7a029e55d56f59ac0bc3311dca7a1d}{transparentColor} = 0;
+221     bmhd.\hyperlink{structBitMapHeader_a6e885e5664ff89d1691333cf0c4a6327}{xAspect} = 100;
+222     bmhd.\hyperlink{structBitMapHeader_a088a85e003b0f93b333c364c92d7b002}{yAspect} = 100;
+223     bmhd.\hyperlink{structBitMapHeader_a0f8da84e2be2bc315960071931dcaebe}{pageWidth} = \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+224     bmhd.\hyperlink{structBitMapHeader_a8bdbcc13d038ad9ec4903cbda9787322}{pageHeight} = \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y};
+225 
+226     PushChunk( iff, \hyperlink{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{txt2iff_8c_abcd1dcd9c8074c20b650110c487ec826}{ID\_BMHD}, \textcolor{keyword}{sizeof}( bmhd ) );
+227     WriteChunkBytes( iff, &bmhd, \textcolor{keyword}{sizeof}( bmhd ) );
+228     PopChunk( iff );
+229 
+230     PushChunk( iff, \hyperlink{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{txt2iff_8c_a83e89c32c825101821f40b21289218a9}{ID\_CAMG}, \textcolor{keyword}{sizeof}( camg ) );
+231     WriteChunkBytes( iff, &camg, \textcolor{keyword}{sizeof}( camg ) );
+232     PopChunk( iff );
+233 
+234     \textcolor{comment}{/* We need to reorder the colors to get reasonable default pens but}
+235 \textcolor{comment}{     * we also need to know where some of the colors are - so go find out.}
+236 \textcolor{comment}{     */}
+237     \hyperlink{txt2iff_8c_ac93bd392ea1b95cc8db73bde769d95c3}{map\_colors}();
+238 
+239     \hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap} = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}( (colors = (1L<<nplanes)) * \textcolor{keyword}{sizeof}(\hyperlink{structAmiColorMap}{AmiColorMap}) );
+240     \textcolor{keywordflow}{for}( i = 0; i < colors; ++i )
+241     \{
+242     \hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap}[ \hyperlink{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}{colrmap}[ i ] ].\hyperlink{structAmiColorMap_a8b9d73fc2dcbf034454e8d0b56a27a46}{r} = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[ \hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED} ][ i ];
+243     \hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap}[ \hyperlink{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}{colrmap}[ i ] ].\hyperlink{structAmiColorMap_aec94baea86f5766314623257503c4122}{g} = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[ \hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN} ][ i ];
+244     \hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap}[ \hyperlink{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}{colrmap}[ i ] ].\hyperlink{structAmiColorMap_ab0fbd66365804a974c45683b40e14ff4}{b} = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[ \hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE} ][ i ];
+245     \}
+246 
+247     PushChunk( iff, \hyperlink{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{txt2iff_8c_adbfe39990b0b760a79f0192db7961bd8}{ID\_CMAP}, IFFSIZE\_UNKNOWN );
+248     \textcolor{keywordflow}{for} (i = 0; i < colors; ++i)
+249     WriteChunkBytes(iff, &\hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap}[i], 3);
+250     PopChunk( iff );
+251 
+252     cnt = 0;
+253     \textcolor{keywordflow}{while}( \hyperlink{tiletext_8c_a8bfc171583fff7761a8ae79103b6aa89}{read\_text\_tile}( \hyperlink{txt2iff_8c_a6313a761da46b29ba554302d6d36d116}{pixels} ) == \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} )
+254     \{
+255     \hyperlink{txt2iff_8c_ab8b979a38e2508b2e304bc158b3b5222}{packwritebody}( \hyperlink{txt2iff_8c_a6313a761da46b29ba554302d6d36d116}{pixels}, planes, cnt );
+256     \textcolor{keywordflow}{if}( cnt % 20 == 0 )
+257         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}( \textcolor{stringliteral}{"%d.."}, cnt );
+258     ++cnt;
+259     fflush( \hyperlink{lev__lex_8h_a0c0ef221f95f64e8632451312fd18cc8}{stdout} );
+260     \}
+261 
+262     pdat.nplanes = \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes};
+263     pdat.pbytes = pbytes;
+264     pdat.xsize = \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+265     pdat.ysize = \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y};
+266     pdat.across = \hyperlink{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{COLS};
+267     pdat.down = \hyperlink{txt2iff_8c_a3cfd3aa62338d12609f6d65bce97e9cd}{ROWS};
+268     pdat.npics = cnt;
+269 
+270     PushChunk( iff, \hyperlink{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{txt2iff_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}{ID\_PDAT}, IFFSIZE\_UNKNOWN );
+271     WriteChunkBytes( iff, &pdat, \textcolor{keyword}{sizeof}( pdat ) );
+272     PopChunk( iff );
+273 
+274     PushChunk( iff, \hyperlink{txt2iff_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{txt2iff_8c_af25d25b688b21e610cab14b3774cc3fb}{ID\_PLNE}, IFFSIZE\_UNKNOWN );
+275     \textcolor{keywordflow}{for}( i = 0; i < \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes}; ++i )
+276     WriteChunkBytes( iff, planes[i], pbytes );
+277     PopChunk( iff );
+278 
+279     CloseIFF( iff );
+280     \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}( iff->iff\_Stream );
+281     FreeIFF( iff );
+282 
+283     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}( \textcolor{stringliteral}{"\(\backslash\)n%d tiles converted\(\backslash\)n"}, cnt );
+284 
+285 \textcolor{preprocessor}{#if defined(\_DCC) || defined(\_\_GNUC\_\_)}
+286     CloseLibrary( \hyperlink{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}{IFFParseBase} );
+287 \textcolor{preprocessor}{#endif}
+288     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}( 0 );
+289 \}
+\end{DoxyCode}
+\hypertarget{txt2iff_8c_ac93bd392ea1b95cc8db73bde769d95c3}{\index{txt2iff.\+c@{txt2iff.\+c}!map\+\_\+colors@{map\+\_\+colors}}
+\index{map\+\_\+colors@{map\+\_\+colors}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{map\+\_\+colors}]{\setlength{\rightskip}{0pt plus 5cm}void map\+\_\+colors (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{txt2iff_8c_ac93bd392ea1b95cc8db73bde769d95c3}
+
+
+Definition at line 381 of file txt2iff.\+c.
+
+
+
+References Best\+Match(), C\+X\+\_\+\+B\+L\+A\+C\+K, C\+X\+\_\+\+B\+L\+U\+E, C\+X\+\_\+\+G\+R\+E\+E\+N, C\+X\+\_\+\+R\+E\+D, C\+X\+\_\+\+W\+H\+I\+T\+E, panic(), printf, and tmpmap.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+381             \{
+382     \textcolor{keywordtype}{int} x;
+383 \textcolor{preprocessor}{#if 1}
+384 \textcolor{keywordtype}{int} \hyperlink{lev__yacc_8c_ab622cb92385daff0fc85d4918de015a7}{tmpmap}[]=\{0,2,3,7,4,5,8,9,10,11,13,15,12,1,14,6\};
+385 \textcolor{comment}{/* still not right: gray green yellow lost somewhere? */}
+386 \textcolor{preprocessor}{#else}
+387     \textcolor{keywordtype}{int} tmpmap[16];
+388     \textcolor{keywordtype}{int} x,y;
+389     \textcolor{keywordflow}{for}(x=0;x<16;x++)tmpmap[x]=-1;  \textcolor{comment}{/* set not assigned yet */}
+390 
+391     tmpmap[\hyperlink{txt2iff_8c_af58270dc8570dad8170e2df4b40bd37a}{BestMatch}(0,0,0)] = \hyperlink{txt2iff_8c_a85924da2f6234854721c6ebb27dab370}{CX\_BLACK};
+392     tmpmap[\hyperlink{txt2iff_8c_af58270dc8570dad8170e2df4b40bd37a}{BestMatch}(255,255,255)] = \hyperlink{txt2iff_8c_af922f32fc6ce121af06d38531d5e9ba1}{CX\_WHITE};
+393     tmpmap[\hyperlink{txt2iff_8c_af58270dc8570dad8170e2df4b40bd37a}{BestMatch}(255,0,0)] = \hyperlink{txt2iff_8c_abc1ca1e2d968eaf46545b4fcf644ac2e}{CX\_RED};
+394     tmpmap[\hyperlink{txt2iff_8c_af58270dc8570dad8170e2df4b40bd37a}{BestMatch}(0,255,0)] = \hyperlink{txt2iff_8c_a70db7afef7c68013440c575b9659677d}{CX\_GREEN};
+395     tmpmap[\hyperlink{txt2iff_8c_af58270dc8570dad8170e2df4b40bd37a}{BestMatch}(0,0,255)] = \hyperlink{txt2iff_8c_a8814a5d76363d7a550a91102194542fe}{CX\_BLUE};
+396 
+397         \textcolor{comment}{/* clean up the rest */}
+398     \textcolor{keywordflow}{for}(x=0;x<16;x++)\{
+399         \textcolor{keywordflow}{for}(y=0;y<16;y++)
+400             \textcolor{keywordflow}{if}(tmpmap[y]==x)\textcolor{keywordflow}{goto} outer\_cont;
+401         \textcolor{keywordflow}{for}(y=0;y<16;y++)
+402             \textcolor{keywordflow}{if}(tmpmap[y]==-1)\{
+403                 tmpmap[y]=x;
+404                 \textcolor{keywordflow}{break};
+405             \}
+406         \textcolor{keywordflow}{if}(y==16)\hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"too many colors?"});
+407 outer\_cont: ;
+408     \}
+409     \textcolor{keywordflow}{for}(x=0;x<16;x++)
+410         \textcolor{keywordflow}{if}(tmpmap[y]==-1)\hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"lost color?"});
+411 \textcolor{preprocessor}{#endif}
+412     \textcolor{keywordflow}{for}(x=0;x<16;x++)\{
+413 \textcolor{preprocessor}{#ifdef DBG}
+414         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"final: c[%d]=%d (target: %d)\(\backslash\)n"},x,tmpmap[x],\hyperlink{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}{colrmap}[x]);
+415 \textcolor{preprocessor}{#endif}
+416         \hyperlink{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}{colrmap}[x]=tmpmap[x];
+417     \}
+418 \}
+\end{DoxyCode}
+\hypertarget{txt2iff_8c_ab8b979a38e2508b2e304bc158b3b5222}{\index{txt2iff.\+c@{txt2iff.\+c}!packwritebody@{packwritebody}}
+\index{packwritebody@{packwritebody}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{packwritebody}]{\setlength{\rightskip}{0pt plus 5cm}void packwritebody (
+\begin{DoxyParamCaption}
+\item[{{\bf pixel}($\ast$)}]{tile\mbox{[}\+T\+I\+L\+E\+\_\+\+X\mbox{]}, }
+\item[{char $\ast$$\ast$}]{planes, }
+\item[{int}]{tileno}
+\end{DoxyParamCaption}
+)}}\label{txt2iff_8c_ab8b979a38e2508b2e304bc158b3b5222}
+
+
+Definition at line 308 of file txt2iff.\+c.
+
+
+
+References buf, C\+O\+L\+S, error(), findcolor(), I\+F\+F\+Screen, nplanes, tile, T\+I\+L\+E\+\_\+\+X, and T\+I\+L\+E\+\_\+\+Y.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+309 \{
+310     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i, j, k, col;
+311     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+312     \textcolor{keyword}{register} \textcolor{keywordtype}{int} across, rowbytes, xoff, yoff;
+313 
+314     \textcolor{comment}{/* how many tiles fit across? */}
+315     across = \hyperlink{txt2iff_8c_ab59ad2ee1a48b83c2eef1f019ed8cc48}{COLS};
+316 
+317     \textcolor{comment}{/* How many bytes per pixel row */}
+318     rowbytes = ((\hyperlink{txt2iff_8c_aefac2950f4fb8c0fb0efa57d58b0fe2b}{IFFScreen}.Width + 15)/16)*2;
+319 
+320     \textcolor{comment}{/* How many bytes to account for y distance in planes */}
+321     yoff = ((tileno / across) * \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}) * rowbytes;
+322 
+323     \textcolor{comment}{/* How many bytes to account for x distance in planes */}
+324     xoff = (tileno % across) * (\hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}/8);
+325 
+326     \textcolor{comment}{/* For each row... */}
+327     \textcolor{keywordflow}{for}( i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; ++i )
+328     \{
+329     \textcolor{comment}{/* For each bitplane... */}
+330     \textcolor{keywordflow}{for}( k = 0; k < \hyperlink{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{nplanes}; ++k )
+331     \{
+332         \textcolor{keyword}{const} \textcolor{keywordtype}{int} mask = 1l<<k;
+333 
+334         \textcolor{comment}{/* Go across the row */}
+335         \textcolor{keywordflow}{for}( j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}; j++ )
+336         \{
+337         col = \hyperlink{txt2iff_8c_a1962cd35278f64d8ca69ac0a265199b4}{findcolor}( &\hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}[ i ][ j ] );
+338         \textcolor{keywordflow}{if}( col == -1 )
+339         \{
+340             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}( \textcolor{stringliteral}{"can not convert pixel color to colormap index"} );
+341             \textcolor{keywordflow}{return};
+342         \}
+343         \textcolor{comment}{/* Shift the colors around to have good complements and to}
+344 \textcolor{comment}{         * know the dripen values.}
+345 \textcolor{comment}{         */}
+346         col = \hyperlink{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}{colrmap}[ col ];
+347 
+348         \textcolor{comment}{/* To top left corner of tile */}
+349         buf = \hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes}[ k ] + yoff + xoff;
+350 
+351         \textcolor{comment}{/*To i'th row of tile and the correct byte for the j'th pixel*/}
+352         buf += ( i * rowbytes ) + (j/8);
+353 
+354         \textcolor{comment}{/* Or in the bit for this color */}
+355         *buf |= (((col & mask)!=0)<<(7-(j%8)));
+356         \}
+357     \}
+358     \}
+359 \}
+\end{DoxyCode}
+\hypertarget{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{\index{txt2iff.\+c@{txt2iff.\+c}!panic@{panic}}
+\index{panic@{panic}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{panic}]{\setlength{\rightskip}{0pt plus 5cm}void panic (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}}\label{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}
+
+
+Definition at line 454 of file txt2iff.\+c.
+
+
+
+References exit().
+
+
+
+Referenced by amii\+\_\+add\+\_\+menu(), amii\+\_\+cl\+\_\+end(), amii\+\_\+clear\+\_\+nhwindow(), amii\+\_\+create\+\_\+nhwindow(), amii\+\_\+curs(), amii\+\_\+destroy\+\_\+nhwindow(), amii\+\_\+display\+\_\+nhwindow(), amii\+\_\+doprev\+\_\+message(), amii\+\_\+end\+\_\+glyphout(), amii\+\_\+end\+\_\+menu(), amii\+\_\+init\+\_\+nhwindows(), amii\+\_\+nh\+\_\+poskey(), amii\+\_\+print\+\_\+glyph(), amii\+\_\+putstr(), amii\+\_\+select\+\_\+menu(), amii\+\_\+start\+\_\+menu(), amiv\+\_\+lprint\+\_\+glyph(), amiv\+\_\+start\+\_\+glyphout(), append\+\_\+text\+\_\+buffer(), bflush(), bufon(), bwrite(), convert\+\_\+line(), Count\+Lines(), create\+\_\+door(), create\+\_\+monster(), create\+\_\+object(), create\+\_\+status\+\_\+window(), create\+\_\+widget(), cursor\+\_\+off(), cursor\+\_\+on(), dismiss\+\_\+nhwindow(), Display\+Data(), do\+\_\+clear\+\_\+area(), Do\+Menu\+Scroll(), find\+\_\+free\+\_\+window(), find\+\_\+widget(), Find\+Line(), fix\+\_\+stair\+\_\+rooms(), Fread(), get\+\_\+free\+\_\+room\+\_\+loc(), get\+\_\+location(), get\+\_\+room\+\_\+loc(), get\+\_\+widths(), getlev(), getlock(), gnome\+\_\+player\+\_\+selection(), in\+\_\+container(), load\+\_\+maze(), load\+\_\+qtlist(), Main\+Wnd\+Proc(), makemaz(), map\+\_\+colors(), mazexy(), menu\+\_\+select(), mkinvpos(), move(), movebubbles(), mread(), mswin\+\_\+add\+\_\+text(), mswin\+\_\+color\+\_\+from\+\_\+string(), mswin\+\_\+create\+\_\+nhwindow(), mswin\+\_\+display\+\_\+splash\+\_\+window(), mswin\+\_\+ext\+\_\+cmd\+\_\+window(), mswin\+\_\+get\+\_\+font(), mswin\+\_\+getlin\+\_\+window(), mswin\+\_\+init\+\_\+command\+\_\+window(), mswin\+\_\+init\+\_\+main\+\_\+window(), mswin\+\_\+init\+\_\+map\+\_\+window(), mswin\+\_\+init\+\_\+menu\+\_\+window(), mswin\+\_\+init\+\_\+message\+\_\+window(), mswin\+\_\+init\+\_\+nhwindows(), mswin\+\_\+init\+\_\+\+R\+I\+P\+\_\+window(), mswin\+\_\+init\+\_\+status\+\_\+window(), mswin\+\_\+init\+\_\+text\+\_\+buffer(), mswin\+\_\+init\+\_\+text\+\_\+window(), mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu(), mswin\+\_\+player\+\_\+selection\+\_\+window(), mswin\+\_\+select\+\_\+map\+\_\+mode(), nh\+\_\+append(), N\+H\+Text\+Wnd\+Proc(), on\+Create(), on\+M\+S\+N\+H\+Command(), Read\+Tile\+Image\+Files(), register\+\_\+command\+\_\+window\+\_\+class(), register\+\_\+map\+\_\+window\+\_\+class(), restlevelfile(), restlevelstate(), savelev(), search\+\_\+door(), set\+\_\+circle\+\_\+buf(), set\+\_\+widths(), Set\+Menu\+List\+Type(), split(), steal\+\_\+it(), Text\+Wnd\+Proc(), tmp\+\_\+at(), V\+D\+E\+C\+L(), view\+\_\+from(), wallification(), Win\+Main(), write\+\_\+level\+\_\+file(), X11\+\_\+clear\+\_\+nhwindow(), X11\+\_\+create\+\_\+nhwindow(), X11\+\_\+destroy\+\_\+nhwindow(), X11\+\_\+display\+\_\+nhwindow(), X11\+\_\+player\+\_\+selection(), X11\+\_\+yn\+\_\+function(), and x\+\_\+event().
+
+
+\begin{DoxyCode}
+454                       \{
+455     fprintf(stderr,\textcolor{stringliteral}{"PANIC: %s\(\backslash\)n"},msg);
+456     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+457 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{\index{txt2iff.\+c@{txt2iff.\+c}!cmap@{cmap}}
+\index{cmap@{cmap}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{cmap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Ami\+Color\+Map}$\ast$ cmap}}\label{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}
+
+
+Definition at line 88 of file txt2iff.\+c.
+
+
+
+Referenced by Do\+Extension(), and Read\+Image\+Files().
+
+\hypertarget{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{\index{txt2iff.\+c@{txt2iff.\+c}!Color\+Map@{Color\+Map}}
+\index{Color\+Map@{Color\+Map}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{Color\+Map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pixval} Color\+Map\mbox{[}3\mbox{]}\mbox{[}{\bf M\+A\+X\+C\+O\+L\+O\+R\+M\+A\+P\+S\+I\+Z\+E}\mbox{]}}}\label{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}
+
+
+Definition at line 42 of file xpm2iff.\+c.
+
+
+
+Referenced by Best\+Match(), build\+\_\+bmptile(), build\+\_\+tibtile(), build\+\_\+ximgtile(), findcolor(), get\+\_\+color(), main(), merge\+\_\+text\+\_\+colormap(), pix\+\_\+to\+\_\+colormap(), read\+\_\+gif\+\_\+tile(), Read\+Color\+Map(), Read\+Interleaved\+Image(), and Read\+Tile\+Strip().
+
+\hypertarget{txt2iff_8c_aff516215666b583bb7940b37a907fb6d}{\index{txt2iff.\+c@{txt2iff.\+c}!colorsinmap@{colorsinmap}}
+\index{colorsinmap@{colorsinmap}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{colorsinmap}]{\setlength{\rightskip}{0pt plus 5cm}int colorsinmap}}\label{txt2iff_8c_aff516215666b583bb7940b37a907fb6d}
+
+
+Definition at line 43 of file xpm2iff.\+c.
+
+
+
+Referenced by main(), merge\+\_\+text\+\_\+colormap(), and Read\+Color\+Map().
+
+\hypertarget{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}{\index{txt2iff.\+c@{txt2iff.\+c}!colrmap@{colrmap}}
+\index{colrmap@{colrmap}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{colrmap}]{\setlength{\rightskip}{0pt plus 5cm}int colrmap\mbox{[}$\,$\mbox{]} = \{ 0, 6, 9, 15, 4, 10, 2, 3, 5, 11, 7, 13, 8, 1, 14, 12 \}}}\label{txt2iff_8c_a396f99487fe15fb443ed120aa2bb2ea2}
+
+
+Definition at line 105 of file txt2iff.\+c.
+
+\hypertarget{txt2iff_8c_aaadefba794062a2ca7e58ceb10b955a1}{\index{txt2iff.\+c@{txt2iff.\+c}!Height@{Height}}
+\index{Height@{Height}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{Height}]{\setlength{\rightskip}{0pt plus 5cm}int Height}}\label{txt2iff_8c_aaadefba794062a2ca7e58ceb10b955a1}
+
+
+Definition at line 40 of file txt2iff.\+c.
+
+
+
+Referenced by amii\+\_\+create\+\_\+nhwindow().
+
+\hypertarget{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}{\index{txt2iff.\+c@{txt2iff.\+c}!I\+F\+F\+Parse\+Base@{I\+F\+F\+Parse\+Base}}
+\index{I\+F\+F\+Parse\+Base@{I\+F\+F\+Parse\+Base}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{I\+F\+F\+Parse\+Base}]{\setlength{\rightskip}{0pt plus 5cm}struct Library$\ast$ I\+F\+F\+Parse\+Base}}\label{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}
+
+
+Referenced by main(), and Read\+Image\+Files().
+
+\hypertarget{txt2iff_8c_aefac2950f4fb8c0fb0efa57d58b0fe2b}{\index{txt2iff.\+c@{txt2iff.\+c}!I\+F\+F\+Screen@{I\+F\+F\+Screen}}
+\index{I\+F\+F\+Screen@{I\+F\+F\+Screen}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{I\+F\+F\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   I\+F\+F\+Screen}}\label{txt2iff_8c_aefac2950f4fb8c0fb0efa57d58b0fe2b}
+
+
+Referenced by main(), and packwritebody().
+
+\hypertarget{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}{\index{txt2iff.\+c@{txt2iff.\+c}!nplanes@{nplanes}}
+\index{nplanes@{nplanes}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{nplanes}]{\setlength{\rightskip}{0pt plus 5cm}int nplanes}}\label{txt2iff_8c_a09feee87e1a744e9fde5ec34236ec2d7}
+
+
+Definition at line 67 of file txt2iff.\+c.
+
+
+
+Referenced by main(), and packwritebody().
+
+\hypertarget{txt2iff_8c_a6313a761da46b29ba554302d6d36d116}{\index{txt2iff.\+c@{txt2iff.\+c}!pixels@{pixels}}
+\index{pixels@{pixels}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{pixels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pixel} pixels\mbox{[}{\bf T\+I\+L\+E\+\_\+\+Y}\mbox{]}\mbox{[}{\bf T\+I\+L\+E\+\_\+\+X}\mbox{]}}}\label{txt2iff_8c_a6313a761da46b29ba554302d6d36d116}
+
+
+Definition at line 87 of file txt2iff.\+c.
+
+
+
+Referenced by build\+\_\+bmptile(), build\+\_\+ximgtile(), main(), read\+\_\+gif\+\_\+tile(), read\+\_\+text\+\_\+tile(), read\+\_\+txttile(), write\+\_\+ppm\+\_\+tile(), write\+\_\+text\+\_\+tile(), and write\+\_\+txttile().
+
+\hypertarget{txt2iff_8c_abbe7749c3b402f7dfe64f936774cfcd4}{\index{txt2iff.\+c@{txt2iff.\+c}!Width@{Width}}
+\index{Width@{Width}!txt2iff.\+c@{txt2iff.\+c}}
+\subsubsection[{Width}]{\setlength{\rightskip}{0pt plus 5cm}int Width}}\label{txt2iff_8c_abbe7749c3b402f7dfe64f936774cfcd4}
+
+
+Definition at line 41 of file txt2iff.\+c.
+

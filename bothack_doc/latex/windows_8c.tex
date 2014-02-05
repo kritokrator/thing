@@ -1,0 +1,166 @@
+\hypertarget{windows_8c}{\section{nethack/src/windows.c File Reference}
+\label{windows_8c}\index{nethack/src/windows.\+c@{nethack/src/windows.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structwin__choices}{win\+\_\+choices}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{windows_8c_ae93b33efdad8ec0df69e86aa7dcc522f}{F\+D\+E\+C\+L} (\hyperlink{windows_8c_a933f35c6e4fe628ac9a547fd18c77c2b}{def\+\_\+raw\+\_\+print},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$s))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{windows_8c_a933f35c6e4fe628ac9a547fd18c77c2b}{def\+\_\+raw\+\_\+print} (char $\ast$s) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{windows_8c_a6879f435c2e64314706d8f2ba946a303}{choose\+\_\+windows} (char $\ast$s) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+char \hyperlink{windows_8c_ac625887f30c6e61e87ad78e247e190d5}{genl\+\_\+message\+\_\+menu} (char let, int how, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$mesg)
+\item 
+void \hyperlink{windows_8c_a1ddb8f7c20a33dd790d4dc17ab90c7ba}{genl\+\_\+preference\+\_\+update} (char $\ast$pref) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} struct \hyperlink{structwindow__procs}{window\+\_\+procs} \hyperlink{windows_8c_a166c17ce426a1c495296575938a60f9c}{windowprocs}
+\item 
+static struct \hyperlink{structwin__choices}{win\+\_\+choices} \hyperlink{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{winchoices} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{windows_8c_a6879f435c2e64314706d8f2ba946a303}{\index{windows.\+c@{windows.\+c}!choose\+\_\+windows@{choose\+\_\+windows}}
+\index{choose\+\_\+windows@{choose\+\_\+windows}!windows.\+c@{windows.\+c}}
+\subsubsection[{choose\+\_\+windows}]{\setlength{\rightskip}{0pt plus 5cm}void choose\+\_\+windows (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+) const}}\label{windows_8c_a6879f435c2e64314706d8f2ba946a303}
+
+
+Definition at line 96 of file windows.\+c.
+
+
+
+References def\+\_\+raw\+\_\+print(), E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, win\+\_\+choices\+::procs, strcmpi, terminate(), wait\+\_\+synch, winchoices, and windowprocs.
+
+
+
+Referenced by M\+A\+I\+N(), main(), and parseoptions().
+
+
+\begin{DoxyCode}
+98 \{
+99     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+100 
+101     \textcolor{keywordflow}{for}(i=0; \hyperlink{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{winchoices}[i].\hyperlink{structwin__choices_a44a0c837c11d0ec0713e864d1a4169bb}{procs}; i++)
+102     \textcolor{keywordflow}{if} (!\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(s, \hyperlink{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{winchoices}[i].procs->name)) \{
+103         \hyperlink{windows_8c_a166c17ce426a1c495296575938a60f9c}{windowprocs} = *\hyperlink{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{winchoices}[i].\hyperlink{structwin__choices_a44a0c837c11d0ec0713e864d1a4169bb}{procs};
+104         \textcolor{keywordflow}{if} (\hyperlink{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{winchoices}[i].ini\_routine) (*\hyperlink{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{winchoices}[i].ini\_routine)();
+105         \textcolor{keywordflow}{return};
+106     \}
+107 
+108     \textcolor{keywordflow}{if} (!\hyperlink{windows_8c_a166c17ce426a1c495296575938a60f9c}{windowprocs}.win\_raw\_print)
+109     \hyperlink{windows_8c_a166c17ce426a1c495296575938a60f9c}{windowprocs}.win\_raw\_print = \hyperlink{windows_8c_a933f35c6e4fe628ac9a547fd18c77c2b}{def\_raw\_print};
+110 
+111     raw\_printf(\textcolor{stringliteral}{"Window type %s not recognized.  Choices are:"}, s);
+112     \textcolor{keywordflow}{for}(i=0; \hyperlink{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{winchoices}[i].\hyperlink{structwin__choices_a44a0c837c11d0ec0713e864d1a4169bb}{procs}; i++)
+113     raw\_printf(\textcolor{stringliteral}{"        %s"}, \hyperlink{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{winchoices}[i].procs->name);
+114 
+115     \textcolor{keywordflow}{if} (\hyperlink{windows_8c_a166c17ce426a1c495296575938a60f9c}{windowprocs}.win\_raw\_print == \hyperlink{windows_8c_a933f35c6e4fe628ac9a547fd18c77c2b}{def\_raw\_print})
+116     \hyperlink{end_8c_a30ebaced48494e6e25f8833532ec17ca}{terminate}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+117     \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+118 \}
+\end{DoxyCode}
+\hypertarget{windows_8c_a933f35c6e4fe628ac9a547fd18c77c2b}{\index{windows.\+c@{windows.\+c}!def\+\_\+raw\+\_\+print@{def\+\_\+raw\+\_\+print}}
+\index{def\+\_\+raw\+\_\+print@{def\+\_\+raw\+\_\+print}!windows.\+c@{windows.\+c}}
+\subsubsection[{def\+\_\+raw\+\_\+print}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void def\+\_\+raw\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+) const}}\label{windows_8c_a933f35c6e4fe628ac9a547fd18c77c2b}
+
+
+Definition at line 89 of file windows.\+c.
+
+
+
+Referenced by choose\+\_\+windows().
+
+
+\begin{DoxyCode}
+91 \{
+92     puts(s);
+93 \}
+\end{DoxyCode}
+\hypertarget{windows_8c_ae93b33efdad8ec0df69e86aa7dcc522f}{\index{windows.\+c@{windows.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!windows.\+c@{windows.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf def\+\_\+raw\+\_\+print}}]{, }
+\item[{({\bf const} char $\ast$s)}]{}
+\end{DoxyParamCaption}
+)}}\label{windows_8c_ae93b33efdad8ec0df69e86aa7dcc522f}
+\hypertarget{windows_8c_ac625887f30c6e61e87ad78e247e190d5}{\index{windows.\+c@{windows.\+c}!genl\+\_\+message\+\_\+menu@{genl\+\_\+message\+\_\+menu}}
+\index{genl\+\_\+message\+\_\+menu@{genl\+\_\+message\+\_\+menu}!windows.\+c@{windows.\+c}}
+\subsubsection[{genl\+\_\+message\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}char genl\+\_\+message\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{char}]{let, }
+\item[{int}]{how, }
+\item[{{\bf const} char $\ast$}]{mesg}
+\end{DoxyParamCaption}
+)}}\label{windows_8c_ac625887f30c6e61e87ad78e247e190d5}
+
+
+Definition at line 126 of file windows.\+c.
+
+
+\begin{DoxyCode}
+130 \{
+131     pline(\textcolor{stringliteral}{"%s"}, mesg);
+132     \textcolor{keywordflow}{return} 0;
+133 \}
+\end{DoxyCode}
+\hypertarget{windows_8c_a1ddb8f7c20a33dd790d4dc17ab90c7ba}{\index{windows.\+c@{windows.\+c}!genl\+\_\+preference\+\_\+update@{genl\+\_\+preference\+\_\+update}}
+\index{genl\+\_\+preference\+\_\+update@{genl\+\_\+preference\+\_\+update}!windows.\+c@{windows.\+c}}
+\subsubsection[{genl\+\_\+preference\+\_\+update}]{\setlength{\rightskip}{0pt plus 5cm}void genl\+\_\+preference\+\_\+update (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{pref}
+\end{DoxyParamCaption}
+) const}}\label{windows_8c_a1ddb8f7c20a33dd790d4dc17ab90c7ba}
+
+
+Definition at line 137 of file windows.\+c.
+
+
+\begin{DoxyCode}
+139 \{
+140     \textcolor{comment}{/* window ports are expected to provide}
+141 \textcolor{comment}{       their own preference update routine}
+142 \textcolor{comment}{       for the preference capabilities that}
+143 \textcolor{comment}{       they support.}
+144 \textcolor{comment}{       Just return in this genl one. */}
+145 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{windows_8c_a7df08ea7e063028d94514bde6d90bceb}{\index{windows.\+c@{windows.\+c}!winchoices@{winchoices}}
+\index{winchoices@{winchoices}!windows.\+c@{windows.\+c}}
+\subsubsection[{winchoices}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf win\+\_\+choices}  winchoices\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{windows_8c_a7df08ea7e063028d94514bde6d90bceb}
+
+
+Referenced by choose\+\_\+windows().
+
+\hypertarget{windows_8c_a166c17ce426a1c495296575938a60f9c}{\index{windows.\+c@{windows.\+c}!windowprocs@{windowprocs}}
+\index{windowprocs@{windowprocs}!windows.\+c@{windows.\+c}}
+\subsubsection[{windowprocs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} struct {\bf window\+\_\+procs} windowprocs}}\label{windows_8c_a166c17ce426a1c495296575938a60f9c}
+
+
+Definition at line 46 of file windows.\+c.
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), Abort(), ask\+Quit(), choose\+\_\+windows(), dorecover(), dosave0(), get\+\_\+compopt\+\_\+value(), getlock(), introff(), intron(), kbhit(), main(), nethack\+\_\+exit(), qt\+\_\+pager(), wc2\+\_\+supported(), wc\+\_\+supported(), and Win\+Main().
+

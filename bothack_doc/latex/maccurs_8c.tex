@@ -1,0 +1,510 @@
+\hypertarget{maccurs_8c}{\section{nethack/sys/mac/maccurs.c File Reference}
+\label{maccurs_8c}\index{nethack/sys/mac/maccurs.\+c@{nethack/sys/mac/maccurs.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mactty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macwin.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$Folders.\+h$>$}\\*
+{\ttfamily \#include $<$Text\+Utils.\+h$>$}\\*
+{\ttfamily \#include $<$Resources.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structWinPosSave}{Win\+Pos\+Save}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structWinPosSave}{Win\+Pos\+Save} \hyperlink{maccurs_8c_adc116f24a4f0c118894b7b9b5455d96e}{Win\+Pos\+Save}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{maccurs_8c_a9a76f47d5bef5a5d62d25c4968b3b455}{Init\+Win\+File} (void)
+\item 
+static void \hyperlink{maccurs_8c_ae9f19b1388a50ad15e4c0b186c46d9a1}{Flush\+Win\+File} (void)
+\item 
+Boolean \hyperlink{maccurs_8c_a79adbc52855d465551223f9dcfe258b4}{Retrieve\+Position} (short kind, short $\ast$top, short $\ast$left)
+\item 
+Boolean \hyperlink{maccurs_8c_a769a87961bf9453f79baf3d5fecea372}{Retrieve\+Size} (short kind, short top, short left, short $\ast$\hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}, short $\ast$\hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width})
+\item 
+static void \hyperlink{maccurs_8c_ac08987ac1437029489969d2d0cb57a97}{Save\+Position} (short kind, short top, short left)
+\item 
+static void \hyperlink{maccurs_8c_a0490eab328b27795fd37e6dd289ecee4}{Save\+Size} (short kind, short \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}, short \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width})
+\item 
+static short \hyperlink{maccurs_8c_a3cdc344493be4847b5f18e6fceca7c48}{Get\+Win\+Kind} (Window\+Ptr win)
+\item 
+Boolean \hyperlink{maccurs_8c_aa7ad84cf9dd945ba07d35e61596a2039}{Retrieve\+Win\+Pos} (Window\+Ptr win, short $\ast$top, short $\ast$left)
+\item 
+void \hyperlink{maccurs_8c_ab5ad28e0cdc6cf4410febda671c9c10a}{Save\+Window\+Pos} (Window\+Ptr win)
+\item 
+void \hyperlink{maccurs_8c_a115263a020fdb34dd280055fb6a080d9}{Save\+Window\+Size} (Window\+Ptr win)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static Boolean \hyperlink{maccurs_8c_ac25e97b9ede83c084a5c0f688976cb43}{win\+File\+Init} = 0
+\item 
+static unsigned char \hyperlink{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}{win\+File\+Name} \mbox{[}32\mbox{]} = \char`\"{}\textbackslash{}p\+Net\+Hack Preferences\char`\"{}
+\item 
+static long \hyperlink{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}{win\+File\+Dir}
+\item 
+static short \hyperlink{maccurs_8c_a1c127d917e687bed264204b831be585a}{win\+File\+Vol}
+\item 
+static \hyperlink{structWinPosSave}{Win\+Pos\+Save} \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{save\+Pos} \mbox{[}\hyperlink{macwin_8h_aa9e3c1cfe56a1bd814d1788d8dd9b150}{k\+Last\+Window\+Kind}+1\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{maccurs_8c_adc116f24a4f0c118894b7b9b5455d96e}{\index{maccurs.\+c@{maccurs.\+c}!Win\+Pos\+Save@{Win\+Pos\+Save}}
+\index{Win\+Pos\+Save@{Win\+Pos\+Save}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Win\+Pos\+Save}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf Win\+Pos\+Save}  {\bf Win\+Pos\+Save}}}\label{maccurs_8c_adc116f24a4f0c118894b7b9b5455d96e}
+
+
+\subsection{Function Documentation}
+\hypertarget{maccurs_8c_ae9f19b1388a50ad15e4c0b186c46d9a1}{\index{maccurs.\+c@{maccurs.\+c}!Flush\+Win\+File@{Flush\+Win\+File}}
+\index{Flush\+Win\+File@{Flush\+Win\+File}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Flush\+Win\+File}]{\setlength{\rightskip}{0pt plus 5cm}static void Flush\+Win\+File (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_ae9f19b1388a50ad15e4c0b186c46d9a1}
+
+
+Definition at line 66 of file maccurs.\+c.
+
+
+
+References save\+Pos, win\+File\+Dir, win\+File\+Init, win\+File\+Name, and win\+File\+Vol.
+
+
+
+Referenced by Save\+Position(), and Save\+Size().
+
+
+\begin{DoxyCode}
+67 \{
+68     \textcolor{keywordtype}{short} ref;
+69     \textcolor{keywordtype}{long} len;
+70 
+71     \textcolor{keywordflow}{if} (!\hyperlink{maccurs_8c_ac25e97b9ede83c084a5c0f688976cb43}{winFileInit}) \{
+72         \textcolor{keywordflow}{if} (!\hyperlink{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}{winFileName} [0]) \{
+73             \textcolor{keywordflow}{return};
+74         \}
+75         HCreate (\hyperlink{maccurs_8c_a1c127d917e687bed264204b831be585a}{winFileVol}, \hyperlink{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}{winFileDir}, \hyperlink{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}{winFileName}, MAC\_CREATOR, PREF\_TYPE
+      );
+76         HCreateResFile (\hyperlink{maccurs_8c_a1c127d917e687bed264204b831be585a}{winFileVol}, \hyperlink{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}{winFileDir}, \hyperlink{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}{winFileName});
+77     \}
+78     \textcolor{keywordflow}{if} (HOpen (\hyperlink{maccurs_8c_a1c127d917e687bed264204b831be585a}{winFileVol}, \hyperlink{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}{winFileDir}, \hyperlink{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}{winFileName}, fsWrPerm, &ref)) \{
+79         \textcolor{keywordflow}{return};
+80     \}
+81     \hyperlink{maccurs_8c_ac25e97b9ede83c084a5c0f688976cb43}{winFileInit} = 1;
+82     len = \textcolor{keyword}{sizeof} (\hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos});
+83     (void) FSWrite (ref, &len, \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos}); \textcolor{comment}{/* Don't care about error */}
+84     FSClose (ref);
+85 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_a3cdc344493be4847b5f18e6fceca7c48}{\index{maccurs.\+c@{maccurs.\+c}!Get\+Win\+Kind@{Get\+Win\+Kind}}
+\index{Get\+Win\+Kind@{Get\+Win\+Kind}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Get\+Win\+Kind}]{\setlength{\rightskip}{0pt plus 5cm}static short Get\+Win\+Kind (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{win}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_a3cdc344493be4847b5f18e6fceca7c48}
+
+
+Definition at line 161 of file maccurs.\+c.
+
+
+
+References Check\+Nh\+Win(), dprintf(), k\+Map\+Window, k\+Menu\+Window, k\+Message\+Window, k\+Text\+Window, N\+H\+W\+\_\+\+B\+A\+S\+E, N\+H\+W\+\_\+\+M\+A\+P, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, and W\+I\+N\+\_\+\+B\+A\+S\+E\+\_\+\+K\+I\+N\+D.
+
+
+
+Referenced by Retrieve\+Win\+Pos(), Save\+Window\+Pos(), and Save\+Window\+Size().
+
+
+\begin{DoxyCode}
+162 \{
+163     \textcolor{keywordtype}{short} kind;
+164 
+165     \textcolor{keywordflow}{if} (!\hyperlink{macwin_8h_a74f72a4daa5450f73296c281b88d702d}{CheckNhWin} (win)) \{
+166         \textcolor{keywordflow}{return} -1;
+167     \}
+168     kind = GetWindowKind(win) - \hyperlink{mactty_8h_ad35d647bd9f45579664218f94df87e13}{WIN\_BASE\_KIND};
+169     \textcolor{keywordflow}{if} (kind < 0 || kind > \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}) \{
+170         \textcolor{keywordflow}{return} -1;
+171     \}
+172     \hyperlink{macwin_8h_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"In win kind %d (%lx)"}, kind, win);
+173     \textcolor{keywordflow}{switch} (kind) \{
+174     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP} :
+175     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS} :
+176     \textcolor{keywordflow}{case} \hyperlink{macwin_8h_ab575e634e51462bf534b7ee541cefc46}{NHW\_BASE} :
+177         kind = \hyperlink{macwin_8h_a4d35107d0f0acca7a354973dd7b7627b}{kMapWindow};
+178         \textcolor{keywordflow}{break};
+179     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE} :
+180         kind = \hyperlink{macwin_8h_a54757a5fc233594015c43bc1dbde2411}{kMessageWindow};
+181         \textcolor{keywordflow}{break};
+182     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU} :
+183         kind = \hyperlink{macwin_8h_ae64931f46fa0a23ee6ee32ff86d0f614}{kMenuWindow};
+184         \textcolor{keywordflow}{break};
+185     \textcolor{keywordflow}{default} :
+186         kind = \hyperlink{macwin_8h_a40128d5a2962f7b7d78087f264ee29f8}{kTextWindow};
+187         \textcolor{keywordflow}{break};
+188     \}
+189     \hyperlink{macwin_8h_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"Out kind %d"}, kind);
+190     \textcolor{keywordflow}{return} kind;
+191 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_a9a76f47d5bef5a5d62d25c4968b3b455}{\index{maccurs.\+c@{maccurs.\+c}!Init\+Win\+File@{Init\+Win\+File}}
+\index{Init\+Win\+File@{Init\+Win\+File}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Init\+Win\+File}]{\setlength{\rightskip}{0pt plus 5cm}static void Init\+Win\+File (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_a9a76f47d5bef5a5d62d25c4968b3b455}
+
+
+Definition at line 34 of file maccurs.\+c.
+
+
+
+References save\+Pos, win\+File\+Dir, win\+File\+Init, win\+File\+Name, and win\+File\+Vol.
+
+
+
+Referenced by Retrieve\+Position(), Retrieve\+Size(), Save\+Position(), and Save\+Size().
+
+
+\begin{DoxyCode}
+35 \{
+36     StringHandle sh;
+37     \textcolor{keywordtype}{long} len;
+38     \textcolor{keywordtype}{short} ref = 0;
+39 
+40     \textcolor{keywordflow}{if} (\hyperlink{maccurs_8c_ac25e97b9ede83c084a5c0f688976cb43}{winFileInit}) \{
+41         \textcolor{keywordflow}{return};
+42     \}
+43 \textcolor{comment}{/* We trust the glue. If there's an error, store in game dir. */}
+44     \textcolor{keywordflow}{if} (FindFolder (kOnSystemDisk, kPreferencesFolderType, kCreateFolder ,
+45         &\hyperlink{maccurs_8c_a1c127d917e687bed264204b831be585a}{winFileVol}, &\hyperlink{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}{winFileDir})) \{
+46         \hyperlink{maccurs_8c_a1c127d917e687bed264204b831be585a}{winFileVol} = 0;
+47         \hyperlink{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}{winFileDir} = 0;
+48     \}
+49     sh = GetString (128);
+50     \textcolor{keywordflow}{if} (sh && *sh) \{
+51         BlockMove (*sh, \hyperlink{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}{winFileName}, **sh + 1);
+52         ReleaseResource ((Handle) sh);
+53     \}
+54     \textcolor{keywordflow}{if} (HOpen (\hyperlink{maccurs_8c_a1c127d917e687bed264204b831be585a}{winFileVol}, \hyperlink{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}{winFileDir}, \hyperlink{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}{winFileName}, fsRdPerm, &ref)) \{
+55         \textcolor{keywordflow}{return};
+56     \}
+57     len = \textcolor{keyword}{sizeof} (\hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos});
+58     \textcolor{keywordflow}{if} (!FSRead (ref, &len, \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos})) \{
+59         \hyperlink{maccurs_8c_ac25e97b9ede83c084a5c0f688976cb43}{winFileInit} = 1;
+60     \}
+61     FSClose (ref);
+62 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_a79adbc52855d465551223f9dcfe258b4}{\index{maccurs.\+c@{maccurs.\+c}!Retrieve\+Position@{Retrieve\+Position}}
+\index{Retrieve\+Position@{Retrieve\+Position}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Retrieve\+Position}]{\setlength{\rightskip}{0pt plus 5cm}Boolean Retrieve\+Position (
+\begin{DoxyParamCaption}
+\item[{short}]{kind, }
+\item[{short $\ast$}]{top, }
+\item[{short $\ast$}]{left}
+\end{DoxyParamCaption}
+)}}\label{maccurs_8c_a79adbc52855d465551223f9dcfe258b4}
+
+
+Definition at line 88 of file maccurs.\+c.
+
+
+
+References dprintf(), Init\+Win\+File(), k\+Last\+Window\+Kind, Win\+Pos\+Save\+::left, and Win\+Pos\+Save\+::top.
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), mac\+\_\+init\+\_\+nhwindows(), Retrieve\+Win\+Pos(), and Sane\+Positions().
+
+
+\begin{DoxyCode}
+88                                                        \{
+89 Point p;
+90 
+91     \textcolor{keywordflow}{if} (kind < 0 || kind > \hyperlink{macwin_8h_aa9e3c1cfe56a1bd814d1788d8dd9b150}{kLastWindowKind}) \{
+92         \hyperlink{macwin_8h_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"Retrieve Bad kind %d"}, kind);
+93         \textcolor{keywordflow}{return} 0;
+94     \}
+95     \hyperlink{maccurs_8c_a9a76f47d5bef5a5d62d25c4968b3b455}{InitWinFile} ();
+96     \textcolor{keywordflow}{if} (!\hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].validPos) \{
+97         \hyperlink{macwin_8h_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"Retrieve Not stored kind %d"}, kind);
+98         \textcolor{keywordflow}{return} 0;
+99     \}
+100     p.v = \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].\hyperlink{structWinPosSave_ac35101a83baaa8d1d95401080e1ae44c}{top};
+101     p.h = \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].\hyperlink{structWinPosSave_a02f324c04a83153db807c1732244b79e}{left};
+102     *left = p.h;
+103     *top = p.v;
+104     \hyperlink{macwin_8h_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"Retrieve Kind %d Pt (%d,%d)"}, kind, p.h, p.v);
+105     \textcolor{keywordflow}{return} (PtInRgn (p, GetGrayRgn ()));
+106 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_a769a87961bf9453f79baf3d5fecea372}{\index{maccurs.\+c@{maccurs.\+c}!Retrieve\+Size@{Retrieve\+Size}}
+\index{Retrieve\+Size@{Retrieve\+Size}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Retrieve\+Size}]{\setlength{\rightskip}{0pt plus 5cm}Boolean Retrieve\+Size (
+\begin{DoxyParamCaption}
+\item[{short}]{kind, }
+\item[{short}]{top, }
+\item[{short}]{left, }
+\item[{short $\ast$}]{height, }
+\item[{short $\ast$}]{width}
+\end{DoxyParamCaption}
+)}}\label{maccurs_8c_a769a87961bf9453f79baf3d5fecea372}
+
+
+Definition at line 110 of file maccurs.\+c.
+
+
+
+References height, Win\+Pos\+Save\+::height, Init\+Win\+File(), k\+Last\+Window\+Kind, width, and Win\+Pos\+Save\+::width.
+
+
+
+Referenced by mac\+\_\+init\+\_\+nhwindows(), and Sane\+Positions().
+
+
+\begin{DoxyCode}
+111 \{
+112     Point p;
+113 
+114     \textcolor{keywordflow}{if} (kind < 0 || kind > \hyperlink{macwin_8h_aa9e3c1cfe56a1bd814d1788d8dd9b150}{kLastWindowKind}) \{
+115         \textcolor{keywordflow}{return} 0;
+116     \}
+117     \hyperlink{maccurs_8c_a9a76f47d5bef5a5d62d25c4968b3b455}{InitWinFile} ();
+118     \textcolor{keywordflow}{if} (!\hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].validSize) \{
+119         \textcolor{keywordflow}{return} 0;
+120     \}
+121     *\hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width} = \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].\hyperlink{structWinPosSave_aa7a3f1531159d0341e13b9b46c76747c}{width};
+122     *\hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height} = \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].\hyperlink{structWinPosSave_a53e5ad34a53760f5505844f893e1181d}{height};
+123     p.h = left + *\hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width};
+124     p.v = top + *\hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height};
+125     \textcolor{keywordflow}{return} PtInRgn (p, GetGrayRgn ());
+126 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_aa7ad84cf9dd945ba07d35e61596a2039}{\index{maccurs.\+c@{maccurs.\+c}!Retrieve\+Win\+Pos@{Retrieve\+Win\+Pos}}
+\index{Retrieve\+Win\+Pos@{Retrieve\+Win\+Pos}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Retrieve\+Win\+Pos}]{\setlength{\rightskip}{0pt plus 5cm}Boolean Retrieve\+Win\+Pos (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{win, }
+\item[{short $\ast$}]{top, }
+\item[{short $\ast$}]{left}
+\end{DoxyParamCaption}
+)}}\label{maccurs_8c_aa7ad84cf9dd945ba07d35e61596a2039}
+
+
+Definition at line 195 of file maccurs.\+c.
+
+
+
+References Get\+Win\+Kind(), and Retrieve\+Position().
+
+
+
+Referenced by adjust\+\_\+window\+\_\+pos().
+
+
+\begin{DoxyCode}
+196 \{
+197     \textcolor{keywordflow}{return} \hyperlink{maccurs_8c_a79adbc52855d465551223f9dcfe258b4}{RetrievePosition}(\hyperlink{maccurs_8c_a3cdc344493be4847b5f18e6fceca7c48}{GetWinKind} (win), top, left);
+198 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_ac08987ac1437029489969d2d0cb57a97}{\index{maccurs.\+c@{maccurs.\+c}!Save\+Position@{Save\+Position}}
+\index{Save\+Position@{Save\+Position}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Save\+Position}]{\setlength{\rightskip}{0pt plus 5cm}static void Save\+Position (
+\begin{DoxyParamCaption}
+\item[{short}]{kind, }
+\item[{short}]{top, }
+\item[{short}]{left}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_ac08987ac1437029489969d2d0cb57a97}
+
+
+Definition at line 130 of file maccurs.\+c.
+
+
+
+References dprintf(), Flush\+Win\+File(), Init\+Win\+File(), k\+Last\+Window\+Kind, Win\+Pos\+Save\+::left, Win\+Pos\+Save\+::top, and Win\+Pos\+Save\+::valid\+Pos.
+
+
+
+Referenced by Save\+Window\+Pos().
+
+
+\begin{DoxyCode}
+131 \{
+132     \textcolor{keywordflow}{if} (kind < 0 || kind > \hyperlink{macwin_8h_aa9e3c1cfe56a1bd814d1788d8dd9b150}{kLastWindowKind}) \{
+133         \hyperlink{macwin_8h_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"Save bad kind %d"}, kind);
+134         \textcolor{keywordflow}{return};
+135     \}
+136     \hyperlink{maccurs_8c_a9a76f47d5bef5a5d62d25c4968b3b455}{InitWinFile}();
+137     \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos}[kind].\hyperlink{structWinPosSave_af75cf20f7e9b3652c92a71144aa5f04b}{validPos} = 1;
+138     \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos}[kind].\hyperlink{structWinPosSave_ac35101a83baaa8d1d95401080e1ae44c}{top} = top;
+139     \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos}[kind].\hyperlink{structWinPosSave_a02f324c04a83153db807c1732244b79e}{left} = left;
+140     \hyperlink{macwin_8h_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf}(\textcolor{stringliteral}{"Save kind %d pt (%d,%d)"}, kind, left, top);
+141     \hyperlink{maccurs_8c_ae9f19b1388a50ad15e4c0b186c46d9a1}{FlushWinFile}();
+142 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_a0490eab328b27795fd37e6dd289ecee4}{\index{maccurs.\+c@{maccurs.\+c}!Save\+Size@{Save\+Size}}
+\index{Save\+Size@{Save\+Size}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Save\+Size}]{\setlength{\rightskip}{0pt plus 5cm}static void Save\+Size (
+\begin{DoxyParamCaption}
+\item[{short}]{kind, }
+\item[{short}]{height, }
+\item[{short}]{width}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_a0490eab328b27795fd37e6dd289ecee4}
+
+
+Definition at line 146 of file maccurs.\+c.
+
+
+
+References dprintf(), Flush\+Win\+File(), height, Win\+Pos\+Save\+::height, Init\+Win\+File(), k\+Last\+Window\+Kind, Win\+Pos\+Save\+::valid\+Size, width, and Win\+Pos\+Save\+::width.
+
+
+
+Referenced by Save\+Window\+Size().
+
+
+\begin{DoxyCode}
+147 \{
+148     \textcolor{keywordflow}{if} (kind < 0 || kind > \hyperlink{macwin_8h_aa9e3c1cfe56a1bd814d1788d8dd9b150}{kLastWindowKind}) \{
+149         \hyperlink{macwin_8h_a3dd9b2ac1832b3e4c3baadd9cb8d5018}{dprintf} (\textcolor{stringliteral}{"Save bad kind %d"}, kind);
+150         \textcolor{keywordflow}{return};
+151     \}
+152     \hyperlink{maccurs_8c_a9a76f47d5bef5a5d62d25c4968b3b455}{InitWinFile} ();
+153     \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].\hyperlink{structWinPosSave_ad3e75df1e54e30579612f2d446cc4fa7}{validSize} = 1;
+154     \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].\hyperlink{structWinPosSave_aa7a3f1531159d0341e13b9b46c76747c}{width} = \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width};
+155     \hyperlink{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{savePos} [kind].\hyperlink{structWinPosSave_a53e5ad34a53760f5505844f893e1181d}{height} = \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height};
+156     \hyperlink{maccurs_8c_ae9f19b1388a50ad15e4c0b186c46d9a1}{FlushWinFile} ();
+157 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_ab5ad28e0cdc6cf4410febda671c9c10a}{\index{maccurs.\+c@{maccurs.\+c}!Save\+Window\+Pos@{Save\+Window\+Pos}}
+\index{Save\+Window\+Pos@{Save\+Window\+Pos}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Save\+Window\+Pos}]{\setlength{\rightskip}{0pt plus 5cm}void Save\+Window\+Pos (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{win}
+\end{DoxyParamCaption}
+)}}\label{maccurs_8c_ab5ad28e0cdc6cf4410febda671c9c10a}
+
+
+Definition at line 202 of file maccurs.\+c.
+
+
+
+References Get\+Win\+Kind(), and Save\+Position().
+
+
+
+Referenced by Handle\+Click().
+
+
+\begin{DoxyCode}
+203 \{
+204     Rect r;
+205 
+206 
+207     GetWindowBounds(win, kWindowContentRgn, &r);
+208     \hyperlink{maccurs_8c_ac08987ac1437029489969d2d0cb57a97}{SavePosition}(\hyperlink{maccurs_8c_a3cdc344493be4847b5f18e6fceca7c48}{GetWinKind}(win), r.top, r.left);
+209 \}
+\end{DoxyCode}
+\hypertarget{maccurs_8c_a115263a020fdb34dd280055fb6a080d9}{\index{maccurs.\+c@{maccurs.\+c}!Save\+Window\+Size@{Save\+Window\+Size}}
+\index{Save\+Window\+Size@{Save\+Window\+Size}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{Save\+Window\+Size}]{\setlength{\rightskip}{0pt plus 5cm}void Save\+Window\+Size (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{win}
+\end{DoxyParamCaption}
+)}}\label{maccurs_8c_a115263a020fdb34dd280055fb6a080d9}
+
+
+Definition at line 213 of file maccurs.\+c.
+
+
+
+References Get\+Win\+Kind(), height, Save\+Size(), and width.
+
+
+
+Referenced by Handle\+Click().
+
+
+\begin{DoxyCode}
+214 \{
+215     \textcolor{keywordtype}{short} \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height};
+216     Rect r;
+217 
+218 
+219     GetWindowBounds(win, kWindowContentRgn, &r);
+220     width = r.right - r.left;
+221     height = r.bottom - r.top;
+222     \hyperlink{maccurs_8c_a0490eab328b27795fd37e6dd289ecee4}{SaveSize}(\hyperlink{maccurs_8c_a3cdc344493be4847b5f18e6fceca7c48}{GetWinKind} (win), height, width);
+223 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}{\index{maccurs.\+c@{maccurs.\+c}!save\+Pos@{save\+Pos}}
+\index{save\+Pos@{save\+Pos}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{save\+Pos}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Win\+Pos\+Save} save\+Pos\mbox{[}{\bf k\+Last\+Window\+Kind}+1\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_a4140971c8cc7829f375c12fa58d100a6}
+
+
+Definition at line 30 of file maccurs.\+c.
+
+
+
+Referenced by Flush\+Win\+File(), and Init\+Win\+File().
+
+\hypertarget{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}{\index{maccurs.\+c@{maccurs.\+c}!win\+File\+Dir@{win\+File\+Dir}}
+\index{win\+File\+Dir@{win\+File\+Dir}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{win\+File\+Dir}]{\setlength{\rightskip}{0pt plus 5cm}long win\+File\+Dir\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_ac6e53bfc221c9d7cd736aa29db4da80f}
+
+
+Definition at line 18 of file maccurs.\+c.
+
+
+
+Referenced by Flush\+Win\+File(), and Init\+Win\+File().
+
+\hypertarget{maccurs_8c_ac25e97b9ede83c084a5c0f688976cb43}{\index{maccurs.\+c@{maccurs.\+c}!win\+File\+Init@{win\+File\+Init}}
+\index{win\+File\+Init@{win\+File\+Init}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{win\+File\+Init}]{\setlength{\rightskip}{0pt plus 5cm}Boolean win\+File\+Init = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_ac25e97b9ede83c084a5c0f688976cb43}
+
+
+Definition at line 16 of file maccurs.\+c.
+
+
+
+Referenced by Flush\+Win\+File(), and Init\+Win\+File().
+
+\hypertarget{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}{\index{maccurs.\+c@{maccurs.\+c}!win\+File\+Name@{win\+File\+Name}}
+\index{win\+File\+Name@{win\+File\+Name}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{win\+File\+Name}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char win\+File\+Name\mbox{[}32\mbox{]} = \char`\"{}\textbackslash{}p\+Net\+Hack Preferences\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_a3f4ce4d6a13ec5c243229ab9444aabff}
+
+
+Definition at line 17 of file maccurs.\+c.
+
+
+
+Referenced by Flush\+Win\+File(), and Init\+Win\+File().
+
+\hypertarget{maccurs_8c_a1c127d917e687bed264204b831be585a}{\index{maccurs.\+c@{maccurs.\+c}!win\+File\+Vol@{win\+File\+Vol}}
+\index{win\+File\+Vol@{win\+File\+Vol}!maccurs.\+c@{maccurs.\+c}}
+\subsubsection[{win\+File\+Vol}]{\setlength{\rightskip}{0pt plus 5cm}short win\+File\+Vol\hspace{0.3cm}{\ttfamily [static]}}}\label{maccurs_8c_a1c127d917e687bed264204b831be585a}
+
+
+Definition at line 19 of file maccurs.\+c.
+
+
+
+Referenced by Flush\+Win\+File(), and Init\+Win\+File().
+

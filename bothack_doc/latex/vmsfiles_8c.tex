@@ -1,0 +1,606 @@
+\hypertarget{vmsfiles_8c}{\section{nethack/sys/vms/vmsfiles.c File Reference}
+\label{vmsfiles_8c}\index{nethack/sys/vms/vmsfiles.\+c@{nethack/sys/vms/vmsfiles.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$rms.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$ssdef.\+h$>$}\\*
+{\ttfamily \#include $<$rmsdef.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{vmsfiles_8c_aae49e387c9c26f05d8833b06157bc9e5}{P\+S\+L}~\$C\+\_\+\+E\+X\+E\+C 1	/$\ast$ executive mode, for priv'd logical \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} handling $\ast$/
+\item 
+\#define \hyperlink{vmsfiles_8c_ac4cf4b2ab929bd23951a8676eeac086b}{C}~\$\$T\+R\+A\+N\+S\+L\+A\+T\+E(status) (\hyperlink{celib_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} = E\+V\+M\+S\+E\+R\+R,  vaxc\$errno = (status))
+\item 
+\#define \hyperlink{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}{vms\+\_\+success}(sts)~((sts)\&1)		/$\ast$ odd, $\ast$/
+\item 
+\#define \hyperlink{vmsfiles_8c_afa2b5d94361885396b7cf2db0889ee25}{vms\+\_\+failure}(sts)~(!\hyperlink{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}{vms\+\_\+success}(sts))	/$\ast$ even $\ast$/
+\item 
+\#define \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{V\+A\+L\+U\+E}(U)~trans = U; break
+\item 
+\#define \hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{C\+A\+S\+E1}(V)~case (V $>$$>$ 3)
+\item 
+\#define \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{C\+A\+S\+E2}(V, W)~\hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{C\+A\+S\+E1}(V)\+: \hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{C\+A\+S\+E1}(W)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{vmsfiles_8c_ac2107e73de875e8135d0304282b5d556}{F\+D\+E\+C\+L} (\hyperlink{vmsfiles_8c_ab4aad58e4fc9b3efd2758d7400d8175a}{vms\+\_\+link},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+int \hyperlink{vmsfiles_8c_a0f799234e8d282a4398185729b97658b}{F\+D\+E\+C\+L} (\hyperlink{vmsfiles_8c_a38798e9edb9f57d4a21f5c62989c8992}{vms\+\_\+unlink},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+int \hyperlink{vmsfiles_8c_abb5661950c29f3f264b604bdc59a640e}{F\+D\+E\+C\+L} (\hyperlink{vmsfiles_8c_a30db215696edb2550379c1f4a9a67a3e}{vms\+\_\+creat},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$, unsigned int))
+\item 
+int \hyperlink{vmsfiles_8c_a3ac1b561b7f0076eefe79a89ee8ba787}{F\+D\+E\+C\+L} (\hyperlink{vmsfiles_8c_a4b7906dd82499ae816eaab7fe9227de2}{vms\+\_\+open},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$, int, unsigned int))
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{vmsfiles_8c_ae9352d86d49b9c20cec515b519a40b00}{F\+D\+E\+C\+L} (\hyperlink{vmsfiles_8c_a6bb68030f6af550af72dcc8d5e65d54f}{same\+\_\+dir},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+int \hyperlink{vmsfiles_8c_af89ca9667d2282b341516a6f73dc2a47}{F\+D\+E\+C\+L} (\hyperlink{vmsfiles_8c_a8bf59fb93ef9d69284a7de74caf06dec}{c\+\_\+\+\_\+translate},(int))
+\item 
+char $\ast$ \hyperlink{vmsfiles_8c_aa96f7ddd70958ce50c595cb800b66699}{F\+D\+E\+C\+L} (\hyperlink{vmsfiles_8c_ae5c864896564867dcf8863e716b90e44}{vms\+\_\+basename},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+unsigned long sys \hyperlink{vmsfiles_8c_ad69b5e15e1abbd53063e075bf80b22b1}{\$parse} ()
+\item 
+unsigned long sys sys \hyperlink{vmsfiles_8c_a5b11e2a52f274485e022df101006f1b3}{\$search} ()
+\item 
+unsigned long sys sys sys \hyperlink{vmsfiles_8c_a2d6b9d66b0ffdfb65b2e9d74d5f8d17c}{\$enter} ()
+\item 
+unsigned long sys sys sys sys \hyperlink{vmsfiles_8c_a358b19fdf7b49d8f26880b2962676186}{\$remove} ()
+\item 
+int \hyperlink{vmsfiles_8c_a24e9595cc15e7177adc51fdb35659af7}{V\+D\+E\+C\+L} (lib \$match\+\_\+cond,(int, int,...))
+\item 
+int \hyperlink{vmsfiles_8c_ab4aad58e4fc9b3efd2758d7400d8175a}{vms\+\_\+link} (char $\ast$file, char $\ast$new) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+int \hyperlink{vmsfiles_8c_a38798e9edb9f57d4a21f5c62989c8992}{vms\+\_\+unlink} (char $\ast$file) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+int \hyperlink{vmsfiles_8c_a30db215696edb2550379c1f4a9a67a3e}{vms\+\_\+creat} (char $\ast$file, unsigned int mode) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+int \hyperlink{vmsfiles_8c_a4b7906dd82499ae816eaab7fe9227de2}{vms\+\_\+open} (char $\ast$file, int \hyperlink{decl_8c_a997133526e0c6bed44ebc0116a48b50a}{flags}, unsigned int mode) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{vmsfiles_8c_a6bb68030f6af550af72dcc8d5e65d54f}{same\+\_\+dir} (char $\ast$d1, char $\ast$d2) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+int \hyperlink{vmsfiles_8c_a8bf59fb93ef9d69284a7de74caf06dec}{c\+\_\+\+\_\+translate} (int code)
+\item 
+char $\ast$ \hyperlink{vmsfiles_8c_ae5c864896564867dcf8863e716b90e44}{vms\+\_\+basename} (char $\ast$\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static char \hyperlink{vmsfiles_8c_a9ac0b866f721c89a919d880d78d10861}{base\+\_\+name} \mbox{[}N\+A\+M \$C\+\_\+\+M\+A\+X\+R\+S\+S+1\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{vmsfiles_8c_ac4cf4b2ab929bd23951a8676eeac086b}{\index{vmsfiles.\+c@{vmsfiles.\+c}!C@{C}}
+\index{C@{C}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{C}]{\setlength{\rightskip}{0pt plus 5cm}\#define C~\$\$T\+R\+A\+N\+S\+L\+A\+T\+E(status) ({\bf errno} = E\+V\+M\+S\+E\+R\+R,  vaxc\$errno = (status))}}\label{vmsfiles_8c_ac4cf4b2ab929bd23951a8676eeac086b}
+
+
+Definition at line 29 of file vmsfiles.\+c.
+
+
+
+Referenced by vms\+\_\+link(), and vms\+\_\+unlink().
+
+\hypertarget{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{\index{vmsfiles.\+c@{vmsfiles.\+c}!C\+A\+S\+E1@{C\+A\+S\+E1}}
+\index{C\+A\+S\+E1@{C\+A\+S\+E1}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{C\+A\+S\+E1}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+A\+S\+E1(
+\begin{DoxyParamCaption}
+\item[{}]{V}
+\end{DoxyParamCaption}
+)~case (V $>$$>$ 3)}}\label{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}
+
+
+Definition at line 206 of file vmsfiles.\+c.
+
+
+
+Referenced by c\+\_\+\+\_\+translate().
+
+\hypertarget{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{\index{vmsfiles.\+c@{vmsfiles.\+c}!C\+A\+S\+E2@{C\+A\+S\+E2}}
+\index{C\+A\+S\+E2@{C\+A\+S\+E2}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{C\+A\+S\+E2}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+A\+S\+E2(
+\begin{DoxyParamCaption}
+\item[{}]{V, }
+\item[{}]{W}
+\end{DoxyParamCaption}
+)~{\bf C\+A\+S\+E1}(V)\+: {\bf C\+A\+S\+E1}(W)}}\label{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}
+
+
+Definition at line 207 of file vmsfiles.\+c.
+
+
+
+Referenced by c\+\_\+\+\_\+translate().
+
+\hypertarget{vmsfiles_8c_aae49e387c9c26f05d8833b06157bc9e5}{\index{vmsfiles.\+c@{vmsfiles.\+c}!P\+S\+L@{P\+S\+L}}
+\index{P\+S\+L@{P\+S\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{P\+S\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+S\+L~\$C\+\_\+\+E\+X\+E\+C 1	/$\ast$ executive mode, for priv'd logical {\bf name} handling $\ast$/}}\label{vmsfiles_8c_aae49e387c9c26f05d8833b06157bc9e5}
+
+
+Definition at line 25 of file vmsfiles.\+c.
+
+
+
+Referenced by same\+\_\+dir().
+
+\hypertarget{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{\index{vmsfiles.\+c@{vmsfiles.\+c}!V\+A\+L\+U\+E@{V\+A\+L\+U\+E}}
+\index{V\+A\+L\+U\+E@{V\+A\+L\+U\+E}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{V\+A\+L\+U\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+A\+L\+U\+E(
+\begin{DoxyParamCaption}
+\item[{}]{U}
+\end{DoxyParamCaption}
+)~trans = U; break}}\label{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}
+
+
+Definition at line 205 of file vmsfiles.\+c.
+
+
+
+Referenced by c\+\_\+\+\_\+translate().
+
+\hypertarget{vmsfiles_8c_afa2b5d94361885396b7cf2db0889ee25}{\index{vmsfiles.\+c@{vmsfiles.\+c}!vms\+\_\+failure@{vms\+\_\+failure}}
+\index{vms\+\_\+failure@{vms\+\_\+failure}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{vms\+\_\+failure}]{\setlength{\rightskip}{0pt plus 5cm}\#define vms\+\_\+failure(
+\begin{DoxyParamCaption}
+\item[{}]{sts}
+\end{DoxyParamCaption}
+)~(!{\bf vms\+\_\+success}(sts))	/$\ast$ even $\ast$/}}\label{vmsfiles_8c_afa2b5d94361885396b7cf2db0889ee25}
+
+
+Definition at line 35 of file vmsfiles.\+c.
+
+
+
+Referenced by vms\+\_\+link(), and vms\+\_\+unlink().
+
+\hypertarget{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}{\index{vmsfiles.\+c@{vmsfiles.\+c}!vms\+\_\+success@{vms\+\_\+success}}
+\index{vms\+\_\+success@{vms\+\_\+success}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{vms\+\_\+success}]{\setlength{\rightskip}{0pt plus 5cm}\#define vms\+\_\+success(
+\begin{DoxyParamCaption}
+\item[{}]{sts}
+\end{DoxyParamCaption}
+)~((sts)\&1)		/$\ast$ odd, $\ast$/}}\label{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}
+
+
+Definition at line 34 of file vmsfiles.\+c.
+
+
+
+Referenced by same\+\_\+dir(), and vms\+\_\+link().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{vmsfiles_8c_a2d6b9d66b0ffdfb65b2e9d74d5f8d17c}{\index{vmsfiles.\+c@{vmsfiles.\+c}!\$enter@{\$enter}}
+\index{\$enter@{\$enter}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{\$enter}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long sys sys sys \$enter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_a2d6b9d66b0ffdfb65b2e9d74d5f8d17c}
+
+
+Referenced by vms\+\_\+link().
+
+\hypertarget{vmsfiles_8c_ad69b5e15e1abbd53063e075bf80b22b1}{\index{vmsfiles.\+c@{vmsfiles.\+c}!\$parse@{\$parse}}
+\index{\$parse@{\$parse}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{\$parse}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long sys \$parse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_ad69b5e15e1abbd53063e075bf80b22b1}
+
+
+Referenced by same\+\_\+dir(), vms\+\_\+link(), and vms\+\_\+unlink().
+
+\hypertarget{vmsfiles_8c_a358b19fdf7b49d8f26880b2962676186}{\index{vmsfiles.\+c@{vmsfiles.\+c}!\$remove@{\$remove}}
+\index{\$remove@{\$remove}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{\$remove}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long sys sys sys sys \${\bf remove} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_a358b19fdf7b49d8f26880b2962676186}
+
+
+Referenced by vms\+\_\+unlink().
+
+\hypertarget{vmsfiles_8c_a5b11e2a52f274485e022df101006f1b3}{\index{vmsfiles.\+c@{vmsfiles.\+c}!\$search@{\$search}}
+\index{\$search@{\$search}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{\$search}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long sys sys \$search (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_a5b11e2a52f274485e022df101006f1b3}
+
+
+Referenced by vms\+\_\+link().
+
+\hypertarget{vmsfiles_8c_a8bf59fb93ef9d69284a7de74caf06dec}{\index{vmsfiles.\+c@{vmsfiles.\+c}!c\+\_\+\+\_\+translate@{c\+\_\+\+\_\+translate}}
+\index{c\+\_\+\+\_\+translate@{c\+\_\+\+\_\+translate}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{c\+\_\+\+\_\+translate}]{\setlength{\rightskip}{0pt plus 5cm}int c\+\_\+\+\_\+translate (
+\begin{DoxyParamCaption}
+\item[{int}]{code}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_a8bf59fb93ef9d69284a7de74caf06dec}
+
+
+Definition at line 209 of file vmsfiles.\+c.
+
+
+
+References C\+A\+S\+E1, C\+A\+S\+E2, errno, and V\+A\+L\+U\+E.
+
+
+\begin{DoxyCode}
+211 \{
+212     \textcolor{keyword}{register} \textcolor{keywordtype}{int} trans;
+213 
+214     \textcolor{keywordflow}{switch} ((code & 0x0FFFFFF8) >> 3) \{ \textcolor{comment}{/* strip upper 4 and bottom 3 bits */}
+215     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(RMS$\_PRV,SS$\_NOPRIV):
+216                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(EPERM);  \textcolor{comment}{/* not owner */}
+217     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(RMS$\_DNF,RMS$\_DIR):
+218     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(RMS$\_FNF,RMS$\_FND):
+219     \hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{CASE1}(SS$\_NOSUCHFILE):
+220                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(ENOENT); \textcolor{comment}{/* no such file or directory */}
+221     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(RMS$\_IFI,RMS$\_ISI):
+222                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(EIO);    \textcolor{comment}{/* i/o error */}
+223     \hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{CASE1}(RMS$\_DEV):
+224     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(SS$\_NOSUCHDEV,SS$\_DEVNOTMOUNT):
+225                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(ENXIO);  \textcolor{comment}{/* no such device or address codes */}
+226     \hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{CASE1}(RMS$\_DME):
+227      \textcolor{comment}{/* CASE1(LIB$INSVIRMEM): */}
+228     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(SS$\_VASFULL,SS$\_INSFWSL):
+229                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(ENOMEM); \textcolor{comment}{/* not enough core */}
+230     \hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{CASE1}(SS$\_ACCVIO):
+231                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(EFAULT); \textcolor{comment}{/* bad address */}
+232     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(RMS$\_DNR,SS$\_DEVASSIGN):
+233     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(SS$\_DEVALLOC,SS$\_DEVALRALLOC):
+234     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(SS$\_DEVMOUNT,SS$\_DEVACTIVE):
+235                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(EBUSY);  \textcolor{comment}{/* mount device busy codes to name a few */}
+236     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(RMS$\_FEX,SS$\_FILALRACC):
+237                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(EEXIST); \textcolor{comment}{/* file exists */}
+238     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(RMS$\_IDR,SS$\_BADIRECTORY):
+239                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(ENOTDIR);    \textcolor{comment}{/* not a directory */}
+240     \hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{CASE1}(SS$\_NOIOCHAN):
+241                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(EMFILE); \textcolor{comment}{/* too many open files */}
+242     \hyperlink{vmsfiles_8c_a449a99100db5ff0a7e069fd8f81363c5}{CASE1}(RMS$\_FUL):
+243     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(SS$\_DEVICEFULL,SS$\_EXDISKQUOTA):
+244                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(ENOSPC); \textcolor{comment}{/* no space left on disk codes */}
+245     \hyperlink{vmsfiles_8c_ac0cee833f3681c8a1d7e470136166dd6}{CASE2}(RMS$\_WLK,SS$\_WRITLCK):
+246                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(EROFS);  \textcolor{comment}{/* read-only file system */}
+247     \textcolor{keywordflow}{default}:
+248                 \hyperlink{vmsfiles_8c_a127a1e04b5b8df33e97671e0cf926281}{VALUE}(EVMSERR);
+249     \};
+250 
+251     \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} = trans;
+252     vaxc$errno = code;
+253     \textcolor{keywordflow}{return} code;    \textcolor{comment}{/* (not very useful) */}
+254 \}
+\end{DoxyCode}
+\hypertarget{vmsfiles_8c_ac2107e73de875e8135d0304282b5d556}{\index{vmsfiles.\+c@{vmsfiles.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf vms\+\_\+link}}]{, }
+\item[{({\bf const} char $\ast$, {\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_ac2107e73de875e8135d0304282b5d556}
+\hypertarget{vmsfiles_8c_a0f799234e8d282a4398185729b97658b}{\index{vmsfiles.\+c@{vmsfiles.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf vms\+\_\+unlink}}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_a0f799234e8d282a4398185729b97658b}
+\hypertarget{vmsfiles_8c_abb5661950c29f3f264b604bdc59a640e}{\index{vmsfiles.\+c@{vmsfiles.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf vms\+\_\+creat}}]{, }
+\item[{({\bf const} char $\ast$, unsigned int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_abb5661950c29f3f264b604bdc59a640e}
+\hypertarget{vmsfiles_8c_a3ac1b561b7f0076eefe79a89ee8ba787}{\index{vmsfiles.\+c@{vmsfiles.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf vms\+\_\+open}}]{, }
+\item[{({\bf const} char $\ast$, int, unsigned int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_a3ac1b561b7f0076eefe79a89ee8ba787}
+\hypertarget{vmsfiles_8c_ae9352d86d49b9c20cec515b519a40b00}{\index{vmsfiles.\+c@{vmsfiles.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf same\+\_\+dir}}]{, }
+\item[{({\bf const} char $\ast$, {\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_ae9352d86d49b9c20cec515b519a40b00}
+\hypertarget{vmsfiles_8c_af89ca9667d2282b341516a6f73dc2a47}{\index{vmsfiles.\+c@{vmsfiles.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf c\+\_\+\+\_\+translate}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_af89ca9667d2282b341516a6f73dc2a47}
+\hypertarget{vmsfiles_8c_aa96f7ddd70958ce50c595cb800b66699}{\index{vmsfiles.\+c@{vmsfiles.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf vms\+\_\+basename}}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_aa96f7ddd70958ce50c595cb800b66699}
+\hypertarget{vmsfiles_8c_a6bb68030f6af550af72dcc8d5e65d54f}{\index{vmsfiles.\+c@{vmsfiles.\+c}!same\+\_\+dir@{same\+\_\+dir}}
+\index{same\+\_\+dir@{same\+\_\+dir}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{same\+\_\+dir}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} same\+\_\+dir (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{d1, }
+\item[{char $\ast$}]{d2}
+\end{DoxyParamCaption}
+) const}}\label{vmsfiles_8c_a6bb68030f6af550af72dcc8d5e65d54f}
+
+
+Definition at line 157 of file vmsfiles.\+c.
+
+
+
+References \$parse(), F\+A\+B, F\+A\+L\+S\+E, P\+S\+L, T\+R\+U\+E, and vms\+\_\+success.
+
+
+\begin{DoxyCode}
+159 \{
+160     \textcolor{keywordflow}{if} (!d1 || !*d1 || !d2 || !*d2)
+161     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+162     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(d1, d2))   \textcolor{comment}{/* strcmpi() would be better, but that leads */}
+163     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};        \textcolor{comment}{/* to linking problems for the utilities */}
+164     \textcolor{keywordflow}{else} \{
+165     \textcolor{keyword}{struct }\hyperlink{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{FAB} f1, f2;
+166     \textcolor{keyword}{struct }NAM n1, n2;
+167 
+168     f1 = f2 = cc$rms\_fab;   \textcolor{comment}{/* initialize file access block */}
+169     n1 = n2 = cc$rms\_nam;   \textcolor{comment}{/* initialize name block */}
+170     f1.fab$b\_acmodes = \hyperlink{vmsfiles_8c_aae49e387c9c26f05d8833b06157bc9e5}{PSL}$C\_EXEC << \hyperlink{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{FAB}$V\_LNM\_MODE;
+171     f1.fab$b\_fns = strlen( f1.fab$l\_fna = (\textcolor{keywordtype}{char} *)d1 );
+172     f2.fab$b\_fns = strlen( f2.fab$l\_fna = (\textcolor{keywordtype}{char} *)d2 );
+173     f1.fab$l\_nam = (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&n1;   \textcolor{comment}{/* link nam to fab */}
+174     f2.fab$l\_nam = (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&n2;
+175     n1.nam$b\_nop = n2.nam$b\_nop = NAM$M\_NOCONCEAL; \textcolor{comment}{/* want true device name */}
+176 
+177     \textcolor{keywordflow}{return} (\hyperlink{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}{vms\_success}(sys\hyperlink{vmsfiles_8c_ad69b5e15e1abbd53063e075bf80b22b1}{$parse}(&f1)) && \hyperlink{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}{vms\_success}(sys
+      \hyperlink{vmsfiles_8c_ad69b5e15e1abbd53063e075bf80b22b1}{$parse}(&f2))
+178          && n1.nam$t\_dvi[0] == n2.nam$t\_dvi[0]
+179          && !strncmp(&n1.nam$t\_dvi[1], &n2.nam$t\_dvi[1], n1.nam$t\_dvi[0])
+180          && !memcmp((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})n1.nam$w\_did,
+181             (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})n2.nam$w\_did,
+182             \textcolor{keyword}{sizeof} n1.nam$w\_did));  \textcolor{comment}{/*\{ short nam$w\_did[3]; \}*/}
+183     \}
+184 \}
+\end{DoxyCode}
+\hypertarget{vmsfiles_8c_a24e9595cc15e7177adc51fdb35659af7}{\index{vmsfiles.\+c@{vmsfiles.\+c}!V\+D\+E\+C\+L@{V\+D\+E\+C\+L}}
+\index{V\+D\+E\+C\+L@{V\+D\+E\+C\+L}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{V\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int V\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{lib}]{\$match\+\_\+cond, }
+\item[{(int, int,...)}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsfiles_8c_a24e9595cc15e7177adc51fdb35659af7}
+\hypertarget{vmsfiles_8c_ae5c864896564867dcf8863e716b90e44}{\index{vmsfiles.\+c@{vmsfiles.\+c}!vms\+\_\+basename@{vms\+\_\+basename}}
+\index{vms\+\_\+basename@{vms\+\_\+basename}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{vms\+\_\+basename}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ vms\+\_\+basename (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+) const}}\label{vmsfiles_8c_ae5c864896564867dcf8863e716b90e44}
+
+
+Definition at line 264 of file vmsfiles.\+c.
+
+
+
+References name.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+266 \{
+267     \textcolor{keywordtype}{unsigned} len;
+268     \textcolor{keywordtype}{char} *base, *base\_p;
+269     \textcolor{keyword}{register} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *name\_p;
+270 
+271     \textcolor{comment}{/* skip directory/path */}
+272     \textcolor{keywordflow}{if} ((name\_p = strrchr(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{charliteral}{']'})) != 0) \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} = name\_p + 1;
+273     \textcolor{keywordflow}{if} ((name\_p = strrchr(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{charliteral}{'>'})) != 0) \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} = name\_p + 1;
+274     \textcolor{keywordflow}{if} ((name\_p = strrchr(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{charliteral}{':'})) != 0) \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} = name\_p + 1;
+275     \textcolor{keywordflow}{if} ((name\_p = strrchr(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{charliteral}{'/'})) != 0) \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} = name\_p + 1;
+276     \textcolor{keywordflow}{if} (!*\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}) \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} = \textcolor{stringliteral}{"."};     \textcolor{comment}{/* this should never happen */}
+277 
+278     \textcolor{comment}{/* find extension/version and derive length of basename */}
+279     \textcolor{keywordflow}{if} ((name\_p = strchr(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{charliteral}{'.'})) == 0 || name\_p == \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name})
+280     name\_p = strchr(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{charliteral}{';'});
+281     len = (name\_p && name\_p > \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}) ? name\_p - \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} : strlen(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name});
+282 
+283     \textcolor{comment}{/* return a lowercase copy of the name in a private static buffer */}
+284     base = strncpy(\hyperlink{vmsfiles_8c_a9ac0b866f721c89a919d880d78d10861}{base\_name}, \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, len);
+285     base[len] = \textcolor{charliteral}{'\(\backslash\)0'};
+286     \textcolor{comment}{/* we don't use lcase() so that utilities won't need hacklib.c */}
+287     \textcolor{keywordflow}{for} (base\_p = base; base\_p < &base[len]; base\_p++)
+288     \textcolor{keywordflow}{if} (isupper(*base\_p)) *base\_p = tolower(*base\_p);
+289 
+290     \textcolor{keywordflow}{return} base;
+291 \}
+\end{DoxyCode}
+\hypertarget{vmsfiles_8c_a30db215696edb2550379c1f4a9a67a3e}{\index{vmsfiles.\+c@{vmsfiles.\+c}!vms\+\_\+creat@{vms\+\_\+creat}}
+\index{vms\+\_\+creat@{vms\+\_\+creat}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{vms\+\_\+creat}]{\setlength{\rightskip}{0pt plus 5cm}int vms\+\_\+creat (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file, }
+\item[{unsigned int}]{mode}
+\end{DoxyParamCaption}
+) const}}\label{vmsfiles_8c_a30db215696edb2550379c1f4a9a67a3e}
+
+
+Definition at line 116 of file vmsfiles.\+c.
+
+
+
+References creat(), index(), and unlink().
+
+
+\begin{DoxyCode}
+119 \{
+120     \textcolor{keywordflow}{if} (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(file, \textcolor{charliteral}{';'})) \{
+121     \textcolor{comment}{/* assumes remove or delete, not vms\_unlink */}
+122     \textcolor{keywordflow}{if} (!\hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(file)) \{
+123         (void)sleep(1);
+124         (void)\hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(file);
+125     \}
+126     \}
+127     \textcolor{keywordflow}{return} \hyperlink{wceconf_8h_a8e3d15ba88c8177901cb71711b060b36}{creat}(file, mode, \textcolor{stringliteral}{"shr=nil"}, \textcolor{stringliteral}{"mbc=32"}, \textcolor{stringliteral}{"mbf=2"}, \textcolor{stringliteral}{"rop=wbh"});
+128 \}
+\end{DoxyCode}
+\hypertarget{vmsfiles_8c_ab4aad58e4fc9b3efd2758d7400d8175a}{\index{vmsfiles.\+c@{vmsfiles.\+c}!vms\+\_\+link@{vms\+\_\+link}}
+\index{vms\+\_\+link@{vms\+\_\+link}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{vms\+\_\+link}]{\setlength{\rightskip}{0pt plus 5cm}int vms\+\_\+link (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file, }
+\item[{char $\ast$}]{new}
+\end{DoxyParamCaption}
+) const}}\label{vmsfiles_8c_ab4aad58e4fc9b3efd2758d7400d8175a}
+
+
+Definition at line 38 of file vmsfiles.\+c.
+
+
+
+References \$enter(), \$parse(), \$search(), C, F\+A\+B, vms\+\_\+failure, and vms\+\_\+success.
+
+
+\begin{DoxyCode}
+40 \{
+41     \textcolor{keyword}{struct }\hyperlink{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{FAB} fab;
+42     \textcolor{keyword}{struct }NAM nam;
+43     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} fid[3];
+44     \textcolor{keywordtype}{char} esa[NAM$C\_MAXRSS];
+45 
+46     fab = cc$rms\_fab;   \textcolor{comment}{/* set block ID and length, zero the rest */}
+47     fab.fab$l\_fop = \hyperlink{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{FAB}$M\_OFP;
+48     fab.fab$l\_fna = (\textcolor{keywordtype}{char} *) file;
+49     fab.fab$b\_fns = strlen(file);
+50     fab.fab$l\_nam = &nam;
+51     nam = cc$rms\_nam;
+52     nam.nam$l\_esa = esa;
+53     nam.nam$b\_ess = \textcolor{keyword}{sizeof} esa;
+54 
+55     \textcolor{keywordflow}{if} (\hyperlink{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}{vms\_success}(sys\hyperlink{vmsfiles_8c_ad69b5e15e1abbd53063e075bf80b22b1}{$parse}(&fab)) && \hyperlink{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}{vms\_success}(sys
+      \hyperlink{vmsfiles_8c_a5b11e2a52f274485e022df101006f1b3}{$search}(&fab))) \{
+56     fid[0] = nam.nam$w\_fid[0];
+57     fid[1] = nam.nam$w\_fid[1];
+58     fid[2] = nam.nam$w\_fid[2];
+59     fab.fab$l\_fna = (\textcolor{keywordtype}{char} *) \textcolor{keyword}{new};
+60     fab.fab$b\_fns = strlen(\textcolor{keyword}{new});
+61 
+62     \textcolor{keywordflow}{if} (\hyperlink{vmsfiles_8c_af5f981fab1ae51e00229bb8c35c1591d}{vms\_success}(sys\hyperlink{vmsfiles_8c_ad69b5e15e1abbd53063e075bf80b22b1}{$parse}(&fab))) \{
+63         nam.nam$w\_fid[0] = fid[0];
+64         nam.nam$w\_fid[1] = fid[1];
+65         nam.nam$w\_fid[2] = fid[2];
+66         nam.nam$l\_esa = nam.nam$l\_name;
+67         nam.nam$b\_esl = nam.nam$b\_name + nam.nam$b\_type + nam.nam$b\_ver;
+68 
+69         (void) sys\hyperlink{vmsfiles_8c_a2d6b9d66b0ffdfb65b2e9d74d5f8d17c}{$enter}(&fab);
+70     \}
+71     \}
+72 
+73     \textcolor{keywordflow}{if} (\hyperlink{vmsfiles_8c_afa2b5d94361885396b7cf2db0889ee25}{vms\_failure}(fab.fab$l\_sts)) \{
+74     \hyperlink{vmsfiles_8c_ac4cf4b2ab929bd23951a8676eeac086b}{C}$$TRANSLATE(fab.fab$l\_sts);
+75     \textcolor{keywordflow}{return} -1;
+76     \}
+77     \textcolor{keywordflow}{return} 0;   \textcolor{comment}{/* success */}
+78 \}
+\end{DoxyCode}
+\hypertarget{vmsfiles_8c_a4b7906dd82499ae816eaab7fe9227de2}{\index{vmsfiles.\+c@{vmsfiles.\+c}!vms\+\_\+open@{vms\+\_\+open}}
+\index{vms\+\_\+open@{vms\+\_\+open}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{vms\+\_\+open}]{\setlength{\rightskip}{0pt plus 5cm}int vms\+\_\+open (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file, }
+\item[{int}]{flags, }
+\item[{unsigned int}]{mode}
+\end{DoxyParamCaption}
+) const}}\label{vmsfiles_8c_a4b7906dd82499ae816eaab7fe9227de2}
+
+
+Definition at line 136 of file vmsfiles.\+c.
+
+
+
+References errno, and open().
+
+
+\begin{DoxyCode}
+140 \{
+141     \textcolor{keywordtype}{int} fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(file, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}, mode, \textcolor{stringliteral}{"mbc=32"}, \textcolor{stringliteral}{"mbf=2"}, \textcolor{stringliteral}{"rop=rah"});
+142 
+143     \textcolor{keywordflow}{if} (fd < 0 && \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} == EVMSERR && lib$match\_cond(vaxc$errno, RMS$\_FLK)) \{
+144     (void)sleep(1);
+145     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(file, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}, mode, \textcolor{stringliteral}{"mbc=32"}, \textcolor{stringliteral}{"mbf=2"}, \textcolor{stringliteral}{"rop=rah"});
+146     \}
+147     \textcolor{keywordflow}{return} fd;
+148 \}
+\end{DoxyCode}
+\hypertarget{vmsfiles_8c_a38798e9edb9f57d4a21f5c62989c8992}{\index{vmsfiles.\+c@{vmsfiles.\+c}!vms\+\_\+unlink@{vms\+\_\+unlink}}
+\index{vms\+\_\+unlink@{vms\+\_\+unlink}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{vms\+\_\+unlink}]{\setlength{\rightskip}{0pt plus 5cm}int vms\+\_\+unlink (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file}
+\end{DoxyParamCaption}
+) const}}\label{vmsfiles_8c_a38798e9edb9f57d4a21f5c62989c8992}
+
+
+Definition at line 85 of file vmsfiles.\+c.
+
+
+
+References \$parse(), \$remove(), C, F\+A\+B, and vms\+\_\+failure.
+
+
+\begin{DoxyCode}
+87 \{
+88     \textcolor{keyword}{struct }\hyperlink{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{FAB} fab;
+89     \textcolor{keyword}{struct }NAM nam;
+90     \textcolor{keywordtype}{char} esa[NAM$C\_MAXRSS];
+91 
+92     fab = cc$rms\_fab;   \textcolor{comment}{/* set block ID and length, zero the rest */}
+93     fab.fab$l\_fop = \hyperlink{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{FAB}$M\_DLT;
+94     fab.fab$l\_fna = (\textcolor{keywordtype}{char} *) file;
+95     fab.fab$b\_fns = strlen(file);
+96     fab.fab$l\_nam = &nam;
+97     nam = cc$rms\_nam;
+98     nam.nam$l\_esa = esa;
+99     nam.nam$b\_ess = \textcolor{keyword}{sizeof} esa;
+100 
+101     \textcolor{keywordflow}{if} (\hyperlink{vmsfiles_8c_afa2b5d94361885396b7cf2db0889ee25}{vms\_failure}(sys\hyperlink{vmsfiles_8c_ad69b5e15e1abbd53063e075bf80b22b1}{$parse}(&fab)) || \hyperlink{vmsfiles_8c_afa2b5d94361885396b7cf2db0889ee25}{vms\_failure}(sys
+      \hyperlink{vmsfiles_8c_a358b19fdf7b49d8f26880b2962676186}{$remove}(&fab))) \{
+102     \hyperlink{vmsfiles_8c_ac4cf4b2ab929bd23951a8676eeac086b}{C}$$TRANSLATE(fab.fab$l\_sts);
+103     \textcolor{keywordflow}{return} -1;
+104     \}
+105     \textcolor{keywordflow}{return} 0;
+106 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{vmsfiles_8c_a9ac0b866f721c89a919d880d78d10861}{\index{vmsfiles.\+c@{vmsfiles.\+c}!base\+\_\+name@{base\+\_\+name}}
+\index{base\+\_\+name@{base\+\_\+name}!vmsfiles.\+c@{vmsfiles.\+c}}
+\subsubsection[{base\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}char base\+\_\+name\mbox{[}N\+A\+M \$C\+\_\+\+M\+A\+X\+R\+S\+S+1\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vmsfiles_8c_a9ac0b866f721c89a919d880d78d10861}
+
+
+Definition at line 260 of file vmsfiles.\+c.
+

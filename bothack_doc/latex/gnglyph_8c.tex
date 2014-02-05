@@ -1,0 +1,303 @@
+\hypertarget{gnglyph_8c}{\section{nethack/win/gnome/gnglyph.c File Reference}
+\label{gnglyph_8c}\index{nethack/win/gnome/gnglyph.\+c@{nethack/win/gnome/gnglyph.\+c}}
+}
+{\ttfamily \#include \char`\"{}gnglyph.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile2x11.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gnglyph_8c_a7f986168bd2f1eea0b0702914e484167}{ghack\+\_\+init\+\_\+glyphs} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$xpm\+File)
+\item 
+void \hyperlink{gnglyph_8c_a5af300458c0faa9c451f8d62045a9eea}{ghack\+\_\+free\+\_\+glyphs} ()
+\item 
+int \hyperlink{gnglyph_8c_a2ddf1449d990319129e7df24eabbc728}{ghack\+\_\+glyph\+\_\+count} ()
+\item 
+int \hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\+\_\+glyph\+\_\+height} ()
+\item 
+int \hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\+\_\+glyph\+\_\+width} ()
+\item 
+Gdk\+Imlib\+Image $\ast$ \hyperlink{gnglyph_8c_a5aa4ed8940364d99bdf5a7545db02a28}{ghack\+\_\+image\+\_\+from\+\_\+glyph} (int glyph, gboolean force)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gnglyph_8c_ab9e267f9b355345083b806bf0948c10b}{total\+\_\+tiles\+\_\+used}
+\item 
+static \hyperlink{structGHackGlyphs}{G\+Hack\+Glyphs} \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\+\_\+glyphs}
+\item 
+static Gdk\+Imlib\+Image $\ast$$\ast$ \hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\+\_\+tiles} = \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+L\+L}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gnglyph_8c_a5af300458c0faa9c451f8d62045a9eea}{\index{gnglyph.\+c@{gnglyph.\+c}!ghack\+\_\+free\+\_\+glyphs@{ghack\+\_\+free\+\_\+glyphs}}
+\index{ghack\+\_\+free\+\_\+glyphs@{ghack\+\_\+free\+\_\+glyphs}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{ghack\+\_\+free\+\_\+glyphs}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+free\+\_\+glyphs (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{gnglyph_8c_a5af300458c0faa9c451f8d62045a9eea}
+
+
+Definition at line 84 of file gnglyph.\+c.
+
+
+
+References G\+Hack\+Glyphs\+::count, ghack\+\_\+tiles, G\+Hack\+Glyphs\+::im, and N\+U\+L\+L.
+
+
+
+Referenced by ghack\+\_\+settings\+\_\+dialog().
+
+
+\begin{DoxyCode}
+85 \{
+86     \textcolor{keywordtype}{int} i;
+87     \textcolor{keywordflow}{for} ( i=0 ; i<\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count} ; i++)
+88     gdk\_imlib\_destroy\_image(\hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[i]);
+89     g\_free( \hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles});
+90     gdk\_imlib\_destroy\_image(\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im});
+91     \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}=\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+92 \}
+\end{DoxyCode}
+\hypertarget{gnglyph_8c_a2ddf1449d990319129e7df24eabbc728}{\index{gnglyph.\+c@{gnglyph.\+c}!ghack\+\_\+glyph\+\_\+count@{ghack\+\_\+glyph\+\_\+count}}
+\index{ghack\+\_\+glyph\+\_\+count@{ghack\+\_\+glyph\+\_\+count}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{ghack\+\_\+glyph\+\_\+count}]{\setlength{\rightskip}{0pt plus 5cm}int ghack\+\_\+glyph\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{gnglyph_8c_a2ddf1449d990319129e7df24eabbc728}
+
+
+Definition at line 109 of file gnglyph.\+c.
+
+
+
+References G\+Hack\+Glyphs\+::count.
+
+
+\begin{DoxyCode}
+110 \{
+111   \textcolor{keywordflow}{return} \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count};
+112 \}
+\end{DoxyCode}
+\hypertarget{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{\index{gnglyph.\+c@{gnglyph.\+c}!ghack\+\_\+glyph\+\_\+height@{ghack\+\_\+glyph\+\_\+height}}
+\index{ghack\+\_\+glyph\+\_\+height@{ghack\+\_\+glyph\+\_\+height}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{ghack\+\_\+glyph\+\_\+height}]{\setlength{\rightskip}{0pt plus 5cm}int ghack\+\_\+glyph\+\_\+height (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}
+
+
+Definition at line 129 of file gnglyph.\+c.
+
+
+
+References G\+Hack\+Glyphs\+::height.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+button\+\_\+press(), ghack\+\_\+init\+\_\+map\+\_\+window(), ghack\+\_\+map\+\_\+cliparound(), ghack\+\_\+map\+\_\+cursor\+\_\+to(), and ghack\+\_\+reinit\+\_\+map\+\_\+window().
+
+
+\begin{DoxyCode}
+130 \{
+131   \textcolor{keywordflow}{return} \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a9cc7dbd7dc3fcca515ea36710138f589}{height};
+132 \}
+\end{DoxyCode}
+\hypertarget{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{\index{gnglyph.\+c@{gnglyph.\+c}!ghack\+\_\+glyph\+\_\+width@{ghack\+\_\+glyph\+\_\+width}}
+\index{ghack\+\_\+glyph\+\_\+width@{ghack\+\_\+glyph\+\_\+width}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{ghack\+\_\+glyph\+\_\+width}]{\setlength{\rightskip}{0pt plus 5cm}int ghack\+\_\+glyph\+\_\+width (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}
+
+
+Definition at line 149 of file gnglyph.\+c.
+
+
+
+References G\+Hack\+Glyphs\+::width.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+button\+\_\+press(), ghack\+\_\+init\+\_\+map\+\_\+window(), ghack\+\_\+map\+\_\+cliparound(), ghack\+\_\+map\+\_\+cursor\+\_\+to(), and ghack\+\_\+reinit\+\_\+map\+\_\+window().
+
+
+\begin{DoxyCode}
+150 \{
+151   \textcolor{keywordflow}{return} \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a11710785ad9c133b74873d467215c793}{width};
+152 \}
+\end{DoxyCode}
+\hypertarget{gnglyph_8c_a5aa4ed8940364d99bdf5a7545db02a28}{\index{gnglyph.\+c@{gnglyph.\+c}!ghack\+\_\+image\+\_\+from\+\_\+glyph@{ghack\+\_\+image\+\_\+from\+\_\+glyph}}
+\index{ghack\+\_\+image\+\_\+from\+\_\+glyph@{ghack\+\_\+image\+\_\+from\+\_\+glyph}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{ghack\+\_\+image\+\_\+from\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}Gdk\+Imlib\+Image$\ast$ ghack\+\_\+image\+\_\+from\+\_\+glyph (
+\begin{DoxyParamCaption}
+\item[{int}]{glyph, }
+\item[{gboolean}]{force}
+\end{DoxyParamCaption}
+)}}\label{gnglyph_8c_a5aa4ed8940364d99bdf5a7545db02a28}
+
+
+Definition at line 170 of file gnglyph.\+c.
+
+
+
+References G\+Hack\+Glyphs\+::count, ghack\+\_\+tiles, glyph2tile, G\+Hack\+Glyphs\+::height, G\+Hack\+Glyphs\+::im, N\+U\+L\+L, tile, T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+R\+O\+W, T\+R\+U\+E, and G\+Hack\+Glyphs\+::width.
+
+
+
+Referenced by ghack\+\_\+menu\+\_\+window\+\_\+add\+\_\+menu(), gnome\+\_\+print\+\_\+glyph(), and image\+\_\+of\+\_\+worn\+\_\+object().
+
+
+\begin{DoxyCode}
+171 \{
+172   \textcolor{keywordtype}{int} \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile} = \hyperlink{sys_2wince_2mhmap_8c_a4d61aa736dae8287d97c3a68a3a917c5}{glyph2tile}[glyph];
+173 
+174   \textcolor{keywordflow}{if} ( tile >= \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count} || tile < 0 )
+175     \{
+176       g\_warning(\textcolor{stringliteral}{"Aiiee! I've was asked for a tile outside the allowed range!\(\backslash\)n"}
+177         \textcolor{stringliteral}{"Email this to other-gnomehack@lists.debian.org"});
+178       g\_warning(\textcolor{stringliteral}{"Max tile: %d   Tile asked for: %d"},
+179         \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count}, tile);
+180       \textcolor{keywordflow}{return} \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+181     \}
+182 
+183   \textcolor{keywordflow}{if} (\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+184     \{
+185     g\_warning(\textcolor{stringliteral}{"Aiiee! I've been asked to clone from a null image.\(\backslash\)n"}
+186         \textcolor{stringliteral}{"Email this to other-gnomehack@lists.debian.org"});
+187     g\_warning( \textcolor{stringliteral}{"making image from tile %d, force=%s\(\backslash\)n"}, tile,
+188         (force==\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE})? \textcolor{stringliteral}{"TRUE"}: \textcolor{stringliteral}{"FALSE"});
+189     \}
+190 
+191   \textcolor{keywordflow}{if} (force == \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE})
+192     \{
+193     g\_warning(\textcolor{stringliteral}{"Aiiee! I've been asked to force rendering.\(\backslash\)n"}
+194         \textcolor{stringliteral}{"Email this to other-gnomehack@lists.debian.org"});
+195     g\_warning( \textcolor{stringliteral}{"making image from tile %d, force=%s\(\backslash\)n"}, tile,
+196         (force==\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE})? \textcolor{stringliteral}{"TRUE"} : \textcolor{stringliteral}{"FALSE"});
+197     \}
+198 
+199   \textcolor{keywordflow}{if} (!\hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[tile] || force) \{
+200       \textcolor{keywordtype}{int} src\_x, src\_y;
+201 \textcolor{preprocessor}{#if 0}
+202       fprintf( stderr, \textcolor{stringliteral}{"crop\_and\_clone: glyph=%d, tile=%d, ptr=%p, x=%d, y=%d, w=%d, h=%d\(\backslash\)n"}, glyph, tile,
+203           (\textcolor{keywordtype}{void}*)&(\hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[tile]), 0,
+204           tile * \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a11710785ad9c133b74873d467215c793}{width},
+205           \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a9cc7dbd7dc3fcca515ea36710138f589}{height},
+206           \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a11710785ad9c133b74873d467215c793}{width});
+207 \textcolor{preprocessor}{#endif}
+208       \textcolor{keywordflow}{if} (\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}->pixmap == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+209       g\_warning( \textcolor{stringliteral}{"Aiiee!  ghack\_glyphs.im->pixmap==NULL!!!!\(\backslash\)n"});
+210       src\_x = (tile % \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) * \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.
+      \hyperlink{structGHackGlyphs_a11710785ad9c133b74873d467215c793}{width};
+211       src\_y = (tile / \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) * \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.
+      \hyperlink{structGHackGlyphs_a9cc7dbd7dc3fcca515ea36710138f589}{height};
+212       \hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[\hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}] = gdk\_imlib\_crop\_and\_clone\_image(
+      \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im},
+213           src\_x, src\_y,
+214           \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a11710785ad9c133b74873d467215c793}{width},
+215           \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a9cc7dbd7dc3fcca515ea36710138f589}{height});
+216   \}
+217 
+218   \textcolor{keywordflow}{if} (\hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[tile] && (!\hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[tile]->pixmap || force))
+219   \{
+220       \textcolor{keywordflow}{if} ( gdk\_imlib\_render(\hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[tile],
+221           \hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[tile]->rgb\_width,
+222           \hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[tile]->rgb\_height) == 0) \{
+223       g\_error(\textcolor{stringliteral}{"GLYPH: couldn't create tile # %d"}, tile);
+224       \}
+225       \textcolor{keywordflow}{if} ( !\hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[tile]->pixmap )
+226       g\_error(\textcolor{stringliteral}{"Strange, tile # %d didn't get rendered???"}, tile);
+227   \}
+228 
+229   \textcolor{keywordflow}{return} \hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles}[\hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}];
+230 \}
+\end{DoxyCode}
+\hypertarget{gnglyph_8c_a7f986168bd2f1eea0b0702914e484167}{\index{gnglyph.\+c@{gnglyph.\+c}!ghack\+\_\+init\+\_\+glyphs@{ghack\+\_\+init\+\_\+glyphs}}
+\index{ghack\+\_\+init\+\_\+glyphs@{ghack\+\_\+init\+\_\+glyphs}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{ghack\+\_\+init\+\_\+glyphs}]{\setlength{\rightskip}{0pt plus 5cm}int ghack\+\_\+init\+\_\+glyphs (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{xpm\+File}
+\end{DoxyParamCaption}
+)}}\label{gnglyph_8c_a7f986168bd2f1eea0b0702914e484167}
+
+
+Definition at line 51 of file gnglyph.\+c.
+
+
+
+References G\+Hack\+Glyphs\+::count, ghack\+\_\+tiles, G\+Hack\+Glyphs\+::height, G\+Hack\+Glyphs\+::im, N\+U\+L\+L, T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+R\+O\+W, total\+\_\+tiles\+\_\+used, and G\+Hack\+Glyphs\+::width.
+
+
+
+Referenced by ghack\+\_\+settings\+\_\+dialog(), and gnome\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+52 \{
+53     \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im} = gdk\_imlib\_load\_image((\textcolor{keywordtype}{char} *) xpmFile);
+54     \textcolor{keywordflow}{if} ( ! \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im} ) \{
+55     g\_error(\textcolor{stringliteral}{"Couldn't load required xpmFile!"});
+56     \textcolor{keywordflow}{return} -1;
+57     \}
+58 
+59     gdk\_imlib\_render(\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}, \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}->rgb\_width,
+60              \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}->rgb\_height);
+61 
+62     \textcolor{keywordflow}{if} ((\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}->rgb\_width % \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) != 0 ||
+63     \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}->rgb\_width <= \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) \{
+64     g\_error(\textcolor{stringliteral}{"%s is not a multiple of %d (number of tiles/row) pixels wide"},
+65         xpmFile, \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW});
+66     \textcolor{keywordflow}{return} -1;
+67     \}
+68     \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count} = \hyperlink{gnglyph_8c_ab9e267f9b355345083b806bf0948c10b}{total\_tiles\_used};
+69     \textcolor{keywordflow}{if} ((\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count} % \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) != 0) \{
+70     \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count} +=
+71         \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW} - (\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count} % 
+      \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW});
+72     \}
+73     \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a11710785ad9c133b74873d467215c793}{width} = \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}->rgb\_width / 
+      \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW};
+74     \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a9cc7dbd7dc3fcca515ea36710138f589}{height} =
+75     \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_ad7cd303d094a7ba56caedb3b2b661298}{im}->rgb\_height / (\hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.\hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count} / 
+      \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW});
+76 
+77 
+78     \textcolor{comment}{/* Assume the tiles are organized in rows of TILES\_PER\_ROW */}
+79     \hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles} = g\_new0( GdkImlibImage*, \hyperlink{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{ghack\_glyphs}.
+      \hyperlink{structGHackGlyphs_a4c430be16070a4ce1982ae9752a072d0}{count} );
+80     \textcolor{keywordflow}{return} (\hyperlink{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{ghack\_tiles} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) ? -1 : 0;
+81 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}{\index{gnglyph.\+c@{gnglyph.\+c}!ghack\+\_\+glyphs@{ghack\+\_\+glyphs}}
+\index{ghack\+\_\+glyphs@{ghack\+\_\+glyphs}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{ghack\+\_\+glyphs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf G\+Hack\+Glyphs} ghack\+\_\+glyphs\hspace{0.3cm}{\ttfamily [static]}}}\label{gnglyph_8c_aa3e709c7a5e87471c79055477f4d55ba}
+
+
+Definition at line 11 of file gnglyph.\+c.
+
+\hypertarget{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}{\index{gnglyph.\+c@{gnglyph.\+c}!ghack\+\_\+tiles@{ghack\+\_\+tiles}}
+\index{ghack\+\_\+tiles@{ghack\+\_\+tiles}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{ghack\+\_\+tiles}]{\setlength{\rightskip}{0pt plus 5cm}Gdk\+Imlib\+Image$\ast$$\ast$ ghack\+\_\+tiles = {\bf N\+U\+L\+L}\hspace{0.3cm}{\ttfamily [static]}}}\label{gnglyph_8c_afb9ab5a8b2ddfb7eefea80a0be97fe41}
+
+
+Definition at line 12 of file gnglyph.\+c.
+
+
+
+Referenced by ghack\+\_\+free\+\_\+glyphs(), ghack\+\_\+image\+\_\+from\+\_\+glyph(), and ghack\+\_\+init\+\_\+glyphs().
+
+\hypertarget{gnglyph_8c_ab9e267f9b355345083b806bf0948c10b}{\index{gnglyph.\+c@{gnglyph.\+c}!total\+\_\+tiles\+\_\+used@{total\+\_\+tiles\+\_\+used}}
+\index{total\+\_\+tiles\+\_\+used@{total\+\_\+tiles\+\_\+used}!gnglyph.\+c@{gnglyph.\+c}}
+\subsubsection[{total\+\_\+tiles\+\_\+used}]{\setlength{\rightskip}{0pt plus 5cm}int total\+\_\+tiles\+\_\+used}}\label{gnglyph_8c_ab9e267f9b355345083b806bf0948c10b}
+
+
+Referenced by ghack\+\_\+init\+\_\+glyphs().
+

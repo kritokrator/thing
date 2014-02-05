@@ -1,0 +1,404 @@
+\hypertarget{dialogs_8c}{\section{nethack/win/\+X11/dialogs.c File Reference}
+\label{dialogs_8c}\index{nethack/win/\+X11/dialogs.\+c@{nethack/win/\+X11/dialogs.\+c}}
+}
+{\ttfamily \#include $<$X11/\+Intrinsic.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+String\+Defs.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xos.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Cardinals.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Form.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Label.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Ascii\+Text.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Command.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dialogs_8c_a871513d8c7abd319565c0f9393d28f9a}{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/
+\item 
+\#define \hyperlink{dialogs_8c_affe776513b24d84b39af8ab0930fef7f}{max}(a, b)~(((a) $>$ (b)) ? (a) \+: (b))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Widget \hyperlink{dialogs_8c_aaf356545a4c5797e317091864c988de0}{Create\+Dialog} (Widget parent, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, Xt\+Callback\+Proc okay\+\_\+callback, Xt\+Callback\+Proc cancel\+\_\+callback)
+\item 
+void \hyperlink{dialogs_8c_abb865386e8600a55b2cda49630286e8c}{Set\+Dialog\+Prompt} (Widget w, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} newprompt)
+\item 
+\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} \hyperlink{dialogs_8c_a7764e35a0effec87a8477a2ec6a8dbc1}{Get\+Dialog\+Response} (Widget w)
+\item 
+void \hyperlink{dialogs_8c_a7b1a25788c7b0dab888df1e32d990123}{Set\+Dialog\+Response} (Widget w, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} s)
+\item 
+void \hyperlink{dialogs_8c_a710147c680e59c5715d771d7b709a8b1}{positionpopup} (Widget w, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} bottom)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{dialogs_8c_a149bbb53a4b8a45ecfbe067858eefdf3}{okay\+\_\+accelerators} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{dialogs_8c_a626f351b7783b6cce470354ade28b1af}{cancel\+\_\+accelerators} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{dialogs_8c_affe776513b24d84b39af8ab0930fef7f}{\index{dialogs.\+c@{dialogs.\+c}!max@{max}}
+\index{max@{max}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{max}]{\setlength{\rightskip}{0pt plus 5cm}\#define max(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)~(((a) $>$ (b)) ? (a) \+: (b))}}\label{dialogs_8c_affe776513b24d84b39af8ab0930fef7f}
+
+
+Definition at line 234 of file dialogs.\+c.
+
+\hypertarget{dialogs_8c_a871513d8c7abd319565c0f9393d28f9a}{\index{dialogs.\+c@{dialogs.\+c}!P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}}
+\index{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/}}\label{dialogs_8c_a871513d8c7abd319565c0f9393d28f9a}
+
+
+Definition at line 45 of file dialogs.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{dialogs_8c_aaf356545a4c5797e317091864c988de0}{\index{dialogs.\+c@{dialogs.\+c}!Create\+Dialog@{Create\+Dialog}}
+\index{Create\+Dialog@{Create\+Dialog}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{Create\+Dialog}]{\setlength{\rightskip}{0pt plus 5cm}Widget Create\+Dialog (
+\begin{DoxyParamCaption}
+\item[{Widget}]{parent, }
+\item[{{\bf String}}]{name, }
+\item[{Xt\+Callback\+Proc}]{okay\+\_\+callback, }
+\item[{Xt\+Callback\+Proc}]{cancel\+\_\+callback}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_aaf356545a4c5797e317091864c988de0}
+
+
+Definition at line 85 of file dialogs.\+c.
+
+
+
+References cancel\+\_\+accelerators, okay(), and okay\+\_\+accelerators.
+
+
+
+Referenced by mswin\+\_\+display\+\_\+splash\+\_\+window(), mswin\+\_\+init\+\_\+menu\+\_\+window(), mswin\+\_\+init\+\_\+\+R\+I\+P\+\_\+window(), mswin\+\_\+init\+\_\+text\+\_\+window(), X11\+\_\+askname(), and X11\+\_\+getlin().
+
+
+\begin{DoxyCode}
+90 \{
+91     Widget form, prompt, response, \hyperlink{mkmaze_8c_a1f4a6bd3eb1c632fadaf884b976842a8}{okay}, cancel;
+92     Arg args[20];
+93     Cardinal num\_args;
+94 
+95                             num\_args = 0;
+96 \textcolor{preprocessor}{#ifdef SPECIAL\_CMAP}
+97     \textcolor{keywordflow}{if} (special\_cmap) \{
+98     XtSetArg(args[num\_args], XtNbackground, white); num\_args++;
+99     \}
+100 \textcolor{preprocessor}{#endif}
+101     form = XtCreateManagedWidget(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, formWidgetClass, parent, args, num\_args);
+102 
+103                             num\_args = 0;
+104 \textcolor{preprocessor}{#ifdef SPECIAL\_CMAP}
+105     \textcolor{keywordflow}{if} (special\_cmap) \{
+106     XtSetArg(args[num\_args], XtNforeground, black); num\_args++;
+107     XtSetArg(args[num\_args], XtNbackground, white); num\_args++;
+108     \}
+109 \textcolor{preprocessor}{#endif}
+110     XtSetArg(args[num\_args], XtNtop, XtChainTop);   num\_args++;
+111     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+112     XtSetArg(args[num\_args], XtNleft, XtChainLeft); num\_args++;
+113     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+114     XtSetArg(args[num\_args], XtNresizable, True);   num\_args++;
+115     XtSetArg(args[num\_args], XtNborderWidth, 0);    num\_args++;
+116     prompt = XtCreateManagedWidget(\textcolor{stringliteral}{"prompt"}, labelWidgetClass,
+117                    form, args, num\_args);
+118 
+119                             num\_args = 0;
+120 \textcolor{preprocessor}{#ifdef SPECIAL\_CMAP}
+121     \textcolor{keywordflow}{if} (special\_cmap) \{
+122     XtSetArg(args[num\_args], XtNforeground, black); num\_args++;
+123     XtSetArg(args[num\_args], XtNbackground, white); num\_args++;
+124     \}
+125 \textcolor{preprocessor}{#endif}
+126     XtSetArg(args[num\_args], XtNfromVert, prompt);  num\_args++;
+127     XtSetArg(args[num\_args], XtNtop, XtChainTop);   num\_args++;
+128     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+129     XtSetArg(args[num\_args], XtNleft, XtChainLeft); num\_args++;
+130     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+131     XtSetArg(args[num\_args], XtNresizable, True);   num\_args++;
+132     XtSetArg(args[num\_args], XtNeditType, XawtextEdit); num\_args++;
+133     XtSetArg(args[num\_args], XtNresize, XawtextResizeWidth);    num\_args++;
+134     XtSetArg(args[num\_args], XtNstring, \textcolor{stringliteral}{""});        num\_args++;
+135     response = XtCreateManagedWidget(\textcolor{stringliteral}{"response"}, asciiTextWidgetClass,
+136                      form, args, num\_args);
+137 
+138                             num\_args = 0;
+139 \textcolor{preprocessor}{#ifdef SPECIAL\_CMAP}
+140     \textcolor{keywordflow}{if} (special\_cmap) \{
+141     XtSetArg(args[num\_args], XtNforeground, black); num\_args++;
+142     XtSetArg(args[num\_args], XtNbackground, white); num\_args++;
+143     \}
+144 \textcolor{preprocessor}{#endif}
+145     XtSetArg(args[num\_args], XtNfromVert, response);    num\_args++;
+146     XtSetArg(args[num\_args], XtNtop, XtChainTop);   num\_args++;
+147     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+148     XtSetArg(args[num\_args], XtNleft, XtChainLeft); num\_args++;
+149     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+150     XtSetArg(args[num\_args], XtNresizable, True);   num\_args++;
+151     XtSetArg(args[num\_args], XtNaccelerators,
+152          XtParseAcceleratorTable(\hyperlink{dialogs_8c_a149bbb53a4b8a45ecfbe067858eefdf3}{okay\_accelerators}));  num\_args++;
+153     okay = XtCreateManagedWidget(\textcolor{stringliteral}{"okay"}, commandWidgetClass,
+154                  form, args, num\_args);
+155     XtAddCallback(okay, XtNcallback, okay\_callback, form);
+156 
+157     \textcolor{comment}{/* Only create cancel button if there is a callback for it. */}
+158     \textcolor{keywordflow}{if} (cancel\_callback) \{
+159                                 num\_args = 0;
+160 \textcolor{preprocessor}{#ifdef SPECIAL\_CMAP}
+161     \textcolor{keywordflow}{if} (special\_cmap) \{
+162         XtSetArg(args[num\_args], XtNforeground, black); num\_args++;
+163         XtSetArg(args[num\_args], XtNbackground, white); num\_args++;
+164     \}
+165 \textcolor{preprocessor}{#endif}
+166     XtSetArg(args[num\_args], XtNfromVert, response);    num\_args++;
+167     XtSetArg(args[num\_args], XtNfromHoriz, okay);       num\_args++;
+168     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+169     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+170     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+171     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+172     XtSetArg(args[num\_args], XtNresizable, True);       num\_args++;
+173     XtSetArg(args[num\_args], XtNaccelerators,
+174          XtParseAcceleratorTable(\hyperlink{dialogs_8c_a626f351b7783b6cce470354ade28b1af}{cancel\_accelerators}));  num\_args++;
+175     cancel = XtCreateManagedWidget(\textcolor{stringliteral}{"cancel"}, commandWidgetClass,
+176                        form, args, num\_args);
+177     XtAddCallback(cancel, XtNcallback, cancel\_callback, form);
+178     XtInstallAccelerators(response, cancel);
+179     \}
+180 
+181     XtInstallAccelerators(response, okay);
+182     XtSetKeyboardFocus(form, response);
+183 
+184     \textcolor{keywordflow}{return} form;
+185 \}
+\end{DoxyCode}
+\hypertarget{dialogs_8c_a7764e35a0effec87a8477a2ec6a8dbc1}{\index{dialogs.\+c@{dialogs.\+c}!Get\+Dialog\+Response@{Get\+Dialog\+Response}}
+\index{Get\+Dialog\+Response@{Get\+Dialog\+Response}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{Get\+Dialog\+Response}]{\setlength{\rightskip}{0pt plus 5cm}{\bf String} Get\+Dialog\+Response (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_a7764e35a0effec87a8477a2ec6a8dbc1}
+
+
+Definition at line 221 of file dialogs.\+c.
+
+
+
+References String.
+
+
+
+Referenced by askname\+\_\+done(), and done\+\_\+button().
+
+
+\begin{DoxyCode}
+223 \{
+224     Arg args[1];
+225     Widget response;
+226     \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} s;
+227 
+228     response = XtNameToWidget(w, \textcolor{stringliteral}{"response"});
+229     XtSetArg(args[0], XtNstring, &s);
+230     XtGetValues(response, args, ONE);
+231     \textcolor{keywordflow}{return} XtNewString(s);
+232 \}
+\end{DoxyCode}
+\hypertarget{dialogs_8c_a710147c680e59c5715d771d7b709a8b1}{\index{dialogs.\+c@{dialogs.\+c}!positionpopup@{positionpopup}}
+\index{positionpopup@{positionpopup}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{positionpopup}]{\setlength{\rightskip}{0pt plus 5cm}void positionpopup (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{{\bf boolean}}]{bottom}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_a710147c680e59c5715d771d7b709a8b1}
+
+
+Definition at line 284 of file dialogs.\+c.
+
+
+
+References height, toplevel, and width.
+
+
+
+Referenced by display\+\_\+text\+\_\+window(), X11\+\_\+askname(), X11\+\_\+get\+\_\+ext\+\_\+cmd(), X11\+\_\+getlin(), X11\+\_\+player\+\_\+selection(), X11\+\_\+select\+\_\+menu(), and X11\+\_\+yn\+\_\+function().
+
+
+\begin{DoxyCode}
+287 \{
+288     Arg args[3];
+289     Cardinal num\_args;
+290     Dimension \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}, b\_width;
+291     \textcolor{keywordtype}{int} x, y, max\_x, max\_y;
+292     Window root, child;
+293     XSizeHints *hints;
+294     \textcolor{keywordtype}{int} dummyx, dummyy;
+295     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} dummymask;
+296     \textcolor{keyword}{extern} Widget \hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel};
+297 
+298     \textcolor{comment}{/* following line deals with a race condition w/brain-damaged WM's -dlc */}
+299     XtUnrealizeWidget(w);
+300 
+301     XQueryPointer(XtDisplay(toplevel), XtWindow(toplevel), &root, &child,
+302           &x, &y, &dummyx, &dummyy, &dummymask);
+303     num\_args = 0;
+304     XtSetArg(args[num\_args], XtNwidth, &width); num\_args++;
+305     XtSetArg(args[num\_args], XtNheight, &height); num\_args++;
+306     XtSetArg(args[num\_args], XtNborderWidth, &b\_width); num\_args++;
+307     XtGetValues(w, args, num\_args);
+308 
+309     \textcolor{comment}{/* position so that the cursor is center,center or center,bottom */}
+310     width += 2 * b\_width;
+311     x -= ( (Position) width/2 );
+312     \textcolor{keywordflow}{if} (x < 0) x = 0;
+313     \textcolor{keywordflow}{if} ( x > (max\_x = (Position) (XtScreen(w)->width - \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width})) ) x = max\_x;
+314 
+315     \textcolor{keywordflow}{if} (bottom) \{
+316     y -= (height+b\_width-1);
+317     height += 2 * b\_width;
+318     \} \textcolor{keywordflow}{else} \{
+319     height += 2 * b\_width;
+320     y -= ( (Position) height/2 );
+321     \}
+322     \textcolor{keywordflow}{if} (y < 0) y = 0;
+323     \textcolor{keywordflow}{if} ( y > (max\_y = (Position) (XtScreen(w)->height - \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height})) ) y = max\_y;
+324 
+325 
+326     num\_args = 0;
+327     XtSetArg(args[num\_args], XtNx, x); num\_args++;
+328     XtSetArg(args[num\_args], XtNy, y); num\_args++;
+329     XtSetValues(w, args, num\_args);
+330 
+331     \textcolor{comment}{/* Some older window managers ignore XtN\{x,y\}; hint the same values */}
+332     \textcolor{comment}{/* The \{x,y\} are not used by newer window managers; older ones need them */}
+333     XtRealizeWidget(w);
+334     hints = XAllocSizeHints();
+335     hints->flags = USPosition;
+336     hints->x = x;
+337     hints->y = y;
+338     XSetWMNormalHints(XtDisplay(w), XtWindow(w), hints);
+339     XFree(hints);
+340 \}
+\end{DoxyCode}
+\hypertarget{dialogs_8c_abb865386e8600a55b2cda49630286e8c}{\index{dialogs.\+c@{dialogs.\+c}!Set\+Dialog\+Prompt@{Set\+Dialog\+Prompt}}
+\index{Set\+Dialog\+Prompt@{Set\+Dialog\+Prompt}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{Set\+Dialog\+Prompt}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Dialog\+Prompt (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{{\bf String}}]{newprompt}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_abb865386e8600a55b2cda49630286e8c}
+
+
+Definition at line 207 of file dialogs.\+c.
+
+
+
+Referenced by X11\+\_\+askname(), and X11\+\_\+getlin().
+
+
+\begin{DoxyCode}
+210 \{
+211     Arg args[1];
+212     Widget label;
+213 
+214     label = XtNameToWidget(w, \textcolor{stringliteral}{"prompt"});
+215     XtSetArg(args[0], XtNlabel, newprompt);
+216     XtSetValues(label, args, ONE);
+217 \}
+\end{DoxyCode}
+\hypertarget{dialogs_8c_a7b1a25788c7b0dab888df1e32d990123}{\index{dialogs.\+c@{dialogs.\+c}!Set\+Dialog\+Response@{Set\+Dialog\+Response}}
+\index{Set\+Dialog\+Response@{Set\+Dialog\+Response}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{Set\+Dialog\+Response}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Dialog\+Response (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{{\bf String}}]{s}
+\end{DoxyParamCaption}
+)}}\label{dialogs_8c_a7b1a25788c7b0dab888df1e32d990123}
+
+
+Definition at line 237 of file dialogs.\+c.
+
+
+
+References width.
+
+
+
+Referenced by X11\+\_\+askname(), and X11\+\_\+getlin().
+
+
+\begin{DoxyCode}
+240 \{
+241     Arg args[4];
+242     Widget response;
+243     XFontStruct *font;
+244     Dimension \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, nwidth, leftMargin, rightMargin;
+245 
+246     response = XtNameToWidget(w, \textcolor{stringliteral}{"response"});
+247     XtSetArg(args[0], XtNfont, &font);
+248     XtSetArg(args[1], XtNleftMargin, &leftMargin);
+249     XtSetArg(args[2], XtNrightMargin, &rightMargin);
+250     XtSetArg(args[3], XtNwidth, &width);
+251     XtGetValues(response, args, FOUR);
+252     \textcolor{comment}{/* width includes margins as per Xaw documentation */}
+253     nwidth = (font->max\_bounds.width * strlen(s))+leftMargin+rightMargin;
+254     \textcolor{keywordflow}{if} (nwidth < width)
+255     nwidth = \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width};
+256 
+257     XtSetArg(args[0], XtNstring, s);
+258     XtSetArg(args[1], XtNwidth, nwidth);
+259     XtSetValues(response, args, TWO);
+260     XawTextSetInsertionPoint(response, strlen(s));
+261 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{dialogs_8c_a626f351b7783b6cce470354ade28b1af}{\index{dialogs.\+c@{dialogs.\+c}!cancel\+\_\+accelerators@{cancel\+\_\+accelerators}}
+\index{cancel\+\_\+accelerators@{cancel\+\_\+accelerators}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{cancel\+\_\+accelerators}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char cancel\+\_\+accelerators\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{dialogs_8c_a626f351b7783b6cce470354ade28b1af}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"#override\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     :<Key>Escape: set() notify() unset()\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     :<Ctrl>[: set() notify() unset()\(\backslash\)n"}
+\end{DoxyCode}
+
+
+Definition at line 72 of file dialogs.\+c.
+
+
+
+Referenced by Create\+Dialog().
+
+\hypertarget{dialogs_8c_a149bbb53a4b8a45ecfbe067858eefdf3}{\index{dialogs.\+c@{dialogs.\+c}!okay\+\_\+accelerators@{okay\+\_\+accelerators}}
+\index{okay\+\_\+accelerators@{okay\+\_\+accelerators}!dialogs.\+c@{dialogs.\+c}}
+\subsubsection[{okay\+\_\+accelerators}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char okay\+\_\+accelerators\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{dialogs_8c_a149bbb53a4b8a45ecfbe067858eefdf3}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"#override\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     :<Key>Return: set() notify() unset()\(\backslash\)n"}
+\end{DoxyCode}
+
+
+Definition at line 68 of file dialogs.\+c.
+
+
+
+Referenced by Create\+Dialog().
+

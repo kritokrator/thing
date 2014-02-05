@@ -1,0 +1,375 @@
+\hypertarget{ppmwrite_8c}{\section{nethack/win/share/ppmwrite.c File Reference}
+\label{ppmwrite_8c}\index{nethack/win/share/ppmwrite.\+c@{nethack/win/share/ppmwrite.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structppmscreen}{ppmscreen}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+long $\ast$ \hyperlink{ppmwrite_8c_ad689923d338b7e3379071d72b0257979}{F\+D\+E\+C\+L} (\hyperlink{xpm2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc},(unsigned int))
+\item 
+static void \hyperlink{ppmwrite_8c_a6e84038b1ec3975fba8b14eb53bfbed7}{N\+D\+E\+C\+L} (\hyperlink{ppmwrite_8c_abea9e43ed0f67cbdb2f9fd7fe88f1fa2}{write\+\_\+header})
+\item 
+static void \hyperlink{ppmwrite_8c_a6f2d8a7dbafc514cf76a5cb26b4af6a5}{N\+D\+E\+C\+L} (\hyperlink{ppmwrite_8c_a1fa17127b19051159ff58fc7b7ffdf6c}{Write\+Tile\+Strip})
+\item 
+static void \hyperlink{ppmwrite_8c_abea9e43ed0f67cbdb2f9fd7fe88f1fa2}{write\+\_\+header} ()
+\item 
+static void \hyperlink{ppmwrite_8c_a1fa17127b19051159ff58fc7b7ffdf6c}{Write\+Tile\+Strip} ()
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{ppmwrite_8c_ad1c4974f7bd3832bf26af055dc2c3fd7}{fopen\+\_\+ppm\+\_\+file} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{ppmwrite_8c_a3504db10cd4b51af2914b797fade4013}{write\+\_\+ppm\+\_\+tile} (\hyperlink{structpixel}{pixel} $\ast$\hyperlink{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{pixels})
+\item 
+int \hyperlink{ppmwrite_8c_a49dbb98769849220b5cee4c5ba47fbbb}{fclose\+\_\+ppm\+\_\+file} ()
+\item 
+int \hyperlink{ppmwrite_8c_afced8478b91af5c169926dfa4426333d}{main} (int argc, argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+F\+I\+L\+E $\ast$ \hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\+\_\+file}
+\item 
+struct \hyperlink{structppmscreen}{ppmscreen} \hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{Ppm\+Screen}
+\item 
+static int \hyperlink{ppmwrite_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}{tiles\+\_\+across}
+\item 
+static int \hyperlink{ppmwrite_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\+\_\+down}
+\item 
+static int \hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\+\_\+tiles\+\_\+across}
+\item 
+static \hyperlink{structpixel}{pixel} $\ast$$\ast$ \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{ppmwrite_8c_a49dbb98769849220b5cee4c5ba47fbbb}{\index{ppmwrite.\+c@{ppmwrite.\+c}!fclose\+\_\+ppm\+\_\+file@{fclose\+\_\+ppm\+\_\+file}}
+\index{fclose\+\_\+ppm\+\_\+file@{fclose\+\_\+ppm\+\_\+file}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{fclose\+\_\+ppm\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}int fclose\+\_\+ppm\+\_\+file (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ppmwrite_8c_a49dbb98769849220b5cee4c5ba47fbbb}
+
+
+Definition at line 106 of file ppmwrite.\+c.
+
+
+
+References pixel\+::b, C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, free(), pixel\+::g, ppmscreen\+::\+Height, Main\+Color\+Map, Ppm\+Screen, pixel\+::r, rewind, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, ppmscreen\+::\+Width, write\+\_\+header(), and Write\+Tile\+Strip().
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+107 \{
+108     \textcolor{keywordtype}{int} i, j;
+109 
+110     \textcolor{keywordflow}{if} (\hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across}) \{   \textcolor{comment}{/* partial row */}
+111         \textcolor{comment}{/* fill with checkerboard, for lack of a better idea */}
+112         \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+113             \textcolor{keywordflow}{for} (i = \hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across} * \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+114                         i < \hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{PpmScreen}.\hyperlink{structppmscreen_ab6525342f57d9f8483b6b61568b8b3f0}{Width}; i += 2 ) \{
+115                 \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i].\hyperlink{structpixel_aa54a32268c2ddf156577cfc79a858d58}{r} = \hyperlink{tile_8h_a25a1fd9c3ee244370c7fb669509c889e}{MainColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][0];
+116                 \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i].\hyperlink{structpixel_ade1a7e5fcb9d3e9756669a559f654958}{g} = \hyperlink{tile_8h_a25a1fd9c3ee244370c7fb669509c889e}{MainColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][0];
+117                 \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i].\hyperlink{structpixel_ae12c7adf966c6aa301af45c395925d05}{b} = \hyperlink{tile_8h_a25a1fd9c3ee244370c7fb669509c889e}{MainColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][0];
+118                 \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i+1].\hyperlink{structpixel_aa54a32268c2ddf156577cfc79a858d58}{r} = \hyperlink{tile_8h_a25a1fd9c3ee244370c7fb669509c889e}{MainColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][1];
+119                 \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i+1].\hyperlink{structpixel_ade1a7e5fcb9d3e9756669a559f654958}{g} = \hyperlink{tile_8h_a25a1fd9c3ee244370c7fb669509c889e}{MainColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][1];
+120                 \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i+1].\hyperlink{structpixel_ae12c7adf966c6aa301af45c395925d05}{b} = \hyperlink{tile_8h_a25a1fd9c3ee244370c7fb669509c889e}{MainColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][1];
+121             \}
+122         \}
+123         \hyperlink{ppmwrite_8c_a1fa17127b19051159ff58fc7b7ffdf6c}{WriteTileStrip}();
+124         \hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across} = 0;
+125         \hyperlink{ppmwrite_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\_down}++;
+126     \}
+127 
+128     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; i++) \{
+129         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[i]);
+130     \}
+131     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image});
+132 
+133     \hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{PpmScreen}.\hyperlink{structppmscreen_a0a3f15b5465d631c70a8ed5a0346113f}{Height} = \hyperlink{ppmwrite_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\_down} * \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y};
+134     \hyperlink{wceconf_8h_a86902ea8a7ab08315282c0e5472611f7}{rewind}(\hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\_file});
+135     \hyperlink{ppmwrite_8c_abea9e43ed0f67cbdb2f9fd7fe88f1fa2}{write\_header}(); \textcolor{comment}{/* update size */}
+136 
+137     \textcolor{keywordflow}{return}(fclose(\hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\_file}));
+138 \}
+\end{DoxyCode}
+\hypertarget{ppmwrite_8c_ad689923d338b7e3379071d72b0257979}{\index{ppmwrite.\+c@{ppmwrite.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}long$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf alloc}}]{, }
+\item[{(unsigned int)}]{}
+\end{DoxyParamCaption}
+)}}\label{ppmwrite_8c_ad689923d338b7e3379071d72b0257979}
+\hypertarget{ppmwrite_8c_ad1c4974f7bd3832bf26af055dc2c3fd7}{\index{ppmwrite.\+c@{ppmwrite.\+c}!fopen\+\_\+ppm\+\_\+file@{fopen\+\_\+ppm\+\_\+file}}
+\index{fopen\+\_\+ppm\+\_\+file@{fopen\+\_\+ppm\+\_\+file}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{fopen\+\_\+ppm\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} fopen\+\_\+ppm\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename, }
+\item[{{\bf const} char $\ast$}]{type}
+\end{DoxyParamCaption}
+) const}}\label{ppmwrite_8c_ad1c4974f7bd3832bf26af055dc2c3fd7}
+
+
+Definition at line 47 of file ppmwrite.\+c.
+
+
+
+References alloc(), colorsinmainmap, F\+A\+L\+S\+E, Fprintf, ppmscreen\+::\+Height, Ppm\+Screen, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, T\+R\+U\+E, ppmscreen\+::\+Width, W\+R\+B\+M\+O\+D\+E, and write\+\_\+header().
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+50 \{
+51     \textcolor{keywordtype}{int} i;
+52 
+53     \textcolor{keywordflow}{if} (strcmp(\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}, \hyperlink{dlb_8h_a93f4c7a5c599b11c766523f930389684}{WRBMODE})) \{
+54         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"using writing routine for non-writing?\(\backslash\)n"});
+55         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+56     \}
+57     \hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\_file} = fopen(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type});
+58     \textcolor{keywordflow}{if} (\hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\_file} == (FILE *)0) \{
+59         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"cannot open ppm file %s\(\backslash\)n"}, \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename});
+60         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+61     \}
+62 
+63     \textcolor{keywordflow}{if} (!\hyperlink{tile_8h_ab105f0242e3bd09f3d953cd20700645a}{colorsinmainmap}) \{
+64         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"no colormap set yet\(\backslash\)n"});
+65         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+66     \}
+67 
+68     \hyperlink{ppmwrite_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}{tiles\_across} = 20;
+69     \hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across} = 0;
+70     \hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{PpmScreen}.\hyperlink{structppmscreen_ab6525342f57d9f8483b6b61568b8b3f0}{Width} = 20 * \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+71 
+72     \hyperlink{ppmwrite_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\_down} = 0;
+73     \hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{PpmScreen}.\hyperlink{structppmscreen_a0a3f15b5465d631c70a8ed5a0346113f}{Height} = 0;    \textcolor{comment}{/* will be rewritten later */}
+74 
+75     \hyperlink{ppmwrite_8c_abea9e43ed0f67cbdb2f9fd7fe88f1fa2}{write\_header}();
+76 
+77     \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image} = (\hyperlink{structpixel}{pixel} **)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y} * \textcolor{keyword}{sizeof}(\hyperlink{structpixel}{pixel} *));
+78     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; i++) \{
+79         \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[i] = (\hyperlink{structpixel}{pixel} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{PpmScreen}.\hyperlink{structppmscreen_ab6525342f57d9f8483b6b61568b8b3f0}{Width} * \textcolor{keyword}{sizeof}(
+      \hyperlink{structpixel}{pixel}));
+80     \}
+81 
+82     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+83 \}
+\end{DoxyCode}
+\hypertarget{ppmwrite_8c_afced8478b91af5c169926dfa4426333d}{\index{ppmwrite.\+c@{ppmwrite.\+c}!main@{main}}
+\index{main@{main}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)}}\label{ppmwrite_8c_afced8478b91af5c169926dfa4426333d}
+
+
+Definition at line 142 of file ppmwrite.\+c.
+
+
+
+References exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, fclose\+\_\+ppm\+\_\+file(), fclose\+\_\+text\+\_\+file(), fopen\+\_\+ppm\+\_\+file(), fopen\+\_\+text\+\_\+file(), Fprintf, init\+\_\+colormap(), pixels, R\+D\+T\+M\+O\+D\+E, read\+\_\+text\+\_\+tile(), T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, W\+R\+B\+M\+O\+D\+E, and write\+\_\+ppm\+\_\+tile().
+
+
+\begin{DoxyCode}
+145 \{
+146     \hyperlink{structpixel}{pixel} \hyperlink{txt2iff_8c_a6313a761da46b29ba554302d6d36d116}{pixels}[\hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}][\hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}];
+147 
+148     \textcolor{keywordflow}{if} (argc != 3) \{
+149         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"usage: txt2ppm txtfile ppmfile\(\backslash\)n"});
+150         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+151     \}
+152 
+153     \textcolor{keywordflow}{if} (!\hyperlink{tiletext_8c_afd96856d9b9d8dd587b735c54e9c2765}{fopen\_text\_file}(argv[1], \hyperlink{dlb_8h_a52b55e796a44079bc56afab59e8c0c89}{RDTMODE}))
+154         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+155 
+156     \hyperlink{tiletext_8c_a2cb5731b96aae136b97a319e6f4d9c6d}{init\_colormap}();
+157 
+158     \textcolor{keywordflow}{if} (!\hyperlink{ppmwrite_8c_ad1c4974f7bd3832bf26af055dc2c3fd7}{fopen\_ppm\_file}(argv[2], \hyperlink{dlb_8h_a93f4c7a5c599b11c766523f930389684}{WRBMODE})) \{
+159         (void) \hyperlink{tiletext_8c_a52166aa84ff4882399d7699bb074b55b}{fclose\_text\_file}();
+160         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+161     \}
+162 
+163     \textcolor{keywordflow}{while} (\hyperlink{tiletext_8c_a8bfc171583fff7761a8ae79103b6aa89}{read\_text\_tile}(pixels))
+164         (void) \hyperlink{ppmwrite_8c_a3504db10cd4b51af2914b797fade4013}{write\_ppm\_tile}(pixels);
+165 
+166     (void) \hyperlink{tiletext_8c_a52166aa84ff4882399d7699bb074b55b}{fclose\_text\_file}();
+167     (void) \hyperlink{ppmwrite_8c_a49dbb98769849220b5cee4c5ba47fbbb}{fclose\_ppm\_file}();
+168     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+169     \textcolor{comment}{/*NOTREACHED*/}
+170     \textcolor{keywordflow}{return} 0;
+171 \}
+\end{DoxyCode}
+\hypertarget{ppmwrite_8c_a6e84038b1ec3975fba8b14eb53bfbed7}{\index{ppmwrite.\+c@{ppmwrite.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf write\+\_\+header}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ppmwrite_8c_a6e84038b1ec3975fba8b14eb53bfbed7}
+\hypertarget{ppmwrite_8c_a6f2d8a7dbafc514cf76a5cb26b4af6a5}{\index{ppmwrite.\+c@{ppmwrite.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf Write\+Tile\+Strip}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ppmwrite_8c_a6f2d8a7dbafc514cf76a5cb26b4af6a5}
+\hypertarget{ppmwrite_8c_abea9e43ed0f67cbdb2f9fd7fe88f1fa2}{\index{ppmwrite.\+c@{ppmwrite.\+c}!write\+\_\+header@{write\+\_\+header}}
+\index{write\+\_\+header@{write\+\_\+header}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{write\+\_\+header}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+header (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ppmwrite_8c_abea9e43ed0f67cbdb2f9fd7fe88f1fa2}
+
+
+Definition at line 26 of file ppmwrite.\+c.
+
+
+
+References ppmscreen\+::\+Height, Ppm\+Screen, and ppmscreen\+::\+Width.
+
+
+
+Referenced by fclose\+\_\+ppm\+\_\+file(), and fopen\+\_\+ppm\+\_\+file().
+
+
+\begin{DoxyCode}
+27 \{
+28     (void) fprintf(\hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\_file}, \textcolor{stringliteral}{"P6 %03d %03d 255\(\backslash\)n"},
+29                 \hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{PpmScreen}.\hyperlink{structppmscreen_ab6525342f57d9f8483b6b61568b8b3f0}{Width}, \hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{PpmScreen}.\hyperlink{structppmscreen_a0a3f15b5465d631c70a8ed5a0346113f}{Height});
+30 \}
+\end{DoxyCode}
+\hypertarget{ppmwrite_8c_a3504db10cd4b51af2914b797fade4013}{\index{ppmwrite.\+c@{ppmwrite.\+c}!write\+\_\+ppm\+\_\+tile@{write\+\_\+ppm\+\_\+tile}}
+\index{write\+\_\+ppm\+\_\+tile@{write\+\_\+ppm\+\_\+tile}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{write\+\_\+ppm\+\_\+tile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} write\+\_\+ppm\+\_\+tile (
+\begin{DoxyParamCaption}
+\item[{{\bf pixel} $\ast$}]{pixels}
+\end{DoxyParamCaption}
+)}}\label{ppmwrite_8c_a3504db10cd4b51af2914b797fade4013}
+
+
+Definition at line 86 of file ppmwrite.\+c.
+
+
+
+References pixels, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, T\+R\+U\+E, and Write\+Tile\+Strip().
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+88 \{
+89     \textcolor{keywordtype}{int} i, j;
+90 
+91     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+92         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}; i++) \{
+93             \hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][\hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across}*TILE\_X + i] = pixels[j][i];
+94         \}
+95     \}
+96     \hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across}++;
+97     \textcolor{keywordflow}{if} (\hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across} == \hyperlink{ppmwrite_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}{tiles\_across}) \{
+98         \hyperlink{ppmwrite_8c_a1fa17127b19051159ff58fc7b7ffdf6c}{WriteTileStrip}();
+99         \hyperlink{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across} = 0;
+100         \hyperlink{ppmwrite_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\_down}++;
+101     \}
+102     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+103 \}
+\end{DoxyCode}
+\hypertarget{ppmwrite_8c_a1fa17127b19051159ff58fc7b7ffdf6c}{\index{ppmwrite.\+c@{ppmwrite.\+c}!Write\+Tile\+Strip@{Write\+Tile\+Strip}}
+\index{Write\+Tile\+Strip@{Write\+Tile\+Strip}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{Write\+Tile\+Strip}]{\setlength{\rightskip}{0pt plus 5cm}static void Write\+Tile\+Strip (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{ppmwrite_8c_a1fa17127b19051159ff58fc7b7ffdf6c}
+
+
+Definition at line 33 of file ppmwrite.\+c.
+
+
+
+References pixel\+::b, pixel\+::g, ppm\+\_\+file, Ppm\+Screen, pixel\+::r, T\+I\+L\+E\+\_\+\+Y, and ppmscreen\+::\+Width.
+
+
+
+Referenced by fclose\+\_\+ppm\+\_\+file(), and write\+\_\+ppm\+\_\+tile().
+
+
+\begin{DoxyCode}
+34 \{
+35     \textcolor{keywordtype}{int} i, j;
+36 
+37     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+38         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{PpmScreen}.\hyperlink{structppmscreen_ab6525342f57d9f8483b6b61568b8b3f0}{Width}; i++) \{
+39             (void) fputc((\textcolor{keywordtype}{char})\hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i].\hyperlink{structpixel_aa54a32268c2ddf156577cfc79a858d58}{r}, \hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\_file});
+40             (void) fputc((\textcolor{keywordtype}{char})\hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i].\hyperlink{structpixel_ade1a7e5fcb9d3e9756669a559f654958}{g}, \hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\_file});
+41             (void) fputc((\textcolor{keywordtype}{char})\hyperlink{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][i].\hyperlink{structpixel_ae12c7adf966c6aa301af45c395925d05}{b}, \hyperlink{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{ppm\_file});
+42         \}
+43     \}
+44 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{\index{ppmwrite.\+c@{ppmwrite.\+c}!curr\+\_\+tiles\+\_\+across@{curr\+\_\+tiles\+\_\+across}}
+\index{curr\+\_\+tiles\+\_\+across@{curr\+\_\+tiles\+\_\+across}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{curr\+\_\+tiles\+\_\+across}]{\setlength{\rightskip}{0pt plus 5cm}int curr\+\_\+tiles\+\_\+across\hspace{0.3cm}{\ttfamily [static]}}}\label{ppmwrite_8c_a6e72702a086d62aa1e7c48a2c1615ed9}
+
+
+Definition at line 19 of file ppmwrite.\+c.
+
+\hypertarget{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}{\index{ppmwrite.\+c@{ppmwrite.\+c}!image@{image}}
+\index{image@{image}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{image}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pixel}$\ast$$\ast$ image\hspace{0.3cm}{\ttfamily [static]}}}\label{ppmwrite_8c_a2d8da73d47fd8a1304cbacafde81f61d}
+
+
+Definition at line 20 of file ppmwrite.\+c.
+
+\hypertarget{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}{\index{ppmwrite.\+c@{ppmwrite.\+c}!ppm\+\_\+file@{ppm\+\_\+file}}
+\index{ppm\+\_\+file@{ppm\+\_\+file}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{ppm\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ ppm\+\_\+file}}\label{ppmwrite_8c_a65c5e58d62d8ff58bd91df5253db5fc5}
+
+
+Definition at line 12 of file ppmwrite.\+c.
+
+
+
+Referenced by Write\+Tile\+Strip().
+
+\hypertarget{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}{\index{ppmwrite.\+c@{ppmwrite.\+c}!Ppm\+Screen@{Ppm\+Screen}}
+\index{Ppm\+Screen@{Ppm\+Screen}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{Ppm\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf ppmscreen}  Ppm\+Screen}}\label{ppmwrite_8c_ab943277788f90bb5ca89b30ee52d7f59}
+
+
+Referenced by fclose\+\_\+ppm\+\_\+file(), fopen\+\_\+ppm\+\_\+file(), write\+\_\+header(), and Write\+Tile\+Strip().
+
+\hypertarget{ppmwrite_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}{\index{ppmwrite.\+c@{ppmwrite.\+c}!tiles\+\_\+across@{tiles\+\_\+across}}
+\index{tiles\+\_\+across@{tiles\+\_\+across}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{tiles\+\_\+across}]{\setlength{\rightskip}{0pt plus 5cm}int tiles\+\_\+across\hspace{0.3cm}{\ttfamily [static]}}}\label{ppmwrite_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}
+
+
+Definition at line 19 of file ppmwrite.\+c.
+
+\hypertarget{ppmwrite_8c_ad70f085e13710115c5234c719e7e5b7e}{\index{ppmwrite.\+c@{ppmwrite.\+c}!tiles\+\_\+down@{tiles\+\_\+down}}
+\index{tiles\+\_\+down@{tiles\+\_\+down}!ppmwrite.\+c@{ppmwrite.\+c}}
+\subsubsection[{tiles\+\_\+down}]{\setlength{\rightskip}{0pt plus 5cm}int tiles\+\_\+down\hspace{0.3cm}{\ttfamily [static]}}}\label{ppmwrite_8c_ad70f085e13710115c5234c719e7e5b7e}
+
+
+Definition at line 19 of file ppmwrite.\+c.
+

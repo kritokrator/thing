@@ -1,0 +1,987 @@
+\hypertarget{win_2win32_2mhdlg_8c}{\section{nethack/win/win32/mhdlg.c File Reference}
+\label{win_2win32_2mhdlg_8c}\index{nethack/win/win32/mhdlg.\+c@{nethack/win/win32/mhdlg.\+c}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}func\+\_\+tab.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}resource.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhdlg.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgetlin__data}{getlin\+\_\+data}
+\item 
+struct \hyperlink{structextcmd__data}{extcmd\+\_\+data}
+\item 
+struct \hyperlink{structplsel__data}{plsel\+\_\+data}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+B\+O\+O\+L C\+A\+L\+L\+B\+A\+C\+K \hyperlink{win_2win32_2mhdlg_8c_a9653a6ffe3ddf03e6b036684d77177f7}{Getlin\+Dlg\+Proc} (H\+W\+N\+D, \hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T}, W\+P\+A\+R\+A\+M, L\+P\+A\+R\+A\+M)
+\item 
+int \hyperlink{win_2win32_2mhdlg_8c_a39d42e14bc9786f5e2956df063ab92ff}{mswin\+\_\+getlin\+\_\+window} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$question, char $\ast$result, size\+\_\+t result\+\_\+size)
+\item 
+B\+O\+O\+L C\+A\+L\+L\+B\+A\+C\+K \hyperlink{win_2win32_2mhdlg_8c_ad9e8613ffe5220c78d6c943c8693e95c}{Ext\+Cmd\+Dlg\+Proc} (H\+W\+N\+D, \hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T}, W\+P\+A\+R\+A\+M, L\+P\+A\+R\+A\+M)
+\item 
+int \hyperlink{win_2win32_2mhdlg_8c_ad4240b065b7b8e476803050a29181a20}{mswin\+\_\+ext\+\_\+cmd\+\_\+window} (int $\ast$selection)
+\item 
+B\+O\+O\+L C\+A\+L\+L\+B\+A\+C\+K \hyperlink{win_2win32_2mhdlg_8c_ab354857d5335d3e54cdb3d69c423b885}{Player\+Selector\+Dlg\+Proc} (H\+W\+N\+D, \hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T}, W\+P\+A\+R\+A\+M, L\+P\+A\+R\+A\+M)
+\item 
+static void \hyperlink{win_2win32_2mhdlg_8c_a5849334dfe6fa6669496bbabd7beba1b}{plsel\+Init\+Dialog} (H\+W\+N\+D h\+Wnd)
+\item 
+static void \hyperlink{win_2win32_2mhdlg_8c_a605937af4657a5d8fe751c8e72de53fe}{plsel\+Adjust\+Lists} (H\+W\+N\+D h\+Wnd, int changed\+\_\+opt)
+\item 
+static int \hyperlink{win_2win32_2mhdlg_8c_a77b92c8b63aa0fda942b122f7a918003}{plsel\+Final\+Selection} (H\+W\+N\+D h\+Wnd, int $\ast$selection)
+\item 
+int \hyperlink{win_2win32_2mhdlg_8c_abfa652ee4def0674368c65a2578121a5}{mswin\+\_\+player\+\_\+selection\+\_\+window} (int $\ast$selection)
+\item 
+void \hyperlink{win_2win32_2mhdlg_8c_a0772aa991694d1e706a0d7f1e8852567}{set\+Combo\+Box\+Value} (H\+W\+N\+D h\+Wnd, int combo\+\_\+box, int value)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{win_2win32_2mhdlg_8c_ad9e8613ffe5220c78d6c943c8693e95c}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!Ext\+Cmd\+Dlg\+Proc@{Ext\+Cmd\+Dlg\+Proc}}
+\index{Ext\+Cmd\+Dlg\+Proc@{Ext\+Cmd\+Dlg\+Proc}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{Ext\+Cmd\+Dlg\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}B\+O\+O\+L C\+A\+L\+L\+B\+A\+C\+K Ext\+Cmd\+Dlg\+Proc (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf U\+I\+N\+T}}]{message, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhdlg_8c_ad9e8613ffe5220c78d6c943c8693e95c}
+
+
+Definition at line 192 of file mhdlg.\+c.
+
+
+
+References ext\+\_\+func\+\_\+tab\+::ef\+\_\+txt, extcmdlist, F\+A\+L\+S\+E, Get\+N\+H\+App(), I\+D\+C\+\_\+\+E\+X\+T\+C\+M\+D\+\_\+\+L\+I\+S\+T, N\+H\+\_\+\+A2\+W, extcmd\+\_\+data\+::selection, S\+I\+Z\+E, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+193 \{
+194     \textcolor{keyword}{struct }\hyperlink{structextcmd__data}{extcmd\_data}* data;
+195     RECT   main\_rt, dlg\_rt;
+196     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}   dlg\_sz;
+197     \textcolor{keywordtype}{int}    i;
+198     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *ptr;
+199     TCHAR wbuf[255];
+200 
+201     \textcolor{keywordflow}{switch} (message) 
+202     \{
+203     \textcolor{keywordflow}{case} WM\_INITDIALOG:
+204         data = (\textcolor{keyword}{struct }\hyperlink{structextcmd__data}{extcmd\_data}*)lParam;
+205         SetWindowLong(hWnd, GWL\_USERDATA, lParam);
+206 
+207         \textcolor{comment}{/* center dialog in the main window */}
+208         GetWindowRect(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd, &main\_rt);
+209         GetWindowRect(hWnd, &dlg\_rt);
+210         dlg\_sz.cx = dlg\_rt.right - dlg\_rt.left;
+211         dlg\_sz.cy = dlg\_rt.bottom - dlg\_rt.top;
+212 
+213         dlg\_rt.left = (main\_rt.left+main\_rt.right-dlg\_sz.cx)/2;
+214         dlg\_rt.right = dlg\_rt.left + dlg\_sz.cx;
+215         dlg\_rt.top = (main\_rt.top+main\_rt.bottom-dlg\_sz.cy)/2;
+216         dlg\_rt.bottom = dlg\_rt.top + dlg\_sz.cy;
+217         MoveWindow( hWnd,
+218                     (main\_rt.left+main\_rt.right-dlg\_sz.cx)/2,
+219                     (main\_rt.top+main\_rt.bottom-dlg\_sz.cy)/2,
+220                     dlg\_sz.cx,
+221                     dlg\_sz.cy,
+222                     \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+223 
+224         \textcolor{comment}{/* fill combobox with extended commands */}
+225         \textcolor{keywordflow}{for}(i=0; (ptr=\hyperlink{func__tab_8h_af3a00fc8e4e157bae08471bcc66d46d9}{extcmdlist}[i].\hyperlink{structext__func__tab_a1c6b81a9ba3a70826ea2f1c2eacc089e}{ef\_txt}); i++) \{
+226             SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_a353d3339d73756e0e2ce210b27d63452}{IDC\_EXTCMD\_LIST}, LB\_ADDSTRING, (WPARAM)0, (LPARAM)
+      \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(ptr, wbuf, \textcolor{keyword}{sizeof}(wbuf)) );
+227         \}
+228 
+229         \textcolor{comment}{/* set focus to the list control */}
+230         SetFocus(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a353d3339d73756e0e2ce210b27d63452}{IDC\_EXTCMD\_LIST}));
+231 
+232         \textcolor{comment}{/* tell windows we set the focus */}
+233         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+234     \textcolor{keywordflow}{break};
+235 
+236     \textcolor{keywordflow}{case} WM\_COMMAND:
+237         data = (\textcolor{keyword}{struct }\hyperlink{structextcmd__data}{extcmd\_data}*)GetWindowLong(hWnd, GWL\_USERDATA);
+238         \textcolor{keywordflow}{switch} (LOWORD(wParam)) 
+239         \{ 
+240           \textcolor{comment}{/* OK button ws clicked */}
+241           \textcolor{keywordflow}{case} IDOK:
+242               *data->\hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection} = SendDlgItemMessage(hWnd, 
+      \hyperlink{sys_2wince_2resource_8h_a353d3339d73756e0e2ce210b27d63452}{IDC\_EXTCMD\_LIST}, LB\_GETCURSEL, (WPARAM)0, (LPARAM)0 );
+243               \textcolor{keywordflow}{if}( *data->\hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection}==LB\_ERR )
+244                   *data->\hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection} = -1;
+245               \textcolor{comment}{/* Fall through. */}
+246 
+247           \textcolor{comment}{/* CANCEL button ws clicked */}
+248           \textcolor{keywordflow}{case} IDCANCEL:
+249                 EndDialog(hWnd, wParam); 
+250           \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+251 
+252           \textcolor{comment}{/* list control events */}
+253           \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_a353d3339d73756e0e2ce210b27d63452}{IDC\_EXTCMD\_LIST}:
+254                 \textcolor{keywordflow}{switch}(HIWORD(wParam)) \{
+255 
+256                 \textcolor{keywordflow}{case} LBN\_DBLCLK: 
+257                   \textcolor{comment}{/* double click within the list }
+258 \textcolor{comment}{                     wParam }
+259 \textcolor{comment}{                       The low-order word is the list box identifier. }
+260 \textcolor{comment}{                       The high-order word is the notification message. }
+261 \textcolor{comment}{                     lParam }
+262 \textcolor{comment}{                       Handle to the list box}
+263 \textcolor{comment}{                    */}
+264                    *data->\hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection} = SendMessage((HWND)lParam, LB\_GETCURSEL, (WPARAM)0, (LPARAM)0
+      );
+265                    \textcolor{keywordflow}{if}( *data->\hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection}==LB\_ERR )
+266                        *data->\hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection} = -1;
+267                    EndDialog(hWnd, IDOK); 
+268                    \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+269                 \}
+270           \textcolor{keywordflow}{break};
+271         \}
+272     \}
+273     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+274 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_a9653a6ffe3ddf03e6b036684d77177f7}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!Getlin\+Dlg\+Proc@{Getlin\+Dlg\+Proc}}
+\index{Getlin\+Dlg\+Proc@{Getlin\+Dlg\+Proc}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{Getlin\+Dlg\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}B\+O\+O\+L C\+A\+L\+L\+B\+A\+C\+K Getlin\+Dlg\+Proc (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf U\+I\+N\+T}}]{message, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhdlg_8c_a9653a6ffe3ddf03e6b036684d77177f7}
+
+
+Definition at line 50 of file mhdlg.\+c.
+
+
+
+References B\+U\+F\+S\+Z, F\+A\+L\+S\+E, Get\+N\+H\+App(), I\+D\+C\+\_\+\+G\+E\+T\+L\+I\+N\+\_\+\+E\+D\+I\+T, N\+H\+\_\+\+A2\+W, N\+H\+\_\+\+W2\+A, getlin\+\_\+data\+::question, getlin\+\_\+data\+::result, getlin\+\_\+data\+::result\+\_\+size, S\+I\+Z\+E, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+51 \{
+52     \textcolor{keyword}{struct }\hyperlink{structgetlin__data}{getlin\_data}* data;
+53     RECT   main\_rt, dlg\_rt;
+54     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}   dlg\_sz;
+55     TCHAR  wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+56     HDC WindowDC;
+57     HWND ControlHWND;
+58     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}   WindowExtents;
+59     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}   ViewPortExtents;
+60     RECT   ControlRect;
+61     RECT   ClientRect;
+62     LONG   Division;
+63     LONG   ButtonOffset;
+64 
+65     \textcolor{keywordflow}{switch} (message) 
+66     \{
+67     \textcolor{keywordflow}{case} WM\_INITDIALOG:
+68         data = (\textcolor{keyword}{struct }\hyperlink{structgetlin__data}{getlin\_data}*)lParam;
+69         SetWindowText(hWnd, \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(data->\hyperlink{structgetlin__data_a5ae51373bc945ad0f57b44419c26b7a8}{question}, wbuf, \textcolor{keyword}{sizeof}(wbuf)));
+70         SetWindowLong(hWnd, GWL\_USERDATA, lParam);
+71 
+72         \textcolor{comment}{/* center dialog in the main window */}
+73         GetWindowRect(hWnd, &dlg\_rt);
+74         GetWindowRect(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd, &main\_rt);
+75         WindowDC = GetWindowDC(hWnd);
+76 
+77         \textcolor{keywordflow}{if} (!GetWindowExtEx(WindowDC, &WindowExtents) ||
+78             !GetViewportExtEx(WindowDC, &ViewPortExtents) ||
+79             !GetTextExtentPoint32(GetWindowDC (hWnd), wbuf, \_tcslen(wbuf), &dlg\_sz))
+80         \{
+81             dlg\_sz.cx = 0;
+82         \}
+83         \textcolor{keywordflow}{else}
+84         \{
+85             \textcolor{comment}{/* I think we need to do the following scaling */}
+86             dlg\_sz.cx *= ViewPortExtents.cx; dlg\_sz.cx /= WindowExtents.cx;
+87             \textcolor{comment}{/* Add the size of the various items in the caption bar */}
+88             dlg\_sz.cx += GetSystemMetrics(SM\_CXSIZE) +
+89                 2 * (GetSystemMetrics (SM\_CXBORDER) + GetSystemMetrics(SM\_CXFRAME));
+90         \}
+91 
+92         \textcolor{keywordflow}{if} (dlg\_sz.cx < dlg\_rt.right - dlg\_rt.left)
+93             dlg\_sz.cx = dlg\_rt.right - dlg\_rt.left;
+94         dlg\_sz.cy = dlg\_rt.bottom - dlg\_rt.top;
+95         dlg\_rt.left = (main\_rt.left+main\_rt.right-dlg\_sz.cx)/2;
+96         dlg\_rt.right = dlg\_rt.left + dlg\_sz.cx;
+97         dlg\_rt.top = (main\_rt.top+main\_rt.bottom-dlg\_sz.cy)/2;
+98         dlg\_rt.bottom = dlg\_rt.top + dlg\_sz.cy;
+99         MoveWindow( hWnd,
+100                     (main\_rt.left+main\_rt.right-dlg\_sz.cx)/2,
+101                     (main\_rt.top+main\_rt.bottom-dlg\_sz.cy)/2,
+102                     dlg\_sz.cx,
+103                     dlg\_sz.cy,
+104                     \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+105 
+106         \textcolor{comment}{/* set focus and size of the edit control */}
+107         ControlHWND = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_ad544225fbfcca7b814509a0b128d62b8}{IDC\_GETLIN\_EDIT});
+108         SetFocus(ControlHWND);
+109         GetClientRect (hWnd, &ClientRect);
+110         GetWindowRect (ControlHWND, &ControlRect);
+111         MoveWindow (ControlHWND, 0, 0,
+112             ClientRect.right - ClientRect.left,
+113             ControlRect.bottom - ControlRect.top, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+114         ButtonOffset = ControlRect.bottom - ControlRect.top;
+115 
+116         \textcolor{comment}{/* Now get the OK and CANCEL buttons */}
+117         ControlHWND = GetDlgItem(hWnd, IDOK);
+118         GetWindowRect (ControlHWND, &ControlRect);
+119         Division = ((ClientRect.right - ClientRect.left) -
+120             2 * (ControlRect.right - ControlRect.left)) / 3;
+121         MoveWindow (ControlHWND, Division,
+122             ButtonOffset,
+123             ControlRect.right - ControlRect.left,
+124             ControlRect.bottom - ControlRect.top, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+125         ControlHWND = GetDlgItem(hWnd, IDCANCEL);
+126         MoveWindow (ControlHWND,
+127             Division * 2 + ControlRect.right - ControlRect.left,
+128             ButtonOffset,
+129             ControlRect.right - ControlRect.left,
+130             ControlRect.bottom - ControlRect.top, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+131 
+132         \textcolor{comment}{/* tell windows that we've set the focus */}
+133         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}; 
+134     \textcolor{keywordflow}{break};
+135 
+136     \textcolor{keywordflow}{case} WM\_COMMAND: 
+137     \{
+138         TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+139 
+140         \textcolor{keywordflow}{switch} (LOWORD(wParam)) 
+141         \{ 
+142             \textcolor{comment}{/* OK button was pressed */}
+143             \textcolor{keywordflow}{case} IDOK:
+144               data = (\textcolor{keyword}{struct }\hyperlink{structgetlin__data}{getlin\_data}*)GetWindowLong(hWnd, GWL\_USERDATA);
+145               SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_ad544225fbfcca7b814509a0b128d62b8}{IDC\_GETLIN\_EDIT}, WM\_GETTEXT, (WPARAM)\textcolor{keyword}{sizeof}(wbuf), (
+      LPARAM)wbuf );
+146               \hyperlink{wceconf_8h_a79324084b45d4a7bc4b8813ddfddad96}{NH\_W2A}(wbuf, data->\hyperlink{structgetlin__data_a30ab6084717e9691c3ecae6fbeac21b9}{result}, data->\hyperlink{structgetlin__data_a94955d5ee37e0a74dce5438809152c34}{result\_size});
+147 
+148               \textcolor{comment}{/* Fall through. */}
+149 
+150             \textcolor{comment}{/* cancel button was pressed */}
+151             \textcolor{keywordflow}{case} IDCANCEL: 
+152                 EndDialog(hWnd, wParam); 
+153             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+154         \}
+155     \} \textcolor{keywordflow}{break};
+156     
+157     \} \textcolor{comment}{/* end switch (message) */}
+158     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+159 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_ad4240b065b7b8e476803050a29181a20}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!mswin\+\_\+ext\+\_\+cmd\+\_\+window@{mswin\+\_\+ext\+\_\+cmd\+\_\+window}}
+\index{mswin\+\_\+ext\+\_\+cmd\+\_\+window@{mswin\+\_\+ext\+\_\+cmd\+\_\+window}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{mswin\+\_\+ext\+\_\+cmd\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}int mswin\+\_\+ext\+\_\+cmd\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{selection}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhdlg_8c_ad4240b065b7b8e476803050a29181a20}
+
+
+Definition at line 170 of file mhdlg.\+c.
+
+
+
+References Ext\+Cmd\+Dlg\+Proc(), Get\+N\+H\+App(), I\+D\+D\+\_\+\+E\+X\+T\+C\+M\+D, panic(), and extcmd\+\_\+data\+::selection.
+
+
+\begin{DoxyCode}
+171 \{
+172     \textcolor{keywordtype}{int} ret;
+173     \textcolor{keyword}{struct }\hyperlink{structextcmd__data}{extcmd\_data} data;
+174     
+175     \textcolor{comment}{/* init dialog data */}
+176     ZeroMemory(&data, \textcolor{keyword}{sizeof}(data));
+177     *\hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection} = -1;
+178     data.selection = \hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection};
+179 
+180     \textcolor{comment}{/* create modal dialog window */}
+181     ret = DialogBoxParam(
+182             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+183             MAKEINTRESOURCE(\hyperlink{sys_2wince_2resource_8h_afa993406db3065594cbee283067e3b7d}{IDD\_EXTCMD}),
+184             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,
+185             \hyperlink{sys_2wince_2mhdlg_8c_ad9e8613ffe5220c78d6c943c8693e95c}{ExtCmdDlgProc},
+186             (LPARAM)&data
+187     );
+188     \textcolor{keywordflow}{if}( ret==-1 ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create extcmd window"});
+189     \textcolor{keywordflow}{return} ret;
+190 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_a39d42e14bc9786f5e2956df063ab92ff}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!mswin\+\_\+getlin\+\_\+window@{mswin\+\_\+getlin\+\_\+window}}
+\index{mswin\+\_\+getlin\+\_\+window@{mswin\+\_\+getlin\+\_\+window}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{mswin\+\_\+getlin\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}int mswin\+\_\+getlin\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{question, }
+\item[{char $\ast$}]{result, }
+\item[{size\+\_\+t}]{result\+\_\+size}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhdlg_8c_a39d42e14bc9786f5e2956df063ab92ff}
+
+
+Definition at line 22 of file mhdlg.\+c.
+
+
+
+References Getlin\+Dlg\+Proc(), Get\+N\+H\+App(), I\+D\+D\+\_\+\+G\+E\+T\+L\+I\+N, panic(), getlin\+\_\+data\+::question, getlin\+\_\+data\+::result, and getlin\+\_\+data\+::result\+\_\+size.
+
+
+\begin{DoxyCode}
+27 \{
+28     \textcolor{keywordtype}{int} ret;
+29     \textcolor{keyword}{struct }\hyperlink{structgetlin__data}{getlin\_data} data;
+30 
+31     \textcolor{comment}{/* initilize dialog data */}
+32     ZeroMemory(&data, \textcolor{keyword}{sizeof}(data));
+33     data.question = \hyperlink{structgetlin__data_a5ae51373bc945ad0f57b44419c26b7a8}{question};
+34     data.result = \hyperlink{structgetlin__data_a30ab6084717e9691c3ecae6fbeac21b9}{result};
+35     data.result\_size = \hyperlink{structgetlin__data_a94955d5ee37e0a74dce5438809152c34}{result\_size};
+36 
+37     \textcolor{comment}{/* create modal dialog window */}
+38     ret = DialogBoxParam(
+39             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+40             MAKEINTRESOURCE(\hyperlink{sys_2wince_2resource_8h_a31f315296fc7426c1fe25eeb9f32552b}{IDD\_GETLIN}),
+41             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,
+42             \hyperlink{sys_2wince_2mhdlg_8c_a9653a6ffe3ddf03e6b036684d77177f7}{GetlinDlgProc},
+43             (LPARAM)&data
+44     );
+45     \textcolor{keywordflow}{if}( ret==-1 ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create getlin window"});
+46     
+47     \textcolor{keywordflow}{return} ret;
+48 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_abfa652ee4def0674368c65a2578121a5}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!mswin\+\_\+player\+\_\+selection\+\_\+window@{mswin\+\_\+player\+\_\+selection\+\_\+window}}
+\index{mswin\+\_\+player\+\_\+selection\+\_\+window@{mswin\+\_\+player\+\_\+selection\+\_\+window}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{mswin\+\_\+player\+\_\+selection\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}int mswin\+\_\+player\+\_\+selection\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{selection}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhdlg_8c_abfa652ee4def0674368c65a2578121a5}
+
+
+Definition at line 287 of file mhdlg.\+c.
+
+
+
+References Get\+N\+H\+App(), I\+D\+D\+\_\+\+P\+L\+A\+Y\+E\+R\+\_\+\+S\+E\+L\+E\+C\+T\+O\+R, panic(), Player\+Selector\+Dlg\+Proc(), and plsel\+\_\+data\+::selection.
+
+
+\begin{DoxyCode}
+288 \{
+289     \textcolor{keywordtype}{int} ret;
+290     \textcolor{keyword}{struct }\hyperlink{structplsel__data}{plsel\_data} data;
+291 
+292     \textcolor{comment}{/* init dialog data */}
+293     ZeroMemory(&data, \textcolor{keyword}{sizeof}(data));
+294     data.selection = \hyperlink{structplsel__data_a6300c44105a90c7875e99c2b65f56375}{selection};
+295 
+296     \textcolor{comment}{/* create modal dialog */}
+297     ret = DialogBoxParam(
+298             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+299             MAKEINTRESOURCE(\hyperlink{sys_2wince_2resource_8h_ad83e812e82862386563ba64c8977d561}{IDD\_PLAYER\_SELECTOR}),
+300             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,
+301             \hyperlink{sys_2wince_2mhdlg_8c_ab354857d5335d3e54cdb3d69c423b885}{PlayerSelectorDlgProc},
+302             (LPARAM)&data
+303     );
+304     \textcolor{keywordflow}{if}( ret==-1 ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create getlin window"});
+305     
+306     \textcolor{keywordflow}{return} ret;
+307 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_ab354857d5335d3e54cdb3d69c423b885}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!Player\+Selector\+Dlg\+Proc@{Player\+Selector\+Dlg\+Proc}}
+\index{Player\+Selector\+Dlg\+Proc@{Player\+Selector\+Dlg\+Proc}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{Player\+Selector\+Dlg\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}B\+O\+O\+L C\+A\+L\+L\+B\+A\+C\+K Player\+Selector\+Dlg\+Proc (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf U\+I\+N\+T}}]{message, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhdlg_8c_ab354857d5335d3e54cdb3d69c423b885}
+
+
+Definition at line 309 of file mhdlg.\+c.
+
+
+
+References F\+A\+L\+S\+E, Get\+N\+H\+App(), I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+A\+L\+I\+G\+N\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+A\+L\+I\+G\+N\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+G\+E\+N\+D\+E\+R\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+G\+E\+N\+D\+E\+R\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+A\+C\+E\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+A\+C\+E\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+O\+L\+E\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M, N\+H\+Message\+Box(), plsel\+Adjust\+Lists(), plsel\+Final\+Selection(), plsel\+Init\+Dialog(), plsel\+\_\+data\+::selection, S\+I\+Z\+E, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+310 \{
+311     \textcolor{keyword}{struct }\hyperlink{structplsel__data}{plsel\_data}* data;
+312     RECT   main\_rt, dlg\_rt;
+313     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}   dlg\_sz;
+314 
+315     \textcolor{keywordflow}{switch} (message) 
+316     \{
+317     \textcolor{keywordflow}{case} WM\_INITDIALOG:
+318         data = (\textcolor{keyword}{struct }\hyperlink{structplsel__data}{plsel\_data}*)lParam;
+319         SetWindowLong(hWnd, GWL\_USERDATA, lParam);
+320 
+321         \textcolor{comment}{/* center dialog in the main window */}
+322         GetWindowRect(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd, &main\_rt);
+323         GetWindowRect(hWnd, &dlg\_rt);
+324         dlg\_sz.cx = dlg\_rt.right - dlg\_rt.left;
+325         dlg\_sz.cy = dlg\_rt.bottom - dlg\_rt.top;
+326 
+327         dlg\_rt.left = (main\_rt.left+main\_rt.right-dlg\_sz.cx)/2;
+328         dlg\_rt.right = dlg\_rt.left + dlg\_sz.cx;
+329         dlg\_rt.top = (main\_rt.top+main\_rt.bottom-dlg\_sz.cy)/2;
+330         dlg\_rt.bottom = dlg\_rt.top + dlg\_sz.cy;
+331         MoveWindow( hWnd,
+332                     (main\_rt.left+main\_rt.right-dlg\_sz.cx)/2,
+333                     (main\_rt.top+main\_rt.bottom-dlg\_sz.cy)/2,
+334                     dlg\_sz.cx,
+335                     dlg\_sz.cy,
+336                     \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+337 
+338         \textcolor{comment}{/* init dialog */}
+339         \hyperlink{win_2win32_2mhdlg_8c_a5849334dfe6fa6669496bbabd7beba1b}{plselInitDialog}(hWnd);
+340 
+341         \textcolor{comment}{/* set focus on the role checkbox (random) field */}
+342         SetFocus(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_afdecee8a47b18e78f35f4ac40eb03ee3}{IDC\_PLSEL\_ROLE\_RANDOM}));
+343 
+344         \textcolor{comment}{/* tell windows we set the focus */}
+345         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+346     \textcolor{keywordflow}{break};
+347 
+348     \textcolor{keywordflow}{case} WM\_COMMAND:
+349         data = (\textcolor{keyword}{struct }\hyperlink{structplsel__data}{plsel\_data}*)GetWindowLong(hWnd, GWL\_USERDATA);
+350         \textcolor{keywordflow}{switch} (LOWORD(wParam)) \{ 
+351 
+352         \textcolor{comment}{/* OK button was clicked */}
+353         \textcolor{keywordflow}{case} IDOK:
+354             \textcolor{keywordflow}{if}( \hyperlink{win_2win32_2mhdlg_8c_a77b92c8b63aa0fda942b122f7a918003}{plselFinalSelection}(hWnd, data->\hyperlink{structplsel__data_a6300c44105a90c7875e99c2b65f56375}{selection}) ) \{
+355                 EndDialog(hWnd, wParam); 
+356             \} \textcolor{keywordflow}{else} \{
+357                 \hyperlink{win_2win32_2mswproc_8c_ac03a5403b48c971b659d5374d984a037}{NHMessageBox}(hWnd, TEXT(\textcolor{stringliteral}{"Cannot match this role. Try something else."}), 
+      MB\_ICONSTOP | MB\_OK );
+358             \}
+359         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+360 
+361         \textcolor{comment}{/* CANCEL button was clicked */}
+362         \textcolor{keywordflow}{case} IDCANCEL:
+363             *data->\hyperlink{structplsel__data_a6300c44105a90c7875e99c2b65f56375}{selection} = -1;
+364             EndDialog(hWnd, wParam); 
+365         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+366 
+367         \textcolor{comment}{/* following are events from dialog controls: }
+368 \textcolor{comment}{           "random" checkboxes send BN\_CLICKED messages;}
+369 \textcolor{comment}{           role/race/... combo-boxes send CBN\_SELENDOK }
+370 \textcolor{comment}{           if something was selected;}
+371 \textcolor{comment}{        */}
+372         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_afdecee8a47b18e78f35f4ac40eb03ee3}{IDC\_PLSEL\_ROLE\_RANDOM}:
+373             \textcolor{keywordflow}{if}( HIWORD(wParam)==BN\_CLICKED ) \{
+374                 \textcolor{comment}{/* enable corresponding list window if "random"}
+375 \textcolor{comment}{                   checkbox was "unchecked" */}
+376                 EnableWindow(
+377                     GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST}), 
+378                     SendMessage((HWND)lParam, BM\_GETCHECK, 0, 0)==BST\_UNCHECKED
+379                   );
+380             \}
+381         \textcolor{keywordflow}{break};
+382 
+383         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_ae06980e2147d26d2848720a1a0d9c60b}{IDC\_PLSEL\_RACE\_RANDOM}:
+384             \textcolor{keywordflow}{if}( HIWORD(wParam)==BN\_CLICKED ) \{
+385                 EnableWindow(
+386                     GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST}), 
+387                     SendMessage((HWND)lParam, BM\_GETCHECK, 0, 0)==BST\_UNCHECKED
+388                   );
+389             \}
+390         \textcolor{keywordflow}{break};
+391 
+392         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_aa983e3d3345e1d075793408e671e6314}{IDC\_PLSEL\_GENDER\_RANDOM}:
+393             \textcolor{keywordflow}{if}( HIWORD(wParam)==BN\_CLICKED ) \{
+394                 EnableWindow(
+395                     GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST}), 
+396                     SendMessage((HWND)lParam, BM\_GETCHECK, 0, 0)==BST\_UNCHECKED
+397                   );
+398             \}
+399         \textcolor{keywordflow}{break};
+400 
+401         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_ace047fa1a82ff9b066fb19c3198fc4c9}{IDC\_PLSEL\_ALIGN\_RANDOM}:
+402             \textcolor{keywordflow}{if}( HIWORD(wParam)==BN\_CLICKED ) \{
+403                 EnableWindow(
+404                     GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a485f9115f1cc924bd4f965da012f6969}{IDC\_PLSEL\_ALIGN\_LIST}), 
+405                     SendMessage((HWND)lParam, BM\_GETCHECK, 0, 0)==BST\_UNCHECKED
+406                   );
+407             \}
+408         \textcolor{keywordflow}{break};
+409 
+410         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST}:
+411             \textcolor{keywordflow}{if}( HIWORD(wParam)==CBN\_SELENDOK ) \{
+412                 \textcolor{comment}{/* filter out invalid options if }
+413 \textcolor{comment}{                   the selection was made */}
+414                 \hyperlink{win_2win32_2mhdlg_8c_a605937af4657a5d8fe751c8e72de53fe}{plselAdjustLists}( hWnd, LOWORD(wParam) );
+415             \}
+416         \textcolor{keywordflow}{break};
+417 
+418         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST}:
+419             \textcolor{keywordflow}{if}( HIWORD(wParam)==CBN\_SELENDOK ) \{
+420                 \hyperlink{win_2win32_2mhdlg_8c_a605937af4657a5d8fe751c8e72de53fe}{plselAdjustLists}( hWnd, LOWORD(wParam) );
+421             \}
+422         \textcolor{keywordflow}{break};
+423 
+424         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST}:
+425             \textcolor{keywordflow}{if}( HIWORD(wParam)==CBN\_SELENDOK ) \{
+426                 \hyperlink{win_2win32_2mhdlg_8c_a605937af4657a5d8fe751c8e72de53fe}{plselAdjustLists}( hWnd, LOWORD(wParam) );
+427             \}
+428         \textcolor{keywordflow}{break};
+429 
+430         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_a485f9115f1cc924bd4f965da012f6969}{IDC\_PLSEL\_ALIGN\_LIST}:
+431             \textcolor{keywordflow}{if}( HIWORD(wParam)==CBN\_SELENDOK ) \{
+432                 \hyperlink{win_2win32_2mhdlg_8c_a605937af4657a5d8fe751c8e72de53fe}{plselAdjustLists}( hWnd, LOWORD(wParam) );
+433             \}
+434         \textcolor{keywordflow}{break};
+435         \}
+436     \textcolor{keywordflow}{break};
+437     \}
+438     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+439 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_a605937af4657a5d8fe751c8e72de53fe}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!plsel\+Adjust\+Lists@{plsel\+Adjust\+Lists}}
+\index{plsel\+Adjust\+Lists@{plsel\+Adjust\+Lists}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{plsel\+Adjust\+Lists}]{\setlength{\rightskip}{0pt plus 5cm}void plsel\+Adjust\+Lists (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{int}]{changed\+\_\+opt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhdlg_8c_a605937af4657a5d8fe751c8e72de53fe}
+
+
+Definition at line 527 of file mhdlg.\+c.
+
+
+
+References aligns, Role\+Name\+::f, flag\+::female, flags, genders, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+A\+L\+I\+G\+N\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+G\+E\+N\+D\+E\+R\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+A\+C\+E\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+O\+L\+E\+\_\+\+L\+I\+S\+T, flag\+::initalign, flag\+::initgend, flag\+::initrace, flag\+::initrole, Role\+Name\+::m, Role\+::name, name, N\+H\+\_\+\+A2\+W, Race\+::noun, ok\+\_\+align(), ok\+\_\+gend(), ok\+\_\+race(), races, R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S, R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S, R\+O\+L\+E\+\_\+\+N\+O\+N\+E, and roles.
+
+
+
+Referenced by Player\+Selector\+Dlg\+Proc(), and plsel\+Init\+Dialog().
+
+
+\begin{DoxyCode}
+528 \{
+529     HWND control\_role, control\_race, control\_gender, control\_align;
+530     \textcolor{keywordtype}{int}  initrole, initrace, initgend, initalign;
+531     \textcolor{keywordtype}{int} i;
+532     \textcolor{keywordtype}{int} ind;
+533     \textcolor{keywordtype}{int} valid\_opt;
+534     TCHAR wbuf[255];
+535 
+536     \textcolor{comment}{/* get control handles */}
+537     control\_role = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST});
+538     control\_race = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST});
+539     control\_gender = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST});
+540     control\_align = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a485f9115f1cc924bd4f965da012f6969}{IDC\_PLSEL\_ALIGN\_LIST});
+541 
+542     \textcolor{comment}{/* get current selections */}    
+543     ind = SendMessage(control\_role, CB\_GETCURSEL, 0, 0);
+544     initrole = (ind==LB\_ERR)? \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} : SendMessage(control\_role, CB\_GETITEMDATA, ind, 
+      0);
+545 
+546     ind = SendMessage(control\_race, CB\_GETCURSEL, 0, 0);
+547     initrace = (ind==LB\_ERR)? \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} : SendMessage(control\_race, CB\_GETITEMDATA, ind, 
+      0);
+548 
+549     ind = SendMessage(control\_gender, CB\_GETCURSEL, 0, 0);
+550     initgend = (ind==LB\_ERR)? \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} : SendMessage(control\_gender, CB\_GETITEMDATA, ind
+      , 0);
+551 
+552     ind = SendMessage(control\_align, CB\_GETCURSEL, 0, 0);
+553     initalign = (ind==LB\_ERR)? \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} : SendMessage(control\_align, CB\_GETITEMDATA, 
+      ind, 0);
+554 
+555     \textcolor{comment}{/* intialize roles list */}
+556     \textcolor{keywordflow}{if}( changed\_sel==-1 ) \{
+557         valid\_opt = 0;
+558 
+559         \textcolor{comment}{/* reset content and populate the list */}
+560         SendMessage(control\_role, CB\_RESETCONTENT, 0, 0); 
+561         \textcolor{keywordflow}{for} (i = 0; \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a264d1ed0d4715edaaad295e8ab4c1002}{m}; i++) \{
+562             \textcolor{keywordflow}{if} (initgend>=0 && \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female} && \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.
+      \hyperlink{structRoleName_a9d8f4b8c99abfbf5ca40901e5dcc581a}{f})
+563                 ind = SendMessage(control\_role, CB\_ADDSTRING, (WPARAM)0, (LPARAM)
+      \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(\hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}.f, wbuf, \textcolor{keyword}{sizeof}(wbuf)) );
+564             \textcolor{keywordflow}{else} 
+565                 ind = SendMessage(control\_role, CB\_ADDSTRING, (WPARAM)0, (LPARAM)
+      \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(\hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}.m, wbuf, \textcolor{keyword}{sizeof}(wbuf)) );
+566 
+567             SendMessage(control\_role, CB\_SETITEMDATA, (WPARAM)ind, (LPARAM)i );
+568             \textcolor{keywordflow}{if}( i==initrole ) \{ 
+569                 SendMessage(control\_role, CB\_SETCURSEL, (WPARAM)ind, (LPARAM)0 );
+570                 valid\_opt = 1;
+571             \}
+572         \}
+573         
+574         \textcolor{comment}{/* set selection to the previously selected role}
+575 \textcolor{comment}{           if it is still valid */}
+576         \textcolor{keywordflow}{if}( !valid\_opt ) \{
+577             initrole = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+578             initrace = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+579             initgend = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+580             initalign = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+581             SendMessage(control\_role, CB\_SETCURSEL, (WPARAM)-1, (LPARAM)0 );
+582         \}
+583 
+584         \textcolor{comment}{/* trigger change of the races list */}
+585         changed\_sel=\hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST};
+586     \}
+587 
+588     \textcolor{comment}{/* intialize races list */}
+589     \textcolor{keywordflow}{if}( changed\_sel==\hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST} ) \{
+590         valid\_opt = 0;
+591 
+592         \textcolor{comment}{/* reset content and populate the list */}
+593         SendMessage(control\_race, CB\_RESETCONTENT, 0, 0); 
+594         \textcolor{keywordflow}{for} (i = 0; \hyperlink{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{races}[i].\hyperlink{structRace_a5a94ed91d36f9a470a6bb7c5b28dd8a2}{noun}; i++)
+595             \textcolor{keywordflow}{if} (\hyperlink{role_8c_a56d4f004e4333c757761926cdba6f86b}{ok\_race}(initrole, i, \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE}, \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE})) \{
+596                 ind = SendMessage(control\_race, CB\_ADDSTRING, (WPARAM)0, (LPARAM)
+      \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(\hyperlink{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{races}[i].noun, wbuf, \textcolor{keyword}{sizeof}(wbuf)) ); 
+597                 SendMessage(control\_race, CB\_SETITEMDATA, (WPARAM)ind, (LPARAM)i ); 
+598                 \textcolor{keywordflow}{if}( i==initrace ) \{ 
+599                     SendMessage(control\_race, CB\_SETCURSEL, (WPARAM)ind, (LPARAM)0 );
+600                     valid\_opt = 1;
+601                 \}
+602             \}
+603 
+604         \textcolor{comment}{/* set selection to the previously selected race}
+605 \textcolor{comment}{           if it is still valid */}
+606         \textcolor{keywordflow}{if}( !valid\_opt ) \{
+607             initrace = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+608             initgend = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+609             initalign = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+610             SendMessage(control\_race, CB\_SETCURSEL, (WPARAM)-1, (LPARAM)0 );
+611         \}
+612 
+613         \textcolor{comment}{/* trigger change of the genders list */}
+614         changed\_sel=\hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST};
+615     \}
+616 
+617     \textcolor{comment}{/* intialize genders list */}
+618     \textcolor{keywordflow}{if}( changed\_sel==\hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST} ) \{
+619         valid\_opt = 0;
+620 
+621         \textcolor{comment}{/* reset content and populate the list */}
+622         SendMessage(control\_gender, CB\_RESETCONTENT, 0, 0); 
+623         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{you_8h_a8b377306ace79d33d0b4b74dbd88b819}{ROLE\_GENDERS}; i++)
+624             \textcolor{keywordflow}{if} (\hyperlink{role_8c_adc510807e3362f828c9c14174f622e9b}{ok\_gend}(initrole, initrace, i, \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE})) \{
+625                 ind = SendMessage(control\_gender, CB\_ADDSTRING, (WPARAM)0, (LPARAM)
+      \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(\hyperlink{you_8h_a054315bd2a7d5525da7f008b40c3a6bf}{genders}[i].adj, wbuf, \textcolor{keyword}{sizeof}(wbuf)) ); 
+626                 SendMessage(control\_gender, CB\_SETITEMDATA, (WPARAM)ind, (LPARAM)i ); 
+627                 \textcolor{keywordflow}{if}( i==initgend ) \{ 
+628                     SendMessage(control\_gender, CB\_SETCURSEL, (WPARAM)ind, (LPARAM)0 );
+629                     valid\_opt = 1;
+630                 \}
+631             \}
+632 
+633         \textcolor{comment}{/* set selection to the previously selected gender}
+634 \textcolor{comment}{           if it is still valid */}
+635         \textcolor{keywordflow}{if}( !valid\_opt ) \{
+636             initgend = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+637             initalign = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+638             SendMessage(control\_gender, CB\_SETCURSEL, (WPARAM)-1, (LPARAM)0 );
+639         \}
+640 
+641         \textcolor{comment}{/* trigger change of the alignments list */}
+642         changed\_sel=\hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST};
+643     \}
+644 
+645     \textcolor{comment}{/* intialize alignments list */}
+646     \textcolor{keywordflow}{if}( changed\_sel==\hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST} ) \{
+647         valid\_opt = 0;
+648 
+649         \textcolor{comment}{/* reset content and populate the list */}
+650         SendMessage(control\_align, CB\_RESETCONTENT, 0, 0); 
+651         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{you_8h_a06accde00ac7683fc3293968cbc5e17a}{ROLE\_ALIGNS}; i++)
+652             \textcolor{keywordflow}{if} (\hyperlink{role_8c_adf8f18a510b62a0c8f43f9521e2b8cc5}{ok\_align}(initrole, initrace, initgend, i)) \{
+653                 ind = SendMessage(control\_align, CB\_ADDSTRING, (WPARAM)0, (LPARAM)
+      \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(\hyperlink{you_8h_abbb6c9f0c6fc7aa532b2ed8dec7ffb29}{aligns}[i].adj, wbuf, \textcolor{keyword}{sizeof}(wbuf)) ); 
+654                 SendMessage(control\_align, CB\_SETITEMDATA, (WPARAM)ind, (LPARAM)i ); 
+655                 \textcolor{keywordflow}{if}( i==initalign ) \{ 
+656                     SendMessage(control\_align, CB\_SETCURSEL, (WPARAM)ind, (LPARAM)0 );
+657                     valid\_opt = 1;
+658                 \}
+659             \}
+660 
+661         \textcolor{comment}{/* set selection to the previously selected alignment}
+662 \textcolor{comment}{           if it is still valid */}
+663         \textcolor{keywordflow}{if}( !valid\_opt ) \{
+664             initalign = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+665             SendMessage(control\_align, CB\_SETCURSEL, (WPARAM)-1, (LPARAM)0 );
+666         \}
+667     \}
+668 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_a77b92c8b63aa0fda942b122f7a918003}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!plsel\+Final\+Selection@{plsel\+Final\+Selection}}
+\index{plsel\+Final\+Selection@{plsel\+Final\+Selection}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{plsel\+Final\+Selection}]{\setlength{\rightskip}{0pt plus 5cm}int plsel\+Final\+Selection (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{int $\ast$}]{selection}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhdlg_8c_a77b92c8b63aa0fda942b122f7a918003}
+
+
+Definition at line 671 of file mhdlg.\+c.
+
+
+
+References F\+A\+L\+S\+E, flags, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+A\+L\+I\+G\+N\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+A\+L\+I\+G\+N\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+G\+E\+N\+D\+E\+R\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+G\+E\+N\+D\+E\+R\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+A\+C\+E\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+A\+C\+E\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+O\+L\+E\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M, flag\+::initalign, flag\+::initgend, flag\+::initrace, flag\+::initrole, N\+H\+Message\+Box(), pick\+\_\+align(), pick\+\_\+gend(), pick\+\_\+race(), P\+I\+C\+K\+\_\+\+R\+A\+N\+D\+O\+M, pick\+\_\+role(), R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M, T\+R\+U\+E, validalign(), validgend(), and validrace().
+
+
+
+Referenced by Player\+Selector\+Dlg\+Proc().
+
+
+\begin{DoxyCode}
+672 \{
+673     \textcolor{keywordtype}{int} ind;
+674 
+675     \textcolor{comment}{/* get current selections */}
+676     \textcolor{keywordflow}{if}( SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_afdecee8a47b18e78f35f4ac40eb03ee3}{IDC\_PLSEL\_ROLE\_RANDOM}, BM\_GETCHECK, 0, 0)==
+      BST\_CHECKED ) \{
+677         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM};
+678     \} \textcolor{keywordflow}{else} \{
+679         ind = SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST}, CB\_GETCURSEL, 0, 0);
+680         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = (ind==LB\_ERR)? \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM} : SendDlgItemMessage(hWnd, 
+      \hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST}, CB\_GETITEMDATA, ind, 0);
+681     \}
+682 
+683     \textcolor{keywordflow}{if}( SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_ae06980e2147d26d2848720a1a0d9c60b}{IDC\_PLSEL\_RACE\_RANDOM}, BM\_GETCHECK, 0, 0)==
+      BST\_CHECKED ) \{
+684         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM};
+685     \} \textcolor{keywordflow}{else} \{
+686         ind = SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST}, CB\_GETCURSEL, 0, 0);
+687         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = (ind==LB\_ERR)? \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM} : SendDlgItemMessage(hWnd, 
+      \hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST}, CB\_GETITEMDATA, ind, 0);
+688     \}
+689 
+690     \textcolor{keywordflow}{if}( SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_aa983e3d3345e1d075793408e671e6314}{IDC\_PLSEL\_GENDER\_RANDOM}, BM\_GETCHECK, 0, 0)==
+      BST\_CHECKED ) \{
+691         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} = \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM};
+692     \} \textcolor{keywordflow}{else} \{
+693         ind = SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST}, CB\_GETCURSEL, 0, 0);
+694         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} = (ind==LB\_ERR)? \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM} : SendDlgItemMessage(hWnd, 
+      \hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST}, CB\_GETITEMDATA, ind, 0);
+695     \}
+696 
+697     \textcolor{keywordflow}{if}( SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_ace047fa1a82ff9b066fb19c3198fc4c9}{IDC\_PLSEL\_ALIGN\_RANDOM}, BM\_GETCHECK, 0, 0)==
+      BST\_CHECKED ) \{
+698         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} = \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM};
+699     \} \textcolor{keywordflow}{else} \{
+700         ind = SendDlgItemMessage(hWnd, \hyperlink{sys_2wince_2resource_8h_a485f9115f1cc924bd4f965da012f6969}{IDC\_PLSEL\_ALIGN\_LIST}, CB\_GETCURSEL, 0, 0);
+701         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} = (ind==LB\_ERR)? \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM} : SendDlgItemMessage(hWnd, 
+      \hyperlink{sys_2wince_2resource_8h_a485f9115f1cc924bd4f965da012f6969}{IDC\_PLSEL\_ALIGN\_LIST}, CB\_GETITEMDATA, ind, 0);
+702     \}
+703     
+704 
+705     \textcolor{comment}{/* check the role */}
+706     \textcolor{keywordflow}{if}( \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}==\hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM} ) \{
+707         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = \hyperlink{role_8c_a45a06501725a029f2a6d153cc0018cef}{pick\_role}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign}, \hyperlink{hack_8h_ad866a8283b1279be18b8066faa764467}{PICK\_RANDOM});
+708         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} < 0) \{
+709             \hyperlink{win_2win32_2mswproc_8c_ac03a5403b48c971b659d5374d984a037}{NHMessageBox}(hWnd, TEXT(\textcolor{stringliteral}{"Incompatible role!"}), MB\_ICONSTOP | MB\_OK);
+710             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+711         \}
+712     \}
+713 
+714     \textcolor{comment}{/* Select a race, if necessary */}
+715     \textcolor{comment}{/* force compatibility with role */}
+716     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}==\hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM} || !\hyperlink{role_8c_a648c22cd7c57851ea871247be474763b}{validrace}(
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace})) \{
+717         \textcolor{comment}{/* pre-selected race not valid */}
+718         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} == \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM}) \{
+719             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = \hyperlink{role_8c_aa6df5e095937cd04b595a860f324c3b6}{pick\_race}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign}, \hyperlink{hack_8h_ad866a8283b1279be18b8066faa764467}{PICK\_RANDOM});
+720         \}
+721         
+722         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} < 0) \{
+723             \hyperlink{win_2win32_2mswproc_8c_ac03a5403b48c971b659d5374d984a037}{NHMessageBox}(hWnd, TEXT(\textcolor{stringliteral}{"Incompatible race!"}), MB\_ICONSTOP | MB\_OK);
+724             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+725         \}
+726     \}
+727 
+728     \textcolor{comment}{/* Select a gender, if necessary */}
+729     \textcolor{comment}{/* force compatibility with role/race, try for compatibility with}
+730 \textcolor{comment}{     * pre-selected alignment */}
+731     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} < 0 || 
+732         !\hyperlink{role_8c_a2205e818d885f836907a6cf7ffa869de}{validgend}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend})) \{
+733         \textcolor{comment}{/* pre-selected gender not valid */}
+734         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} == \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM}) \{
+735             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} = \hyperlink{role_8c_a183d9c61e1fe467eb71ae8a4215c2b32}{pick\_gend}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign}, \hyperlink{hack_8h_ad866a8283b1279be18b8066faa764467}{PICK\_RANDOM});
+736         \}
+737         
+738         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} < 0) \{
+739             \hyperlink{win_2win32_2mswproc_8c_ac03a5403b48c971b659d5374d984a037}{NHMessageBox}(hWnd, TEXT(\textcolor{stringliteral}{"Incompatible gender!"}), MB\_ICONSTOP | MB\_OK);
+740             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+741         \}
+742     \}
+743 
+744     \textcolor{comment}{/* Select an alignment, if necessary */}
+745     \textcolor{comment}{/* force compatibility with role/race/gender */}
+746     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} < 0 || 
+747         !\hyperlink{role_8c_ab01f2c791fe250b69c15c02535bca8b0}{validalign}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign})) \{
+748         \textcolor{comment}{/* pre-selected alignment not valid */}
+749         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} == \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM}) \{
+750             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} = \hyperlink{role_8c_a9697cef7cfa173a40d57e0626fed19c5}{pick\_align}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.
+      \hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend}, 
+      \hyperlink{hack_8h_ad866a8283b1279be18b8066faa764467}{PICK\_RANDOM});
+751         \} \textcolor{keywordflow}{else} \{
+752             \hyperlink{win_2win32_2mswproc_8c_ac03a5403b48c971b659d5374d984a037}{NHMessageBox}(hWnd, TEXT(\textcolor{stringliteral}{"Incompatible alignment!"}), MB\_ICONSTOP | MB\_OK);
+753             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+754         \}
+755     \}
+756 
+757     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+758 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_a5849334dfe6fa6669496bbabd7beba1b}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!plsel\+Init\+Dialog@{plsel\+Init\+Dialog}}
+\index{plsel\+Init\+Dialog@{plsel\+Init\+Dialog}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{plsel\+Init\+Dialog}]{\setlength{\rightskip}{0pt plus 5cm}void plsel\+Init\+Dialog (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhdlg_8c_a5849334dfe6fa6669496bbabd7beba1b}
+
+
+Definition at line 456 of file mhdlg.\+c.
+
+
+
+References B\+U\+F\+S\+Z, Check\+Dlg\+Button, F\+A\+L\+S\+E, flags, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+A\+L\+I\+G\+N\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+A\+L\+I\+G\+N\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+G\+E\+N\+D\+E\+R\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+G\+E\+N\+D\+E\+R\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+N\+A\+M\+E, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+A\+C\+E\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+A\+C\+E\+\_\+\+R\+A\+N\+D\+O\+M, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+O\+L\+E\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+P\+L\+S\+E\+L\+\_\+\+R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M, flag\+::initalign, flag\+::initgend, flag\+::initrace, flag\+::initrole, N\+H\+\_\+\+A2\+W, ok\+\_\+align(), ok\+\_\+gend(), ok\+\_\+race(), ok\+\_\+role(), plname, plsel\+Adjust\+Lists(), R\+O\+L\+E\+\_\+\+N\+O\+N\+E, set\+Combo\+Box\+Value(), T\+R\+U\+E, validalign(), validgend(), and validrace().
+
+
+
+Referenced by Player\+Selector\+Dlg\+Proc().
+
+
+\begin{DoxyCode}
+457 \{
+458     TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+459 
+460     \textcolor{comment}{/* set player name */}
+461     SetDlgItemText(hWnd, \hyperlink{sys_2wince_2resource_8h_ade49a3637a7472636890af25b50ee008}{IDC\_PLSEL\_NAME}, \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, wbuf, \textcolor{keyword}{sizeof}(wbuf)));
+462 
+463     \textcolor{comment}{/* check flags for consistency */}
+464     \textcolor{keywordflow}{if}( \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}>=0 ) \{
+465         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}>=0 && !\hyperlink{role_8c_a648c22cd7c57851ea871247be474763b}{validrace}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.
+      \hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace})) \{
+466             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+467         \}
+468 
+469         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend}>=0 && !\hyperlink{role_8c_a2205e818d885f836907a6cf7ffa869de}{validgend}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.
+      \hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend})) \{
+470             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+471         \}
+472 
+473         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign}>=0 && !\hyperlink{role_8c_ab01f2c791fe250b69c15c02535bca8b0}{validalign}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.
+      \hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign})) \{
+474             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} = \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE};
+475         \}
+476     \}
+477 
+478     \textcolor{comment}{/* populate select boxes */}
+479     \hyperlink{win_2win32_2mhdlg_8c_a605937af4657a5d8fe751c8e72de53fe}{plselAdjustLists}(hWnd, -1);
+480 
+481     \textcolor{comment}{/* intialize roles list */}
+482     \textcolor{keywordflow}{if}( \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}<0 || !\hyperlink{role_8c_a318d1e9bf43d8ea42709dc462487d4e2}{ok\_role}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, 
+      \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE}, \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE}, \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE})) \{
+483         \hyperlink{sys_2wince_2mhdlg_8c_a4d1bdfade06602b90d50cbdbdb45ee10}{CheckDlgButton}(hWnd, \hyperlink{sys_2wince_2resource_8h_afdecee8a47b18e78f35f4ac40eb03ee3}{IDC\_PLSEL\_ROLE\_RANDOM}, BST\_CHECKED);
+484         EnableWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST}), 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+485     \} \textcolor{keywordflow}{else} \{
+486         \hyperlink{sys_2wince_2mhdlg_8c_a4d1bdfade06602b90d50cbdbdb45ee10}{CheckDlgButton}(hWnd, \hyperlink{sys_2wince_2resource_8h_afdecee8a47b18e78f35f4ac40eb03ee3}{IDC\_PLSEL\_ROLE\_RANDOM}, BST\_UNCHECKED);
+487         EnableWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST}), 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+488         \hyperlink{sys_2wince_2mhdlg_8c_a0772aa991694d1e706a0d7f1e8852567}{setComboBoxValue}(hWnd, \hyperlink{sys_2wince_2resource_8h_afb0c36d55b3554ef6e5dcec741275c95}{IDC\_PLSEL\_ROLE\_LIST}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole});
+489     \}
+490 
+491     \textcolor{comment}{/* intialize races list */}
+492     \textcolor{keywordflow}{if}( \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}<0 || !\hyperlink{role_8c_a56d4f004e4333c757761926cdba6f86b}{ok\_race}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE}, \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE}) ) \{
+493         \hyperlink{sys_2wince_2mhdlg_8c_a4d1bdfade06602b90d50cbdbdb45ee10}{CheckDlgButton}(hWnd, \hyperlink{sys_2wince_2resource_8h_ae06980e2147d26d2848720a1a0d9c60b}{IDC\_PLSEL\_RACE\_RANDOM}, BST\_CHECKED);
+494         EnableWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST}), 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+495     \} \textcolor{keywordflow}{else} \{
+496         \hyperlink{sys_2wince_2mhdlg_8c_a4d1bdfade06602b90d50cbdbdb45ee10}{CheckDlgButton}(hWnd, \hyperlink{sys_2wince_2resource_8h_ae06980e2147d26d2848720a1a0d9c60b}{IDC\_PLSEL\_RACE\_RANDOM}, BST\_UNCHECKED);
+497         EnableWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST}), 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+498         \hyperlink{sys_2wince_2mhdlg_8c_a0772aa991694d1e706a0d7f1e8852567}{setComboBoxValue}(hWnd, \hyperlink{sys_2wince_2resource_8h_a53527a80890132904783781fcaaf7d04}{IDC\_PLSEL\_RACE\_LIST}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace});
+499     \}
+500 
+501     \textcolor{comment}{/* intialize genders list */}
+502     \textcolor{keywordflow}{if}( \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend}<0 || !\hyperlink{role_8c_adc510807e3362f828c9c14174f622e9b}{ok\_gend}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend}, \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE})) \{
+503         \hyperlink{sys_2wince_2mhdlg_8c_a4d1bdfade06602b90d50cbdbdb45ee10}{CheckDlgButton}(hWnd, \hyperlink{sys_2wince_2resource_8h_aa983e3d3345e1d075793408e671e6314}{IDC\_PLSEL\_GENDER\_RANDOM}, BST\_CHECKED);
+504         EnableWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST}), 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+505     \} \textcolor{keywordflow}{else} \{
+506         \hyperlink{sys_2wince_2mhdlg_8c_a4d1bdfade06602b90d50cbdbdb45ee10}{CheckDlgButton}(hWnd, \hyperlink{sys_2wince_2resource_8h_aa983e3d3345e1d075793408e671e6314}{IDC\_PLSEL\_GENDER\_RANDOM}, BST\_UNCHECKED);
+507         EnableWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST}), 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+508         \hyperlink{sys_2wince_2mhdlg_8c_a0772aa991694d1e706a0d7f1e8852567}{setComboBoxValue}(hWnd, \hyperlink{sys_2wince_2resource_8h_abc228aa8ac35a561e1333f028027a45c}{IDC\_PLSEL\_GENDER\_LIST}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend});
+509     \}
+510 
+511     \textcolor{comment}{/* intialize alignments list */}
+512     \textcolor{keywordflow}{if}( \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign}<0 || !\hyperlink{role_8c_adf8f18a510b62a0c8f43f9521e2b8cc5}{ok\_align}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend}, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign}) ) \{
+513         \hyperlink{sys_2wince_2mhdlg_8c_a4d1bdfade06602b90d50cbdbdb45ee10}{CheckDlgButton}(hWnd, \hyperlink{sys_2wince_2resource_8h_ace047fa1a82ff9b066fb19c3198fc4c9}{IDC\_PLSEL\_ALIGN\_RANDOM}, BST\_CHECKED);
+514         EnableWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a485f9115f1cc924bd4f965da012f6969}{IDC\_PLSEL\_ALIGN\_LIST}), 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+515     \} \textcolor{keywordflow}{else} \{
+516         \hyperlink{sys_2wince_2mhdlg_8c_a4d1bdfade06602b90d50cbdbdb45ee10}{CheckDlgButton}(hWnd, \hyperlink{sys_2wince_2resource_8h_ace047fa1a82ff9b066fb19c3198fc4c9}{IDC\_PLSEL\_ALIGN\_RANDOM}, BST\_UNCHECKED);
+517         EnableWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a485f9115f1cc924bd4f965da012f6969}{IDC\_PLSEL\_ALIGN\_LIST}), 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+518         \hyperlink{sys_2wince_2mhdlg_8c_a0772aa991694d1e706a0d7f1e8852567}{setComboBoxValue}(hWnd, \hyperlink{sys_2wince_2resource_8h_a485f9115f1cc924bd4f965da012f6969}{IDC\_PLSEL\_ALIGN\_LIST}, 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign});
+519     \}
+520 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhdlg_8c_a0772aa991694d1e706a0d7f1e8852567}{\index{win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}!set\+Combo\+Box\+Value@{set\+Combo\+Box\+Value}}
+\index{set\+Combo\+Box\+Value@{set\+Combo\+Box\+Value}!win/win32/mhdlg.\+c@{win/win32/mhdlg.\+c}}
+\subsubsection[{set\+Combo\+Box\+Value}]{\setlength{\rightskip}{0pt plus 5cm}void set\+Combo\+Box\+Value (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{int}]{combo\+\_\+box, }
+\item[{int}]{value}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhdlg_8c_a0772aa991694d1e706a0d7f1e8852567}
+
+
+Definition at line 441 of file mhdlg.\+c.
+
+
+
+References index().
+
+
+\begin{DoxyCode}
+442 \{
+443     \textcolor{keywordtype}{int} index\_max = SendDlgItemMessage(hWnd, combo\_box, CB\_GETCOUNT, 0, 0);
+444     \textcolor{keywordtype}{int} \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index};
+445     \textcolor{keywordtype}{int} value\_to\_set = LB\_ERR;
+446     \textcolor{keywordflow}{for} (index = 0; index < index\_max; index++) \{
+447         \textcolor{keywordflow}{if} (SendDlgItemMessage(hWnd, combo\_box, CB\_GETITEMDATA, (WPARAM)index, 0) == value) \{
+448         value\_to\_set = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index};
+449         \textcolor{keywordflow}{break};
+450         \}
+451     \}
+452     SendDlgItemMessage(hWnd, combo\_box, CB\_SETCURSEL, (WPARAM)value\_to\_set, 0);
+453 \}
+\end{DoxyCode}

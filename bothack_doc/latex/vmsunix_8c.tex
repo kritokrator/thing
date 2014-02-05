@@ -1,0 +1,657 @@
+\hypertarget{vmsunix_8c}{\section{nethack/sys/vms/vmsunix.c File Reference}
+\label{vmsunix_8c}\index{nethack/sys/vms/vmsunix.\+c@{nethack/sys/vms/vmsunix.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$descrip.\+h$>$}\\*
+{\ttfamily \#include $<$dvidef.\+h$>$}\\*
+{\ttfamily \#include $<$jpidef.\+h$>$}\\*
+{\ttfamily \#include $<$ssdef.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$stat.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$lnmdef.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{vmsunix_8c_ad988592bdd4fffff448195f8a041fc92}{umask}~hide\+\_\+umask\+\_\+dummy /$\ast$ \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{D\+E\+C} C\+: avoid conflict with system.\+h $\ast$/
+\item 
+\#define \hyperlink{vmsunix_8c_a48ea266d94b89f45f4a28763250adf15}{vms\+\_\+ok}(sts)~((sts) \& 1) /$\ast$ odd =$>$ success $\ast$/
+\item 
+\#define \hyperlink{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{F\+A\+B}~\$C\+\_\+\+S\+T\+M\+L\+F 5
+\item 
+\#define \hyperlink{vmsunix_8c_a0205bce80db0224c4e778a6bdcc5a381}{E\+N\+V\+S\+I\+Z}~L\+N\+M\$\+C\+\_\+\+N\+A\+M\+L\+E\+N\+G\+T\+H  /$\ast$255$\ast$/
+\item 
+\#define \hyperlink{vmsunix_8c_af0e651f7dd82793becdbb474c3d608bd}{E\+N\+V\+\_\+\+U\+S\+R}~0	/$\ast$ user-\/mode $\ast$/
+\item 
+\#define \hyperlink{vmsunix_8c_afc48959c56cbc33f96f6caac93f86cce}{E\+N\+V\+\_\+\+S\+U\+P}~1	/$\ast$ supervisor-\/mode $\ast$/
+\item 
+\#define \hyperlink{vmsunix_8c_a9ce01db1a2870a45622b3e4778bbfe05}{E\+N\+V\+\_\+\+J\+O\+B}~2	/$\ast$ job-\/wide entry $\ast$/
+\item 
+\#define \hyperlink{vmsunix_8c_a55934030ff103f7b2b0fdad768a70dcd}{G\+N\+U\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+E\+R\+M\+C\+A\+P}~\char`\"{}emacs\+\_\+library\+:\mbox{[}etc\mbox{]}termcap.\+dat\char`\"{}
+\item 
+\#define \hyperlink{vmsunix_8c_a2a3213c32ed907236e414a5c6ec94758}{N\+E\+T\+H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P}~\char`\"{}nethackdir\+:termcap\char`\"{}
+\item 
+\#define \hyperlink{vmsunix_8c_ae1fef3c418fae30024a9bf040613e950}{H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P}~\char`\"{}hackdir\+:termcap\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned long sys \hyperlink{vmsunix_8c_a3d3da45f39124bc0ecda2d30ef118252}{\$setprv} ()
+\item 
+unsigned long lib \hyperlink{vmsunix_8c_a587e6a9ec62e866b5f640ead1d26121f}{\$getdvi} ()
+\item 
+unsigned long lib lib \hyperlink{vmsunix_8c_a97cdad777345ade29ea5f1639fd66013}{\$getjpi} ()
+\item 
+unsigned long lib lib lib \hyperlink{vmsunix_8c_a5f7944245dd0a0a3e7602354de41b1f5}{\$spawn} ()
+\item 
+unsigned long lib lib lib lib \hyperlink{vmsunix_8c_a1995931c83140a87a415b95800f0bc0a}{\$attach} ()
+\item 
+unsigned long smg \hyperlink{vmsunix_8c_a803ae95665360faaa7d997fc0f2990c8}{\$init\+\_\+term\+\_\+table\+\_\+by\+\_\+type} ()
+\item 
+unsigned long smg smg \hyperlink{vmsunix_8c_a810eb319042aa74e33c56d4b71bad6ff}{\$del\+\_\+term\+\_\+table} ()
+\item 
+static int \hyperlink{vmsunix_8c_a5da5b0fb800db7e9f7b091ba4fba5a42}{F\+D\+E\+C\+L} (\hyperlink{vmsunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}{veryold},(int))
+\item 
+static char $\ast$ \hyperlink{vmsunix_8c_af5cc5c452785e49da861c300dae68ac5}{N\+D\+E\+C\+L} (\hyperlink{vmsunix_8c_a867570e3ef4333f2a914e8a67ca9fd82}{verify\+\_\+term})
+\item 
+static int \hyperlink{vmsunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}{veryold} (int fd)
+\item 
+void \hyperlink{vmsunix_8c_a26fa619107ec2ebabf6ffe345da1fcc4}{getlock} ()
+\item 
+void \hyperlink{vmsunix_8c_a8937ede58517f812b44a36c286f504b4}{regularize} (char $\ast$s)
+\item 
+int \hyperlink{vmsunix_8c_a7e3aeb970a5f5fa07df2e3f3ba61beab}{vms\+\_\+getuid} ()
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{vmsunix_8c_a15313580cf658fe5681d2f0e7b55c2cf}{file\+\_\+is\+\_\+stmlf} (int fd)
+\item 
+int \hyperlink{vmsunix_8c_a6a5283749e0c3d55994406e22065f048}{vms\+\_\+define} (char $\ast$\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$value, int \hyperlink{structflag}{flag}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+int \hyperlink{vmsunix_8c_a65334ef759d9e46baad9c4925a5673e8}{vms\+\_\+putenv} (char $\ast$string) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+static char $\ast$ \hyperlink{vmsunix_8c_a867570e3ef4333f2a914e8a67ca9fd82}{verify\+\_\+term} ()
+\item 
+char $\ast$ \hyperlink{vmsunix_8c_a9865821e39a8bb0fb53aa3e7b98d57e8}{verify\+\_\+termcap} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{vmsunix_8c_a9ce01db1a2870a45622b3e4778bbfe05}{\index{vmsunix.\+c@{vmsunix.\+c}!E\+N\+V\+\_\+\+J\+O\+B@{E\+N\+V\+\_\+\+J\+O\+B}}
+\index{E\+N\+V\+\_\+\+J\+O\+B@{E\+N\+V\+\_\+\+J\+O\+B}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{E\+N\+V\+\_\+\+J\+O\+B}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+N\+V\+\_\+\+J\+O\+B~2	/$\ast$ job-\/wide entry $\ast$/}}\label{vmsunix_8c_a9ce01db1a2870a45622b3e4778bbfe05}
+
+
+Definition at line 183 of file vmsunix.\+c.
+
+
+
+Referenced by vms\+\_\+define().
+
+\hypertarget{vmsunix_8c_afc48959c56cbc33f96f6caac93f86cce}{\index{vmsunix.\+c@{vmsunix.\+c}!E\+N\+V\+\_\+\+S\+U\+P@{E\+N\+V\+\_\+\+S\+U\+P}}
+\index{E\+N\+V\+\_\+\+S\+U\+P@{E\+N\+V\+\_\+\+S\+U\+P}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{E\+N\+V\+\_\+\+S\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+N\+V\+\_\+\+S\+U\+P~1	/$\ast$ supervisor-\/mode $\ast$/}}\label{vmsunix_8c_afc48959c56cbc33f96f6caac93f86cce}
+
+
+Definition at line 182 of file vmsunix.\+c.
+
+
+
+Referenced by vms\+\_\+define().
+
+\hypertarget{vmsunix_8c_af0e651f7dd82793becdbb474c3d608bd}{\index{vmsunix.\+c@{vmsunix.\+c}!E\+N\+V\+\_\+\+U\+S\+R@{E\+N\+V\+\_\+\+U\+S\+R}}
+\index{E\+N\+V\+\_\+\+U\+S\+R@{E\+N\+V\+\_\+\+U\+S\+R}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{E\+N\+V\+\_\+\+U\+S\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+N\+V\+\_\+\+U\+S\+R~0	/$\ast$ user-\/mode $\ast$/}}\label{vmsunix_8c_af0e651f7dd82793becdbb474c3d608bd}
+
+
+Definition at line 181 of file vmsunix.\+c.
+
+
+
+Referenced by verify\+\_\+termcap(), vms\+\_\+define(), and vms\+\_\+putenv().
+
+\hypertarget{vmsunix_8c_a0205bce80db0224c4e778a6bdcc5a381}{\index{vmsunix.\+c@{vmsunix.\+c}!E\+N\+V\+S\+I\+Z@{E\+N\+V\+S\+I\+Z}}
+\index{E\+N\+V\+S\+I\+Z@{E\+N\+V\+S\+I\+Z}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{E\+N\+V\+S\+I\+Z}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+N\+V\+S\+I\+Z~L\+N\+M\$\+C\+\_\+\+N\+A\+M\+L\+E\+N\+G\+T\+H  /$\ast$255$\ast$/}}\label{vmsunix_8c_a0205bce80db0224c4e778a6bdcc5a381}
+
+
+Definition at line 179 of file vmsunix.\+c.
+
+
+
+Referenced by vms\+\_\+putenv().
+
+\hypertarget{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{\index{vmsunix.\+c@{vmsunix.\+c}!F\+A\+B@{F\+A\+B}}
+\index{F\+A\+B@{F\+A\+B}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{F\+A\+B}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+A\+B~\$C\+\_\+\+S\+T\+M\+L\+F 5}}\label{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}
+
+
+Definition at line 155 of file vmsunix.\+c.
+
+
+
+Referenced by file\+\_\+is\+\_\+stmlf(), same\+\_\+dir(), vms\+\_\+link(), and vms\+\_\+unlink().
+
+\hypertarget{vmsunix_8c_a55934030ff103f7b2b0fdad768a70dcd}{\index{vmsunix.\+c@{vmsunix.\+c}!G\+N\+U\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+E\+R\+M\+C\+A\+P@{G\+N\+U\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+E\+R\+M\+C\+A\+P}}
+\index{G\+N\+U\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+E\+R\+M\+C\+A\+P@{G\+N\+U\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+E\+R\+M\+C\+A\+P}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{G\+N\+U\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+E\+R\+M\+C\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+N\+U\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+E\+R\+M\+C\+A\+P~\char`\"{}emacs\+\_\+library\+:\mbox{[}etc\mbox{]}termcap.\+dat\char`\"{}}}\label{vmsunix_8c_a55934030ff103f7b2b0fdad768a70dcd}
+
+
+Definition at line 286 of file vmsunix.\+c.
+
+
+
+Referenced by verify\+\_\+termcap().
+
+\hypertarget{vmsunix_8c_ae1fef3c418fae30024a9bf040613e950}{\index{vmsunix.\+c@{vmsunix.\+c}!H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P@{H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P}}
+\index{H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P@{H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P~\char`\"{}hackdir\+:termcap\char`\"{}}}\label{vmsunix_8c_ae1fef3c418fae30024a9bf040613e950}
+
+
+Definition at line 288 of file vmsunix.\+c.
+
+
+
+Referenced by verify\+\_\+termcap().
+
+\hypertarget{vmsunix_8c_a2a3213c32ed907236e414a5c6ec94758}{\index{vmsunix.\+c@{vmsunix.\+c}!N\+E\+T\+H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P@{N\+E\+T\+H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P}}
+\index{N\+E\+T\+H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P@{N\+E\+T\+H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{N\+E\+T\+H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+E\+T\+H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P~\char`\"{}nethackdir\+:termcap\char`\"{}}}\label{vmsunix_8c_a2a3213c32ed907236e414a5c6ec94758}
+
+
+Definition at line 287 of file vmsunix.\+c.
+
+
+
+Referenced by verify\+\_\+termcap().
+
+\hypertarget{vmsunix_8c_ad988592bdd4fffff448195f8a041fc92}{\index{vmsunix.\+c@{vmsunix.\+c}!umask@{umask}}
+\index{umask@{umask}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{umask}]{\setlength{\rightskip}{0pt plus 5cm}\#define umask~hide\+\_\+umask\+\_\+dummy /$\ast$ {\bf D\+E\+C} C\+: avoid conflict with system.\+h $\ast$/}}\label{vmsunix_8c_ad988592bdd4fffff448195f8a041fc92}
+
+
+Definition at line 19 of file vmsunix.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{vmsunix_8c_a48ea266d94b89f45f4a28763250adf15}{\index{vmsunix.\+c@{vmsunix.\+c}!vms\+\_\+ok@{vms\+\_\+ok}}
+\index{vms\+\_\+ok@{vms\+\_\+ok}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{vms\+\_\+ok}]{\setlength{\rightskip}{0pt plus 5cm}\#define vms\+\_\+ok(
+\begin{DoxyParamCaption}
+\item[{}]{sts}
+\end{DoxyParamCaption}
+)~((sts) \& 1) /$\ast$ odd =$>$ success $\ast$/}}\label{vmsunix_8c_a48ea266d94b89f45f4a28763250adf15}
+
+
+Definition at line 28 of file vmsunix.\+c.
+
+
+
+Referenced by verify\+\_\+term(), and veryold().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{vmsunix_8c_a1995931c83140a87a415b95800f0bc0a}{\index{vmsunix.\+c@{vmsunix.\+c}!\$attach@{\$attach}}
+\index{\$attach@{\$attach}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{\$attach}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long lib lib lib lib \$attach (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a1995931c83140a87a415b95800f0bc0a}
+\hypertarget{vmsunix_8c_a810eb319042aa74e33c56d4b71bad6ff}{\index{vmsunix.\+c@{vmsunix.\+c}!\$del\+\_\+term\+\_\+table@{\$del\+\_\+term\+\_\+table}}
+\index{\$del\+\_\+term\+\_\+table@{\$del\+\_\+term\+\_\+table}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{\$del\+\_\+term\+\_\+table}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long smg smg \$del\+\_\+term\+\_\+table (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a810eb319042aa74e33c56d4b71bad6ff}
+\hypertarget{vmsunix_8c_a587e6a9ec62e866b5f640ead1d26121f}{\index{vmsunix.\+c@{vmsunix.\+c}!\$getdvi@{\$getdvi}}
+\index{\$getdvi@{\$getdvi}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{\$getdvi}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long lib \$getdvi (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a587e6a9ec62e866b5f640ead1d26121f}
+
+
+Referenced by verify\+\_\+term().
+
+\hypertarget{vmsunix_8c_a97cdad777345ade29ea5f1639fd66013}{\index{vmsunix.\+c@{vmsunix.\+c}!\$getjpi@{\$getjpi}}
+\index{\$getjpi@{\$getjpi}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{\$getjpi}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long lib lib \$getjpi (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a97cdad777345ade29ea5f1639fd66013}
+
+
+Referenced by veryold().
+
+\hypertarget{vmsunix_8c_a803ae95665360faaa7d997fc0f2990c8}{\index{vmsunix.\+c@{vmsunix.\+c}!\$init\+\_\+term\+\_\+table\+\_\+by\+\_\+type@{\$init\+\_\+term\+\_\+table\+\_\+by\+\_\+type}}
+\index{\$init\+\_\+term\+\_\+table\+\_\+by\+\_\+type@{\$init\+\_\+term\+\_\+table\+\_\+by\+\_\+type}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{\$init\+\_\+term\+\_\+table\+\_\+by\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long smg \$init\+\_\+term\+\_\+table\+\_\+by\+\_\+type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a803ae95665360faaa7d997fc0f2990c8}
+
+
+Referenced by verify\+\_\+term().
+
+\hypertarget{vmsunix_8c_a3d3da45f39124bc0ecda2d30ef118252}{\index{vmsunix.\+c@{vmsunix.\+c}!\$setprv@{\$setprv}}
+\index{\$setprv@{\$setprv}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{\$setprv}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long sys \$setprv (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a3d3da45f39124bc0ecda2d30ef118252}
+\hypertarget{vmsunix_8c_a5f7944245dd0a0a3e7602354de41b1f5}{\index{vmsunix.\+c@{vmsunix.\+c}!\$spawn@{\$spawn}}
+\index{\$spawn@{\$spawn}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{\$spawn}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long lib lib lib \$spawn (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a5f7944245dd0a0a3e7602354de41b1f5}
+\hypertarget{vmsunix_8c_a5da5b0fb800db7e9f7b091ba4fba5a42}{\index{vmsunix.\+c@{vmsunix.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf veryold}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vmsunix_8c_a5da5b0fb800db7e9f7b091ba4fba5a42}
+\hypertarget{vmsunix_8c_a15313580cf658fe5681d2f0e7b55c2cf}{\index{vmsunix.\+c@{vmsunix.\+c}!file\+\_\+is\+\_\+stmlf@{file\+\_\+is\+\_\+stmlf}}
+\index{file\+\_\+is\+\_\+stmlf@{file\+\_\+is\+\_\+stmlf}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{file\+\_\+is\+\_\+stmlf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} file\+\_\+is\+\_\+stmlf (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a15313580cf658fe5681d2f0e7b55c2cf}
+
+
+Definition at line 159 of file vmsunix.\+c.
+
+
+
+References F\+A\+B, and F\+A\+L\+S\+E.
+
+
+
+Referenced by check\+\_\+recordfile().
+
+
+\begin{DoxyCode}
+161 \{
+162     \textcolor{keywordtype}{int} rfm;
+163     \textcolor{keyword}{struct }stat \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+164 
+165     \textcolor{keywordflow}{if} (fstat(fd, &\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf})) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};  \textcolor{comment}{/* cannot get status? */}
+166 
+167 \textcolor{preprocessor}{#ifdef stat\_alignment\_fix   }\textcolor{comment}{/* gcc-vms alignment kludge */}\textcolor{preprocessor}{}
+168     rfm = stat\_alignment\_fix(&\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf})->st\_fab\_rfm;
+169 \textcolor{preprocessor}{#else}
+170     rfm = \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}.st\_fab\_rfm;
+171 \textcolor{preprocessor}{#endif}
+172     \textcolor{keywordflow}{return} rfm == \hyperlink{vmsunix_8c_a2d2213226854c698c9bce12e7755df85}{FAB}$C\_STMLF;
+173 \}
+\end{DoxyCode}
+\hypertarget{vmsunix_8c_a26fa619107ec2ebabf6ffe345da1fcc4}{\index{vmsunix.\+c@{vmsunix.\+c}!getlock@{getlock}}
+\index{getlock@{getlock}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{getlock}]{\setlength{\rightskip}{0pt plus 5cm}void getlock (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a26fa619107ec2ebabf6ffe345da1fcc4}
+
+
+Definition at line 78 of file vmsunix.\+c.
+
+
+
+References close(), creat(), errno, error(), F\+C\+M\+A\+S\+K, hackpid, H\+L\+O\+C\+K, isatty(), lock, lock\+\_\+file(), L\+O\+C\+K\+P\+R\+E\+F\+I\+X, open(), perror, regularize(), set\+\_\+levelfile\+\_\+name(), unlock\+\_\+file(), veryold(), wait\+\_\+synch, and write().
+
+
+\begin{DoxyCode}
+79 \{
+80     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i = 0, fd;
+81 
+82     \textcolor{comment}{/* idea from rpick%ucqais@uccba.uc.edu}
+83 \textcolor{comment}{     * prevent automated rerolling of characters}
+84 \textcolor{comment}{     * test input (fd0) so that tee'ing output to get a screen dump still}
+85 \textcolor{comment}{     * works}
+86 \textcolor{comment}{     * also incidentally prevents development of any hack-o-matic programs}
+87 \textcolor{comment}{     */}
+88     \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_ab4155ffea05dab2dafae68fd88a0517f}{isatty}(0) <= 0)
+89         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"You must play from a terminal."});
+90 
+91     \textcolor{comment}{/* we ignore QUIT and INT at this point */}
+92     \textcolor{keywordflow}{if} (!\hyperlink{files_8c_a991dbc9dc86b6aa9673a7bed36802728}{lock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK}, \hyperlink{decl_8h_ab34725ee75fd5fcf782cd33cfffa8601}{LOCKPREFIX}, 10)) \{
+93         \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+94         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Quitting."});
+95     \}
+96 
+97     \hyperlink{vmsunix_8c_a8937ede58517f812b44a36c286f504b4}{regularize}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock});
+98     \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, 0);
+99     \textcolor{keywordflow}{if}(locknum > 25) locknum = 25;
+100 
+101     \textcolor{keywordflow}{do} \{
+102         \textcolor{keywordflow}{if}(locknum) \hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}[0] = \textcolor{charliteral}{'a'} + i++;
+103 
+104         \textcolor{keywordflow}{if}((fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, 0, 0)) == -1) \{
+105             \textcolor{keywordflow}{if}(\hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} == ENOENT) \textcolor{keywordflow}{goto} gotlock;    \textcolor{comment}{/* no such file */}
+106             \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock});
+107             \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+108             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Cannot open %s"}, \hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock});
+109         \}
+110 
+111         \textcolor{keywordflow}{if}(\hyperlink{vmsunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}{veryold}(fd))  \textcolor{comment}{/* if true, this closes fd and unlinks lock */}
+112             \textcolor{keywordflow}{goto} gotlock;
+113         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+114     \} \textcolor{keywordflow}{while}(i < locknum);
+115 
+116     \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+117     \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(locknum ? \textcolor{stringliteral}{"Too many hacks running now."}
+118               : \textcolor{stringliteral}{"There is a game in progress under your name."});
+119 
+120 gotlock:
+121     fd = \hyperlink{wceconf_8h_a8e3d15ba88c8177901cb71711b060b36}{creat}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+122     \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+123     \textcolor{keywordflow}{if}(fd == -1) \{
+124         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot creat lock file."});
+125     \} \textcolor{keywordflow}{else} \{
+126         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(fd, (\textcolor{keywordtype}{char} *) &\hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid}, \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid}))
+127             != \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid}))\{
+128             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot write lock"});
+129         \}
+130         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd) == -1) \{
+131             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot close lock"});
+132         \}
+133     \}
+134 \}   
+\end{DoxyCode}
+\hypertarget{vmsunix_8c_af5cc5c452785e49da861c300dae68ac5}{\index{vmsunix.\+c@{vmsunix.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf verify\+\_\+term}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vmsunix_8c_af5cc5c452785e49da861c300dae68ac5}
+\hypertarget{vmsunix_8c_a8937ede58517f812b44a36c286f504b4}{\index{vmsunix.\+c@{vmsunix.\+c}!regularize@{regularize}}
+\index{regularize@{regularize}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{regularize}]{\setlength{\rightskip}{0pt plus 5cm}void regularize (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a8937ede58517f812b44a36c286f504b4}
+
+
+Definition at line 137 of file vmsunix.\+c.
+
+
+
+Referenced by getlock().
+
+
+\begin{DoxyCode}
+139 \{
+140     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *lp;
+141 
+142     \textcolor{keywordflow}{for} (lp = s; *lp; lp++)         \textcolor{comment}{/* note: '-' becomes '\_' */}
+143         \textcolor{keywordflow}{if} (!(isalpha(*lp) || isdigit(*lp) || *lp == \textcolor{charliteral}{'$'}))
+144             *lp = \textcolor{charliteral}{'\_'};
+145 \}
+\end{DoxyCode}
+\hypertarget{vmsunix_8c_a867570e3ef4333f2a914e8a67ca9fd82}{\index{vmsunix.\+c@{vmsunix.\+c}!verify\+\_\+term@{verify\+\_\+term}}
+\index{verify\+\_\+term@{verify\+\_\+term}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{verify\+\_\+term}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ verify\+\_\+term (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vmsunix_8c_a867570e3ef4333f2a914e8a67ca9fd82}
+
+
+Definition at line 251 of file vmsunix.\+c.
+
+
+
+References \$getdvi(), \$init\+\_\+term\+\_\+table\+\_\+by\+\_\+type(), getenv, strcmpi, and vms\+\_\+ok.
+
+
+
+Referenced by verify\+\_\+termcap().
+
+
+\begin{DoxyCode}
+252 \{
+253     \textcolor{keywordtype}{char}      *term = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"NETHACK\_TERM"});
+254     \textcolor{keywordflow}{if} (!term) term = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"HACK\_TERM"});
+255     \textcolor{keywordflow}{if} (!term) term = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"EMACS\_TERM"});
+256     \textcolor{keywordflow}{if} (!term) term = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"TERM"});
+257     \textcolor{keywordflow}{if} (!term || !*term
+258     || !\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(term, \textcolor{stringliteral}{"undefined"}) || !\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(term, \textcolor{stringliteral}{"unknown"})) \{
+259     \textcolor{keyword}{static} \textcolor{keywordtype}{char} smgdevtyp[31+1];    \textcolor{comment}{/* size is somewhat arbitrary */}
+260     \textcolor{keyword}{static} \textcolor{keywordtype}{char} dev\_tty[] = \textcolor{stringliteral}{"TT:"};
+261     \textcolor{keyword}{static} $DESCRIPTOR(smgdsc, smgdevtyp);
+262     \textcolor{keyword}{static} $DESCRIPTOR(tt, dev\_tty);
+263     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} dvicode = DVI$\_DEVTYPE;
+264     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} devtype = 0L, termtab = 0L;
+265 
+266     (void)lib\hyperlink{vmsunix_8c_a587e6a9ec62e866b5f640ead1d26121f}{$getdvi}(&dvicode, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} *)0, &tt, &devtype,
+267              (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})0, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} *)0);
+268 
+269     \textcolor{keywordflow}{if} (devtype &&
+270         \hyperlink{vmsunix_8c_a48ea266d94b89f45f4a28763250adf15}{vms\_ok}(smg\hyperlink{vmsunix_8c_a803ae95665360faaa7d997fc0f2990c8}{$init\_term\_table\_by\_type}(&devtype, &termtab, &smgdsc))) \{
+271         \textcolor{keyword}{register} \textcolor{keywordtype}{char} *p = &smgdevtyp[smgdsc.dsc$w\_length];
+272         \textcolor{comment}{/* strip trailing blanks */}
+273         \textcolor{keywordflow}{while} (p > smgdevtyp && *--p == \textcolor{charliteral}{' '}) *p = \textcolor{charliteral}{'\(\backslash\)0'};
+274         \textcolor{comment}{/* (void)smg$del\_term\_table(); */}
+275         term = smgdevtyp;
+276     \}
+277     \}
+278     \textcolor{keywordflow}{return} term;
+279 \}
+\end{DoxyCode}
+\hypertarget{vmsunix_8c_a9865821e39a8bb0fb53aa3e7b98d57e8}{\index{vmsunix.\+c@{vmsunix.\+c}!verify\+\_\+termcap@{verify\+\_\+termcap}}
+\index{verify\+\_\+termcap@{verify\+\_\+termcap}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{verify\+\_\+termcap}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ verify\+\_\+termcap (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a9865821e39a8bb0fb53aa3e7b98d57e8}
+
+
+Definition at line 291 of file vmsunix.\+c.
+
+
+
+References E\+N\+V\+\_\+\+U\+S\+R, getenv, G\+N\+U\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+E\+R\+M\+C\+A\+P, H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P, N\+E\+T\+H\+A\+C\+K\+\_\+\+D\+E\+F\+\_\+\+T\+E\+R\+M\+C\+A\+P, verify\+\_\+term(), and vms\+\_\+define().
+
+
+\begin{DoxyCode}
+292 \{
+293     \textcolor{keyword}{struct }stat dummy;
+294     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *tc = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"TERMCAP"});
+295     \textcolor{keywordflow}{if} (tc) \textcolor{keywordflow}{return} \hyperlink{vmsunix_8c_a867570e3ef4333f2a914e8a67ca9fd82}{verify\_term}();    \textcolor{comment}{/* no termcap fixups needed */}
+296     \textcolor{keywordflow}{if} (!tc && !stat(\hyperlink{vmsunix_8c_a2a3213c32ed907236e414a5c6ec94758}{NETHACK\_DEF\_TERMCAP}, &dummy)) tc = 
+      \hyperlink{vmsunix_8c_a2a3213c32ed907236e414a5c6ec94758}{NETHACK\_DEF\_TERMCAP};
+297     \textcolor{keywordflow}{if} (!tc && !stat(\hyperlink{vmsunix_8c_ae1fef3c418fae30024a9bf040613e950}{HACK\_DEF\_TERMCAP}, &dummy))    tc = 
+      \hyperlink{vmsunix_8c_ae1fef3c418fae30024a9bf040613e950}{HACK\_DEF\_TERMCAP};
+298     \textcolor{keywordflow}{if} (!tc && !stat(\hyperlink{vmsunix_8c_a55934030ff103f7b2b0fdad768a70dcd}{GNU\_DEFAULT\_TERMCAP}, &dummy)) tc = 
+      \hyperlink{vmsunix_8c_a55934030ff103f7b2b0fdad768a70dcd}{GNU\_DEFAULT\_TERMCAP};
+299     \textcolor{keywordflow}{if} (!tc && !stat(\textcolor{stringliteral}{"[]termcap"}, &dummy)) tc = \textcolor{stringliteral}{"[]termcap"}; \textcolor{comment}{/* current dir */}
+300     \textcolor{keywordflow}{if} (!tc && !stat(\textcolor{stringliteral}{"$TERMCAP"}, &dummy))  tc = \textcolor{stringliteral}{"$TERMCAP"};  \textcolor{comment}{/* alt environ */}
+301     \textcolor{keywordflow}{if} (tc) \{
+302     \textcolor{comment}{/* putenv(strcat(strcpy(buffer,"TERMCAP="),tc)); */}
+303     \hyperlink{vmsunix_8c_a6a5283749e0c3d55994406e22065f048}{vms\_define}(\textcolor{stringliteral}{"TERMCAP"}, tc, \hyperlink{vmsunix_8c_af0e651f7dd82793becdbb474c3d608bd}{ENV\_USR});
+304     \} \textcolor{keywordflow}{else} \{
+305     \textcolor{comment}{/* perhaps someday we'll construct a termcap entry string */}
+306     \}
+307     \textcolor{keywordflow}{return} \hyperlink{vmsunix_8c_a867570e3ef4333f2a914e8a67ca9fd82}{verify\_term}();
+308 \}
+\end{DoxyCode}
+\hypertarget{vmsunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}{\index{vmsunix.\+c@{vmsunix.\+c}!veryold@{veryold}}
+\index{veryold@{veryold}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{veryold}]{\setlength{\rightskip}{0pt plus 5cm}static int veryold (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vmsunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}
+
+
+Definition at line 38 of file vmsunix.\+c.
+
+
+
+References \$getjpi(), close(), lock, M\+A\+X\+D\+U\+N\+G\+E\+O\+N, M\+A\+X\+L\+E\+V\+E\+L, read(), set\+\_\+levelfile\+\_\+name(), time, and vms\+\_\+ok.
+
+
+
+Referenced by getlock().
+
+
+\begin{DoxyCode}
+40 \{
+41     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+42     \hyperlink{wceconf_8h_ae314912f2d5fb5362d86efe017e755f4}{time\_t} date;
+43     \textcolor{keyword}{struct }stat \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+44 
+45     \textcolor{keywordflow}{if}(fstat(fd, &\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf})) \textcolor{keywordflow}{return}(0);           \textcolor{comment}{/* cannot get status */}
+46 \textcolor{preprocessor}{#ifndef INSURANCE}
+47     \textcolor{keywordflow}{if}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}.st\_size != \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) \textcolor{keywordflow}{return}(0);    \textcolor{comment}{/* not an xlock file */}
+48 \textcolor{preprocessor}{#endif}
+49     (void) \hyperlink{gnglyph_8h_a5d72d5591b475bbde164dc8f0095eb2d}{time}(&date);
+50     \textcolor{keywordflow}{if}(date - \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}.st\_mtime < 3L*24L*60L*60L) \{   \textcolor{comment}{/* recent */}
+51         \textcolor{keywordtype}{int} lockedpid;  \textcolor{comment}{/* should be the same size as hackpid */}
+52         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} status, dummy, code = JPI$\_PID;
+53 
+54         \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&lockedpid, \textcolor{keyword}{sizeof}(lockedpid)) !=
+55                 \textcolor{keyword}{sizeof}(lockedpid))  \textcolor{comment}{/* strange ... */}
+56             \textcolor{keywordflow}{return} 0;
+57         status = lib\hyperlink{vmsunix_8c_a97cdad777345ade29ea5f1639fd66013}{$getjpi}(&code, &lockedpid, 0, &dummy);
+58         \textcolor{keywordflow}{if} (\hyperlink{vmsunix_8c_a48ea266d94b89f45f4a28763250adf15}{vms\_ok}(status) || status != SS$\_NONEXPR)
+59             \textcolor{keywordflow}{return} 0;
+60     \}
+61     (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+62 
+63     \textcolor{comment}{/* cannot use maxledgerno() here, because we need to find a lock name}
+64 \textcolor{comment}{     * before starting everything (including the dungeon initialization}
+65 \textcolor{comment}{     * that sets astral\_level, needed for maxledgerno()) up}
+66 \textcolor{comment}{     */}
+67     \textcolor{keywordflow}{for}(i = 1; i <= \hyperlink{global_8h_a1a21793acfe9387a78ebc2a03178cf02}{MAXDUNGEON}*\hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL} + 1; i++) \{
+68         \textcolor{comment}{/* try to remove all */}
+69         \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, i);
+70         (void) \textcolor{keyword}{delete}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock});
+71     \}
+72     \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, 0);
+73     \textcolor{keywordflow}{if}(\textcolor{keyword}{delete}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock})) \textcolor{keywordflow}{return}(0);         \textcolor{comment}{/* cannot remove it */}
+74     \textcolor{keywordflow}{return}(1);                  \textcolor{comment}{/* success! */}
+75 \}
+\end{DoxyCode}
+\hypertarget{vmsunix_8c_a6a5283749e0c3d55994406e22065f048}{\index{vmsunix.\+c@{vmsunix.\+c}!vms\+\_\+define@{vms\+\_\+define}}
+\index{vms\+\_\+define@{vms\+\_\+define}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{vms\+\_\+define}]{\setlength{\rightskip}{0pt plus 5cm}int vms\+\_\+define (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name, }
+\item[{{\bf const} char $\ast$}]{value, }
+\item[{int}]{flag}
+\end{DoxyParamCaption}
+) const}}\label{vmsunix_8c_a6a5283749e0c3d55994406e22065f048}
+
+
+Definition at line 187 of file vmsunix.\+c.
+
+
+
+References E\+N\+V\+\_\+\+J\+O\+B, E\+N\+V\+\_\+\+S\+U\+P, and E\+N\+V\+\_\+\+U\+S\+R.
+
+
+
+Referenced by verify\+\_\+termcap(), and vms\+\_\+putenv().
+
+
+\begin{DoxyCode}
+191 \{
+192     \textcolor{keyword}{struct }dsc \{ \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} len, mbz; \textcolor{keyword}{const} \textcolor{keywordtype}{char} *adr; \}; \textcolor{comment}{/* descriptor */}
+193     \textcolor{keyword}{struct }itm3 \{ \textcolor{keywordtype}{short} buflen, itmcode; \textcolor{keyword}{const} \textcolor{keywordtype}{char} *bufadr; \textcolor{keywordtype}{short} *retlen; \};
+194     \textcolor{keyword}{static} \textcolor{keyword}{struct }itm3 itm\_lst[] = \{ \{0,LNM$\_STRING,0,0\}, \{0,0\} \};
+195     \textcolor{keyword}{struct }dsc nam\_dsc, val\_dsc, tbl\_dsc;
+196     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} result, sys$crelnm(), lib$set\_logical();
+197 
+198     \textcolor{comment}{/* set up string descriptors */}
+199     nam\_dsc.mbz = val\_dsc.mbz = tbl\_dsc.mbz = 0;
+200     nam\_dsc.len = strlen( nam\_dsc.adr = \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} );
+201     val\_dsc.len = strlen( val\_dsc.adr = value );
+202     tbl\_dsc.len = strlen( tbl\_dsc.adr = \textcolor{stringliteral}{"LNM$PROCESS"} );
+203 
+204     \textcolor{keywordflow}{switch} (\hyperlink{structflag}{flag}) \{
+205     \textcolor{keywordflow}{case} \hyperlink{vmsunix_8c_a9ce01db1a2870a45622b3e4778bbfe05}{ENV\_JOB}:    \textcolor{comment}{/* job logical name */}
+206         tbl\_dsc.len = strlen( tbl\_dsc.adr = \textcolor{stringliteral}{"LNM$JOB"} );
+207         \textcolor{comment}{/*FALLTHRU*/}
+208     \textcolor{keywordflow}{case} \hyperlink{vmsunix_8c_afc48959c56cbc33f96f6caac93f86cce}{ENV\_SUP}:    \textcolor{comment}{/* supervisor-mode process logical name */}
+209         result = lib$set\_logical(&nam\_dsc, &val\_dsc, &tbl\_dsc);
+210         \textcolor{keywordflow}{break};
+211     \textcolor{keywordflow}{case} \hyperlink{vmsunix_8c_af0e651f7dd82793becdbb474c3d608bd}{ENV\_USR}:    \textcolor{comment}{/* user-mode process logical name */}
+212         itm\_lst[0].buflen = val\_dsc.len;
+213         itm\_lst[0].bufadr = val\_dsc.adr;
+214         result = sys$crelnm(0, &tbl\_dsc, &nam\_dsc, 0, itm\_lst);
+215         \textcolor{keywordflow}{break};
+216     \textcolor{keywordflow}{default}:    \textcolor{comment}{/*[ bad input ]*/}
+217         result = 0;
+218         \textcolor{keywordflow}{break};
+219     \}
+220     result &= 1;    \textcolor{comment}{/* odd => success (== 1), even => failure (== 0) */}
+221     \textcolor{keywordflow}{return} !result; \textcolor{comment}{/* 0 == success, 1 == failure */}
+222 \}
+\end{DoxyCode}
+\hypertarget{vmsunix_8c_a7e3aeb970a5f5fa07df2e3f3ba61beab}{\index{vmsunix.\+c@{vmsunix.\+c}!vms\+\_\+getuid@{vms\+\_\+getuid}}
+\index{vms\+\_\+getuid@{vms\+\_\+getuid}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{vms\+\_\+getuid}]{\setlength{\rightskip}{0pt plus 5cm}int vms\+\_\+getuid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmsunix_8c_a7e3aeb970a5f5fa07df2e3f3ba61beab}
+
+
+Definition at line 149 of file vmsunix.\+c.
+
+
+
+References getuid().
+
+
+\begin{DoxyCode}
+150 \{
+151     \textcolor{keywordflow}{return} (getgid() << 16) | \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}();
+152 \}
+\end{DoxyCode}
+\hypertarget{vmsunix_8c_a65334ef759d9e46baad9c4925a5673e8}{\index{vmsunix.\+c@{vmsunix.\+c}!vms\+\_\+putenv@{vms\+\_\+putenv}}
+\index{vms\+\_\+putenv@{vms\+\_\+putenv}!vmsunix.\+c@{vmsunix.\+c}}
+\subsubsection[{vms\+\_\+putenv}]{\setlength{\rightskip}{0pt plus 5cm}int vms\+\_\+putenv (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{string}
+\end{DoxyParamCaption}
+) const}}\label{vmsunix_8c_a65334ef759d9e46baad9c4925a5673e8}
+
+
+Definition at line 226 of file vmsunix.\+c.
+
+
+
+References E\+N\+V\+\_\+\+U\+S\+R, E\+N\+V\+S\+I\+Z, name, and vms\+\_\+define().
+
+
+\begin{DoxyCode}
+228 \{
+229     \textcolor{keywordtype}{char} \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}[\hyperlink{vmsunix_8c_a0205bce80db0224c4e778a6bdcc5a381}{ENVSIZ}+1], value[\hyperlink{vmsunix_8c_a0205bce80db0224c4e778a6bdcc5a381}{ENVSIZ}+1], *p;   \textcolor{comment}{/* [255+1] */}
+230 
+231     p = strchr(\textcolor{keywordtype}{string}, \textcolor{charliteral}{'='});
+232     \textcolor{keywordflow}{if} (p > \textcolor{keywordtype}{string} && p < \textcolor{keywordtype}{string} + \textcolor{keyword}{sizeof} name && strlen(p+1) < \textcolor{keyword}{sizeof} value) \{
+233     (void)strncpy(name, \textcolor{keywordtype}{string}, p - \textcolor{keywordtype}{string}),  name[p - string] = \textcolor{charliteral}{'\(\backslash\)0'};
+234     (void)strcpy(value, p+1);
+235     \textcolor{keywordflow}{return} \hyperlink{vmsunix_8c_a6a5283749e0c3d55994406e22065f048}{vms\_define}(name, value, \hyperlink{vmsunix_8c_af0e651f7dd82793becdbb474c3d608bd}{ENV\_USR});
+236     \} \textcolor{keywordflow}{else}
+237     \textcolor{keywordflow}{return} 1;   \textcolor{comment}{/* failure */}
+238 \}
+\end{DoxyCode}

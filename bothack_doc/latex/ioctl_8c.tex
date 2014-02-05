@@ -1,0 +1,157 @@
+\hypertarget{ioctl_8c}{\section{nethack/sys/share/ioctl.c File Reference}
+\label{ioctl_8c}\index{nethack/sys/share/ioctl.\+c@{nethack/sys/share/ioctl.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$termio.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{ioctl_8c_afb0532244bd05e694b6f97308804a4b2}{getwindowsz} ()
+\item 
+void \hyperlink{ioctl_8c_af57d766308873f346599e80954e0ae10}{getioctls} ()
+\item 
+void \hyperlink{ioctl_8c_a528566079e76dc74c70829057a0952c7}{setioctls} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct termio \hyperlink{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{termio}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{ioctl_8c_af57d766308873f346599e80954e0ae10}{\index{ioctl.\+c@{ioctl.\+c}!getioctls@{getioctls}}
+\index{getioctls@{getioctls}!ioctl.\+c@{ioctl.\+c}}
+\subsubsection[{getioctls}]{\setlength{\rightskip}{0pt plus 5cm}void getioctls (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ioctl_8c_af57d766308873f346599e80954e0ae10}
+
+
+Definition at line 113 of file ioctl.\+c.
+
+
+
+References getwindowsz(), stdin, and termio.
+
+
+
+Referenced by gettty().
+
+
+\begin{DoxyCode}
+114 \{
+115 \textcolor{preprocessor}{#ifdef BSD\_JOB\_CONTROL}
+116     (void) ioctl(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), (int) TIOCGLTC, (\textcolor{keywordtype}{char} *) &ltchars);
+117     (void) ioctl(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), (int) TIOCSLTC, (\textcolor{keywordtype}{char} *) &ltchars0);
+118 \textcolor{preprocessor}{#else}
+119 \textcolor{preprocessor}{# ifdef POSIX\_TYPES}
+120     (void) tcgetattr(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), &\hyperlink{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{termio});
+121 \textcolor{preprocessor}{# else}
+122 \textcolor{preprocessor}{#  if defined(TCSETS) && !defined(AIX\_31)}
+123     (void) ioctl(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), (int) TCGETS, &\hyperlink{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{termio});
+124 \textcolor{preprocessor}{#  else}
+125     (void) ioctl(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), (int) TCGETA, &\hyperlink{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{termio});
+126 \textcolor{preprocessor}{#  endif}
+127 \textcolor{preprocessor}{# endif}
+128 \textcolor{preprocessor}{#endif}
+129     \hyperlink{ioctl_8c_afb0532244bd05e694b6f97308804a4b2}{getwindowsz}();
+130 \textcolor{preprocessor}{#ifdef AUX}
+131     ( void ) signal ( SIGTSTP , catch\_stp ) ;
+132 \textcolor{preprocessor}{#endif}
+133 \}
+\end{DoxyCode}
+\hypertarget{ioctl_8c_afb0532244bd05e694b6f97308804a4b2}{\index{ioctl.\+c@{ioctl.\+c}!getwindowsz@{getwindowsz}}
+\index{getwindowsz@{getwindowsz}!ioctl.\+c@{ioctl.\+c}}
+\subsubsection[{getwindowsz}]{\setlength{\rightskip}{0pt plus 5cm}void getwindowsz (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ioctl_8c_afb0532244bd05e694b6f97308804a4b2}
+
+
+Definition at line 90 of file ioctl.\+c.
+
+
+
+References C\+O, L\+I, and stdin.
+
+
+
+Referenced by getioctls().
+
+
+\begin{DoxyCode}
+91 \{
+92 \textcolor{preprocessor}{#ifdef USE\_WIN\_IOCTL}
+93     \textcolor{comment}{/*}
+94 \textcolor{comment}{     * ttysize is found on Suns and BSD}
+95 \textcolor{comment}{     * winsize is found on Suns, BSD, and Ultrix}
+96 \textcolor{comment}{     */}
+97     \textcolor{keyword}{struct }winsize ttsz;
+98 
+99     \textcolor{keywordflow}{if} (ioctl(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), (\textcolor{keywordtype}{int})TIOCGWINSZ, (\textcolor{keywordtype}{char} *)&ttsz) != -1) \{
+100     \textcolor{comment}{/*}
+101 \textcolor{comment}{     * Use the kernel's values for lines and columns if it has}
+102 \textcolor{comment}{     * any idea.}
+103 \textcolor{comment}{     */}
+104     \textcolor{keywordflow}{if} (ttsz.ws\_row)
+105         \hyperlink{winext_8h_a4952935dee70ae06274495dcddf10856}{LI} = ttsz.ws\_row;
+106     \textcolor{keywordflow}{if} (ttsz.ws\_col)
+107         \hyperlink{winext_8h_abdcb66bae1fc240beb333f1932bdc30d}{CO} = ttsz.ws\_col;
+108     \}
+109 \textcolor{preprocessor}{#endif}
+110 \}
+\end{DoxyCode}
+\hypertarget{ioctl_8c_a528566079e76dc74c70829057a0952c7}{\index{ioctl.\+c@{ioctl.\+c}!setioctls@{setioctls}}
+\index{setioctls@{setioctls}!ioctl.\+c@{ioctl.\+c}}
+\subsubsection[{setioctls}]{\setlength{\rightskip}{0pt plus 5cm}void setioctls (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ioctl_8c_a528566079e76dc74c70829057a0952c7}
+
+
+Definition at line 136 of file ioctl.\+c.
+
+
+
+References stdin, and termio.
+
+
+
+Referenced by settty().
+
+
+\begin{DoxyCode}
+137 \{
+138 \textcolor{preprocessor}{#ifdef BSD\_JOB\_CONTROL}
+139     (void) ioctl(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), (int) TIOCSLTC, (\textcolor{keywordtype}{char} *) &ltchars);
+140 \textcolor{preprocessor}{#else}
+141 \textcolor{preprocessor}{# ifdef POSIX\_TYPES}
+142     (void) tcsetattr(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), TCSADRAIN, &\hyperlink{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{termio});
+143 \textcolor{preprocessor}{# else}
+144 \textcolor{preprocessor}{#  if defined(TCSETS) && !defined(AIX\_31)}
+145     (void) ioctl(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), (int) TCSETSW, &\hyperlink{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{termio});
+146 \textcolor{preprocessor}{#  else}
+147     (void) ioctl(fileno(\hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin}), (int) TCSETAW, &\hyperlink{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{termio});
+148 \textcolor{preprocessor}{#  endif}
+149 \textcolor{preprocessor}{# endif}
+150 \textcolor{preprocessor}{#endif}
+151 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{\index{ioctl.\+c@{ioctl.\+c}!termio@{termio}}
+\index{termio@{termio}!ioctl.\+c@{ioctl.\+c}}
+\subsubsection[{termio}]{\setlength{\rightskip}{0pt plus 5cm}struct termio termio}}\label{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}
+
+
+Definition at line 54 of file ioctl.\+c.
+
+
+
+Referenced by getioctls(), and setioctls().
+

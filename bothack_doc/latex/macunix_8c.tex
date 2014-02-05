@@ -1,0 +1,71 @@
+\hypertarget{macunix_8c}{\section{nethack/sys/mac/macunix.c File Reference}
+\label{macunix_8c}\index{nethack/sys/mac/macunix.\+c@{nethack/sys/mac/macunix.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{macunix_8c_a8937ede58517f812b44a36c286f504b4}{regularize} (char $\ast$s)
+\item 
+void \hyperlink{macunix_8c_a21738d427cae396cec6f2f009adb29c3}{getlock} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{macunix_8c_a21738d427cae396cec6f2f009adb29c3}{\index{macunix.\+c@{macunix.\+c}!getlock@{getlock}}
+\index{getlock@{getlock}!macunix.\+c@{macunix.\+c}}
+\subsubsection[{getlock}]{\setlength{\rightskip}{0pt plus 5cm}void getlock (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{macunix_8c_a21738d427cae396cec6f2f009adb29c3}
+
+
+Definition at line 21 of file macunix.\+c.
+
+
+
+References close(), lock, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+E\+X\+C\+L, O\+\_\+\+R\+D\+W\+R, open(), panic(), set\+\_\+levelfile\+\_\+name(), and write().
+
+
+\begin{DoxyCode}
+22 \{
+23     \textcolor{keywordtype}{int} fd;
+24     \textcolor{keywordtype}{int} pid = getpid(); \textcolor{comment}{/* Process ID */}
+25     
+26     \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name} (\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, 0);
+27 
+28     \textcolor{keywordflow}{if} ((fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open} (\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR} | \hyperlink{fcntl_8h_a9f5acfe79fafe14b6694447bd0e9f10b}{O\_EXCL} | \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}, LEVL\_TYPE)) == -1) \{
+29         raw\_printf (\textcolor{stringliteral}{"Could not lock the game %s."}, \hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock});
+30         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic} (\textcolor{stringliteral}{"Another game in progress?"});
+31     \}
+32 
+33     \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write} (fd, (\textcolor{keywordtype}{char} *)&pid, \textcolor{keyword}{sizeof} (pid)) != \textcolor{keyword}{sizeof} (pid))  \{
+34         raw\_printf (\textcolor{stringliteral}{"Could not lock the game %s."}, \hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock});
+35         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Disk locked?"});
+36     \}
+37     \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close} (fd);
+38 \}
+\end{DoxyCode}
+\hypertarget{macunix_8c_a8937ede58517f812b44a36c286f504b4}{\index{macunix.\+c@{macunix.\+c}!regularize@{regularize}}
+\index{regularize@{regularize}!macunix.\+c@{macunix.\+c}}
+\subsubsection[{regularize}]{\setlength{\rightskip}{0pt plus 5cm}void regularize (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{macunix_8c_a8937ede58517f812b44a36c286f504b4}
+
+
+Definition at line 10 of file macunix.\+c.
+
+
+\begin{DoxyCode}
+11 \{
+12     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *lp;
+13 
+14     \textcolor{keywordflow}{for} (lp = s; *lp; lp++) \{
+15         \textcolor{keywordflow}{if} (*lp == \textcolor{charliteral}{'.'} || *lp == \textcolor{charliteral}{':'})
+16             *lp = \textcolor{charliteral}{'\_'};
+17     \}
+18 \}
+\end{DoxyCode}

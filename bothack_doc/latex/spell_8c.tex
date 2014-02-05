@@ -1,0 +1,1920 @@
+\hypertarget{spell_8c}{\section{nethack/src/spell.c File Reference}
+\label{spell_8c}\index{nethack/src/spell.\+c@{nethack/src/spell.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{spell_8c_a1c6a2009580b247364fb96300b43df3e}{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+C\+A\+S\+T}~(-\/2)
+\item 
+\#define \hyperlink{spell_8c_a2aa11551b55d538fa9af69006155a371}{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W}~(-\/1)
+\item 
+\#define \hyperlink{spell_8c_aa7259051e3dd68b96799cff5e284b402}{K\+E\+E\+N}~20000
+\item 
+\#define \hyperlink{spell_8c_a8e6d65daa836b0d6fca9fbbca1244133}{M\+A\+X\+\_\+\+S\+P\+E\+L\+L\+\_\+\+S\+T\+U\+D\+Y}~3
+\item 
+\#define \hyperlink{spell_8c_a2ece403305563e8b3b018d5fd4dacfae}{incrnknow}(\hyperlink{structspell}{spell})~\hyperlink{decl_8c_ad80bda7bda4cad35f47f1b4cfc0f9706}{spl\+\_\+book}\mbox{[}\hyperlink{structspell}{spell}\mbox{]}.sp\+\_\+know = \hyperlink{spell_8c_aa7259051e3dd68b96799cff5e284b402}{K\+E\+E\+N}
+\item 
+\#define \hyperlink{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}{spellev}(\hyperlink{structspell}{spell})~\hyperlink{decl_8c_ad80bda7bda4cad35f47f1b4cfc0f9706}{spl\+\_\+book}\mbox{[}\hyperlink{structspell}{spell}\mbox{]}.sp\+\_\+lev
+\item 
+\#define \hyperlink{spell_8c_aae2e2cb0bb5d53bed65a6f2cf922b576}{spellname}(\hyperlink{structspell}{spell})~\hyperlink{objclass_8h_aaa71280f2bfe02894ab8c39af548d6ae}{O\+B\+J\+\_\+\+N\+A\+M\+E}(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}\mbox{[}\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell})\mbox{]})
+\item 
+\#define \hyperlink{spell_8c_a3400565e38d9ba1eb3a916f20b03c7a4}{spellet}(\hyperlink{structspell}{spell})~((char)((\hyperlink{structspell}{spell} $<$ 26) ? ('a' + \hyperlink{structspell}{spell}) \+: ('\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}' + \hyperlink{structspell}{spell} -\/ 26)))
+\item 
+\#define \hyperlink{spell_8c_a494ec7366c6e6f0c7d0608383aeaa2f0}{uarmhbon}~4 /$\ast$ Metal helmets interfere with the mind $\ast$/
+\item 
+\#define \hyperlink{spell_8c_a7a191abdb4d5b0028e548574712eb7b1}{uarmgbon}~6 /$\ast$ Casting channels through the hands $\ast$/
+\item 
+\#define \hyperlink{spell_8c_acffd7597c4faf3bcfac5fb75bf7fc3a7}{uarmfbon}~2 /$\ast$ All metal interferes to some degree $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{spell_8c_a815154f42a0e2fa738abd96b6e5e9a66}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_a9b44319a80fb13571a5d5cc5ee77a813}{spell\+\_\+let\+\_\+to\+\_\+idx},(\hyperlink{wingem1_8c_ada878a8b4864a1658ee0f0acd5a89412}{C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{spell_8c_ac9e637fbab90de4a163e1fdabc17b955}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_a44374e01d957aa26368fec19823abf87}{cursed\+\_\+book},(struct \hyperlink{structobj}{obj} $\ast$bp))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{spell_8c_adf5a96999474f9ea90f600d228e48c89}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_a9bcff59710b18b23312e8a5876b61697}{confused\+\_\+book},(struct \hyperlink{structobj}{obj} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{spell_8c_a2cf50f0d4e7c06725eb1ef1692b835bb}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_abd0813766e086ea47ef646d2ecd6df4a}{deadbook},(struct \hyperlink{structobj}{obj} $\ast$))
+\item 
+\hyperlink{hack_8h_ac0f6cfba4138e5e6a773d15a80ea82ff}{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R} int \hyperlink{spell_8c_a2dd92af4c59ab41dced6f8f9fa088a0a}{N\+D\+E\+C\+L} (\hyperlink{spell_8c_a3e4a8f14c0dd70f46dce2fc923251e42}{learn})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{spell_8c_ab388d3d333191c58bbc29c85a1341cc3}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_ad3c12b9f9347dc85bcdc79d0a5c7634e}{getspell},(int $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{spell_8c_a72c7ba88497e3af76e4e1777944aa701}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_adf69f931f96caa617ed329cf80f7d61d}{dospellmenu},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$, int, int $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{spell_8c_a05f5f298bd75112f49deab936b406234}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_a5445232a3026c17817d13ac345f846c5}{percent\+\_\+success},(int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{spell_8c_abb9094f6f38435d1912829a1e7980693}{N\+D\+E\+C\+L} (\hyperlink{spell_8c_a73a948935f76bd44c3521ad62bdbc1b7}{throwspell})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{spell_8c_ab2198d748eac713e922ed90fef2d75e8}{N\+D\+E\+C\+L} (\hyperlink{spell_8c_a73bd9aba2f0e1b1ebc203c9871748b9e}{cast\+\_\+protection})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{spell_8c_a25da17bbb66a9b6150e83fc255fe9bdd}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_a4e9ea82fc9e102eaf7b4bb013eb8ce85}{spell\+\_\+backfire},(int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{spell_8c_acabc91292db938770552f33c26d9f967}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_ad199ec863ddf50e9328ba521571852f9}{spelltypemnemonic},(int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{spell_8c_a1251472622c9c0b6fedde5d6309c6848}{F\+D\+E\+C\+L} (\hyperlink{spell_8c_afa2f2852cfe7240462ec3538966511ac}{isqrt},(int))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{spell_8c_a9b44319a80fb13571a5d5cc5ee77a813}{spell\+\_\+let\+\_\+to\+\_\+idx} (char ilet)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{spell_8c_a44374e01d957aa26368fec19823abf87}{cursed\+\_\+book} (struct \hyperlink{structobj}{obj} $\ast$bp)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{spell_8c_a9bcff59710b18b23312e8a5876b61697}{confused\+\_\+book} (struct \hyperlink{structobj}{obj} $\ast$spellbook)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{spell_8c_abd0813766e086ea47ef646d2ecd6df4a}{deadbook} (struct \hyperlink{structobj}{obj} $\ast$book2)
+\item 
+\hyperlink{hack_8h_ac0f6cfba4138e5e6a773d15a80ea82ff}{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R} int \hyperlink{spell_8c_a3e4a8f14c0dd70f46dce2fc923251e42}{learn} ()
+\item 
+int \hyperlink{spell_8c_aa796724007e6396ae00f6e3177a69709}{study\+\_\+book} (struct \hyperlink{structobj}{obj} $\ast$spellbook)
+\item 
+void \hyperlink{spell_8c_afb4f2e9fe8494e82961945cd0d0467d5}{book\+\_\+disappears} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\item 
+void \hyperlink{spell_8c_a77e0ac44fa55876e12d5abdd2aef3013}{book\+\_\+substitution} (struct \hyperlink{structobj}{obj} $\ast$old\+\_\+obj, struct \hyperlink{structobj}{obj} $\ast$new\+\_\+obj)
+\item 
+void \hyperlink{spell_8c_a771a029095e6da3cf9de799463c1967e}{age\+\_\+spells} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{spell_8c_ad3c12b9f9347dc85bcdc79d0a5c7634e}{getspell} (int $\ast$spell\+\_\+no)
+\item 
+int \hyperlink{spell_8c_a2057ad50375a5db48b68d451aa17ffa7}{docast} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{spell_8c_ad199ec863ddf50e9328ba521571852f9}{spelltypemnemonic} (int skill)
+\item 
+int \hyperlink{spell_8c_af8cd6969353c53c1aeddad9a7d8aca4a}{spell\+\_\+skilltype} (int booktype)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{spell_8c_a73bd9aba2f0e1b1ebc203c9871748b9e}{cast\+\_\+protection} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{spell_8c_a4e9ea82fc9e102eaf7b4bb013eb8ce85}{spell\+\_\+backfire} (int \hyperlink{structspell}{spell})
+\item 
+int \hyperlink{spell_8c_a6cb4b0282f49a4d3cb5ef195ac5ec0ad}{spelleffects} (int \hyperlink{structspell}{spell}, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} atme)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{spell_8c_a73a948935f76bd44c3521ad62bdbc1b7}{throwspell} ()
+\item 
+void \hyperlink{spell_8c_a1f264019f61bf516d0e38588ee1966ad}{losespells} ()
+\item 
+int \hyperlink{spell_8c_a6462481295cecb652ea7585b099650dd}{dovspell} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{spell_8c_adf69f931f96caa617ed329cf80f7d61d}{dospellmenu} (char $\ast$prompt, int splaction, int $\ast$spell\+\_\+no) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{spell_8c_afa2f2852cfe7240462ec3538966511ac}{isqrt} (int val)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{spell_8c_a5445232a3026c17817d13ac345f846c5}{percent\+\_\+success} (int \hyperlink{structspell}{spell})
+\item 
+void \hyperlink{spell_8c_a6b2ad670f1d19a68ad40cd2d2b71ca5f}{initialspell} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} struct \hyperlink{structobj}{obj} $\ast$ \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{spell_8c_ad605ab031d8f78c9ac0620f161f8c077}{explodes} \mbox{[}$\,$\mbox{]} = \char`\"{}radiates explosive energy\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{spell_8c_a2ece403305563e8b3b018d5fd4dacfae}{\index{spell.\+c@{spell.\+c}!incrnknow@{incrnknow}}
+\index{incrnknow@{incrnknow}!spell.\+c@{spell.\+c}}
+\subsubsection[{incrnknow}]{\setlength{\rightskip}{0pt plus 5cm}\#define incrnknow(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf spell}}
+\end{DoxyParamCaption}
+)~{\bf spl\+\_\+book}\mbox{[}{\bf spell}\mbox{]}.sp\+\_\+know = {\bf K\+E\+E\+N}}}\label{spell_8c_a2ece403305563e8b3b018d5fd4dacfae}
+
+
+Definition at line 16 of file spell.\+c.
+
+
+
+Referenced by initialspell(), and learn().
+
+\hypertarget{spell_8c_aa7259051e3dd68b96799cff5e284b402}{\index{spell.\+c@{spell.\+c}!K\+E\+E\+N@{K\+E\+E\+N}}
+\index{K\+E\+E\+N@{K\+E\+E\+N}!spell.\+c@{spell.\+c}}
+\subsubsection[{K\+E\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+E\+E\+N~20000}}\label{spell_8c_aa7259051e3dd68b96799cff5e284b402}
+
+
+Definition at line 14 of file spell.\+c.
+
+\hypertarget{spell_8c_a8e6d65daa836b0d6fca9fbbca1244133}{\index{spell.\+c@{spell.\+c}!M\+A\+X\+\_\+\+S\+P\+E\+L\+L\+\_\+\+S\+T\+U\+D\+Y@{M\+A\+X\+\_\+\+S\+P\+E\+L\+L\+\_\+\+S\+T\+U\+D\+Y}}
+\index{M\+A\+X\+\_\+\+S\+P\+E\+L\+L\+\_\+\+S\+T\+U\+D\+Y@{M\+A\+X\+\_\+\+S\+P\+E\+L\+L\+\_\+\+S\+T\+U\+D\+Y}!spell.\+c@{spell.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+S\+P\+E\+L\+L\+\_\+\+S\+T\+U\+D\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+S\+P\+E\+L\+L\+\_\+\+S\+T\+U\+D\+Y~3}}\label{spell_8c_a8e6d65daa836b0d6fca9fbbca1244133}
+
+
+Definition at line 15 of file spell.\+c.
+
+
+
+Referenced by learn().
+
+\hypertarget{spell_8c_a3400565e38d9ba1eb3a916f20b03c7a4}{\index{spell.\+c@{spell.\+c}!spellet@{spellet}}
+\index{spellet@{spellet}!spell.\+c@{spell.\+c}}
+\subsubsection[{spellet}]{\setlength{\rightskip}{0pt plus 5cm}\#define spellet(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf spell}}
+\end{DoxyParamCaption}
+)~((char)(({\bf spell} $<$ 26) ? ('a' + {\bf spell}) \+: ('{\bf A}' + {\bf spell} -\/ 26)))}}\label{spell_8c_a3400565e38d9ba1eb3a916f20b03c7a4}
+
+
+Definition at line 20 of file spell.\+c.
+
+
+
+Referenced by dospellmenu(), and dovspell().
+
+\hypertarget{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}{\index{spell.\+c@{spell.\+c}!spellev@{spellev}}
+\index{spellev@{spellev}!spell.\+c@{spell.\+c}}
+\subsubsection[{spellev}]{\setlength{\rightskip}{0pt plus 5cm}\#define spellev(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf spell}}
+\end{DoxyParamCaption}
+)~{\bf spl\+\_\+book}\mbox{[}{\bf spell}\mbox{]}.sp\+\_\+lev}}\label{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}
+
+
+Definition at line 18 of file spell.\+c.
+
+
+
+Referenced by dospellmenu(), percent\+\_\+success(), spell\+\_\+backfire(), and spelleffects().
+
+\hypertarget{spell_8c_a1c6a2009580b247364fb96300b43df3e}{\index{spell.\+c@{spell.\+c}!S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+C\+A\+S\+T@{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+C\+A\+S\+T}}
+\index{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+C\+A\+S\+T@{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+C\+A\+S\+T}!spell.\+c@{spell.\+c}}
+\subsubsection[{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+C\+A\+S\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+C\+A\+S\+T~(-\/2)}}\label{spell_8c_a1c6a2009580b247364fb96300b43df3e}
+
+
+Definition at line 11 of file spell.\+c.
+
+
+
+Referenced by getspell().
+
+\hypertarget{spell_8c_a2aa11551b55d538fa9af69006155a371}{\index{spell.\+c@{spell.\+c}!S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W@{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W}}
+\index{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W@{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W}!spell.\+c@{spell.\+c}}
+\subsubsection[{S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W~(-\/1)}}\label{spell_8c_a2aa11551b55d538fa9af69006155a371}
+
+
+Definition at line 12 of file spell.\+c.
+
+
+
+Referenced by dospellmenu(), and dovspell().
+
+\hypertarget{spell_8c_aae2e2cb0bb5d53bed65a6f2cf922b576}{\index{spell.\+c@{spell.\+c}!spellname@{spellname}}
+\index{spellname@{spellname}!spell.\+c@{spell.\+c}}
+\subsubsection[{spellname}]{\setlength{\rightskip}{0pt plus 5cm}\#define spellname(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf spell}}
+\end{DoxyParamCaption}
+)~{\bf O\+B\+J\+\_\+\+N\+A\+M\+E}({\bf objects}\mbox{[}{\bf spellid}({\bf spell})\mbox{]})}}\label{spell_8c_aae2e2cb0bb5d53bed65a6f2cf922b576}
+
+
+Definition at line 19 of file spell.\+c.
+
+
+
+Referenced by dospellmenu().
+
+\hypertarget{spell_8c_acffd7597c4faf3bcfac5fb75bf7fc3a7}{\index{spell.\+c@{spell.\+c}!uarmfbon@{uarmfbon}}
+\index{uarmfbon@{uarmfbon}!spell.\+c@{spell.\+c}}
+\subsubsection[{uarmfbon}]{\setlength{\rightskip}{0pt plus 5cm}\#define uarmfbon~2 /$\ast$ All metal interferes to some degree $\ast$/}}\label{spell_8c_acffd7597c4faf3bcfac5fb75bf7fc3a7}
+
+
+Definition at line 88 of file spell.\+c.
+
+
+
+Referenced by percent\+\_\+success().
+
+\hypertarget{spell_8c_a7a191abdb4d5b0028e548574712eb7b1}{\index{spell.\+c@{spell.\+c}!uarmgbon@{uarmgbon}}
+\index{uarmgbon@{uarmgbon}!spell.\+c@{spell.\+c}}
+\subsubsection[{uarmgbon}]{\setlength{\rightskip}{0pt plus 5cm}\#define uarmgbon~6 /$\ast$ Casting channels through the hands $\ast$/}}\label{spell_8c_a7a191abdb4d5b0028e548574712eb7b1}
+
+
+Definition at line 87 of file spell.\+c.
+
+
+
+Referenced by percent\+\_\+success().
+
+\hypertarget{spell_8c_a494ec7366c6e6f0c7d0608383aeaa2f0}{\index{spell.\+c@{spell.\+c}!uarmhbon@{uarmhbon}}
+\index{uarmhbon@{uarmhbon}!spell.\+c@{spell.\+c}}
+\subsubsection[{uarmhbon}]{\setlength{\rightskip}{0pt plus 5cm}\#define uarmhbon~4 /$\ast$ Metal helmets interfere with the mind $\ast$/}}\label{spell_8c_a494ec7366c6e6f0c7d0608383aeaa2f0}
+
+
+Definition at line 86 of file spell.\+c.
+
+
+
+Referenced by percent\+\_\+success().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{spell_8c_a771a029095e6da3cf9de799463c1967e}{\index{spell.\+c@{spell.\+c}!age\+\_\+spells@{age\+\_\+spells}}
+\index{age\+\_\+spells@{age\+\_\+spells}!spell.\+c@{spell.\+c}}
+\subsubsection[{age\+\_\+spells}]{\setlength{\rightskip}{0pt plus 5cm}void age\+\_\+spells (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a771a029095e6da3cf9de799463c1967e}
+
+
+Definition at line 518 of file spell.\+c.
+
+
+
+References decrnknow, N\+O\+\_\+\+S\+P\+E\+L\+L, spellid, and spellknow.
+
+
+\begin{DoxyCode}
+519 \{
+520     \textcolor{keywordtype}{int} i;
+521     \textcolor{comment}{/*}
+522 \textcolor{comment}{     * The time relative to the hero (a pass through move}
+523 \textcolor{comment}{     * loop) causes all spell knowledge to be decremented.}
+524 \textcolor{comment}{     * The hero's speed, rest status, conscious status etc.}
+525 \textcolor{comment}{     * does not alter the loss of memory.}
+526 \textcolor{comment}{     */}
+527     \textcolor{keywordflow}{for} (i = 0; i < MAXSPELL && \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(i) != \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL}; i++)
+528         \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a9a3bbca4fed66f9584c5752f01776264}{spellknow}(i))
+529         \hyperlink{spell_8h_adbd944615ed8adda29b49ef799951d36}{decrnknow}(i);
+530     \textcolor{keywordflow}{return};
+531 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_afb4f2e9fe8494e82961945cd0d0467d5}{\index{spell.\+c@{spell.\+c}!book\+\_\+disappears@{book\+\_\+disappears}}
+\index{book\+\_\+disappears@{book\+\_\+disappears}!spell.\+c@{spell.\+c}}
+\subsubsection[{book\+\_\+disappears}]{\setlength{\rightskip}{0pt plus 5cm}void book\+\_\+disappears (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_afb4f2e9fe8494e82961945cd0d0467d5}
+
+
+Definition at line 500 of file spell.\+c.
+
+
+
+Referenced by saveobjchn().
+
+
+\begin{DoxyCode}
+502 \{
+503     \textcolor{keywordflow}{if} (obj == \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}) \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} = (\textcolor{keyword}{struct }obj *)0;
+504 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a77e0ac44fa55876e12d5abdd2aef3013}{\index{spell.\+c@{spell.\+c}!book\+\_\+substitution@{book\+\_\+substitution}}
+\index{book\+\_\+substitution@{book\+\_\+substitution}!spell.\+c@{spell.\+c}}
+\subsubsection[{book\+\_\+substitution}]{\setlength{\rightskip}{0pt plus 5cm}void book\+\_\+substitution (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{old\+\_\+obj, }
+\item[{struct {\bf obj} $\ast$}]{new\+\_\+obj}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a77e0ac44fa55876e12d5abdd2aef3013}
+
+
+Definition at line 510 of file spell.\+c.
+
+
+\begin{DoxyCode}
+512 \{
+513     \textcolor{keywordflow}{if} (old\_obj == \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}) \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} = new\_obj;
+514 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a73bd9aba2f0e1b1ebc203c9871748b9e}{\index{spell.\+c@{spell.\+c}!cast\+\_\+protection@{cast\+\_\+protection}}
+\index{cast\+\_\+protection@{cast\+\_\+protection}!spell.\+c@{spell.\+c}}
+\subsubsection[{cast\+\_\+protection}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void cast\+\_\+protection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a73bd9aba2f0e1b1ebc203c9871748b9e}
+
+
+Definition at line 623 of file spell.\+c.
+
+
+
+References Blind, Is\+\_\+waterlevel, min, N\+H\+\_\+\+G\+O\+L\+D\+E\+N, P\+\_\+\+E\+X\+P\+E\+R\+T, P\+\_\+\+S\+K\+I\+L\+L, spell\+\_\+skilltype(), u, you\+::uac, you\+::ulevel, Underwater, you\+::uspellprot, you\+::uspmtime, you\+::usptime, and you\+::uz.
+
+
+
+Referenced by spelleffects().
+
+
+\begin{DoxyCode}
+624 \{
+625     \textcolor{keywordtype}{int} loglev = 0;
+626     \textcolor{keywordtype}{int} l = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel};
+627     \textcolor{keywordtype}{int} natac = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a4286c7d027f70b103209bb3406ea3d85}{uac} - \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acc356d1f0009d4486e5cc977be49fd35}{uspellprot};
+628     \textcolor{keywordtype}{int} gain;
+629 
+630     \textcolor{comment}{/* loglev=log2(u.ulevel)+1 (1..5) */}
+631     \textcolor{keywordflow}{while} (l) \{
+632         loglev++;
+633         l /= 2;
+634     \}
+635 
+636     \textcolor{comment}{/* The more u.uspellprot you already have, the less you get,}
+637 \textcolor{comment}{     * and the better your natural ac, the less you get.}
+638 \textcolor{comment}{     *}
+639 \textcolor{comment}{     *  LEVEL AC    SPELLPROT from sucessive SPE\_PROTECTION casts}
+640 \textcolor{comment}{     *      1     10    0,  1,  2,  3,  4}
+641 \textcolor{comment}{     *      1      0    0,  1,  2,  3}
+642 \textcolor{comment}{     *      1    -10    0,  1,  2}
+643 \textcolor{comment}{     *      2-3   10    0,  2,  4,  5,  6,  7,  8}
+644 \textcolor{comment}{     *      2-3    0    0,  2,  4,  5,  6}
+645 \textcolor{comment}{     *      2-3  -10    0,  2,  3,  4}
+646 \textcolor{comment}{     *      4-7   10    0,  3,  6,  8,  9, 10, 11, 12}
+647 \textcolor{comment}{     *      4-7    0    0,  3,  5,  7,  8,  9}
+648 \textcolor{comment}{     *      4-7  -10    0,  3,  5,  6}
+649 \textcolor{comment}{     *      7-15 -10    0,  3,  5,  6}
+650 \textcolor{comment}{     *      8-15  10    0,  4,  7, 10, 12, 13, 14, 15, 16}
+651 \textcolor{comment}{     *      8-15   0    0,  4,  7,  9, 10, 11, 12}
+652 \textcolor{comment}{     *      8-15 -10    0,  4,  6,  7,  8}
+653 \textcolor{comment}{     *     16-30  10    0,  5,  9, 12, 14, 16, 17, 18, 19, 20}
+654 \textcolor{comment}{     *     16-30   0    0,  5,  9, 11, 13, 14, 15}
+655 \textcolor{comment}{     *     16-30 -10    0,  5,  8,  9, 10}
+656 \textcolor{comment}{     */}
+657     gain = loglev - (int)\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acc356d1f0009d4486e5cc977be49fd35}{uspellprot} / (4 - \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(3,(10 - natac)/10));
+658 
+659     \textcolor{keywordflow}{if} (gain > 0) \{
+660         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+661         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *hgolden = hcolor(\hyperlink{decl_8h_a568b43c12df71a3395b7f0896615b1d7}{NH\_GOLDEN});
+662 
+663         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acc356d1f0009d4486e5cc977be49fd35}{uspellprot})
+664             pline\_The(\textcolor{stringliteral}{"%s haze around you becomes more dense."},
+665                   hgolden);
+666         \textcolor{keywordflow}{else}
+667             pline\_The(\textcolor{stringliteral}{"%s around you begins to shimmer with %s haze."},
+668             \textcolor{comment}{/*[ what about being inside solid rock while polyd? ]*/}
+669             (\hyperlink{youprop_8h_a2eb59bdcba2c368fefd253bfcdaa3673}{Underwater} || \hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) ? \textcolor{stringliteral}{"water"} : \textcolor{stringliteral}{"air"},
+670                   an(hgolden));
+671         \}
+672         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acc356d1f0009d4486e5cc977be49fd35}{uspellprot} += gain;
+673         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7bc0458d075e246d875f8d3d59dcdf98}{uspmtime} =
+674         \hyperlink{skills_8h_a778eff14f7209290967e1627b0b737ea}{P\_SKILL}(\hyperlink{spell_8c_af8cd6969353c53c1aeddad9a7d8aca4a}{spell\_skilltype}(SPE\_PROTECTION)) == 
+      \hyperlink{skills_8h_a164d4988095938c2adb251b348ef58cd}{P\_EXPERT} ? 20 : 10;
+675         \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a74dd5c0738d963691257cae4842927f0}{usptime})
+676         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a74dd5c0738d963691257cae4842927f0}{usptime} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7bc0458d075e246d875f8d3d59dcdf98}{uspmtime};
+677         find\_ac();
+678     \} \textcolor{keywordflow}{else} \{
+679         Your(\textcolor{stringliteral}{"skin feels warm for a moment."});
+680     \}
+681 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a9bcff59710b18b23312e8a5876b61697}{\index{spell.\+c@{spell.\+c}!confused\+\_\+book@{confused\+\_\+book}}
+\index{confused\+\_\+book@{confused\+\_\+book}!spell.\+c@{spell.\+c}}
+\subsubsection[{confused\+\_\+book}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} confused\+\_\+book (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{spellbook}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a9bcff59710b18b23312e8a5876b61697}
+
+
+Definition at line 179 of file spell.\+c.
+
+
+
+References display\+\_\+nhwindow, F\+A\+L\+S\+E, objects, objclass\+::oc\+\_\+uname, T\+R\+U\+E, and W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E.
+
+
+
+Referenced by learn(), and study\+\_\+book().
+
+
+\begin{DoxyCode}
+181 \{
+182     \textcolor{keywordtype}{boolean} gone = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+183 
+184     \textcolor{keywordflow}{if} (!rn2(3) && spellbook->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != SPE\_BOOK\_OF\_THE\_DEAD) \{
+185         spellbook->in\_use = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};   \textcolor{comment}{/* in case called from learn */}
+186         pline(
+187     \textcolor{stringliteral}{"Being confused you have difficulties in controlling your actions."});
+188         \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+189         You(\textcolor{stringliteral}{"accidentally tear the spellbook to pieces."});
+190         \textcolor{keywordflow}{if} (!\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[spellbook->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_name\_known &&
+191         !\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[spellbook->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].\hyperlink{structobjclass_a2556428315c0776ce8f5c88ecf6508bc}{oc\_uname})
+192         docall(spellbook);
+193         useup(spellbook);
+194         gone = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+195     \} \textcolor{keywordflow}{else} \{
+196         You(\textcolor{stringliteral}{"find yourself reading the %s line over and over again."},
+197         spellbook == \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} ? \textcolor{stringliteral}{"next"} : \textcolor{stringliteral}{"first"});
+198     \}
+199     \textcolor{keywordflow}{return} gone;
+200 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a44374e01d957aa26368fec19823abf87}{\index{spell.\+c@{spell.\+c}!cursed\+\_\+book@{cursed\+\_\+book}}
+\index{cursed\+\_\+book@{cursed\+\_\+book}!spell.\+c@{spell.\+c}}
+\subsubsection[{cursed\+\_\+book}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} cursed\+\_\+book (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{bp}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a44374e01d957aa26368fec19823abf87}
+
+
+Definition at line 109 of file spell.\+c.
+
+
+
+References Antimagic, Blind, Blinded, F\+A\+C\+E, F\+A\+L\+S\+E, H\+Confusion, is\+\_\+corrodeable, K\+I\+L\+L\+E\+D\+\_\+\+B\+Y\+\_\+\+A\+N, M\+A\+X\+\_\+\+E\+R\+O\+D\+E, objects, Poison\+\_\+resistance, rn1, rndcurse(), shieldeff(), take\+\_\+gold(), tele(), T\+R\+U\+E, u, uarmg, you\+::ux, you\+::uy, and youmonst.
+
+
+
+Referenced by learn(), and study\+\_\+book().
+
+
+\begin{DoxyCode}
+111 \{
+112     \textcolor{keywordtype}{int} lev = \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[bp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_level;
+113 
+114     \textcolor{keywordflow}{switch}(rn2(lev)) \{
+115     \textcolor{keywordflow}{case} 0:
+116         You\_feel(\textcolor{stringliteral}{"a wrenching sensation."});
+117         \hyperlink{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}{tele}();     \textcolor{comment}{/* teleport him */}
+118         \textcolor{keywordflow}{break};
+119     \textcolor{keywordflow}{case} 1:
+120         You\_feel(\textcolor{stringliteral}{"threatened."});
+121         aggravate();
+122         \textcolor{keywordflow}{break};
+123     \textcolor{keywordflow}{case} 2:
+124         make\_blinded(\hyperlink{youprop_8h_a769ae4ea1360ffb2b8b4679bd129db09}{Blinded} + \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(100,250),\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+125         \textcolor{keywordflow}{break};
+126     \textcolor{keywordflow}{case} 3:
+127         \hyperlink{sit_8c_ade424a7b109974a43116b3cbb35dc4ff}{take\_gold}();
+128         \textcolor{keywordflow}{break};
+129     \textcolor{keywordflow}{case} 4:
+130         pline(\textcolor{stringliteral}{"These runes were just too much to comprehend."});
+131         make\_confused(\hyperlink{youprop_8h_a7e27468d62b489163905cdc2de895adf}{HConfusion} + \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(7,16),\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+132         \textcolor{keywordflow}{break};
+133     \textcolor{keywordflow}{case} 5:
+134         pline\_The(\textcolor{stringliteral}{"book was coated with contact poison!"});
+135         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}) \{
+136             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}->oerodeproof || !\hyperlink{objclass_8h_accadaa322e6f90207a5317ad010c61a4}{is\_corrodeable}(\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg})) \{
+137             Your(\textcolor{stringliteral}{"gloves seem unaffected."});
+138             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}->oeroded2 < \hyperlink{obj_8h_a560969716d5322448dbe570b13154aca}{MAX\_ERODE}) \{
+139             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}->greased) \{
+140                 grease\_protect(\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}, \textcolor{stringliteral}{"gloves"}, &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst});
+141             \} \textcolor{keywordflow}{else} \{
+142                 Your(\textcolor{stringliteral}{"gloves corrode%s!"},
+143                  \hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}->oeroded2+1 == \hyperlink{obj_8h_a560969716d5322448dbe570b13154aca}{MAX\_ERODE} ?
+144                  \textcolor{stringliteral}{" completely"} : \hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}->oeroded2 ?
+145                  \textcolor{stringliteral}{" further"} : \textcolor{stringliteral}{""});
+146                 \hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}->oeroded2++;
+147             \}
+148             \} \textcolor{keywordflow}{else}
+149             Your(\textcolor{stringliteral}{"gloves %s completely corroded."},
+150                  \hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} ? \textcolor{stringliteral}{"feel"} : \textcolor{stringliteral}{"look"});
+151             \textcolor{keywordflow}{break};
+152         \}
+153         \textcolor{comment}{/* temp disable in\_use; death should not destroy the book */}
+154         bp->in\_use = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+155         losestr(\hyperlink{youprop_8h_a234b31b7e1eb0c71ea67cdaca939c730}{Poison\_resistance} ? \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(2,1) : \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(4,3));
+156         losehp(rnd(\hyperlink{youprop_8h_a234b31b7e1eb0c71ea67cdaca939c730}{Poison\_resistance} ? 6 : 10),
+157                \textcolor{stringliteral}{"contact-poisoned spellbook"}, \hyperlink{decl_8h_af4e54910b730baa32b2dfbe4dd2942c1}{KILLED\_BY\_AN});
+158         bp->in\_use = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+159         \textcolor{keywordflow}{break};
+160     \textcolor{keywordflow}{case} 6:
+161         \textcolor{keywordflow}{if}(\hyperlink{youprop_8h_aaa17c946f184a85fbf104cdb4d55e24e}{Antimagic}) \{
+162             \hyperlink{display_8c_ac89f44ae626d79f05953e503312a939d}{shieldeff}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+163             pline\_The(\textcolor{stringliteral}{"book %s, but you are unharmed!"}, \hyperlink{spell_8c_ad605ab031d8f78c9ac0620f161f8c077}{explodes});
+164         \} \textcolor{keywordflow}{else} \{
+165             pline(\textcolor{stringliteral}{"As you read the book, it %s in your %s!"},
+166               \hyperlink{spell_8c_ad605ab031d8f78c9ac0620f161f8c077}{explodes}, body\_part(\hyperlink{hack_8h_a8cec063149d793579c0e9d0b992b9fd0}{FACE}));
+167             losehp(2*rnd(10)+5, \textcolor{stringliteral}{"exploding rune"}, \hyperlink{decl_8h_af4e54910b730baa32b2dfbe4dd2942c1}{KILLED\_BY\_AN});
+168         \}
+169         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+170     \textcolor{keywordflow}{default}:
+171         \hyperlink{sit_8c_a2835848ba066c9a75ae7f7400213fbd6}{rndcurse}();
+172         \textcolor{keywordflow}{break};
+173     \}
+174     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+175 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_abd0813766e086ea47ef646d2ecd6df4a}{\index{spell.\+c@{spell.\+c}!deadbook@{deadbook}}
+\index{deadbook@{deadbook}!spell.\+c@{spell.\+c}}
+\subsubsection[{deadbook}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void deadbook (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{book2}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_abd0813766e086ea47ef646d2ecd6df4a}
+
+
+Definition at line 204 of file spell.\+c.
+
+
+
+References obj\+::age, cansee, monst\+::data, D\+E\+A\+D\+M\+O\+N\+S\+T\+E\+R, distu, F\+A\+L\+S\+E, fmon, invent, is\+\_\+undead, makeknown, permonst\+::maligntyp, mkinvokearea(), mm, mons, moves, monst\+::mtame, monst\+::mx, monst\+::my, monst\+::nmon, N\+O\+\_\+\+M\+I\+N\+V\+E\+N\+T, obj\+::nobj, otmp, obj\+::otyp, something, obj\+::spe, S\+P\+I\+N\+E, T\+R\+U\+E, align\+::type, u, you\+::ualign, you\+::udg\+\_\+cnt, you\+::uevent, you\+::uhave, you\+::ux, you\+::uy, coord\+::x, coord\+::y, and youmonst.
+
+
+
+Referenced by learn().
+
+
+\begin{DoxyCode}
+206 \{
+207     \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp, *mtmp2;
+208     \hyperlink{structcoord}{coord} \hyperlink{celib_8c_a378f364ce8f01015f43ce168ea8afd39}{mm};
+209 
+210     You(\textcolor{stringliteral}{"turn the pages of the Book of the Dead..."});
+211     \hyperlink{hack_8h_afbd3607e7cef2f888f4190d40d058011}{makeknown}(SPE\_BOOK\_OF\_THE\_DEAD);
+212     \textcolor{comment}{/* KMH -- Need ->known to avoid "\_a\_ Book of the Dead" */}
+213     book2->known = 1;
+214     \textcolor{keywordflow}{if}(invocation\_pos(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) && !On\_stairs(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})) \{
+215     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+216     \textcolor{keyword}{register} \textcolor{keywordtype}{boolean} arti1\_primed = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, arti2\_primed = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},
+217              arti\_cursed = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+218 
+219     \textcolor{keywordflow}{if}(book2->cursed) \{
+220         pline\_The(\textcolor{stringliteral}{"runes appear scrambled.  You can't read them!"});
+221         \textcolor{keywordflow}{return};
+222     \}
+223 
+224     \textcolor{keywordflow}{if}(!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.bell || !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.menorah) \{
+225         pline(\textcolor{stringliteral}{"A chill runs down your %s."}, body\_part(\hyperlink{hack_8h_ab40628a0c911b138b20a33432e98c80e}{SPINE}));
+226         \textcolor{keywordflow}{if}(!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.bell) You\_hear(\textcolor{stringliteral}{"a faint chime..."});
+227         \textcolor{keywordflow}{if}(!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.menorah) pline(\textcolor{stringliteral}{"Vlad's doppelganger is amused."});
+228         \textcolor{keywordflow}{return};
+229     \}
+230 
+231     \textcolor{keywordflow}{for}(otmp = \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj}) \{
+232         \textcolor{keywordflow}{if}(otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == CANDELABRUM\_OF\_INVOCATION &&
+233            otmp->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} == 7 && otmp->lamplit) \{
+234         \textcolor{keywordflow}{if}(!otmp->cursed) arti1\_primed = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+235         \textcolor{keywordflow}{else} arti\_cursed = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+236         \}
+237         \textcolor{keywordflow}{if}(otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == BELL\_OF\_OPENING &&
+238            (\hyperlink{decl_8h_a2ccad6e8fb93740ed50c6d9a8f72ce2f}{moves} - otmp->\hyperlink{structobj_a3dd6f7cf99f6a946d0ca406cfca5c23d}{age}) < 5L) \{ \textcolor{comment}{/* you rang it recently */}
+239         \textcolor{keywordflow}{if}(!otmp->cursed) arti2\_primed = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+240         \textcolor{keywordflow}{else} arti\_cursed = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+241         \}
+242     \}
+243 
+244     \textcolor{keywordflow}{if}(arti\_cursed) \{
+245         pline\_The(\textcolor{stringliteral}{"invocation fails!"});
+246         pline(\textcolor{stringliteral}{"At least one of your artifacts is cursed..."});
+247     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(arti1\_primed && arti2\_primed) \{
+248         \textcolor{keywordtype}{unsigned} soon = (unsigned) d(2,6);  \textcolor{comment}{/* time til next intervene() */}
+249 
+250         \textcolor{comment}{/* successful invocation */}
+251         \hyperlink{mklev_8c_a52e44ae3de7a3d9a5160dc8233886ab3}{mkinvokearea}();
+252         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.invoked = 1;
+253         \textcolor{comment}{/* in case you haven't killed the Wizard yet, behave as if}
+254 \textcolor{comment}{           you just did */}
+255         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.udemigod = 1;   \textcolor{comment}{/* wizdead() */}
+256         \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a57a2b161db463d1534dd5b71e9ff79b6}{udg\_cnt} || \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a57a2b161db463d1534dd5b71e9ff79b6}{udg\_cnt} > soon) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a57a2b161db463d1534dd5b71e9ff79b6}{udg\_cnt} = soon;
+257     \} \textcolor{keywordflow}{else} \{    \textcolor{comment}{/* at least one artifact not prepared properly */}
+258         You(\textcolor{stringliteral}{"have a feeling that %s is amiss..."}, \hyperlink{decl_8h_aa5c50bde0d16d15a08d32d8df49a80ae}{something});
+259         \textcolor{keywordflow}{goto} raise\_dead;
+260     \}
+261     \textcolor{keywordflow}{return};
+262     \}
+263 
+264     \textcolor{comment}{/* when not an invocation situation */}
+265     \textcolor{keywordflow}{if} (book2->cursed) \{
+266 raise\_dead:
+267 
+268     You(\textcolor{stringliteral}{"raised the dead!"});
+269     \textcolor{comment}{/* first maybe place a dangerous adversary */}
+270     \textcolor{keywordflow}{if} (!rn2(3) && ((mtmp = makemon(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_MASTER\_LICH],
+271                     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{hack_8h_ab9abb3d58903e1c125446f40f6984095}{NO\_MINVENT})) != 0 ||
+272             (mtmp = makemon(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_NALFESHNEE],
+273                     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{hack_8h_ab9abb3d58903e1c125446f40f6984095}{NO\_MINVENT})) != 0)) \{
+274         mtmp->mpeaceful = 0;
+275         set\_malign(mtmp);
+276     \}
+277     \textcolor{comment}{/* next handle the affect on things you're carrying */}
+278     (void) unturn\_dead(&\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst});
+279     \textcolor{comment}{/* last place some monsters around you */}
+280     mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+281     mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+282     mkundead(&mm, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{hack_8h_ab9abb3d58903e1c125446f40f6984095}{NO\_MINVENT});
+283     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(book2->blessed) \{
+284     \textcolor{keywordflow}{for}(mtmp = \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon}; mtmp; mtmp = mtmp2) \{
+285         mtmp2 = mtmp->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon};     \textcolor{comment}{/* tamedog() changes chain */}
+286         \textcolor{keywordflow}{if} (\hyperlink{monst_8h_a87ebcb12436dc12747fed36e83561249}{DEADMONSTER}(mtmp)) \textcolor{keywordflow}{continue};
+287 
+288         \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_a8e10c42bf31c42d748765a29105842fc}{is\_undead}(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}) && \hyperlink{vision_8h_a857efc720262bc13a9e4b4bcbb079b5c}{cansee}(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->
+      \hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my})) \{
+289         mtmp->mpeaceful = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+290         \textcolor{keywordflow}{if}(sgn(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}->\hyperlink{structpermonst_ad92ab559c3dc08cc1a40f3413377d787}{maligntyp}) == sgn(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_a0dadfa91b9ff06447f91ea8a2b898827}{type})
+291            && \hyperlink{hack_8h_a1f84afcae19c5b60124bc509ed647f84}{distu}(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my}) < 4)
+292             \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_a6d525ec48f9d38cda6accbb0cb39efba}{mtame}) \{
+293             \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_a6d525ec48f9d38cda6accbb0cb39efba}{mtame} < 20)
+294                 mtmp->\hyperlink{structmonst_a6d525ec48f9d38cda6accbb0cb39efba}{mtame}++;
+295             \} \textcolor{keywordflow}{else}
+296             (\textcolor{keywordtype}{void}) tamedog(mtmp, (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0);
+297         \textcolor{keywordflow}{else} monflee(mtmp, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+298         \}
+299     \}
+300     \} \textcolor{keywordflow}{else} \{
+301     \textcolor{keywordflow}{switch}(rn2(3)) \{
+302     \textcolor{keywordflow}{case} 0:
+303         Your(\textcolor{stringliteral}{"ancestors are annoyed with you!"});
+304         \textcolor{keywordflow}{break};
+305     \textcolor{keywordflow}{case} 1:
+306         pline\_The(\textcolor{stringliteral}{"headstones in the cemetery begin to move!"});
+307         \textcolor{keywordflow}{break};
+308     \textcolor{keywordflow}{default}:
+309         pline(\textcolor{stringliteral}{"Oh my!  Your name appears in the book!"});
+310     \}
+311     \}
+312     \textcolor{keywordflow}{return};
+313 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a2057ad50375a5db48b68d451aa17ffa7}{\index{spell.\+c@{spell.\+c}!docast@{docast}}
+\index{docast@{docast}!spell.\+c@{spell.\+c}}
+\subsubsection[{docast}]{\setlength{\rightskip}{0pt plus 5cm}int docast (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a2057ad50375a5db48b68d451aa17ffa7}
+
+
+Definition at line 581 of file spell.\+c.
+
+
+
+References F\+A\+L\+S\+E, getspell(), and spelleffects().
+
+
+\begin{DoxyCode}
+582 \{
+583     \textcolor{keywordtype}{int} spell\_no;
+584 
+585     \textcolor{keywordflow}{if} (\hyperlink{spell_8c_ad3c12b9f9347dc85bcdc79d0a5c7634e}{getspell}(&spell\_no))
+586         \textcolor{keywordflow}{return} \hyperlink{spell_8c_a6cb4b0282f49a4d3cb5ef195ac5ec0ad}{spelleffects}(spell\_no, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+587     \textcolor{keywordflow}{return} 0;
+588 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_adf69f931f96caa617ed329cf80f7d61d}{\index{spell.\+c@{spell.\+c}!dospellmenu@{dospellmenu}}
+\index{dospellmenu@{dospellmenu}!spell.\+c@{spell.\+c}}
+\subsubsection[{dospellmenu}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} dospellmenu (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{prompt, }
+\item[{int}]{splaction, }
+\item[{int $\ast$}]{spell\+\_\+no}
+\end{DoxyParamCaption}
+) const}}\label{spell_8c_adf69f931f96caa617ed329cf80f7d61d}
+
+
+Definition at line 1048 of file spell.\+c.
+
+
+
+References any\+::a\+\_\+int, any\+::a\+\_\+void, add\+\_\+menu, A\+T\+R\+\_\+\+B\+O\+L\+D, A\+T\+R\+\_\+\+N\+O\+N\+E, buf, B\+U\+F\+S\+Z, create\+\_\+nhwindow, destroy\+\_\+nhwindow, end\+\_\+menu, F\+A\+L\+S\+E, free(), iflags, mi\+::item, M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D, instance\+\_\+flags\+::menu\+\_\+tab\+\_\+sep, M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+O\+\_\+\+G\+L\+Y\+P\+H, N\+O\+\_\+\+S\+P\+E\+L\+L, percent\+\_\+success(), P\+I\+C\+K\+\_\+\+N\+O\+N\+E, P\+I\+C\+K\+\_\+\+O\+N\+E, select\+\_\+menu, spell\+\_\+skilltype(), spellet, spellev, spellid, spellknow, S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W, spellname, spelltypemnemonic(), Sprintf, start\+\_\+menu, and T\+R\+U\+E.
+
+
+
+Referenced by dovspell(), and getspell().
+
+
+\begin{DoxyCode}
+1052 \{
+1053     \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} tmpwin;
+1054     \textcolor{keywordtype}{int} i, n, how;
+1055     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1056     \hyperlink{structmi}{menu\_item} *selected;
+1057     \hyperlink{unionany}{anything} \hyperlink{unionany}{any};
+1058 
+1059     tmpwin = \hyperlink{winprocs_8h_aa13fb35379049d1836397492d10b6b0c}{create\_nhwindow}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU});
+1060     \hyperlink{winprocs_8h_a466fbda9d8533b050350184f5a095617}{start\_menu}(tmpwin);
+1061     any.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} = 0;       \textcolor{comment}{/* zero out all bits */}
+1062 
+1063     \textcolor{comment}{/*}
+1064 \textcolor{comment}{     * The correct spacing of the columns depends on the}
+1065 \textcolor{comment}{     * following that (1) the font is monospaced and (2)}
+1066 \textcolor{comment}{     * that selection letters are pre-pended to the given}
+1067 \textcolor{comment}{     * string and are of the form "a - ".}
+1068 \textcolor{comment}{     *}
+1069 \textcolor{comment}{     * To do it right would require that we implement columns}
+1070 \textcolor{comment}{     * in the window-ports (say via a tab character).}
+1071 \textcolor{comment}{     */}
+1072     \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a85c9a72818b89578114f16b9f26a95c0}{menu\_tab\_sep})
+1073         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"%-20s     Level  %-12s Fail"}, \textcolor{stringliteral}{"    Name"}, \textcolor{stringliteral}{"Category"});
+1074     \textcolor{keywordflow}{else}
+1075         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"Name\(\backslash\)tLevel\(\backslash\)tCategory\(\backslash\)tFail"});
+1076     \hyperlink{winprocs_8h_a67d909f9e2dbdf82e7af48ed950c0e07}{add\_menu}(tmpwin, \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH}, &any, 0, 0, \hyperlink{wintype_8h_a3bdd83c2b946e860e76de6aac6a4edfe}{ATR\_BOLD}, buf, 
+      \hyperlink{hack_8h_a1b4cfefbc89386fb8977794f02b0a13c}{MENU\_UNSELECTED});
+1077     \textcolor{keywordflow}{for} (i = 0; i < MAXSPELL && \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(i) != \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL}; i++) \{
+1078         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a85c9a72818b89578114f16b9f26a95c0}{menu\_tab\_sep} ?
+1079             \textcolor{stringliteral}{"%s\(\backslash\)t%-d%s\(\backslash\)t%s\(\backslash\)t%-d%%"} : \textcolor{stringliteral}{"%-20s  %2d%s   %-12s %3d%%"},
+1080             \hyperlink{spell_8c_aae2e2cb0bb5d53bed65a6f2cf922b576}{spellname}(i), \hyperlink{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}{spellev}(i),
+1081             \hyperlink{spell_8h_a9a3bbca4fed66f9584c5752f01776264}{spellknow}(i) ? \textcolor{stringliteral}{" "} : \textcolor{stringliteral}{"*"},
+1082             \hyperlink{spell_8c_ad199ec863ddf50e9328ba521571852f9}{spelltypemnemonic}(\hyperlink{spell_8c_af8cd6969353c53c1aeddad9a7d8aca4a}{spell\_skilltype}(
+      \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(i))),
+1083             100 - \hyperlink{spell_8c_a5445232a3026c17817d13ac345f846c5}{percent\_success}(i));
+1084 
+1085         any.\hyperlink{unionany_aae9fa40e12da390154868ea24a96c561}{a\_int} = i+1;   \textcolor{comment}{/* must be non-zero */}
+1086         \hyperlink{winprocs_8h_a67d909f9e2dbdf82e7af48ed950c0e07}{add\_menu}(tmpwin, \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH}, &any,
+1087              \hyperlink{spell_8c_a3400565e38d9ba1eb3a916f20b03c7a4}{spellet}(i), 0, \hyperlink{wintype_8h_a20a20b74e8cf84ecfbf3c8665c059636}{ATR\_NONE}, buf,
+1088              (i == splaction) ? \hyperlink{hack_8h_aac81acdb9065d3be281db6cdbcbf2d4a}{MENU\_SELECTED} : \hyperlink{hack_8h_a1b4cfefbc89386fb8977794f02b0a13c}{MENU\_UNSELECTED});
+1089           \}
+1090     \hyperlink{winprocs_8h_a26f49f5dfc880f4a810f61b5beae4a71}{end\_menu}(tmpwin, prompt);
+1091 
+1092     how = \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE};
+1093     \textcolor{keywordflow}{if} (splaction == \hyperlink{spell_8c_a2aa11551b55d538fa9af69006155a371}{SPELLMENU\_VIEW} && \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(1) == 
+      \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL})
+1094         how = \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE};   \textcolor{comment}{/* only one spell => nothing to swap with */}
+1095     n = \hyperlink{winprocs_8h_afdaac8ee2b6bdd0a0045b81a0cfbe1fc}{select\_menu}(tmpwin, how, &selected);
+1096     \hyperlink{winprocs_8h_a77ac4f50de0eedeaead791812762c6a0}{destroy\_nhwindow}(tmpwin);
+1097     \textcolor{keywordflow}{if} (n > 0) \{
+1098         *spell\_no = selected[0].\hyperlink{structmi_a24f26cd1b01d3cf3ed16b1fd020d3a08}{item}.\hyperlink{unionany_aae9fa40e12da390154868ea24a96c561}{a\_int} - 1;
+1099         \textcolor{comment}{/* menu selection for `PICK\_ONE' does not}
+1100 \textcolor{comment}{           de-select any preselected entry */}
+1101         \textcolor{keywordflow}{if} (n > 1 && *spell\_no == splaction)
+1102             *spell\_no = selected[1].\hyperlink{structmi_a24f26cd1b01d3cf3ed16b1fd020d3a08}{item}.\hyperlink{unionany_aae9fa40e12da390154868ea24a96c561}{a\_int} - 1;
+1103         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})selected);
+1104         \textcolor{comment}{/* default selection of preselected spell means that}
+1105 \textcolor{comment}{           user chose not to swap it with anything */}
+1106         \textcolor{keywordflow}{if} (*spell\_no == splaction) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1107         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1108     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (splaction >= 0) \{
+1109         \textcolor{comment}{/* explicit de-selection of preselected spell means that}
+1110 \textcolor{comment}{           user is still swapping but not for the current spell */}
+1111         *spell\_no = splaction;
+1112         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1113     \}
+1114     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1115 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a6462481295cecb652ea7585b099650dd}{\index{spell.\+c@{spell.\+c}!dovspell@{dovspell}}
+\index{dovspell@{dovspell}!spell.\+c@{spell.\+c}}
+\subsubsection[{dovspell}]{\setlength{\rightskip}{0pt plus 5cm}int dovspell (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a6462481295cecb652ea7585b099650dd}
+
+
+Definition at line 1024 of file spell.\+c.
+
+
+
+References dospellmenu(), N\+O\+\_\+\+S\+P\+E\+L\+L, Q\+B\+U\+F\+S\+Z, spellet, spellid, S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+V\+I\+E\+W, spl\+\_\+book, and Sprintf.
+
+
+\begin{DoxyCode}
+1025 \{
+1026     \textcolor{keywordtype}{char} qbuf[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+1027     \textcolor{keywordtype}{int} splnum, othnum;
+1028     \textcolor{keyword}{struct }\hyperlink{structspell}{spell} spl\_tmp;
+1029 
+1030     \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(0) == \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL})
+1031         You(\textcolor{stringliteral}{"don't know any spells right now."});
+1032     \textcolor{keywordflow}{else} \{
+1033         \textcolor{keywordflow}{while} (\hyperlink{spell_8c_adf69f931f96caa617ed329cf80f7d61d}{dospellmenu}(\textcolor{stringliteral}{"Currently known spells"},
+1034                    \hyperlink{spell_8c_a2aa11551b55d538fa9af69006155a371}{SPELLMENU\_VIEW}, &splnum)) \{
+1035         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(qbuf, \textcolor{stringliteral}{"Reordering spells; swap '%c' with"},
+1036             \hyperlink{spell_8c_a3400565e38d9ba1eb3a916f20b03c7a4}{spellet}(splnum));
+1037         \textcolor{keywordflow}{if} (!\hyperlink{spell_8c_adf69f931f96caa617ed329cf80f7d61d}{dospellmenu}(qbuf, splnum, &othnum)) \textcolor{keywordflow}{break};
+1038 
+1039         spl\_tmp = \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[splnum];
+1040         \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[splnum] = \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[othnum];
+1041         \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[othnum] = spl\_tmp;
+1042         \}
+1043     \}
+1044     \textcolor{keywordflow}{return} 0;
+1045 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a815154f42a0e2fa738abd96b6e5e9a66}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf spell\+\_\+let\+\_\+to\+\_\+idx}}]{, }
+\item[{({\bf C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a815154f42a0e2fa738abd96b6e5e9a66}
+\hypertarget{spell_8c_ac9e637fbab90de4a163e1fdabc17b955}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf cursed\+\_\+book}}]{, }
+\item[{(struct {\bf obj} $\ast$bp)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_ac9e637fbab90de4a163e1fdabc17b955}
+\hypertarget{spell_8c_adf5a96999474f9ea90f600d228e48c89}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf confused\+\_\+book}}]{, }
+\item[{(struct {\bf obj} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_adf5a96999474f9ea90f600d228e48c89}
+\hypertarget{spell_8c_a2cf50f0d4e7c06725eb1ef1692b835bb}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf deadbook}}]{, }
+\item[{(struct {\bf obj} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a2cf50f0d4e7c06725eb1ef1692b835bb}
+\hypertarget{spell_8c_ab388d3d333191c58bbc29c85a1341cc3}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf getspell}}]{, }
+\item[{(int $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_ab388d3d333191c58bbc29c85a1341cc3}
+\hypertarget{spell_8c_a72c7ba88497e3af76e4e1777944aa701}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf dospellmenu}}]{, }
+\item[{({\bf const} char $\ast$, int, int $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a72c7ba88497e3af76e4e1777944aa701}
+\hypertarget{spell_8c_a05f5f298bd75112f49deab936b406234}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf percent\+\_\+success}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a05f5f298bd75112f49deab936b406234}
+\hypertarget{spell_8c_a25da17bbb66a9b6150e83fc255fe9bdd}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf spell\+\_\+backfire}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a25da17bbb66a9b6150e83fc255fe9bdd}
+\hypertarget{spell_8c_acabc91292db938770552f33c26d9f967}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf const} char$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf spelltypemnemonic}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_acabc91292db938770552f33c26d9f967}
+\hypertarget{spell_8c_a1251472622c9c0b6fedde5d6309c6848}{\index{spell.\+c@{spell.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf isqrt}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a1251472622c9c0b6fedde5d6309c6848}
+\hypertarget{spell_8c_ad3c12b9f9347dc85bcdc79d0a5c7634e}{\index{spell.\+c@{spell.\+c}!getspell@{getspell}}
+\index{getspell@{getspell}!spell.\+c@{spell.\+c}}
+\subsubsection[{getspell}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} getspell (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{spell\+\_\+no}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_ad3c12b9f9347dc85bcdc79d0a5c7634e}
+
+
+Definition at line 538 of file spell.\+c.
+
+
+
+References B\+U\+F\+S\+Z, dospellmenu(), F\+A\+L\+S\+E, flags, index(), flag\+::menu\+\_\+style, M\+E\+N\+U\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L, N\+O\+\_\+\+S\+P\+E\+L\+L, Q\+B\+U\+F\+S\+Z, quitchars, spell\+\_\+let\+\_\+to\+\_\+idx(), spellid, S\+P\+E\+L\+L\+M\+E\+N\+U\+\_\+\+C\+A\+S\+T, Sprintf, Strcpy, and T\+R\+U\+E.
+
+
+
+Referenced by docast().
+
+
+\begin{DoxyCode}
+540 \{
+541     \textcolor{keywordtype}{int} nspells, idx;
+542     \textcolor{keywordtype}{char} ilet, lets[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}], qbuf[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+543 
+544     \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(0) == \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL})  \{
+545         You(\textcolor{stringliteral}{"don't know any spells right now."});
+546         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+547     \}
+548     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c7aac17ec6b0121796b28803d94547c}{menu\_style} == \hyperlink{hack_8h_a3722a16e7d256c5426734217dd050099}{MENU\_TRADITIONAL}) \{
+549         \textcolor{comment}{/* we know there is at least 1 known spell */}
+550         \textcolor{keywordflow}{for} (nspells = 1; nspells < MAXSPELL
+551                 && \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(nspells) != \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL}; nspells++)
+552         \textcolor{keywordflow}{continue};
+553 
+554         \textcolor{keywordflow}{if} (nspells == 1)  \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(lets, \textcolor{stringliteral}{"a"});
+555         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nspells < 27)  \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(lets, \textcolor{stringliteral}{"a-%c"}, \textcolor{charliteral}{'a'} + nspells - 1);
+556         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (nspells == 27)  \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(lets, \textcolor{stringliteral}{"a-zA"});
+557         \textcolor{keywordflow}{else} \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(lets, \textcolor{stringliteral}{"a-zA-%c"}, \textcolor{charliteral}{'A'} + nspells - 27);
+558 
+559         \textcolor{keywordflow}{for}(;;)  \{
+560         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(qbuf, \textcolor{stringliteral}{"Cast which spell? [%s ?]"}, lets);
+561         \textcolor{keywordflow}{if} ((ilet = yn\_function(qbuf, (\textcolor{keywordtype}{char} *)0, \textcolor{charliteral}{'\(\backslash\)0'})) == \textcolor{charliteral}{'?'})
+562             \textcolor{keywordflow}{break};
+563 
+564         \textcolor{keywordflow}{if} (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\hyperlink{decl_8h_acf3ecfe1055b7bede365ef39613f2b7c}{quitchars}, ilet))
+565             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+566 
+567         idx = \hyperlink{spell_8c_a9b44319a80fb13571a5d5cc5ee77a813}{spell\_let\_to\_idx}(ilet);
+568         \textcolor{keywordflow}{if} (idx >= 0 && idx < nspells) \{
+569             *spell\_no = idx;
+570             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+571         \} \textcolor{keywordflow}{else}
+572             You(\textcolor{stringliteral}{"don't know that spell."});
+573         \}
+574     \}
+575     \textcolor{keywordflow}{return} \hyperlink{spell_8c_adf69f931f96caa617ed329cf80f7d61d}{dospellmenu}(\textcolor{stringliteral}{"Choose which spell to cast"},
+576                \hyperlink{spell_8c_a1c6a2009580b247364fb96300b43df3e}{SPELLMENU\_CAST}, spell\_no);
+577 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a6b2ad670f1d19a68ad40cd2d2b71ca5f}{\index{spell.\+c@{spell.\+c}!initialspell@{initialspell}}
+\index{initialspell@{initialspell}!spell.\+c@{spell.\+c}}
+\subsubsection[{initialspell}]{\setlength{\rightskip}{0pt plus 5cm}void initialspell (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a6b2ad670f1d19a68ad40cd2d2b71ca5f}
+
+
+Definition at line 1242 of file spell.\+c.
+
+
+
+References incrnknow, N\+O\+\_\+\+S\+P\+E\+L\+L, O\+B\+J\+\_\+\+N\+A\+M\+E, objects, spell\+::sp\+\_\+id, spell\+::sp\+\_\+lev, spellid, and spl\+\_\+book.
+
+
+
+Referenced by ini\+\_\+inv().
+
+
+\begin{DoxyCode}
+1244 \{
+1245     \textcolor{keywordtype}{int} i;
+1246 
+1247     \textcolor{keywordflow}{for} (i = 0; i < MAXSPELL; i++) \{
+1248         \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(i) == obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}) \{
+1249              pline(\textcolor{stringliteral}{"Error: Spell %s already known."},
+1250                     \hyperlink{objclass_8h_aaa71280f2bfe02894ab8c39af548d6ae}{OBJ\_NAME}(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}]));
+1251              \textcolor{keywordflow}{return};
+1252         \}
+1253         \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(i) == \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL})  \{
+1254             \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[i].\hyperlink{structspell_a167ef1854e6555c46ab78ef6a1b67eb1}{sp\_id} = obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp};
+1255             \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[i].\hyperlink{structspell_af40252a9f2b05db46954175fddc67ee3}{sp\_lev} = \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_level;
+1256             \hyperlink{spell_8c_a2ece403305563e8b3b018d5fd4dacfae}{incrnknow}(i);
+1257             \textcolor{keywordflow}{return};
+1258         \}
+1259     \}
+1260     impossible(\textcolor{stringliteral}{"Too many spells memorized!"});
+1261     \textcolor{keywordflow}{return};
+1262 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_afa2f2852cfe7240462ec3538966511ac}{\index{spell.\+c@{spell.\+c}!isqrt@{isqrt}}
+\index{isqrt@{isqrt}!spell.\+c@{spell.\+c}}
+\subsubsection[{isqrt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int isqrt (
+\begin{DoxyParamCaption}
+\item[{int}]{val}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_afa2f2852cfe7240462ec3538966511ac}
+
+
+Definition at line 1119 of file spell.\+c.
+
+
+
+Referenced by percent\+\_\+success().
+
+
+\begin{DoxyCode}
+1121 \{
+1122     \textcolor{keywordtype}{int} rt = 0;
+1123     \textcolor{keywordtype}{int} odd = 1;
+1124     \textcolor{keywordflow}{while}(val >= odd) \{
+1125     val = val-odd;
+1126     odd = odd+2;
+1127     rt = rt + 1;
+1128     \}
+1129     \textcolor{keywordflow}{return} rt;
+1130 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a3e4a8f14c0dd70f46dce2fc923251e42}{\index{spell.\+c@{spell.\+c}!learn@{learn}}
+\index{learn@{learn}!spell.\+c@{spell.\+c}}
+\subsubsection[{learn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R} int learn (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a3e4a8f14c0dd70f46dce2fc923251e42}
+
+
+Definition at line 316 of file spell.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, B\+U\+F\+S\+Z, confused\+\_\+book(), Confusion, cursed\+\_\+book(), deadbook(), delay, F\+A\+L\+S\+E, incrnknow, makeknown, M\+A\+X\+\_\+\+S\+P\+E\+L\+L\+\_\+\+S\+T\+U\+D\+Y, N\+O\+\_\+\+S\+P\+E\+L\+L, O\+B\+J\+\_\+\+N\+A\+M\+E, objects, obj\+::otyp, spell\+::sp\+\_\+id, spell\+::sp\+\_\+lev, spellid, spellknow, spl\+\_\+book, Sprintf, T\+R\+U\+E, and ublindf.
+
+
+
+Referenced by study\+\_\+book().
+
+
+\begin{DoxyCode}
+317 \{
+318     \textcolor{keywordtype}{int} i;
+319     \textcolor{keywordtype}{short} booktype;
+320     \textcolor{keywordtype}{char} splname[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+321     \textcolor{keywordtype}{boolean} costly = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+322 
+323     \textcolor{comment}{/* JDS: lenses give 50% faster reading; 33% smaller read time */}
+324     \textcolor{keywordflow}{if} (\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} && \hyperlink{decl_8h_aaac1dc498d3597b63617d7056c3e1c1b}{ublindf} && \hyperlink{decl_8h_aaac1dc498d3597b63617d7056c3e1c1b}{ublindf}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == LENSES && rn2(2)) 
+      \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}++;
+325     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion}) \{       \textcolor{comment}{/* became confused while learning */}
+326         (void) \hyperlink{spell_8c_a9bcff59710b18b23312e8a5876b61697}{confused\_book}(\hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book});
+327         \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} = 0;           \textcolor{comment}{/* no longer studying */}
+328         nomul(\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay});      \textcolor{comment}{/* remaining delay is uninterrupted */}
+329         \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} = 0;
+330         \textcolor{keywordflow}{return}(0);
+331     \}
+332     \textcolor{keywordflow}{if} (\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}) \{   \textcolor{comment}{/* not if (delay++), so at end delay == 0 */}
+333         \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}++;
+334         \textcolor{keywordflow}{return}(1); \textcolor{comment}{/* still busy */}
+335     \}
+336     exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});     \textcolor{comment}{/* you're studying. */}
+337     booktype = \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp};
+338     \textcolor{keywordflow}{if}(booktype == SPE\_BOOK\_OF\_THE\_DEAD) \{
+339         \hyperlink{spell_8c_abd0813766e086ea47ef646d2ecd6df4a}{deadbook}(\hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book});
+340         \textcolor{keywordflow}{return}(0);
+341     \}
+342 
+343     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(splname, \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].oc\_name\_known ?
+344             \textcolor{stringliteral}{"\(\backslash\)"%s\(\backslash\)""} : \textcolor{stringliteral}{"the \(\backslash\)"%s\(\backslash\)" spell"},
+345         \hyperlink{objclass_8h_aaa71280f2bfe02894ab8c39af548d6ae}{OBJ\_NAME}(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype]));
+346     \textcolor{keywordflow}{for} (i = 0; i < MAXSPELL; i++)  \{
+347         \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(i) == booktype)  \{
+348             \textcolor{keywordflow}{if} (\hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}->spestudied > \hyperlink{spell_8c_a8e6d65daa836b0d6fca9fbbca1244133}{MAX\_SPELL\_STUDY}) \{
+349                 pline(\textcolor{stringliteral}{"This spellbook is too faint to be read any more."});
+350                 \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} = booktype = SPE\_BLANK\_PAPER;
+351             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a9a3bbca4fed66f9584c5752f01776264}{spellknow}(i) <= 1000) \{
+352                 Your(\textcolor{stringliteral}{"knowledge of %s is keener."}, splname);
+353                 \hyperlink{spell_8c_a2ece403305563e8b3b018d5fd4dacfae}{incrnknow}(i);
+354                 \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}->spestudied++;
+355                 exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS},\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});       \textcolor{comment}{/* extra study */}
+356             \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{/* 1000 < spellknow(i) <= MAX\_SPELL\_STUDY */}
+357                 You(\textcolor{stringliteral}{"know %s quite well already."}, splname);
+358                 costly = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+359             \}
+360             \textcolor{comment}{/* make book become known even when spell is already}
+361 \textcolor{comment}{               known, in case amnesia made you forget the book */}
+362             \hyperlink{hack_8h_afbd3607e7cef2f888f4190d40d058011}{makeknown}((\textcolor{keywordtype}{int})booktype);
+363             \textcolor{keywordflow}{break};
+364         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(i) == \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL})  \{
+365             \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[i].\hyperlink{structspell_a167ef1854e6555c46ab78ef6a1b67eb1}{sp\_id} = booktype;
+366             \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[i].\hyperlink{structspell_af40252a9f2b05db46954175fddc67ee3}{sp\_lev} = \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].oc\_level;
+367             \hyperlink{spell_8c_a2ece403305563e8b3b018d5fd4dacfae}{incrnknow}(i);
+368             \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}->spestudied++;
+369             You(i > 0 ? \textcolor{stringliteral}{"add %s to your repertoire."} : \textcolor{stringliteral}{"learn %s."},
+370                 splname);
+371             \hyperlink{hack_8h_afbd3607e7cef2f888f4190d40d058011}{makeknown}((\textcolor{keywordtype}{int})booktype);
+372             \textcolor{keywordflow}{break};
+373         \}
+374     \}
+375     \textcolor{keywordflow}{if} (i == MAXSPELL) impossible(\textcolor{stringliteral}{"Too many spells memorized!"});
+376 
+377     \textcolor{keywordflow}{if} (\hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book}->cursed) \{ \textcolor{comment}{/* maybe a demon cursed it */}
+378         \textcolor{keywordflow}{if} (\hyperlink{spell_8c_a44374e01d957aa26368fec19823abf87}{cursed\_book}(\hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book})) \{
+379         useup(\hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book});
+380         \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} = 0;
+381         \textcolor{keywordflow}{return} 0;
+382         \}
+383     \}
+384     \textcolor{keywordflow}{if} (costly) check\_unpaid(\hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book});
+385     \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} = 0;
+386     \textcolor{keywordflow}{return}(0);
+387 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a1f264019f61bf516d0e38588ee1966ad}{\index{spell.\+c@{spell.\+c}!losespells@{losespells}}
+\index{losespells@{losespells}!spell.\+c@{spell.\+c}}
+\subsubsection[{losespells}]{\setlength{\rightskip}{0pt plus 5cm}void losespells (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a1f264019f61bf516d0e38588ee1966ad}
+
+
+Definition at line 1004 of file spell.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, Confusion, F\+A\+L\+S\+E, N\+O\+\_\+\+S\+P\+E\+L\+L, and spellid.
+
+
+\begin{DoxyCode}
+1005 \{
+1006     \textcolor{keywordtype}{boolean} confused = (\hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion} != 0);
+1007     \textcolor{keywordtype}{int}  n, nzap, i;
+1008 
+1009     \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} = 0;
+1010     \textcolor{keywordflow}{for} (n = 0; n < MAXSPELL && \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(n) != \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL}; n++)
+1011         \textcolor{keywordflow}{continue};
+1012     \textcolor{keywordflow}{if} (n) \{
+1013         nzap = rnd(n) + confused ? 1 : 0;
+1014         \textcolor{keywordflow}{if} (nzap > n) nzap = n;
+1015         \textcolor{keywordflow}{for} (i = n - nzap; i < n; i++) \{
+1016             \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(i) = \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{NO\_SPELL};
+1017             exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});   \textcolor{comment}{/* ouch! */}
+1018         \}
+1019     \}
+1020 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a2dd92af4c59ab41dced6f8f9fa088a0a}{\index{spell.\+c@{spell.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R} int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf learn}}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a2dd92af4c59ab41dced6f8f9fa088a0a}
+\hypertarget{spell_8c_abb9094f6f38435d1912829a1e7980693}{\index{spell.\+c@{spell.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf throwspell}}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_abb9094f6f38435d1912829a1e7980693}
+\hypertarget{spell_8c_ab2198d748eac713e922ed90fef2d75e8}{\index{spell.\+c@{spell.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!spell.\+c@{spell.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf cast\+\_\+protection}}]{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_ab2198d748eac713e922ed90fef2d75e8}
+\hypertarget{spell_8c_a5445232a3026c17817d13ac345f846c5}{\index{spell.\+c@{spell.\+c}!percent\+\_\+success@{percent\+\_\+success}}
+\index{percent\+\_\+success@{percent\+\_\+success}!spell.\+c@{spell.\+c}}
+\subsubsection[{percent\+\_\+success}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int percent\+\_\+success (
+\begin{DoxyParamCaption}
+\item[{int}]{spell}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a5445232a3026c17817d13ac345f846c5}
+
+
+Definition at line 1133 of file spell.\+c.
+
+
+
+References A\+C\+U\+R\+R, is\+\_\+metallic, isqrt(), max, objects, obj\+::otyp, P\+\_\+\+S\+K\+I\+L\+L, P\+\_\+\+U\+N\+S\+K\+I\+L\+L\+E\+D, Role\+::spelarmr, Role\+::spelbase, Role\+::spelheal, spell\+\_\+skilltype(), spellev, spellid, Role\+::spelsbon, Role\+::spelshld, Role\+::spelspec, Role\+::spelstat, u, uarm, uarmc, uarmf, uarmfbon, uarmg, uarmgbon, uarmh, uarmhbon, uarms, you\+::ulevel, and urole.
+
+
+
+Referenced by dospellmenu(), and spelleffects().
+
+
+\begin{DoxyCode}
+1135 \{
+1136     \textcolor{comment}{/* Intrinsic and learned ability are combined to calculate}
+1137 \textcolor{comment}{     * the probability of player's success at cast a given spell.}
+1138 \textcolor{comment}{     */}
+1139     \textcolor{keywordtype}{int} chance, splcaster, special, statused;
+1140     \textcolor{keywordtype}{int} difficulty;
+1141     \textcolor{keywordtype}{int} skill;
+1142 
+1143     \textcolor{comment}{/* Calculate intrinsic ability (splcaster) */}
+1144 
+1145     splcaster = \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a419bd7e1a3ef7270cede02614de91119}{spelbase};
+1146     special = \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2f0221b5b961d1898eba6d6e5d19d5c2}{spelheal};
+1147     statused = \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2734f2aade75628f8d606ed389491522}{spelstat});
+1148 
+1149     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ad6e6532c78ab5fe0078daf4cf352f3c1}{uarm} && \hyperlink{objclass_8h_a5134e0e0a63a108b16f212e15a97fc1a}{is\_metallic}(\hyperlink{decl_8h_ad6e6532c78ab5fe0078daf4cf352f3c1}{uarm}))
+1150         splcaster += (\hyperlink{decl_8h_a586be55c11f20a38a490f6bb922a437d}{uarmc} && \hyperlink{decl_8h_a586be55c11f20a38a490f6bb922a437d}{uarmc}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == ROBE) ?
+1151         \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_ad8ed198d77085f02936e9acc576588c8}{spelarmr}/2 : \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_ad8ed198d77085f02936e9acc576588c8}{spelarmr};
+1152     \textcolor{keywordflow}{else} if (\hyperlink{decl_8h_a586be55c11f20a38a490f6bb922a437d}{uarmc} && \hyperlink{decl_8h_a586be55c11f20a38a490f6bb922a437d}{uarmc}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == ROBE)
+1153         splcaster -= \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_ad8ed198d77085f02936e9acc576588c8}{spelarmr};
+1154     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_aee21972b230a8408f2b85e26f195e91d}{uarms}) splcaster += \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a57bc24c9f9dfe0307edbeaa06f5e444d}{spelshld};
+1155 
+1156     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh} && \hyperlink{objclass_8h_a5134e0e0a63a108b16f212e15a97fc1a}{is\_metallic}(\hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh}) && \hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != HELM\_OF\_BRILLIANCE)
+1157         splcaster += \hyperlink{spell_8c_a494ec7366c6e6f0c7d0608383aeaa2f0}{uarmhbon};
+1158     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg} && \hyperlink{objclass_8h_a5134e0e0a63a108b16f212e15a97fc1a}{is\_metallic}(\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg})) splcaster += \hyperlink{spell_8c_a7a191abdb4d5b0028e548574712eb7b1}{uarmgbon};
+1159     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a11e2d0f62fa1b42374054c939ebb288f}{uarmf} && \hyperlink{objclass_8h_a5134e0e0a63a108b16f212e15a97fc1a}{is\_metallic}(\hyperlink{decl_8h_a11e2d0f62fa1b42374054c939ebb288f}{uarmf})) splcaster += \hyperlink{spell_8c_acffd7597c4faf3bcfac5fb75bf7fc3a7}{uarmfbon};
+1160 
+1161     \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) == \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a35fdcf893188c27f4bcdb4c13d408261}{spelspec})
+1162         splcaster += \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_ab004ef3778c833bcf4d40e36a4a242ce}{spelsbon};
+1163 
+1164 
+1165     \textcolor{comment}{/* `healing spell' bonus */}
+1166     if (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) == SPE\_HEALING ||
+1167         \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) == SPE\_EXTRA\_HEALING ||
+1168         \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) == SPE\_CURE\_BLINDNESS ||
+1169         \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) == SPE\_CURE\_SICKNESS ||
+1170         \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) == SPE\_RESTORE\_ABILITY ||
+1171         \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) == SPE\_REMOVE\_CURSE) splcaster += special;
+1172 
+1173     \textcolor{keywordflow}{if} (splcaster > 20) splcaster = 20;
+1174 
+1175     \textcolor{comment}{/* Calculate learned ability */}
+1176 
+1177     \textcolor{comment}{/* Players basic likelihood of being able to cast any spell}
+1178 \textcolor{comment}{     * is based of their `magic' statistic. (Int or Wis)}
+1179 \textcolor{comment}{     */}
+1180     chance = 11 * statused / 2;
+1181 
+1182     \textcolor{comment}{/*}
+1183 \textcolor{comment}{     * High level spells are harder.  Easier for higher level casters.}
+1184 \textcolor{comment}{     * The difficulty is based on the hero's level and their skill level}
+1185 \textcolor{comment}{     * in that spell type.}
+1186 \textcolor{comment}{     */}
+1187     skill = \hyperlink{skills_8h_a778eff14f7209290967e1627b0b737ea}{P\_SKILL}(\hyperlink{spell_8c_af8cd6969353c53c1aeddad9a7d8aca4a}{spell\_skilltype}(\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell})));
+1188     skill = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(skill,\hyperlink{skills_8h_ae53bad8310b894f49a03b74160146837}{P\_UNSKILLED}) - 1;   \textcolor{comment}{/* unskilled => 0 */}
+1189     difficulty= (\hyperlink{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}{spellev}(\hyperlink{structspell}{spell})-1) * 4 - ((skill * 6) + (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel}/3) + 1);
+1190 
+1191     \textcolor{keywordflow}{if} (difficulty > 0) \{
+1192         \textcolor{comment}{/* Player is too low level or unskilled. */}
+1193         chance -= \hyperlink{spell_8c_afa2f2852cfe7240462ec3538966511ac}{isqrt}(900 * difficulty + 2000);
+1194     \} \textcolor{keywordflow}{else} \{
+1195         \textcolor{comment}{/* Player is above level.  Learning continues, but the}
+1196 \textcolor{comment}{         * law of diminishing returns sets in quickly for}
+1197 \textcolor{comment}{         * low-level spells.  That is, a player quickly gains}
+1198 \textcolor{comment}{         * no advantage for raising level.}
+1199 \textcolor{comment}{         */}
+1200         \textcolor{keywordtype}{int} learning = 15 * -difficulty / \hyperlink{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}{spellev}(\hyperlink{structspell}{spell});
+1201         chance += learning > 20 ? 20 : learning;
+1202     \}
+1203 
+1204     \textcolor{comment}{/* Clamp the chance: >18 stat and advanced learning only help}
+1205 \textcolor{comment}{     * to a limit, while chances below "hopeless" only raise the}
+1206 \textcolor{comment}{     * specter of overflowing 16-bit ints (and permit wearing a}
+1207 \textcolor{comment}{     * shield to raise the chances :-).}
+1208 \textcolor{comment}{     */}
+1209     \textcolor{keywordflow}{if} (chance < 0) chance = 0;
+1210     \textcolor{keywordflow}{if} (chance > 120) chance = 120;
+1211 
+1212     \textcolor{comment}{/* Wearing anything but a light shield makes it very awkward}
+1213 \textcolor{comment}{     * to cast a spell.  The penalty is not quite so bad for the}
+1214 \textcolor{comment}{     * player's role-specific spell.}
+1215 \textcolor{comment}{     */}
+1216     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_aee21972b230a8408f2b85e26f195e91d}{uarms} && weight(\hyperlink{decl_8h_aee21972b230a8408f2b85e26f195e91d}{uarms}) > (\textcolor{keywordtype}{int}) \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[SMALL\_SHIELD].oc\_weight) \{
+1217         \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) == \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a35fdcf893188c27f4bcdb4c13d408261}{spelspec}) \{
+1218             chance /= 2;
+1219         \} \textcolor{keywordflow}{else} \{
+1220             chance /= 4;
+1221         \}
+1222     \}
+1223 
+1224     \textcolor{comment}{/* Finally, chance (based on player intell/wisdom and level) is}
+1225 \textcolor{comment}{     * combined with ability (based on player intrinsics and}
+1226 \textcolor{comment}{     * encumbrances).  No matter how intelligent/wise and advanced}
+1227 \textcolor{comment}{     * a player is, intrinsics and encumbrance can prevent casting;}
+1228 \textcolor{comment}{     * and no matter how able, learning is always required.}
+1229 \textcolor{comment}{     */}
+1230     chance = chance * (20-splcaster) / 15 - splcaster;
+1231 
+1232     \textcolor{comment}{/* Clamp to percentile */}
+1233     \textcolor{keywordflow}{if} (chance > 100) chance = 100;
+1234     \textcolor{keywordflow}{if} (chance < 0) chance = 0;
+1235 
+1236     \textcolor{keywordflow}{return} chance;
+1237 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a4e9ea82fc9e102eaf7b4bb013eb8ce85}{\index{spell.\+c@{spell.\+c}!spell\+\_\+backfire@{spell\+\_\+backfire}}
+\index{spell\+\_\+backfire@{spell\+\_\+backfire}!spell.\+c@{spell.\+c}}
+\subsubsection[{spell\+\_\+backfire}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void spell\+\_\+backfire (
+\begin{DoxyParamCaption}
+\item[{int}]{spell}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a4e9ea82fc9e102eaf7b4bb013eb8ce85}
+
+
+Definition at line 685 of file spell.\+c.
+
+
+
+References F\+A\+L\+S\+E, and spellev.
+
+
+
+Referenced by spelleffects().
+
+
+\begin{DoxyCode}
+687 \{
+688     \textcolor{keywordtype}{long} duration = (long)((\hyperlink{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}{spellev}(\hyperlink{structspell}{spell}) + 1) * 3);    \textcolor{comment}{/* 6..24 */}
+689 
+690     \textcolor{comment}{/* prior to 3.4.1, the only effect was confusion; it still predominates */}
+691     \textcolor{keywordflow}{switch} (rn2(10)) \{
+692     \textcolor{keywordflow}{case} 0:
+693     \textcolor{keywordflow}{case} 1:
+694     \textcolor{keywordflow}{case} 2:
+695     \textcolor{keywordflow}{case} 3: make\_confused(duration, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});            \textcolor{comment}{/* 40% */}
+696         \textcolor{keywordflow}{break};
+697     \textcolor{keywordflow}{case} 4:
+698     \textcolor{keywordflow}{case} 5:
+699     \textcolor{keywordflow}{case} 6: make\_confused(2L * duration / 3L, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});      \textcolor{comment}{/* 30% */}
+700         make\_stunned(duration / 3L, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+701         \textcolor{keywordflow}{break};
+702     \textcolor{keywordflow}{case} 7:
+703     \textcolor{keywordflow}{case} 8: make\_stunned(2L * duration / 3L, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});       \textcolor{comment}{/* 20% */}
+704         make\_confused(duration / 3L, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+705         \textcolor{keywordflow}{break};
+706     \textcolor{keywordflow}{case} 9: make\_stunned(duration, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});         \textcolor{comment}{/* 10% */}
+707         \textcolor{keywordflow}{break};
+708     \}
+709     \textcolor{keywordflow}{return};
+710 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a9b44319a80fb13571a5d5cc5ee77a813}{\index{spell.\+c@{spell.\+c}!spell\+\_\+let\+\_\+to\+\_\+idx@{spell\+\_\+let\+\_\+to\+\_\+idx}}
+\index{spell\+\_\+let\+\_\+to\+\_\+idx@{spell\+\_\+let\+\_\+to\+\_\+idx}!spell.\+c@{spell.\+c}}
+\subsubsection[{spell\+\_\+let\+\_\+to\+\_\+idx}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int spell\+\_\+let\+\_\+to\+\_\+idx (
+\begin{DoxyParamCaption}
+\item[{char}]{ilet}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a9b44319a80fb13571a5d5cc5ee77a813}
+
+
+Definition at line 95 of file spell.\+c.
+
+
+
+Referenced by getspell().
+
+
+\begin{DoxyCode}
+97 \{
+98     \textcolor{keywordtype}{int} indx;
+99 
+100     indx = ilet - \textcolor{charliteral}{'a'};
+101     \textcolor{keywordflow}{if} (indx >= 0 && indx < 26) \textcolor{keywordflow}{return} indx;
+102     indx = ilet - \textcolor{charliteral}{'A'};
+103     \textcolor{keywordflow}{if} (indx >= 0 && indx < 26) \textcolor{keywordflow}{return} indx + 26;
+104     \textcolor{keywordflow}{return} -1;
+105 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_af8cd6969353c53c1aeddad9a7d8aca4a}{\index{spell.\+c@{spell.\+c}!spell\+\_\+skilltype@{spell\+\_\+skilltype}}
+\index{spell\+\_\+skilltype@{spell\+\_\+skilltype}!spell.\+c@{spell.\+c}}
+\subsubsection[{spell\+\_\+skilltype}]{\setlength{\rightskip}{0pt plus 5cm}int spell\+\_\+skilltype (
+\begin{DoxyParamCaption}
+\item[{int}]{booktype}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_af8cd6969353c53c1aeddad9a7d8aca4a}
+
+
+Definition at line 616 of file spell.\+c.
+
+
+
+References objects, and oc\+\_\+skill.
+
+
+
+Referenced by cast\+\_\+protection(), dospellmenu(), percent\+\_\+success(), pleased(), restricted\+\_\+spell\+\_\+discipline(), and spelleffects().
+
+
+\begin{DoxyCode}
+618 \{
+619     \textcolor{keywordflow}{return} (\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].\hyperlink{objclass_8h_ab595ada1a513270255a2311ffc43c2ab}{oc\_skill});
+620 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a6cb4b0282f49a4d3cb5ef195ac5ec0ad}{\index{spell.\+c@{spell.\+c}!spelleffects@{spelleffects}}
+\index{spelleffects@{spelleffects}!spell.\+c@{spell.\+c}}
+\subsubsection[{spelleffects}]{\setlength{\rightskip}{0pt plus 5cm}int spelleffects (
+\begin{DoxyParamCaption}
+\item[{int}]{spell, }
+\item[{{\bf boolean}}]{atme}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a6cb4b0282f49a4d3cb5ef195ac5ec0ad}
+
+
+Definition at line 713 of file spell.\+c.
+
+
+
+References A\+\_\+\+I\+N\+T, A\+\_\+\+S\+T\+R, A\+\_\+\+W\+I\+S, A\+C\+U\+R\+R, B\+Clairvoyant, flag\+::botl, buf, B\+U\+F\+S\+Z, cansee, cast\+\_\+protection(), Confusion, do\+\_\+vicinity\+\_\+map(), you\+::dx, you\+::dy, you\+::dz, E\+X\+P\+L\+\_\+\+F\+I\+E\+R\+Y, E\+X\+P\+L\+\_\+\+F\+R\+O\+S\+T\+Y, F\+A\+L\+S\+E, flags, H\+E\+A\+D, I\+S\+\_\+\+S\+T\+W\+A\+L\+L, levl, max, N\+O\+\_\+\+K\+I\+L\+L\+E\+R\+\_\+\+P\+R\+E\+F\+I\+X, N\+O\+D\+I\+R, nothing\+\_\+happens, objects, obj\+::otyp, P\+\_\+\+S\+K\+I\+L\+L, P\+\_\+\+S\+K\+I\+L\+L\+E\+D, percent\+\_\+success(), obj\+::quan, Role\+\_\+if, Sick, Slimed, spell\+\_\+backfire(), spell\+\_\+skilltype(), spellev, spellid, spellknow, Sprintf, throwspell(), T\+R\+U\+E, u, uarmh, you\+::uen, you\+::uhave, uhim, you\+::uhunger, you\+::ulevel, update\+\_\+inventory, you\+::ux, you\+::uy, coord\+::x, and coord\+::y.
+
+
+
+Referenced by docast(), dotele(), and doturn().
+
+
+\begin{DoxyCode}
+716 \{
+717     \textcolor{keywordtype}{int} energy, \hyperlink{structdamage}{damage}, chance, n, intell;
+718     \textcolor{keywordtype}{int} skill, role\_skill;
+719     \textcolor{keywordtype}{boolean} confused = (\hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion} != 0);
+720     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *pseudo;
+721     \hyperlink{structcoord}{coord} cc;
+722 
+723     \textcolor{comment}{/*}
+724 \textcolor{comment}{     * Spell casting no longer affects knowledge of the spell. A}
+725 \textcolor{comment}{     * decrement of spell knowledge is done every turn.}
+726 \textcolor{comment}{     */}
+727     \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a9a3bbca4fed66f9584c5752f01776264}{spellknow}(\hyperlink{structspell}{spell}) <= 0) \{
+728         Your(\textcolor{stringliteral}{"knowledge of this spell is twisted."});
+729         pline(\textcolor{stringliteral}{"It invokes nightmarish images in your mind..."});
+730         \hyperlink{spell_8c_a4e9ea82fc9e102eaf7b4bb013eb8ce85}{spell\_backfire}(\hyperlink{structspell}{spell});
+731         \textcolor{keywordflow}{return}(0);
+732     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a9a3bbca4fed66f9584c5752f01776264}{spellknow}(\hyperlink{structspell}{spell}) <= 100) \{
+733         You(\textcolor{stringliteral}{"strain to recall the spell."});
+734     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a9a3bbca4fed66f9584c5752f01776264}{spellknow}(\hyperlink{structspell}{spell}) <= 1000) \{
+735         Your(\textcolor{stringliteral}{"knowledge of this spell is growing faint."});
+736     \}
+737     energy = (\hyperlink{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}{spellev}(\hyperlink{structspell}{spell}) * 5);    \textcolor{comment}{/* 5 <= energy <= 35 */}
+738 
+739     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a66fb9624339df35ac2f9f08fdccde6c9}{uhunger} <= 10 && \hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) != SPE\_DETECT\_FOOD) \{
+740         You(\textcolor{stringliteral}{"are too hungry to cast that spell."});
+741         \textcolor{keywordflow}{return}(0);
+742     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_ad53430e3d611a366ec4b5c457b4c67f7}{A\_STR}) < 4)  \{
+743         You(\textcolor{stringliteral}{"lack the strength to cast spells."});
+744         \textcolor{keywordflow}{return}(0);
+745     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(check\_capacity(
+746         \textcolor{stringliteral}{"Your concentration falters while carrying so much stuff."})) \{
+747         \textcolor{keywordflow}{return} (1);
+748     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!freehand()) \{
+749         Your(\textcolor{stringliteral}{"arms are not free to cast!"});
+750         \textcolor{keywordflow}{return} (0);
+751     \}
+752 
+753     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.amulet) \{
+754         You\_feel(\textcolor{stringliteral}{"the amulet draining your energy away."});
+755         energy += rnd(2*energy);
+756     \}
+757     \textcolor{keywordflow}{if}(energy > \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen})  \{
+758         You(\textcolor{stringliteral}{"don't have enough energy to cast that spell."});
+759         \textcolor{keywordflow}{return}(0);
+760     \} \textcolor{keywordflow}{else} \{
+761         \textcolor{keywordflow}{if} (\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}) != SPE\_DETECT\_FOOD) \{
+762             \textcolor{keywordtype}{int} hungr = energy * 2;
+763 
+764             \textcolor{comment}{/* If hero is a wizard, their current intelligence}
+765 \textcolor{comment}{             * (bonuses + temporary + current)}
+766 \textcolor{comment}{             * affects hunger reduction in casting a spell.}
+767 \textcolor{comment}{             * 1. int = 17-18 no reduction}
+768 \textcolor{comment}{             * 2. int = 16    1/4 hungr}
+769 \textcolor{comment}{             * 3. int = 15    1/2 hungr}
+770 \textcolor{comment}{             * 4. int = 1-14  normal reduction}
+771 \textcolor{comment}{             * The reason for this is:}
+772 \textcolor{comment}{             * a) Intelligence affects the amount of exertion}
+773 \textcolor{comment}{             * in thinking.}
+774 \textcolor{comment}{             * b) Wizards have spent their life at magic and}
+775 \textcolor{comment}{             * understand quite well how to cast spells.}
+776 \textcolor{comment}{             */}
+777             intell = acurr(\hyperlink{attrib_8h_a583ef0a9b22ce89bcf0df81228b424b5}{A\_INT});
+778             \textcolor{keywordflow}{if} (!\hyperlink{you_8h_a6087f5b8605964c19078b777da740258}{Role\_if}(PM\_WIZARD)) intell = 10;
+779             \textcolor{keywordflow}{switch} (intell) \{
+780                 \textcolor{keywordflow}{case} 25: \textcolor{keywordflow}{case} 24: \textcolor{keywordflow}{case} 23: \textcolor{keywordflow}{case} 22:
+781                 \textcolor{keywordflow}{case} 21: \textcolor{keywordflow}{case} 20: \textcolor{keywordflow}{case} 19: \textcolor{keywordflow}{case} 18:
+782                 \textcolor{keywordflow}{case} 17: hungr = 0; \textcolor{keywordflow}{break};
+783                 \textcolor{keywordflow}{case} 16: hungr /= 4; \textcolor{keywordflow}{break};
+784                 \textcolor{keywordflow}{case} 15: hungr /= 2; \textcolor{keywordflow}{break};
+785             \}
+786             \textcolor{comment}{/* don't put player (quite) into fainting from}
+787 \textcolor{comment}{             * casting a spell, particularly since they might}
+788 \textcolor{comment}{             * not even be hungry at the beginning; however,}
+789 \textcolor{comment}{             * this is low enough that they must eat before}
+790 \textcolor{comment}{             * casting anything else except detect food}
+791 \textcolor{comment}{             */}
+792             \textcolor{keywordflow}{if} (hungr > \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a66fb9624339df35ac2f9f08fdccde6c9}{uhunger}-3)
+793                 hungr = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a66fb9624339df35ac2f9f08fdccde6c9}{uhunger}-3;
+794             morehungry(hungr);
+795         \}
+796     \}
+797 
+798     chance = \hyperlink{spell_8c_a5445232a3026c17817d13ac345f846c5}{percent\_success}(\hyperlink{structspell}{spell});
+799     \textcolor{keywordflow}{if} (confused || (rnd(100) > chance)) \{
+800         You(\textcolor{stringliteral}{"fail to cast the spell correctly."});
+801         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} -= energy / 2;
+802         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+803         \textcolor{keywordflow}{return}(1);
+804     \}
+805 
+806     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} -= energy;
+807     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+808     exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+809     \textcolor{comment}{/* pseudo is a temporary "false" object containing the spell stats */}
+810     pseudo = mksobj(\hyperlink{spell_8h_a17b7560b75815e955d0349a846aab2bc}{spellid}(\hyperlink{structspell}{spell}), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+811     pseudo->blessed = pseudo->cursed = 0;
+812     pseudo->\hyperlink{structobj_ad08c0ed1a746fbb52377ecd7e4220578}{quan} = 20L;         \textcolor{comment}{/* do not let useup get it */}
+813     \textcolor{comment}{/*}
+814 \textcolor{comment}{     * Find the skill the hero has in a spell type category.}
+815 \textcolor{comment}{     * See spell\_skilltype for categories.}
+816 \textcolor{comment}{     */}
+817     skill = \hyperlink{spell_8c_af8cd6969353c53c1aeddad9a7d8aca4a}{spell\_skilltype}(pseudo->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp});
+818     role\_skill = \hyperlink{skills_8h_a778eff14f7209290967e1627b0b737ea}{P\_SKILL}(skill);
+819 
+820     \textcolor{keywordflow}{switch}(pseudo->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp})  \{
+821     \textcolor{comment}{/*}
+822 \textcolor{comment}{     * At first spells act as expected.  As the hero increases in skill}
+823 \textcolor{comment}{     * with the appropriate spell type, some spells increase in their}
+824 \textcolor{comment}{     * effects, e.g. more damage, further distance, and so on, without}
+825 \textcolor{comment}{     * additional cost to the spellcaster.}
+826 \textcolor{comment}{     */}
+827     \textcolor{keywordflow}{case} SPE\_CONE\_OF\_COLD:
+828     \textcolor{keywordflow}{case} SPE\_FIREBALL:
+829         \textcolor{keywordflow}{if} (role\_skill >= \hyperlink{skills_8h_a63b5a038baa248a89d0cb288e6fa01ef}{P\_SKILLED}) \{
+830             \textcolor{keywordflow}{if} (\hyperlink{spell_8c_a73a948935f76bd44c3521ad62bdbc1b7}{throwspell}()) \{
+831             cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}=\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx};cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}=\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy};
+832             n=rnd(8)+1;
+833             \textcolor{keywordflow}{while}(n--) \{
+834             \textcolor{keywordflow}{if}(!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3fa7dbf98dab7ca2c40195268174c45f}{dz}) \{
+835                 \textcolor{keywordflow}{if} ((damage = zapyourself(pseudo, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE})) != 0) \{
+836                 \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+837                 \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"zapped %sself with a spell"}, \hyperlink{you_8h_a842295f0e58b1568b453630a0b7897c8}{uhim}());
+838                 losehp(damage, buf, \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX});
+839                 \}
+840             \} \textcolor{keywordflow}{else} \{
+841                 explode(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy},
+842                     pseudo->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} - SPE\_MAGIC\_MISSILE + 10,
+843                     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel}/2 + 1 + spell\_damage\_bonus(), 0,
+844                     (pseudo->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == SPE\_CONE\_OF\_COLD) ?
+845                         \hyperlink{hack_8h_ac52d145a17a30b3c224ac85b26300997}{EXPL\_FROSTY} : \hyperlink{hack_8h_aa1254e4e65f2c8d0cf9026f8a01b749b}{EXPL\_FIERY});
+846             \}
+847             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} = cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}+rnd(3)-2; \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} = cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}+rnd(3)-2;
+848             \textcolor{keywordflow}{if} (!isok(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy}) || !\hyperlink{vision_8h_a857efc720262bc13a9e4b4bcbb079b5c}{cansee}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy}) ||
+849                 \hyperlink{rm_8h_adeca168807e617d1a199f722556a49ea}{IS\_STWALL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy}].typ) || \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow) \{
+850                 \textcolor{comment}{/* Spell is reflected back to center */}
+851                 \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} = cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+852                 \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} = cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+853                 \}
+854             \}
+855         \}
+856         \textcolor{keywordflow}{break};
+857         \} \textcolor{comment}{/* else fall through... */}
+858 
+859     \textcolor{comment}{/* these spells are all duplicates of wand effects */}
+860     \textcolor{keywordflow}{case} SPE\_FORCE\_BOLT:
+861     \textcolor{keywordflow}{case} SPE\_SLEEP:
+862     \textcolor{keywordflow}{case} SPE\_MAGIC\_MISSILE:
+863     \textcolor{keywordflow}{case} SPE\_KNOCK:
+864     \textcolor{keywordflow}{case} SPE\_SLOW\_MONSTER:
+865     \textcolor{keywordflow}{case} SPE\_WIZARD\_LOCK:
+866     \textcolor{keywordflow}{case} SPE\_DIG:
+867     \textcolor{keywordflow}{case} SPE\_TURN\_UNDEAD:
+868     \textcolor{keywordflow}{case} SPE\_POLYMORPH:
+869     \textcolor{keywordflow}{case} SPE\_TELEPORT\_AWAY:
+870     \textcolor{keywordflow}{case} SPE\_CANCELLATION:
+871     \textcolor{keywordflow}{case} SPE\_FINGER\_OF\_DEATH:
+872     \textcolor{keywordflow}{case} SPE\_LIGHT:
+873     \textcolor{keywordflow}{case} SPE\_DETECT\_UNSEEN:
+874     \textcolor{keywordflow}{case} SPE\_HEALING:
+875     \textcolor{keywordflow}{case} SPE\_EXTRA\_HEALING:
+876     \textcolor{keywordflow}{case} SPE\_DRAIN\_LIFE:
+877     \textcolor{keywordflow}{case} SPE\_STONE\_TO\_FLESH:
+878         \textcolor{keywordflow}{if} (!(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[pseudo->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_dir == \hyperlink{objclass_8h_a8c9855c700826443e3a4bee5d1b41ac2}{NODIR})) \{
+879             \textcolor{keywordflow}{if} (atme) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3fa7dbf98dab7ca2c40195268174c45f}{dz} = 0;
+880             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!getdir((\textcolor{keywordtype}{char} *)0)) \{
+881                 \textcolor{comment}{/* getdir cancelled, re-use previous direction */}
+882                 pline\_The(\textcolor{stringliteral}{"magical energy is released!"});
+883             \}
+884             \textcolor{keywordflow}{if}(!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3fa7dbf98dab7ca2c40195268174c45f}{dz}) \{
+885                 \textcolor{keywordflow}{if} ((damage = zapyourself(pseudo, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE})) != 0) \{
+886                 \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+887                 \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"zapped %sself with a spell"}, \hyperlink{you_8h_a842295f0e58b1568b453630a0b7897c8}{uhim}());
+888                 losehp(damage, buf, \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX});
+889                 \}
+890             \} \textcolor{keywordflow}{else} weffects(pseudo);
+891         \} \textcolor{keywordflow}{else} weffects(pseudo);
+892         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}(); \textcolor{comment}{/* spell may modify inventory */}
+893         \textcolor{keywordflow}{break};
+894 
+895     \textcolor{comment}{/* these are all duplicates of scroll effects */}
+896     \textcolor{keywordflow}{case} SPE\_REMOVE\_CURSE:
+897     \textcolor{keywordflow}{case} SPE\_CONFUSE\_MONSTER:
+898     \textcolor{keywordflow}{case} SPE\_DETECT\_FOOD:
+899     \textcolor{keywordflow}{case} SPE\_CAUSE\_FEAR:
+900         \textcolor{comment}{/* high skill yields effect equivalent to blessed scroll */}
+901         \textcolor{keywordflow}{if} (role\_skill >= \hyperlink{skills_8h_a63b5a038baa248a89d0cb288e6fa01ef}{P\_SKILLED}) pseudo->blessed = 1;
+902         \textcolor{comment}{/* fall through */}
+903     \textcolor{keywordflow}{case} SPE\_CHARM\_MONSTER:
+904     \textcolor{keywordflow}{case} SPE\_MAGIC\_MAPPING:
+905     \textcolor{keywordflow}{case} SPE\_CREATE\_MONSTER:
+906     \textcolor{keywordflow}{case} SPE\_IDENTIFY:
+907         (void) seffects(pseudo);
+908         \textcolor{keywordflow}{break};
+909 
+910     \textcolor{comment}{/* these are all duplicates of potion effects */}
+911     \textcolor{keywordflow}{case} SPE\_HASTE\_SELF:
+912     \textcolor{keywordflow}{case} SPE\_DETECT\_TREASURE:
+913     \textcolor{keywordflow}{case} SPE\_DETECT\_MONSTERS:
+914     \textcolor{keywordflow}{case} SPE\_LEVITATION:
+915     \textcolor{keywordflow}{case} SPE\_RESTORE\_ABILITY:
+916         \textcolor{comment}{/* high skill yields effect equivalent to blessed potion */}
+917         \textcolor{keywordflow}{if} (role\_skill >= \hyperlink{skills_8h_a63b5a038baa248a89d0cb288e6fa01ef}{P\_SKILLED}) pseudo->blessed = 1;
+918         \textcolor{comment}{/* fall through */}
+919     \textcolor{keywordflow}{case} SPE\_INVISIBILITY:
+920         (void) peffects(pseudo);
+921         \textcolor{keywordflow}{break};
+922 
+923     \textcolor{keywordflow}{case} SPE\_CURE\_BLINDNESS:
+924         healup(0, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+925         \textcolor{keywordflow}{break};
+926     \textcolor{keywordflow}{case} SPE\_CURE\_SICKNESS:
+927         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a43a7dcd441841e6703322b8a2ea3b6a5}{Sick}) You(\textcolor{stringliteral}{"are no longer ill."});
+928         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1d6ced121072dc4fb35b71e5fdebe596}{Slimed}) \{
+929             pline\_The(\textcolor{stringliteral}{"slime disappears!"});
+930             \hyperlink{youprop_8h_a1d6ced121072dc4fb35b71e5fdebe596}{Slimed} = 0;
+931          \textcolor{comment}{/* flags.botl = 1; -- healup() handles this */}
+932         \}
+933         healup(0, 0, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+934         \textcolor{keywordflow}{break};
+935     \textcolor{keywordflow}{case} SPE\_CREATE\_FAMILIAR:
+936         (void) make\_familiar((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+937         \textcolor{keywordflow}{break};
+938     \textcolor{keywordflow}{case} SPE\_CLAIRVOYANCE:
+939         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a71abb745d04606301a94e8d57069f209}{BClairvoyant})
+940             \hyperlink{detect_8c_a2057bf4f5bd539fa0911162d3b65b781}{do\_vicinity\_map}();
+941         \textcolor{comment}{/* at present, only one thing blocks clairvoyance */}
+942         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh} && \hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == CORNUTHAUM)
+943             You(\textcolor{stringliteral}{"sense a pointy hat on top of your %s."},
+944             body\_part(\hyperlink{hack_8h_a110f3b6cdacd45daee818b3e5965f6da}{HEAD}));
+945         \textcolor{keywordflow}{break};
+946     \textcolor{keywordflow}{case} SPE\_PROTECTION:
+947         \hyperlink{spell_8c_a73bd9aba2f0e1b1ebc203c9871748b9e}{cast\_protection}();
+948         \textcolor{keywordflow}{break};
+949     \textcolor{keywordflow}{case} SPE\_JUMPING:
+950         \textcolor{keywordflow}{if} (!jump(\hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(role\_skill,1)))
+951             pline(\hyperlink{decl_8h_acd8c890f5e2054727eb32955ccc93850}{nothing\_happens});
+952         \textcolor{keywordflow}{break};
+953     \textcolor{keywordflow}{default}:
+954         impossible(\textcolor{stringliteral}{"Unknown spell %d attempted."}, \hyperlink{structspell}{spell});
+955         obfree(pseudo, (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0);
+956         \textcolor{keywordflow}{return}(0);
+957     \}
+958 
+959     \textcolor{comment}{/* gain skill for successful cast */}
+960     use\_skill(skill, \hyperlink{spell_8c_aab7a2bee4f3c68e75a6c2ef7a665f0b1}{spellev}(\hyperlink{structspell}{spell}));
+961 
+962     obfree(pseudo, (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0); \textcolor{comment}{/* now, get rid of it */}
+963     \textcolor{keywordflow}{return}(1);
+964 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_ad199ec863ddf50e9328ba521571852f9}{\index{spell.\+c@{spell.\+c}!spelltypemnemonic@{spelltypemnemonic}}
+\index{spelltypemnemonic@{spelltypemnemonic}!spell.\+c@{spell.\+c}}
+\subsubsection[{spelltypemnemonic}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf const} char$\ast$ spelltypemnemonic (
+\begin{DoxyParamCaption}
+\item[{int}]{skill}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_ad199ec863ddf50e9328ba521571852f9}
+
+
+Definition at line 591 of file spell.\+c.
+
+
+
+References P\+\_\+\+A\+T\+T\+A\+C\+K\+\_\+\+S\+P\+E\+L\+L, P\+\_\+\+C\+L\+E\+R\+I\+C\+\_\+\+S\+P\+E\+L\+L, P\+\_\+\+D\+I\+V\+I\+N\+A\+T\+I\+O\+N\+\_\+\+S\+P\+E\+L\+L, P\+\_\+\+E\+N\+C\+H\+A\+N\+T\+M\+E\+N\+T\+\_\+\+S\+P\+E\+L\+L, P\+\_\+\+E\+S\+C\+A\+P\+E\+\_\+\+S\+P\+E\+L\+L, P\+\_\+\+H\+E\+A\+L\+I\+N\+G\+\_\+\+S\+P\+E\+L\+L, and P\+\_\+\+M\+A\+T\+T\+E\+R\+\_\+\+S\+P\+E\+L\+L.
+
+
+
+Referenced by dospellmenu().
+
+
+\begin{DoxyCode}
+593 \{
+594     \textcolor{keywordflow}{switch} (skill) \{
+595         \textcolor{keywordflow}{case} \hyperlink{skills_8h_a95b936263f85ade429d556a37d71f511}{P\_ATTACK\_SPELL}:
+596         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"attack"};
+597         \textcolor{keywordflow}{case} \hyperlink{skills_8h_a0b545f89741a6cacceeb46799170127e}{P\_HEALING\_SPELL}:
+598         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"healing"};
+599         \textcolor{keywordflow}{case} \hyperlink{skills_8h_a39de5e9c93761170f3e6e1f79c201c18}{P\_DIVINATION\_SPELL}:
+600         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"divination"};
+601         \textcolor{keywordflow}{case} \hyperlink{skills_8h_a80c4c61113c92711d631a40886e94abc}{P\_ENCHANTMENT\_SPELL}:
+602         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"enchantment"};
+603         \textcolor{keywordflow}{case} \hyperlink{skills_8h_a8c352f567881474df0bfd692acd93960}{P\_CLERIC\_SPELL}:
+604         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"clerical"};
+605         \textcolor{keywordflow}{case} \hyperlink{skills_8h_ac032e06f566c242381ab568f7427a460}{P\_ESCAPE\_SPELL}:
+606         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"escape"};
+607         \textcolor{keywordflow}{case} \hyperlink{skills_8h_a4f4829b1c1be1f4a1d616473e10911f2}{P\_MATTER\_SPELL}:
+608         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"matter"};
+609         \textcolor{keywordflow}{default}:
+610         impossible(\textcolor{stringliteral}{"Unknown spell skill, %d;"}, skill);
+611         \textcolor{keywordflow}{return} \textcolor{stringliteral}{""};
+612     \}
+613 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_aa796724007e6396ae00f6e3177a69709}{\index{spell.\+c@{spell.\+c}!study\+\_\+book@{study\+\_\+book}}
+\index{study\+\_\+book@{study\+\_\+book}!spell.\+c@{spell.\+c}}
+\subsubsection[{study\+\_\+book}]{\setlength{\rightskip}{0pt plus 5cm}int study\+\_\+book (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{spellbook}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_aa796724007e6396ae00f6e3177a69709}
+
+
+Definition at line 390 of file spell.\+c.
+
+
+
+References A\+\_\+\+I\+N\+T, A\+C\+U\+R\+R, confused\+\_\+book(), Confusion, cursed\+\_\+book(), delay, F\+A\+L\+S\+E, learn(), makeknown, objects, objclass\+::oc\+\_\+delay, oc\+\_\+level, objclass\+::oc\+\_\+uname, obj\+::otyp, Q\+B\+U\+F\+S\+Z, Role\+\_\+if, Sprintf, T\+R\+U\+E, u, ublindf, you\+::ulevel, and yn.
+
+
+\begin{DoxyCode}
+392 \{
+393     \textcolor{keyword}{register} \textcolor{keywordtype}{int}     booktype = spellbook->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp};
+394     \textcolor{keyword}{register} \textcolor{keywordtype}{boolean} confused = (\hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion} != 0);
+395     \textcolor{keywordtype}{boolean} too\_hard = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+396 
+397     \textcolor{keywordflow}{if} (\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} && !confused && spellbook == \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} &&
+398             \textcolor{comment}{/* handle the sequence: start reading, get interrupted,}
+399 \textcolor{comment}{               have book become erased somehow, resume reading it */}
+400             booktype != SPE\_BLANK\_PAPER) \{
+401         You(\textcolor{stringliteral}{"continue your efforts to memorize the spell."});
+402     \} \textcolor{keywordflow}{else} \{
+403         \textcolor{comment}{/* KMH -- Simplified this code */}
+404         \textcolor{keywordflow}{if} (booktype == SPE\_BLANK\_PAPER) \{
+405             pline(\textcolor{stringliteral}{"This spellbook is all blank."});
+406             \hyperlink{hack_8h_afbd3607e7cef2f888f4190d40d058011}{makeknown}(booktype);
+407             \textcolor{keywordflow}{return}(1);
+408         \}
+409         \textcolor{keywordflow}{switch} (\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].\hyperlink{objclass_8h_a1ce463e18e4de71d84f6cd65573723b6}{oc\_level}) \{
+410          \textcolor{keywordflow}{case} 1:
+411          \textcolor{keywordflow}{case} 2:
+412             \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} = -\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].\hyperlink{structobjclass_a3469efe1c95970cd0360b882459a42ae}{oc\_delay};
+413             \textcolor{keywordflow}{break};
+414          \textcolor{keywordflow}{case} 3:
+415          \textcolor{keywordflow}{case} 4:
+416             \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} = -(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].oc\_level - 1) *
+417                 \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].oc\_delay;
+418             \textcolor{keywordflow}{break};
+419          \textcolor{keywordflow}{case} 5:
+420          \textcolor{keywordflow}{case} 6:
+421             \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} = -\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].oc\_level *
+422                 \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].\hyperlink{structobjclass_a3469efe1c95970cd0360b882459a42ae}{oc\_delay};
+423             \textcolor{keywordflow}{break};
+424          \textcolor{keywordflow}{case} 7:
+425             \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} = -8 * \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].\hyperlink{structobjclass_a3469efe1c95970cd0360b882459a42ae}{oc\_delay};
+426             \textcolor{keywordflow}{break};
+427          \textcolor{keywordflow}{default}:
+428             impossible(\textcolor{stringliteral}{"Unknown spellbook level %d, book %d;"},
+429                 \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].oc\_level, booktype);
+430             \textcolor{keywordflow}{return} 0;
+431         \}
+432 
+433         \textcolor{comment}{/* Books are often wiser than their readers (Rus.) */}
+434         spellbook->in\_use = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+435         \textcolor{keywordflow}{if} (!spellbook->blessed &&
+436             spellbook->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != SPE\_BOOK\_OF\_THE\_DEAD) \{
+437             \textcolor{keywordflow}{if} (spellbook->cursed) \{
+438             too\_hard = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+439             \} \textcolor{keywordflow}{else} \{
+440             \textcolor{comment}{/* uncursed - chance to fail */}
+441             \textcolor{keywordtype}{int} read\_ability = \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_a583ef0a9b22ce89bcf0df81228b424b5}{A\_INT}) + 4 + \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel}/2
+442                 - 2*\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[booktype].oc\_level
+443                 + ((\hyperlink{decl_8h_aaac1dc498d3597b63617d7056c3e1c1b}{ublindf} && \hyperlink{decl_8h_aaac1dc498d3597b63617d7056c3e1c1b}{ublindf}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == LENSES) ? 2 : 0);
+444             \textcolor{comment}{/* only wizards know if a spell is too difficult */}
+445             \textcolor{keywordflow}{if} (\hyperlink{you_8h_a6087f5b8605964c19078b777da740258}{Role\_if}(PM\_WIZARD) && read\_ability < 20 &&
+446                 !confused) \{
+447                 \textcolor{keywordtype}{char} qbuf[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+448                 \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(qbuf,
+449               \textcolor{stringliteral}{"This spellbook is %sdifficult to comprehend. Continue?"},
+450                     (read\_ability < 12 ? \textcolor{stringliteral}{"very "} : \textcolor{stringliteral}{""}));
+451                 \textcolor{keywordflow}{if} (\hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(qbuf) != \textcolor{charliteral}{'y'}) \{
+452                 spellbook->in\_use = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+453                 \textcolor{keywordflow}{return}(1);
+454                 \}
+455             \}
+456             \textcolor{comment}{/* its up to random luck now */}
+457             \textcolor{keywordflow}{if} (rnd(20) > read\_ability) \{
+458                 too\_hard = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+459             \}
+460             \}
+461         \}
+462 
+463         \textcolor{keywordflow}{if} (too\_hard) \{
+464             \textcolor{keywordtype}{boolean} gone = \hyperlink{spell_8c_a44374e01d957aa26368fec19823abf87}{cursed\_book}(spellbook);
+465 
+466             nomul(\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay});          \textcolor{comment}{/* study time */}
+467             \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} = 0;
+468             \textcolor{keywordflow}{if}(gone || !rn2(3)) \{
+469             \textcolor{keywordflow}{if} (!gone) pline\_The(\textcolor{stringliteral}{"spellbook crumbles to dust!"});
+470             \textcolor{keywordflow}{if} (!\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[spellbook->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_name\_known &&
+471                 !\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[spellbook->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].\hyperlink{structobjclass_a2556428315c0776ce8f5c88ecf6508bc}{oc\_uname})
+472                 docall(spellbook);
+473             useup(spellbook);
+474             \} \textcolor{keywordflow}{else}
+475             spellbook->in\_use = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+476             \textcolor{keywordflow}{return}(1);
+477         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (confused) \{
+478             \textcolor{keywordflow}{if} (!\hyperlink{spell_8c_a9bcff59710b18b23312e8a5876b61697}{confused\_book}(spellbook)) \{
+479             spellbook->in\_use = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+480             \}
+481             nomul(\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay});
+482             \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay} = 0;
+483             \textcolor{keywordflow}{return}(1);
+484         \}
+485         spellbook->in\_use = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+486 
+487         You(\textcolor{stringliteral}{"begin to %s the runes."},
+488             spellbook->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == SPE\_BOOK\_OF\_THE\_DEAD ? \textcolor{stringliteral}{"recite"} :
+489             \textcolor{stringliteral}{"memorize"});
+490     \}
+491 
+492     \hyperlink{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{book} = spellbook;
+493     set\_occupation(\hyperlink{spell_8c_a3e4a8f14c0dd70f46dce2fc923251e42}{learn}, \textcolor{stringliteral}{"studying"}, 0);
+494     \textcolor{keywordflow}{return}(1);
+495 \}
+\end{DoxyCode}
+\hypertarget{spell_8c_a73a948935f76bd44c3521ad62bdbc1b7}{\index{spell.\+c@{spell.\+c}!throwspell@{throwspell}}
+\index{throwspell@{throwspell}!spell.\+c@{spell.\+c}}
+\subsubsection[{throwspell}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int throwspell (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{spell_8c_a73a948935f76bd44c3521ad62bdbc1b7}
+
+
+Definition at line 968 of file spell.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, cansee, you\+::dx, you\+::dy, F\+A\+L\+S\+E, I\+S\+\_\+\+S\+T\+W\+A\+L\+L, Is\+\_\+waterlevel, levl, T\+R\+U\+E, u, you\+::ux, you\+::uy, you\+::uz, coord\+::x, and coord\+::y.
+
+
+
+Referenced by spelleffects().
+
+
+\begin{DoxyCode}
+969 \{
+970     \hyperlink{structcoord}{coord} cc;
+971 
+972     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uinwater) \{
+973         pline(\textcolor{stringliteral}{"You're joking! In this weather?"}); \textcolor{keywordflow}{return} 0;
+974     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+975         You(\textcolor{stringliteral}{"had better wait for the sun to come out."}); \textcolor{keywordflow}{return} 0;
+976     \}
+977 
+978     pline(\textcolor{stringliteral}{"Where do you want to cast the spell?"});
+979     cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+980     cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+981     \textcolor{keywordflow}{if} (getpos(&cc, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \textcolor{stringliteral}{"the desired position"}) < 0)
+982         \textcolor{keywordflow}{return} 0;   \textcolor{comment}{/* user pressed ESC */}
+983     \textcolor{comment}{/* The number of moves from hero to where the spell drops.*/}
+984     \textcolor{keywordflow}{if} (distmin(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}) > 10) \{
+985         pline\_The(\textcolor{stringliteral}{"spell dissipates over the distance!"});
+986         \textcolor{keywordflow}{return} 0;
+987     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow) \{
+988         pline\_The(\textcolor{stringliteral}{"spell is cut short!"});
+989         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}); \textcolor{comment}{/* What were you THINKING! */}
+990         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} = 0;
+991         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} = 0;
+992         \textcolor{keywordflow}{return} 1;
+993     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{vision_8h_a857efc720262bc13a9e4b4bcbb079b5c}{cansee}(cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}) || \hyperlink{rm_8h_adeca168807e617d1a199f722556a49ea}{IS\_STWALL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][cc.
+      \hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].typ)) \{
+994         Your(\textcolor{stringliteral}{"mind fails to lock onto that location!"});
+995         \textcolor{keywordflow}{return} 0;
+996     \} \textcolor{keywordflow}{else} \{
+997         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx}=cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+998         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy}=cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+999         \textcolor{keywordflow}{return} 1;
+1000     \}
+1001 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{spell_8c_a9e7bd244f8be2c345cf25019b954e507}{\index{spell.\+c@{spell.\+c}!book@{book}}
+\index{book@{book}!spell.\+c@{spell.\+c}}
+\subsubsection[{book}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} struct {\bf obj}$\ast$ book\hspace{0.3cm}{\ttfamily [static]}}}\label{spell_8c_a9e7bd244f8be2c345cf25019b954e507}
+
+
+Definition at line 8 of file spell.\+c.
+
+\hypertarget{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{\index{spell.\+c@{spell.\+c}!delay@{delay}}
+\index{delay@{delay}!spell.\+c@{spell.\+c}}
+\subsubsection[{delay}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} {\bf schar} delay\hspace{0.3cm}{\ttfamily [static]}}}\label{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}
+
+
+Definition at line 7 of file spell.\+c.
+
+
+
+Referenced by learn(), and study\+\_\+book().
+
+\hypertarget{spell_8c_ad605ab031d8f78c9ac0620f161f8c077}{\index{spell.\+c@{spell.\+c}!explodes@{explodes}}
+\index{explodes@{explodes}!spell.\+c@{spell.\+c}}
+\subsubsection[{explodes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char explodes\mbox{[}$\,$\mbox{]} = \char`\"{}radiates explosive energy\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{spell_8c_ad605ab031d8f78c9ac0620f161f8c077}
+
+
+Definition at line 91 of file spell.\+c.
+

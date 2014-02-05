@@ -1,0 +1,531 @@
+\hypertarget{sit_8c}{\section{nethack/src/sit.c File Reference}
+\label{sit_8c}\index{nethack/src/sit.\+c@{nethack/src/sit.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}artifact.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{sit_8c_ade424a7b109974a43116b3cbb35dc4ff}{take\+\_\+gold} ()
+\item 
+int \hyperlink{sit_8c_adc7e12e3f3e927b0c285e65bbb54e997}{dosit} ()
+\item 
+void \hyperlink{sit_8c_a2835848ba066c9a75ae7f7400213fbd6}{rndcurse} ()
+\item 
+void \hyperlink{sit_8c_a7af4d86a5632a33ace155ef9a210ac8f}{attrcurse} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{sit_8c_a7af4d86a5632a33ace155ef9a210ac8f}{\index{sit.\+c@{sit.\+c}!attrcurse@{attrcurse}}
+\index{attrcurse@{attrcurse}!sit.\+c@{sit.\+c}}
+\subsubsection[{attrcurse}]{\setlength{\rightskip}{0pt plus 5cm}void attrcurse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{sit_8c_a7af4d86a5632a33ace155ef9a210ac8f}
+
+
+Definition at line 386 of file sit.\+c.
+
+
+
+References Blind, Blind\+\_\+telepat, H\+Aggravate\+\_\+monster, Hallucination, H\+Cold\+\_\+resistance, H\+Fast, H\+Fire\+\_\+resistance, H\+Invis, H\+Poison\+\_\+resistance, H\+Protection, H\+See\+\_\+invisible, H\+Stealth, H\+Telepat, H\+Teleportation, I\+N\+T\+R\+I\+N\+S\+I\+C, and see\+\_\+monsters().
+
+
+\begin{DoxyCode}
+387 \{
+388     \textcolor{keywordflow}{switch}(rnd(11)) \{
+389     \textcolor{keywordflow}{case} 1 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a4c950d492c553b627fb5d5981dc97717}{HFire\_resistance} & \hyperlink{prop_8h_ac3411a25b5109e75c9398108391b89f7}{INTRINSIC}) \{
+390             \hyperlink{youprop_8h_a4c950d492c553b627fb5d5981dc97717}{HFire\_resistance} &= ~INTRINSIC;
+391             You\_feel(\textcolor{stringliteral}{"warmer."});
+392             \textcolor{keywordflow}{break};
+393         \}
+394     \textcolor{keywordflow}{case} 2 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_abadb39eebd7374653445835f4ded9314}{HTeleportation} & INTRINSIC) \{
+395             \hyperlink{youprop_8h_abadb39eebd7374653445835f4ded9314}{HTeleportation} &= ~INTRINSIC;
+396             You\_feel(\textcolor{stringliteral}{"less jumpy."});
+397             \textcolor{keywordflow}{break};
+398         \}
+399     \textcolor{keywordflow}{case} 3 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a97ce16715c5bd46d1e5473e2935a321a}{HPoison\_resistance} & INTRINSIC) \{
+400             \hyperlink{youprop_8h_a97ce16715c5bd46d1e5473e2935a321a}{HPoison\_resistance} &= ~INTRINSIC;
+401             You\_feel(\textcolor{stringliteral}{"a little sick!"});
+402             \textcolor{keywordflow}{break};
+403         \}
+404     \textcolor{keywordflow}{case} 4 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a2dcf930b78fcb4c697ebd7b7b3ebd46f}{HTelepat} & INTRINSIC) \{
+405             \hyperlink{youprop_8h_a2dcf930b78fcb4c697ebd7b7b3ebd46f}{HTelepat} &= ~INTRINSIC;
+406             \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} && !\hyperlink{youprop_8h_a27cbd2bb7c71d4627d48c2715be37423}{Blind\_telepat})
+407                 \hyperlink{display_8c_aa9a8557e452301a77e67c6b9be801775}{see\_monsters}(); \textcolor{comment}{/* Can't sense mons anymore! */}
+408             Your(\textcolor{stringliteral}{"senses fail!"});
+409             \textcolor{keywordflow}{break};
+410         \}
+411     \textcolor{keywordflow}{case} 5 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_ab5d4766cc82be5f8cf0e1a5419d66cb5}{HCold\_resistance} & INTRINSIC) \{
+412             \hyperlink{youprop_8h_ab5d4766cc82be5f8cf0e1a5419d66cb5}{HCold\_resistance} &= ~INTRINSIC;
+413             You\_feel(\textcolor{stringliteral}{"cooler."});
+414             \textcolor{keywordflow}{break};
+415         \}
+416     \textcolor{keywordflow}{case} 6 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a8cd6c7176e91a10b79ff1c854a740dfb}{HInvis} & INTRINSIC) \{
+417             \hyperlink{youprop_8h_a8cd6c7176e91a10b79ff1c854a740dfb}{HInvis} &= ~INTRINSIC;
+418             You\_feel(\textcolor{stringliteral}{"paranoid."});
+419             \textcolor{keywordflow}{break};
+420         \}
+421     \textcolor{keywordflow}{case} 7 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_ac915b788238a9c9cff86a6fd8c18e952}{HSee\_invisible} & INTRINSIC) \{
+422             \hyperlink{youprop_8h_ac915b788238a9c9cff86a6fd8c18e952}{HSee\_invisible} &= ~INTRINSIC;
+423             You(\textcolor{stringliteral}{"%s!"}, \hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination} ? \textcolor{stringliteral}{"tawt you taw a puttie tat"}
+424                         : \textcolor{stringliteral}{"thought you saw something"});
+425             \textcolor{keywordflow}{break};
+426         \}
+427     \textcolor{keywordflow}{case} 8 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_ad47fc1239243c3bc6f9c9c6a0d126199}{HFast} & INTRINSIC) \{
+428             \hyperlink{youprop_8h_ad47fc1239243c3bc6f9c9c6a0d126199}{HFast} &= ~INTRINSIC;
+429             You\_feel(\textcolor{stringliteral}{"slower."});
+430             \textcolor{keywordflow}{break};
+431         \}
+432     \textcolor{keywordflow}{case} 9 : \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_accba17cc8b25ad80d237854d9131ab4a}{HStealth} & INTRINSIC) \{
+433             \hyperlink{youprop_8h_accba17cc8b25ad80d237854d9131ab4a}{HStealth} &= ~INTRINSIC;
+434             You\_feel(\textcolor{stringliteral}{"clumsy."});
+435             \textcolor{keywordflow}{break};
+436         \}
+437     \textcolor{keywordflow}{case} 10: \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a49794384534b6c03a81067efa3bbce38}{HProtection} & INTRINSIC) \{
+438             \hyperlink{youprop_8h_a49794384534b6c03a81067efa3bbce38}{HProtection} &= ~INTRINSIC;
+439             You\_feel(\textcolor{stringliteral}{"vulnerable."});
+440             \textcolor{keywordflow}{break};
+441         \}
+442     \textcolor{keywordflow}{case} 11: \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a63ee9edc2e17502be3b99c080b45b89f}{HAggravate\_monster} & INTRINSIC) \{
+443             \hyperlink{youprop_8h_a63ee9edc2e17502be3b99c080b45b89f}{HAggravate\_monster} &= ~INTRINSIC;
+444             You\_feel(\textcolor{stringliteral}{"less attractive."});
+445             \textcolor{keywordflow}{break};
+446         \}
+447     \textcolor{keywordflow}{default}: \textcolor{keywordflow}{break};
+448     \}
+449 \}
+\end{DoxyCode}
+\hypertarget{sit_8c_adc7e12e3f3e927b0c285e65bbb54e997}{\index{sit.\+c@{sit.\+c}!dosit@{dosit}}
+\index{dosit@{dosit}!sit.\+c@{sit.\+c}}
+\subsubsection[{dosit}]{\setlength{\rightskip}{0pt plus 5cm}int dosit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{sit_8c_adc7e12e3f3e927b0c285e65bbb54e997}
+
+
+Definition at line 39 of file sit.\+c.
+
+
+
+References A\+\_\+\+C\+O\+N, A\+\_\+\+M\+A\+X, A\+\_\+\+S\+T\+R, A\+\_\+\+W\+I\+S, altar\+\_\+wrath(), Blinded, flag\+::botl, C\+L\+O\+T\+H, Cold\+\_\+resistance, obj\+::corpsenm, monst\+::data, defsyms, do\+\_\+mapping(), D\+R\+A\+W\+B\+R\+I\+D\+G\+E\+\_\+\+D\+O\+W\+N, F\+A\+L\+S\+E, flag\+::female, Fire\+\_\+resistance, flags, dlevel\+\_\+t\+::flags, F\+O\+O\+T, F\+R\+O\+M\+O\+U\+T\+S\+I\+D\+E, H\+Confusion, H\+See\+\_\+invisible, humanoid, I\+N\+T\+R\+I\+N\+S\+I\+C, invent, I\+S\+\_\+\+A\+L\+T\+A\+R, Is\+\_\+box, I\+S\+\_\+\+G\+R\+A\+V\+E, is\+\_\+prince, I\+S\+\_\+\+S\+I\+N\+K, I\+S\+\_\+\+T\+H\+R\+O\+N\+E, Is\+\_\+waterlevel, K\+I\+L\+L\+E\+D\+\_\+\+B\+Y, K\+I\+L\+L\+E\+D\+\_\+\+B\+Y\+\_\+\+A\+N, L\+A\+D\+D\+E\+R, lays\+\_\+eggs, level, Levitation, levl, likes\+\_\+lava, Luck, you\+::mh, you\+::mhmax, newsym(), N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S, O\+B\+J\+\_\+\+A\+T, objects, dlevel\+\_\+t\+::objects, objclass\+::oc\+\_\+nutrition, obj\+::otyp, obj\+::owt, obj\+::quan, rn1, rndcurse(), R\+O\+O\+M, S\+\_\+altar, S\+\_\+grave, S\+\_\+ice, S\+\_\+sink, S\+\_\+throne, Shock\+\_\+resistance, S\+I\+C\+K\+\_\+\+A\+L\+L, obj\+::spe, S\+P\+I\+K\+E\+D\+\_\+\+P\+I\+T, S\+T\+A\+I\+R\+S, take\+\_\+gold(), tele(), T\+R\+U\+E, T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P, T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R, T\+T\+\_\+\+L\+A\+V\+A, T\+T\+\_\+\+P\+I\+T, T\+T\+\_\+\+W\+E\+B, u, uarm, uarmf, you\+::uhp, you\+::uhpmax, you\+::uhunger, you\+::uluck, you\+::umonnum, Underwater, Upolyd, you\+::utrap, you\+::utraptype, you\+::ux, you\+::uy, you\+::uz, and youmonst.
+
+
+\begin{DoxyCode}
+40 \{
+41     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} sit\_message[] = \textcolor{stringliteral}{"sit on the %s."};
+42     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *\hyperlink{structtrap}{trap};
+43     \textcolor{keyword}{register} \textcolor{keywordtype}{int} typ = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}].typ;
+44 
+45 
+46 \textcolor{preprocessor}{#ifdef STEED}
+47     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed) \{
+48         You(\textcolor{stringliteral}{"are already sitting on %s."}, mon\_nam(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed));
+49         \textcolor{keywordflow}{return} (0);
+50     \}
+51 \textcolor{preprocessor}{#endif}
+52 
+53     \textcolor{keywordflow}{if}(!can\_reach\_floor())  \{
+54         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a3dbdc08291ccd1d6de010d72e4b180fb}{Levitation})
+55         You(\textcolor{stringliteral}{"tumble in place."});
+56         \textcolor{keywordflow}{else}
+57         You(\textcolor{stringliteral}{"are sitting on air."});
+58         \textcolor{keywordflow}{return} 0;
+59     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (is\_pool(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) && !\hyperlink{youprop_8h_a2eb59bdcba2c368fefd253bfcdaa3673}{Underwater}) \{  \textcolor{comment}{/* water walking */}
+60         \textcolor{keywordflow}{goto} in\_water;
+61     \}
+62 
+63     \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a8c5e05f917fa75d3b54c8c5045d6665b}{OBJ\_AT}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})) \{
+64         \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{structobj}{obj};
+65 
+66         obj = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ac128f805d01d7746b499596dd3b92a53}{objects}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}];
+67         You(\textcolor{stringliteral}{"sit on %s."}, the(xname(obj)));
+68         \textcolor{keywordflow}{if} (!(\hyperlink{obj_8h_a670bbe6ea7092fc0194149cc57131af9}{Is\_box}(obj) || \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_material == 
+      \hyperlink{objclass_8h_a8e05404ab70f0d1b76a49fa325f6928a}{CLOTH}))
+69         pline(\textcolor{stringliteral}{"It's not very comfortable..."});
+70 
+71     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((trap = t\_at(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})) != 0 ||
+72            (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} && (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype} >= \hyperlink{you_8h_a1d97aac071079ee345fc1a88536bf7d6}{TT\_LAVA}))) \{
+73 
+74         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap}) \{
+75         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});   \textcolor{comment}{/* you're getting stuck longer */}
+76         \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype} == \hyperlink{you_8h_a414c1cda852975eb778f7c5b75613f32}{TT\_BEARTRAP}) \{
+77             You\_cant(\textcolor{stringliteral}{"sit down with your %s in the bear trap."}, body\_part(\hyperlink{hack_8h_a9b1eabef4c7711550544eaeaa8f41fa1}{FOOT}));
+78             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap}++;
+79             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype} == \hyperlink{you_8h_aea6a4ea47e82cae080755cd9c3ed8b9a}{TT\_PIT}) \{
+80             \textcolor{keywordflow}{if}(trap->ttyp == \hyperlink{trap_8h_a813fa80e09de5d455e2af3743a95bad9}{SPIKED\_PIT}) \{
+81             You(\textcolor{stringliteral}{"sit down on a spike.  Ouch!"});
+82             losehp(1, \textcolor{stringliteral}{"sitting on an iron spike"}, \hyperlink{decl_8h_a0b77d6f094070ee1d9900156357f6f62}{KILLED\_BY});
+83             exercise(\hyperlink{attrib_8h_ad53430e3d611a366ec4b5c457b4c67f7}{A\_STR}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+84             \} \textcolor{keywordflow}{else}
+85             You(\textcolor{stringliteral}{"sit down in the pit."});
+86             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} += rn2(5);
+87         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype} == \hyperlink{you_8h_a6f36535a424a78d6f283a71b2d953ac3}{TT\_WEB}) \{
+88             You(\textcolor{stringliteral}{"sit in the spider web and get entangled further!"});
+89             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} += \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(10, 5);
+90         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype} == \hyperlink{you_8h_a1d97aac071079ee345fc1a88536bf7d6}{TT\_LAVA}) \{
+91             \textcolor{comment}{/* Must have fire resistance or they'd be dead already */}
+92             You(\textcolor{stringliteral}{"sit in the lava!"});
+93             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} += rnd(4);
+94             losehp(d(2,10), \textcolor{stringliteral}{"sitting in lava"}, \hyperlink{decl_8h_a0b77d6f094070ee1d9900156357f6f62}{KILLED\_BY});
+95         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype} == \hyperlink{you_8h_a4e2d887e8b74f3d5a794cb08f126f676}{TT\_INFLOOR}) \{
+96             You\_cant(\textcolor{stringliteral}{"maneuver to sit!"});
+97             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap}++;
+98         \}
+99         \} \textcolor{keywordflow}{else} \{
+100             You(\textcolor{stringliteral}{"sit down."});
+101         dotrap(trap, 0);
+102         \}
+103     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{youprop_8h_a2eb59bdcba2c368fefd253bfcdaa3673}{Underwater} || \hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+104         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+105         There(\textcolor{stringliteral}{"are no cushions floating nearby."});
+106         \textcolor{keywordflow}{else}
+107         You(\textcolor{stringliteral}{"sit down on the muddy bottom."});
+108     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(is\_pool(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})) \{
+109  in\_water:
+110         You(\textcolor{stringliteral}{"sit in the water."});
+111         \textcolor{keywordflow}{if} (!rn2(10) && \hyperlink{decl_8h_ad6e6532c78ab5fe0078daf4cf352f3c1}{uarm})
+112         (void) rust\_dmg(\hyperlink{decl_8h_ad6e6532c78ab5fe0078daf4cf352f3c1}{uarm}, \textcolor{stringliteral}{"armor"}, 1, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst});
+113         \textcolor{keywordflow}{if} (!rn2(10) && \hyperlink{decl_8h_a11e2d0f62fa1b42374054c939ebb288f}{uarmf} && \hyperlink{decl_8h_a11e2d0f62fa1b42374054c939ebb288f}{uarmf}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != WATER\_WALKING\_BOOTS)
+114         (\textcolor{keywordtype}{void}) rust\_dmg(\hyperlink{decl_8h_ad6e6532c78ab5fe0078daf4cf352f3c1}{uarm}, \textcolor{stringliteral}{"armor"}, 1, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst});
+115 \textcolor{preprocessor}{#ifdef SINKS}
+116     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a9771113b4d635798167e1ade3dbf389a}{IS\_SINK}(typ)) \{
+117 
+118         You(sit\_message, \hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{rm_8h_aa1d8a331f96a3c7f3da657b4a0b1872a}{S\_sink}].explanation);
+119         Your(\textcolor{stringliteral}{"%s gets wet."}, \hyperlink{mondata_8h_a1f7524ff25e459cd9832bfa069188312}{humanoid}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}) ? \textcolor{stringliteral}{"rump"} : \textcolor{stringliteral}{"underside"});
+120 \textcolor{preprocessor}{#endif}
+121     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a06b1605590c29bd5f7e218035b45f949}{IS\_ALTAR}(typ)) \{
+122 
+123         You(sit\_message, \hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{rm_8h_a2c0fad3823618e2244411efd9cdb7049}{S\_altar}].explanation);
+124         \hyperlink{pray_8c_a43ac407d23c96525bb221608ceec2534}{altar\_wrath}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+125 
+126     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{rm_8h_afbd588a43f63eed969dba4f111301538}{IS\_GRAVE}(typ)) \{
+127 
+128         You(sit\_message, \hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{rm_8h_a89f1186dd588de46c4412d718133b358}{S\_grave}].explanation);
+129 
+130     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(typ == \hyperlink{rm_8h_a814976bdce7e0d26e78d426fdb6f1b22}{STAIRS}) \{
+131 
+132         You(sit\_message, \textcolor{stringliteral}{"stairs"});
+133 
+134     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(typ == \hyperlink{rm_8h_aa5a9eab5827d942490d37fdc9ca87ba3}{LADDER}) \{
+135 
+136         You(sit\_message, \textcolor{stringliteral}{"ladder"});
+137 
+138     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (is\_lava(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})) \{
+139 
+140         \textcolor{comment}{/* must be WWalking */}
+141         You(sit\_message, \textcolor{stringliteral}{"lava"});
+142         burn\_away\_slime();
+143         \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_a764fcf4ead77e4b394306f02ad61c684}{likes\_lava}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) \{
+144         pline\_The(\textcolor{stringliteral}{"lava feels warm."});
+145         \textcolor{keywordflow}{return} 1;
+146         \}
+147         pline\_The(\textcolor{stringliteral}{"lava burns you!"});
+148         losehp(d((\hyperlink{youprop_8h_a37f314f0655e4ea92122aa8788a28e19}{Fire\_resistance} ? 2 : 10), 10),
+149            \textcolor{stringliteral}{"sitting on lava"}, \hyperlink{decl_8h_a0b77d6f094070ee1d9900156357f6f62}{KILLED\_BY});
+150 
+151     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (is\_ice(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})) \{
+152 
+153         You(sit\_message, \hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{rm_8h_afb2a96e1766823793c4460855b6b7b52}{S\_ice}].explanation);
+154         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a5c156e9b9dbad0fa9abfd2132a72c8b1}{Cold\_resistance}) pline\_The(\textcolor{stringliteral}{"ice feels cold."});
+155 
+156     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (typ == \hyperlink{rm_8h_ab6103ae7f493570a01e00598434d3dd1}{DRAWBRIDGE\_DOWN}) \{
+157 
+158         You(sit\_message, \textcolor{stringliteral}{"drawbridge"});
+159 
+160     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a54ef8a46ccbe911f27cf886dfb9f5f25}{IS\_THRONE}(typ)) \{
+161 
+162         You(sit\_message, \hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{rm_8h_af6b56250d36de9841a66db539a09271f}{S\_throne}].explanation);
+163         \textcolor{keywordflow}{if} (rnd(6) > 4)  \{
+164         \textcolor{keywordflow}{switch} (rnd(13))  \{
+165             \textcolor{keywordflow}{case} 1:
+166             (void) adjattrib(rn2(\hyperlink{attrib_8h_a8f8289cfc29e0bb2a2626262bfeedf21}{A\_MAX}), -\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(4,3), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+167             losehp(rnd(10), \textcolor{stringliteral}{"cursed throne"}, \hyperlink{decl_8h_af4e54910b730baa32b2dfbe4dd2942c1}{KILLED\_BY\_AN});
+168             \textcolor{keywordflow}{break};
+169             \textcolor{keywordflow}{case} 2:
+170             (void) adjattrib(rn2(\hyperlink{attrib_8h_a8f8289cfc29e0bb2a2626262bfeedf21}{A\_MAX}), 1, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+171             \textcolor{keywordflow}{break};
+172             \textcolor{keywordflow}{case} 3:
+173             pline(\textcolor{stringliteral}{"A%s electric shock shoots through your body!"},
+174                   (\hyperlink{youprop_8h_acf41a934b6c52ace60238e5a65f94261}{Shock\_resistance}) ? \textcolor{stringliteral}{"n"} : \textcolor{stringliteral}{" massive"});
+175             losehp(\hyperlink{youprop_8h_acf41a934b6c52ace60238e5a65f94261}{Shock\_resistance} ? rnd(6) : rnd(30),
+176                    \textcolor{stringliteral}{"electric chair"}, \hyperlink{decl_8h_af4e54910b730baa32b2dfbe4dd2942c1}{KILLED\_BY\_AN});
+177             exercise(\hyperlink{attrib_8h_a82a29f9d3d2390f61fc68b2a352b5da3}{A\_CON}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+178             \textcolor{keywordflow}{break};
+179             \textcolor{keywordflow}{case} 4:
+180             You\_feel(\textcolor{stringliteral}{"much, much better!"});
+181             \textcolor{keywordflow}{if} (\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd}) \{
+182                 \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2106fda1b357aa3395703a3abff426f8}{mh} >= (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ad0eb213f6299ffa1529fc7864003a044}{mhmax} - 5))  \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ad0eb213f6299ffa1529fc7864003a044}{mhmax} += 4;
+183                 \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2106fda1b357aa3395703a3abff426f8}{mh} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ad0eb213f6299ffa1529fc7864003a044}{mhmax};
+184             \}
+185             \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} >= (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax} - 5))  \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax} += 4;
+186             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax};
+187             make\_blinded(0L,\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+188             make\_sick(0L, (\textcolor{keywordtype}{char} *) 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{you_8h_a3e752cf2376b172f41c3c82df74c590c}{SICK\_ALL});
+189             heal\_legs();
+190             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+191             \textcolor{keywordflow}{break};
+192             \textcolor{keywordflow}{case} 5:
+193             \hyperlink{sit_8c_ade424a7b109974a43116b3cbb35dc4ff}{take\_gold}();
+194             \textcolor{keywordflow}{break};
+195             \textcolor{keywordflow}{case} 6:
+196             \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89d1a963eea3bc32c00233bc9332f24a}{uluck} + rn2(5) < 0) \{
+197                 You\_feel(\textcolor{stringliteral}{"your luck is changing."});
+198                 change\_luck(1);
+199             \} \textcolor{keywordflow}{else}      makewish();
+200             \textcolor{keywordflow}{break};
+201             \textcolor{keywordflow}{case} 7:
+202             \{
+203             \textcolor{keyword}{register} \textcolor{keywordtype}{int} cnt = rnd(10);
+204 
+205             pline(\textcolor{stringliteral}{"A voice echoes:"});
+206             verbalize(\textcolor{stringliteral}{"Thy audience hath been summoned, %s!"},
+207                   \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female} ? \textcolor{stringliteral}{"Dame"} : \textcolor{stringliteral}{"Sire"});
+208             \textcolor{keywordflow}{while}(cnt--)
+209                 (void) makemon(courtmon(), \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{hack_8h_ae449582f467baa0da531a6ea116a18f2}{NO\_MM\_FLAGS});
+210             \textcolor{keywordflow}{break};
+211             \}
+212             \textcolor{keywordflow}{case} 8:
+213             pline(\textcolor{stringliteral}{"A voice echoes:"});
+214             verbalize(\textcolor{stringliteral}{"By thy Imperious order, %s..."},
+215                   \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female} ? \textcolor{stringliteral}{"Dame"} : \textcolor{stringliteral}{"Sire"});
+216             do\_genocide(5); \textcolor{comment}{/* REALLY|ONTHRONE, see do\_genocide() */}
+217             \textcolor{keywordflow}{break};
+218             \textcolor{keywordflow}{case} 9:
+219             pline(\textcolor{stringliteral}{"A voice echoes:"});
+220     verbalize(\textcolor{stringliteral}{"A curse upon thee for sitting upon this most holy throne!"});
+221             \textcolor{keywordflow}{if} (\hyperlink{you_8h_ae69937c86a71264fd0e91dab8a64cae4}{Luck} > 0)  \{
+222                 make\_blinded(\hyperlink{youprop_8h_a769ae4ea1360ffb2b8b4679bd129db09}{Blinded} + \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(100,250),\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+223             \} \textcolor{keywordflow}{else}      \hyperlink{sit_8c_a2835848ba066c9a75ae7f7400213fbd6}{rndcurse}();
+224             \textcolor{keywordflow}{break};
+225             \textcolor{keywordflow}{case} 10:
+226             \textcolor{keywordflow}{if} (\hyperlink{you_8h_ae69937c86a71264fd0e91dab8a64cae4}{Luck} < 0 || (\hyperlink{youprop_8h_ac915b788238a9c9cff86a6fd8c18e952}{HSee\_invisible} & \hyperlink{prop_8h_ac3411a25b5109e75c9398108391b89f7}{INTRINSIC}))  \{
+227                 \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.nommap) \{
+228                     pline(
+229                     \textcolor{stringliteral}{"A terrible drone fills your head!"});
+230                     make\_confused(\hyperlink{youprop_8h_a7e27468d62b489163905cdc2de895adf}{HConfusion} + rnd(30),
+231                                     \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+232                 \} \textcolor{keywordflow}{else} \{
+233                     pline(\textcolor{stringliteral}{"An image forms in your mind."});
+234                     \hyperlink{detect_8c_a26334ff4693b156bc3e2ef122f06d163}{do\_mapping}();
+235                 \}
+236             \} \textcolor{keywordflow}{else}  \{
+237                 Your(\textcolor{stringliteral}{"vision becomes clear."});
+238                 \hyperlink{youprop_8h_ac915b788238a9c9cff86a6fd8c18e952}{HSee\_invisible} |= \hyperlink{prop_8h_a60f99f5b0a818807c38aa14da2d7a6d1}{FROMOUTSIDE};
+239                 \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+240             \}
+241             \textcolor{keywordflow}{break};
+242             \textcolor{keywordflow}{case} 11:
+243             \textcolor{keywordflow}{if} (\hyperlink{you_8h_ae69937c86a71264fd0e91dab8a64cae4}{Luck} < 0)  \{
+244                 You\_feel(\textcolor{stringliteral}{"threatened."});
+245                 aggravate();
+246             \} \textcolor{keywordflow}{else}  \{
+247 
+248                 You\_feel(\textcolor{stringliteral}{"a wrenching sensation."});
+249                 \hyperlink{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}{tele}();     \textcolor{comment}{/* teleport him */}
+250             \}
+251             \textcolor{keywordflow}{break};
+252             \textcolor{keywordflow}{case} 12:
+253             You(\textcolor{stringliteral}{"are granted an insight!"});
+254             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}) \{
+255                 \textcolor{comment}{/* rn2(5) agrees w/seffects() */}
+256                 identify\_pack(rn2(5));
+257             \}
+258             \textcolor{keywordflow}{break};
+259             \textcolor{keywordflow}{case} 13:
+260             Your(\textcolor{stringliteral}{"mind turns into a pretzel!"});
+261             make\_confused(\hyperlink{youprop_8h_a7e27468d62b489163905cdc2de895adf}{HConfusion} + \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(7,16),\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+262             \textcolor{keywordflow}{break};
+263             \textcolor{keywordflow}{default}:    impossible(\textcolor{stringliteral}{"throne effect"});
+264                 \textcolor{keywordflow}{break};
+265         \}
+266         \} \textcolor{keywordflow}{else} \{
+267         \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_a88f89429a4a8ec2fdaa354be5bc612c1}{is\_prince}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}))
+268             You\_feel(\textcolor{stringliteral}{"very comfortable here."});
+269         \textcolor{keywordflow}{else}
+270             You\_feel(\textcolor{stringliteral}{"somehow out of place..."});
+271         \}
+272 
+273         \textcolor{keywordflow}{if} (!rn2(3) && \hyperlink{rm_8h_a54ef8a46ccbe911f27cf886dfb9f5f25}{IS\_THRONE}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}].typ)) \{
+274         \textcolor{comment}{/* may have teleported */}
+275         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}].typ = \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM};
+276         pline\_The(\textcolor{stringliteral}{"throne vanishes in a puff of logic."});
+277         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+278         \}
+279 
+280     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_a52531d6807321aaf7fc7f7fb45849e11}{lays\_eggs}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) \{
+281         \textcolor{keyword}{struct }obj *uegg;
+282 
+283         \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female}) \{
+284             pline(\textcolor{stringliteral}{"Males can't lay eggs!"});
+285             \textcolor{keywordflow}{return} 0;
+286         \}
+287 
+288         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a66fb9624339df35ac2f9f08fdccde6c9}{uhunger} < (\textcolor{keywordtype}{int})\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[EGG].\hyperlink{structobjclass_a1c4aaf256145aed97ad16cc00d1ee7dd}{oc\_nutrition}) \{
+289             You(\textcolor{stringliteral}{"don't have enough energy to lay an egg."});
+290             \textcolor{keywordflow}{return} 0;
+291         \}
+292 
+293         uegg = mksobj(EGG, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+294         uegg->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = 1;
+295         uegg->\hyperlink{structobj_ad08c0ed1a746fbb52377ecd7e4220578}{quan} = 1;
+296         uegg->\hyperlink{structobj_a606b1d5b273b814049cc1b1991adfeec}{owt} = weight(uegg);
+297         uegg->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm} = egg\_type\_from\_parent(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae0b7ade89d09cd3b6d5e05eb8c859b35}{umonnum}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+298         uegg->known = uegg->dknown = 1;
+299         attach\_egg\_hatch\_timeout(uegg);
+300         You(\textcolor{stringliteral}{"lay an egg."});
+301         dropy(uegg);
+302         stackobj(uegg);
+303         morehungry((\textcolor{keywordtype}{int})\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[EGG].oc\_nutrition);
+304     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow)
+305         There(\textcolor{stringliteral}{"are no seats in here!"});
+306     \textcolor{keywordflow}{else}
+307         pline(\textcolor{stringliteral}{"Having fun sitting on the %s?"}, surface(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}));
+308     \textcolor{keywordflow}{return}(1);
+309 \}
+\end{DoxyCode}
+\hypertarget{sit_8c_a2835848ba066c9a75ae7f7400213fbd6}{\index{sit.\+c@{sit.\+c}!rndcurse@{rndcurse}}
+\index{rndcurse@{rndcurse}!sit.\+c@{sit.\+c}}
+\subsubsection[{rndcurse}]{\setlength{\rightskip}{0pt plus 5cm}void rndcurse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{sit_8c_a2835848ba066c9a75ae7f7400213fbd6}
+
+
+Definition at line 312 of file sit.\+c.
+
+
+
+References Antimagic, Blind, C\+O\+I\+N\+\_\+\+C\+L\+A\+S\+S, Half\+\_\+spell\+\_\+damage, invent, N\+H\+\_\+\+B\+L\+A\+C\+K, obj\+::nobj, nobj, obj\+::oartifact, obj\+::oclass, otmp, shieldeff(), S\+P\+F\+X\+\_\+\+I\+N\+T\+E\+L, T\+R\+U\+E, u, update\+\_\+inventory, uwep, you\+::ux, you\+::uy, and which\+\_\+armor().
+
+
+
+Referenced by angrygods(), cursed\+\_\+book(), and dosit().
+
+
+\begin{DoxyCode}
+313 \{
+314     \textcolor{keywordtype}{int} \hyperlink{lev__yacc_8c_a2ab61a372270bf9e1fb46f02f1fb8e0a}{nobj} = 0;
+315     \textcolor{keywordtype}{int} cnt, onum;
+316     \textcolor{keyword}{struct  }\hyperlink{structobj}{obj}  *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+317     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} mal\_aura[] = \textcolor{stringliteral}{"feel a malignant aura surround %s."};
+318 
+319     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} && (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_af03ce8a6a0ca51e8d8954fb1a1a31fbe}{oartifact} == ART\_MAGICBANE) && rn2(20)) \{
+320         You(mal\_aura, \textcolor{stringliteral}{"the magic-absorbing blade"});
+321         \textcolor{keywordflow}{return};
+322     \}
+323 
+324     \textcolor{keywordflow}{if}(\hyperlink{youprop_8h_aaa17c946f184a85fbf104cdb4d55e24e}{Antimagic}) \{
+325         \hyperlink{display_8c_ac89f44ae626d79f05953e503312a939d}{shieldeff}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+326         You(mal\_aura, \textcolor{stringliteral}{"you"});
+327     \}
+328 
+329     \textcolor{keywordflow}{for} (otmp = \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj}) \{
+330 \textcolor{preprocessor}{#ifdef GOLDOBJ}
+331         \textcolor{comment}{/* gold isn't subject to being cursed or blessed */}
+332         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a2999621925083659147349e261e4cb3d}{COIN\_CLASS}) \textcolor{keywordflow}{continue};
+333 \textcolor{preprocessor}{#endif}
+334         nobj++;
+335     \}
+336     \textcolor{keywordflow}{if} (nobj) \{
+337         \textcolor{keywordflow}{for} (cnt = rnd(6/((!!\hyperlink{youprop_8h_aaa17c946f184a85fbf104cdb4d55e24e}{Antimagic}) + (!!\hyperlink{youprop_8h_ab83d6a803a76f8d34cac586e546a4a2c}{Half\_spell\_damage}) + 1));
+338          cnt > 0; cnt--)  \{
+339         onum = rnd(nobj);
+340         \textcolor{keywordflow}{for} (otmp = \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj}) \{
+341 \textcolor{preprocessor}{#ifdef GOLDOBJ}
+342             \textcolor{comment}{/* as above */}
+343             \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a2999621925083659147349e261e4cb3d}{COIN\_CLASS}) \textcolor{keywordflow}{continue};
+344 \textcolor{preprocessor}{#endif}
+345             \textcolor{keywordflow}{if} (--onum == 0) \textcolor{keywordflow}{break}; \textcolor{comment}{/* found the target */}
+346         \}
+347         \textcolor{comment}{/* the !otmp case should never happen; picking an already}
+348 \textcolor{comment}{           cursed item happens--avoid "resists" message in that case */}
+349         \textcolor{keywordflow}{if} (!otmp || otmp->cursed) \textcolor{keywordflow}{continue};    \textcolor{comment}{/* next target */}
+350 
+351         \textcolor{keywordflow}{if}(otmp->\hyperlink{structobj_af03ce8a6a0ca51e8d8954fb1a1a31fbe}{oartifact} && spec\_ability(otmp, \hyperlink{artifact_8h_ab202670e585fefd12b3371d8df9a9b64}{SPFX\_INTEL}) &&
+352            rn2(10) < 8) \{
+353             pline(\textcolor{stringliteral}{"%s!"}, Tobjnam(otmp, \textcolor{stringliteral}{"resist"}));
+354             \textcolor{keywordflow}{continue};
+355         \}
+356 
+357         \textcolor{keywordflow}{if}(otmp->blessed)
+358             unbless(otmp);
+359         \textcolor{keywordflow}{else}
+360             curse(otmp);
+361         \}
+362         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+363     \}
+364 
+365 \textcolor{preprocessor}{#ifdef STEED}
+366     \textcolor{comment}{/* treat steed's saddle as extended part of hero's inventory */}
+367     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed && !rn2(4) &&
+368         (otmp = \hyperlink{worn_8c_a260cadb0c77a7032f8e53716072e6cd7}{which\_armor}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed, W\_SADDLE)) != 0 &&
+369         !otmp->cursed) \{    \textcolor{comment}{/* skip if already cursed */}
+370         \textcolor{keywordflow}{if} (otmp->blessed)
+371         unbless(otmp);
+372         \textcolor{keywordflow}{else}
+373         curse(otmp);
+374         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+375         pline(\textcolor{stringliteral}{"%s %s %s."},
+376               s\_suffix(upstart(y\_monnam(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed))),
+377               aobjnam(otmp, \textcolor{stringliteral}{"glow"}),
+378               hcolor(otmp->cursed ? \hyperlink{decl_8h_a55df3d1bd35f9756e4d497a2762a6c70}{NH\_BLACK} : (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)\textcolor{stringliteral}{"brown"}));
+379         otmp->bknown = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+380         \}
+381     \}
+382 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/*STEED*/}\textcolor{preprocessor}{}
+383 \}
+\end{DoxyCode}
+\hypertarget{sit_8c_ade424a7b109974a43116b3cbb35dc4ff}{\index{sit.\+c@{sit.\+c}!take\+\_\+gold@{take\+\_\+gold}}
+\index{take\+\_\+gold@{take\+\_\+gold}!sit.\+c@{sit.\+c}}
+\subsubsection[{take\+\_\+gold}]{\setlength{\rightskip}{0pt plus 5cm}void take\+\_\+gold (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{sit_8c_ade424a7b109974a43116b3cbb35dc4ff}
+
+
+Definition at line 9 of file sit.\+c.
+
+
+
+References flag\+::botl, C\+O\+I\+N\+\_\+\+C\+L\+A\+S\+S, flags, invent, obj\+::nobj, nobj, obj\+::oclass, otmp, u, and you\+::ugold.
+
+
+
+Referenced by cursed\+\_\+book(), and dosit().
+
+
+\begin{DoxyCode}
+10 \{
+11 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+12     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold} <= 0)  \{
+13         You\_feel(\textcolor{stringliteral}{"a strange sensation."});
+14     \} \textcolor{keywordflow}{else} \{
+15         You(\textcolor{stringliteral}{"notice you have no gold!"});
+16         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold} = 0;
+17         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+18     \}
+19 \textcolor{preprocessor}{#else}
+20         \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}, *\hyperlink{lev__yacc_8c_a2ab61a372270bf9e1fb46f02f1fb8e0a}{nobj};
+21     \textcolor{keywordtype}{int} lost\_money = 0;
+22     \textcolor{keywordflow}{for} (otmp = \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = \hyperlink{lev__yacc_8c_a2ab61a372270bf9e1fb46f02f1fb8e0a}{nobj}) \{
+23         nobj = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj};
+24         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a2999621925083659147349e261e4cb3d}{COIN\_CLASS}) \{
+25             lost\_money = 1;
+26             delobj(otmp);
+27         \}
+28     \}
+29     \textcolor{keywordflow}{if} (!lost\_money)  \{
+30         You\_feel(\textcolor{stringliteral}{"a strange sensation."});
+31     \} \textcolor{keywordflow}{else} \{
+32         You(\textcolor{stringliteral}{"notice you have no money!"});
+33         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+34     \}
+35 \textcolor{preprocessor}{#endif}
+36 \}
+\end{DoxyCode}

@@ -1,0 +1,125 @@
+\hypertarget{win_2win32_2mhstatus_8h}{\section{nethack/win/win32/mhstatus.h File Reference}
+\label{win_2win32_2mhstatus_8h}\index{nethack/win/win32/mhstatus.\+h@{nethack/win/win32/mhstatus.\+h}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+H\+W\+N\+D \hyperlink{win_2win32_2mhstatus_8h_a4e41783e602604b5b6c3eba3563216c3}{mswin\+\_\+init\+\_\+status\+\_\+window} (void)
+\item 
+void \hyperlink{win_2win32_2mhstatus_8h_afe3299b041f27146f5608077f0dcf5f2}{mswin\+\_\+status\+\_\+window\+\_\+size} (H\+W\+N\+D h\+Wnd, L\+P\+S\+I\+Z\+E sz)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{win_2win32_2mhstatus_8h_a4e41783e602604b5b6c3eba3563216c3}{\index{win/win32/mhstatus.\+h@{win/win32/mhstatus.\+h}!mswin\+\_\+init\+\_\+status\+\_\+window@{mswin\+\_\+init\+\_\+status\+\_\+window}}
+\index{mswin\+\_\+init\+\_\+status\+\_\+window@{mswin\+\_\+init\+\_\+status\+\_\+window}!win/win32/mhstatus.\+h@{win/win32/mhstatus.\+h}}
+\subsubsection[{mswin\+\_\+init\+\_\+status\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}H\+W\+N\+D mswin\+\_\+init\+\_\+status\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhstatus_8h_a4e41783e602604b5b6c3eba3563216c3}
+
+
+Definition at line 24 of file mhstatus.\+c.
+
+
+
+References F\+A\+L\+S\+E, Get\+N\+H\+App(), malloc(), mswin\+\_\+nethack\+\_\+status\+\_\+window\+::nhstat\+\_\+format, N\+H\+S\+T\+A\+T\+\_\+\+L\+I\+N\+E\+S\+\_\+4, N\+U\+L\+L, panic(), register\+\_\+status\+\_\+window\+\_\+class(), and sz\+Status\+Window\+Class.
+
+
+
+Referenced by mswin\+\_\+create\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+24                                  \{
+25     \textcolor{keyword}{static} \textcolor{keywordtype}{int} run\_once = 0;
+26     HWND ret;
+27     \hyperlink{structmswin__nethack__status__window}{NHStatusWindow}* data;
+28 
+29     \textcolor{keywordflow}{if}( !run\_once ) \{
+30         \hyperlink{sys_2wince_2mhstatus_8c_a031d6bc0c12d7a25fad5be40b431f48d}{register\_status\_window\_class}( );
+31         run\_once = 1;
+32     \}
+33     
+34     ret = CreateWindow(                                
+35             \hyperlink{sys_2wince_2mhstatus_8c_a82169a346a8ec1f3a8a134866cd80b48}{szStatusWindowClass},
+36             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},
+37             WS\_CHILD | WS\_DISABLED | WS\_CLIPSIBLINGS,
+38             0,  \textcolor{comment}{/* x position */}
+39             0,  \textcolor{comment}{/* y position */}
+40             0,  \textcolor{comment}{/* x-size - we will set it later */}
+41             0,  \textcolor{comment}{/* y-size - we will set it later */}
+42             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,
+43             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},
+44             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+45             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+46     \textcolor{keywordflow}{if}( !ret ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create status window"});
+47     
+48     EnableWindow(ret, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+49 
+50     data = (\hyperlink{sys_2wince_2mhstatus_8c_aeb0889e7a63d0e3137ccddc201bcbdcd}{PNHStatusWindow})\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(\textcolor{keyword}{sizeof}(\hyperlink{structmswin__nethack__status__window}{NHStatusWindow}));
+51     \textcolor{keywordflow}{if}( !data ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"out of memory"});
+52 
+53     ZeroMemory(data, \textcolor{keyword}{sizeof}(\hyperlink{structmswin__nethack__status__window}{NHStatusWindow}));
+54     data->\hyperlink{structmswin__nethack__status__window_a09fc0b982f6cded2ee8cc2ab5771f473}{nhstat\_format} = \hyperlink{sys_2wince_2mhstatus_8c_aaa43e0a69b93a826ab8a03ef2a283e69}{NHSTAT\_LINES\_4};
+55     SetWindowLong(ret, GWL\_USERDATA, (LONG)data);
+56     \textcolor{keywordflow}{return} ret;
+57 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhstatus_8h_afe3299b041f27146f5608077f0dcf5f2}{\index{win/win32/mhstatus.\+h@{win/win32/mhstatus.\+h}!mswin\+\_\+status\+\_\+window\+\_\+size@{mswin\+\_\+status\+\_\+window\+\_\+size}}
+\index{mswin\+\_\+status\+\_\+window\+\_\+size@{mswin\+\_\+status\+\_\+window\+\_\+size}!win/win32/mhstatus.\+h@{win/win32/mhstatus.\+h}}
+\subsubsection[{mswin\+\_\+status\+\_\+window\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+status\+\_\+window\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{L\+P\+S\+I\+Z\+E}]{sz}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhstatus_8h_afe3299b041f27146f5608077f0dcf5f2}
+
+
+Definition at line 146 of file mhstatus.\+c.
+
+
+
+References A\+T\+R\+\_\+\+N\+O\+N\+E, F\+A\+L\+S\+E, mswin\+\_\+get\+\_\+font(), mswin\+\_\+nethack\+\_\+status\+\_\+window\+::nhstat\+\_\+format, N\+H\+S\+T\+A\+T\+\_\+\+L\+I\+N\+E\+S\+\_\+2, N\+H\+S\+T\+A\+T\+\_\+\+L\+I\+N\+E\+S\+\_\+4, N\+H\+S\+W\+\_\+\+L\+I\+N\+E\+S, and N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S.
+
+
+
+Referenced by mswin\+\_\+layout\+\_\+main\+\_\+window().
+
+
+\begin{DoxyCode}
+147 \{
+148     TEXTMETRIC \hyperlink{structtm}{tm};
+149     HGDIOBJ saveFont;
+150     HDC hdc;
+151     \hyperlink{structmswin__nethack__status__window}{PNHStatusWindow} data;
+152     RECT rt;
+153     GetWindowRect(hWnd, &rt);
+154     sz->cx = rt.right - rt.left;
+155     sz->cy = rt.bottom - rt.top;
+156 
+157     data = (\hyperlink{sys_2wince_2mhstatus_8c_aeb0889e7a63d0e3137ccddc201bcbdcd}{PNHStatusWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+158     \textcolor{keywordflow}{if}(data) \{
+159         hdc = GetDC(hWnd);
+160         saveFont = SelectObject(hdc, \hyperlink{sys_2wince_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{mswin\_get\_font}(\hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}, 
+      \hyperlink{wintype_8h_a20a20b74e8cf84ecfbf3c8665c059636}{ATR\_NONE}, hdc, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}));
+161         GetTextMetrics(hdc, &tm);
+162 
+163         \textcolor{comment}{/* see if the status window can fit 80 characters per line */}
+164         \textcolor{keywordflow}{if}( (80*tm.tmMaxCharWidth)>=sz->cx ) data->\hyperlink{structmswin__nethack__status__window_a09fc0b982f6cded2ee8cc2ab5771f473}{nhstat\_format} = 
+      \hyperlink{sys_2wince_2mhstatus_8c_aaa43e0a69b93a826ab8a03ef2a283e69}{NHSTAT\_LINES\_4};
+165         \textcolor{keywordflow}{else}                             data->\hyperlink{structmswin__nethack__status__window_a09fc0b982f6cded2ee8cc2ab5771f473}{nhstat\_format} = 
+      \hyperlink{sys_2wince_2mhstatus_8c_a57e5d66c533dfcfa72d5084433a59a75}{NHSTAT\_LINES\_2};
+166 
+167         \textcolor{comment}{/* set height of the status box */}
+168         sz->cy = tm.tmHeight * data->\hyperlink{structmswin__nethack__status__window_a09fc0b982f6cded2ee8cc2ab5771f473}{nhstat\_format};
+169 
+170         SelectObject(hdc, saveFont);
+171         ReleaseDC(hWnd, hdc);
+172     \}
+173 \}
+\end{DoxyCode}

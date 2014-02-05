@@ -1,0 +1,1366 @@
+\hypertarget{pager_8c}{\section{nethack/src/pager.c File Reference}
+\label{pager_8c}\index{nethack/src/pager.\+c@{nethack/src/pager.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{pager_8c_ab3ff84df0d87f3a2d314986732ad300a}{L\+O\+O\+K\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L}~0	/$\ast$ '.' -\/-\/ ask \hyperlink{gnmain_8c_ad61a3c66fb09fe3ddad92641317efd48}{about} \char`\"{}more info?\char`\"{} $\ast$/
+\item 
+\#define \hyperlink{pager_8c_aa4f2dd2e8ba2fb8f42fa86fec87ccf1d}{L\+O\+O\+K\+\_\+\+Q\+U\+I\+C\+K}~1	/$\ast$ ',' -\/-\/ skip \char`\"{}more info?\char`\"{} $\ast$/
+\item 
+\#define \hyperlink{pager_8c_a7e343ea51b8992542cf19c168df43383}{L\+O\+O\+K\+\_\+\+O\+N\+C\+E}~2	/$\ast$ ';' -\/-\/ skip and stop looping $\ast$/
+\item 
+\#define \hyperlink{pager_8c_abbc5c9f31e1f77eb0f9140e472f71e52}{L\+O\+O\+K\+\_\+\+V\+E\+R\+B\+O\+S\+E}~3	/$\ast$ '\+:' -\/-\/ show \hyperlink{celib_8c_a7d8e503d836cdc94bbdbf7e1371f5f18}{more} info w/o asking $\ast$/
+\item 
+\#define \hyperlink{pager_8c_aadf2ddfe04d535d6faddb8add29d5b0e}{is\+\_\+cmap\+\_\+trap}(i)~((i) $>$= \hyperlink{rm_8h_a40949ea08727cb0154cc945e53ebb174}{S\+\_\+arrow\+\_\+trap} \&\& (i) $<$= \hyperlink{rm_8h_a3daac7b07d9710bad9fe903e937a00b2}{S\+\_\+polymorph\+\_\+trap})
+\item 
+\#define \hyperlink{pager_8c_ac5afa0cf2e9013a947ef282ed607c4f4}{is\+\_\+cmap\+\_\+drawbridge}(i)~((i) $>$= \hyperlink{rm_8h_a051db0d5be8881b77cd8e9a916ef1a8a}{S\+\_\+vodbridge} \&\& (i) $<$= \hyperlink{rm_8h_a324339e2c4fd4e0cbadb5713b10e4754}{S\+\_\+hcdbridge})
+\item 
+\#define \hyperlink{pager_8c_ac49428da47ee5a567eaf6f384b48066c}{W\+I\+Z\+H\+L\+P\+\_\+\+S\+L\+O\+T}~9
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{pager_8c_a17a98fa089575c0408012a818c423ca3}{F\+D\+E\+C\+L} (\hyperlink{pager_8c_a222e0084eb314b55d531451f143b9388}{is\+\_\+swallow\+\_\+sym},(int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{pager_8c_acaf79482cb023e0f8eb80b84e8fe8411}{F\+D\+E\+C\+L} (\hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\+\_\+str},(char $\ast$, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct \hyperlink{structpermonst}{permonst} $\ast$ \hyperlink{pager_8c_a19f3145031861d6d32686c7b0a9b6e60}{F\+D\+E\+C\+L} (\hyperlink{pager_8c_a4811d3d0448b4c9ff9534328e2551d82}{lookat},(int, int, char $\ast$, char $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{pager_8c_af593e7998a37aa25182324b7ddf51c14}{F\+D\+E\+C\+L} (\hyperlink{pager_8c_a62a3866daff35d1c323ae8a0716f3ae5}{checkfile},(char $\ast$, struct \hyperlink{structpermonst}{permonst} $\ast$, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{pager_8c_aea2816d48a16e0feb588f2d569f70d20}{F\+D\+E\+C\+L} (\hyperlink{pager_8c_a22a985e460820d3948f8224e7ae5df49}{do\+\_\+look},(\hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{pager_8c_aa5345a9f5ba5507d7691860ee5caa82a}{F\+D\+E\+C\+L} (\hyperlink{pager_8c_add22024929772228fa539d9afc8f4acf}{help\+\_\+menu},(int $\ast$))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{pager_8c_a222e0084eb314b55d531451f143b9388}{is\+\_\+swallow\+\_\+sym} (int c)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\+\_\+str} (char $\ast$\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$new\+\_\+str)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct \hyperlink{structpermonst}{permonst} $\ast$ \hyperlink{pager_8c_a4811d3d0448b4c9ff9534328e2551d82}{lookat} (int x, int y, char $\ast$\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, char $\ast$monbuf)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{pager_8c_a62a3866daff35d1c323ae8a0716f3ae5}{checkfile} (char $\ast$inp, struct \hyperlink{structpermonst}{permonst} $\ast$pm, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} user\+\_\+typed\+\_\+name, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} without\+\_\+asking)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{pager_8c_a22a985e460820d3948f8224e7ae5df49}{do\+\_\+look} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} quick)
+\item 
+int \hyperlink{pager_8c_a7ba240869c589ab020b058374feeff4a}{dowhatis} ()
+\item 
+int \hyperlink{pager_8c_a849e6e2d0863b685235a4ae0f4b47c2d}{doquickwhatis} ()
+\item 
+int \hyperlink{pager_8c_afa73b40ec18fac8aaa343d21b8b3cffc}{doidtrap} ()
+\item 
+char $\ast$ \hyperlink{pager_8c_ae6dcb64857720afe0c2fbf1796053757}{dowhatdoes\+\_\+core} (char q, char $\ast$cbuf)
+\item 
+int \hyperlink{pager_8c_ab2f81826a2806164f716768c9e011dc3}{dowhatdoes} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{pager_8c_add22024929772228fa539d9afc8f4acf}{help\+\_\+menu} (int $\ast$sel)
+\item 
+int \hyperlink{pager_8c_a550baf529110753c769e533cdeb01e92}{dohelp} ()
+\item 
+int \hyperlink{pager_8c_ac303607e0b17cbaa06dbdf30f5785d60}{dohistory} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{pager_8c_a0ebaf9e6ece7351a2b4be277ca20c307}{what\+\_\+is\+\_\+an\+\_\+unknown\+\_\+object} \mbox{[}$\,$\mbox{]} = \char`\"{}an unknown \hyperlink{structobject}{object}\char`\"{}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{help\+\_\+menu\+\_\+items} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{pager_8c_ac5afa0cf2e9013a947ef282ed607c4f4}{\index{pager.\+c@{pager.\+c}!is\+\_\+cmap\+\_\+drawbridge@{is\+\_\+cmap\+\_\+drawbridge}}
+\index{is\+\_\+cmap\+\_\+drawbridge@{is\+\_\+cmap\+\_\+drawbridge}!pager.\+c@{pager.\+c}}
+\subsubsection[{is\+\_\+cmap\+\_\+drawbridge}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+cmap\+\_\+drawbridge(
+\begin{DoxyParamCaption}
+\item[{}]{i}
+\end{DoxyParamCaption}
+)~((i) $>$= {\bf S\+\_\+vodbridge} \&\& (i) $<$= {\bf S\+\_\+hcdbridge})}}\label{pager_8c_ac5afa0cf2e9013a947ef282ed607c4f4}
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{pager_8c_aadf2ddfe04d535d6faddb8add29d5b0e}{\index{pager.\+c@{pager.\+c}!is\+\_\+cmap\+\_\+trap@{is\+\_\+cmap\+\_\+trap}}
+\index{is\+\_\+cmap\+\_\+trap@{is\+\_\+cmap\+\_\+trap}!pager.\+c@{pager.\+c}}
+\subsubsection[{is\+\_\+cmap\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+cmap\+\_\+trap(
+\begin{DoxyParamCaption}
+\item[{}]{i}
+\end{DoxyParamCaption}
+)~((i) $>$= {\bf S\+\_\+arrow\+\_\+trap} \&\& (i) $<$= {\bf S\+\_\+polymorph\+\_\+trap})}}\label{pager_8c_aadf2ddfe04d535d6faddb8add29d5b0e}
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{pager_8c_a7e343ea51b8992542cf19c168df43383}{\index{pager.\+c@{pager.\+c}!L\+O\+O\+K\+\_\+\+O\+N\+C\+E@{L\+O\+O\+K\+\_\+\+O\+N\+C\+E}}
+\index{L\+O\+O\+K\+\_\+\+O\+N\+C\+E@{L\+O\+O\+K\+\_\+\+O\+N\+C\+E}!pager.\+c@{pager.\+c}}
+\subsubsection[{L\+O\+O\+K\+\_\+\+O\+N\+C\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+O\+K\+\_\+\+O\+N\+C\+E~2	/$\ast$ ';' -\/-\/ skip and stop looping $\ast$/}}\label{pager_8c_a7e343ea51b8992542cf19c168df43383}
+
+
+Definition at line 451 of file pager.\+c.
+
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{pager_8c_aa4f2dd2e8ba2fb8f42fa86fec87ccf1d}{\index{pager.\+c@{pager.\+c}!L\+O\+O\+K\+\_\+\+Q\+U\+I\+C\+K@{L\+O\+O\+K\+\_\+\+Q\+U\+I\+C\+K}}
+\index{L\+O\+O\+K\+\_\+\+Q\+U\+I\+C\+K@{L\+O\+O\+K\+\_\+\+Q\+U\+I\+C\+K}!pager.\+c@{pager.\+c}}
+\subsubsection[{L\+O\+O\+K\+\_\+\+Q\+U\+I\+C\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+O\+K\+\_\+\+Q\+U\+I\+C\+K~1	/$\ast$ ',' -\/-\/ skip \char`\"{}more info?\char`\"{} $\ast$/}}\label{pager_8c_aa4f2dd2e8ba2fb8f42fa86fec87ccf1d}
+
+
+Definition at line 450 of file pager.\+c.
+
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{pager_8c_ab3ff84df0d87f3a2d314986732ad300a}{\index{pager.\+c@{pager.\+c}!L\+O\+O\+K\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L@{L\+O\+O\+K\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L}}
+\index{L\+O\+O\+K\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L@{L\+O\+O\+K\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L}!pager.\+c@{pager.\+c}}
+\subsubsection[{L\+O\+O\+K\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+O\+K\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L~0	/$\ast$ '.' -\/-\/ ask {\bf about} \char`\"{}more info?\char`\"{} $\ast$/}}\label{pager_8c_ab3ff84df0d87f3a2d314986732ad300a}
+
+
+Definition at line 449 of file pager.\+c.
+
+\hypertarget{pager_8c_abbc5c9f31e1f77eb0f9140e472f71e52}{\index{pager.\+c@{pager.\+c}!L\+O\+O\+K\+\_\+\+V\+E\+R\+B\+O\+S\+E@{L\+O\+O\+K\+\_\+\+V\+E\+R\+B\+O\+S\+E}}
+\index{L\+O\+O\+K\+\_\+\+V\+E\+R\+B\+O\+S\+E@{L\+O\+O\+K\+\_\+\+V\+E\+R\+B\+O\+S\+E}!pager.\+c@{pager.\+c}}
+\subsubsection[{L\+O\+O\+K\+\_\+\+V\+E\+R\+B\+O\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+O\+K\+\_\+\+V\+E\+R\+B\+O\+S\+E~3	/$\ast$ '\+:' -\/-\/ show {\bf more} info w/o asking $\ast$/}}\label{pager_8c_abbc5c9f31e1f77eb0f9140e472f71e52}
+
+
+Definition at line 452 of file pager.\+c.
+
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{pager_8c_ac49428da47ee5a567eaf6f384b48066c}{\index{pager.\+c@{pager.\+c}!W\+I\+Z\+H\+L\+P\+\_\+\+S\+L\+O\+T@{W\+I\+Z\+H\+L\+P\+\_\+\+S\+L\+O\+T}}
+\index{W\+I\+Z\+H\+L\+P\+\_\+\+S\+L\+O\+T@{W\+I\+Z\+H\+L\+P\+\_\+\+S\+L\+O\+T}!pager.\+c@{pager.\+c}}
+\subsubsection[{W\+I\+Z\+H\+L\+P\+\_\+\+S\+L\+O\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+I\+Z\+H\+L\+P\+\_\+\+S\+L\+O\+T~9}}\label{pager_8c_ac49428da47ee5a567eaf6f384b48066c}
+
+
+Referenced by help\+\_\+menu().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{\index{pager.\+c@{pager.\+c}!append\+\_\+str@{append\+\_\+str}}
+\index{append\+\_\+str@{append\+\_\+str}!pager.\+c@{pager.\+c}}
+\subsubsection[{append\+\_\+str}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int append\+\_\+str (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{{\bf const} char $\ast$}]{new\+\_\+str}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_ab82a3dec947e478b549b2b9fccc86199}
+
+
+Definition at line 39 of file pager.\+c.
+
+
+
+References B\+U\+F\+S\+Z.
+
+
+
+Referenced by do\+\_\+look().
+
+
+\begin{DoxyCode}
+42 \{
+43     \textcolor{keywordtype}{int} space\_left; \textcolor{comment}{/* space remaining in buf */}
+44 
+45     \textcolor{keywordflow}{if} (strstri(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, new\_str)) \textcolor{keywordflow}{return} 0;
+46 
+47     space\_left = \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ} - strlen(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}) - 1;
+48     (void) strncat(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{" or "}, space\_left);
+49     (void) strncat(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, new\_str, space\_left - 4);
+50     \textcolor{keywordflow}{return} 1;
+51 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_a62a3866daff35d1c323ae8a0716f3ae5}{\index{pager.\+c@{pager.\+c}!checkfile@{checkfile}}
+\index{checkfile@{checkfile}!pager.\+c@{pager.\+c}}
+\subsubsection[{checkfile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void checkfile (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{inp, }
+\item[{struct {\bf permonst} $\ast$}]{pm, }
+\item[{{\bf boolean}}]{user\+\_\+typed\+\_\+name, }
+\item[{{\bf boolean}}]{without\+\_\+asking}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a62a3866daff35d1c323ae8a0716f3ae5}
+
+
+Definition at line 302 of file pager.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, create\+\_\+nhwindow, D\+A\+T\+A\+F\+I\+L\+E, destroy\+\_\+nhwindow, display\+\_\+nhwindow, dlb, dlb\+\_\+fclose, dlb\+\_\+fgets, dlb\+\_\+fopen, dlb\+\_\+fseek, F\+A\+L\+S\+E, fp, index(), permonst\+::mname, N\+H\+W\+\_\+\+M\+E\+N\+U, putstr, S\+E\+E\+K\+\_\+\+S\+E\+T, T\+R\+U\+E, and yn.
+
+
+
+Referenced by do\+\_\+look().
+
+
+\begin{DoxyCode}
+306 \{
+307     \hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+308     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}], newstr[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+309     \textcolor{keywordtype}{char} *ep, *dbase\_str;
+310     \textcolor{keywordtype}{long} txt\_offset;
+311     \textcolor{keywordtype}{int} chk\_skip;
+312     \textcolor{keywordtype}{boolean} found\_in\_file = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, skipping\_entry = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+313 
+314     fp = \hyperlink{dlb_8h_a46a9ab27d1ae601750baeacc2c0a8d44}{dlb\_fopen}(\hyperlink{global_8h_a06e70837fbcaaca8503ffd61f0fa9c0a}{DATAFILE}, \textcolor{stringliteral}{"r"});
+315     \textcolor{keywordflow}{if} (!fp) \{
+316     pline(\textcolor{stringliteral}{"Cannot open data file!"});
+317     \textcolor{keywordflow}{return};
+318     \}
+319 
+320     \textcolor{comment}{/* To prevent the need for entries in data.base like *ngel to account}
+321 \textcolor{comment}{     * for Angel and angel, make the lookup string the same for both}
+322 \textcolor{comment}{     * user\_typed\_name and picked name.}
+323 \textcolor{comment}{     */}
+324     \textcolor{keywordflow}{if} (pm != (\textcolor{keyword}{struct} \hyperlink{structpermonst}{permonst} *) 0 && !user\_typed\_name)
+325     dbase\_str = strcpy(newstr, pm->\hyperlink{structpermonst_ae92da7d141243d7e37d4a12340bb248f}{mname});
+326     \textcolor{keywordflow}{else} dbase\_str = strcpy(newstr, inp);
+327     (void) lcase(dbase\_str);
+328 
+329     \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"interior of "}, 12))
+330     dbase\_str += 12;
+331     \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"a "}, 2))
+332     dbase\_str += 2;
+333     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"an "}, 3))
+334     dbase\_str += 3;
+335     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"the "}, 4))
+336     dbase\_str += 4;
+337     \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"tame "}, 5))
+338     dbase\_str += 5;
+339     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"peaceful "}, 9))
+340     dbase\_str += 9;
+341     \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"invisible "}, 10))
+342     dbase\_str += 10;
+343     \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"statue of "}, 10))
+344     dbase\_str[6] = \textcolor{charliteral}{'\(\backslash\)0'};
+345     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(dbase\_str, \textcolor{stringliteral}{"figurine of "}, 12))
+346     dbase\_str[8] = \textcolor{charliteral}{'\(\backslash\)0'};
+347 
+348     \textcolor{comment}{/* Make sure the name is non-empty. */}
+349     \textcolor{keywordflow}{if} (*dbase\_str) \{
+350     \textcolor{comment}{/* adjust the input to remove "named " and convert to lower case */}
+351     \textcolor{keywordtype}{char} *alt = 0;  \textcolor{comment}{/* alternate description */}
+352 
+353     \textcolor{keywordflow}{if} ((ep = strstri(dbase\_str, \textcolor{stringliteral}{" named "})) != 0)
+354         alt = ep + 7;
+355     \textcolor{keywordflow}{else}
+356         ep = strstri(dbase\_str, \textcolor{stringliteral}{" called "});
+357     \textcolor{keywordflow}{if} (!ep) ep = strstri(dbase\_str, \textcolor{stringliteral}{", "});
+358     \textcolor{keywordflow}{if} (ep && ep > dbase\_str) *ep = \textcolor{charliteral}{'\(\backslash\)0'};
+359 
+360     \textcolor{comment}{/*}
+361 \textcolor{comment}{     * If the object is named, then the name is the alternate description;}
+362 \textcolor{comment}{     * otherwise, the result of makesingular() applied to the name is. This}
+363 \textcolor{comment}{     * isn't strictly optimal, but named objects of interest to the user}
+364 \textcolor{comment}{     * will usually be found under their name, rather than under their}
+365 \textcolor{comment}{     * object type, so looking for a singular form is pointless.}
+366 \textcolor{comment}{     */}
+367 
+368     \textcolor{keywordflow}{if} (!alt)
+369         alt = makesingular(dbase\_str);
+370     \textcolor{keywordflow}{else}
+371         \textcolor{keywordflow}{if} (user\_typed\_name)
+372         (void) lcase(alt);
+373 
+374     \textcolor{comment}{/* skip first record; read second */}
+375     txt\_offset = 0L;
+376     \textcolor{keywordflow}{if} (!\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(buf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}, fp) || !\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(buf, 
+      \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}, fp)) \{
+377         impossible(\textcolor{stringliteral}{"can't read 'data' file"});
+378         (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(fp);
+379         \textcolor{keywordflow}{return};
+380     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sscanf(buf, \textcolor{stringliteral}{"%8lx\(\backslash\)n"}, &txt\_offset) < 1 || txt\_offset <= 0)
+381         \textcolor{keywordflow}{goto} bad\_data\_file;
+382 
+383     \textcolor{comment}{/* look for the appropriate entry */}
+384     \textcolor{keywordflow}{while} (\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(buf,\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ},fp)) \{
+385         \textcolor{keywordflow}{if} (*buf == \textcolor{charliteral}{'.'}) \textcolor{keywordflow}{break};  \textcolor{comment}{/* we passed last entry without success */}
+386 
+387         \textcolor{keywordflow}{if} (digit(*buf)) \{
+388         \textcolor{comment}{/* a number indicates the end of current entry */}
+389         skipping\_entry = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+390         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!skipping\_entry) \{
+391         \textcolor{keywordflow}{if} (!(ep = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(buf, \textcolor{charliteral}{'\(\backslash\)n'}))) \textcolor{keywordflow}{goto} bad\_data\_file;
+392         *ep = 0;
+393         \textcolor{comment}{/* if we match a key that begins with "~", skip this entry */}
+394         chk\_skip = (*buf == \textcolor{charliteral}{'~'}) ? 1 : 0;
+395         \textcolor{keywordflow}{if} (pmatch(&buf[chk\_skip], dbase\_str) ||
+396             (alt && pmatch(&buf[chk\_skip], alt))) \{
+397             \textcolor{keywordflow}{if} (chk\_skip) \{
+398             skipping\_entry = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+399             \textcolor{keywordflow}{continue};
+400             \} \textcolor{keywordflow}{else} \{
+401             found\_in\_file = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+402             \textcolor{keywordflow}{break};
+403             \}
+404         \}
+405         \}
+406     \}
+407     \}
+408 
+409     \textcolor{keywordflow}{if}(found\_in\_file) \{
+410     \textcolor{keywordtype}{long} entry\_offset;
+411     \textcolor{keywordtype}{int}  entry\_count;
+412     \textcolor{keywordtype}{int}  i;
+413 
+414     \textcolor{comment}{/* skip over other possible matches for the info */}
+415     \textcolor{keywordflow}{do} \{
+416         \textcolor{keywordflow}{if} (!\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(buf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}, fp)) \textcolor{keywordflow}{goto} bad\_data\_file;
+417     \} \textcolor{keywordflow}{while} (!digit(*buf));
+418     \textcolor{keywordflow}{if} (sscanf(buf, \textcolor{stringliteral}{"%ld,%d\(\backslash\)n"}, &entry\_offset, &entry\_count) < 2) \{
+419 bad\_data\_file:  impossible(\textcolor{stringliteral}{"'data' file in wrong format"});
+420         (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(fp);
+421         \textcolor{keywordflow}{return};
+422     \}
+423 
+424     \textcolor{keywordflow}{if} (user\_typed\_name || without\_asking || \hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(\textcolor{stringliteral}{"More info?"}) == \textcolor{charliteral}{'y'}) \{
+425         \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} datawin;
+426 
+427         \textcolor{keywordflow}{if} (\hyperlink{dlb_8h_a3c65d33411ed198b8c061327bdefbc85}{dlb\_fseek}(fp, txt\_offset + entry\_offset, \hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET}) < 0) \{
+428         pline(\textcolor{stringliteral}{"? Seek error on 'data' file!"});
+429         (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(fp);
+430         \textcolor{keywordflow}{return};
+431         \}
+432         datawin = \hyperlink{winprocs_8h_aa13fb35379049d1836397492d10b6b0c}{create\_nhwindow}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU});
+433         \textcolor{keywordflow}{for} (i = 0; i < entry\_count; i++) \{
+434         \textcolor{keywordflow}{if} (!\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(buf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}, fp)) \textcolor{keywordflow}{goto} bad\_data\_file;
+435         \textcolor{keywordflow}{if} ((ep = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(buf, \textcolor{charliteral}{'\(\backslash\)n'})) != 0) *ep = 0;
+436         \textcolor{keywordflow}{if} (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(buf+1, \textcolor{charliteral}{'\(\backslash\)t'}) != 0) (void) tabexpand(buf+1);
+437         \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(datawin, 0, buf+1);
+438         \}
+439         \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(datawin, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+440         \hyperlink{winprocs_8h_a77ac4f50de0eedeaead791812762c6a0}{destroy\_nhwindow}(datawin);
+441     \}
+442     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (user\_typed\_name)
+443     pline(\textcolor{stringliteral}{"I don't have any information on those things."});
+444 
+445     (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(fp);
+446 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_a22a985e460820d3948f8224e7ae5df49}{\index{pager.\+c@{pager.\+c}!do\+\_\+look@{do\+\_\+look}}
+\index{do\+\_\+look@{do\+\_\+look}!pager.\+c@{pager.\+c}}
+\subsubsection[{do\+\_\+look}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int do\+\_\+look (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{quick}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a22a985e460820d3948f8224e7ae5df49}
+
+
+Definition at line 458 of file pager.\+c.
+
+
+
+References append\+\_\+str(), instance\+\_\+flags\+::bouldersym, B\+U\+F\+S\+Z, checkfile(), D\+E\+F\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E, def\+\_\+monsyms, def\+\_\+oc\+\_\+syms, def\+\_\+warnsyms, defsyms, symdef\+::explanation, F\+A\+L\+S\+E, flags, getlin, glyph\+\_\+at(), glyph\+\_\+is\+\_\+cmap, glyph\+\_\+is\+\_\+invisible, glyph\+\_\+is\+\_\+monster, glyph\+\_\+is\+\_\+object, glyph\+\_\+is\+\_\+swallow, glyph\+\_\+is\+\_\+trap, glyph\+\_\+is\+\_\+warning, glyph\+\_\+to\+\_\+cmap, glyph\+\_\+to\+\_\+mon, glyph\+\_\+to\+\_\+obj, glyph\+\_\+to\+\_\+swallow, glyph\+\_\+to\+\_\+trap, glyph\+\_\+to\+\_\+warning, flag\+::help, iflags, invisexplain, is\+\_\+cmap\+\_\+drawbridge, is\+\_\+cmap\+\_\+trap, is\+\_\+swallow\+\_\+sym(), L\+O\+O\+K\+\_\+\+O\+N\+C\+E, L\+O\+O\+K\+\_\+\+Q\+U\+I\+C\+K, L\+O\+O\+K\+\_\+\+V\+E\+R\+B\+O\+S\+E, lookat(), M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S, M\+A\+X\+O\+C\+L\+A\+S\+S\+E\+S, M\+A\+X\+P\+C\+H\+A\+R\+S, permonst\+::mlet, monexplain, mons, monsyms, objects, objexplain, objclass\+::oc\+\_\+class, oc\+\_\+syms, Race\+\_\+if, S\+\_\+altar, S\+\_\+\+H\+U\+M\+A\+N, S\+\_\+room, S\+\_\+sw\+\_\+tl, instance\+\_\+flags\+::showrace, showsyms, Sprintf, Strcat, Strcpy, trap\+\_\+to\+\_\+defsym, T\+R\+U\+E, u, Upolyd, you\+::ux, you\+::uy, V\+E\+N\+O\+M\+\_\+\+C\+L\+A\+S\+S, flag\+::verbose, W\+A\+R\+N\+C\+O\+U\+N\+T, warnsyms, coord\+::x, coord\+::y, and ynq.
+
+
+
+Referenced by doquickwhatis(), and dowhatis().
+
+
+\begin{DoxyCode}
+460 \{
+461     \textcolor{keywordtype}{char}    out\_str[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}], look\_buf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+462     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *x\_str, *firstmatch = 0;
+463     \textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *pm = 0;
+464     \textcolor{keywordtype}{int}     i, ans = 0;
+465     \textcolor{keywordtype}{int}     sym;        \textcolor{comment}{/* typed symbol or converted glyph */}
+466     \textcolor{keywordtype}{int}     found;      \textcolor{comment}{/* count of matching syms found */}
+467     \hyperlink{structcoord}{coord}   cc;            \textcolor{comment}{/* screen pos of unknown glyph */}
+468     \textcolor{keywordtype}{boolean} save\_verbose;   \textcolor{comment}{/* saved value of flags.verbose */}
+469     \textcolor{keywordtype}{boolean} from\_screen;    \textcolor{comment}{/* question from the screen */}
+470     \textcolor{keywordtype}{boolean} need\_to\_look;   \textcolor{comment}{/* need to get explan. from glyph */}
+471     \textcolor{keywordtype}{boolean} hit\_trap;       \textcolor{comment}{/* true if found trap explanation */}
+472     \textcolor{keywordtype}{int} skipped\_venom;      \textcolor{comment}{/* non-zero if we ignored "splash of venom" */}
+473     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *mon\_interior = \textcolor{stringliteral}{"the interior of a monster"};
+474 
+475     \textcolor{keywordflow}{if} (quick) \{
+476     from\_screen = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}; \textcolor{comment}{/* yes, we want to use the cursor */}
+477     \} \textcolor{keywordflow}{else} \{
+478     i = \hyperlink{hack_8h_a104792d619a60e73407115c00499745e}{ynq}(\textcolor{stringliteral}{"Specify unknown object by cursor?"});
+479     \textcolor{keywordflow}{if} (i == \textcolor{charliteral}{'q'}) \textcolor{keywordflow}{return} 0;
+480     from\_screen = (i == \textcolor{charliteral}{'y'});
+481     \}
+482 
+483     \textcolor{keywordflow}{if} (from\_screen) \{
+484     cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+485     cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+486     sym = 0;        \textcolor{comment}{/* gcc -Wall lint */}
+487     \} \textcolor{keywordflow}{else} \{
+488     \hyperlink{winprocs_8h_ab09682cb017e224c23b0c4e7989a81a7}{getlin}(\textcolor{stringliteral}{"Specify what? (type the word)"}, out\_str);
+489     \textcolor{keywordflow}{if} (out\_str[0] == \textcolor{charliteral}{'\(\backslash\)0'} || out\_str[0] == \textcolor{charliteral}{'\(\backslash\)033'})
+490         \textcolor{keywordflow}{return} 0;
+491 
+492     \textcolor{keywordflow}{if} (out\_str[1]) \{   \textcolor{comment}{/* user typed in a complete string */}
+493         \hyperlink{pager_8c_a62a3866daff35d1c323ae8a0716f3ae5}{checkfile}(out\_str, pm, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+494         \textcolor{keywordflow}{return} 0;
+495     \}
+496     sym = out\_str[0];
+497     \}
+498 
+499     \textcolor{comment}{/* Save the verbose flag, we change it later. */}
+500     save\_verbose = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose};
+501     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose} = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose} && !quick;
+502     \textcolor{comment}{/*}
+503 \textcolor{comment}{     * The user typed one letter, or we're identifying from the screen.}
+504 \textcolor{comment}{     */}
+505     \textcolor{keywordflow}{do} \{
+506     \textcolor{comment}{/* Reset some variables. */}
+507     need\_to\_look = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+508     pm = (\textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *)0;
+509     skipped\_venom = 0;
+510     found = 0;
+511     out\_str[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+512 
+513     \textcolor{keywordflow}{if} (from\_screen) \{
+514         \textcolor{keywordtype}{int} glyph;  \textcolor{comment}{/* glyph at selected position */}
+515 
+516         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose})
+517         pline(\textcolor{stringliteral}{"Please move the cursor to %s."},
+518                \hyperlink{pager_8c_a0ebaf9e6ece7351a2b4be277ca20c307}{what\_is\_an\_unknown\_object});
+519         \textcolor{keywordflow}{else}
+520         pline(\textcolor{stringliteral}{"Pick an object."});
+521 
+522         ans = getpos(&cc, quick, \hyperlink{pager_8c_a0ebaf9e6ece7351a2b4be277ca20c307}{what\_is\_an\_unknown\_object});
+523         \textcolor{keywordflow}{if} (ans < 0 || cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} < 0) \{
+524         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose} = save\_verbose;
+525         \textcolor{keywordflow}{return} 0;   \textcolor{comment}{/* done */}
+526         \}
+527         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}; \textcolor{comment}{/* only print long question once */}
+528 
+529         \textcolor{comment}{/* Convert the glyph at the selected position to a symbol. */}
+530         glyph = \hyperlink{display_8c_ad3c1a65cc5e35e90067cb04eaf397d8a}{glyph\_at}(cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x},cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y});
+531         \textcolor{keywordflow}{if} (\hyperlink{display_8h_ae849bd5a5de7fbf41783c5af0d81aecd}{glyph\_is\_cmap}(glyph)) \{
+532         sym = \hyperlink{rm_8h_ad8e71cd12d6e4d48b240325f0a5f9758}{showsyms}[\hyperlink{display_8h_a7bbc740e05e67c80b7b7dd81f2dd825d}{glyph\_to\_cmap}(glyph)];
+533         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_a495f25bc3868092a11dfa723c138b93b}{glyph\_is\_trap}(glyph)) \{
+534         sym = \hyperlink{rm_8h_ad8e71cd12d6e4d48b240325f0a5f9758}{showsyms}[\hyperlink{rm_8h_a8b3155eb0b52e1c13981b4dca943722c}{trap\_to\_defsym}(\hyperlink{display_8h_a4aa1865459d2a37059fcdce8e224c366}{glyph\_to\_trap}(glyph))];
+535         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_a5a3c3067dbac4b44ad002fbe980a90dd}{glyph\_is\_object}(glyph)) \{
+536         sym = \hyperlink{decl_8h_a56fccf5eb894981c31e2e5e3a99abf12}{oc\_syms}[(int)\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{display_8h_afea03e8d4cb058f7ac029417c0f4d73f}{glyph\_to\_obj}(glyph)].
+      \hyperlink{structobjclass_ae589e91e556e204c84f05597da510559}{oc\_class}];
+537         \textcolor{keywordflow}{if} (sym == \textcolor{charliteral}{'`'} && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a13b4941aee2fefcb8d1d6a24b77396a3}{bouldersym} && (\textcolor{keywordtype}{int})\hyperlink{display_8h_afea03e8d4cb058f7ac029417c0f4d73f}{glyph\_to\_obj}(glyph) == 
+      BOULDER)
+538             sym = \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a13b4941aee2fefcb8d1d6a24b77396a3}{bouldersym};
+539         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_a8bbad1d40abdd46999b48e54a35955e6}{glyph\_is\_monster}(glyph)) \{
+540         \textcolor{comment}{/* takes care of pets, detected, ridden, and regular mons */}
+541         sym = \hyperlink{decl_8h_a1a4e60e91ff456eebe6d55281f01f852}{monsyms}[(int)\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[\hyperlink{display_8h_aa7e1035d20c9b95dfe017e44b0a72cc5}{glyph\_to\_mon}(glyph)].\hyperlink{structpermonst_ab402dbf1bed9d0e595a2b3da6558da92}{mlet}];
+542         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_a6ed1ea9b96eda9814b7b30a9cc4e057f}{glyph\_is\_swallow}(glyph)) \{
+543         sym = \hyperlink{rm_8h_ad8e71cd12d6e4d48b240325f0a5f9758}{showsyms}[\hyperlink{display_8h_aed11dccb64c2c9aa9c3ef7a716df430e}{glyph\_to\_swallow}(glyph)+\hyperlink{rm_8h_a7f752e26209b6ce4093e0602a91bc8c5}{S\_sw\_tl}];
+544         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_aab760a0bc2c5bad8dbfe7102628dafc6}{glyph\_is\_invisible}(glyph)) \{
+545         sym = \hyperlink{monsym_8h_a831daaff23b1904a50f3900da2a7fce5}{DEF\_INVISIBLE};
+546         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_aafdda3303535decc30d7a329028376f4}{glyph\_is\_warning}(glyph)) \{
+547         sym = \hyperlink{display_8h_a251870e80f640049610e5154e14509c6}{glyph\_to\_warning}(glyph);
+548             sym = \hyperlink{decl_8h_a4724feb39c4f688d499f9db8c3c21adc}{warnsyms}[sym];
+549         \} \textcolor{keywordflow}{else} \{
+550         impossible(\textcolor{stringliteral}{"do\_look:  bad glyph %d at (%d,%d)"},
+551                         glyph, (\textcolor{keywordtype}{int})cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, (\textcolor{keywordtype}{int})cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y});
+552         sym = \textcolor{charliteral}{' '};
+553         \}
+554     \}
+555 
+556     \textcolor{comment}{/*}
+557 \textcolor{comment}{     * Check all the possibilities, saving all explanations in a buffer.}
+558 \textcolor{comment}{     * When all have been checked then the string is printed.}
+559 \textcolor{comment}{     */}
+560 
+561     \textcolor{comment}{/* Check for monsters */}
+562     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{monsym_8h_a8c6bb361baecfba17240e1e0af655e1b}{MAXMCLASSES}; i++) \{
+563         \textcolor{keywordflow}{if} (sym == (from\_screen ? \hyperlink{decl_8h_a1a4e60e91ff456eebe6d55281f01f852}{monsyms}[i] : \hyperlink{decl_8h_a3de70854a5691ea43068787e1f9e44cf}{def\_monsyms}[i]) &&
+564         \hyperlink{decl_8h_aebeb9ce7ba486dc14174ea66bbb88445}{monexplain}[i]) \{
+565         need\_to\_look = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+566         \textcolor{keywordflow}{if} (!found) \{
+567             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       %s"}, sym, an(\hyperlink{decl_8h_aebeb9ce7ba486dc14174ea66bbb88445}{monexplain}[i]));
+568             firstmatch = \hyperlink{decl_8h_aebeb9ce7ba486dc14174ea66bbb88445}{monexplain}[i];
+569             found++;
+570         \} \textcolor{keywordflow}{else} \{
+571             found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str, an(\hyperlink{decl_8h_aebeb9ce7ba486dc14174ea66bbb88445}{monexplain}[i]));
+572         \}
+573         \}
+574     \}
+575     \textcolor{comment}{/* handle '@' as a special case if it refers to you and you're}
+576 \textcolor{comment}{       playing a character which isn't normally displayed by that}
+577 \textcolor{comment}{       symbol; firstmatch is assumed to already be set for '@' */}
+578     \textcolor{keywordflow}{if} ((from\_screen ?
+579         (sym == \hyperlink{decl_8h_a1a4e60e91ff456eebe6d55281f01f852}{monsyms}[\hyperlink{monsym_8h_afd17d6f6e4ac25a9ac0086ebf27b0469}{S\_HUMAN}] && cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} && cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.
+      \hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) :
+580         (sym == \hyperlink{decl_8h_a3de70854a5691ea43068787e1f9e44cf}{def\_monsyms}[\hyperlink{monsym_8h_afd17d6f6e4ac25a9ac0086ebf27b0469}{S\_HUMAN}] && !\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_ab12d17fe0bcca460f333ef2b29f1d249}{showrace})) &&
+581         !(\hyperlink{you_8h_ac1b9b8d9c3387e3d3a36b9474945879c}{Race\_if}(PM\_HUMAN) || \hyperlink{you_8h_ac1b9b8d9c3387e3d3a36b9474945879c}{Race\_if}(PM\_ELF)) && !\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd})
+582         found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str, \textcolor{stringliteral}{"you"});  \textcolor{comment}{/* tack on "or you" */}
+583 
+584     \textcolor{comment}{/*}
+585 \textcolor{comment}{     * Special case: if identifying from the screen, and we're swallowed,}
+586 \textcolor{comment}{     * and looking at something other than our own symbol, then just say}
+587 \textcolor{comment}{     * "the interior of a monster".}
+588 \textcolor{comment}{     */}
+589     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow && from\_screen && \hyperlink{pager_8c_a222e0084eb314b55d531451f143b9388}{is\_swallow\_sym}(sym)) \{
+590         \textcolor{keywordflow}{if} (!found) \{
+591         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       %s"}, sym, mon\_interior);
+592         firstmatch = mon\_interior;
+593         \} \textcolor{keywordflow}{else} \{
+594         found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str, mon\_interior);
+595         \}
+596         need\_to\_look = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+597     \}
+598 
+599     \textcolor{comment}{/* Now check for objects */}
+600     \textcolor{keywordflow}{for} (i = 1; i < \hyperlink{objclass_8h_af51133138bfb718b55aaa7f29711a10a}{MAXOCLASSES}; i++) \{
+601         \textcolor{keywordflow}{if} (sym == (from\_screen ? \hyperlink{decl_8h_a56fccf5eb894981c31e2e5e3a99abf12}{oc\_syms}[i] : \hyperlink{decl_8h_ab2de6953c2db763f00d7f3baf830fe50}{def\_oc\_syms}[i])) \{
+602         need\_to\_look = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+603         \textcolor{keywordflow}{if} (from\_screen && i == \hyperlink{objclass_8h_a98f2a7a938be98ec0a18109f08491b57}{VENOM\_CLASS}) \{
+604             skipped\_venom++;
+605             \textcolor{keywordflow}{continue};
+606         \}
+607         \textcolor{keywordflow}{if} (!found) \{
+608             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       %s"}, sym, an(\hyperlink{decl_8h_ae9137131210ea5651dca60c8ddedb4f9}{objexplain}[i]));
+609             firstmatch = \hyperlink{decl_8h_ae9137131210ea5651dca60c8ddedb4f9}{objexplain}[i];
+610             found++;
+611         \} \textcolor{keywordflow}{else} \{
+612             found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str, an(\hyperlink{decl_8h_ae9137131210ea5651dca60c8ddedb4f9}{objexplain}[i]));
+613         \}
+614         \}
+615     \}
+616 
+617     \textcolor{keywordflow}{if} (sym == \hyperlink{monsym_8h_a831daaff23b1904a50f3900da2a7fce5}{DEF\_INVISIBLE}) \{
+618         \textcolor{keywordflow}{if} (!found) \{
+619         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       %s"}, sym, an(\hyperlink{decl_8h_a6aeb836cdd99e9bcd10a95e0e4236867}{invisexplain}));
+620         firstmatch = \hyperlink{decl_8h_a6aeb836cdd99e9bcd10a95e0e4236867}{invisexplain};
+621         found++;
+622         \} \textcolor{keywordflow}{else} \{
+623         found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str, an(\hyperlink{decl_8h_a6aeb836cdd99e9bcd10a95e0e4236867}{invisexplain}));
+624         \}
+625     \}
+626 
+627 \textcolor{preprocessor}{#define is\_cmap\_trap(i) ((i) >= S\_arrow\_trap && (i) <= S\_polymorph\_trap)}
+628 \textcolor{preprocessor}{#define is\_cmap\_drawbridge(i) ((i) >= S\_vodbridge && (i) <= S\_hcdbridge)}
+629 
+630     \textcolor{comment}{/* Now check for graphics symbols */}
+631     \textcolor{keywordflow}{for} (hit\_trap = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, i = 0; i < \hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{MAXPCHARS}; i++) \{
+632         x\_str = \hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[i].\hyperlink{structsymdef_a58eceeee4a8a65f48f73975059a43314}{explanation};
+633         \textcolor{keywordflow}{if} (sym == (from\_screen ? \hyperlink{rm_8h_ad8e71cd12d6e4d48b240325f0a5f9758}{showsyms}[i] : \hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[i].sym) && *x\_str) \{
+634         \textcolor{comment}{/* avoid "an air", "a water", or "a floor of a room" */}
+635         \textcolor{keywordtype}{int} article = (i == \hyperlink{rm_8h_a1cbe62db5502d1ece3d5cce996ff8164}{S\_room}) ? 2 :     \textcolor{comment}{/* 2=>"the" */}
+636                   !(strcmp(x\_str, \textcolor{stringliteral}{"air"}) == 0 ||    \textcolor{comment}{/* 1=>"an"  */}
+637                 strcmp(x\_str, \textcolor{stringliteral}{"water"}) == 0);   \textcolor{comment}{/* 0=>(none)*/}
+638 
+639         \textcolor{keywordflow}{if} (!found) \{
+640             \textcolor{keywordflow}{if} (\hyperlink{pager_8c_aadf2ddfe04d535d6faddb8add29d5b0e}{is\_cmap\_trap}(i)) \{
+641             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       a trap"}, sym);
+642             hit\_trap = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+643             \} \textcolor{keywordflow}{else} \{
+644             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       %s"}, sym,
+645                 article == 2 ? the(x\_str) :
+646                 article == 1 ? an(x\_str) : x\_str);
+647             \}
+648             firstmatch = x\_str;
+649             found++;
+650         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow && !(hit\_trap && \hyperlink{pager_8c_aadf2ddfe04d535d6faddb8add29d5b0e}{is\_cmap\_trap}(i)) &&
+651                !(found >= 3 && \hyperlink{pager_8c_ac5afa0cf2e9013a947ef282ed607c4f4}{is\_cmap\_drawbridge}(i))) \{
+652             found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str,
+653                     article == 2 ? the(x\_str) :
+654                     article == 1 ? an(x\_str) : x\_str);
+655             \textcolor{keywordflow}{if} (\hyperlink{pager_8c_aadf2ddfe04d535d6faddb8add29d5b0e}{is\_cmap\_trap}(i)) hit\_trap = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+656         \}
+657 
+658         \textcolor{keywordflow}{if} (i == \hyperlink{rm_8h_a2c0fad3823618e2244411efd9cdb7049}{S\_altar} || \hyperlink{pager_8c_aadf2ddfe04d535d6faddb8add29d5b0e}{is\_cmap\_trap}(i))
+659             need\_to\_look = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+660         \}
+661     \}
+662 
+663     \textcolor{comment}{/* Now check for warning symbols */}
+664     \textcolor{keywordflow}{for} (i = 1; i < \hyperlink{decl_8h_aeee8b486e8dc54c672bc3af9eb3ef68d}{WARNCOUNT}; i++) \{
+665         x\_str = \hyperlink{rm_8h_a40c9fc72853dbb40c05e137874db6c9c}{def\_warnsyms}[i].\hyperlink{structsymdef_a58eceeee4a8a65f48f73975059a43314}{explanation};
+666         \textcolor{keywordflow}{if} (sym == (from\_screen ? \hyperlink{decl_8h_a4724feb39c4f688d499f9db8c3c21adc}{warnsyms}[i] : \hyperlink{rm_8h_a40c9fc72853dbb40c05e137874db6c9c}{def\_warnsyms}[i].sym)) \{
+667         \textcolor{keywordflow}{if} (!found) \{
+668             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       %s"},
+669                 sym, \hyperlink{rm_8h_a40c9fc72853dbb40c05e137874db6c9c}{def\_warnsyms}[i].explanation);
+670             firstmatch = \hyperlink{rm_8h_a40c9fc72853dbb40c05e137874db6c9c}{def\_warnsyms}[i].\hyperlink{structsymdef_a58eceeee4a8a65f48f73975059a43314}{explanation};
+671             found++;
+672         \} \textcolor{keywordflow}{else} \{
+673             found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str, \hyperlink{rm_8h_a40c9fc72853dbb40c05e137874db6c9c}{def\_warnsyms}[i].explanation);
+674         \}
+675         \textcolor{comment}{/* Kludge: warning trumps boulders on the display.}
+676 \textcolor{comment}{           Reveal the boulder too or player can get confused */}
+677         \textcolor{keywordflow}{if} (from\_screen && sobj\_at(BOULDER, cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}))
+678             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(out\_str, \textcolor{stringliteral}{" co-located with a boulder"});
+679         \textcolor{keywordflow}{break};  \textcolor{comment}{/* out of for loop*/}
+680         \}
+681     \}
+682     
+683     \textcolor{comment}{/* if we ignored venom and list turned out to be short, put it back */}
+684     \textcolor{keywordflow}{if} (skipped\_venom && found < 2) \{
+685         x\_str = \hyperlink{decl_8h_ae9137131210ea5651dca60c8ddedb4f9}{objexplain}[\hyperlink{objclass_8h_a98f2a7a938be98ec0a18109f08491b57}{VENOM\_CLASS}];
+686         \textcolor{keywordflow}{if} (!found) \{
+687         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       %s"}, sym, an(x\_str));
+688         firstmatch = x\_str;
+689         found++;
+690         \} \textcolor{keywordflow}{else} \{
+691         found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str, an(x\_str));
+692         \}
+693     \}
+694 
+695     \textcolor{comment}{/* handle optional boulder symbol as a special case */} 
+696     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a13b4941aee2fefcb8d1d6a24b77396a3}{bouldersym} && sym == \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a13b4941aee2fefcb8d1d6a24b77396a3}{bouldersym}) \{
+697         \textcolor{keywordflow}{if} (!found) \{
+698         firstmatch = \textcolor{stringliteral}{"boulder"};
+699         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(out\_str, \textcolor{stringliteral}{"%c       %s"}, sym, an(firstmatch));
+700         found++;
+701         \} \textcolor{keywordflow}{else} \{
+702         found += \hyperlink{pager_8c_ab82a3dec947e478b549b2b9fccc86199}{append\_str}(out\_str, \textcolor{stringliteral}{"boulder"});
+703         \}
+704     \}
+705     
+706     \textcolor{comment}{/*}
+707 \textcolor{comment}{     * If we are looking at the screen, follow multiple possibilities or}
+708 \textcolor{comment}{     * an ambiguous explanation by something more detailed.}
+709 \textcolor{comment}{     */}
+710     \textcolor{keywordflow}{if} (from\_screen) \{
+711         \textcolor{keywordflow}{if} (found > 1 || need\_to\_look) \{
+712         \textcolor{keywordtype}{char} monbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+713         \textcolor{keywordtype}{char} temp\_buf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+714 
+715         pm = \hyperlink{pager_8c_a4811d3d0448b4c9ff9534328e2551d82}{lookat}(cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, look\_buf, monbuf);
+716         firstmatch = look\_buf;
+717         \textcolor{keywordflow}{if} (*firstmatch) \{
+718             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(temp\_buf, \textcolor{stringliteral}{" (%s)"}, firstmatch);
+719             (void)strncat(out\_str, temp\_buf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}-strlen(out\_str)-1);
+720             found = 1;  \textcolor{comment}{/* we have something to look up */}
+721         \}
+722         \textcolor{keywordflow}{if} (monbuf[0]) \{
+723             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(temp\_buf, \textcolor{stringliteral}{" [seen: %s]"}, monbuf);
+724             (void)strncat(out\_str, temp\_buf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}-strlen(out\_str)-1);
+725         \}
+726         \}
+727     \}
+728 
+729     \textcolor{comment}{/* Finally, print out our explanation. */}
+730     \textcolor{keywordflow}{if} (found) \{
+731         pline(\textcolor{stringliteral}{"%s"}, out\_str);
+732         \textcolor{comment}{/* check the data file for information about this thing */}
+733         \textcolor{keywordflow}{if} (found == 1 && ans != \hyperlink{pager_8c_aa4f2dd2e8ba2fb8f42fa86fec87ccf1d}{LOOK\_QUICK} && ans != \hyperlink{pager_8c_a7e343ea51b8992542cf19c168df43383}{LOOK\_ONCE} &&
+734             (ans == \hyperlink{pager_8c_abbc5c9f31e1f77eb0f9140e472f71e52}{LOOK\_VERBOSE} || (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afab9a20d52e3f18687806681b8c0e993}{help} && !quick))) \{
+735         \textcolor{keywordtype}{char} temp\_buf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+736         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(temp\_buf, firstmatch);
+737         \hyperlink{pager_8c_a62a3866daff35d1c323ae8a0716f3ae5}{checkfile}(temp\_buf, pm, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, (\textcolor{keywordtype}{boolean})(ans == 
+      \hyperlink{pager_8c_abbc5c9f31e1f77eb0f9140e472f71e52}{LOOK\_VERBOSE}));
+738         \}
+739     \} \textcolor{keywordflow}{else} \{
+740         pline(\textcolor{stringliteral}{"I've never heard of such things."});
+741     \}
+742 
+743     \} \textcolor{keywordflow}{while} (from\_screen && !quick && ans != \hyperlink{pager_8c_a7e343ea51b8992542cf19c168df43383}{LOOK\_ONCE});
+744 
+745     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose} = save\_verbose;
+746     \textcolor{keywordflow}{return} 0;
+747 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_a550baf529110753c769e533cdeb01e92}{\index{pager.\+c@{pager.\+c}!dohelp@{dohelp}}
+\index{dohelp@{dohelp}!pager.\+c@{pager.\+c}}
+\subsubsection[{dohelp}]{\setlength{\rightskip}{0pt plus 5cm}int dohelp (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a550baf529110753c769e533cdeb01e92}
+
+
+Definition at line 930 of file pager.\+c.
+
+
+
+References D\+E\+B\+U\+G\+H\+E\+L\+P, display\+\_\+file, dohistory(), dowhatdoes(), dowhatis(), H\+E\+L\+P, help\+\_\+menu(), L\+I\+C\+E\+N\+S\+E, option\+\_\+help(), O\+P\+T\+I\+O\+N\+F\+I\+L\+E, port\+\_\+help(), S\+H\+E\+L\+P, and T\+R\+U\+E.
+
+
+
+Referenced by on\+W\+M\+Command().
+
+
+\begin{DoxyCode}
+931 \{
+932     \textcolor{keywordtype}{int} sel = 0;
+933 
+934     \textcolor{keywordflow}{if} (\hyperlink{pager_8c_add22024929772228fa539d9afc8f4acf}{help\_menu}(&sel)) \{
+935         \textcolor{keywordflow}{switch} (sel) \{
+936             \textcolor{keywordflow}{case}  0:  \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{global_8h_ae8a798ec5e0449028e485688e8241b5e}{HELP}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});  \textcolor{keywordflow}{break};
+937             \textcolor{keywordflow}{case}  1:  \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{global_8h_aeb14d5bf1329cb0b0f9928f7c1d33124}{SHELP}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});  \textcolor{keywordflow}{break};
+938             \textcolor{keywordflow}{case}  2:  (void) \hyperlink{pager_8c_ac303607e0b17cbaa06dbdf30f5785d60}{dohistory}();  \textcolor{keywordflow}{break};
+939             \textcolor{keywordflow}{case}  3:  (void) \hyperlink{pager_8c_a7ba240869c589ab020b058374feeff4a}{dowhatis}();  \textcolor{keywordflow}{break};
+940             \textcolor{keywordflow}{case}  4:  (void) \hyperlink{pager_8c_ab2f81826a2806164f716768c9e011dc3}{dowhatdoes}();  \textcolor{keywordflow}{break};
+941             \textcolor{keywordflow}{case}  5:  \hyperlink{options_8c_a4eefb5fae1dc2f2c04d5ba1c0206b003}{option\_help}();  \textcolor{keywordflow}{break};
+942             \textcolor{keywordflow}{case}  6:  \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{global_8h_ac59ef3995868cf94b619b6047a480e1d}{OPTIONFILE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});  \textcolor{keywordflow}{break};
+943             \textcolor{keywordflow}{case}  7:  (void) doextlist();  \textcolor{keywordflow}{break};
+944             \textcolor{keywordflow}{case}  8:  \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{global_8h_a5c614f0c43289cf27b3358d928440a36}{LICENSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});  \textcolor{keywordflow}{break};
+945 \textcolor{preprocessor}{#ifdef WIZARD}
+946             \textcolor{comment}{/* handle slot 9 or 10 */}
+947             \textcolor{keywordflow}{default}: \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{global_8h_a3950d70b6dd93a57147dfa1b3af5afac}{DEBUGHELP}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});  \textcolor{keywordflow}{break};
+948 \textcolor{preprocessor}{#endif}
+949 \textcolor{preprocessor}{#ifdef PORT\_HELP}
+950             \textcolor{keywordflow}{case} PORT\_HELP\_ID:  \hyperlink{winproto_8h_a168bbce4413e8e2551bf7ce24fc59506}{port\_help}();  \textcolor{keywordflow}{break};
+951 \textcolor{preprocessor}{#endif}
+952         \}
+953     \}
+954     \textcolor{keywordflow}{return} 0;
+955 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_ac303607e0b17cbaa06dbdf30f5785d60}{\index{pager.\+c@{pager.\+c}!dohistory@{dohistory}}
+\index{dohistory@{dohistory}!pager.\+c@{pager.\+c}}
+\subsubsection[{dohistory}]{\setlength{\rightskip}{0pt plus 5cm}int dohistory (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_ac303607e0b17cbaa06dbdf30f5785d60}
+
+
+Definition at line 958 of file pager.\+c.
+
+
+
+References display\+\_\+file, H\+I\+S\+T\+O\+R\+Y, and T\+R\+U\+E.
+
+
+
+Referenced by dohelp(), and on\+W\+M\+Command().
+
+
+\begin{DoxyCode}
+959 \{
+960     \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{global_8h_a8a4c48612df951af1b7f066b47950b2f}{HISTORY}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+961     \textcolor{keywordflow}{return} 0;
+962 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_afa73b40ec18fac8aaa343d21b8b3cffc}{\index{pager.\+c@{pager.\+c}!doidtrap@{doidtrap}}
+\index{doidtrap@{doidtrap}!pager.\+c@{pager.\+c}}
+\subsubsection[{doidtrap}]{\setlength{\rightskip}{0pt plus 5cm}int doidtrap (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_afa73b40ec18fac8aaa343d21b8b3cffc}
+
+
+Definition at line 763 of file pager.\+c.
+
+
+
+References defsyms, you\+::dx, you\+::dy, you\+::dz, ftrap, H\+O\+L\+E, trap\+::ntrap, P\+I\+T, R\+O\+C\+K\+T\+R\+A\+P, trap\+\_\+to\+\_\+defsym, T\+R\+A\+P\+D\+O\+O\+R, trap\+::tx, trap\+::ty, u, you\+::ux, you\+::uy, W\+E\+B, what\+\_\+trap, trap\+::x, and trap\+::y.
+
+
+\begin{DoxyCode}
+764 \{
+765     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *\hyperlink{structtrap}{trap};
+766     \textcolor{keywordtype}{int} \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, tt;
+767 
+768     \textcolor{keywordflow}{if} (!getdir(\textcolor{stringliteral}{"^"})) \textcolor{keywordflow}{return} 0;
+769     x = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} + \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx};
+770     y = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} + \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy};
+771     \textcolor{keywordflow}{for} (trap = \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap}; trap; trap = trap->\hyperlink{structtrap_aef8ea4650dce701fde7f7f3e1310c892}{ntrap})
+772         \textcolor{keywordflow}{if} (trap->\hyperlink{structtrap_a8a3d31070852119ee66c8662b0c883c7}{tx} == x && trap->\hyperlink{structtrap_a579c4f0e2d31e3657c930d6741737b20}{ty} == y) \{
+773         \textcolor{keywordflow}{if} (!trap->tseen) \textcolor{keywordflow}{break};
+774         tt = trap->ttyp;
+775         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3fa7dbf98dab7ca2c40195268174c45f}{dz}) \{
+776             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3fa7dbf98dab7ca2c40195268174c45f}{dz} < 0 ? (tt == \hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR} || tt == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE}) :
+777                 tt == \hyperlink{trap_8h_a8ef04253777645707b7c1df6235b69d6}{ROCKTRAP}) \textcolor{keywordflow}{break};
+778         \}
+779         tt = \hyperlink{display_8h_a0d1e25ef13d9e895603597e3f02b4ffe}{what\_trap}(tt);
+780         pline(\textcolor{stringliteral}{"That is %s%s%s."},
+781               an(\hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{rm_8h_a8b3155eb0b52e1c13981b4dca943722c}{trap\_to\_defsym}(tt)].explanation),
+782               !trap->madeby\_u ? \textcolor{stringliteral}{""} : (tt == \hyperlink{trap_8h_adea8244201fecbc9bef08ab08e99cdf3}{WEB}) ? \textcolor{stringliteral}{" woven"} :
+783               \textcolor{comment}{/* trap doors & spiked pits can't be made by}
+784 \textcolor{comment}{                 player, and should be considered at least}
+785 \textcolor{comment}{                 as much "set" as "dug" anyway */}
+786               (tt == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE} || tt == \hyperlink{trap_8h_af181c9e6602b6432a0bf1a9243808968}{PIT}) ? \textcolor{stringliteral}{" dug"} : \textcolor{stringliteral}{" set"},
+787               !trap->madeby\_u ? \textcolor{stringliteral}{""} : \textcolor{stringliteral}{" by you"});
+788         \textcolor{keywordflow}{return} 0;
+789         \}
+790     pline(\textcolor{stringliteral}{"I can't see a trap there."});
+791     \textcolor{keywordflow}{return} 0;
+792 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_a849e6e2d0863b685235a4ae0f4b47c2d}{\index{pager.\+c@{pager.\+c}!doquickwhatis@{doquickwhatis}}
+\index{doquickwhatis@{doquickwhatis}!pager.\+c@{pager.\+c}}
+\subsubsection[{doquickwhatis}]{\setlength{\rightskip}{0pt plus 5cm}int doquickwhatis (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a849e6e2d0863b685235a4ae0f4b47c2d}
+
+
+Definition at line 757 of file pager.\+c.
+
+
+
+References do\+\_\+look(), and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+758 \{
+759     \textcolor{keywordflow}{return} \hyperlink{pager_8c_a22a985e460820d3948f8224e7ae5df49}{do\_look}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+760 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_ab2f81826a2806164f716768c9e011dc3}{\index{pager.\+c@{pager.\+c}!dowhatdoes@{dowhatdoes}}
+\index{dowhatdoes@{dowhatdoes}!pager.\+c@{pager.\+c}}
+\subsubsection[{dowhatdoes}]{\setlength{\rightskip}{0pt plus 5cm}int dowhatdoes (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_ab2f81826a2806164f716768c9e011dc3}
+
+
+Definition at line 840 of file pager.\+c.
+
+
+
+References B\+U\+F\+S\+Z, dowhatdoes\+\_\+core(), introff(), and intron().
+
+
+
+Referenced by dohelp(), and on\+W\+M\+Command().
+
+
+\begin{DoxyCode}
+841 \{
+842     \textcolor{keywordtype}{char} bufr[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+843     \textcolor{keywordtype}{char} q, *reslt;
+844 
+845 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS)}
+846     \hyperlink{unixtty_8c_a48af2a23abad925191f7ad766f1b6f44}{introff}();
+847 \textcolor{preprocessor}{#endif}
+848     q = yn\_function(\textcolor{stringliteral}{"What command?"}, (\textcolor{keywordtype}{char} *)0, \textcolor{charliteral}{'\(\backslash\)0'});
+849 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS)}
+850     \hyperlink{unixtty_8c_a801ec867d5c7166d2faa1afc552f7d0e}{intron}();
+851 \textcolor{preprocessor}{#endif}
+852     reslt = \hyperlink{pager_8c_ae6dcb64857720afe0c2fbf1796053757}{dowhatdoes\_core}(q, bufr);
+853     \textcolor{keywordflow}{if} (reslt)
+854         pline(\textcolor{stringliteral}{"%s"}, reslt);
+855     \textcolor{keywordflow}{else}
+856         pline(\textcolor{stringliteral}{"I've never heard of such commands."});
+857     \textcolor{keywordflow}{return} 0;
+858 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_ae6dcb64857720afe0c2fbf1796053757}{\index{pager.\+c@{pager.\+c}!dowhatdoes\+\_\+core@{dowhatdoes\+\_\+core}}
+\index{dowhatdoes\+\_\+core@{dowhatdoes\+\_\+core}!pager.\+c@{pager.\+c}}
+\subsubsection[{dowhatdoes\+\_\+core}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ dowhatdoes\+\_\+core (
+\begin{DoxyParamCaption}
+\item[{char}]{q, }
+\item[{char $\ast$}]{cbuf}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_ae6dcb64857720afe0c2fbf1796053757}
+
+
+Definition at line 795 of file pager.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, C\+M\+D\+H\+E\+L\+P\+F\+I\+L\+E, dlb, dlb\+\_\+fclose, dlb\+\_\+fgets, dlb\+\_\+fopen, fp, index(), and Strcpy.
+
+
+
+Referenced by dowhatdoes().
+
+
+\begin{DoxyCode}
+798 \{
+799     \hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+800     \textcolor{keywordtype}{char} bufr[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+801     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf} = &bufr[6], *ep, ctrl, meta;
+802 
+803     fp = \hyperlink{dlb_8h_a46a9ab27d1ae601750baeacc2c0a8d44}{dlb\_fopen}(\hyperlink{global_8h_a0a42e06a48fae0d6eea0762a28905c8d}{CMDHELPFILE}, \textcolor{stringliteral}{"r"});
+804     \textcolor{keywordflow}{if} (!fp) \{
+805         pline(\textcolor{stringliteral}{"Cannot open data file!"});
+806         \textcolor{keywordflow}{return} 0;
+807     \}
+808 
+809     ctrl = ((q <= \textcolor{charliteral}{'\(\backslash\)033'}) ? (q - 1 + \textcolor{charliteral}{'A'}) : 0);
+810     meta = ((0x80 & q) ? (0x7f & q) : 0);
+811     \textcolor{keywordflow}{while}(\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(buf,\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}-6,fp)) \{
+812         \textcolor{keywordflow}{if} ((ctrl && *buf==\textcolor{charliteral}{'^'} && *(buf+1)==ctrl) ||
+813         (meta && *buf==\textcolor{charliteral}{'M'} && *(buf+1)==\textcolor{charliteral}{'-'} && *(buf+2)==meta) ||
+814         *buf==q) \{
+815         ep = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(buf, \textcolor{charliteral}{'\(\backslash\)n'});
+816         \textcolor{keywordflow}{if}(ep) *ep = 0;
+817         \textcolor{keywordflow}{if} (ctrl && buf[2] == \textcolor{charliteral}{'\(\backslash\)t'})\{
+818             buf = bufr + 1;
+819             (void) strncpy(buf, \textcolor{stringliteral}{"^?      "}, 8);
+820             buf[1] = ctrl;
+821         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (meta && buf[3] == \textcolor{charliteral}{'\(\backslash\)t'})\{
+822             buf = bufr + 2;
+823             (void) strncpy(buf, \textcolor{stringliteral}{"M-?     "}, 8);
+824             buf[2] = meta;
+825         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(buf[1] == \textcolor{charliteral}{'\(\backslash\)t'})\{
+826             buf = bufr;
+827             buf[0] = q;
+828             (void) strncpy(buf+1, \textcolor{stringliteral}{"       "}, 7);
+829         \}
+830         (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(fp);
+831         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(cbuf, buf);
+832         \textcolor{keywordflow}{return} cbuf;
+833         \}
+834     \}
+835     (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(fp);
+836     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{char} *)0;
+837 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_a7ba240869c589ab020b058374feeff4a}{\index{pager.\+c@{pager.\+c}!dowhatis@{dowhatis}}
+\index{dowhatis@{dowhatis}!pager.\+c@{pager.\+c}}
+\subsubsection[{dowhatis}]{\setlength{\rightskip}{0pt plus 5cm}int dowhatis (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a7ba240869c589ab020b058374feeff4a}
+
+
+Definition at line 751 of file pager.\+c.
+
+
+
+References do\+\_\+look(), and F\+A\+L\+S\+E.
+
+
+
+Referenced by dohelp(), and on\+W\+M\+Command().
+
+
+\begin{DoxyCode}
+752 \{
+753     \textcolor{keywordflow}{return} \hyperlink{pager_8c_a22a985e460820d3948f8224e7ae5df49}{do\_look}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+754 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_a17a98fa089575c0408012a818c423ca3}{\index{pager.\+c@{pager.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!pager.\+c@{pager.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf is\+\_\+swallow\+\_\+sym}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a17a98fa089575c0408012a818c423ca3}
+\hypertarget{pager_8c_acaf79482cb023e0f8eb80b84e8fe8411}{\index{pager.\+c@{pager.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!pager.\+c@{pager.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf append\+\_\+str}}]{, }
+\item[{(char $\ast$, {\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_acaf79482cb023e0f8eb80b84e8fe8411}
+\hypertarget{pager_8c_a19f3145031861d6d32686c7b0a9b6e60}{\index{pager.\+c@{pager.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!pager.\+c@{pager.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct {\bf permonst}$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf lookat}}]{, }
+\item[{(int, int, char $\ast$, char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a19f3145031861d6d32686c7b0a9b6e60}
+\hypertarget{pager_8c_af593e7998a37aa25182324b7ddf51c14}{\index{pager.\+c@{pager.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!pager.\+c@{pager.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf checkfile}}]{, }
+\item[{(char $\ast$, struct {\bf permonst} $\ast$, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_af593e7998a37aa25182324b7ddf51c14}
+\hypertarget{pager_8c_aea2816d48a16e0feb588f2d569f70d20}{\index{pager.\+c@{pager.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!pager.\+c@{pager.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf do\+\_\+look}}]{, }
+\item[{({\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_aea2816d48a16e0feb588f2d569f70d20}
+\hypertarget{pager_8c_aa5345a9f5ba5507d7691860ee5caa82a}{\index{pager.\+c@{pager.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!pager.\+c@{pager.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf help\+\_\+menu}}]{, }
+\item[{(int $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_aa5345a9f5ba5507d7691860ee5caa82a}
+\hypertarget{pager_8c_add22024929772228fa539d9afc8f4acf}{\index{pager.\+c@{pager.\+c}!help\+\_\+menu@{help\+\_\+menu}}
+\index{help\+\_\+menu@{help\+\_\+menu}!pager.\+c@{pager.\+c}}
+\subsubsection[{help\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} help\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{sel}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_add22024929772228fa539d9afc8f4acf}
+
+
+Definition at line 886 of file pager.\+c.
+
+
+
+References any\+::a\+\_\+int, any\+::a\+\_\+void, add\+\_\+menu, A\+T\+R\+\_\+\+N\+O\+N\+E, create\+\_\+nhwindow, destroy\+\_\+nhwindow, end\+\_\+menu, F\+A\+L\+S\+E, free(), mi\+::item, M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+O\+\_\+\+G\+L\+Y\+P\+H, P\+I\+C\+K\+\_\+\+O\+N\+E, P\+O\+R\+T\+\_\+\+H\+E\+L\+P, P\+O\+R\+T\+\_\+\+I\+D, Q\+B\+U\+F\+S\+Z, select\+\_\+menu, Sprintf, start\+\_\+menu, T\+R\+U\+E, wizard, and W\+I\+Z\+H\+L\+P\+\_\+\+S\+L\+O\+T.
+
+
+
+Referenced by dohelp().
+
+
+\begin{DoxyCode}
+888 \{
+889     \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} tmpwin = \hyperlink{winprocs_8h_aa13fb35379049d1836397492d10b6b0c}{create\_nhwindow}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU});
+890 \textcolor{preprocessor}{#ifdef PORT\_HELP}
+891     \textcolor{keywordtype}{char} helpbuf[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+892 \textcolor{preprocessor}{#endif}
+893     \textcolor{keywordtype}{int} i, n;
+894     \hyperlink{structmi}{menu\_item} *selected;
+895     \hyperlink{unionany}{anything} \hyperlink{unionany}{any};
+896 
+897     any.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} = 0;       \textcolor{comment}{/* zero all bits */}
+898     \hyperlink{winprocs_8h_a466fbda9d8533b050350184f5a095617}{start\_menu}(tmpwin);
+899 \textcolor{preprocessor}{#ifdef WIZARD}
+900     \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \hyperlink{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{help\_menu\_items}[\hyperlink{pager_8c_ac49428da47ee5a567eaf6f384b48066c}{WIZHLP\_SLOT}] = \textcolor{stringliteral}{""},
+901              \hyperlink{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{help\_menu\_items}[\hyperlink{pager_8c_ac49428da47ee5a567eaf6f384b48066c}{WIZHLP\_SLOT}+1] = (\textcolor{keywordtype}{char} *)0;
+902 \textcolor{preprocessor}{#endif}
+903     \textcolor{keywordflow}{for} (i = 0; \hyperlink{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{help\_menu\_items}[i]; i++)
+904 #ifdef \hyperlink{amiconf_8h_adea5f27d2fa7b84c0d6458e64f551724}{PORT\_HELP}
+905         \textcolor{comment}{/* port-specific line has a %s in it for the PORT\_ID */}
+906         \textcolor{keywordflow}{if} (\hyperlink{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{help\_menu\_items}[i][0] == \textcolor{charliteral}{'%'}) \{
+907         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(helpbuf, \hyperlink{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{help\_menu\_items}[i], \hyperlink{beconf_8h_abcdf7d35e59e243a6d99deb3208d9f79}{PORT\_ID});
+908         any.\hyperlink{unionany_aae9fa40e12da390154868ea24a96c561}{a\_int} = PORT\_HELP\_ID + 1;
+909         \hyperlink{winprocs_8h_a67d909f9e2dbdf82e7af48ed950c0e07}{add\_menu}(tmpwin, \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH}, &any, 0, 0, \hyperlink{wintype_8h_a20a20b74e8cf84ecfbf3c8665c059636}{ATR\_NONE},
+910              helpbuf, \hyperlink{hack_8h_a1b4cfefbc89386fb8977794f02b0a13c}{MENU\_UNSELECTED});
+911         \} \textcolor{keywordflow}{else}
+912 \textcolor{preprocessor}{#endif}
+913         \{
+914         any.\hyperlink{unionany_aae9fa40e12da390154868ea24a96c561}{a\_int} = (*\hyperlink{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{help\_menu\_items}[i]) ? i+1 : 0;
+915         \hyperlink{winprocs_8h_a67d909f9e2dbdf82e7af48ed950c0e07}{add\_menu}(tmpwin, \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH}, &any, 0, 0,
+916             \hyperlink{wintype_8h_a20a20b74e8cf84ecfbf3c8665c059636}{ATR\_NONE}, \hyperlink{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{help\_menu\_items}[i], \hyperlink{hack_8h_a1b4cfefbc89386fb8977794f02b0a13c}{MENU\_UNSELECTED});
+917         \}
+918     \hyperlink{winprocs_8h_a26f49f5dfc880f4a810f61b5beae4a71}{end\_menu}(tmpwin, \textcolor{stringliteral}{"Select one item:"});
+919     n = \hyperlink{winprocs_8h_afdaac8ee2b6bdd0a0045b81a0cfbe1fc}{select\_menu}(tmpwin, \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}, &selected);
+920     \hyperlink{winprocs_8h_a77ac4f50de0eedeaead791812762c6a0}{destroy\_nhwindow}(tmpwin);
+921     \textcolor{keywordflow}{if} (n > 0) \{
+922         *sel = selected[0].\hyperlink{structmi_a24f26cd1b01d3cf3ed16b1fd020d3a08}{item}.\hyperlink{unionany_aae9fa40e12da390154868ea24a96c561}{a\_int} - 1;
+923         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})selected);
+924         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+925     \}
+926     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+927 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_a222e0084eb314b55d531451f143b9388}{\index{pager.\+c@{pager.\+c}!is\+\_\+swallow\+\_\+sym@{is\+\_\+swallow\+\_\+sym}}
+\index{is\+\_\+swallow\+\_\+sym@{is\+\_\+swallow\+\_\+sym}!pager.\+c@{pager.\+c}}
+\subsubsection[{is\+\_\+swallow\+\_\+sym}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} is\+\_\+swallow\+\_\+sym (
+\begin{DoxyParamCaption}
+\item[{int}]{c}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a222e0084eb314b55d531451f143b9388}
+
+
+Definition at line 24 of file pager.\+c.
+
+
+
+References F\+A\+L\+S\+E, S\+\_\+sw\+\_\+br, S\+\_\+sw\+\_\+tl, showsyms, and T\+R\+U\+E.
+
+
+
+Referenced by do\+\_\+look().
+
+
+\begin{DoxyCode}
+26 \{
+27     \textcolor{keywordtype}{int} i;
+28     \textcolor{keywordflow}{for} (i = \hyperlink{rm_8h_a7f752e26209b6ce4093e0602a91bc8c5}{S\_sw\_tl}; i <= \hyperlink{rm_8h_ac7fd8b00ed593d0abfcf9256be0b5c3e}{S\_sw\_br}; i++)
+29     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int})\hyperlink{rm_8h_ad8e71cd12d6e4d48b240325f0a5f9758}{showsyms}[i] == c) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+30     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+31 \}
+\end{DoxyCode}
+\hypertarget{pager_8c_a4811d3d0448b4c9ff9534328e2551d82}{\index{pager.\+c@{pager.\+c}!lookat@{lookat}}
+\index{lookat@{lookat}!pager.\+c@{pager.\+c}}
+\subsubsection[{lookat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct {\bf permonst}$\ast$ lookat (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{char $\ast$}]{buf, }
+\item[{char $\ast$}]{monbuf}
+\end{DoxyParamCaption}
+)}}\label{pager_8c_a4811d3d0448b4c9ff9534328e2551d82}
+
+
+Definition at line 58 of file pager.\+c.
+
+
+
+References Race\+::adj, altarmask, A\+M\+\_\+\+S\+H\+R\+I\+N\+E, Amask2align, A\+R\+T\+I\+C\+L\+E\+\_\+\+N\+O\+N\+E, B\+E\+A\+R\+\_\+\+T\+R\+A\+P, bhitpos, Blind, B\+U\+F\+S\+Z, cansee, canseemon, C\+O\+I\+N\+\_\+\+C\+L\+A\+S\+S, current\+\_\+fruit, D\+\_\+\+B\+R\+O\+K\+E\+N, D\+\_\+\+T\+R\+A\+P\+P\+E\+D, monst\+::data, defsyms, Detect\+\_\+monsters, distu, doormask, eos(), F\+A\+L\+S\+E, glyph\+\_\+at(), glyph\+\_\+is\+\_\+cmap, glyph\+\_\+is\+\_\+monster, glyph\+\_\+is\+\_\+object, glyph\+\_\+is\+\_\+trap, glyph\+\_\+to\+\_\+cmap, glyph\+\_\+to\+\_\+obj, glyph\+\_\+to\+\_\+trap, Hallucination, In\+\_\+endgame, Infravision, Invis, Invisible, Is\+\_\+airlevel, I\+S\+\_\+\+W\+A\+L\+L, levl, m\+\_\+at, M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N, permonst\+::mname, mon\+\_\+visible, mons, monst\+::mtame, monst\+::mx, monst\+::my, name, N\+O\+\_\+\+T\+R\+A\+P, obj\+::oclass, otmp, obj\+::otyp, P\+I\+T, plname, Q\+B\+U\+F\+S\+Z, obj\+::quan, Race\+\_\+if, Role\+\_\+if, S\+\_\+altar, S\+\_\+cloud, S\+\_\+ndoor, S\+C\+O\+R\+R, S\+D\+O\+O\+R, See\+\_\+invisible, see\+\_\+with\+\_\+infrared, senseself, obj\+::spe, S\+P\+I\+K\+E\+D\+\_\+\+P\+I\+T, Sprintf, S\+T\+O\+N\+E, Strcat, Strcpy, tp\+\_\+sensemon, trap\+\_\+to\+\_\+defsym, u, you\+::umonnum, Unblind\+\_\+telepat, Upolyd, urace, you\+::ustuck, you\+::ux, you\+::uy, you\+::uz, vobj\+\_\+at, W\+E\+B, what\+\_\+trap, worm\+\_\+known(), coord\+::x, you\+::xray\+\_\+range, coord\+::y, and youmonst.
+
+
+
+Referenced by do\+\_\+look().
+
+
+\begin{DoxyCode}
+61 \{
+62     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *) 0;
+63     \textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *pm = (\textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *) 0;
+64     \textcolor{keywordtype}{int} glyph;
+65 
+66     \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[0] = monbuf[0] = 0;
+67     glyph = \hyperlink{display_8c_ad3c1a65cc5e35e90067cb04eaf397d8a}{glyph\_at}(x,y);
+68     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} == x && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} == y && \hyperlink{display_8h_a52034fbad768549b2bfc598e6358019d}{senseself}()) \{
+69     \textcolor{keywordtype}{char} race[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+70 
+71     \textcolor{comment}{/* if not polymorphed, show both the role and the race */}
+72     race[0] = 0;
+73     \textcolor{keywordflow}{if} (!\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd}) \{
+74         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(race, \textcolor{stringliteral}{"%s "}, \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_a61ff8fd4db65f11000381aa0dff23e55}{adj});
+75     \}
+76 
+77     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"%s%s%s called %s"},
+78         \hyperlink{youprop_8h_a9892b53d98f0762326e468c2037e8c46}{Invis} ? \textcolor{stringliteral}{"invisible "} : \textcolor{stringliteral}{""},
+79         race,
+80         \hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae0b7ade89d09cd3b6d5e05eb8c859b35}{umonnum}].\hyperlink{structpermonst_ae92da7d141243d7e37d4a12340bb248f}{mname},
+81         \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+82     \textcolor{comment}{/* file lookup can't distinguish between "gnomish wizard" monster}
+83 \textcolor{comment}{       and correspondingly named player character, always picking the}
+84 \textcolor{comment}{       former; force it to find the general "wizard" entry instead */}
+85     \textcolor{keywordflow}{if} (\hyperlink{you_8h_a6087f5b8605964c19078b777da740258}{Role\_if}(PM\_WIZARD) && \hyperlink{you_8h_ac1b9b8d9c3387e3d3a36b9474945879c}{Race\_if}(PM\_GNOME) && !\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd})
+86         pm = &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_WIZARD];
+87 
+88 \textcolor{preprocessor}{#ifdef STEED}
+89     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed) \{
+90         \textcolor{keywordtype}{char} steedbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+91 
+92         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(steedbuf, \textcolor{stringliteral}{", mounted on %s"}, y\_monnam(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed));
+93         \textcolor{comment}{/* assert((sizeof buf >= strlen(buf)+strlen(steedbuf)+1); */}
+94         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, steedbuf);
+95     \}
+96 \textcolor{preprocessor}{#endif}
+97     \textcolor{comment}{/* When you see yourself normally, no explanation is appended}
+98 \textcolor{comment}{       (even if you could also see yourself via other means).}
+99 \textcolor{comment}{       Sensing self while blind or swallowed is treated as if it}
+100 \textcolor{comment}{       were by normal vision (cf canseeself()). */}
+101     \textcolor{keywordflow}{if} ((\hyperlink{youprop_8h_a3a091215989ce11abb81f94308b01b6d}{Invisible} || \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uundetected) && !\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow) \{
+102         \textcolor{keywordtype}{unsigned} how = 0;
+103 
+104         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_ab70149bbc94c8ce9e8404f0f458eefe0}{Infravision})  how |= 1;
+105         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_acf607f2a23654b7517d294a3401122f7}{Unblind\_telepat}) how |= 2;
+106         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a6837901e3b3c547cdea44d8504dda753}{Detect\_monsters}) how |= 4;
+107 
+108         \textcolor{keywordflow}{if} (how)
+109         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}), \textcolor{stringliteral}{" [seen: %s%s%s%s%s]"},
+110             (how & 1) ? \textcolor{stringliteral}{"infravision"} : \textcolor{stringliteral}{""},
+111             \textcolor{comment}{/* add comma if telep and infrav */}
+112             ((how & 3) > 2) ? \textcolor{stringliteral}{", "} : \textcolor{stringliteral}{""},
+113             (how & 2) ? \textcolor{stringliteral}{"telepathy"} : \textcolor{stringliteral}{""},
+114             \textcolor{comment}{/* add comma if detect and (infrav or telep or both) */}
+115             ((how & 7) > 4) ? \textcolor{stringliteral}{", "} : \textcolor{stringliteral}{""},
+116             (how & 4) ? \textcolor{stringliteral}{"monster detection"} : \textcolor{stringliteral}{""});
+117     \}
+118     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow) \{
+119     \textcolor{comment}{/* all locations when swallowed other than the hero are the monster */}
+120     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"interior of %s"},
+121                     \hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} ? \textcolor{stringliteral}{"a monster"} : a\_monnam(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck}));
+122     pm = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck}->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data};
+123     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_a8bbad1d40abdd46999b48e54a35955e6}{glyph\_is\_monster}(glyph)) \{
+124     \hyperlink{hack_8h_a4c9226f2a1ebd72a254bb15c96d75440}{bhitpos}.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = x;
+125     \hyperlink{hack_8h_a4c9226f2a1ebd72a254bb15c96d75440}{bhitpos}.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = y;
+126     mtmp = \hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(x,y);
+127     \textcolor{keywordflow}{if} (mtmp != (\textcolor{keyword}{struct} \hyperlink{structmonst}{monst} *) 0) \{
+128         \textcolor{keywordtype}{char} *\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, monnambuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+129         \textcolor{keywordtype}{boolean} accurate = !\hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination};
+130 
+131         \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data} == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_COYOTE] && accurate)
+132         name = coyotename(mtmp, monnambuf);
+133         \textcolor{keywordflow}{else}
+134         name = distant\_monnam(mtmp, \hyperlink{decl_8h_a763be84407f90327f636001217f2e1c5}{ARTICLE\_NONE}, monnambuf);
+135 
+136         pm = mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data};
+137         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"%s%s%s"},
+138             (mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx} != x || mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my} != y) ?
+139             ((mtmp->isshk && accurate)
+140                 ? \textcolor{stringliteral}{"tail of "} : \textcolor{stringliteral}{"tail of a "}) : \textcolor{stringliteral}{""},
+141             (mtmp->\hyperlink{structmonst_a6d525ec48f9d38cda6accbb0cb39efba}{mtame} && accurate) ? \textcolor{stringliteral}{"tame "} :
+142             (mtmp->mpeaceful && accurate) ? \textcolor{stringliteral}{"peaceful "} : \textcolor{stringliteral}{""},
+143             name);
+144         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck} == mtmp)
+145         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, (\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd} && sticks(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) ?
+146             \textcolor{stringliteral}{", being held"} : \textcolor{stringliteral}{", holding you"});
+147         \textcolor{keywordflow}{if} (mtmp->mleashed)
+148         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{", leashed to you"});
+149 
+150         \textcolor{keywordflow}{if} (mtmp->mtrapped && \hyperlink{vision_8h_a857efc720262bc13a9e4b4bcbb079b5c}{cansee}(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my})) \{
+151         \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *t = t\_at(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my});
+152         \textcolor{keywordtype}{int} tt = t ? t->ttyp : \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP};
+153 
+154         \textcolor{comment}{/* newsym lets you know of the trap, so mention it here */}
+155         \textcolor{keywordflow}{if} (tt == \hyperlink{trap_8h_a8e0f0f3d80f6253a98c39fe9e9ac1a1f}{BEAR\_TRAP} || tt == \hyperlink{trap_8h_af181c9e6602b6432a0bf1a9243808968}{PIT} ||
+156             tt == \hyperlink{trap_8h_a813fa80e09de5d455e2af3743a95bad9}{SPIKED\_PIT} || tt == \hyperlink{trap_8h_adea8244201fecbc9bef08ab08e99cdf3}{WEB})
+157             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}), \textcolor{stringliteral}{", trapped in %s"},
+158                 an(\hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{rm_8h_a8b3155eb0b52e1c13981b4dca943722c}{trap\_to\_defsym}(tt)].explanation));
+159         \}
+160 
+161         \{
+162         \textcolor{keywordtype}{int} ways\_seen = 0, normal = 0, xraydist;
+163         \textcolor{keywordtype}{boolean} useemon = (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean}) \hyperlink{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}{canseemon}(mtmp);
+164 
+165         xraydist = (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range}<0) ? -1 : \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range} * 
+      \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range};
+166         \textcolor{comment}{/* normal vision */}
+167         if ((mtmp->wormno ? \hyperlink{worm_8c_ae38026b558faadc9a10015ca2376e996}{worm\_known}(mtmp) : \hyperlink{vision_8h_a857efc720262bc13a9e4b4bcbb079b5c}{cansee}(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->
+      \hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my})) &&
+168             \hyperlink{display_8h_ad69b6021d6de1f0a37fdbda54bc38bbf}{mon\_visible}(mtmp) && !mtmp->minvis) \{
+169             ways\_seen++;
+170             normal++;
+171         \}
+172         \textcolor{comment}{/* see invisible */}
+173         \textcolor{keywordflow}{if} (useemon && mtmp->minvis)
+174             ways\_seen++;
+175         \textcolor{comment}{/* infravision */}
+176         \textcolor{keywordflow}{if} ((!mtmp->minvis || \hyperlink{youprop_8h_ae00ea7702fa1870643d604364b0640c7}{See\_invisible}) && \hyperlink{display_8h_aca54af1de4d5a3dafa947f481eea6a6a}{see\_with\_infrared}(mtmp))
+177             ways\_seen++;
+178         \textcolor{comment}{/* telepathy */}
+179         \textcolor{keywordflow}{if} (\hyperlink{display_8h_aba621a9a510ebdf4069498e6715444d1}{tp\_sensemon}(mtmp))
+180             ways\_seen++;
+181         \textcolor{comment}{/* xray */}
+182         \textcolor{keywordflow}{if} (useemon && xraydist > 0 &&
+183             \hyperlink{hack_8h_a1f84afcae19c5b60124bc509ed647f84}{distu}(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my}) <= xraydist)
+184             ways\_seen++;
+185         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a6837901e3b3c547cdea44d8504dda753}{Detect\_monsters})
+186             ways\_seen++;
+187         \textcolor{keywordflow}{if} (\hyperlink{hack_8h_a06971ec894f970d371a9cc7afc83e72c}{MATCH\_WARN\_OF\_MON}(mtmp))
+188             ways\_seen++;
+189 
+190         \textcolor{keywordflow}{if} (ways\_seen > 1 || !normal) \{
+191             \textcolor{keywordflow}{if} (normal) \{
+192             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{"normal vision"});
+193             \textcolor{comment}{/* can't actually be 1 yet here */}
+194             \textcolor{keywordflow}{if} (ways\_seen-- > 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{", "});
+195             \}
+196             \textcolor{keywordflow}{if} (useemon && mtmp->minvis) \{
+197             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{"see invisible"});
+198             \textcolor{keywordflow}{if} (ways\_seen-- > 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{", "});
+199             \}
+200             \textcolor{keywordflow}{if} ((!mtmp->minvis || \hyperlink{youprop_8h_ae00ea7702fa1870643d604364b0640c7}{See\_invisible}) &&
+201                 \hyperlink{display_8h_aca54af1de4d5a3dafa947f481eea6a6a}{see\_with\_infrared}(mtmp)) \{
+202             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{"infravision"});
+203             \textcolor{keywordflow}{if} (ways\_seen-- > 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{", "});
+204             \}
+205             \textcolor{keywordflow}{if} (\hyperlink{display_8h_aba621a9a510ebdf4069498e6715444d1}{tp\_sensemon}(mtmp)) \{
+206             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{"telepathy"});
+207             \textcolor{keywordflow}{if} (ways\_seen-- > 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{", "});
+208             \}
+209             \textcolor{keywordflow}{if} (useemon && xraydist > 0 &&
+210                 \hyperlink{hack_8h_a1f84afcae19c5b60124bc509ed647f84}{distu}(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my}) <= xraydist) \{
+211             \textcolor{comment}{/* Eyes of the Overworld */}
+212             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{"astral vision"});
+213             \textcolor{keywordflow}{if} (ways\_seen-- > 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{", "});
+214             \}
+215             \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a6837901e3b3c547cdea44d8504dda753}{Detect\_monsters}) \{
+216             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{"monster detection"});
+217             \textcolor{keywordflow}{if} (ways\_seen-- > 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{", "});
+218             \}
+219             \textcolor{keywordflow}{if} (\hyperlink{hack_8h_a06971ec894f970d371a9cc7afc83e72c}{MATCH\_WARN\_OF\_MON}(mtmp)) \{
+220                 \textcolor{keywordtype}{char} wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+221             \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination})
+222                 \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{"paranoid delusion"});
+223             \textcolor{keywordflow}{else} \{
+224                 \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(wbuf, \textcolor{stringliteral}{"warned of %s"},
+225                     makeplural(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}->\hyperlink{structpermonst_ae92da7d141243d7e37d4a12340bb248f}{mname}));
+226                     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, wbuf);
+227                 \}
+228                 \textcolor{keywordflow}{if} (ways\_seen-- > 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(monbuf, \textcolor{stringliteral}{", "});
+229             \}
+230         \}
+231         \}
+232     \}
+233     \}
+234     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_a5a3c3067dbac4b44ad002fbe980a90dd}{glyph\_is\_object}(glyph)) \{
+235     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp} = \hyperlink{display_8h_acb0b91fd762d501452bc8436c5160ecc}{vobj\_at}(x,y);
+236 
+237     \textcolor{keywordflow}{if} (!otmp || otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != \hyperlink{display_8h_afea03e8d4cb058f7ac029417c0f4d73f}{glyph\_to\_obj}(glyph)) \{
+238         \textcolor{keywordflow}{if} (\hyperlink{display_8h_afea03e8d4cb058f7ac029417c0f4d73f}{glyph\_to\_obj}(glyph) != STRANGE\_OBJECT) \{
+239         otmp = mksobj(\hyperlink{display_8h_afea03e8d4cb058f7ac029417c0f4d73f}{glyph\_to\_obj}(glyph), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+240         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a2999621925083659147349e261e4cb3d}{COIN\_CLASS})
+241             otmp->\hyperlink{structobj_ad08c0ed1a746fbb52377ecd7e4220578}{quan} = 2L; \textcolor{comment}{/* to force pluralization */}
+242         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == SLIME\_MOLD)
+243             otmp->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = \hyperlink{decl_8h_a3ba39ed8bee2af6aa41539375a35fe8c}{current\_fruit};  \textcolor{comment}{/* give the fruit a type */}
+244         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, distant\_name(otmp, xname));
+245         dealloc\_obj(otmp);
+246         \}
+247     \} \textcolor{keywordflow}{else}
+248         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, distant\_name(otmp, xname));
+249 
+250     \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} || \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a35e6fdb78f87c982df30c7e9580ad95d}{SCORR})
+251         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{" embedded in stone"});
+252     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ) || \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR})
+253         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{" embedded in a wall"});
+254     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (closed\_door(x,y))
+255         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{" embedded in a door"});
+256     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (is\_pool(x,y))
+257         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{" in water"});
+258     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (is\_lava(x,y))
+259         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{" in molten lava"});    \textcolor{comment}{/* [can this ever happen?] */}
+260     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{display_8h_a495f25bc3868092a11dfa723c138b93b}{glyph\_is\_trap}(glyph)) \{
+261     \textcolor{keywordtype}{int} tnum = \hyperlink{display_8h_a0d1e25ef13d9e895603597e3f02b4ffe}{what\_trap}(\hyperlink{display_8h_a4aa1865459d2a37059fcdce8e224c366}{glyph\_to\_trap}(glyph));
+262     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{rm_8h_a8b3155eb0b52e1c13981b4dca943722c}{trap\_to\_defsym}(tnum)].explanation);
+263     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!\hyperlink{display_8h_ae849bd5a5de7fbf41783c5af0d81aecd}{glyph\_is\_cmap}(glyph)) \{
+264     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf},\textcolor{stringliteral}{"dark part of a room"});
+265     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{switch}(\hyperlink{display_8h_a7bbc740e05e67c80b7b7dd81f2dd825d}{glyph\_to\_cmap}(glyph)) \{
+266     \textcolor{keywordflow}{case} \hyperlink{rm_8h_a2c0fad3823618e2244411efd9cdb7049}{S\_altar}:
+267     \textcolor{keywordflow}{if}(!\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+268         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"%s altar"},
+269         align\_str(\hyperlink{align_8h_a66f124a6eb13a3c3432946891aedcba4}{Amask2align}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_a4c769be4545ff9ea0f2af9e0a87f233f}{altarmask} & ~
+      \hyperlink{rm_8h_a9c8de6ca56b5ef907390c5fa518df9ed}{AM\_SHRINE})));
+270     \textcolor{keywordflow}{else} \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"aligned altar"});
+271     \textcolor{keywordflow}{break};
+272     \textcolor{keywordflow}{case} \hyperlink{rm_8h_a656adef8620d2d84e33b64c8faed2c7e}{S\_ndoor}:
+273     \textcolor{keywordflow}{if} (is\_drawbridge\_wall(x, y) >= 0)
+274         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf},\textcolor{stringliteral}{"open drawbridge portcullis"});
+275     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_a745655ee52d1819ea5216d98e685f933}{doormask} & ~\hyperlink{rm_8h_a8e6ade17f05acca6896948b28917e3d2}{D\_TRAPPED}) == \hyperlink{rm_8h_a1e152f0e5964deb57688f7dbcb3e6a08}{D\_BROKEN})
+276         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf},\textcolor{stringliteral}{"broken door"});
+277     \textcolor{keywordflow}{else}
+278         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf},\textcolor{stringliteral}{"doorway"});
+279     \textcolor{keywordflow}{break};
+280     \textcolor{keywordflow}{case} \hyperlink{rm_8h_af98109ffc75c4cff074cf96bc8b1bd04}{S\_cloud}:
+281     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \hyperlink{dungeon_8h_a2d9a2dcb88ded033c3305c7798f81c24}{Is\_airlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) ? \textcolor{stringliteral}{"cloudy area"} : \textcolor{stringliteral}{"fog/vapor cloud"});
+282     \textcolor{keywordflow}{break};
+283     \textcolor{keywordflow}{default}:
+284     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf},\hyperlink{rm_8h_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[\hyperlink{display_8h_a7bbc740e05e67c80b7b7dd81f2dd825d}{glyph\_to\_cmap}(glyph)].explanation);
+285     \textcolor{keywordflow}{break};
+286     \}
+287 
+288     \textcolor{keywordflow}{return} ((pm && !\hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination}) ? pm : (\textcolor{keyword}{struct} \hyperlink{structpermonst}{permonst} *) 0);
+289 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}{\index{pager.\+c@{pager.\+c}!help\+\_\+menu\+\_\+items@{help\+\_\+menu\+\_\+items}}
+\index{help\+\_\+menu\+\_\+items@{help\+\_\+menu\+\_\+items}!pager.\+c@{pager.\+c}}
+\subsubsection[{help\+\_\+menu\+\_\+items}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ help\+\_\+menu\+\_\+items\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{pager_8c_ab73fc02d4e6e3dd3852af917ca9614a8}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"Long description of the game and commands."},
+    \textcolor{stringliteral}{"List of game commands."},
+    \textcolor{stringliteral}{"Concise history of NetHack."},
+    \textcolor{stringliteral}{"Info on a character in the game display."},
+    \textcolor{stringliteral}{"Info on what a given key does."},
+    \textcolor{stringliteral}{"List of game options."},
+    \textcolor{stringliteral}{"Longer explanation of game options."},
+    \textcolor{stringliteral}{"List of extended commands."},
+    \textcolor{stringliteral}{"The NetHack license."},
+
+
+
+
+
+\textcolor{preprocessor}{#define WIZHLP\_SLOT}
+
+
+
+
+    \textcolor{stringliteral}{""},
+    (\textcolor{keywordtype}{char} *)0
+\}
+\end{DoxyCode}
+
+
+Definition at line 861 of file pager.\+c.
+
+\hypertarget{pager_8c_a0ebaf9e6ece7351a2b4be277ca20c307}{\index{pager.\+c@{pager.\+c}!what\+\_\+is\+\_\+an\+\_\+unknown\+\_\+object@{what\+\_\+is\+\_\+an\+\_\+unknown\+\_\+object}}
+\index{what\+\_\+is\+\_\+an\+\_\+unknown\+\_\+object@{what\+\_\+is\+\_\+an\+\_\+unknown\+\_\+object}!pager.\+c@{pager.\+c}}
+\subsubsection[{what\+\_\+is\+\_\+an\+\_\+unknown\+\_\+object}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char what\+\_\+is\+\_\+an\+\_\+unknown\+\_\+object\mbox{[}$\,$\mbox{]} = \char`\"{}an unknown {\bf object}\char`\"{}}}\label{pager_8c_a0ebaf9e6ece7351a2b4be277ca20c307}
+
+
+Definition at line 455 of file pager.\+c.
+

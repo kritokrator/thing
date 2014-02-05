@@ -1,0 +1,2620 @@
+\hypertarget{mrecover_8c}{\section{nethack/sys/mac/mrecover.c File Reference}
+\label{mrecover_8c}\index{nethack/sys/mac/mrecover.\+c@{nethack/sys/mac/mrecover.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$Errors.\+h$>$}\\*
+{\ttfamily \#include $<$O\+S\+Utils.\+h$>$}\\*
+{\ttfamily \#include $<$Resources.\+h$>$}\\*
+{\ttfamily \#include $<$Files.\+h$>$}\\*
+{\ttfamily \#include $<$Menus.\+h$>$}\\*
+{\ttfamily \#include $<$Devices.\+h$>$}\\*
+{\ttfamily \#include $<$Events.\+h$>$}\\*
+{\ttfamily \#include $<$Disk\+Init.\+h$>$}\\*
+{\ttfamily \#include $<$Notification.\+h$>$}\\*
+{\ttfamily \#include $<$Packages.\+h$>$}\\*
+{\ttfamily \#include $<$Script.\+h$>$}\\*
+{\ttfamily \#include $<$Standard\+File.\+h$>$}\\*
+{\ttfamily \#include $<$Tool\+Utils.\+h$>$}\\*
+{\ttfamily \#include $<$Processes.\+h$>$}\\*
+{\ttfamily \#include $<$Fonts.\+h$>$}\\*
+{\ttfamily \#include $<$Text\+Utils.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmemBytes}{mem\+Bytes}
+\item 
+struct \hyperlink{structnotifRec}{notif\+Rec}
+\item 
+struct \hyperlink{structmodeFlags}{mode\+Flags}
+\item 
+struct \hyperlink{structversXRec}{vers\+X\+Rec}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mrecover_8c_a6fec12c864e40b05574c151792faa0a3}{memb\+I\+D}~128				/$\ast$ 'mem\+B' resource I\+D $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_a0d0a48b6ec9ded07fa864b5f7565c32e}{C\+U\+R\+S\+\_\+\+F\+R\+A\+M\+E}~4\+L				/$\ast$ 1/15 second -\/ spin cursor $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_aa6e22733edc85f87d97514a34d617067}{C\+U\+R\+S\+\_\+\+L\+A\+T\+E\+N\+T}~60\+L				/$\ast$ pause before spin cursor $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_a0eeccfee7c5d3c0ea3d168c51c4fc290}{curs\+\_\+\+Init}~(-\/1)			/$\ast$ token for set arrow $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_a3f97e3dade10e43ec7ed2b2c62a5504c}{curs\+\_\+\+Total}~8				/$\ast$ maybe 'acur' would be better $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_ab189566ea47e5f6deab042800a58a636}{cursor\+Offset}~128				/$\ast$ Get\+Cursor(cursor\+Offset + i) $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_af57c2379a8e6b803960d53b2dfd3eeb0}{about\+Buf\+Size}~80				/$\ast$ i.\+e. 2 lines of 320 \hyperlink{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{pixels} $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_a79395dd1c4a47fa07561b062c8316e93}{nm\+Buf\+Size}~(32 + \hyperlink{mrecover_8c_af57c2379a8e6b803960d53b2dfd3eeb0}{about\+Buf\+Size} + 32)
+\item 
+\#define \hyperlink{mrecover_8c_a788f602d00834ad8909e3571da8c0beb}{nm\+Pending}~nm\+Ref\+Con			/$\ast$ \&in.\+Notify $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_a33e2c73102497b4706fced050713a2a8}{icon\+Notify\+I\+D}~128
+\item 
+\#define \hyperlink{mrecover_8c_ad02ae90a51b982261581fa3c0d24780a}{ics\+\_\+1\+\_\+and\+\_\+4}~0x00000300
+\item 
+\#define \hyperlink{mrecover_8c_af05a6d1fc61f4419d52f2bab1f462a6a}{D\+L\+G\+T\+H\+M}~((Dialog\+Ptr) \&\hyperlink{mrecover_8c_a870c38f3d27dd002cd155a27f1583d79}{dlg\+Thermo})
+\item 
+\#define \hyperlink{mrecover_8c_a64d1a9a7d750598f5b809fec65c2f34a}{W\+N\+D\+T\+H\+M}~((Window\+Ptr) \&\hyperlink{mrecover_8c_a870c38f3d27dd002cd155a27f1583d79}{dlg\+Thermo})
+\item 
+\#define \hyperlink{mrecover_8c_a02fc5b66ba696d122fbd6a5669e4f436}{G\+R\+F\+T\+H\+M}~((Graf\+Ptr) \&\hyperlink{mrecover_8c_a870c38f3d27dd002cd155a27f1583d79}{dlg\+Thermo})
+\item 
+\#define \hyperlink{mrecover_8c_a2cfae717427914fcfeebac0ae1dec019}{M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T}~256
+\item 
+\#define \hyperlink{mrecover_8c_aa05cdb346f9521cd98885fd6ec5984d5}{A\+P\+P\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D}~(-\/16396)	/$\ast$ macfile.\+h $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_a8e12e738f24334cdde1ede34d8480712}{P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D}~1001		/$\ast$ macfile.\+h $\ast$/
+\item 
+\#define \hyperlink{mrecover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{S\+A\+V\+E\+S\+I\+Z\+E}~\hyperlink{wceconf_8h_a8de29f7c8bbf1a81cc6e71ac602032d3}{F\+I\+L\+E\+N\+A\+M\+E}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structmemBytes}{mem\+Bytes} \hyperlink{mrecover_8c_a23b11bc6aa1db2475a7b084cf20558e9}{mem\+Bytes}
+\item 
+typedef struct \hyperlink{structmemBytes}{mem\+Bytes} $\ast$ \hyperlink{mrecover_8c_ae05db559c1285c3c1e2a7f0b0b876c9c}{mem\+Bytes\+Ptr}
+\item 
+typedef struct \hyperlink{structmemBytes}{mem\+Bytes} $\ast$$\ast$ \hyperlink{mrecover_8c_ab5ef0a17ce79f2457d47057f6b0d49d9}{mem\+Bytes\+Handle}
+\item 
+typedef struct \hyperlink{structnotifRec}{notif\+Rec} \hyperlink{mrecover_8c_a391cf6db5d250dbc015618521cb85f3c}{notif\+Rec}
+\item 
+typedef struct \hyperlink{structnotifRec}{notif\+Rec} $\ast$ \hyperlink{mrecover_8c_add2aabe2bf4ae91c6af52025cada0d7c}{notif\+Ptr}
+\item 
+typedef struct \hyperlink{structmodeFlags}{mode\+Flags} \hyperlink{mrecover_8c_a68b1b93da97b67a2a4f7a3629b3e53a6}{mode\+Flags}
+\item 
+typedef struct \hyperlink{structversXRec}{vers\+X\+Rec} \hyperlink{mrecover_8c_a72adab495a9390c76f804ef57c0243a3}{vers\+X\+Rec}
+\item 
+typedef struct \hyperlink{structversXRec}{vers\+X\+Rec} $\ast$ \hyperlink{mrecover_8c_a246f3cdc710237693ac3da6659d88cf6}{vers\+X\+Ptr}
+\item 
+typedef struct \hyperlink{structversXRec}{vers\+X\+Rec} $\ast$$\ast$ \hyperlink{mrecover_8c_a8f1675afd1ee3738a649f4778198b3d6}{vers\+X\+Handle}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a7959d429d07fc8996021ffa4963bd300}{mbar\+\_\+\+Init} = -\/1, 
+\hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13aa64df6bd32b63eae579c022a527db569}{mbar\+Appl}, 
+\hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a55145abce17c6fbc9df7c351cc724d9a}{mbar\+Recover}, 
+\hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a8bbb453817cc35c26bb4cb5640d900e3}{mbar\+D\+A}
+ \}
+\item 
+enum \{ \\*
+\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4af638c9135c08bbb4fd140c25587cadca}{menu\+Apple}, 
+\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menu\+File}, 
+\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a73a15e90b1f803bdab06a2b5ba2882f4}{menu\+Edit}, 
+\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ab1af3fc70fac47cf756c04dcf48804ec}{menu\+\_\+\+Total}, 
+\\*
+\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a5cf4acbcbb629f793d3b9a736a3e0d3c}{muid\+Apple} = 128, 
+\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ac3de3f62908bfb69a68578329edd8582}{muid\+File}, 
+\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ae4e5111e31ca9e3fdd8fe29493dfac22}{muid\+Edit}
+ \}
+\item 
+enum \{ \\*
+\hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a18ebe3d39289fa0ae48d5c763f219b5a}{mitm\+About} = 1, 
+\hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ad12f0e5d649567bc59713dd801bfa441}{mitm\+Help}, 
+\hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a3f268a6db979c3f75bd51277a899f4e6}{\+\_\+\+\_\+\+\_\+\+\_\+128\+\_\+1}, 
+\hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitm\+Open} = 1, 
+\\*
+\hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a90f3c77cc1e19c62351e2d384ab3f15f}{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+1}, 
+\hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ac7caf46b291cf6b52085485d4fd9513b}{mitm\+Close\+\_\+\+D\+A}, 
+\hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a1a701329bbbd0a3e1c2034809b4b4f1b}{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+2}, 
+\hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a5a9b8c30473a73d9dbb7c9222a9e065c}{mitm\+Quit}
+ \}
+\item 
+enum \{ \\*
+\hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18a81da61bbf4ef3f282b64e77d82da587f}{alrt\+Note}, 
+\hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18a370ba696301f75d65f7d0b85dc20ce88}{alrt\+Help}, 
+\hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18adc20aeca6614fae4d0c4d8d34598b21f}{alrt\+\_\+\+Total}, 
+\hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ac4de57cb791cc7c7249bc3dd5cae5e9f}{alert\+Apple\+Menu} = 127, 
+\\*
+\hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alid\+Note}, 
+\hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18af4011b8b85ca0f62572d052b8200c54f}{alid\+Help}
+ \}
+\item 
+enum \{ \hyperlink{mrecover_8c_a7ff5f2dff38e7639981794c43dc9167ba0a2fe8d652f7650a184c0cb57b114c0e}{dlog\+Progress} = 256
+ \}
+\item 
+enum \{ \hyperlink{mrecover_8c_aabfcbcb5ac86a1edac4035264bc7d2b8aeb810e2581176d1411867e1c72dcb0f2}{uitm\+Thermo} = 1
+ \}
+\item 
+enum \{ \hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fac6488cee8a277ad2926c5ba181f740dc}{init\+Item}, 
+\hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa6f6fec02a50d6e0240aa0ae35732e5ba}{inval\+Item}, 
+\hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa65a84553d43d6a6b6762f410d4bfd392}{draw\+Item}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{mrecover_8c_ae4acf0db0deaf7173e16a220f1d431a0}{warmup} (void)
+\item 
+static Handle \hyperlink{mrecover_8c_a1b7e3665417a9fd2e6715f654e4e8ee2}{align\+Template} (Res\+Type, short, short, short, Point $\ast$)
+\item 
+pascal void \hyperlink{mrecover_8c_a834c9fbeb662f99738d777bdf7a6ea8e}{nm\+Completion} (N\+M\+Rec $\ast$)
+\item 
+static void \hyperlink{mrecover_8c_aa4f2f87a1c1919951480df05628daec8}{note\+Error\+Message} (unsigned char $\ast$, unsigned char $\ast$)
+\item 
+static void \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note} (short, short, unsigned char $\ast$)
+\item 
+static void \hyperlink{mrecover_8c_a8bfbf0cd175d8cce0a3e34220fba749a}{adjust\+G\+U\+I} (void)
+\item 
+static void \hyperlink{mrecover_8c_a252f4f4592c57a1f92bf9472e8e04e4c}{adjust\+Memory} (void)
+\item 
+static void \hyperlink{mrecover_8c_a10d1ba9cabbc4c16c6e9354495af6fe8}{option\+Mem\+Stats} (void)
+\item 
+static void \hyperlink{mrecover_8c_a3c41f4550779fa2b63721f262f1f2a73}{Recover\+Menu\+Event} (long)
+\item 
+static void \hyperlink{mrecover_8c_a0779d042b7b94eafb5f4d933a17a354e}{event\+Loop} (void)
+\item 
+static void \hyperlink{mrecover_8c_a850c0a19d2464067bd24fc2c393f4fe8}{cooldown} (void)
+\item 
+pascal void \hyperlink{mrecover_8c_abb714b78dc650ea642fdb25c957b1fd0}{draw\+Thermo} (Window\+Ptr, short)
+\item 
+static void \hyperlink{mrecover_8c_a15d891a4c13b3601ba19ad0ed9e40e11}{itemize\+Thermo} (short)
+\item 
+pascal Boolean \hyperlink{mrecover_8c_a3c25d4ceffe4e6b20e8b795a3ba7f7f2}{basename\+File\+Filter} (Parm\+Blk\+Ptr)
+\item 
+static void \hyperlink{mrecover_8c_abdab3f17ef5b3ef7474097c28d0ca4d2}{begin\+Recover} (void)
+\item 
+static void \hyperlink{mrecover_8c_a90ece25a029c1f668d488e1eb5198bad}{continue\+Recover} (void)
+\item 
+static void \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{end\+Recover} (void)
+\item 
+static short \hyperlink{mrecover_8c_a2dd4b7c9fb0a2ed892fef6be7057b794}{save\+Rez\+Strings} (void)
+\item 
+static void \hyperlink{mrecover_8c_af682099228f11b9a05bc805799cd475a}{set\+\_\+levelfile\+\_\+name} (long)
+\item 
+static short \hyperlink{mrecover_8c_ae7fabcadba2566164d8d8022e23b7e79}{open\+\_\+levelfile} (long)
+\item 
+static short \hyperlink{mrecover_8c_ac28e05ba392bcddb13642a2124b7cbea}{create\+\_\+savefile} (unsigned char $\ast$)
+\item 
+static void \hyperlink{mrecover_8c_a6945ecbd1f55f136c8986cbb00816391}{copy\+\_\+bytes} (short, short)
+\item 
+static void \hyperlink{mrecover_8c_a1914e724e3c315c7a676b088029a6581}{restore\+\_\+savefile} (void)
+\item 
+static long \hyperlink{mrecover_8c_a449fef003f8fd10328f3af994b980955}{read\+\_\+levelfile} (short, Ptr, long)
+\item 
+static long \hyperlink{mrecover_8c_a334e39f3e2e54d4caaf3a8e392c3fb72}{write\+\_\+savefile} (short, Ptr, long)
+\item 
+static void \hyperlink{mrecover_8c_a6c9578cd4cd1f5f364111bb6d592aae0}{close\+\_\+file} (short $\ast$)
+\item 
+static void \hyperlink{mrecover_8c_a0a6f1b59f56fa2d050336c3affaab8db}{unlink\+\_\+file} (unsigned char $\ast$)
+\item 
+\hyperlink{mrecover_8c_a51af30a60f9f02777c6396b8247e356f}{main} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structmodeFlags}{mode\+Flags} \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} = \{1\}
+\item 
+Event\+Record \hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wn\+Evt}
+\item 
+Sys\+Env\+Rec \hyperlink{mrecover_8c_af296504f58673ebca14fb2ec6cc9a120}{sys\+Env}
+\item 
+unsigned char \hyperlink{mrecover_8c_a4eda269ad98a71bb286988cc1a01d14a}{about\+Buf} \mbox{[}\hyperlink{mrecover_8c_af57c2379a8e6b803960d53b2dfd3eeb0}{about\+Buf\+Size}\mbox{]}
+\item 
+\hyperlink{mrecover_8c_ae05db559c1285c3c1e2a7f0b0b876c9c}{mem\+Bytes\+Ptr} \hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{p\+Bytes}
+\item 
+unsigned short \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{mem\+Activity}
+\item 
+Menu\+Handle \hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{m\+Hnd} \mbox{[}\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ab1af3fc70fac47cf756c04dcf48804ec}{menu\+\_\+\+Total}\mbox{]}
+\item 
+Curs\+Ptr \hyperlink{mrecover_8c_ac7e097dbf5abd313aa7e9ecce99dfabc}{c\+Ptr} \mbox{[}\hyperlink{mrecover_8c_a3f97e3dade10e43ec7ed2b2c62a5504c}{curs\+\_\+\+Total}\mbox{]}
+\item 
+unsigned long \hyperlink{mrecover_8c_a163e8f8d01f4a1577bcab17887f30259}{time\+Cursor}
+\item 
+short \hyperlink{mrecover_8c_a6b668716c6cbe31bdfb67a17fd8ec8fd}{old\+Cursor} = \hyperlink{mrecover_8c_a0eeccfee7c5d3c0ea3d168c51c4fc290}{curs\+\_\+\+Init}
+\item 
+\hyperlink{mrecover_8c_add2aabe2bf4ae91c6af52025cada0d7c}{notif\+Ptr} \hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{p\+N\+M\+Q}
+\item 
+\hyperlink{structnotifRec}{notif\+Rec} \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}
+\item 
+Dialog\+T\+Hndl \hyperlink{mrecover_8c_a9aad2bf8a496441578c342b89aafb1e0}{thermo\+T\+Hnd}
+\item 
+Dialog\+Record \hyperlink{mrecover_8c_a870c38f3d27dd002cd155a27f1583d79}{dlg\+Thermo}
+\item 
+Point \hyperlink{mrecover_8c_a88f38d32b55327de55830e14af3ebf57}{sf\+Get\+Where}
+\item 
+Ptr \hyperlink{mrecover_8c_a12f243873367f3e278c63fd3cff6b61b}{p\+I\+O\+Buf}
+\item 
+short \hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{v\+Ref\+Num}
+\item 
+long \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dir\+I\+D}
+\item 
+N\+M\+U\+P\+P \hyperlink{mrecover_8c_acc03e4669b28636ec9a313989c79db2c}{nm\+Completion\+U\+P\+P}
+\item 
+File\+Filter\+U\+P\+P \hyperlink{mrecover_8c_a22174c59bb74c0d8aaec6c9a1d8e147d}{basename\+File\+Filter\+U\+P\+P}
+\item 
+User\+Item\+U\+P\+P \hyperlink{mrecover_8c_a275ad4165795dddc7aec05359ea9d8eb}{draw\+Thermo\+U\+P\+P}
+\item 
+unsigned char \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename} \mbox{[}\hyperlink{recover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{S\+A\+V\+E\+S\+I\+Z\+E}\mbox{]}
+\item 
+unsigned char \hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock} \mbox{[}256\mbox{]}
+\item 
+int \hyperlink{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{hpid}
+\item 
+short \hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{save\+Ref\+Num}
+\item 
+short \hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{game\+Ref\+Num}
+\item 
+short \hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{lev\+Ref\+Num}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{mrecover_8c_af57c2379a8e6b803960d53b2dfd3eeb0}{\index{mrecover.\+c@{mrecover.\+c}!about\+Buf\+Size@{about\+Buf\+Size}}
+\index{about\+Buf\+Size@{about\+Buf\+Size}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{about\+Buf\+Size}]{\setlength{\rightskip}{0pt plus 5cm}\#define about\+Buf\+Size~80				/$\ast$ i.\+e. 2 lines of 320 {\bf pixels} $\ast$/}}\label{mrecover_8c_af57c2379a8e6b803960d53b2dfd3eeb0}
+
+
+Definition at line 143 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_aa05cdb346f9521cd98885fd6ec5984d5}{\index{mrecover.\+c@{mrecover.\+c}!A\+P\+P\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D@{A\+P\+P\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D}}
+\index{A\+P\+P\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D@{A\+P\+P\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{A\+P\+P\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+P\+P\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D~(-\/16396)	/$\ast$ macfile.\+h $\ast$/}}\label{mrecover_8c_aa05cdb346f9521cd98885fd6ec5984d5}
+
+
+Definition at line 225 of file mrecover.\+c.
+
+
+
+Referenced by save\+Rez\+Strings().
+
+\hypertarget{mrecover_8c_a0d0a48b6ec9ded07fa864b5f7565c32e}{\index{mrecover.\+c@{mrecover.\+c}!C\+U\+R\+S\+\_\+\+F\+R\+A\+M\+E@{C\+U\+R\+S\+\_\+\+F\+R\+A\+M\+E}}
+\index{C\+U\+R\+S\+\_\+\+F\+R\+A\+M\+E@{C\+U\+R\+S\+\_\+\+F\+R\+A\+M\+E}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{C\+U\+R\+S\+\_\+\+F\+R\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+U\+R\+S\+\_\+\+F\+R\+A\+M\+E~4\+L				/$\ast$ 1/15 second -\/ spin cursor $\ast$/}}\label{mrecover_8c_a0d0a48b6ec9ded07fa864b5f7565c32e}
+
+
+Definition at line 87 of file mrecover.\+c.
+
+
+
+Referenced by adjust\+G\+U\+I().
+
+\hypertarget{mrecover_8c_a0eeccfee7c5d3c0ea3d168c51c4fc290}{\index{mrecover.\+c@{mrecover.\+c}!curs\+\_\+\+Init@{curs\+\_\+\+Init}}
+\index{curs\+\_\+\+Init@{curs\+\_\+\+Init}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{curs\+\_\+\+Init}]{\setlength{\rightskip}{0pt plus 5cm}\#define curs\+\_\+\+Init~(-\/1)			/$\ast$ token for set arrow $\ast$/}}\label{mrecover_8c_a0eeccfee7c5d3c0ea3d168c51c4fc290}
+
+
+Definition at line 89 of file mrecover.\+c.
+
+
+
+Referenced by adjust\+G\+U\+I(), and end\+Recover().
+
+\hypertarget{mrecover_8c_aa6e22733edc85f87d97514a34d617067}{\index{mrecover.\+c@{mrecover.\+c}!C\+U\+R\+S\+\_\+\+L\+A\+T\+E\+N\+T@{C\+U\+R\+S\+\_\+\+L\+A\+T\+E\+N\+T}}
+\index{C\+U\+R\+S\+\_\+\+L\+A\+T\+E\+N\+T@{C\+U\+R\+S\+\_\+\+L\+A\+T\+E\+N\+T}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{C\+U\+R\+S\+\_\+\+L\+A\+T\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+U\+R\+S\+\_\+\+L\+A\+T\+E\+N\+T~60\+L				/$\ast$ pause before spin cursor $\ast$/}}\label{mrecover_8c_aa6e22733edc85f87d97514a34d617067}
+
+
+Definition at line 88 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover().
+
+\hypertarget{mrecover_8c_a3f97e3dade10e43ec7ed2b2c62a5504c}{\index{mrecover.\+c@{mrecover.\+c}!curs\+\_\+\+Total@{curs\+\_\+\+Total}}
+\index{curs\+\_\+\+Total@{curs\+\_\+\+Total}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{curs\+\_\+\+Total}]{\setlength{\rightskip}{0pt plus 5cm}\#define curs\+\_\+\+Total~8				/$\ast$ maybe 'acur' would be better $\ast$/}}\label{mrecover_8c_a3f97e3dade10e43ec7ed2b2c62a5504c}
+
+
+Definition at line 90 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_ab189566ea47e5f6deab042800a58a636}{\index{mrecover.\+c@{mrecover.\+c}!cursor\+Offset@{cursor\+Offset}}
+\index{cursor\+Offset@{cursor\+Offset}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{cursor\+Offset}]{\setlength{\rightskip}{0pt plus 5cm}\#define cursor\+Offset~128				/$\ast$ Get\+Cursor(cursor\+Offset + i) $\ast$/}}\label{mrecover_8c_ab189566ea47e5f6deab042800a58a636}
+
+
+Definition at line 91 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_af05a6d1fc61f4419d52f2bab1f462a6a}{\index{mrecover.\+c@{mrecover.\+c}!D\+L\+G\+T\+H\+M@{D\+L\+G\+T\+H\+M}}
+\index{D\+L\+G\+T\+H\+M@{D\+L\+G\+T\+H\+M}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{D\+L\+G\+T\+H\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+L\+G\+T\+H\+M~((Dialog\+Ptr) \&{\bf dlg\+Thermo})}}\label{mrecover_8c_af05a6d1fc61f4419d52f2bab1f462a6a}
+
+
+Definition at line 211 of file mrecover.\+c.
+
+
+
+Referenced by end\+Recover(), and itemize\+Thermo().
+
+\hypertarget{mrecover_8c_a02fc5b66ba696d122fbd6a5669e4f436}{\index{mrecover.\+c@{mrecover.\+c}!G\+R\+F\+T\+H\+M@{G\+R\+F\+T\+H\+M}}
+\index{G\+R\+F\+T\+H\+M@{G\+R\+F\+T\+H\+M}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{G\+R\+F\+T\+H\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+R\+F\+T\+H\+M~((Graf\+Ptr) \&{\bf dlg\+Thermo})}}\label{mrecover_8c_a02fc5b66ba696d122fbd6a5669e4f436}
+
+
+Definition at line 213 of file mrecover.\+c.
+
+
+
+Referenced by itemize\+Thermo().
+
+\hypertarget{mrecover_8c_a33e2c73102497b4706fced050713a2a8}{\index{mrecover.\+c@{mrecover.\+c}!icon\+Notify\+I\+D@{icon\+Notify\+I\+D}}
+\index{icon\+Notify\+I\+D@{icon\+Notify\+I\+D}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{icon\+Notify\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define icon\+Notify\+I\+D~128}}\label{mrecover_8c_a33e2c73102497b4706fced050713a2a8}
+
+
+Definition at line 157 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_ad02ae90a51b982261581fa3c0d24780a}{\index{mrecover.\+c@{mrecover.\+c}!ics\+\_\+1\+\_\+and\+\_\+4@{ics\+\_\+1\+\_\+and\+\_\+4}}
+\index{ics\+\_\+1\+\_\+and\+\_\+4@{ics\+\_\+1\+\_\+and\+\_\+4}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{ics\+\_\+1\+\_\+and\+\_\+4}]{\setlength{\rightskip}{0pt plus 5cm}\#define ics\+\_\+1\+\_\+and\+\_\+4~0x00000300}}\label{mrecover_8c_ad02ae90a51b982261581fa3c0d24780a}
+
+
+Definition at line 158 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_a2cfae717427914fcfeebac0ae1dec019}{\index{mrecover.\+c@{mrecover.\+c}!M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T@{M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T}}
+\index{M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T@{M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T~256}}\label{mrecover_8c_a2cfae717427914fcfeebac0ae1dec019}
+
+
+Definition at line 223 of file mrecover.\+c.
+
+
+
+Referenced by continue\+Recover(), and restore\+\_\+savefile().
+
+\hypertarget{mrecover_8c_a6fec12c864e40b05574c151792faa0a3}{\index{mrecover.\+c@{mrecover.\+c}!memb\+I\+D@{memb\+I\+D}}
+\index{memb\+I\+D@{memb\+I\+D}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{memb\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define memb\+I\+D~128				/$\ast$ 'mem\+B' resource I\+D $\ast$/}}\label{mrecover_8c_a6fec12c864e40b05574c151792faa0a3}
+
+
+Definition at line 83 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_a79395dd1c4a47fa07561b062c8316e93}{\index{mrecover.\+c@{mrecover.\+c}!nm\+Buf\+Size@{nm\+Buf\+Size}}
+\index{nm\+Buf\+Size@{nm\+Buf\+Size}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{nm\+Buf\+Size}]{\setlength{\rightskip}{0pt plus 5cm}\#define nm\+Buf\+Size~(32 + {\bf about\+Buf\+Size} + 32)}}\label{mrecover_8c_a79395dd1c4a47fa07561b062c8316e93}
+
+
+Definition at line 147 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_a788f602d00834ad8909e3571da8c0beb}{\index{mrecover.\+c@{mrecover.\+c}!nm\+Pending@{nm\+Pending}}
+\index{nm\+Pending@{nm\+Pending}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{nm\+Pending}]{\setlength{\rightskip}{0pt plus 5cm}\#define nm\+Pending~nm\+Ref\+Con			/$\ast$ \&in.\+Notify $\ast$/}}\label{mrecover_8c_a788f602d00834ad8909e3571da8c0beb}
+
+
+Definition at line 156 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_a8e12e738f24334cdde1ede34d8480712}{\index{mrecover.\+c@{mrecover.\+c}!P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D@{P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D}}
+\index{P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D@{P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D~1001		/$\ast$ macfile.\+h $\ast$/}}\label{mrecover_8c_a8e12e738f24334cdde1ede34d8480712}
+
+
+Definition at line 226 of file mrecover.\+c.
+
+
+
+Referenced by save\+Rez\+Strings().
+
+\hypertarget{mrecover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{\index{mrecover.\+c@{mrecover.\+c}!S\+A\+V\+E\+S\+I\+Z\+E@{S\+A\+V\+E\+S\+I\+Z\+E}}
+\index{S\+A\+V\+E\+S\+I\+Z\+E@{S\+A\+V\+E\+S\+I\+Z\+E}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{S\+A\+V\+E\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+V\+E\+S\+I\+Z\+E~{\bf F\+I\+L\+E\+N\+A\+M\+E}}}\label{mrecover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}
+
+
+Definition at line 229 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_a64d1a9a7d750598f5b809fec65c2f34a}{\index{mrecover.\+c@{mrecover.\+c}!W\+N\+D\+T\+H\+M@{W\+N\+D\+T\+H\+M}}
+\index{W\+N\+D\+T\+H\+M@{W\+N\+D\+T\+H\+M}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{W\+N\+D\+T\+H\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+N\+D\+T\+H\+M~((Window\+Ptr) \&{\bf dlg\+Thermo})}}\label{mrecover_8c_a64d1a9a7d750598f5b809fec65c2f34a}
+
+
+Definition at line 212 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover().
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{mrecover_8c_a23b11bc6aa1db2475a7b084cf20558e9}{\index{mrecover.\+c@{mrecover.\+c}!mem\+Bytes@{mem\+Bytes}}
+\index{mem\+Bytes@{mem\+Bytes}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{mem\+Bytes}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mem\+Bytes}  {\bf mem\+Bytes}}}\label{mrecover_8c_a23b11bc6aa1db2475a7b084cf20558e9}
+\hypertarget{mrecover_8c_ab5ef0a17ce79f2457d47057f6b0d49d9}{\index{mrecover.\+c@{mrecover.\+c}!mem\+Bytes\+Handle@{mem\+Bytes\+Handle}}
+\index{mem\+Bytes\+Handle@{mem\+Bytes\+Handle}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{mem\+Bytes\+Handle}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mem\+Bytes} $\ast$$\ast$ {\bf mem\+Bytes\+Handle}}}\label{mrecover_8c_ab5ef0a17ce79f2457d47057f6b0d49d9}
+\hypertarget{mrecover_8c_ae05db559c1285c3c1e2a7f0b0b876c9c}{\index{mrecover.\+c@{mrecover.\+c}!mem\+Bytes\+Ptr@{mem\+Bytes\+Ptr}}
+\index{mem\+Bytes\+Ptr@{mem\+Bytes\+Ptr}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{mem\+Bytes\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mem\+Bytes} $\ast$ {\bf mem\+Bytes\+Ptr}}}\label{mrecover_8c_ae05db559c1285c3c1e2a7f0b0b876c9c}
+\hypertarget{mrecover_8c_a68b1b93da97b67a2a4f7a3629b3e53a6}{\index{mrecover.\+c@{mrecover.\+c}!mode\+Flags@{mode\+Flags}}
+\index{mode\+Flags@{mode\+Flags}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{mode\+Flags}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mode\+Flags}  {\bf mode\+Flags}}}\label{mrecover_8c_a68b1b93da97b67a2a4f7a3629b3e53a6}
+\hypertarget{mrecover_8c_add2aabe2bf4ae91c6af52025cada0d7c}{\index{mrecover.\+c@{mrecover.\+c}!notif\+Ptr@{notif\+Ptr}}
+\index{notif\+Ptr@{notif\+Ptr}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{notif\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf notif\+Rec} $\ast$ {\bf notif\+Ptr}}}\label{mrecover_8c_add2aabe2bf4ae91c6af52025cada0d7c}
+\hypertarget{mrecover_8c_a391cf6db5d250dbc015618521cb85f3c}{\index{mrecover.\+c@{mrecover.\+c}!notif\+Rec@{notif\+Rec}}
+\index{notif\+Rec@{notif\+Rec}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{notif\+Rec}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf notif\+Rec}  {\bf notif\+Rec}}}\label{mrecover_8c_a391cf6db5d250dbc015618521cb85f3c}
+\hypertarget{mrecover_8c_a8f1675afd1ee3738a649f4778198b3d6}{\index{mrecover.\+c@{mrecover.\+c}!vers\+X\+Handle@{vers\+X\+Handle}}
+\index{vers\+X\+Handle@{vers\+X\+Handle}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{vers\+X\+Handle}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf vers\+X\+Rec} $\ast$$\ast$ {\bf vers\+X\+Handle}}}\label{mrecover_8c_a8f1675afd1ee3738a649f4778198b3d6}
+\hypertarget{mrecover_8c_a246f3cdc710237693ac3da6659d88cf6}{\index{mrecover.\+c@{mrecover.\+c}!vers\+X\+Ptr@{vers\+X\+Ptr}}
+\index{vers\+X\+Ptr@{vers\+X\+Ptr}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{vers\+X\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf vers\+X\+Rec} $\ast$ {\bf vers\+X\+Ptr}}}\label{mrecover_8c_a246f3cdc710237693ac3da6659d88cf6}
+\hypertarget{mrecover_8c_a72adab495a9390c76f804ef57c0243a3}{\index{mrecover.\+c@{mrecover.\+c}!vers\+X\+Rec@{vers\+X\+Rec}}
+\index{vers\+X\+Rec@{vers\+X\+Rec}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{vers\+X\+Rec}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf vers\+X\+Rec}  {\bf vers\+X\+Rec}}}\label{mrecover_8c_a72adab495a9390c76f804ef57c0243a3}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{mrecover_8c_a39fca1837c5ce7715cbf571669660c13}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{mrecover_8c_a39fca1837c5ce7715cbf571669660c13}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{mbar\+\_\+\+Init@{mbar\+\_\+\+Init}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mbar\+\_\+\+Init@{mbar\+\_\+\+Init}}\item[{\em 
+\hypertarget{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a7959d429d07fc8996021ffa4963bd300}{mbar\+\_\+\+Init}\label{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a7959d429d07fc8996021ffa4963bd300}
+}]\index{mbar\+Appl@{mbar\+Appl}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mbar\+Appl@{mbar\+Appl}}\item[{\em 
+\hypertarget{mrecover_8c_a39fca1837c5ce7715cbf571669660c13aa64df6bd32b63eae579c022a527db569}{mbar\+Appl}\label{mrecover_8c_a39fca1837c5ce7715cbf571669660c13aa64df6bd32b63eae579c022a527db569}
+}]\index{mbar\+Recover@{mbar\+Recover}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mbar\+Recover@{mbar\+Recover}}\item[{\em 
+\hypertarget{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a55145abce17c6fbc9df7c351cc724d9a}{mbar\+Recover}\label{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a55145abce17c6fbc9df7c351cc724d9a}
+}]\index{mbar\+D\+A@{mbar\+D\+A}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mbar\+D\+A@{mbar\+D\+A}}\item[{\em 
+\hypertarget{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a8bbb453817cc35c26bb4cb5640d900e3}{mbar\+D\+A}\label{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a8bbb453817cc35c26bb4cb5640d900e3}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 95 of file mrecover.\+c.
+
+
+\begin{DoxyCode}
+96 \{
+97     \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a7959d429d07fc8996021ffa4963bd300}{mbar\_Init} = -1,
+98     \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13aa64df6bd32b63eae579c022a527db569}{mbarAppl},                           \textcolor{comment}{/* normal mode */}
+99     \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a55145abce17c6fbc9df7c351cc724d9a}{mbarRecover},                     \textcolor{comment}{/* in recovery mode */}
+100     \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a8bbb453817cc35c26bb4cb5640d900e3}{mbarDA}                                \textcolor{comment}{/* DA in front mode */}
+101 \};
+\end{DoxyCode}
+\hypertarget{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{menu\+Apple@{menu\+Apple}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!menu\+Apple@{menu\+Apple}}\item[{\em 
+\hypertarget{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4af638c9135c08bbb4fd140c25587cadca}{menu\+Apple}\label{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4af638c9135c08bbb4fd140c25587cadca}
+}]\index{menu\+File@{menu\+File}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!menu\+File@{menu\+File}}\item[{\em 
+\hypertarget{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menu\+File}\label{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}
+}]\index{menu\+Edit@{menu\+Edit}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!menu\+Edit@{menu\+Edit}}\item[{\em 
+\hypertarget{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a73a15e90b1f803bdab06a2b5ba2882f4}{menu\+Edit}\label{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a73a15e90b1f803bdab06a2b5ba2882f4}
+}]\index{menu\+\_\+\+Total@{menu\+\_\+\+Total}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!menu\+\_\+\+Total@{menu\+\_\+\+Total}}\item[{\em 
+\hypertarget{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ab1af3fc70fac47cf756c04dcf48804ec}{menu\+\_\+\+Total}\label{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ab1af3fc70fac47cf756c04dcf48804ec}
+}]\index{muid\+Apple@{muid\+Apple}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!muid\+Apple@{muid\+Apple}}\item[{\em 
+\hypertarget{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a5cf4acbcbb629f793d3b9a736a3e0d3c}{muid\+Apple}\label{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a5cf4acbcbb629f793d3b9a736a3e0d3c}
+}]\index{muid\+File@{muid\+File}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!muid\+File@{muid\+File}}\item[{\em 
+\hypertarget{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ac3de3f62908bfb69a68578329edd8582}{muid\+File}\label{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ac3de3f62908bfb69a68578329edd8582}
+}]\index{muid\+Edit@{muid\+Edit}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!muid\+Edit@{muid\+Edit}}\item[{\em 
+\hypertarget{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ae4e5111e31ca9e3fdd8fe29493dfac22}{muid\+Edit}\label{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ae4e5111e31ca9e3fdd8fe29493dfac22}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 102 of file mrecover.\+c.
+
+
+\begin{DoxyCode}
+103 \{
+104     \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4af638c9135c08bbb4fd140c25587cadca}{menuApple},
+105     \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile},
+106     \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a73a15e90b1f803bdab06a2b5ba2882f4}{menuEdit},
+107     \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ab1af3fc70fac47cf756c04dcf48804ec}{menu\_Total},
+108 
+109     \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a5cf4acbcbb629f793d3b9a736a3e0d3c}{muidApple} = 128,
+110     \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ac3de3f62908bfb69a68578329edd8582}{muidFile},
+111     \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ae4e5111e31ca9e3fdd8fe29493dfac22}{muidEdit}
+112 \};
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{mitm\+About@{mitm\+About}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mitm\+About@{mitm\+About}}\item[{\em 
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a18ebe3d39289fa0ae48d5c763f219b5a}{mitm\+About}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a18ebe3d39289fa0ae48d5c763f219b5a}
+}]\index{mitm\+Help@{mitm\+Help}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mitm\+Help@{mitm\+Help}}\item[{\em 
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ad12f0e5d649567bc59713dd801bfa441}{mitm\+Help}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ad12f0e5d649567bc59713dd801bfa441}
+}]\index{\+\_\+\+\_\+\+\_\+\+\_\+128\+\_\+1@{\+\_\+\+\_\+\+\_\+\+\_\+128\+\_\+1}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!\+\_\+\+\_\+\+\_\+\+\_\+128\+\_\+1@{\+\_\+\+\_\+\+\_\+\+\_\+128\+\_\+1}}\item[{\em 
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a3f268a6db979c3f75bd51277a899f4e6}{\+\_\+\+\_\+\+\_\+\+\_\+128\+\_\+1}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a3f268a6db979c3f75bd51277a899f4e6}
+}]\index{mitm\+Open@{mitm\+Open}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mitm\+Open@{mitm\+Open}}\item[{\em 
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitm\+Open}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}
+}]\index{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+1@{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+1}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+1@{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+1}}\item[{\em 
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a90f3c77cc1e19c62351e2d384ab3f15f}{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+1}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a90f3c77cc1e19c62351e2d384ab3f15f}
+}]\index{mitm\+Close\+\_\+\+D\+A@{mitm\+Close\+\_\+\+D\+A}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mitm\+Close\+\_\+\+D\+A@{mitm\+Close\+\_\+\+D\+A}}\item[{\em 
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ac7caf46b291cf6b52085485d4fd9513b}{mitm\+Close\+\_\+\+D\+A}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ac7caf46b291cf6b52085485d4fd9513b}
+}]\index{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+2@{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+2}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+2@{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+2}}\item[{\em 
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a1a701329bbbd0a3e1c2034809b4b4f1b}{\+\_\+\+\_\+\+\_\+\+\_\+129\+\_\+2}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a1a701329bbbd0a3e1c2034809b4b4f1b}
+}]\index{mitm\+Quit@{mitm\+Quit}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!mitm\+Quit@{mitm\+Quit}}\item[{\em 
+\hypertarget{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a5a9b8c30473a73d9dbb7c9222a9e065c}{mitm\+Quit}\label{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a5a9b8c30473a73d9dbb7c9222a9e065c}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 113 of file mrecover.\+c.
+
+
+\begin{DoxyCode}
+114 \{
+115     \textcolor{comment}{/* Apple menu */}
+116     \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a18ebe3d39289fa0ae48d5c763f219b5a}{mitmAbout} = 1,
+117     \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ad12f0e5d649567bc59713dd801bfa441}{mitmHelp},
+118     \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a3f268a6db979c3f75bd51277a899f4e6}{\_\_\_\_128\_1},
+119 
+120     \textcolor{comment}{/* File menu */}
+121     \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitmOpen} = 1,
+122     \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a90f3c77cc1e19c62351e2d384ab3f15f}{\_\_\_\_129\_1},
+123     \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ac7caf46b291cf6b52085485d4fd9513b}{mitmClose\_DA},
+124     \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a1a701329bbbd0a3e1c2034809b4b4f1b}{\_\_\_\_129\_2},
+125     \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a5a9b8c30473a73d9dbb7c9222a9e065c}{mitmQuit}
+126 
+127     \textcolor{comment}{/* standard minimum required Edit menu */}
+128 \};
+\end{DoxyCode}
+\hypertarget{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{alrt\+Note@{alrt\+Note}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!alrt\+Note@{alrt\+Note}}\item[{\em 
+\hypertarget{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18a81da61bbf4ef3f282b64e77d82da587f}{alrt\+Note}\label{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18a81da61bbf4ef3f282b64e77d82da587f}
+}]\index{alrt\+Help@{alrt\+Help}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!alrt\+Help@{alrt\+Help}}\item[{\em 
+\hypertarget{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18a370ba696301f75d65f7d0b85dc20ce88}{alrt\+Help}\label{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18a370ba696301f75d65f7d0b85dc20ce88}
+}]\index{alrt\+\_\+\+Total@{alrt\+\_\+\+Total}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!alrt\+\_\+\+Total@{alrt\+\_\+\+Total}}\item[{\em 
+\hypertarget{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18adc20aeca6614fae4d0c4d8d34598b21f}{alrt\+\_\+\+Total}\label{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18adc20aeca6614fae4d0c4d8d34598b21f}
+}]\index{alert\+Apple\+Menu@{alert\+Apple\+Menu}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!alert\+Apple\+Menu@{alert\+Apple\+Menu}}\item[{\em 
+\hypertarget{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ac4de57cb791cc7c7249bc3dd5cae5e9f}{alert\+Apple\+Menu}\label{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ac4de57cb791cc7c7249bc3dd5cae5e9f}
+}]\index{alid\+Note@{alid\+Note}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!alid\+Note@{alid\+Note}}\item[{\em 
+\hypertarget{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alid\+Note}\label{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}
+}]\index{alid\+Help@{alid\+Help}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!alid\+Help@{alid\+Help}}\item[{\em 
+\hypertarget{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18af4011b8b85ca0f62572d052b8200c54f}{alid\+Help}\label{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18af4011b8b85ca0f62572d052b8200c54f}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 132 of file mrecover.\+c.
+
+
+\begin{DoxyCode}
+133 \{
+134     \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18a81da61bbf4ef3f282b64e77d82da587f}{alrtNote},                           \textcolor{comment}{/* general messages */}
+135     \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18a370ba696301f75d65f7d0b85dc20ce88}{alrtHelp},                           \textcolor{comment}{/* help message */}
+136     \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18adc20aeca6614fae4d0c4d8d34598b21f}{alrt\_Total},
+137 
+138     \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ac4de57cb791cc7c7249bc3dd5cae5e9f}{alertAppleMenu} = 127,             \textcolor{comment}{/* menuItem to alert ID offset */}
+139     \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote},
+140     \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18af4011b8b85ca0f62572d052b8200c54f}{alidHelp}
+141 \};
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a7ff5f2dff38e7639981794c43dc9167b}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{mrecover_8c_a7ff5f2dff38e7639981794c43dc9167b}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{dlog\+Progress@{dlog\+Progress}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!dlog\+Progress@{dlog\+Progress}}\item[{\em 
+\hypertarget{mrecover_8c_a7ff5f2dff38e7639981794c43dc9167ba0a2fe8d652f7650a184c0cb57b114c0e}{dlog\+Progress}\label{mrecover_8c_a7ff5f2dff38e7639981794c43dc9167ba0a2fe8d652f7650a184c0cb57b114c0e}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 161 of file mrecover.\+c.
+
+
+\begin{DoxyCode}
+162 \{
+163     \hyperlink{mrecover_8c_a7ff5f2dff38e7639981794c43dc9167ba0a2fe8d652f7650a184c0cb57b114c0e}{dlogProgress} = 256
+164 \};
+\end{DoxyCode}
+\hypertarget{mrecover_8c_aabfcbcb5ac86a1edac4035264bc7d2b8}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{mrecover_8c_aabfcbcb5ac86a1edac4035264bc7d2b8}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{uitm\+Thermo@{uitm\+Thermo}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!uitm\+Thermo@{uitm\+Thermo}}\item[{\em 
+\hypertarget{mrecover_8c_aabfcbcb5ac86a1edac4035264bc7d2b8aeb810e2581176d1411867e1c72dcb0f2}{uitm\+Thermo}\label{mrecover_8c_aabfcbcb5ac86a1edac4035264bc7d2b8aeb810e2581176d1411867e1c72dcb0f2}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 165 of file mrecover.\+c.
+
+
+\begin{DoxyCode}
+166 \{
+167     \hyperlink{mrecover_8c_aabfcbcb5ac86a1edac4035264bc7d2b8aeb810e2581176d1411867e1c72dcb0f2}{uitmThermo} = 1
+168 \};
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181f}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181f}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{init\+Item@{init\+Item}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!init\+Item@{init\+Item}}\item[{\em 
+\hypertarget{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fac6488cee8a277ad2926c5ba181f740dc}{init\+Item}\label{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fac6488cee8a277ad2926c5ba181f740dc}
+}]\index{inval\+Item@{inval\+Item}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!inval\+Item@{inval\+Item}}\item[{\em 
+\hypertarget{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa6f6fec02a50d6e0240aa0ae35732e5ba}{inval\+Item}\label{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa6f6fec02a50d6e0240aa0ae35732e5ba}
+}]\index{draw\+Item@{draw\+Item}!mrecover.\+c@{mrecover.\+c}}\index{mrecover.\+c@{mrecover.\+c}!draw\+Item@{draw\+Item}}\item[{\em 
+\hypertarget{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa65a84553d43d6a6b6762f410d4bfd392}{draw\+Item}\label{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa65a84553d43d6a6b6762f410d4bfd392}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 169 of file mrecover.\+c.
+
+
+\begin{DoxyCode}
+170 \{
+171     \hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fac6488cee8a277ad2926c5ba181f740dc}{initItem},
+172     \hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa6f6fec02a50d6e0240aa0ae35732e5ba}{invalItem},
+173     \hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa65a84553d43d6a6b6762f410d4bfd392}{drawItem}
+174 \};
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\hypertarget{mrecover_8c_a8bfbf0cd175d8cce0a3e34220fba749a}{\index{mrecover.\+c@{mrecover.\+c}!adjust\+G\+U\+I@{adjust\+G\+U\+I}}
+\index{adjust\+G\+U\+I@{adjust\+G\+U\+I}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{adjust\+G\+U\+I}]{\setlength{\rightskip}{0pt plus 5cm}static void adjust\+G\+U\+I (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a8bfbf0cd175d8cce0a3e34220fba749a}
+
+
+Definition at line 591 of file mrecover.\+c.
+
+
+
+References c\+Ptr, C\+U\+R\+S\+\_\+\+F\+R\+A\+M\+E, curs\+\_\+\+Init, mbar\+\_\+\+Init, mbar\+Appl, mbar\+D\+A, mbar\+Recover, menu\+Edit, menu\+File, m\+Hnd, mitm\+Close\+\_\+\+D\+A, mitm\+Open, old\+Cursor, mode\+Flags\+::\+Recover, and time\+Cursor.
+
+
+
+Referenced by event\+Loop().
+
+
+\begin{DoxyCode}
+592 \{
+593     \textcolor{keyword}{static} \textcolor{keywordtype}{short}    oldMenubar = \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a7959d429d07fc8996021ffa4963bd300}{mbar\_Init};    \textcolor{comment}{/* force initial update */}
+594     \textcolor{keywordtype}{short}           newMenubar;
+595     WindowPeek      frontWindow;
+596 
+597     \textcolor{comment}{/* oldCursor is external so it can be reset in endRecover() */}
+598     \textcolor{keyword}{static} \textcolor{keywordtype}{short}    newCursor = \hyperlink{mrecover_8c_a0eeccfee7c5d3c0ea3d168c51c4fc290}{curs\_Init};
+599     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long}   timeNow;
+600     \textcolor{keywordtype}{short}           useArrow;
+601 
+602     \textcolor{comment}{/* adjust menubar 1st */}
+603     newMenubar = \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} ? \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a55145abce17c6fbc9df7c351cc724d9a}{mbarRecover} : \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13aa64df6bd32b63eae579c022a527db569}{mbarAppl};
+604 
+605     \textcolor{comment}{/* desk accessories take precedence */}
+606     \textcolor{keywordflow}{if} (frontWindow = (WindowPeek) FrontWindow())
+607         \textcolor{keywordflow}{if} (frontWindow->windowKind < 0)
+608             newMenubar = \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a8bbb453817cc35c26bb4cb5640d900e3}{mbarDA};
+609 
+610     \textcolor{keywordflow}{if} (newMenubar != oldMenubar)
+611     \{
+612         \textcolor{comment}{/* adjust menus */}
+613         \textcolor{keywordflow}{switch} (oldMenubar = newMenubar)
+614         \{
+615         \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13aa64df6bd32b63eae579c022a527db569}{mbarAppl}:
+616             EnableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile}], \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitmOpen});
+617             SetItemMark(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile}], \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitmOpen}, noMark);
+618             DisableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile}], \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ac7caf46b291cf6b52085485d4fd9513b}{mitmClose\_DA});
+619             DisableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a73a15e90b1f803bdab06a2b5ba2882f4}{menuEdit}], 0);
+620             \textcolor{keywordflow}{break};
+621 
+622         \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a55145abce17c6fbc9df7c351cc724d9a}{mbarRecover}:
+623             DisableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile}], \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitmOpen});
+624             SetItemMark(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile}], \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitmOpen}, checkMark);
+625             DisableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile}], \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ac7caf46b291cf6b52085485d4fd9513b}{mitmClose\_DA});
+626             DisableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a73a15e90b1f803bdab06a2b5ba2882f4}{menuEdit}], 0);
+627             \textcolor{keywordflow}{break};
+628 
+629         \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a8bbb453817cc35c26bb4cb5640d900e3}{mbarDA}:
+630             DisableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile}], \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitmOpen});
+631             EnableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menuFile}], \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ac7caf46b291cf6b52085485d4fd9513b}{mitmClose\_DA});
+632             EnableItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a73a15e90b1f803bdab06a2b5ba2882f4}{menuEdit}], 0);
+633             \textcolor{keywordflow}{break};
+634         \}
+635 
+636         DrawMenuBar();
+637     \}
+638 
+639     \textcolor{comment}{/* now adjust the cursor */}
+640     \textcolor{keywordflow}{if} (useArrow = (!\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} || (newMenubar == \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a8bbb453817cc35c26bb4cb5640d900e3}{mbarDA})))
+641         newCursor = \hyperlink{mrecover_8c_a0eeccfee7c5d3c0ea3d168c51c4fc290}{curs\_Init};
+642     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((timeNow = TickCount()) >= \hyperlink{mrecover_8c_a163e8f8d01f4a1577bcab17887f30259}{timeCursor})       \textcolor{comment}{/* spin cursor */}
+643     \{
+644         \hyperlink{mrecover_8c_a163e8f8d01f4a1577bcab17887f30259}{timeCursor} = timeNow + \hyperlink{mrecover_8c_a0d0a48b6ec9ded07fa864b5f7565c32e}{CURS\_FRAME};
+645         \textcolor{keywordflow}{if} (++newCursor >= \hyperlink{mrecover_8c_a3f97e3dade10e43ec7ed2b2c62a5504c}{curs\_Total})
+646             newCursor = 0;
+647     \}
+648 
+649     \textcolor{keywordflow}{if} (newCursor != \hyperlink{mrecover_8c_a6b668716c6cbe31bdfb67a17fd8ec8fd}{oldCursor})
+650     \{
+651         \hyperlink{mrecover_8c_a6b668716c6cbe31bdfb67a17fd8ec8fd}{oldCursor} = newCursor;
+652 
+653         SetCursor(useArrow ? &qd.arrow : \hyperlink{mrecover_8c_ac7e097dbf5abd313aa7e9ecce99dfabc}{cPtr}[newCursor]);
+654     \}
+655 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a252f4f4592c57a1f92bf9472e8e04e4c}{\index{mrecover.\+c@{mrecover.\+c}!adjust\+Memory@{adjust\+Memory}}
+\index{adjust\+Memory@{adjust\+Memory}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{adjust\+Memory}]{\setlength{\rightskip}{0pt plus 5cm}static void adjust\+Memory (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a252f4f4592c57a1f92bf9472e8e04e4c}
+
+
+Definition at line 658 of file mrecover.\+c.
+
+
+
+References alid\+Note, mem\+Activity, mem\+Bytes\+::mem\+Warning, and note().
+
+
+
+Referenced by event\+Loop(), and option\+Mem\+Stats().
+
+
+\begin{DoxyCode}
+659 \{
+660     Size        grow;
+661 
+662     \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity} = 0;
+663 
+664     \textcolor{keywordflow}{if} (MaxMem(&grow) < \hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{pBytes}->\hyperlink{structmemBytes_aa70378a6b78906797c4b1ed499ee9c38}{memWarning})
+665         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pWarning: Memory is running low"});
+666 
+667     (void) ResrvMem((Size) FreeMem());      \textcolor{comment}{/* move all handles high */}
+668 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a1b7e3665417a9fd2e6715f654e4e8ee2}{\index{mrecover.\+c@{mrecover.\+c}!align\+Template@{align\+Template}}
+\index{align\+Template@{align\+Template}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{align\+Template}]{\setlength{\rightskip}{0pt plus 5cm}static Handle align\+Template (
+\begin{DoxyParamCaption}
+\item[{Res\+Type}]{rez\+Type, }
+\item[{short}]{rez\+I\+D, }
+\item[{short}]{v\+Off, }
+\item[{short}]{v\+Denom, }
+\item[{Point $\ast$}]{p\+Pt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a1b7e3665417a9fd2e6715f654e4e8ee2}
+
+
+Definition at line 461 of file mrecover.\+c.
+
+
+
+References note().
+
+
+\begin{DoxyCode}
+462 \{
+463     Handle  rtnHnd;
+464     Rect    *pRct;
+465 
+466     vOff += GetMBarHeight();
+467 
+468     \textcolor{keywordflow}{if} (! (rtnHnd = GetResource(rezType, rezID)))
+469         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(nilHandleErr, 0, \textcolor{stringliteral}{"\(\backslash\)pNil Template Handle"});
+470 
+471     pRct = (Rect *) *rtnHnd;
+472 
+473     \textcolor{comment}{/* don't move memory while aligning rect */}
+474     pRct->right -= pRct->left;      \textcolor{comment}{/* width */}
+475     pRct->bottom -= pRct->top;      \textcolor{comment}{/* height */}
+476     pRct->left = (qd.screenBits.bounds.right - pRct->right) / 2;
+477     pRct->top = (qd.screenBits.bounds.bottom - pRct->bottom - vOff) / vDenom;
+478     pRct->top += vOff;
+479     pRct->right += pRct->left;
+480     pRct->bottom += pRct->top;
+481 
+482     \textcolor{keywordflow}{if} (pPt)
+483         *pPt = * (Point *) pRct;    \textcolor{comment}{/* top left corner */}
+484 
+485     \textcolor{keywordflow}{return} rtnHnd;
+486 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a3c25d4ceffe4e6b20e8b795a3ba7f7f2}{\index{mrecover.\+c@{mrecover.\+c}!basename\+File\+Filter@{basename\+File\+Filter}}
+\index{basename\+File\+Filter@{basename\+File\+Filter}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{basename\+File\+Filter}]{\setlength{\rightskip}{0pt plus 5cm}pascal Boolean basename\+File\+Filter (
+\begin{DoxyParamCaption}
+\item[{Parm\+Blk\+Ptr}]{p\+P\+B}
+\end{DoxyParamCaption}
+)}}\label{mrecover_8c_a3c25d4ceffe4e6b20e8b795a3ba7f7f2}
+
+
+Definition at line 976 of file mrecover.\+c.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+977 \{
+978     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   *pC;
+979 
+980     \textcolor{keywordflow}{if} (! (pC = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *) pPB->fileParam.ioNamePtr))
+981         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+982 
+983     \textcolor{keywordflow}{if} ((*pC < 4) || (*pC > 28))                        \textcolor{comment}{/* save/ 1name .0 */}
+984         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+985 
+986     \textcolor{keywordflow}{if} ((pC[*pC - 1] == \textcolor{charliteral}{'.'}) && (pC[*pC] == \textcolor{charliteral}{'0'}))       \textcolor{comment}{/* bingo! */}
+987         \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+988 
+989     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+990 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_abdab3f17ef5b3ef7474097c28d0ca4d2}{\index{mrecover.\+c@{mrecover.\+c}!begin\+Recover@{begin\+Recover}}
+\index{begin\+Recover@{begin\+Recover}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{begin\+Recover}]{\setlength{\rightskip}{0pt plus 5cm}static void begin\+Recover (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_abdab3f17ef5b3ef7474097c28d0ca4d2}
+
+
+Definition at line 993 of file mrecover.\+c.
+
+
+
+References alid\+Note, basename\+File\+Filter\+U\+P\+P, C\+U\+R\+S\+\_\+\+L\+A\+T\+E\+N\+T, mode\+Flags\+::\+Dialog, dir\+I\+D, dlg\+Thermo, dlog\+Progress, game\+Ref\+Num, init\+Item, itemize\+Thermo(), lev\+Ref\+Num, lock, mem\+Activity, note(), mode\+Flags\+::\+Recover, save\+Ref\+Num, sf\+Get\+Where, time\+Cursor, v\+Ref\+Num, and W\+N\+D\+T\+H\+M.
+
+
+
+Referenced by Recover\+Menu\+Event().
+
+
+\begin{DoxyCode}
+994 \{
+995     SFTypeList      levlType = \{\textcolor{stringliteral}{'LEVL'}\};
+996     SFReply         sfGetReply;
+997 
+998     SFGetFile(\hyperlink{mrecover_8c_a88f38d32b55327de55830e14af3ebf57}{sfGetWhere}, \textcolor{stringliteral}{"\(\backslash\)p"}, \hyperlink{mrecover_8c_a22174c59bb74c0d8aaec6c9a1d8e147d}{basenameFileFilterUPP}, 1, levlType,
+999                 (DlgHookUPP) 0L, &sfGetReply);
+1000 
+1001     \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+1002 
+1003     \textcolor{keywordflow}{if} (! sfGetReply.good)
+1004         \textcolor{keywordflow}{return};
+1005 
+1006     \textcolor{comment}{/* get volume (working directory) refnum, basename, and directory i.d. */}
+1007     \hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum} = sfGetReply.vRefNum;
+1008     BlockMove(sfGetReply.fName, \hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock}, sfGetReply.fName[0] + 1);
+1009     \{
+1010         \textcolor{keyword}{static} CInfoPBRec   catInfo;
+1011 
+1012         catInfo.hFileInfo.ioNamePtr = (StringPtr) sfGetReply.fName;
+1013         catInfo.hFileInfo.ioVRefNum = sfGetReply.vRefNum;
+1014         catInfo.hFileInfo.ioDirID = 0L;
+1015 
+1016         if (PBGetCatInfoSync(&catInfo))
+1017         \{
+1018             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: Bad File Info"});
+1019             \textcolor{keywordflow}{return};
+1020         \}
+1021 
+1022         \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dirID} = catInfo.hFileInfo.ioFlParID;
+1023     \}
+1024 
+1025     \textcolor{comment}{/* open the progress thermometer dialog */}
+1026     (void) GetNewDialog(\hyperlink{mrecover_8c_a7ff5f2dff38e7639981794c43dc9167ba0a2fe8d652f7650a184c0cb57b114c0e}{dlogProgress}, (Ptr) &\hyperlink{mrecover_8c_a870c38f3d27dd002cd155a27f1583d79}{dlgThermo}, (WindowPtr) -1L);
+1027     \textcolor{keywordflow}{if} (ResError() || MemError())
+1028         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pOops: Progress thermometer unavailable"});
+1029     \textcolor{keywordflow}{else}
+1030     \{
+1031         \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a51f269c6bb93216a1d1d61665aa8b7f9}{Dialog} = 1;
+1032         \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+1033 
+1034         \hyperlink{mrecover_8c_a15d891a4c13b3601ba19ad0ed9e40e11}{itemizeThermo}(\hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fac6488cee8a277ad2926c5ba181f740dc}{initItem});
+1035 
+1036         ShowWindow(\hyperlink{mrecover_8c_a64d1a9a7d750598f5b809fec65c2f34a}{WNDTHM});
+1037     \}
+1038 
+1039     \hyperlink{mrecover_8c_a163e8f8d01f4a1577bcab17887f30259}{timeCursor} = TickCount() + \hyperlink{mrecover_8c_aa6e22733edc85f87d97514a34d617067}{CURS\_LATENT};
+1040     \hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum} = \hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum} = \hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum} = -1;
+1041     \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} = 1;
+1042 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a6c9578cd4cd1f5f364111bb6d592aae0}{\index{mrecover.\+c@{mrecover.\+c}!close\+\_\+file@{close\+\_\+file}}
+\index{close\+\_\+file@{close\+\_\+file}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{close\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}static void close\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{short $\ast$}]{p\+F\+Ref\+Num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a6c9578cd4cd1f5f364111bb6d592aae0}
+
+
+Definition at line 1397 of file mrecover.\+c.
+
+
+
+References alid\+Note, end\+Recover(), note(), and v\+Ref\+Num.
+
+
+
+Referenced by restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1398 \{
+1399     \textcolor{keywordflow}{if} (FSClose(*pFRefNum) || FlushVol((StringPtr) 0L, \hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum}))
+1400     \{
+1401         \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1402         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: File Close Error"});
+1403         \textcolor{keywordflow}{return};
+1404     \}
+1405 
+1406     *pFRefNum = -1;
+1407 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a90ece25a029c1f668d488e1eb5198bad}{\index{mrecover.\+c@{mrecover.\+c}!continue\+Recover@{continue\+Recover}}
+\index{continue\+Recover@{continue\+Recover}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{continue\+Recover}]{\setlength{\rightskip}{0pt plus 5cm}static void continue\+Recover (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a90ece25a029c1f668d488e1eb5198bad}
+
+
+Definition at line 1045 of file mrecover.\+c.
+
+
+
+References alid\+Note, mode\+Flags\+::\+Dialog, end\+Recover(), inval\+Item, itemize\+Thermo(), M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T, note(), mode\+Flags\+::\+Recover, restore\+\_\+savefile(), and save\+Rez\+Strings().
+
+
+
+Referenced by event\+Loop().
+
+
+\begin{DoxyCode}
+1046 \{
+1047     \hyperlink{mrecover_8c_a1914e724e3c315c7a676b088029a6581}{restore\_savefile}();
+1048 
+1049     \textcolor{comment}{/* update the thermometer */}
+1050     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a51f269c6bb93216a1d1d61665aa8b7f9}{Dialog} && ! (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} % 4))
+1051         \hyperlink{mrecover_8c_a15d891a4c13b3601ba19ad0ed9e40e11}{itemizeThermo}(\hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa6f6fec02a50d6e0240aa0ae35732e5ba}{invalItem});
+1052 
+1053     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} <= \hyperlink{mrecover_8c_a2cfae717427914fcfeebac0ae1dec019}{MAX\_RECOVER\_COUNT})
+1054         \textcolor{keywordflow}{return};
+1055 
+1056     \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1057 
+1058     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a2dd4b7c9fb0a2ed892fef6be7057b794}{saveRezStrings}())
+1059         \textcolor{keywordflow}{return};
+1060 
+1061     \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pOK: Recovery succeeded"});
+1062 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a850c0a19d2464067bd24fc2c393f4fe8}{\index{mrecover.\+c@{mrecover.\+c}!cooldown@{cooldown}}
+\index{cooldown@{cooldown}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{cooldown}]{\setlength{\rightskip}{0pt plus 5cm}static void cooldown (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a850c0a19d2464067bd24fc2c393f4fe8}
+
+
+Definition at line 910 of file mrecover.\+c.
+
+
+
+References end\+Recover(), mode\+Flags\+::\+Notify, mode\+Flags\+::\+Recover, and wn\+Evt.
+
+
+
+Referenced by main(), note(), and Recover\+Menu\+Event().
+
+
+\begin{DoxyCode}
+911 \{
+912     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+913         \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+914 
+915     \textcolor{comment}{/* wait for pending notifications to complete */}
+916     \textcolor{keywordflow}{while} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a31b8bfcea3aac0deaf5d6bcb7d07c622}{Notify})
+917         (void) WaitNextEvent(0, &\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}, 3L, (RgnHandle) 0L);
+918 
+919     ExitToShell();
+920 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a6945ecbd1f55f136c8986cbb00816391}{\index{mrecover.\+c@{mrecover.\+c}!copy\+\_\+bytes@{copy\+\_\+bytes}}
+\index{copy\+\_\+bytes@{copy\+\_\+bytes}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{copy\+\_\+bytes}]{\setlength{\rightskip}{0pt plus 5cm}static void copy\+\_\+bytes (
+\begin{DoxyParamCaption}
+\item[{short}]{in\+Ref\+Num, }
+\item[{short}]{out\+Ref\+Num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a6945ecbd1f55f136c8986cbb00816391}
+
+
+Definition at line 1236 of file mrecover.\+c.
+
+
+
+References alid\+Note, buf, end\+Recover(), mem\+Bytes\+::mem\+I\+O\+Buf, note(), p\+I\+O\+Buf, read\+\_\+levelfile(), mode\+Flags\+::\+Recover, and write\+\_\+savefile().
+
+
+
+Referenced by restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1237 \{
+1238     \textcolor{keywordtype}{char}    *\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf} = (\textcolor{keywordtype}{char} *) \hyperlink{mrecover_8c_a12f243873367f3e278c63fd3cff6b61b}{pIOBuf};
+1239     \textcolor{keywordtype}{long}    bufSiz = \hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{pBytes}->\hyperlink{structmemBytes_a7ccd8c402ba0f7eef5055a648fe2db80}{memIOBuf};
+1240 
+1241     \textcolor{keywordtype}{long}    nfrom, nto;
+1242 
+1243     \textcolor{keywordflow}{do}
+1244     \{
+1245         nfrom = \hyperlink{mrecover_8c_a449fef003f8fd10328f3af994b980955}{read\_levelfile}(inRefNum, buf, bufSiz);
+1246         \textcolor{keywordflow}{if} (! \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1247             \textcolor{keywordflow}{return};
+1248 
+1249         nto = \hyperlink{mrecover_8c_a334e39f3e2e54d4caaf3a8e392c3fb72}{write\_savefile}(outRefNum, buf, nfrom);
+1250         \textcolor{keywordflow}{if} (! \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1251             \textcolor{keywordflow}{return};
+1252 
+1253         \textcolor{keywordflow}{if} (nto != nfrom)
+1254         \{
+1255             \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1256             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: File Copy Error"});
+1257             \textcolor{keywordflow}{return};
+1258         \}
+1259     \}
+1260     \textcolor{keywordflow}{while} (nfrom == bufSiz);
+1261 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_ac28e05ba392bcddb13642a2124b7cbea}{\index{mrecover.\+c@{mrecover.\+c}!create\+\_\+savefile@{create\+\_\+savefile}}
+\index{create\+\_\+savefile@{create\+\_\+savefile}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{create\+\_\+savefile}]{\setlength{\rightskip}{0pt plus 5cm}static short create\+\_\+savefile (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{savename}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_ac28e05ba392bcddb13642a2124b7cbea}
+
+
+Definition at line 1205 of file mrecover.\+c.
+
+
+
+References alid\+Note, dir\+I\+D, end\+Recover(), note(), savename, and v\+Ref\+Num.
+
+
+
+Referenced by restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1206 \{
+1207     \textcolor{keywordtype}{short}   fRefNum;
+1208 
+1209     \textcolor{comment}{/* translate savename to a pascal string (in place) */}
+1210     \{
+1211         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   *pC;
+1212         \textcolor{keywordtype}{short}           nameLen;
+1213 
+1214         \textcolor{keywordflow}{for} (pC = \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename}; *pC; pC++);
+1215 
+1216         nameLen = pC - \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename};
+1217 
+1218         \textcolor{keywordflow}{for} ( ; pC > \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename}; pC--)
+1219             *pC = *(pC - 1);
+1220 
+1221         *savename = nameLen;
+1222     \}
+1223 
+1224     \textcolor{keywordflow}{if} (HCreate(\hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum}, \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dirID}, savename, MAC\_CREATOR, SAVE\_TYPE)
+1225         || HOpen(\hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum}, \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dirID}, savename, fsRdWrPerm, &fRefNum))
+1226     \{
+1227         \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1228         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: File Create Error"});
+1229         \textcolor{keywordflow}{return} (-1);
+1230     \}
+1231 
+1232     \textcolor{keywordflow}{return} fRefNum;
+1233 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_abb714b78dc650ea642fdb25c957b1fd0}{\index{mrecover.\+c@{mrecover.\+c}!draw\+Thermo@{draw\+Thermo}}
+\index{draw\+Thermo@{draw\+Thermo}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{draw\+Thermo}]{\setlength{\rightskip}{0pt plus 5cm}pascal void draw\+Thermo (
+\begin{DoxyParamCaption}
+\item[{Window\+Ptr}]{w\+Ptr, }
+\item[{short}]{inum}
+\end{DoxyParamCaption}
+)}}\label{mrecover_8c_abb714b78dc650ea642fdb25c957b1fd0}
+
+
+Definition at line 924 of file mrecover.\+c.
+
+
+
+References draw\+Item, and itemize\+Thermo().
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+925 \{
+926     \hyperlink{mrecover_8c_a15d891a4c13b3601ba19ad0ed9e40e11}{itemizeThermo}(\hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa65a84553d43d6a6b6762f410d4bfd392}{drawItem});
+927 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{\index{mrecover.\+c@{mrecover.\+c}!end\+Recover@{end\+Recover}}
+\index{end\+Recover@{end\+Recover}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{end\+Recover}]{\setlength{\rightskip}{0pt plus 5cm}static void end\+Recover (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}
+
+
+Definition at line 1066 of file mrecover.\+c.
+
+
+
+References curs\+\_\+\+Init, mode\+Flags\+::\+Dialog, dir\+I\+D, dlg\+Thermo, D\+L\+G\+T\+H\+M, game\+Ref\+Num, lev\+Ref\+Num, mem\+Activity, old\+Cursor, mode\+Flags\+::\+Recover, savename, save\+Ref\+Num, and v\+Ref\+Num.
+
+
+
+Referenced by close\+\_\+file(), continue\+Recover(), cooldown(), copy\+\_\+bytes(), create\+\_\+savefile(), event\+Loop(), open\+\_\+levelfile(), read\+\_\+levelfile(), restore\+\_\+savefile(), set\+\_\+levelfile\+\_\+name(), unlink\+\_\+file(), and write\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1067 \{
+1068     \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} = 0;
+1069 
+1070     \hyperlink{mrecover_8c_a6b668716c6cbe31bdfb67a17fd8ec8fd}{oldCursor} = \hyperlink{mrecover_8c_a0eeccfee7c5d3c0ea3d168c51c4fc290}{curs\_Init};
+1071     SetCursor(&qd.arrow);
+1072 
+1073     \textcolor{comment}{/* clean up abandoned files */}
+1074     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum} >= 0)
+1075         (void) FSClose(\hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum});
+1076 
+1077     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum} >= 0)
+1078         (void) FSClose(\hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum});
+1079 
+1080     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum} >= 0)
+1081     \{
+1082         (void) FSClose(\hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum});
+1083         (void) FlushVol((StringPtr) 0L, \hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum});
+1084         \textcolor{comment}{/* its corrupted so trash it ... */}
+1085         (void) HDelete(\hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum}, \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dirID}, \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename});
+1086     \}
+1087 
+1088     \hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum} = \hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum} = \hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum} = -1;
+1089 
+1090     \textcolor{comment}{/* close the progress thermometer dialog */}
+1091     \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a51f269c6bb93216a1d1d61665aa8b7f9}{Dialog} = 0;
+1092     CloseDialog(\hyperlink{mrecover_8c_af05a6d1fc61f4419d52f2bab1f462a6a}{DLGTHM});
+1093     DisposHandle(\hyperlink{mrecover_8c_a870c38f3d27dd002cd155a27f1583d79}{dlgThermo}.items);
+1094     \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+1095 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a0779d042b7b94eafb5f4d933a17a354e}{\index{mrecover.\+c@{mrecover.\+c}!event\+Loop@{event\+Loop}}
+\index{event\+Loop@{event\+Loop}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{event\+Loop}]{\setlength{\rightskip}{0pt plus 5cm}static void event\+Loop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a0779d042b7b94eafb5f4d933a17a354e}
+
+
+Definition at line 784 of file mrecover.\+c.
+
+
+
+References adjust\+G\+U\+I(), adjust\+Memory(), alid\+Note, continue\+Recover(), mode\+Flags\+::\+Dialog, end\+Recover(), mode\+Flags\+::\+Front, mem\+Activity, mem\+Bytes\+::mem\+Cleanup, notif\+Rec\+::nm\+Dispose, notif\+Rec\+::nm\+Next, note(), mode\+Flags\+::\+Recover, Recover\+Menu\+Event(), thermo\+T\+Hnd, where, and wn\+Evt.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+785 \{
+786     \textcolor{keywordtype}{short}   wneMask = (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a43940af414f26c79079f93c575b21c09}{Front} ? everyEvent : (osMask + updateMask));
+787     \textcolor{keywordtype}{long}    wneSleep = (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a43940af414f26c79079f93c575b21c09}{Front} ? 0L : 3L);
+788 
+789     \textcolor{keywordflow}{while} (1)
+790     \{
+791         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a43940af414f26c79079f93c575b21c09}{Front})
+792             \hyperlink{mrecover_8c_a8bfbf0cd175d8cce0a3e34220fba749a}{adjustGUI}();
+793 
+794         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity} >= \hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{pBytes}->\hyperlink{structmemBytes_a6e0e480b64c537412f94f0e2e8a734bb}{memCleanup})
+795             \hyperlink{mrecover_8c_a252f4f4592c57a1f92bf9472e8e04e4c}{adjustMemory}();
+796 
+797         (void) WaitNextEvent(wneMask, &\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}, wneSleep, (RgnHandle) 0L);
+798 
+799         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a51f269c6bb93216a1d1d61665aa8b7f9}{Dialog})
+800             (void) IsDialogEvent(&\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt});
+801 
+802         \textcolor{keywordflow}{switch} (\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.what)
+803         \{
+804         \textcolor{keywordflow}{case} osEvt:
+805             \textcolor{keywordflow}{if} (((\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.message & osEvtMessageMask) >> 24) == suspendResumeMessage)
+806             \{
+807                 \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a43940af414f26c79079f93c575b21c09}{Front} = (\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.message & resumeFlag);
+808                 wneMask = (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a43940af414f26c79079f93c575b21c09}{Front} ? everyEvent : (osMask + updateMask));
+809                 wneSleep = (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a43940af414f26c79079f93c575b21c09}{Front} ? 0L : 3L);
+810             \}
+811             \textcolor{keywordflow}{break};
+812 
+813         \textcolor{keywordflow}{case} nullEvent:
+814             \textcolor{comment}{/* adjust the FIFO notification queue */}
+815             \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{pNMQ} && \hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{pNMQ}->\hyperlink{structnotifRec_a002162baa8a9b5cc6e32f457e410d330}{nmDispose})
+816             \{
+817                 \hyperlink{structnotifRec}{notifPtr} pNMX = \hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{pNMQ}->\hyperlink{structnotifRec_ab1cfb88fe48e04f9af34302fed55d087}{nmNext};
+818 
+819                 DisposPtr((Ptr) \hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{pNMQ});
+820                 \hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{pNMQ} = pNMX;
+821 
+822                 \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+823             \}
+824 
+825             \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+826                 \hyperlink{mrecover_8c_a90ece25a029c1f668d488e1eb5198bad}{continueRecover}();
+827             \textcolor{keywordflow}{break};
+828 
+829         \textcolor{keywordflow}{case} mouseDown:
+830             \{
+831                 WindowPtr   whichWindow;
+832                 
+833                 \textcolor{keywordflow}{switch}(FindWindow( \hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt} . \hyperlink{detect_8c_a8201fc0bfa35306851be2a25ab2d6263}{where} , &whichWindow))
+834                 \{
+835                 \textcolor{keywordflow}{case} inMenuBar:
+836                     \hyperlink{mrecover_8c_a3c41f4550779fa2b63721f262f1f2a73}{RecoverMenuEvent}(MenuSelect( \hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt} . where ));
+837                     \textcolor{keywordflow}{break};
+838 
+839                 \textcolor{keywordflow}{case} inSysWindow:
+840                     SystemClick(&\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}, whichWindow);
+841                     \textcolor{keywordflow}{break};
+842 
+843                 \textcolor{keywordflow}{case} inDrag:
+844                     \{
+845                         Rect    boundsRect = qd.screenBits.bounds;
+846                         Point   offsetPt;
+847 
+848                         InsetRect(&boundsRect, 4, 4);
+849                         boundsRect.top += GetMBarHeight();
+850 
+851                         DragWindow(whichWindow, * ((Point *) &\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.where), &boundsRect);
+852 
+853                         boundsRect = whichWindow->portRect;
+854                         offsetPt = * (Point *) &(whichWindow->portBits.bounds);
+855                         OffsetRect(&boundsRect, -offsetPt.h, -offsetPt.v);
+856 
+857                         * (Rect *) *\hyperlink{mrecover_8c_a9aad2bf8a496441578c342b89aafb1e0}{thermoTHnd} = boundsRect;
+858                     \}
+859                     \textcolor{keywordflow}{break};
+860                 \}
+861             \}
+862             \textcolor{keywordflow}{break};
+863 
+864         \textcolor{keywordflow}{case} keyDown:
+865             \{
+866                 \textcolor{keywordtype}{char}    key = (\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.message & charCodeMask);
+867 
+868                 \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.modifiers & cmdKey)
+869                 \{
+870                     \textcolor{keywordflow}{if} (key == \textcolor{charliteral}{'.'})
+871                     \{
+872                         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+873                         \{
+874                             \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+875                             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: Recovery aborted"});
+876                         \}
+877                     \}
+878                     \textcolor{keywordflow}{else}
+879                         \hyperlink{mrecover_8c_a3c41f4550779fa2b63721f262f1f2a73}{RecoverMenuEvent}(MenuKey(key));
+880                 \}
+881             \}
+882             \textcolor{keywordflow}{break};
+883 
+884         \textcolor{comment}{/* without windows these events belong to our thermometer */}
+885         \textcolor{keywordflow}{case} updateEvt:
+886         \textcolor{keywordflow}{case} activateEvt:
+887         \{
+888             DialogPtr   dPtr;
+889             \textcolor{keywordtype}{short}       itemHit;
+890 
+891             (void) DialogSelect(&\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}, &dPtr, &itemHit);
+892         \}
+893 
+894         \textcolor{keywordflow}{case} diskEvt:
+895             \textcolor{keywordflow}{if} (HiWord(\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.message))
+896             \{
+897                 Point   pt = \{60, 60\};
+898 
+899                 (void) DIBadMount(pt, \hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.message);
+900                 DIUnload();
+901 
+902                 \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+903             \}
+904             \textcolor{keywordflow}{break};
+905         \}           \textcolor{comment}{/* switch (wnEvt.what) */}
+906     \}               \textcolor{comment}{/* while (1) */}
+907 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a15d891a4c13b3601ba19ad0ed9e40e11}{\index{mrecover.\+c@{mrecover.\+c}!itemize\+Thermo@{itemize\+Thermo}}
+\index{itemize\+Thermo@{itemize\+Thermo}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{itemize\+Thermo}]{\setlength{\rightskip}{0pt plus 5cm}static void itemize\+Thermo (
+\begin{DoxyParamCaption}
+\item[{short}]{item\+Mode}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a15d891a4c13b3601ba19ad0ed9e40e11}
+
+
+Definition at line 931 of file mrecover.\+c.
+
+
+
+References D\+L\+G\+T\+H\+M, draw\+Item, draw\+Thermo\+U\+P\+P, G\+R\+F\+T\+H\+M, init\+Item, inval\+Item, mode\+Flags\+::\+Recover, and uitm\+Thermo.
+
+
+
+Referenced by begin\+Recover(), continue\+Recover(), and draw\+Thermo().
+
+
+\begin{DoxyCode}
+932 \{
+933     \textcolor{keywordtype}{short}   iTyp, iTmp;
+934     Handle  iHnd;
+935     Rect    iRct;
+936 
+937     GetDItem(\hyperlink{mrecover_8c_af05a6d1fc61f4419d52f2bab1f462a6a}{DLGTHM}, \hyperlink{mrecover_8c_aabfcbcb5ac86a1edac4035264bc7d2b8aeb810e2581176d1411867e1c72dcb0f2}{uitmThermo}, &iTyp, &iHnd, &iRct);
+938 
+939     \textcolor{keywordflow}{switch}(itemMode)
+940     \{
+941     \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fac6488cee8a277ad2926c5ba181f740dc}{initItem}:
+942         SetDItem(\hyperlink{mrecover_8c_af05a6d1fc61f4419d52f2bab1f462a6a}{DLGTHM}, \hyperlink{mrecover_8c_aabfcbcb5ac86a1edac4035264bc7d2b8aeb810e2581176d1411867e1c72dcb0f2}{uitmThermo}, iTyp, (Handle) 
+      \hyperlink{mrecover_8c_a275ad4165795dddc7aec05359ea9d8eb}{drawThermoUPP}, &iRct);
+943         \textcolor{keywordflow}{break};
+944 
+945     \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa6f6fec02a50d6e0240aa0ae35732e5ba}{invalItem}:
+946         \{
+947             GrafPtr oldPort;
+948 
+949             GetPort(&oldPort);
+950             SetPort(\hyperlink{mrecover_8c_a02fc5b66ba696d122fbd6a5669e4f436}{GRFTHM});
+951 
+952             InsetRect(&iRct, 1, 1);
+953             InvalRect(&iRct);
+954 
+955             SetPort(oldPort);
+956         \}
+957         \textcolor{keywordflow}{break};
+958 
+959     \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a5d76b81b0ad4c19007a781d4edb8181fa65a84553d43d6a6b6762f410d4bfd392}{drawItem}:
+960             FrameRect(&iRct);
+961             InsetRect(&iRct, 1, 1);
+962 
+963             iTmp = iRct.right;
+964             iRct.right = iRct.left + \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover};
+965             PaintRect(&iRct);
+966 
+967             iRct.left = iRct.right;
+968             iRct.right = iTmp;
+969             EraseRect(&iRct);
+970         \textcolor{keywordflow}{break};
+971     \}
+972 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a51af30a60f9f02777c6396b8247e356f}{\index{mrecover.\+c@{mrecover.\+c}!main@{main}}
+\index{main@{main}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{mrecover_8c_a51af30a60f9f02777c6396b8247e356f}
+
+
+Definition at line 276 of file mrecover.\+c.
+
+
+
+References alid\+Note, basename\+File\+Filter(), basename\+File\+Filter\+U\+P\+P, cooldown(), draw\+Thermo(), draw\+Thermo\+U\+P\+P, event\+Loop(), nm\+Completion(), nm\+Completion\+U\+P\+P, sys\+Env, and warmup().
+
+
+\begin{DoxyCode}
+277 \{
+278     \textcolor{comment}{/* heap adjust */}
+279     MaxApplZone();
+280     MoreMasters();
+281     MoreMasters();
+282 
+283     \textcolor{comment}{/* manager initialization */}
+284     InitGraf(&qd.thePort);
+285     InitFonts();
+286     InitWindows();
+287     InitMenus();
+288     TEInit();
+289     InitDialogs(0L);
+290     InitCursor();
+291     \hyperlink{mrecover_8c_acc03e4669b28636ec9a313989c79db2c}{nmCompletionUPP} = NewNMProc(\hyperlink{mrecover_8c_a834c9fbeb662f99738d777bdf7a6ea8e}{nmCompletion});
+292     \hyperlink{mrecover_8c_a22174c59bb74c0d8aaec6c9a1d8e147d}{basenameFileFilterUPP} = NewFileFilterProc(
+      \hyperlink{mrecover_8c_a3c25d4ceffe4e6b20e8b795a3ba7f7f2}{basenameFileFilter});
+293     \hyperlink{mrecover_8c_a275ad4165795dddc7aec05359ea9d8eb}{drawThermoUPP} = NewUserItemProc(\hyperlink{mrecover_8c_abb714b78dc650ea642fdb25c957b1fd0}{drawThermo});
+294 
+295     \textcolor{comment}{/* get system environment, notification requires 6.0 or better */}
+296     (void) SysEnvirons(curSysEnvVers, &\hyperlink{mrecover_8c_af296504f58673ebca14fb2ec6cc9a120}{sysEnv});
+297     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_af296504f58673ebca14fb2ec6cc9a120}{sysEnv}.systemVersion < 0x0600)
+298     \{
+299         ParamText(\textcolor{stringliteral}{"\(\backslash\)pAbort: System 6.0 is required"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"});
+300         (void) Alert(\hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, (ModalFilterUPP) 0L);
+301         ExitToShell();
+302     \}
+303 
+304     \hyperlink{mrecover_8c_ae4acf0db0deaf7173e16a220f1d431a0}{warmup}();
+305     \hyperlink{mrecover_8c_a0779d042b7b94eafb5f4d933a17a354e}{eventLoop}();
+306 
+307     \textcolor{comment}{/* normally these routines are never reached from here */}
+308     \hyperlink{mrecover_8c_a850c0a19d2464067bd24fc2c393f4fe8}{cooldown}();
+309     ExitToShell();
+310     \textcolor{keywordflow}{return} 0;
+311 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a834c9fbeb662f99738d777bdf7a6ea8e}{\index{mrecover.\+c@{mrecover.\+c}!nm\+Completion@{nm\+Completion}}
+\index{nm\+Completion@{nm\+Completion}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{nm\+Completion}]{\setlength{\rightskip}{0pt plus 5cm}pascal void nm\+Completion (
+\begin{DoxyParamCaption}
+\item[{N\+M\+Rec $\ast$}]{p\+N\+M\+R}
+\end{DoxyParamCaption}
+)}}\label{mrecover_8c_a834c9fbeb662f99738d777bdf7a6ea8e}
+
+
+Definition at line 490 of file mrecover.\+c.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+491 \{
+492     (void) NMRemove(pNMR);
+493 
+494     (* (\textcolor{keywordtype}{short} *) (pNMR->nmPending))--;  \textcolor{comment}{/* decrement pending note level */}
+495     ((\hyperlink{mrecover_8c_add2aabe2bf4ae91c6af52025cada0d7c}{notifPtr}) pNMR)->nmDispose = 1;   \textcolor{comment}{/* allow DisposPtr() */}
+496 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{\index{mrecover.\+c@{mrecover.\+c}!note@{note}}
+\index{note@{note}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{note}]{\setlength{\rightskip}{0pt plus 5cm}static void note (
+\begin{DoxyParamCaption}
+\item[{short}]{error\+Signal, }
+\item[{short}]{alert\+I\+D, }
+\item[{unsigned char $\ast$}]{msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}
+
+
+Definition at line 520 of file mrecover.\+c.
+
+
+
+References cooldown(), mode\+Flags\+::\+Front, mem\+Bytes\+::mem\+Abort, mem\+Activity, notif\+Rec\+::nm\+Buf, notif\+Rec\+::nm\+Next, notif\+Rec\+::nmr, nmt, note\+Error\+Message(), and mode\+Flags\+::\+Notify.
+
+
+
+Referenced by adjust\+Memory(), align\+Template(), begin\+Recover(), close\+\_\+file(), continue\+Recover(), copy\+\_\+bytes(), create\+\_\+savefile(), event\+Loop(), note\+Error\+Message(), open\+\_\+levelfile(), option\+Mem\+Stats(), read\+\_\+levelfile(), Recover\+Menu\+Event(), restore\+\_\+savefile(), save\+Rez\+Strings(), set\+\_\+levelfile\+\_\+name(), unlink\+\_\+file(), and write\+\_\+savefile().
+
+
+\begin{DoxyCode}
+521 \{
+522     \textcolor{keywordflow}{if} (! errorSignal)
+523     \{
+524         Size    grow;
+525 
+526         \textcolor{keywordflow}{if} (MaxMem(&grow) < \hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{pBytes}->\hyperlink{structmemBytes_a26d416141eb473e3d8e1088a4547fdde}{memAbort})
+527             \hyperlink{mrecover_8c_aa4f2f87a1c1919951480df05628daec8}{noteErrorMessage}(msg, \textcolor{stringliteral}{"\(\backslash\)pOut of Memory"});
+528     \}
+529 
+530     \textcolor{keywordflow}{if} (errorSignal || !\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a43940af414f26c79079f93c575b21c09}{Front})
+531     \{
+532         \hyperlink{structnotifRec}{notifPtr}    pNMR;
+533         \textcolor{keywordtype}{short}       i = \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[0] + 1;   \textcolor{comment}{/* insertion point */}
+534 
+535         \textcolor{keywordflow}{if} (errorSignal)        \textcolor{comment}{/* use notification template */}
+536         \{
+537             pNMR = &\hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt};
+538 
+539             \textcolor{comment}{/* we're going to abort so add in this prefix */}
+540             BlockMove(\textcolor{stringliteral}{"Abort: "}, &\hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[i], 7);
+541             i += 7;
+542             \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[0] += 7;
+543         \}
+544         \textcolor{keywordflow}{else}                    \textcolor{comment}{/* allocate a notification record */}
+545         \{
+546             \textcolor{keywordflow}{if} (! (pNMR = (\hyperlink{structnotifRec}{notifPtr}) NewPtr(\textcolor{keyword}{sizeof}(\hyperlink{structnotifRec}{notifRec}))))
+547                 \hyperlink{mrecover_8c_aa4f2f87a1c1919951480df05628daec8}{noteErrorMessage}(msg, \textcolor{stringliteral}{"\(\backslash\)pNil New Pointer"});
+548 
+549             \textcolor{comment}{/* initialize it */}
+550             *pNMR = \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt};
+551             pNMR->\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.nmStr = (StringPtr) &(pNMR->\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf});
+552 
+553             \textcolor{comment}{/* update the notification queue */}
+554             \textcolor{keywordflow}{if} (!\hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{pNMQ})
+555                 \hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{pNMQ} = pNMR;
+556             \textcolor{keywordflow}{else}
+557             \{
+558                 \hyperlink{structnotifRec}{notifPtr}    pNMX;
+559 
+560                 \textcolor{comment}{/* find the end of the queue */}
+561                 \textcolor{keywordflow}{for} (pNMX = \hyperlink{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{pNMQ}; pNMX->\hyperlink{structnotifRec_ab1cfb88fe48e04f9af34302fed55d087}{nmNext}; pNMX = pNMX->\hyperlink{structnotifRec_ab1cfb88fe48e04f9af34302fed55d087}{nmNext})
+562                     ;
+563 
+564                 pNMX->\hyperlink{structnotifRec_ab1cfb88fe48e04f9af34302fed55d087}{nmNext} = pNMR;
+565             \}
+566         \}
+567 
+568         \textcolor{comment}{/* concatenate the message */}
+569         BlockMove(&msg[1], &((pNMR->\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf})[i]), msg[0]);
+570         (pNMR->\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf})[0] += msg[0];
+571 
+572         \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a31b8bfcea3aac0deaf5d6bcb7d07c622}{Notify}++;            \textcolor{comment}{/* increase note pending level */}
+573 
+574         NMInstall((NMRec *) pNMR);
+575 
+576         \textcolor{keywordflow}{if} (errorSignal)
+577             \hyperlink{mrecover_8c_a850c0a19d2464067bd24fc2c393f4fe8}{cooldown}();
+578 
+579         \textcolor{keywordflow}{return};
+580     \}
+581 
+582     \textcolor{comment}{/* in front and no error so use an alert */}
+583     ParamText(msg, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"});
+584     (void) Alert(alertID, (ModalFilterUPP) 0L);
+585     ResetAlrtStage();
+586 
+587     \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+588 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_aa4f2f87a1c1919951480df05628daec8}{\index{mrecover.\+c@{mrecover.\+c}!note\+Error\+Message@{note\+Error\+Message}}
+\index{note\+Error\+Message@{note\+Error\+Message}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{note\+Error\+Message}]{\setlength{\rightskip}{0pt plus 5cm}static void note\+Error\+Message (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{msg, }
+\item[{unsigned char $\ast$}]{err\+Msg}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_aa4f2f87a1c1919951480df05628daec8}
+
+
+Definition at line 503 of file mrecover.\+c.
+
+
+
+References notif\+Rec\+::nm\+Buf, and note().
+
+
+
+Referenced by note().
+
+
+\begin{DoxyCode}
+504 \{
+505     \textcolor{keywordtype}{short}   i = \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[0] + 1;       \textcolor{comment}{/* insertion point */}
+506 
+507     BlockMove(&msg[1], &\hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[i], msg[0]);
+508     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[i + msg[0]] = \textcolor{charliteral}{'\(\backslash\)r'};
+509     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[0] += (msg[0] + 1);
+510 
+511     \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(memFullErr, 0, errMsg);
+512 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_ae7fabcadba2566164d8d8022e23b7e79}{\index{mrecover.\+c@{mrecover.\+c}!open\+\_\+levelfile@{open\+\_\+levelfile}}
+\index{open\+\_\+levelfile@{open\+\_\+levelfile}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{open\+\_\+levelfile}]{\setlength{\rightskip}{0pt plus 5cm}static short open\+\_\+levelfile (
+\begin{DoxyParamCaption}
+\item[{long}]{lev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_ae7fabcadba2566164d8d8022e23b7e79}
+
+
+Definition at line 1184 of file mrecover.\+c.
+
+
+
+References alid\+Note, dir\+I\+D, end\+Recover(), lock, note(), mode\+Flags\+::\+Recover, set\+\_\+levelfile\+\_\+name(), and v\+Ref\+Num.
+
+
+
+Referenced by restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1185 \{
+1186     OSErr   openErr;
+1187     \textcolor{keywordtype}{short}   fRefNum;
+1188 
+1189     \hyperlink{mrecover_8c_af682099228f11b9a05bc805799cd475a}{set\_levelfile\_name}(lev);
+1190     \textcolor{keywordflow}{if} (! \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1191         \textcolor{keywordflow}{return} (-1);
+1192 
+1193     \textcolor{keywordflow}{if} ((openErr = HOpen(\hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum}, \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dirID}, \hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock}, fsRdWrPerm, &fRefNum))
+1194             && (openErr != fnfErr))
+1195     \{
+1196         \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1197         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: File Open Error"});
+1198         \textcolor{keywordflow}{return} (-1);
+1199     \}
+1200 
+1201     \textcolor{keywordflow}{return} (openErr ? -1 : fRefNum);
+1202 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a10d1ba9cabbc4c16c6e9354495af6fe8}{\index{mrecover.\+c@{mrecover.\+c}!option\+Mem\+Stats@{option\+Mem\+Stats}}
+\index{option\+Mem\+Stats@{option\+Mem\+Stats}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{option\+Mem\+Stats}]{\setlength{\rightskip}{0pt plus 5cm}static void option\+Mem\+Stats (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a10d1ba9cabbc4c16c6e9354495af6fe8}
+
+
+Definition at line 672 of file mrecover.\+c.
+
+
+
+References adjust\+Memory(), alid\+Note, note(), and wn\+Evt.
+
+
+
+Referenced by Recover\+Menu\+Event().
+
+
+\begin{DoxyCode}
+673 \{
+674     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   *pFormat = \textcolor{stringliteral}{"\(\backslash\)pFree:#k  Max:#k  Purge:#k  Stack:#k"};
+675     \textcolor{keywordtype}{char}            *pSub = \textcolor{stringliteral}{"#"};        \textcolor{comment}{/* not a pascal string */}
+676     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   nBuf[16];
+677     \textcolor{keywordtype}{long}            nStat, contig;
+678     Handle          strHnd;
+679     \textcolor{keywordtype}{long}            nOffset;
+680     \textcolor{keywordtype}{short}           i;
+681 
+682     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.modifiers & shiftKey)
+683         \hyperlink{mrecover_8c_a252f4f4592c57a1f92bf9472e8e04e4c}{adjustMemory}();
+684 
+685     \textcolor{keywordflow}{if} (! (strHnd = NewHandle((Size) 128)))
+686     \{
+687         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pOops: Memory stats unavailable!"});
+688         \textcolor{keywordflow}{return};
+689     \}
+690     
+691     SetString((StringHandle) strHnd, pFormat);
+692     nOffset = 1L;
+693 
+694     \textcolor{keywordflow}{for} (i = 1; i <= 4; i++)
+695     \{
+696         \textcolor{comment}{/* get the replacement number stat */}
+697         \textcolor{keywordflow}{switch} (i)
+698         \{
+699         \textcolor{keywordflow}{case} 1: nStat = FreeMem();              \textcolor{keywordflow}{break};
+700         \textcolor{keywordflow}{case} 2: nStat = MaxBlock();             \textcolor{keywordflow}{break};
+701         \textcolor{keywordflow}{case} 3: PurgeSpace(&nStat, &contig);    \textcolor{keywordflow}{break};
+702         \textcolor{keywordflow}{case} 4: nStat = StackSpace();           \textcolor{keywordflow}{break};
+703         \}
+704 
+705         NumToString((nStat >> 10), * (Str255 *) &nBuf);
+706 
+707         **strHnd += nBuf[0] - 1;
+708         nOffset = Munger(strHnd, nOffset, (Ptr) pSub, 1L, (Ptr) &nBuf[1], nBuf[0]);
+709     \}
+710 
+711     MoveHHi(strHnd);
+712     HLock(strHnd);
+713     \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *) *strHnd);
+714     DisposHandle(strHnd);
+715 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a449fef003f8fd10328f3af994b980955}{\index{mrecover.\+c@{mrecover.\+c}!read\+\_\+levelfile@{read\+\_\+levelfile}}
+\index{read\+\_\+levelfile@{read\+\_\+levelfile}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{read\+\_\+levelfile}]{\setlength{\rightskip}{0pt plus 5cm}static long read\+\_\+levelfile (
+\begin{DoxyParamCaption}
+\item[{short}]{rd\+Ref\+Num, }
+\item[{Ptr}]{buf\+Ptr, }
+\item[{long}]{count}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a449fef003f8fd10328f3af994b980955}
+
+
+Definition at line 1366 of file mrecover.\+c.
+
+
+
+References alid\+Note, count, end\+Recover(), and note().
+
+
+
+Referenced by copy\+\_\+bytes(), and restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1367 \{
+1368     OSErr   rdErr;
+1369     \textcolor{keywordtype}{long}    rdCount = \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1370 
+1371     \textcolor{keywordflow}{if} ((rdErr = FSRead(rdRefNum, &rdCount, bufPtr)) && (rdErr != eofErr))
+1372     \{
+1373         \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1374         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: File Read Error"});
+1375         \textcolor{keywordflow}{return} (-1L);
+1376     \}
+1377 
+1378     \textcolor{keywordflow}{return} rdCount;
+1379 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a3c41f4550779fa2b63721f262f1f2a73}{\index{mrecover.\+c@{mrecover.\+c}!Recover\+Menu\+Event@{Recover\+Menu\+Event}}
+\index{Recover\+Menu\+Event@{Recover\+Menu\+Event}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{Recover\+Menu\+Event}]{\setlength{\rightskip}{0pt plus 5cm}static void Recover\+Menu\+Event (
+\begin{DoxyParamCaption}
+\item[{long}]{menu\+Entry}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a3c41f4550779fa2b63721f262f1f2a73}
+
+
+Definition at line 718 of file mrecover.\+c.
+
+
+
+References about\+Buf, alert\+Apple\+Menu, begin\+Recover(), cooldown(), mem\+Activity, menu\+Apple, m\+Hnd, mitm\+About, mitm\+Close\+\_\+\+D\+A, mitm\+Help, mitm\+Open, mitm\+Quit, muid\+Apple, muid\+Edit, muid\+File, note(), option\+Mem\+Stats(), and wn\+Evt.
+
+
+
+Referenced by event\+Loop().
+
+
+\begin{DoxyCode}
+719 \{
+720     \textcolor{keywordtype}{short} menuID = HiWord(menuEntry);
+721     \textcolor{keywordtype}{short} \hyperlink{structmenuItem}{menuItem} = LoWord(menuEntry);
+722 
+723     \textcolor{keywordflow}{switch} (menuID)
+724     \{
+725     \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a5cf4acbcbb629f793d3b9a736a3e0d3c}{muidApple}:
+726         \textcolor{keywordflow}{switch} (menuItem)
+727         \{
+728         \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a18ebe3d39289fa0ae48d5c763f219b5a}{mitmAbout}:
+729             \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.modifiers & optionKey)
+730                 \hyperlink{mrecover_8c_a10d1ba9cabbc4c16c6e9354495af6fe8}{optionMemStats}();
+731             \textcolor{comment}{/* fall thru */}
+732         \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ad12f0e5d649567bc59713dd801bfa441}{mitmHelp}:
+733             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, (\hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ac4de57cb791cc7c7249bc3dd5cae5e9f}{alertAppleMenu} + menuItem), \hyperlink{mrecover_8c_a4eda269ad98a71bb286988cc1a01d14a}{aboutBuf});
+734             \textcolor{keywordflow}{break};
+735 
+736         \textcolor{keywordflow}{default}:    \textcolor{comment}{/* DA's or apple menu items */}
+737             \{
+738                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   daName[32];
+739 
+740                 GetItem(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4af638c9135c08bbb4fd140c25587cadca}{menuApple}], menuItem, * (Str255 *) &daName);
+741                 (void) OpenDeskAcc(daName);
+742 
+743                 \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+744             \}
+745             \textcolor{keywordflow}{break};
+746         \}
+747         \textcolor{keywordflow}{break};
+748 
+749     \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ac3de3f62908bfb69a68578329edd8582}{muidFile}:
+750         \textcolor{keywordflow}{switch} (menuItem)
+751         \{
+752         \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a7975e3fc6597c711960f87bd3d8aa312}{mitmOpen}:
+753             \hyperlink{mrecover_8c_abdab3f17ef5b3ef7474097c28d0ca4d2}{beginRecover}();
+754             \textcolor{keywordflow}{break};
+755 
+756         \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310ac7caf46b291cf6b52085485d4fd9513b}{mitmClose\_DA}:
+757             \{
+758                 WindowPeek  frontWindow;
+759                 \textcolor{keywordtype}{short}       refNum;
+760 
+761                 \textcolor{keywordflow}{if} (frontWindow = (WindowPeek) FrontWindow())
+762                     \textcolor{keywordflow}{if} ((refNum = frontWindow->windowKind) < 0)
+763                         CloseDeskAcc(refNum);
+764 
+765                 \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+766             \}
+767             \textcolor{keywordflow}{break};
+768 
+769         \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_a94798fdadfbf49a7c658ace669a1d310a5a9b8c30473a73d9dbb7c9222a9e065c}{mitmQuit}:
+770             \hyperlink{mrecover_8c_a850c0a19d2464067bd24fc2c393f4fe8}{cooldown}();
+771             \textcolor{keywordflow}{break};
+772         \}
+773         \textcolor{keywordflow}{break};
+774 
+775     \textcolor{keywordflow}{case} \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ae4e5111e31ca9e3fdd8fe29493dfac22}{muidEdit}:
+776         (void) SystemEdit(menuItem - 1);
+777         \textcolor{keywordflow}{break};
+778     \}
+779 
+780     HiliteMenu(0);
+781 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a1914e724e3c315c7a676b088029a6581}{\index{mrecover.\+c@{mrecover.\+c}!restore\+\_\+savefile@{restore\+\_\+savefile}}
+\index{restore\+\_\+savefile@{restore\+\_\+savefile}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{restore\+\_\+savefile}]{\setlength{\rightskip}{0pt plus 5cm}static void restore\+\_\+savefile (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a1914e724e3c315c7a676b088029a6581}
+
+
+Definition at line 1264 of file mrecover.\+c.
+
+
+
+References alid\+Note, close\+\_\+file(), copy\+\_\+bytes(), create\+\_\+savefile(), end\+Recover(), game\+Ref\+Num, hpid, lev\+Ref\+Num, lock, M\+A\+X\+\_\+\+R\+E\+C\+O\+V\+E\+R\+\_\+\+C\+O\+U\+N\+T, note(), open\+\_\+levelfile(), read\+\_\+levelfile(), mode\+Flags\+::\+Recover, savelev(), savename, save\+Ref\+Num, set\+\_\+levelfile\+\_\+name(), unlink\+\_\+file(), and write\+\_\+savefile().
+
+
+
+Referenced by continue\+Recover().
+
+
+\begin{DoxyCode}
+1265 \{
+1266     \textcolor{keyword}{static} \textcolor{keywordtype}{int}  \hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev};
+1267     \textcolor{keywordtype}{long}        saveTemp, lev;
+1268     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar}      levc;
+1269     \textcolor{keyword}{struct }\hyperlink{structversion__info}{version\_info} version\_data;
+1270 
+1271     \textcolor{comment}{/* level 0 file contains:}
+1272 \textcolor{comment}{     *  pid of creating process (ignored here)}
+1273 \textcolor{comment}{     *  level number for current level of save file}
+1274 \textcolor{comment}{     *  name of save file nethack would have created}
+1275 \textcolor{comment}{     *  and game state}
+1276 \textcolor{comment}{     */}
+1277 
+1278     lev = \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} - 1;
+1279     \textcolor{keywordflow}{if} (lev == 0L)
+1280     \{
+1281         \hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum} = \hyperlink{mrecover_8c_ae7fabcadba2566164d8d8022e23b7e79}{open\_levelfile}(0L);
+1282 
+1283         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1284             (void) \hyperlink{mrecover_8c_a449fef003f8fd10328f3af994b980955}{read\_levelfile}(\hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum}, (Ptr) &
+      \hyperlink{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{hpid}, \textcolor{keyword}{sizeof}(\hyperlink{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{hpid}));
+1285 
+1286         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1287             saveTemp = \hyperlink{mrecover_8c_a449fef003f8fd10328f3af994b980955}{read\_levelfile}(\hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum}, (Ptr) &savelev, \textcolor{keyword}{sizeof}(savelev));
+1288 
+1289         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} && (saveTemp != \textcolor{keyword}{sizeof}(savelev)))
+1290         \{
+1291             \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1292             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: \(\backslash\)"checkpoint\(\backslash\)" was not enabled"});
+1293             \textcolor{keywordflow}{return};
+1294         \}
+1295 
+1296         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1297             (void) \hyperlink{mrecover_8c_a449fef003f8fd10328f3af994b980955}{read\_levelfile}(\hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum}, (Ptr) 
+      \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename}, \textcolor{keyword}{sizeof}(\hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename}));
+1298         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1299             (void) \hyperlink{mrecover_8c_a449fef003f8fd10328f3af994b980955}{read\_levelfile}(\hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum},
+1300                     (Ptr) &version\_data, \textcolor{keyword}{sizeof} version\_data);
+1301 
+1302         \textcolor{comment}{/* save file should contain:}
+1303 \textcolor{comment}{         *  current level (including pets)}
+1304 \textcolor{comment}{         *  (non-level-based) game state}
+1305 \textcolor{comment}{         *  other levels}
+1306 \textcolor{comment}{         */}
+1307         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1308             \hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum} = \hyperlink{mrecover_8c_ac28e05ba392bcddb13642a2124b7cbea}{create\_savefile}(\hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename});
+1309 
+1310         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1311             \hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum} = \hyperlink{mrecover_8c_ae7fabcadba2566164d8d8022e23b7e79}{open\_levelfile}(savelev);
+1312 
+1313         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1314             (void) \hyperlink{mrecover_8c_a334e39f3e2e54d4caaf3a8e392c3fb72}{write\_savefile}(\hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum},
+1315                     (Ptr) &version\_data, \textcolor{keyword}{sizeof} version\_data);
+1316         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1317             \hyperlink{mrecover_8c_a6945ecbd1f55f136c8986cbb00816391}{copy\_bytes}(\hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum}, \hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum});
+1318 
+1319         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1320             \hyperlink{mrecover_8c_a6c9578cd4cd1f5f364111bb6d592aae0}{close\_file}(&\hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum});
+1321 
+1322         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1323             \hyperlink{mrecover_8c_a0a6f1b59f56fa2d050336c3affaab8db}{unlink\_file}(\hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock});
+1324 
+1325         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1326             \hyperlink{mrecover_8c_a6945ecbd1f55f136c8986cbb00816391}{copy\_bytes}(\hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum}, \hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum});
+1327 
+1328         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1329             \hyperlink{mrecover_8c_a6c9578cd4cd1f5f364111bb6d592aae0}{close\_file}(&\hyperlink{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{gameRefNum});
+1330 
+1331         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1332             \hyperlink{mrecover_8c_af682099228f11b9a05bc805799cd475a}{set\_levelfile\_name}(0L);
+1333 
+1334         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1335             \hyperlink{mrecover_8c_a0a6f1b59f56fa2d050336c3affaab8db}{unlink\_file}(\hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock});
+1336     \}
+1337     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (lev != savelev)
+1338     \{
+1339         \hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum} = \hyperlink{mrecover_8c_ae7fabcadba2566164d8d8022e23b7e79}{open\_levelfile}(lev);
+1340         \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum} >= 0)
+1341         \{
+1342             \textcolor{comment}{/* any or all of these may not exist */}
+1343             levc = (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar}) lev;
+1344 
+1345             (void) \hyperlink{mrecover_8c_a334e39f3e2e54d4caaf3a8e392c3fb72}{write\_savefile}(\hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum}, (Ptr) &levc, \textcolor{keyword}{sizeof}(levc));
+1346 
+1347             \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1348                 \hyperlink{mrecover_8c_a6945ecbd1f55f136c8986cbb00816391}{copy\_bytes}(\hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum}, \hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum});
+1349 
+1350             \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1351                 \hyperlink{mrecover_8c_a6c9578cd4cd1f5f364111bb6d592aae0}{close\_file}(&\hyperlink{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{levRefNum});
+1352 
+1353             \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1354                 \hyperlink{mrecover_8c_a0a6f1b59f56fa2d050336c3affaab8db}{unlink\_file}(\hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock});
+1355         \}
+1356     \}
+1357 
+1358     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover} == \hyperlink{mrecover_8c_a2cfae717427914fcfeebac0ae1dec019}{MAX\_RECOVER\_COUNT})
+1359         \hyperlink{mrecover_8c_a6c9578cd4cd1f5f364111bb6d592aae0}{close\_file}(&\hyperlink{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{saveRefNum});
+1360 
+1361     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover})
+1362         \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a098cf3c5051decf3beaf18608ff5881a}{Recover}++;
+1363 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a2dd4b7c9fb0a2ed892fef6be7057b794}{\index{mrecover.\+c@{mrecover.\+c}!save\+Rez\+Strings@{save\+Rez\+Strings}}
+\index{save\+Rez\+Strings@{save\+Rez\+Strings}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{save\+Rez\+Strings}]{\setlength{\rightskip}{0pt plus 5cm}static short save\+Rez\+Strings (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a2dd4b7c9fb0a2ed892fef6be7057b794}
+
+
+Definition at line 1099 of file mrecover.\+c.
+
+
+
+References alid\+Note, A\+P\+P\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D, dir\+I\+D, hpid, mem\+Activity, note(), P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D, savename, and v\+Ref\+Num.
+
+
+
+Referenced by continue\+Recover().
+
+
+\begin{DoxyCode}
+1100 \{
+1101     \textcolor{keywordtype}{short}           sRefNum;
+1102     StringHandle    strHnd;
+1103     \textcolor{keywordtype}{short}           i, rezID;
+1104     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   *plName;
+1105 
+1106     HCreateResFile(\hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum}, \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dirID}, \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename});
+1107 
+1108     sRefNum = HOpenResFile(\hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum}, \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dirID}, \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename}, fsRdWrPerm);
+1109     \textcolor{keywordflow}{if} (sRefNum <= 0)
+1110     \{
+1111         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pOK: Minor resource map error"});
+1112         \textcolor{keywordflow}{return} 1;
+1113     \}
+1114 
+1115     \textcolor{comment}{/* savename and hpid get mutilated here... */}
+1116     plName = \hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename} + 5;              \textcolor{comment}{/* save/ */}
+1117     *\hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename} -= 5;
+1118     \textcolor{keywordflow}{do}
+1119     \{
+1120         plName++;
+1121         (*savename)--;
+1122         \hyperlink{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{hpid} /= 10;
+1123     \}
+1124     \textcolor{keywordflow}{while} (\hyperlink{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{hpid});
+1125     *plName = *\hyperlink{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{savename};
+1126 
+1127     \textcolor{keywordflow}{for} (i = 1; i <= 2; i++)
+1128     \{
+1129         \textcolor{keywordflow}{switch} (i)
+1130         \{
+1131         \textcolor{keywordflow}{case} 1:
+1132             rezID = \hyperlink{mrecover_8c_a8e12e738f24334cdde1ede34d8480712}{PLAYER\_NAME\_RES\_ID};
+1133             strHnd = NewString(* (Str255 *) plName);
+1134             \textcolor{keywordflow}{break};
+1135 
+1136         \textcolor{keywordflow}{case} 2:
+1137             rezID = \hyperlink{mrecover_8c_aa05cdb346f9521cd98885fd6ec5984d5}{APP\_NAME\_RES\_ID};
+1138             strHnd = NewString(* (Str255 *) \textcolor{stringliteral}{"\(\backslash\)pNetHack"});
+1139             \textcolor{keywordflow}{break};
+1140         \}
+1141 
+1142         \textcolor{keywordflow}{if} (! strHnd)
+1143         \{
+1144             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pOK: Minor \(\backslash\)'STR \(\backslash\)' resource error"});
+1145             CloseResFile(sRefNum);
+1146             \textcolor{keywordflow}{return} 1;
+1147         \}
+1148 
+1149         \textcolor{comment}{/* should check for errors... */}
+1150         AddResource((Handle) strHnd, \textcolor{stringliteral}{'STR '}, rezID, * (Str255 *) \textcolor{stringliteral}{"\(\backslash\)p"});
+1151     \}
+1152 
+1153     \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity}++;
+1154 
+1155     \textcolor{comment}{/* should check for errors... */}
+1156     CloseResFile(sRefNum);
+1157     \textcolor{keywordflow}{return} 0;
+1158 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_af682099228f11b9a05bc805799cd475a}{\index{mrecover.\+c@{mrecover.\+c}!set\+\_\+levelfile\+\_\+name@{set\+\_\+levelfile\+\_\+name}}
+\index{set\+\_\+levelfile\+\_\+name@{set\+\_\+levelfile\+\_\+name}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{set\+\_\+levelfile\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+levelfile\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{long}]{lev}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_af682099228f11b9a05bc805799cd475a}
+
+
+Definition at line 1161 of file mrecover.\+c.
+
+
+
+References alid\+Note, end\+Recover(), lock, and note().
+
+
+
+Referenced by open\+\_\+levelfile(), and restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1162 \{
+1163     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   *tf;
+1164 
+1165     \textcolor{comment}{/* find the dot.  this is guaranteed to happen. */}
+1166     \textcolor{keywordflow}{for} (tf = (\hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock} + *\hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock}); *tf != \textcolor{charliteral}{'.'}; tf--, \hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock}[0]--)
+1167         ;
+1168 
+1169     \textcolor{comment}{/* append the level number string (pascal) */}
+1170     \textcolor{keywordflow}{if} (tf > \hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock})
+1171     \{
+1172         NumToString(lev, * (Str255 *) tf);
+1173         \hyperlink{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{lock}[0] += *tf;
+1174         *tf = \textcolor{charliteral}{'.'};
+1175     \}
+1176     \textcolor{keywordflow}{else}    \textcolor{comment}{/* huh??? */}
+1177     \{
+1178         \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1179         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: File Name Error"});
+1180     \}
+1181 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a0a6f1b59f56fa2d050336c3affaab8db}{\index{mrecover.\+c@{mrecover.\+c}!unlink\+\_\+file@{unlink\+\_\+file}}
+\index{unlink\+\_\+file@{unlink\+\_\+file}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{unlink\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}static void unlink\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$}]{filename}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a0a6f1b59f56fa2d050336c3affaab8db}
+
+
+Definition at line 1410 of file mrecover.\+c.
+
+
+
+References alid\+Note, dir\+I\+D, end\+Recover(), note(), and v\+Ref\+Num.
+
+
+
+Referenced by restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1411 \{
+1412     \textcolor{keywordflow}{if} (HDelete(\hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{vRefNum}, \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dirID}, \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}))
+1413     \{
+1414         \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1415         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: File Delete Error"});
+1416         \textcolor{keywordflow}{return};
+1417     \}
+1418 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_ae4acf0db0deaf7173e16a220f1d431a0}{\index{mrecover.\+c@{mrecover.\+c}!warmup@{warmup}}
+\index{warmup@{warmup}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{warmup}]{\setlength{\rightskip}{0pt plus 5cm}static void warmup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_ae4acf0db0deaf7173e16a220f1d431a0}
+
+
+Definition at line 314 of file mrecover.\+c.
+
+
+
+References count, mode\+Flags\+::\+Front, notif\+Rec\+::nm\+Buf, nm\+Completion\+U\+P\+P, notif\+Rec\+::nmr, mode\+Flags\+::\+Notify, N\+U\+L\+L, and wn\+Evt.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+315 \{
+316     \textcolor{keywordtype}{short}       i;
+317 
+318     \textcolor{comment}{/* pre-System 7 MultiFinder hack for smooth launch */}
+319     \textcolor{keywordflow}{for} (i = 0; i < 10; i++)
+320     \{
+321         \textcolor{keywordflow}{if} (WaitNextEvent(osMask, &\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}, 2L, (RgnHandle) 0L))
+322             \textcolor{keywordflow}{if} (((\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.message & osEvtMessageMask) >> 24) == suspendResumeMessage)
+323                 \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a43940af414f26c79079f93c575b21c09}{Front} = (\hyperlink{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{wnEvt}.message & resumeFlag);
+324     \}
+325 
+326 \textcolor{preprocessor}{#if 0 // ???}
+327     \textcolor{comment}{/* clear out the Finder info */}
+328     \{
+329         \textcolor{keywordtype}{short}   message, \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+330 
+331         CountAppFiles(&message, &count);
+332         \textcolor{keywordflow}{while}(count)
+333             ClrAppFiles(count--);
+334     \}
+335 \textcolor{preprocessor}{#endif}
+336 
+337     \textcolor{comment}{/* fill out the notification template */}
+338     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.qType = nmType;
+339     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.nmMark = 1;
+340     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.nmSound = (Handle) -1L;       \textcolor{comment}{/* system beep */}
+341     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.nmStr = \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf};
+342     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.nmResp = \hyperlink{mrecover_8c_acc03e4669b28636ec9a313989c79db2c}{nmCompletionUPP};
+343     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.nmPending = (long) &\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}.\hyperlink{structmodeFlags_a31b8bfcea3aac0deaf5d6bcb7d07c622}{Notify};
+344 
+345 
+346 #\textcolor{keywordflow}{if} 1
+347     \{
+348         \textcolor{comment}{/* get the app name */}
+349         ProcessInfoRec info;
+350         ProcessSerialNumber psn;
+351 
+352         info.processInfoLength = \textcolor{keyword}{sizeof}(info);
+353         info.processName = \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf};
+354         info.processAppSpec = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+355         GetCurrentProcess(&psn);
+356         GetProcessInformation(&psn, &info);
+357     \}
+358 \textcolor{preprocessor}{#else}
+359     \textcolor{comment}{/* prepend app name (31 chars or less) to notification buffer */}
+360     \{
+361         \textcolor{keywordtype}{short}   apRefNum;
+362         Handle  apParams;
+363 
+364         GetAppParms(* (Str255 *) &\hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}, &apRefNum, &apParams);
+365     \}
+366 \textcolor{preprocessor}{#endif}
+367 
+368     \textcolor{comment}{/* add formatting (two line returns) */}
+369     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[++(\hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[0])] = \textcolor{charliteral}{'\(\backslash\)r'};
+370     \hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[++(\hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_a5e706085e796f65fdbe70ffdabe8c13c}{nmBuf}[0])] = \textcolor{charliteral}{'\(\backslash\)r'};
+371 
+372     \textcolor{comment}{/**** note() is usable now but not aesthetically complete ****/}
+373 
+374     \textcolor{comment}{/* get notification icon */}
+375     \textcolor{keywordflow}{if} (\hyperlink{mrecover_8c_af296504f58673ebca14fb2ec6cc9a120}{sysEnv}.systemVersion < 0x0700)
+376     \{
+377         \textcolor{keywordflow}{if} (! (\hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.nmIcon = GetResource(\textcolor{stringliteral}{'SICN'}, \hyperlink{mrecover_8c_a33e2c73102497b4706fced050713a2a8}{iconNotifyID})))
+378             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(nilHandleErr, 0, \textcolor{stringliteral}{"\(\backslash\)pNil SICN Handle"});
+379     \}
+380     \textcolor{keywordflow}{else}
+381     \{
+382         \textcolor{keywordflow}{if} (GetIconSuite(&\hyperlink{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{nmt}.\hyperlink{structnotifRec_aa1b6afb9d9cc1501336c1e65c5c7f1d4}{nmr}.nmIcon, \hyperlink{mrecover_8c_a33e2c73102497b4706fced050713a2a8}{iconNotifyID}, 
+      \hyperlink{mrecover_8c_ad02ae90a51b982261581fa3c0d24780a}{ics\_1\_and\_4}))
+383             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(nilHandleErr, 0, \textcolor{stringliteral}{"\(\backslash\)pBad Icon Family"});
+384     \}
+385 
+386     \textcolor{comment}{/* load and align various dialog/alert templates */}
+387     (void) \hyperlink{mrecover_8c_a1b7e3665417a9fd2e6715f654e4e8ee2}{alignTemplate}(\textcolor{stringliteral}{'ALRT'}, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, 0, 4, (Point *) 0L);
+388     (void) \hyperlink{mrecover_8c_a1b7e3665417a9fd2e6715f654e4e8ee2}{alignTemplate}(\textcolor{stringliteral}{'ALRT'}, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18af4011b8b85ca0f62572d052b8200c54f}{alidHelp}, 0, 4, (Point *) 0L);
+389 
+390     \hyperlink{mrecover_8c_a9aad2bf8a496441578c342b89aafb1e0}{thermoTHnd} = (DialogTHndl) \hyperlink{mrecover_8c_a1b7e3665417a9fd2e6715f654e4e8ee2}{alignTemplate}(\textcolor{stringliteral}{'DLOG'}, 
+      \hyperlink{mrecover_8c_a7ff5f2dff38e7639981794c43dc9167ba0a2fe8d652f7650a184c0cb57b114c0e}{dlogProgress}, 20, 8, (Point *) 0L);
+391 
+392     (void) \hyperlink{mrecover_8c_a1b7e3665417a9fd2e6715f654e4e8ee2}{alignTemplate}(\textcolor{stringliteral}{'DLOG'}, getDlgID, 0, 6, (Point *) &
+      \hyperlink{mrecover_8c_a88f38d32b55327de55830e14af3ebf57}{sfGetWhere});
+393 
+394     \textcolor{comment}{/* get the "busy cursors" (preloaded/locked) */}
+395     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{mrecover_8c_a3f97e3dade10e43ec7ed2b2c62a5504c}{curs\_Total}; i++)
+396     \{
+397         CursHandle      cHnd;
+398 
+399         \textcolor{keywordflow}{if} (! (cHnd = GetCursor(i + \hyperlink{mrecover_8c_ab189566ea47e5f6deab042800a58a636}{cursorOffset})))
+400             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(nilHandleErr, 0, \textcolor{stringliteral}{"\(\backslash\)pNil CURS Handle"});
+401 
+402         \hyperlink{mrecover_8c_ac7e097dbf5abd313aa7e9ecce99dfabc}{cPtr}[i] = *cHnd;
+403     \}
+404 
+405     \textcolor{comment}{/* get the 'vers' 1 long (Get Info) string - About Recover... */}
+406     \{
+407         \hyperlink{structversXRec}{versXHandle}      vHnd;
+408 
+409         \textcolor{keywordflow}{if} (! (vHnd = (\hyperlink{structversXRec}{versXHandle}) GetResource(\textcolor{stringliteral}{'vers'}, 1)))
+410             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(nilHandleErr, 0, \textcolor{stringliteral}{"\(\backslash\)pNil vers Handle"});
+411 
+412         i = (**vHnd).versStr[0] + 1;        \textcolor{comment}{/* offset to Get Info pascal string */}
+413 
+414         \textcolor{keywordflow}{if} ((\hyperlink{mrecover_8c_a4eda269ad98a71bb286988cc1a01d14a}{aboutBuf}[0] = (**vHnd).versStr[i]) > (\hyperlink{mrecover_8c_af57c2379a8e6b803960d53b2dfd3eeb0}{aboutBufSize} - 1))
+415             \hyperlink{mrecover_8c_a4eda269ad98a71bb286988cc1a01d14a}{aboutBuf}[0] = \hyperlink{mrecover_8c_af57c2379a8e6b803960d53b2dfd3eeb0}{aboutBufSize} - 1;
+416 
+417         i++;
+418 
+419         MoveHHi((Handle) vHnd);         \textcolor{comment}{/* DEE - Fense ... */}
+420         HLock((Handle) vHnd);
+421         BlockMove(&((**vHnd).versStr[i]), &(\hyperlink{mrecover_8c_a4eda269ad98a71bb286988cc1a01d14a}{aboutBuf}[1]), \hyperlink{mrecover_8c_a4eda269ad98a71bb286988cc1a01d14a}{aboutBuf}[0]);
+422         ReleaseResource((Handle) vHnd);
+423     \}
+424 
+425     \textcolor{comment}{/* form the menubar */}
+426     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4ab1af3fc70fac47cf756c04dcf48804ec}{menu\_Total}; i++)
+427     \{
+428         \textcolor{keywordflow}{if} (! (\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[i] = GetMenu(i + \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a5cf4acbcbb629f793d3b9a736a3e0d3c}{muidApple})))
+429             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(nilHandleErr, 0, \textcolor{stringliteral}{"\(\backslash\)pNil MENU Handle"});
+430 
+431         \textcolor{comment}{/* expand the apple menu */}
+432         \textcolor{keywordflow}{if} (i == \hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4af638c9135c08bbb4fd140c25587cadca}{menuApple})
+433             AddResMenu(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4af638c9135c08bbb4fd140c25587cadca}{menuApple}], \textcolor{stringliteral}{'DRVR'});
+434 
+435         InsertMenu(\hyperlink{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{mHnd}[i], 0);
+436     \}
+437 
+438     \textcolor{comment}{/* pre-emptive memory check */}
+439     \{
+440         \hyperlink{structmemBytes}{memBytesHandle}    hBytes;
+441         Size            grow;
+442 
+443         \textcolor{keywordflow}{if} (! (hBytes = (\hyperlink{structmemBytes}{memBytesHandle}) GetResource(\textcolor{stringliteral}{'memB'}, 
+      \hyperlink{mrecover_8c_a6fec12c864e40b05574c151792faa0a3}{membID})))
+444             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(nilHandleErr, 0, \textcolor{stringliteral}{"\(\backslash\)pNil Memory Handle"});
+445 
+446         \hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{pBytes} = *hBytes;
+447 
+448         \textcolor{keywordflow}{if} (MaxMem(&grow) < \hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{pBytes}->\hyperlink{structmemBytes_aa3df25c1b98b2bcbf2f3ec08831c36bf}{memPreempt})
+449             \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(memFullErr, 0, \textcolor{stringliteral}{"\(\backslash\)pMore Memory Required\(\backslash\)rTry adding 16k"});
+450 
+451         \hyperlink{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{memActivity} = \hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{pBytes}->\hyperlink{structmemBytes_a6e0e480b64c537412f94f0e2e8a734bb}{memCleanup};        \textcolor{comment}{/* force initial cleanup */}
+452     \}
+453 
+454     \textcolor{comment}{/* get the I/O buffer */}
+455     \textcolor{keywordflow}{if} (! (\hyperlink{mrecover_8c_a12f243873367f3e278c63fd3cff6b61b}{pIOBuf} = NewPtr(\hyperlink{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{pBytes}->\hyperlink{structmemBytes_a7ccd8c402ba0f7eef5055a648fe2db80}{memIOBuf})))
+456         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(memFullErr, 0, \textcolor{stringliteral}{"\(\backslash\)pNil I/O Pointer"});
+457 \}
+\end{DoxyCode}
+\hypertarget{mrecover_8c_a334e39f3e2e54d4caaf3a8e392c3fb72}{\index{mrecover.\+c@{mrecover.\+c}!write\+\_\+savefile@{write\+\_\+savefile}}
+\index{write\+\_\+savefile@{write\+\_\+savefile}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{write\+\_\+savefile}]{\setlength{\rightskip}{0pt plus 5cm}static long write\+\_\+savefile (
+\begin{DoxyParamCaption}
+\item[{short}]{wr\+Ref\+Num, }
+\item[{Ptr}]{buf\+Ptr, }
+\item[{long}]{count}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mrecover_8c_a334e39f3e2e54d4caaf3a8e392c3fb72}
+
+
+Definition at line 1382 of file mrecover.\+c.
+
+
+
+References alid\+Note, count, end\+Recover(), and note().
+
+
+
+Referenced by copy\+\_\+bytes(), and restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+1383 \{
+1384     \textcolor{keywordtype}{long}    wrCount = \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1385 
+1386     \textcolor{keywordflow}{if} (FSWrite(wrRefNum, &wrCount, bufPtr))
+1387     \{
+1388         \hyperlink{mrecover_8c_ae1830e8944efb19aae37d7afc5982fee}{endRecover}();
+1389         \hyperlink{mrecover_8c_ab33393c9ba1a31c81fba66cf67cb58c1}{note}(noErr, \hyperlink{mrecover_8c_ae4d5251432e1a9e6803c0240cc492e18ae3825b70d4d367db8f52715bccb1b9e5}{alidNote}, \textcolor{stringliteral}{"\(\backslash\)pSorry: File Write Error"});
+1390         \textcolor{keywordflow}{return} (-1L);
+1391     \}
+1392 
+1393     \textcolor{keywordflow}{return} wrCount;
+1394 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{mrecover_8c_a4eda269ad98a71bb286988cc1a01d14a}{\index{mrecover.\+c@{mrecover.\+c}!about\+Buf@{about\+Buf}}
+\index{about\+Buf@{about\+Buf}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{about\+Buf}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char about\+Buf\mbox{[}{\bf about\+Buf\+Size}\mbox{]}}}\label{mrecover_8c_a4eda269ad98a71bb286988cc1a01d14a}
+
+
+Definition at line 200 of file mrecover.\+c.
+
+
+
+Referenced by Recover\+Menu\+Event().
+
+\hypertarget{mrecover_8c_a22174c59bb74c0d8aaec6c9a1d8e147d}{\index{mrecover.\+c@{mrecover.\+c}!basename\+File\+Filter\+U\+P\+P@{basename\+File\+Filter\+U\+P\+P}}
+\index{basename\+File\+Filter\+U\+P\+P@{basename\+File\+Filter\+U\+P\+P}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{basename\+File\+Filter\+U\+P\+P}]{\setlength{\rightskip}{0pt plus 5cm}File\+Filter\+U\+P\+P basename\+File\+Filter\+U\+P\+P}}\label{mrecover_8c_a22174c59bb74c0d8aaec6c9a1d8e147d}
+
+
+Definition at line 220 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover(), and main().
+
+\hypertarget{mrecover_8c_ac7e097dbf5abd313aa7e9ecce99dfabc}{\index{mrecover.\+c@{mrecover.\+c}!c\+Ptr@{c\+Ptr}}
+\index{c\+Ptr@{c\+Ptr}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{c\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}Curs\+Ptr c\+Ptr\mbox{[}{\bf curs\+\_\+\+Total}\mbox{]}}}\label{mrecover_8c_ac7e097dbf5abd313aa7e9ecce99dfabc}
+
+
+Definition at line 204 of file mrecover.\+c.
+
+
+
+Referenced by adjust\+G\+U\+I().
+
+\hypertarget{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{\index{mrecover.\+c@{mrecover.\+c}!dir\+I\+D@{dir\+I\+D}}
+\index{dir\+I\+D@{dir\+I\+D}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{dir\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}long dir\+I\+D}}\label{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}
+
+
+Definition at line 218 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover(), create\+\_\+savefile(), end\+Recover(), open\+\_\+levelfile(), save\+Rez\+Strings(), and unlink\+\_\+file().
+
+\hypertarget{mrecover_8c_a870c38f3d27dd002cd155a27f1583d79}{\index{mrecover.\+c@{mrecover.\+c}!dlg\+Thermo@{dlg\+Thermo}}
+\index{dlg\+Thermo@{dlg\+Thermo}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{dlg\+Thermo}]{\setlength{\rightskip}{0pt plus 5cm}Dialog\+Record dlg\+Thermo}}\label{mrecover_8c_a870c38f3d27dd002cd155a27f1583d79}
+
+
+Definition at line 210 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover(), and end\+Recover().
+
+\hypertarget{mrecover_8c_a275ad4165795dddc7aec05359ea9d8eb}{\index{mrecover.\+c@{mrecover.\+c}!draw\+Thermo\+U\+P\+P@{draw\+Thermo\+U\+P\+P}}
+\index{draw\+Thermo\+U\+P\+P@{draw\+Thermo\+U\+P\+P}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{draw\+Thermo\+U\+P\+P}]{\setlength{\rightskip}{0pt plus 5cm}User\+Item\+U\+P\+P draw\+Thermo\+U\+P\+P}}\label{mrecover_8c_a275ad4165795dddc7aec05359ea9d8eb}
+
+
+Definition at line 221 of file mrecover.\+c.
+
+
+
+Referenced by itemize\+Thermo(), and main().
+
+\hypertarget{mrecover_8c_aad49c85708e83a186d8f96d612257de5}{\index{mrecover.\+c@{mrecover.\+c}!game\+Ref\+Num@{game\+Ref\+Num}}
+\index{game\+Ref\+Num@{game\+Ref\+Num}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{game\+Ref\+Num}]{\setlength{\rightskip}{0pt plus 5cm}short game\+Ref\+Num}}\label{mrecover_8c_aad49c85708e83a186d8f96d612257de5}
+
+
+Definition at line 235 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover(), end\+Recover(), and restore\+\_\+savefile().
+
+\hypertarget{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{\index{mrecover.\+c@{mrecover.\+c}!hpid@{hpid}}
+\index{hpid@{hpid}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{hpid}]{\setlength{\rightskip}{0pt plus 5cm}int hpid}}\label{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}
+
+
+Definition at line 233 of file mrecover.\+c.
+
+
+
+Referenced by getlev(), restore\+\_\+savefile(), and save\+Rez\+Strings().
+
+\hypertarget{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{\index{mrecover.\+c@{mrecover.\+c}!in@{in}}
+\index{in@{in}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{in}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mode\+Flags} in = \{1\}}}\label{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}
+
+
+Definition at line 197 of file mrecover.\+c.
+
+
+
+Referenced by main(), restore\+\_\+savefile(), and tc\+\_\+find().
+
+\hypertarget{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}{\index{mrecover.\+c@{mrecover.\+c}!lev\+Ref\+Num@{lev\+Ref\+Num}}
+\index{lev\+Ref\+Num@{lev\+Ref\+Num}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{lev\+Ref\+Num}]{\setlength{\rightskip}{0pt plus 5cm}short lev\+Ref\+Num}}\label{mrecover_8c_a3c0ceeabe47fdbe5b2a4c659b4eaf542}
+
+
+Definition at line 236 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover(), end\+Recover(), and restore\+\_\+savefile().
+
+\hypertarget{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}{\index{mrecover.\+c@{mrecover.\+c}!lock@{lock}}
+\index{lock@{lock}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{lock}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char lock\mbox{[}256\mbox{]}}}\label{mrecover_8c_adcd88a464d11171ce039d2ad8e21c22a}
+
+
+Definition at line 231 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover(), open\+\_\+levelfile(), restore\+\_\+savefile(), and set\+\_\+levelfile\+\_\+name().
+
+\hypertarget{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}{\index{mrecover.\+c@{mrecover.\+c}!mem\+Activity@{mem\+Activity}}
+\index{mem\+Activity@{mem\+Activity}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{mem\+Activity}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short mem\+Activity}}\label{mrecover_8c_a0872e58dcd14f2d343db1435d02da68a}
+
+
+Definition at line 202 of file mrecover.\+c.
+
+
+
+Referenced by adjust\+Memory(), begin\+Recover(), end\+Recover(), event\+Loop(), note(), Recover\+Menu\+Event(), and save\+Rez\+Strings().
+
+\hypertarget{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}{\index{mrecover.\+c@{mrecover.\+c}!m\+Hnd@{m\+Hnd}}
+\index{m\+Hnd@{m\+Hnd}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{m\+Hnd}]{\setlength{\rightskip}{0pt plus 5cm}Menu\+Handle m\+Hnd\mbox{[}{\bf menu\+\_\+\+Total}\mbox{]}}}\label{mrecover_8c_aae588be1a6861f4c95b130dceb96ff5f}
+
+
+Definition at line 203 of file mrecover.\+c.
+
+
+
+Referenced by adjust\+G\+U\+I(), and Recover\+Menu\+Event().
+
+\hypertarget{mrecover_8c_acc03e4669b28636ec9a313989c79db2c}{\index{mrecover.\+c@{mrecover.\+c}!nm\+Completion\+U\+P\+P@{nm\+Completion\+U\+P\+P}}
+\index{nm\+Completion\+U\+P\+P@{nm\+Completion\+U\+P\+P}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{nm\+Completion\+U\+P\+P}]{\setlength{\rightskip}{0pt plus 5cm}N\+M\+U\+P\+P nm\+Completion\+U\+P\+P}}\label{mrecover_8c_acc03e4669b28636ec9a313989c79db2c}
+
+
+Definition at line 219 of file mrecover.\+c.
+
+
+
+Referenced by main(), and warmup().
+
+\hypertarget{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}{\index{mrecover.\+c@{mrecover.\+c}!nmt@{nmt}}
+\index{nmt@{nmt}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{nmt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf notif\+Rec} nmt}}\label{mrecover_8c_ac0a55564440daf34a8e212d5a1aa2da8}
+
+
+Definition at line 208 of file mrecover.\+c.
+
+
+
+Referenced by note().
+
+\hypertarget{mrecover_8c_a6b668716c6cbe31bdfb67a17fd8ec8fd}{\index{mrecover.\+c@{mrecover.\+c}!old\+Cursor@{old\+Cursor}}
+\index{old\+Cursor@{old\+Cursor}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{old\+Cursor}]{\setlength{\rightskip}{0pt plus 5cm}short old\+Cursor = {\bf curs\+\_\+\+Init}}}\label{mrecover_8c_a6b668716c6cbe31bdfb67a17fd8ec8fd}
+
+
+Definition at line 206 of file mrecover.\+c.
+
+
+
+Referenced by adjust\+G\+U\+I(), and end\+Recover().
+
+\hypertarget{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}{\index{mrecover.\+c@{mrecover.\+c}!p\+Bytes@{p\+Bytes}}
+\index{p\+Bytes@{p\+Bytes}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{p\+Bytes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf mem\+Bytes\+Ptr} p\+Bytes}}\label{mrecover_8c_a2e4c92960b3f7e57191c27f8248335cf}
+
+
+Definition at line 201 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_a12f243873367f3e278c63fd3cff6b61b}{\index{mrecover.\+c@{mrecover.\+c}!p\+I\+O\+Buf@{p\+I\+O\+Buf}}
+\index{p\+I\+O\+Buf@{p\+I\+O\+Buf}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{p\+I\+O\+Buf}]{\setlength{\rightskip}{0pt plus 5cm}Ptr p\+I\+O\+Buf}}\label{mrecover_8c_a12f243873367f3e278c63fd3cff6b61b}
+
+
+Definition at line 216 of file mrecover.\+c.
+
+
+
+Referenced by copy\+\_\+bytes().
+
+\hypertarget{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}{\index{mrecover.\+c@{mrecover.\+c}!p\+N\+M\+Q@{p\+N\+M\+Q}}
+\index{p\+N\+M\+Q@{p\+N\+M\+Q}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{p\+N\+M\+Q}]{\setlength{\rightskip}{0pt plus 5cm}{\bf notif\+Ptr} p\+N\+M\+Q}}\label{mrecover_8c_a8f80cde8526cb1faccedb5d22287b871}
+
+
+Definition at line 207 of file mrecover.\+c.
+
+\hypertarget{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}{\index{mrecover.\+c@{mrecover.\+c}!savename@{savename}}
+\index{savename@{savename}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{savename}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char savename\mbox{[}{\bf S\+A\+V\+E\+S\+I\+Z\+E}\mbox{]}}}\label{mrecover_8c_ab7352c7c7e9abac18aee267b14b84117}
+
+
+Definition at line 230 of file mrecover.\+c.
+
+
+
+Referenced by create\+\_\+savefile(), end\+Recover(), restore\+\_\+savefile(), and save\+Rez\+Strings().
+
+\hypertarget{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}{\index{mrecover.\+c@{mrecover.\+c}!save\+Ref\+Num@{save\+Ref\+Num}}
+\index{save\+Ref\+Num@{save\+Ref\+Num}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{save\+Ref\+Num}]{\setlength{\rightskip}{0pt plus 5cm}short save\+Ref\+Num}}\label{mrecover_8c_a0573a47cabb440405691b94ff29b5c58}
+
+
+Definition at line 234 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover(), end\+Recover(), and restore\+\_\+savefile().
+
+\hypertarget{mrecover_8c_a88f38d32b55327de55830e14af3ebf57}{\index{mrecover.\+c@{mrecover.\+c}!sf\+Get\+Where@{sf\+Get\+Where}}
+\index{sf\+Get\+Where@{sf\+Get\+Where}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{sf\+Get\+Where}]{\setlength{\rightskip}{0pt plus 5cm}Point sf\+Get\+Where}}\label{mrecover_8c_a88f38d32b55327de55830e14af3ebf57}
+
+
+Definition at line 215 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover().
+
+\hypertarget{mrecover_8c_af296504f58673ebca14fb2ec6cc9a120}{\index{mrecover.\+c@{mrecover.\+c}!sys\+Env@{sys\+Env}}
+\index{sys\+Env@{sys\+Env}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{sys\+Env}]{\setlength{\rightskip}{0pt plus 5cm}Sys\+Env\+Rec sys\+Env}}\label{mrecover_8c_af296504f58673ebca14fb2ec6cc9a120}
+
+
+Definition at line 199 of file mrecover.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{mrecover_8c_a9aad2bf8a496441578c342b89aafb1e0}{\index{mrecover.\+c@{mrecover.\+c}!thermo\+T\+Hnd@{thermo\+T\+Hnd}}
+\index{thermo\+T\+Hnd@{thermo\+T\+Hnd}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{thermo\+T\+Hnd}]{\setlength{\rightskip}{0pt plus 5cm}Dialog\+T\+Hndl thermo\+T\+Hnd}}\label{mrecover_8c_a9aad2bf8a496441578c342b89aafb1e0}
+
+
+Definition at line 209 of file mrecover.\+c.
+
+
+
+Referenced by event\+Loop().
+
+\hypertarget{mrecover_8c_a163e8f8d01f4a1577bcab17887f30259}{\index{mrecover.\+c@{mrecover.\+c}!time\+Cursor@{time\+Cursor}}
+\index{time\+Cursor@{time\+Cursor}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{time\+Cursor}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long time\+Cursor}}\label{mrecover_8c_a163e8f8d01f4a1577bcab17887f30259}
+
+
+Definition at line 205 of file mrecover.\+c.
+
+
+
+Referenced by adjust\+G\+U\+I(), and begin\+Recover().
+
+\hypertarget{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{\index{mrecover.\+c@{mrecover.\+c}!v\+Ref\+Num@{v\+Ref\+Num}}
+\index{v\+Ref\+Num@{v\+Ref\+Num}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{v\+Ref\+Num}]{\setlength{\rightskip}{0pt plus 5cm}short v\+Ref\+Num}}\label{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}
+
+
+Definition at line 217 of file mrecover.\+c.
+
+
+
+Referenced by begin\+Recover(), close\+\_\+file(), create\+\_\+savefile(), end\+Recover(), open\+\_\+levelfile(), save\+Rez\+Strings(), and unlink\+\_\+file().
+
+\hypertarget{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}{\index{mrecover.\+c@{mrecover.\+c}!wn\+Evt@{wn\+Evt}}
+\index{wn\+Evt@{wn\+Evt}!mrecover.\+c@{mrecover.\+c}}
+\subsubsection[{wn\+Evt}]{\setlength{\rightskip}{0pt plus 5cm}Event\+Record wn\+Evt}}\label{mrecover_8c_ac86e62c78efca2712260cd77d0fe91fc}
+
+
+Definition at line 198 of file mrecover.\+c.
+
+
+
+Referenced by cooldown(), event\+Loop(), option\+Mem\+Stats(), Recover\+Menu\+Event(), and warmup().
+

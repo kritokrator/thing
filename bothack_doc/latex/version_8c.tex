@@ -1,0 +1,337 @@
+\hypertarget{version_8c}{\section{nethack/src/version.c File Reference}
+\label{version_8c}\index{nethack/src/version.\+c@{nethack/src/version.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}date.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}patchlevel.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{version_8c_a752dd2d933cd453cdc3ad856d398fece}{version\+\_\+string} (char $\ast$\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf})
+\item 
+char $\ast$ \hyperlink{version_8c_a431d9e78249b81eccfcaf792ebe5ff9b}{getversionstring} (char $\ast$\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf})
+\item 
+int \hyperlink{version_8c_aa4ba7dc175f40ea8f0bf32fbb6d9dbcd}{doversion} ()
+\item 
+int \hyperlink{version_8c_a376e9596f424e06cc7ee43ad07d8ffb0}{doextversion} ()
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{version_8c_a9ab2a6e9d7e125264af1e7446ccd9688}{check\+\_\+version} (struct \hyperlink{structversion__info}{version\+\_\+info} $\ast$version\+\_\+data, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} complain)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{version_8c_a058fe6d05cab8d612e8f622186b83693}{uptodate} (int fd, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name})
+\item 
+void \hyperlink{version_8c_aa7fde5122fc8cf75dbc460ac3b3a6507}{store\+\_\+version} (int fd)
+\item 
+unsigned long \hyperlink{version_8c_aeec405e387c99f9a0803053925e13a5e}{get\+\_\+feature\+\_\+notice\+\_\+ver} (char $\ast$str)
+\item 
+unsigned long \hyperlink{version_8c_a00e7f5e8a8c5bbdc43ad36e03432e6c6}{get\+\_\+current\+\_\+feature\+\_\+ver} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{version_8c_a9ab2a6e9d7e125264af1e7446ccd9688}{\index{version.\+c@{version.\+c}!check\+\_\+version@{check\+\_\+version}}
+\index{check\+\_\+version@{check\+\_\+version}!version.\+c@{version.\+c}}
+\subsubsection[{check\+\_\+version}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} check\+\_\+version (
+\begin{DoxyParamCaption}
+\item[{struct {\bf version\+\_\+info} $\ast$}]{version\+\_\+data, }
+\item[{{\bf const} char $\ast$}]{filename, }
+\item[{{\bf boolean}}]{complain}
+\end{DoxyParamCaption}
+)}}\label{version_8c_a9ab2a6e9d7e125264af1e7446ccd9688}
+
+
+Definition at line 68 of file version.\+c.
+
+
+
+References F\+A\+L\+S\+E, I\+G\+N\+O\+R\+E\+D\+\_\+\+F\+E\+A\+T\+U\+R\+E\+S, T\+R\+U\+E, and V\+E\+R\+S\+I\+O\+N\+\_\+\+C\+O\+M\+P\+A\+T\+I\+B\+I\+L\+I\+T\+Y.
+
+
+
+Referenced by load\+\_\+special(), and uptodate().
+
+
+\begin{DoxyCode}
+72 \{
+73     \textcolor{keywordflow}{if} (
+74 #ifdef \hyperlink{patchlevel_8h_a4b368666d0377e6e8785257e86b011a4}{VERSION\_COMPATIBILITY}
+75         version\_data->\hyperlink{structversion__info_a3cd43ee1186d0ba5175b3741fee41a22}{incarnation} < \hyperlink{patchlevel_8h_a4b368666d0377e6e8785257e86b011a4}{VERSION\_COMPATIBILITY} ||
+76         version\_data->\hyperlink{structversion__info_a3cd43ee1186d0ba5175b3741fee41a22}{incarnation} > VERSION\_NUMBER
+77 #\textcolor{keywordflow}{else}
+78         version\_data->\hyperlink{structversion__info_a3cd43ee1186d0ba5175b3741fee41a22}{incarnation} != VERSION\_NUMBER
+79 #endif
+80       ) \{
+81         \textcolor{keywordflow}{if} (complain)
+82         pline(\textcolor{stringliteral}{"Version mismatch for file \(\backslash\)"%s\(\backslash\)"."}, \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename});
+83         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+84     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (
+85 #ifndef \hyperlink{makedefs_8c_ae51be7aac206322ae4313eba66541668}{IGNORED\_FEATURES}
+86            version\_data->\hyperlink{structversion__info_a30b026e5e6a7d440c7e94cdc79d19d1c}{feature\_set} != VERSION\_FEATURES ||
+87 #else
+88            (version\_data->\hyperlink{structversion__info_a30b026e5e6a7d440c7e94cdc79d19d1c}{feature\_set} & ~\hyperlink{makedefs_8c_ae51be7aac206322ae4313eba66541668}{IGNORED\_FEATURES}) !=
+89               (VERSION\_FEATURES & ~\hyperlink{makedefs_8c_ae51be7aac206322ae4313eba66541668}{IGNORED\_FEATURES}) ||
+90 #endif
+91            version\_data->\hyperlink{structversion__info_adfd49b59efa4353bbb8d825e1c1cc44a}{entity\_count} != VERSION\_SANITY1 ||
+92            version\_data->\hyperlink{structversion__info_acefd1dc1f2fcfb2d0a7ece599eeb8627}{struct\_sizes} != VERSION\_SANITY2) \{
+93         \textcolor{keywordflow}{if} (complain)
+94         pline(\textcolor{stringliteral}{"Configuration incompatibility for file \(\backslash\)"%s\(\backslash\)"."},
+95               \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename});
+96         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+97     \}
+98     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+99 \}
+\end{DoxyCode}
+\hypertarget{version_8c_a376e9596f424e06cc7ee43ad07d8ffb0}{\index{version.\+c@{version.\+c}!doextversion@{doextversion}}
+\index{doextversion@{doextversion}!version.\+c@{version.\+c}}
+\subsubsection[{doextversion}]{\setlength{\rightskip}{0pt plus 5cm}int doextversion (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{version_8c_a376e9596f424e06cc7ee43ad07d8ffb0}
+
+
+Definition at line 52 of file version.\+c.
+
+
+
+References display\+\_\+file, O\+P\+T\+I\+O\+N\+S\+\_\+\+U\+S\+E\+D, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+53 \{
+54     \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{global_8h_a5c59035788bda63bfeb375f55b31b733}{OPTIONS\_USED}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+55     \textcolor{keywordflow}{return} 0;
+56 \}
+\end{DoxyCode}
+\hypertarget{version_8c_aa4ba7dc175f40ea8f0bf32fbb6d9dbcd}{\index{version.\+c@{version.\+c}!doversion@{doversion}}
+\index{doversion@{doversion}!version.\+c@{version.\+c}}
+\subsubsection[{doversion}]{\setlength{\rightskip}{0pt plus 5cm}int doversion (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{version_8c_aa4ba7dc175f40ea8f0bf32fbb6d9dbcd}
+
+
+Definition at line 43 of file version.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, and getversionstring().
+
+
+
+Referenced by about\+Net\+Hack().
+
+
+\begin{DoxyCode}
+44 \{
+45     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+46 
+47     pline(\textcolor{stringliteral}{"%s"}, \hyperlink{version_8c_a431d9e78249b81eccfcaf792ebe5ff9b}{getversionstring}(buf));
+48     \textcolor{keywordflow}{return} 0;
+49 \}
+\end{DoxyCode}
+\hypertarget{version_8c_a00e7f5e8a8c5bbdc43ad36e03432e6c6}{\index{version.\+c@{version.\+c}!get\+\_\+current\+\_\+feature\+\_\+ver@{get\+\_\+current\+\_\+feature\+\_\+ver}}
+\index{get\+\_\+current\+\_\+feature\+\_\+ver@{get\+\_\+current\+\_\+feature\+\_\+ver}!version.\+c@{version.\+c}}
+\subsubsection[{get\+\_\+current\+\_\+feature\+\_\+ver}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long get\+\_\+current\+\_\+feature\+\_\+ver (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{version_8c_a00e7f5e8a8c5bbdc43ad36e03432e6c6}
+
+
+Definition at line 180 of file version.\+c.
+
+
+
+References F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R, P\+A\+T\+C\+H\+L\+E\+V\+E\+L, V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+A\+J\+O\+R, and V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+I\+N\+O\+R.
+
+
+
+Referenced by feature\+\_\+alert\+\_\+opts().
+
+
+\begin{DoxyCode}
+181 \{
+182     \textcolor{keywordflow}{return} \hyperlink{hack_8h_a59736f3202b417b907e43dc52bb63922}{FEATURE\_NOTICE\_VER}(\hyperlink{patchlevel_8h_a1a53b724b6de666faa8a9e0d06d1055f}{VERSION\_MAJOR},
+      \hyperlink{patchlevel_8h_ae0cb52afb79b185b1bf82c7e235f682b}{VERSION\_MINOR},\hyperlink{patchlevel_8h_a0e36fabb240fb841cc1df19b076f45c9}{PATCHLEVEL});
+183 \}
+\end{DoxyCode}
+\hypertarget{version_8c_aeec405e387c99f9a0803053925e13a5e}{\index{version.\+c@{version.\+c}!get\+\_\+feature\+\_\+notice\+\_\+ver@{get\+\_\+feature\+\_\+notice\+\_\+ver}}
+\index{get\+\_\+feature\+\_\+notice\+\_\+ver@{get\+\_\+feature\+\_\+notice\+\_\+ver}!version.\+c@{version.\+c}}
+\subsubsection[{get\+\_\+feature\+\_\+notice\+\_\+ver}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long get\+\_\+feature\+\_\+notice\+\_\+ver (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{version_8c_aeec405e387c99f9a0803053925e13a5e}
+
+
+Definition at line 149 of file version.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R, and index().
+
+
+
+Referenced by feature\+\_\+alert\+\_\+opts().
+
+
+\begin{DoxyCode}
+151 \{
+152     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+153     \textcolor{keywordtype}{int} ver\_maj, ver\_min, patch;
+154     \textcolor{keywordtype}{char} *istr[3];
+155     \textcolor{keywordtype}{int} j = 0;
+156 
+157     \textcolor{keywordflow}{if} (!str) \textcolor{keywordflow}{return} 0L;
+158     str = strcpy(buf, str);
+159     istr[j] = str;
+160     \textcolor{keywordflow}{while} (*str) \{
+161         \textcolor{keywordflow}{if} (*str == \textcolor{charliteral}{'.'}) \{
+162             *str++ = \textcolor{charliteral}{'\(\backslash\)0'};
+163             j++;
+164             istr[j] = str;
+165             \textcolor{keywordflow}{if} (j == 2) \textcolor{keywordflow}{break};
+166         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\textcolor{stringliteral}{"0123456789"}, *str) != 0) \{
+167             str++;
+168         \} \textcolor{keywordflow}{else} 
+169             \textcolor{keywordflow}{return} 0L;
+170     \}
+171     \textcolor{keywordflow}{if} (j != 2) \textcolor{keywordflow}{return} 0L;
+172     ver\_maj = atoi(istr[0]);
+173     ver\_min = atoi(istr[1]);
+174     patch = atoi(istr[2]);
+175     \textcolor{keywordflow}{return} \hyperlink{hack_8h_a59736f3202b417b907e43dc52bb63922}{FEATURE\_NOTICE\_VER}(ver\_maj,ver\_min,patch);
+176     \textcolor{comment}{/* macro from hack.h */}
+177 \}
+\end{DoxyCode}
+\hypertarget{version_8c_a431d9e78249b81eccfcaf792ebe5ff9b}{\index{version.\+c@{version.\+c}!getversionstring@{getversionstring}}
+\index{getversionstring@{getversionstring}!version.\+c@{version.\+c}}
+\subsubsection[{getversionstring}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ getversionstring (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)}}\label{version_8c_a431d9e78249b81eccfcaf792ebe5ff9b}
+
+
+Definition at line 29 of file version.\+c.
+
+
+
+References append\+\_\+port\+\_\+id(), buf, eos(), Sprintf, and Strcpy.
+
+
+
+Referenced by About(), doversion(), ghack\+\_\+about\+\_\+cb(), and mswin\+\_\+display\+\_\+splash\+\_\+window().
+
+
+\begin{DoxyCode}
+31 \{
+32     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, VERSION\_ID);
+33 \textcolor{preprocessor}{#if defined(BETA) && defined(BETA\_INFO)}
+34     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}), \textcolor{stringliteral}{" %s"}, BETA\_INFO);
+35 \textcolor{preprocessor}{#endif}
+36 \textcolor{preprocessor}{#if defined(RUNTIME\_PORT\_ID)}
+37     \hyperlink{sys_2wince_2winhack_8c_a7d2499070603e220eaa00936d661359c}{append\_port\_id}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf});
+38 \textcolor{preprocessor}{#endif}
+39     \textcolor{keywordflow}{return} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+40 \}
+\end{DoxyCode}
+\hypertarget{version_8c_aa7fde5122fc8cf75dbc460ac3b3a6507}{\index{version.\+c@{version.\+c}!store\+\_\+version@{store\+\_\+version}}
+\index{store\+\_\+version@{store\+\_\+version}!version.\+c@{version.\+c}}
+\subsubsection[{store\+\_\+version}]{\setlength{\rightskip}{0pt plus 5cm}void store\+\_\+version (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{version_8c_aa7fde5122fc8cf75dbc460ac3b3a6507}
+
+
+Definition at line 129 of file version.\+c.
+
+
+
+References bufoff(), bufon(), and bwrite().
+
+
+
+Referenced by dosave0(), and savebones().
+
+
+\begin{DoxyCode}
+131 \{
+132     \textcolor{keyword}{const} \textcolor{keyword}{static} \textcolor{keyword}{struct }\hyperlink{structversion__info}{version\_info} version\_data = \{
+133             VERSION\_NUMBER, VERSION\_FEATURES,
+134             VERSION\_SANITY1, VERSION\_SANITY2
+135     \};
+136 
+137     \hyperlink{save_8c_af215ea077313a03a37b9530f05cbda46}{bufoff}(fd);
+138     \textcolor{comment}{/* bwrite() before bufon() uses plain write() */}
+139     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&version\_data,(\textcolor{keywordtype}{unsigned})(\textcolor{keyword}{sizeof} version\_data));
+140     \hyperlink{save_8c_a961e149d17d8e7891b72cd74336c68c2}{bufon}(fd);
+141     \textcolor{keywordflow}{return};
+142 \}
+\end{DoxyCode}
+\hypertarget{version_8c_a058fe6d05cab8d612e8f622186b83693}{\index{version.\+c@{version.\+c}!uptodate@{uptodate}}
+\index{uptodate@{uptodate}!version.\+c@{version.\+c}}
+\subsubsection[{uptodate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} uptodate (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf const} char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{version_8c_a058fe6d05cab8d612e8f622186b83693}
+
+
+Definition at line 104 of file version.\+c.
+
+
+
+References check\+\_\+version(), F\+A\+L\+S\+E, minit(), read(), T\+R\+U\+E, and wait\+\_\+synch.
+
+
+
+Referenced by dorecover(), getbones(), restlevelfile(), and restore\+\_\+saved\+\_\+game().
+
+
+\begin{DoxyCode}
+107 \{
+108     \textcolor{keywordtype}{int} rlen;
+109     \textcolor{keyword}{struct }\hyperlink{structversion__info}{version\_info} vers\_info;
+110     \textcolor{keywordtype}{boolean} verbose = \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} ? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+111 
+112     rlen = \hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &vers\_info, \textcolor{keyword}{sizeof} vers\_info);
+113     \hyperlink{restore_8c_adf561b811f7ff644e8d9cb39ad374c41}{minit}();       \textcolor{comment}{/* ZEROCOMP */}
+114     \textcolor{keywordflow}{if} (rlen == 0) \{
+115     \textcolor{keywordflow}{if} (verbose) \{
+116         pline(\textcolor{stringliteral}{"File \(\backslash\)"%s\(\backslash\)" is empty?"}, \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name});
+117         \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+118     \}
+119     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+120     \}
+121     \textcolor{keywordflow}{if} (!\hyperlink{version_8c_a9ab2a6e9d7e125264af1e7446ccd9688}{check\_version}(&vers\_info, \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, verbose)) \{
+122     \textcolor{keywordflow}{if} (verbose) \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+123     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+124     \}
+125     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+126 \}
+\end{DoxyCode}
+\hypertarget{version_8c_a752dd2d933cd453cdc3ad856d398fece}{\index{version.\+c@{version.\+c}!version\+\_\+string@{version\+\_\+string}}
+\index{version\+\_\+string@{version\+\_\+string}!version.\+c@{version.\+c}}
+\subsubsection[{version\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ version\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf}
+\end{DoxyParamCaption}
+)}}\label{version_8c_a752dd2d933cd453cdc3ad856d398fece}
+
+
+Definition at line 21 of file version.\+c.
+
+
+
+Referenced by paniclog().
+
+
+\begin{DoxyCode}
+23 \{
+24     \textcolor{keywordflow}{return} strcpy(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, VERSION\_STRING);
+25 \}
+\end{DoxyCode}

@@ -1,0 +1,1821 @@
+\hypertarget{win_2X11_2winmenu_8c}{\section{nethack/win/\+X11/winmenu.c File Reference}
+\label{win_2X11_2winmenu_8c}\index{nethack/win/\+X11/winmenu.\+c@{nethack/win/\+X11/winmenu.\+c}}
+}
+{\ttfamily \#include $<$X11/\+Intrinsic.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+String\+Defs.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Shell.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xatom.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Label.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Command.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Viewport.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Cardinals.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Box.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+List.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xos.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}win\+X.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{win_2X11_2winmenu_8c_a871513d8c7abd319565c0f9393d28f9a}{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/
+\item 
+\#define \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\+\_\+menu\+\_\+count}(\hyperlink{structmi}{mi})~((\hyperlink{structmi}{mi})-\/$>$counting = \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}, (\hyperlink{structmi}{mi})-\/$>$menu\+\_\+count = 0\+L)
+\item 
+\#define \hyperlink{win_2X11_2winmenu_8c_a0343a377783990db02db3d59ee298104}{G\+S\+E\+L\+I\+D\+X}(c)~((c) \& 127)	/$\ast$ guard against `\hyperlink{tradstdc_8h_ae31516cd0c4adc3d52b93ef2e5c6117b}{signed} char' $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a2ab9695a014114228fd6194bab77febd}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a6b7784544c4e02f24eadcddc1f3d7593}{menu\+\_\+select},(Widget, Xt\+Pointer, Xt\+Pointer))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_aea6ffb1021a81d52d131e463dc8a66e3}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\+\_\+line},(struct \hyperlink{structxwindow}{xwindow} $\ast$, \hyperlink{winX_8h_a68b552d87ad793cc9e71769eacb577dd}{x11\+\_\+menu\+\_\+item} $\ast$, int, long))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_abebf420a2720d00128437a93702c7bcd}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_ae055ee6d07dc1f4426e190049c837b90}{menu\+\_\+ok},(Widget, Xt\+Pointer, Xt\+Pointer))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a67d48ba5888a659afeda5b627ab257e9}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_ab30dd70724ea5aefd65ee673324e478a}{menu\+\_\+cancel},(Widget, Xt\+Pointer, Xt\+Pointer))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_af2e3a241e2cf855a4eefe5d3d52843aa}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_ac9bae3360ea15fdcf8050f004f0e97dc}{menu\+\_\+all},(Widget, Xt\+Pointer, Xt\+Pointer))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_af137020d4752f6e5bde5cd3d75951b8b}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a2cb870f761039f73b4e31014e82b3e07}{menu\+\_\+none},(Widget, Xt\+Pointer, Xt\+Pointer))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a065d3b453bc6e5f8c35a3d94ea83cb23}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a65850adcc34103a08da041be932c5123}{menu\+\_\+invert},(Widget, Xt\+Pointer, Xt\+Pointer))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a4ed963c33f14f849c3bb5c015276c28f}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_afdbf4bf3ef9281b5ae23aa9a18b0a2f4}{menu\+\_\+search},(Widget, Xt\+Pointer, Xt\+Pointer))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_aba8ea57a15c5fc81bf15ffca63005422}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a444cfbd0685ce145118b4dc5942c9c9b}{select\+\_\+all},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_ac954d6f6720bdded0554205def1e8483}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_aaad3c84594de8d7b1059a49b784821f2}{select\+\_\+none},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_aee2aafaf77d8ceadd55ee419e06ec03c}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a6cd3f96a6e0336f5531f7ef7ba1afc78}{select\+\_\+match},(struct \hyperlink{structxwindow}{xwindow} $\ast$, char $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a61fc226af6d09bce5c4470079f34583c}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a445460fd2b5c043a50371ea5b8d4f087}{invert\+\_\+all},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a5b7d592bfe45e998840fe2aa86518748}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a931678048ac8370e2cd6c0ba2be631bc}{invert\+\_\+match},(struct \hyperlink{structxwindow}{xwindow} $\ast$, char $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a956038b48a9da04827324e68447598ad}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}{menu\+\_\+popdown},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a9b954b1d9c32a0c1f6ce7641a66928e9}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_aa0739d4a6908a4f8507db37723586897}{move\+\_\+menu},(struct \hyperlink{structmenu}{menu} $\ast$, struct \hyperlink{structmenu}{menu} $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_aa3fc1606fd672aede0a0fe13e6d82b6d}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_a5226cf7762df9d93e3a02e5b81928fc1}{free\+\_\+menu},(struct \hyperlink{structmenu}{menu} $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a09207bb1047d4227c33ba8f53d5b0250}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_ab86ccaf791a007fe1b7fbeffefdca927}{reset\+\_\+menu\+\_\+to\+\_\+default},(struct \hyperlink{structmenu}{menu} $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a8ce99da39d24676532c0c195b1d4bcb3}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_aebf8d8128a89cad8aea9984bbc899f08}{clear\+\_\+old\+\_\+menu},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static char $\ast$ \hyperlink{win_2X11_2winmenu_8c_adf5646b5bc1377c9ac1372fffcf7a1ed}{F\+D\+E\+C\+L} (\hyperlink{win_2X11_2winmenu_8c_ae74ebfb52b42500b20beb3f69867d74a}{copy\+\_\+of},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a6b7784544c4e02f24eadcddc1f3d7593}{menu\+\_\+select} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+void \hyperlink{win_2X11_2winmenu_8c_a28584ef5645cfd0193caf26a870882a7}{menu\+\_\+delete} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\+\_\+line} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, \hyperlink{winX_8h_a68b552d87ad793cc9e71769eacb577dd}{x11\+\_\+menu\+\_\+item} $\ast$curr, int which, long how\+\_\+many)
+\item 
+void \hyperlink{win_2X11_2winmenu_8c_a41563bf9c3c1809af466e5a0f51d9280}{menu\+\_\+key} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_ae055ee6d07dc1f4426e190049c837b90}{menu\+\_\+ok} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_ab30dd70724ea5aefd65ee673324e478a}{menu\+\_\+cancel} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_ac9bae3360ea15fdcf8050f004f0e97dc}{menu\+\_\+all} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a2cb870f761039f73b4e31014e82b3e07}{menu\+\_\+none} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a65850adcc34103a08da041be932c5123}{menu\+\_\+invert} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_afdbf4bf3ef9281b5ae23aa9a18b0a2f4}{menu\+\_\+search} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a444cfbd0685ce145118b4dc5942c9c9b}{select\+\_\+all} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_aaad3c84594de8d7b1059a49b784821f2}{select\+\_\+none} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a445460fd2b5c043a50371ea5b8d4f087}{invert\+\_\+all} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a931678048ac8370e2cd6c0ba2be631bc}{invert\+\_\+match} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, char $\ast$match)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a6cd3f96a6e0336f5531f7ef7ba1afc78}{select\+\_\+match} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, char $\ast$match)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}{menu\+\_\+popdown} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{win_2X11_2winmenu_8c_a74336bff7d49c1c23af7dae5180a343e}{X11\+\_\+start\+\_\+menu} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window)
+\item 
+void \hyperlink{win_2X11_2winmenu_8c_a0ab6778fcf2d7a696adbfbefbac42a88}{X11\+\_\+add\+\_\+menu} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window, int glyph, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{wintype_8h_a49720928e6af182ee38aa332d0483b2a}{anything} $\ast$identifier, char ch, char gch, int attr, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$str, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} preselected)
+\item 
+void \hyperlink{win_2X11_2winmenu_8c_a0c72042460da62662ef7f1d5d1dc5730}{X11\+\_\+end\+\_\+menu} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$query)
+\item 
+int \hyperlink{win_2X11_2winmenu_8c_a7e3cced2b7609c42eb98a654b54a8751}{X11\+\_\+select\+\_\+menu} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window, int how, \hyperlink{wintype_8h_aaef709f77068fd7ba62812589327f08f}{menu\+\_\+item} $\ast$$\ast$menu\+\_\+list)
+\item 
+static char $\ast$ \hyperlink{win_2X11_2winmenu_8c_ae74ebfb52b42500b20beb3f69867d74a}{copy\+\_\+of} (char $\ast$s) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_aa0739d4a6908a4f8507db37723586897}{move\+\_\+menu} (struct \hyperlink{structmenu}{menu} $\ast$src\+\_\+menu, struct \hyperlink{structmenu}{menu} $\ast$dest\+\_\+menu)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_a5226cf7762df9d93e3a02e5b81928fc1}{free\+\_\+menu} (struct \hyperlink{structmenu}{menu} $\ast$mp)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_ab86ccaf791a007fe1b7fbeffefdca927}{reset\+\_\+menu\+\_\+to\+\_\+default} (struct \hyperlink{structmenu}{menu} $\ast$mp)
+\item 
+static void \hyperlink{win_2X11_2winmenu_8c_aebf8d8128a89cad8aea9984bbc899f08}{clear\+\_\+old\+\_\+menu} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{win_2X11_2winmenu_8c_aad1e859925ecabc131a53ad25d56ba72}{create\+\_\+menu\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{win_2X11_2winmenu_8c_a984351be8e971e30ca44352125e3c59a}{destroy\+\_\+menu\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{win_2X11_2winmenu_8c_ac8f768dc52a09995be17e329ae646776}{menu\+\_\+translations} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{win_2X11_2winmenu_8c_a0343a377783990db02db3d59ee298104}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!G\+S\+E\+L\+I\+D\+X@{G\+S\+E\+L\+I\+D\+X}}
+\index{G\+S\+E\+L\+I\+D\+X@{G\+S\+E\+L\+I\+D\+X}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{G\+S\+E\+L\+I\+D\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+S\+E\+L\+I\+D\+X(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~((c) \& 127)	/$\ast$ guard against `{\bf signed} char' $\ast$/}}\label{win_2X11_2winmenu_8c_a0343a377783990db02db3d59ee298104}
+
+
+Referenced by X11\+\_\+select\+\_\+menu().
+
+\hypertarget{win_2X11_2winmenu_8c_a871513d8c7abd319565c0f9393d28f9a}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}}
+\index{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/}}\label{win_2X11_2winmenu_8c_a871513d8c7abd319565c0f9393d28f9a}
+
+
+Definition at line 13 of file winmenu.\+c.
+
+\hypertarget{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!reset\+\_\+menu\+\_\+count@{reset\+\_\+menu\+\_\+count}}
+\index{reset\+\_\+menu\+\_\+count@{reset\+\_\+menu\+\_\+count}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{reset\+\_\+menu\+\_\+count}]{\setlength{\rightskip}{0pt plus 5cm}\#define reset\+\_\+menu\+\_\+count(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf mi}}
+\end{DoxyParamCaption}
+)~(({\bf mi})-\/$>$counting = {\bf F\+A\+L\+S\+E}, ({\bf mi})-\/$>$menu\+\_\+count = 0\+L)}}\label{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}
+
+
+Definition at line 68 of file winmenu.\+c.
+
+
+
+Referenced by create\+\_\+menu\+\_\+window(), invert\+\_\+all(), invert\+\_\+line(), invert\+\_\+match(), menu\+\_\+key(), menu\+\_\+select(), select\+\_\+all(), select\+\_\+match(), select\+\_\+none(), and X11\+\_\+select\+\_\+menu().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{win_2X11_2winmenu_8c_aebf8d8128a89cad8aea9984bbc899f08}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!clear\+\_\+old\+\_\+menu@{clear\+\_\+old\+\_\+menu}}
+\index{clear\+\_\+old\+\_\+menu@{clear\+\_\+old\+\_\+menu}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{clear\+\_\+old\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}static void clear\+\_\+old\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_aebf8d8128a89cad8aea9984bbc899f08}
+
+
+Definition at line 1104 of file winmenu.\+c.
+
+
+
+References menu\+\_\+info\+\_\+t\+::curr\+\_\+menu, F\+A\+L\+S\+E, free\+\_\+menu(), menu\+\_\+info\+\_\+t\+::is\+\_\+up, menu\+\_\+info\+\_\+t\+::new\+\_\+menu, nh\+\_\+\+Xt\+Popdown(), and menu\+\_\+info\+\_\+t\+::valid\+\_\+widgets.
+
+
+
+Referenced by destroy\+\_\+menu\+\_\+window().
+
+
+\begin{DoxyCode}
+1106 \{
+1107     \textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *menu\_info = wp->menu\_information;
+1108 
+1109     \hyperlink{win_2X11_2winmenu_8c_a5226cf7762df9d93e3a02e5b81928fc1}{free\_menu}(&menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu});
+1110     \hyperlink{win_2X11_2winmenu_8c_a5226cf7762df9d93e3a02e5b81928fc1}{free\_menu}(&menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu});
+1111 
+1112     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_ab313bdca14966e71791ea9e53dd3019f}{valid\_widgets}) \{
+1113     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+1114     menu\_info->\hyperlink{structmenu__info__t_add9292ec792c147f95126c726d42f6c9}{is\_up} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1115     XtDestroyWidget(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+1116     menu\_info->\hyperlink{structmenu__info__t_ab313bdca14966e71791ea9e53dd3019f}{valid\_widgets} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1117     wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} = wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = (Widget) 0;
+1118     \}
+1119 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_ae74ebfb52b42500b20beb3f69867d74a}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!copy\+\_\+of@{copy\+\_\+of}}
+\index{copy\+\_\+of@{copy\+\_\+of}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{copy\+\_\+of}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ copy\+\_\+of (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_ae74ebfb52b42500b20beb3f69867d74a}
+
+
+Definition at line 1053 of file winmenu.\+c.
+
+
+
+References alloc().
+
+
+
+Referenced by X11\+\_\+add\+\_\+menu(), X11\+\_\+end\+\_\+menu(), and X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+1055 \{
+1056     \textcolor{keywordflow}{if} (!s) s = \textcolor{stringliteral}{""};
+1057     \textcolor{keywordflow}{return} strcpy((\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned}) (strlen(s) + 1)), s);
+1058 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_aad1e859925ecabc131a53ad25d56ba72}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!create\+\_\+menu\+\_\+window@{create\+\_\+menu\+\_\+window}}
+\index{create\+\_\+menu\+\_\+window@{create\+\_\+menu\+\_\+window}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{create\+\_\+menu\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void create\+\_\+menu\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{win_2X11_2winmenu_8c_aad1e859925ecabc131a53ad25d56ba72}
+
+
+Definition at line 1122 of file winmenu.\+c.
+
+
+
+References alloc(), N\+H\+W\+\_\+\+M\+E\+N\+U, reset\+\_\+menu\+\_\+count, reset\+\_\+menu\+\_\+to\+\_\+default(), and xwindow\+::type.
+
+
+
+Referenced by X11\+\_\+create\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+1124 \{
+1125     wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU};
+1126     wp->menu\_information =
+1127         (\textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structmenu__info__t}{menu\_info\_t}));
+1128     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) wp->menu\_information, \textcolor{charliteral}{'\(\backslash\)0'},
+1129                         \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t}));
+1130     \hyperlink{win_2X11_2winmenu_8c_ab86ccaf791a007fe1b7fbeffefdca927}{reset\_menu\_to\_default}(&wp->menu\_information->curr\_menu);
+1131     \hyperlink{win_2X11_2winmenu_8c_ab86ccaf791a007fe1b7fbeffefdca927}{reset\_menu\_to\_default}(&wp->menu\_information->new\_menu);
+1132     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(wp->menu\_information);
+1133     wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} = wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = (Widget) 0;
+1134 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a984351be8e971e30ca44352125e3c59a}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!destroy\+\_\+menu\+\_\+window@{destroy\+\_\+menu\+\_\+window}}
+\index{destroy\+\_\+menu\+\_\+window@{destroy\+\_\+menu\+\_\+window}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{destroy\+\_\+menu\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+\_\+menu\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{win_2X11_2winmenu_8c_a984351be8e971e30ca44352125e3c59a}
+
+
+Definition at line 1137 of file winmenu.\+c.
+
+
+
+References clear\+\_\+old\+\_\+menu(), free(), and N\+H\+W\+\_\+\+N\+O\+N\+E.
+
+
+
+Referenced by X11\+\_\+destroy\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+1139 \{
+1140     \hyperlink{win_2X11_2winmenu_8c_aebf8d8128a89cad8aea9984bbc899f08}{clear\_old\_menu}(wp);       \textcolor{comment}{/* this will also destroy the widgets */}
+1141     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) wp->menu\_information);
+1142     wp->menu\_information = (\textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *) 0;
+1143     wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{winX_8h_ad149374e5170c08d2036a33dbf0f7b23}{NHW\_NONE};    \textcolor{comment}{/* allow re-use */}
+1144 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a2ab9695a014114228fd6194bab77febd}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf menu\+\_\+select}}]{, }
+\item[{(Widget, Xt\+Pointer, Xt\+Pointer)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a2ab9695a014114228fd6194bab77febd}
+\hypertarget{win_2X11_2winmenu_8c_aea6ffb1021a81d52d131e463dc8a66e3}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf invert\+\_\+line}}]{, }
+\item[{(struct {\bf xwindow} $\ast$, {\bf x11\+\_\+menu\+\_\+item} $\ast$, int, long)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_aea6ffb1021a81d52d131e463dc8a66e3}
+\hypertarget{win_2X11_2winmenu_8c_abebf420a2720d00128437a93702c7bcd}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf menu\+\_\+ok}}]{, }
+\item[{(Widget, Xt\+Pointer, Xt\+Pointer)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_abebf420a2720d00128437a93702c7bcd}
+\hypertarget{win_2X11_2winmenu_8c_a67d48ba5888a659afeda5b627ab257e9}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf menu\+\_\+cancel}}]{, }
+\item[{(Widget, Xt\+Pointer, Xt\+Pointer)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a67d48ba5888a659afeda5b627ab257e9}
+\hypertarget{win_2X11_2winmenu_8c_af2e3a241e2cf855a4eefe5d3d52843aa}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf menu\+\_\+all}}]{, }
+\item[{(Widget, Xt\+Pointer, Xt\+Pointer)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_af2e3a241e2cf855a4eefe5d3d52843aa}
+\hypertarget{win_2X11_2winmenu_8c_af137020d4752f6e5bde5cd3d75951b8b}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf menu\+\_\+none}}]{, }
+\item[{(Widget, Xt\+Pointer, Xt\+Pointer)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_af137020d4752f6e5bde5cd3d75951b8b}
+\hypertarget{win_2X11_2winmenu_8c_a065d3b453bc6e5f8c35a3d94ea83cb23}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf menu\+\_\+invert}}]{, }
+\item[{(Widget, Xt\+Pointer, Xt\+Pointer)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a065d3b453bc6e5f8c35a3d94ea83cb23}
+\hypertarget{win_2X11_2winmenu_8c_a4ed963c33f14f849c3bb5c015276c28f}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf menu\+\_\+search}}]{, }
+\item[{(Widget, Xt\+Pointer, Xt\+Pointer)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a4ed963c33f14f849c3bb5c015276c28f}
+\hypertarget{win_2X11_2winmenu_8c_aba8ea57a15c5fc81bf15ffca63005422}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf select\+\_\+all}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_aba8ea57a15c5fc81bf15ffca63005422}
+\hypertarget{win_2X11_2winmenu_8c_ac954d6f6720bdded0554205def1e8483}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf select\+\_\+none}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_ac954d6f6720bdded0554205def1e8483}
+\hypertarget{win_2X11_2winmenu_8c_aee2aafaf77d8ceadd55ee419e06ec03c}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf select\+\_\+match}}]{, }
+\item[{(struct {\bf xwindow} $\ast$, char $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_aee2aafaf77d8ceadd55ee419e06ec03c}
+\hypertarget{win_2X11_2winmenu_8c_a61fc226af6d09bce5c4470079f34583c}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf invert\+\_\+all}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a61fc226af6d09bce5c4470079f34583c}
+\hypertarget{win_2X11_2winmenu_8c_a5b7d592bfe45e998840fe2aa86518748}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf invert\+\_\+match}}]{, }
+\item[{(struct {\bf xwindow} $\ast$, char $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a5b7d592bfe45e998840fe2aa86518748}
+\hypertarget{win_2X11_2winmenu_8c_a956038b48a9da04827324e68447598ad}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf menu\+\_\+popdown}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a956038b48a9da04827324e68447598ad}
+\hypertarget{win_2X11_2winmenu_8c_a9b954b1d9c32a0c1f6ce7641a66928e9}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf move\+\_\+menu}}]{, }
+\item[{(struct {\bf menu} $\ast$, struct {\bf menu} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a9b954b1d9c32a0c1f6ce7641a66928e9}
+\hypertarget{win_2X11_2winmenu_8c_aa3fc1606fd672aede0a0fe13e6d82b6d}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf free\+\_\+menu}}]{, }
+\item[{(struct {\bf menu} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_aa3fc1606fd672aede0a0fe13e6d82b6d}
+\hypertarget{win_2X11_2winmenu_8c_a09207bb1047d4227c33ba8f53d5b0250}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf reset\+\_\+menu\+\_\+to\+\_\+default}}]{, }
+\item[{(struct {\bf menu} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a09207bb1047d4227c33ba8f53d5b0250}
+\hypertarget{win_2X11_2winmenu_8c_a8ce99da39d24676532c0c195b1d4bcb3}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf clear\+\_\+old\+\_\+menu}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a8ce99da39d24676532c0c195b1d4bcb3}
+\hypertarget{win_2X11_2winmenu_8c_adf5646b5bc1377c9ac1372fffcf7a1ed}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf copy\+\_\+of}}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_adf5646b5bc1377c9ac1372fffcf7a1ed}
+\hypertarget{win_2X11_2winmenu_8c_a5226cf7762df9d93e3a02e5b81928fc1}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!free\+\_\+menu@{free\+\_\+menu}}
+\index{free\+\_\+menu@{free\+\_\+menu}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{free\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}static void free\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{struct {\bf menu} $\ast$}]{mp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a5226cf7762df9d93e3a02e5b81928fc1}
+
+
+Definition at line 1073 of file winmenu.\+c.
+
+
+
+References free(), menu\+::last, x11\+\_\+mi\+::next, and reset\+\_\+menu\+\_\+to\+\_\+default().
+
+
+
+Referenced by clear\+\_\+old\+\_\+menu(), move\+\_\+menu(), and X11\+\_\+start\+\_\+menu().
+
+
+\begin{DoxyCode}
+1075 \{
+1076     \textcolor{keywordflow}{while} (mp->\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}) \{
+1077     mp->\hyperlink{structmenu_aab6cdb5421f24c19a73e839de8351228}{last} = mp->\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base};
+1078     mp->\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base} = mp->\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next};
+1079 
+1080     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})mp->\hyperlink{structmenu_aab6cdb5421f24c19a73e839de8351228}{last}->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str});
+1081     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})mp->\hyperlink{structmenu_aab6cdb5421f24c19a73e839de8351228}{last});
+1082     \}
+1083     \textcolor{keywordflow}{if} (mp->\hyperlink{structmenu_a2efbe98465e0876eb876ec9c17646bae}{query}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) mp->\hyperlink{structmenu_a2efbe98465e0876eb876ec9c17646bae}{query});
+1084     \textcolor{keywordflow}{if} (mp->\hyperlink{structmenu_add1624fb9ee5a8b54a7c409af24d0318}{gacc}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) mp->\hyperlink{structmenu_add1624fb9ee5a8b54a7c409af24d0318}{gacc});
+1085     \textcolor{keywordflow}{if} (mp->\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) mp->
+      \hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer});
+1086     \textcolor{keywordflow}{if} (mp->\hyperlink{structmenu_aa5c38839b8f6012c50835704a25d7f26}{sensitive}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) mp->
+      \hyperlink{structmenu_aa5c38839b8f6012c50835704a25d7f26}{sensitive});
+1087     \hyperlink{win_2X11_2winmenu_8c_ab86ccaf791a007fe1b7fbeffefdca927}{reset\_menu\_to\_default}(mp);
+1088 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a445460fd2b5c043a50371ea5b8d4f087}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!invert\+\_\+all@{invert\+\_\+all}}
+\index{invert\+\_\+all@{invert\+\_\+all}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{invert\+\_\+all}]{\setlength{\rightskip}{0pt plus 5cm}static void invert\+\_\+all (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a445460fd2b5c043a50371ea5b8d4f087}
+
+
+Definition at line 450 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, count, x11\+\_\+mi\+::identifier, invert\+\_\+line(), x11\+\_\+mi\+::next, and reset\+\_\+menu\+\_\+count.
+
+
+
+Referenced by menu\+\_\+invert(), and menu\+\_\+key().
+
+
+\begin{DoxyCode}
+452 \{
+453     \hyperlink{structx11__mi}{x11\_menu\_item} *curr;
+454     \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+455 
+456     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(wp->menu\_information);
+457     \textcolor{keywordflow}{for} (count = 0, curr = wp->menu\_information->curr\_menu.base; curr;
+458                     curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next}, count++)
+459     \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} != 0)
+460         \hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\_line}(wp, curr, count, -1L);
+461 
+462 \textcolor{preprocessor}{#ifndef USE\_FWF}
+463     XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, wp->menu\_information->curr\_menu.list\_pointer,
+464           0, 0, True);
+465 \textcolor{preprocessor}{#endif}
+466 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!invert\+\_\+line@{invert\+\_\+line}}
+\index{invert\+\_\+line@{invert\+\_\+line}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{invert\+\_\+line}]{\setlength{\rightskip}{0pt plus 5cm}static void invert\+\_\+line (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{{\bf x11\+\_\+menu\+\_\+item} $\ast$}]{curr, }
+\item[{int}]{which, }
+\item[{long}]{how\+\_\+many}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}
+
+
+Definition at line 166 of file winmenu.\+c.
+
+
+
+References x11\+\_\+mi\+::pick\+\_\+count, reset\+\_\+menu\+\_\+count, x11\+\_\+mi\+::selected, and x11\+\_\+mi\+::str.
+
+
+
+Referenced by invert\+\_\+all(), invert\+\_\+match(), menu\+\_\+key(), select\+\_\+all(), select\+\_\+match(), and select\+\_\+none().
+
+
+\begin{DoxyCode}
+171 \{
+172     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(wp->menu\_information);
+173     curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected} = !curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected};
+174     \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected}) \{
+175 \textcolor{preprocessor}{#ifdef USE\_FWF}
+176     XfwfMultiListHighlightItem((XfwfMultiListWidget)wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, which);
+177 \textcolor{preprocessor}{#else}
+178     curr->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str}[2] = (how\_many != -1) ? \textcolor{charliteral}{'#'} : \textcolor{charliteral}{'+'};
+179 \textcolor{preprocessor}{#endif}
+180     curr->\hyperlink{structx11__mi_a8ac48ec61fd5a7ff698e446261aef123}{pick\_count} = how\_many;
+181     \} \textcolor{keywordflow}{else} \{
+182 \textcolor{preprocessor}{#ifdef USE\_FWF}
+183     XfwfMultiListUnhighlightItem((XfwfMultiListWidget)wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, which);
+184 \textcolor{preprocessor}{#else}
+185     curr->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str}[2] = \textcolor{charliteral}{'-'};
+186 \textcolor{preprocessor}{#endif}
+187     curr->\hyperlink{structx11__mi_a8ac48ec61fd5a7ff698e446261aef123}{pick\_count} = -1L;
+188     \}
+189 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a931678048ac8370e2cd6c0ba2be631bc}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!invert\+\_\+match@{invert\+\_\+match}}
+\index{invert\+\_\+match@{invert\+\_\+match}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{invert\+\_\+match}]{\setlength{\rightskip}{0pt plus 5cm}static void invert\+\_\+match (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{char $\ast$}]{match}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a931678048ac8370e2cd6c0ba2be631bc}
+
+
+Definition at line 469 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, count, F\+A\+L\+S\+E, x11\+\_\+mi\+::identifier, invert\+\_\+line(), x11\+\_\+mi\+::next, reset\+\_\+menu\+\_\+count, x11\+\_\+mi\+::str, and T\+R\+U\+E.
+
+
+
+Referenced by menu\+\_\+key(), and menu\+\_\+search().
+
+
+\begin{DoxyCode}
+472 \{
+473     \hyperlink{structx11__mi}{x11\_menu\_item} *curr;
+474     \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+475     \textcolor{keywordtype}{boolean} changed = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+476 
+477     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(wp->menu\_information);
+478     \textcolor{keywordflow}{for} (count = 0, curr = wp->menu\_information->curr\_menu.base; curr;
+479                         curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next}, count++)
+480     \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} != 0 && strstri(curr->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str}, match)) \{
+481         \hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\_line}(wp, curr, count, -1L);
+482         changed = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+483     \}
+484 
+485 \textcolor{preprocessor}{#ifndef USE\_FWF}
+486     \textcolor{keywordflow}{if} (changed)
+487     XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, wp->menu\_information->curr\_menu.list\_pointer,
+488               0, 0, True);
+489 \textcolor{preprocessor}{#endif}
+490 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_ac9bae3360ea15fdcf8050f004f0e97dc}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+all@{menu\+\_\+all}}
+\index{menu\+\_\+all@{menu\+\_\+all}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+all}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+\_\+all (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_ac9bae3360ea15fdcf8050f004f0e97dc}
+
+
+Definition at line 354 of file winmenu.\+c.
+
+
+
+References select\+\_\+all().
+
+
+
+Referenced by X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+357 \{
+358     \hyperlink{win_2X11_2winmenu_8c_a444cfbd0685ce145118b4dc5942c9c9b}{select\_all}((\textcolor{keyword}{struct} \hyperlink{structxwindow}{xwindow} *) client\_data);
+359 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_ab30dd70724ea5aefd65ee673324e478a}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+cancel@{menu\+\_\+cancel}}
+\index{menu\+\_\+cancel@{menu\+\_\+cancel}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+cancel}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+\_\+cancel (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_ab30dd70724ea5aefd65ee673324e478a}
+
+
+Definition at line 339 of file winmenu.\+c.
+
+
+
+References menu\+\_\+popdown(), select\+\_\+none(), and T\+R\+U\+E.
+
+
+
+Referenced by Layout\+Menu(), menu\+\_\+delete(), and X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+342 \{
+343     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp = (\textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *) client\_data;
+344 
+345     \textcolor{keywordflow}{if} (wp->menu\_information->is\_active) \{
+346     \hyperlink{win_2X11_2winmenu_8c_aaad3c84594de8d7b1059a49b784821f2}{select\_none}(wp);
+347     wp->menu\_information->cancelled = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+348     \}
+349     \hyperlink{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}{menu\_popdown}(wp);
+350 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a28584ef5645cfd0193caf26a870882a7}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+delete@{menu\+\_\+delete}}
+\index{menu\+\_\+delete@{menu\+\_\+delete}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+delete}]{\setlength{\rightskip}{0pt plus 5cm}void menu\+\_\+delete (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)}}\label{win_2X11_2winmenu_8c_a28584ef5645cfd0193caf26a870882a7}
+
+
+Definition at line 152 of file winmenu.\+c.
+
+
+
+References find\+\_\+widget(), and menu\+\_\+cancel().
+
+
+\begin{DoxyCode}
+157 \{
+158     \hyperlink{win_2X11_2winmenu_8c_ab30dd70724ea5aefd65ee673324e478a}{menu\_cancel}((Widget)None, (XtPointer) \hyperlink{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{find\_widget}(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}), (XtPointer) 0);
+159 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a65850adcc34103a08da041be932c5123}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+invert@{menu\+\_\+invert}}
+\index{menu\+\_\+invert@{menu\+\_\+invert}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+invert}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+\_\+invert (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a65850adcc34103a08da041be932c5123}
+
+
+Definition at line 372 of file winmenu.\+c.
+
+
+
+References invert\+\_\+all().
+
+
+
+Referenced by X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+375 \{
+376     \hyperlink{win_2X11_2winmenu_8c_a445460fd2b5c043a50371ea5b8d4f087}{invert\_all}((\textcolor{keyword}{struct} \hyperlink{structxwindow}{xwindow} *) client\_data);
+377 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a41563bf9c3c1809af466e5a0f51d9280}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+key@{menu\+\_\+key}}
+\index{menu\+\_\+key@{menu\+\_\+key}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+key}]{\setlength{\rightskip}{0pt plus 5cm}void menu\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)}}\label{win_2X11_2winmenu_8c_a41563bf9c3c1809af466e5a0f51d9280}
+
+
+Definition at line 196 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, menu\+::base, buf, B\+U\+F\+S\+Z, count, menu\+\_\+info\+\_\+t\+::counting, menu\+\_\+info\+\_\+t\+::curr\+\_\+menu, F\+A\+L\+S\+E, find\+\_\+widget(), menu\+::gacc, x11\+\_\+mi\+::gselector, menu\+\_\+info\+\_\+t\+::how, x11\+\_\+mi\+::identifier, index(), invert\+\_\+all(), invert\+\_\+line(), invert\+\_\+match(), menu\+\_\+info\+\_\+t\+::is\+\_\+active, key\+\_\+event\+\_\+to\+\_\+char(), menu\+::list\+\_\+pointer, map\+\_\+menu\+\_\+cmd(), menu\+\_\+info\+\_\+t\+::menu\+\_\+count, M\+E\+N\+U\+\_\+\+I\+N\+V\+E\+R\+T\+\_\+\+A\+L\+L, menu\+\_\+popdown(), M\+E\+N\+U\+\_\+\+S\+E\+A\+R\+C\+H, M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+A\+L\+L, M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+\_\+\+A\+L\+L, x11\+\_\+mi\+::next, P\+I\+C\+K\+\_\+\+A\+N\+Y, P\+I\+C\+K\+\_\+\+O\+N\+E, reset\+\_\+menu\+\_\+count, select\+\_\+all(), select\+\_\+match(), select\+\_\+none(), x11\+\_\+mi\+::selected, x11\+\_\+mi\+::selector, T\+R\+U\+E, xwindow\+::w, X11\+\_\+getlin(), and X11\+\_\+nhbell().
+
+
+\begin{DoxyCode}
+201 \{
+202     \textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *menu\_info;
+203     \hyperlink{structx11__mi}{x11\_menu\_item} *curr;
+204     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+205     \textcolor{keywordtype}{char} ch;
+206     \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+207 
+208     wp = \hyperlink{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{find\_widget}(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+209     menu\_info = wp->menu\_information;
+210 
+211     ch = \hyperlink{winX_8c_af3b290f389630afad6dbf7b302f20606}{key\_event\_to\_char}((XKeyEvent *) event);
+212 
+213     \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'\(\backslash\)0'}) \{   \textcolor{comment}{/* don't accept nul char/modifier event */}
+214     \textcolor{comment}{/* don't beep */}
+215     \textcolor{keywordflow}{return};
+216     \}
+217 
+218     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_aa6ca6a4d2dff17cfc00063110467bb33}{is\_active}) \{        \textcolor{comment}{/* waiting for input */}
+219     ch = \hyperlink{options_8c_a12b336a1f1a4cec27361fc446f21ac01}{map\_menu\_cmd}(ch);
+220     \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'\(\backslash\)033'}) \{     \textcolor{comment}{/* quit */}
+221         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a1067a8d44e287117d1f7da3aaa4f62c1}{counting}) \{
+222         \textcolor{comment}{/* when there's a count in progress, ESC discards it}
+223 \textcolor{comment}{           rather than dismissing the whole menu */}
+224         \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(menu\_info);
+225         \textcolor{keywordflow}{return};
+226         \}
+227         \hyperlink{win_2X11_2winmenu_8c_aaad3c84594de8d7b1059a49b784821f2}{select\_none}(wp);
+228     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'\(\backslash\)n'} || ch == \textcolor{charliteral}{'\(\backslash\)r'}) \{
+229         ;   \textcolor{comment}{/* accept */}
+230     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (isdigit(ch)) \{
+231         \textcolor{comment}{/* special case: '0' is also the default ball class */}
+232         \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'0'} && !menu\_info->\hyperlink{structmenu__info__t_a1067a8d44e287117d1f7da3aaa4f62c1}{counting} &&
+233             \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_add1624fb9ee5a8b54a7c409af24d0318}{gacc}, ch))
+234         \textcolor{keywordflow}{goto} group\_accel;
+235         menu\_info->\hyperlink{structmenu__info__t_ab05c75ece223e9b781e3031dfecefa49}{menu\_count} *= 10L;
+236         menu\_info->\hyperlink{structmenu__info__t_ab05c75ece223e9b781e3031dfecefa49}{menu\_count} += (long)(ch - \textcolor{charliteral}{'0'});
+237         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_ab05c75ece223e9b781e3031dfecefa49}{menu\_count} != 0L)  \textcolor{comment}{/* ignore leading zeros */}
+238         menu\_info->\hyperlink{structmenu__info__t_a1067a8d44e287117d1f7da3aaa4f62c1}{counting} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+239         \textcolor{keywordflow}{return};
+240     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ch == \hyperlink{wintype_8h_a1c3201f2628d34d0880a40dbb566f316}{MENU\_SEARCH}) \{      \textcolor{comment}{/* search */}
+241         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} || menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == 
+      \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}) \{
+242         \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+243         \hyperlink{winX_8c_a3d030eb77c8ebdf4aa29ce498d3ba0c6}{X11\_getlin}(\textcolor{stringliteral}{"Search for:"}, buf);
+244         \textcolor{keywordflow}{if} (!*buf || *buf == \textcolor{charliteral}{'\(\backslash\)033'}) \textcolor{keywordflow}{return};
+245         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY}) \{
+246             \hyperlink{win_2X11_2winmenu_8c_a931678048ac8370e2cd6c0ba2be631bc}{invert\_match}(wp, buf);
+247             \textcolor{keywordflow}{return};
+248         \} \textcolor{keywordflow}{else} \{
+249             \hyperlink{win_2X11_2winmenu_8c_a6cd3f96a6e0336f5531f7ef7ba1afc78}{select\_match}(wp, buf);
+250         \}
+251         \} \textcolor{keywordflow}{else} \{
+252         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+253         \textcolor{keywordflow}{return};
+254         \}
+255     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ch == \hyperlink{wintype_8h_a6c705d18a063df81d02997c09d14157f}{MENU\_SELECT\_ALL}) \{      \textcolor{comment}{/* select all */}
+256         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY})
+257         \hyperlink{win_2X11_2winmenu_8c_a444cfbd0685ce145118b4dc5942c9c9b}{select\_all}(wp);
+258         \textcolor{keywordflow}{else}
+259         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+260         \textcolor{keywordflow}{return};
+261     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ch == \hyperlink{wintype_8h_a3a476dd165f2b9254ecc1ab3047238f8}{MENU\_UNSELECT\_ALL}) \{      \textcolor{comment}{/* unselect all */}
+262         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY})
+263         \hyperlink{win_2X11_2winmenu_8c_aaad3c84594de8d7b1059a49b784821f2}{select\_none}(wp);
+264         \textcolor{keywordflow}{else}
+265         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+266         \textcolor{keywordflow}{return};
+267     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ch == \hyperlink{wintype_8h_a7be1bf4583bee8feddb61ab15e634fd9}{MENU\_INVERT\_ALL}) \{      \textcolor{comment}{/* invert all */}
+268         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY})
+269         \hyperlink{win_2X11_2winmenu_8c_a445460fd2b5c043a50371ea5b8d4f087}{invert\_all}(wp);
+270         \textcolor{keywordflow}{else}
+271         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+272         \textcolor{keywordflow}{return};
+273     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_add1624fb9ee5a8b54a7c409af24d0318}{gacc}, ch)) \{
+274  group\_accel:
+275         \textcolor{comment}{/* matched a group accelerator */}
+276         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} || menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == 
+      \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}) \{
+277         \textcolor{keywordflow}{for} (count = 0, curr = menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}; curr;
+278                         curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next}, count++) \{
+279             \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} != 0 && curr->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector} == ch) \{
+280             \hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\_line}(wp, curr, count, -1L);
+281             \textcolor{comment}{/* for PICK\_ONE, a group accelerator will}
+282 \textcolor{comment}{               only be included in gacc[] if it matches}
+283 \textcolor{comment}{               exactly one entry, so this must be it... */}
+284             \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE})
+285                 \textcolor{keywordflow}{goto} menu\_done; \textcolor{comment}{/* pop down */}
+286             \}
+287         \}
+288 \textcolor{preprocessor}{#ifndef USE\_FWF}
+289         XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer}, 0, 0, True);
+290 \textcolor{preprocessor}{#endif}
+291         \} \textcolor{keywordflow}{else}
+292         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+293         \textcolor{keywordflow}{return};
+294     \} \textcolor{keywordflow}{else} \{
+295         \textcolor{keywordtype}{boolean} selected\_something = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+296         \textcolor{keywordflow}{for} (count = 0, curr = menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}; curr;
+297                             curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next}, count++)
+298         \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} != 0 && curr->\hyperlink{structx11__mi_aebb497676a238d95ae96abc951958c48}{selector} == ch) \textcolor{keywordflow}{break};
+299 
+300         \textcolor{keywordflow}{if} (curr) \{
+301         \hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\_line}(wp, curr, count,
+302                 menu\_info->\hyperlink{structmenu__info__t_a1067a8d44e287117d1f7da3aaa4f62c1}{counting} ? menu\_info->\hyperlink{structmenu__info__t_ab05c75ece223e9b781e3031dfecefa49}{menu\_count} : -1L);
+303 \textcolor{preprocessor}{#ifndef USE\_FWF}
+304         XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer}, 0, 0, True);
+305 \textcolor{preprocessor}{#endif}
+306         selected\_something = curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected};
+307         \} \textcolor{keywordflow}{else} \{
+308         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();     \textcolor{comment}{/* no match */}
+309         \}
+310         \textcolor{keywordflow}{if} (!(selected\_something && menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}))
+311         \textcolor{keywordflow}{return};     \textcolor{comment}{/* keep going */}
+312     \}
+313     \textcolor{comment}{/* pop down */}
+314     \} \textcolor{keywordflow}{else} \{            \textcolor{comment}{/* permanent inventory window */}
+315     \textcolor{keywordflow}{if} (ch != \textcolor{charliteral}{'\(\backslash\)033'}) \{
+316         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+317         \textcolor{keywordflow}{return};
+318     \}
+319     \textcolor{comment}{/* pop down on ESC */}
+320     \}
+321 
+322  menu\_done:
+323     \hyperlink{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}{menu\_popdown}(wp);
+324 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a2cb870f761039f73b4e31014e82b3e07}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+none@{menu\+\_\+none}}
+\index{menu\+\_\+none@{menu\+\_\+none}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+none}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+\_\+none (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a2cb870f761039f73b4e31014e82b3e07}
+
+
+Definition at line 363 of file winmenu.\+c.
+
+
+
+References select\+\_\+none().
+
+
+
+Referenced by X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+366 \{
+367     \hyperlink{win_2X11_2winmenu_8c_aaad3c84594de8d7b1059a49b784821f2}{select\_none}((\textcolor{keyword}{struct} \hyperlink{structxwindow}{xwindow} *) client\_data);
+368 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_ae055ee6d07dc1f4426e190049c837b90}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+ok@{menu\+\_\+ok}}
+\index{menu\+\_\+ok@{menu\+\_\+ok}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+ok}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+\_\+ok (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_ae055ee6d07dc1f4426e190049c837b90}
+
+
+Definition at line 328 of file winmenu.\+c.
+
+
+
+References menu\+\_\+popdown().
+
+
+
+Referenced by Layout\+Menu(), and X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+331 \{
+332     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp = (\textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *) client\_data;
+333 
+334     \hyperlink{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}{menu\_popdown}(wp);
+335 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+popdown@{menu\+\_\+popdown}}
+\index{menu\+\_\+popdown@{menu\+\_\+popdown}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+popdown}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+\_\+popdown (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}
+
+
+Definition at line 519 of file winmenu.\+c.
+
+
+
+References exit\+\_\+x\+\_\+event, F\+A\+L\+S\+E, nh\+\_\+\+Xt\+Popdown(), and T\+R\+U\+E.
+
+
+
+Referenced by menu\+\_\+cancel(), menu\+\_\+key(), menu\+\_\+ok(), menu\+\_\+search(), and menu\+\_\+select().
+
+
+\begin{DoxyCode}
+521 \{
+522     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});           \textcolor{comment}{/* remove the event grab */}
+523     \textcolor{keywordflow}{if} (wp->menu\_information->is\_active)
+524     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};            \textcolor{comment}{/* exit our event handler */}
+525     wp->menu\_information->is\_up = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};   \textcolor{comment}{/* menu is down */}
+526 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_afdbf4bf3ef9281b5ae23aa9a18b0a2f4}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+search@{menu\+\_\+search}}
+\index{menu\+\_\+search@{menu\+\_\+search}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+search}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+\_\+search (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_afdbf4bf3ef9281b5ae23aa9a18b0a2f4}
+
+
+Definition at line 381 of file winmenu.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, menu\+\_\+info\+\_\+t\+::how, invert\+\_\+match(), menu\+\_\+popdown(), P\+I\+C\+K\+\_\+\+A\+N\+Y, P\+I\+C\+K\+\_\+\+O\+N\+E, select\+\_\+match(), and X11\+\_\+getlin().
+
+
+
+Referenced by X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+384 \{
+385     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp = (\textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *) client\_data;
+386     \textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *menu\_info = wp->menu\_information;
+387 
+388     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+389     \hyperlink{winX_8c_a3d030eb77c8ebdf4aa29ce498d3ba0c6}{X11\_getlin}(\textcolor{stringliteral}{"Search for:"}, buf);
+390     \textcolor{keywordflow}{if} (!*buf || *buf == \textcolor{charliteral}{'\(\backslash\)033'}) \textcolor{keywordflow}{return};
+391 
+392     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY})
+393     \hyperlink{win_2X11_2winmenu_8c_a931678048ac8370e2cd6c0ba2be631bc}{invert\_match}(wp, buf);
+394     \textcolor{keywordflow}{else}
+395     \hyperlink{win_2X11_2winmenu_8c_a6cd3f96a6e0336f5531f7ef7ba1afc78}{select\_match}(wp, buf);
+396 
+397     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE})
+398     \hyperlink{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}{menu\_popdown}(wp);
+399 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a6b7784544c4e02f24eadcddc1f3d7593}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+select@{menu\+\_\+select}}
+\index{menu\+\_\+select@{menu\+\_\+select}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+select}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+\_\+select (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a6b7784544c4e02f24eadcddc1f3d7593}
+
+
+Definition at line 84 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, menu\+::base, menu\+\_\+info\+\_\+t\+::counting, menu\+\_\+info\+\_\+t\+::curr\+\_\+menu, find\+\_\+widget(), menu\+\_\+info\+\_\+t\+::how, x11\+\_\+mi\+::identifier, menu\+\_\+info\+\_\+t\+::is\+\_\+active, menu\+::list\+\_\+pointer, menu\+\_\+info\+\_\+t\+::menu\+\_\+count, menu\+\_\+popdown(), x11\+\_\+mi\+::next, panic(), x11\+\_\+mi\+::pick\+\_\+count, P\+I\+C\+K\+\_\+\+O\+N\+E, reset\+\_\+menu\+\_\+count, x11\+\_\+mi\+::selected, x11\+\_\+mi\+::str, xwindow\+::w, and X11\+\_\+nhbell().
+
+
+
+Referenced by X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+87 \{
+88     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+89     \textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *menu\_info;
+90 \textcolor{preprocessor}{#ifdef USE\_FWF}
+91     XfwfMultiListReturnStruct *lrs = (XfwfMultiListReturnStruct *) call\_data;
+92 \textcolor{preprocessor}{#else}
+93     XawListReturnStruct *lrs = (XawListReturnStruct *) call\_data;
+94     \textcolor{keywordtype}{int} i;
+95     \hyperlink{structx11__mi}{x11\_menu\_item} *curr;
+96 \textcolor{preprocessor}{#endif}
+97     \textcolor{keywordtype}{long} how\_many;
+98 
+99     wp = \hyperlink{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{find\_widget}(w);
+100     menu\_info  = wp->menu\_information;
+101     how\_many = menu\_info->\hyperlink{structmenu__info__t_a1067a8d44e287117d1f7da3aaa4f62c1}{counting} ? menu\_info->\hyperlink{structmenu__info__t_ab05c75ece223e9b781e3031dfecefa49}{menu\_count} : -1L;
+102     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(menu\_info);
+103 
+104 \textcolor{preprocessor}{#ifdef USE\_FWF}
+105     \textcolor{comment}{/* if we've reached here, we've found our selected item */}
+106     \textcolor{keywordflow}{switch} (lrs->action) \{
+107     \textcolor{keywordflow}{case} XfwfMultiListActionNothing:
+108         pline(\textcolor{stringliteral}{"menu\_select: nothing action?"});
+109         \textcolor{keywordflow}{break};
+110     \textcolor{keywordflow}{case} XfwfMultiListActionStatus:
+111         pline(\textcolor{stringliteral}{"menu\_select: status action?"});
+112         \textcolor{keywordflow}{break};
+113     \textcolor{keywordflow}{case} XfwfMultiListActionHighlight:
+114     \textcolor{keywordflow}{case} XfwfMultiListActionUnhighlight:
+115         sync\_selected(menu\_info,lrs->num\_selected,lrs->selected\_items);
+116         \textcolor{keywordflow}{break};
+117     \}
+118 \textcolor{preprocessor}{#else}
+119     \textcolor{keywordflow}{for} (i = 0, curr = menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}; i < lrs->list\_index; i++) \{
+120     \textcolor{keywordflow}{if} (!curr) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"menu\_select: out of menu items!"});
+121     curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next};
+122     \}
+123     XawListUnhighlight(w);  \textcolor{comment}{/* unhilight item */}
+124 
+125     \textcolor{comment}{/* if the menu is not active or don't have an identifier, try again */}
+126     \textcolor{keywordflow}{if} (!menu\_info->\hyperlink{structmenu__info__t_aa6ca6a4d2dff17cfc00063110467bb33}{is\_active} || curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} == 0) \{
+127     \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+128     \textcolor{keywordflow}{return};
+129     \}
+130 
+131     \textcolor{comment}{/* if we've reached here, we've found our selected item */}
+132     curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected} = !curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected};
+133     \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected}) \{
+134     curr->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str}[2] = (how\_many != -1L) ? \textcolor{charliteral}{'#'} : \textcolor{charliteral}{'+'};
+135     curr->\hyperlink{structx11__mi_a8ac48ec61fd5a7ff698e446261aef123}{pick\_count} = how\_many;
+136     \} \textcolor{keywordflow}{else} \{
+137     curr->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str}[2] = \textcolor{charliteral}{'-'};
+138     curr->\hyperlink{structx11__mi_a8ac48ec61fd5a7ff698e446261aef123}{pick\_count} = -1L;
+139     \}
+140     XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer}, 0, 0, True);
+141 \textcolor{preprocessor}{#endif}
+142 
+143     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE})
+144     \hyperlink{win_2X11_2winmenu_8c_aa65def296352ef53d74164333ae384e8}{menu\_popdown}(wp);
+145 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_aa0739d4a6908a4f8507db37723586897}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!move\+\_\+menu@{move\+\_\+menu}}
+\index{move\+\_\+menu@{move\+\_\+menu}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{move\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}static void move\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{struct {\bf menu} $\ast$}]{src\+\_\+menu, }
+\item[{struct {\bf menu} $\ast$}]{dest\+\_\+menu}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_aa0739d4a6908a4f8507db37723586897}
+
+
+Definition at line 1062 of file winmenu.\+c.
+
+
+
+References free\+\_\+menu(), and reset\+\_\+menu\+\_\+to\+\_\+default().
+
+
+
+Referenced by X11\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+1064 \{
+1065     \hyperlink{win_2X11_2winmenu_8c_a5226cf7762df9d93e3a02e5b81928fc1}{free\_menu}(dest\_menu);  \textcolor{comment}{/* toss old menu */}
+1066     *dest\_menu = *src\_menu; \textcolor{comment}{/* make new menu current */}
+1067                 \textcolor{comment}{/* leave no dangling ptrs */}
+1068     \hyperlink{win_2X11_2winmenu_8c_ab86ccaf791a007fe1b7fbeffefdca927}{reset\_menu\_to\_default}(src\_menu);
+1069 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_ab86ccaf791a007fe1b7fbeffefdca927}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!reset\+\_\+menu\+\_\+to\+\_\+default@{reset\+\_\+menu\+\_\+to\+\_\+default}}
+\index{reset\+\_\+menu\+\_\+to\+\_\+default@{reset\+\_\+menu\+\_\+to\+\_\+default}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{reset\+\_\+menu\+\_\+to\+\_\+default}]{\setlength{\rightskip}{0pt plus 5cm}static void reset\+\_\+menu\+\_\+to\+\_\+default (
+\begin{DoxyParamCaption}
+\item[{struct {\bf menu} $\ast$}]{mp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_ab86ccaf791a007fe1b7fbeffefdca927}
+
+
+Definition at line 1091 of file winmenu.\+c.
+
+
+
+References menu\+::base, and String.
+
+
+
+Referenced by create\+\_\+menu\+\_\+window(), free\+\_\+menu(), and move\+\_\+menu().
+
+
+\begin{DoxyCode}
+1093 \{
+1094     mp->\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base} = mp->\hyperlink{structmenu_aab6cdb5421f24c19a73e839de8351228}{last} = (\hyperlink{structx11__mi}{x11\_menu\_item} *)0;
+1095     mp->\hyperlink{structmenu_a2efbe98465e0876eb876ec9c17646bae}{query} = (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)0;
+1096     mp->\hyperlink{structmenu_add1624fb9ee5a8b54a7c409af24d0318}{gacc} = (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)0;
+1097     mp->\hyperlink{structmenu_a3d6c8d06c1b134f60244b4449a094d16}{count} = 0;
+1098     mp->\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer} = (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} *)0;
+1099     mp->\hyperlink{structmenu_aa5c38839b8f6012c50835704a25d7f26}{sensitive} = (Boolean *)0;
+1100     mp->\hyperlink{structmenu_a06cdb274941f7ed31c60fc8e8389cd6b}{curr\_selector} = \textcolor{charliteral}{'a'};   \textcolor{comment}{/* first accelerator */}
+1101 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a444cfbd0685ce145118b4dc5942c9c9b}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!select\+\_\+all@{select\+\_\+all}}
+\index{select\+\_\+all@{select\+\_\+all}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{select\+\_\+all}]{\setlength{\rightskip}{0pt plus 5cm}static void select\+\_\+all (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a444cfbd0685ce145118b4dc5942c9c9b}
+
+
+Definition at line 402 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, count, F\+A\+L\+S\+E, x11\+\_\+mi\+::identifier, invert\+\_\+line(), x11\+\_\+mi\+::next, reset\+\_\+menu\+\_\+count, x11\+\_\+mi\+::selected, and T\+R\+U\+E.
+
+
+
+Referenced by menu\+\_\+all(), and menu\+\_\+key().
+
+
+\begin{DoxyCode}
+404 \{
+405     \hyperlink{structx11__mi}{x11\_menu\_item} *curr;
+406     \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+407     \textcolor{keywordtype}{boolean} changed = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+408 
+409     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(wp->menu\_information);
+410     \textcolor{keywordflow}{for} (count = 0, curr = wp->menu\_information->curr\_menu.base; curr;
+411                     curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next}, count++)
+412     \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} != 0)
+413         \textcolor{keywordflow}{if} (!curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected}) \{
+414         \hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\_line}(wp, curr, count, -1L);
+415         changed = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+416         \}
+417 
+418 \textcolor{preprocessor}{#ifndef USE\_FWF}
+419     \textcolor{keywordflow}{if} (changed)
+420     XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, wp->menu\_information->curr\_menu.list\_pointer,
+421               0, 0, True);
+422 \textcolor{preprocessor}{#endif}
+423 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a6cd3f96a6e0336f5531f7ef7ba1afc78}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!select\+\_\+match@{select\+\_\+match}}
+\index{select\+\_\+match@{select\+\_\+match}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{select\+\_\+match}]{\setlength{\rightskip}{0pt plus 5cm}static void select\+\_\+match (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{char $\ast$}]{match}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_a6cd3f96a6e0336f5531f7ef7ba1afc78}
+
+
+Definition at line 493 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, count, x11\+\_\+mi\+::identifier, invert\+\_\+line(), x11\+\_\+mi\+::next, reset\+\_\+menu\+\_\+count, x11\+\_\+mi\+::selected, x11\+\_\+mi\+::str, and X11\+\_\+nhbell().
+
+
+
+Referenced by menu\+\_\+key(), and menu\+\_\+search().
+
+
+\begin{DoxyCode}
+496 \{
+497     \hyperlink{structx11__mi}{x11\_menu\_item} *curr;
+498     \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+499 
+500     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(wp->menu\_information);
+501     \textcolor{keywordflow}{for} (count = 0, curr = wp->menu\_information->curr\_menu.base; curr;
+502                         curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next}, count++)
+503     \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} != 0 && strstri(curr->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str}, match)) \{
+504         \textcolor{keywordflow}{if} (!curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected}) \{
+505         \hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\_line}(wp, curr, count, -1L);
+506 \textcolor{preprocessor}{#ifndef USE\_FWF}
+507         XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, wp->menu\_information->curr\_menu.list\_pointer,
+508                   0, 0, True);
+509 \textcolor{preprocessor}{#endif}
+510         \}
+511         \textcolor{keywordflow}{return};
+512     \}
+513 
+514     \textcolor{comment}{/* no match */}
+515     \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+516 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_aaad3c84594de8d7b1059a49b784821f2}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!select\+\_\+none@{select\+\_\+none}}
+\index{select\+\_\+none@{select\+\_\+none}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{select\+\_\+none}]{\setlength{\rightskip}{0pt plus 5cm}static void select\+\_\+none (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_aaad3c84594de8d7b1059a49b784821f2}
+
+
+Definition at line 426 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, count, F\+A\+L\+S\+E, x11\+\_\+mi\+::identifier, invert\+\_\+line(), x11\+\_\+mi\+::next, reset\+\_\+menu\+\_\+count, x11\+\_\+mi\+::selected, and T\+R\+U\+E.
+
+
+
+Referenced by menu\+\_\+cancel(), menu\+\_\+key(), and menu\+\_\+none().
+
+
+\begin{DoxyCode}
+428 \{
+429     \hyperlink{structx11__mi}{x11\_menu\_item} *curr;
+430     \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+431     \textcolor{keywordtype}{boolean} changed = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+432 
+433     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(wp->menu\_information);
+434     \textcolor{keywordflow}{for} (count = 0, curr = wp->menu\_information->curr\_menu.base; curr;
+435                     curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next}, count++)
+436     \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} != 0)
+437         \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected}) \{
+438         \hyperlink{win_2X11_2winmenu_8c_a125092532b6c0bfecd2f2f010f7282ab}{invert\_line}(wp, curr, count, -1L);
+439         changed = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+440         \}
+441 
+442 \textcolor{preprocessor}{#ifndef USE\_FWF}
+443     \textcolor{keywordflow}{if} (changed)
+444     XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, wp->menu\_information->curr\_menu.list\_pointer,
+445               0, 0, True);
+446 \textcolor{preprocessor}{#endif}
+447 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a0ab6778fcf2d7a696adbfbefbac42a88}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!X11\+\_\+add\+\_\+menu@{X11\+\_\+add\+\_\+menu}}
+\index{X11\+\_\+add\+\_\+menu@{X11\+\_\+add\+\_\+menu}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{X11\+\_\+add\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+add\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{int}]{glyph, }
+\item[{{\bf const} {\bf anything} $\ast$}]{identifier, }
+\item[{char}]{ch, }
+\item[{char}]{gch, }
+\item[{int}]{attr, }
+\item[{{\bf const} char $\ast$}]{str, }
+\item[{{\bf boolean}}]{preselected}
+\end{DoxyParamCaption}
+)}}\label{win_2X11_2winmenu_8c_a0ab6778fcf2d7a696adbfbefbac42a88}
+
+
+Definition at line 586 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, alloc(), x11\+\_\+mi\+::attr, menu\+::base, buf, B\+U\+F\+S\+Z, check\+\_\+winid, copy\+\_\+of(), menu\+::count, menu\+::curr\+\_\+selector, F\+A\+L\+S\+E, x11\+\_\+mi\+::gselector, x11\+\_\+mi\+::identifier, menu\+\_\+info\+\_\+t\+::is\+\_\+menu, menu\+::last, menu\+\_\+info\+\_\+t\+::new\+\_\+menu, x11\+\_\+mi\+::next, x11\+\_\+mi\+::pick\+\_\+count, x11\+\_\+mi\+::selected, x11\+\_\+mi\+::selector, Sprintf, x11\+\_\+mi\+::str, and window\+\_\+list.
+
+
+\begin{DoxyCode}
+595 \{
+596     \hyperlink{structx11__mi}{x11\_menu\_item} *item;
+597     \textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *menu\_info;
+598 
+599     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+600     menu\_info = \hyperlink{winX_8h_a1cb661b814dda71497f293665f910cb3}{window\_list}[window].menu\_information;
+601     \textcolor{keywordflow}{if} (!menu\_info->\hyperlink{structmenu__info__t_acdaeddbe7e241346d454cf07ad6ef2bb}{is\_menu}) \{
+602     impossible(\textcolor{stringliteral}{"add\_menu:  called before start\_menu"});
+603     \textcolor{keywordflow}{return};
+604     \}
+605 
+606     item = (\hyperlink{structx11__mi}{x11\_menu\_item} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned})\textcolor{keyword}{sizeof}(
+      \hyperlink{winX_8h_a68b552d87ad793cc9e71769eacb577dd}{x11\_menu\_item}));
+607     item->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next} = (\hyperlink{structx11__mi}{x11\_menu\_item} *) 0;
+608     item->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier} = *identifier;
+609     item->\hyperlink{structx11__mi_a602e33394ff2875371fc4bb71534b017}{attr} = attr;
+610 \textcolor{comment}{/*    item->selected = preselected; */}
+611     item->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+612     item->\hyperlink{structx11__mi_a8ac48ec61fd5a7ff698e446261aef123}{pick\_count} = -1L;
+613 
+614     \textcolor{keywordflow}{if} (identifier->\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void}) \{
+615     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[4+\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+616     \textcolor{keywordtype}{int} len = strlen(str);
+617 
+618     \textcolor{keywordflow}{if} (!ch) \{
+619         \textcolor{comment}{/* Supply a keyboard accelerator.  Only the first 52 get one. */}
+620 
+621         \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a06cdb274941f7ed31c60fc8e8389cd6b}{curr\_selector}) \{
+622         ch = menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a06cdb274941f7ed31c60fc8e8389cd6b}{curr\_selector}++;
+623         \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'z'})
+624             menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a06cdb274941f7ed31c60fc8e8389cd6b}{curr\_selector} = \textcolor{charliteral}{'A'};
+625         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'Z'})
+626             menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a06cdb274941f7ed31c60fc8e8389cd6b}{curr\_selector} = 0; \textcolor{comment}{/* out */}
+627         \}
+628     \}
+629 
+630     \textcolor{keywordflow}{if} (len >= \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}) \{
+631         \textcolor{comment}{/* We *think* everything's coming in off at most BUFSZ bufs... */}
+632         impossible(\textcolor{stringliteral}{"Menu item too long (%d)."}, len);
+633         len = \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ} - 1;
+634     \}
+635     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"%c - "}, ch ? ch : \textcolor{charliteral}{' '});
+636     (void) strncpy(buf+4, str, len);
+637     buf[4+len] = \textcolor{charliteral}{'\(\backslash\)0'};
+638     item->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str} = \hyperlink{win_2X11_2winmenu_8c_ae74ebfb52b42500b20beb3f69867d74a}{copy\_of}(buf);
+639     \} \textcolor{keywordflow}{else} \{
+640     \textcolor{comment}{/* no keyboard accelerator */}
+641     item->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str} = \hyperlink{win_2X11_2winmenu_8c_ae74ebfb52b42500b20beb3f69867d74a}{copy\_of}(str);
+642     ch = 0;
+643     \}
+644 
+645     item->\hyperlink{structx11__mi_aebb497676a238d95ae96abc951958c48}{selector} = ch;
+646     item->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector} = gch;
+647 
+648     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_aab6cdb5421f24c19a73e839de8351228}{last}) \{
+649     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_aab6cdb5421f24c19a73e839de8351228}{last}->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next} = item;
+650     \} \textcolor{keywordflow}{else} \{
+651     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base} = item;
+652     \}
+653     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_aab6cdb5421f24c19a73e839de8351228}{last} = item;
+654     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a3d6c8d06c1b134f60244b4449a094d16}{count}++;
+655 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a0c72042460da62662ef7f1d5d1dc5730}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!X11\+\_\+end\+\_\+menu@{X11\+\_\+end\+\_\+menu}}
+\index{X11\+\_\+end\+\_\+menu@{X11\+\_\+end\+\_\+menu}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{X11\+\_\+end\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+end\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{{\bf const} char $\ast$}]{query}
+\end{DoxyParamCaption}
+)}}\label{win_2X11_2winmenu_8c_a0c72042460da62662ef7f1d5d1dc5730}
+
+
+Definition at line 658 of file winmenu.\+c.
+
+
+
+References check\+\_\+winid, copy\+\_\+of(), menu\+\_\+info\+\_\+t\+::is\+\_\+menu, menu\+\_\+info\+\_\+t\+::new\+\_\+menu, menu\+::query, and window\+\_\+list.
+
+
+\begin{DoxyCode}
+661 \{
+662     \textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *menu\_info;
+663 
+664     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+665     menu\_info = \hyperlink{winX_8h_a1cb661b814dda71497f293665f910cb3}{window\_list}[window].menu\_information;
+666     \textcolor{keywordflow}{if} (!menu\_info->\hyperlink{structmenu__info__t_acdaeddbe7e241346d454cf07ad6ef2bb}{is\_menu}) \{
+667     impossible(\textcolor{stringliteral}{"end\_menu:  called before start\_menu"});
+668     \textcolor{keywordflow}{return};
+669     \}
+670     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a2efbe98465e0876eb876ec9c17646bae}{query} = \hyperlink{win_2X11_2winmenu_8c_ae74ebfb52b42500b20beb3f69867d74a}{copy\_of}(query);
+671 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a7e3cced2b7609c42eb98a654b54a8751}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!X11\+\_\+select\+\_\+menu@{X11\+\_\+select\+\_\+menu}}
+\index{X11\+\_\+select\+\_\+menu@{X11\+\_\+select\+\_\+menu}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{X11\+\_\+select\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}int X11\+\_\+select\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{int}]{how, }
+\item[{{\bf menu\+\_\+item} $\ast$$\ast$}]{menu\+\_\+list}
+\end{DoxyParamCaption}
+)}}\label{win_2X11_2winmenu_8c_a7e3cced2b7609c42eb98a654b54a8751}
+
+
+Definition at line 674 of file winmenu.\+c.
+
+
+
+References any\+::a\+\_\+void, alloc(), menu\+::base, menu\+\_\+info\+\_\+t\+::cancelled, check\+\_\+winid, copy\+\_\+of(), mi\+::count, menu\+::count, menu\+\_\+info\+\_\+t\+::curr\+\_\+menu, E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+E\+X\+I\+T, F\+A\+L\+S\+E, flags, menu\+\_\+info\+\_\+t\+::fs, menu\+::gacc, x11\+\_\+mi\+::gselector, G\+S\+E\+L\+I\+D\+X, menu\+\_\+info\+\_\+t\+::how, x11\+\_\+mi\+::identifier, index(), menu\+\_\+info\+\_\+t\+::internal\+\_\+height, menu\+\_\+info\+\_\+t\+::internal\+\_\+width, menu\+\_\+info\+\_\+t\+::is\+\_\+active, menu\+\_\+info\+\_\+t\+::is\+\_\+menu, menu\+\_\+info\+\_\+t\+::is\+\_\+up, mi\+::item, menu\+\_\+info\+\_\+t\+::line\+\_\+height, menu\+::list\+\_\+pointer, menu\+\_\+all(), menu\+\_\+cancel(), menu\+\_\+invert(), menu\+\_\+none(), menu\+\_\+ok(), menu\+\_\+search(), menu\+\_\+select(), move\+\_\+menu(), menu\+\_\+info\+\_\+t\+::new\+\_\+menu, x11\+\_\+mi\+::next, nh\+\_\+\+Xt\+Popup(), N\+U\+L\+L, flag\+::perm\+\_\+invent, P\+I\+C\+K\+\_\+\+A\+N\+Y, x11\+\_\+mi\+::pick\+\_\+count, P\+I\+C\+K\+\_\+\+N\+O\+N\+E, xwindow\+::popup, positionpopup(), Q\+B\+U\+F\+S\+Z, menu\+::query, reset\+\_\+menu\+\_\+count, x11\+\_\+mi\+::selected, x11\+\_\+mi\+::selector, menu\+::sensitive, S\+I\+Z\+E, x11\+\_\+mi\+::str, String, toplevel, T\+R\+U\+E, updated\+\_\+inventory, menu\+\_\+info\+\_\+t\+::valid\+\_\+widgets, xwindow\+::w, W\+I\+N\+\_\+\+I\+N\+V\+E\+N, window\+\_\+list, wm\+\_\+delete\+\_\+window, and x\+\_\+event().
+
+
+
+Referenced by X11\+\_\+display\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+678 \{
+679     \hyperlink{structx11__mi}{x11\_menu\_item} *curr;
+680     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+681     \textcolor{keyword}{struct }\hyperlink{structmenu__info__t}{menu\_info\_t} *menu\_info;
+682     Arg args[10];
+683     Cardinal num\_args;
+684     \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} *ptr;
+685     \textcolor{keywordtype}{int} retval;
+686     Dimension v\_pixel\_width, v\_pixel\_height;
+687     \textcolor{keywordtype}{boolean} labeled;
+688     Widget viewport\_widget, form, label, ok, cancel, all, none, invert, search;
+689     Boolean sens;
+690 \textcolor{preprocessor}{#ifdef USE\_FWF}
+691     Boolean *boolp;
+692 \textcolor{preprocessor}{#endif}
+693     \textcolor{keywordtype}{char} gacc[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}], *ap;
+694 
+695     *menu\_list = (\hyperlink{structmi}{menu\_item} *) 0;
+696     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+697     wp = &\hyperlink{winX_8h_a1cb661b814dda71497f293665f910cb3}{window\_list}[window];
+698     menu\_info = wp->menu\_information;
+699     \textcolor{keywordflow}{if} (!menu\_info->\hyperlink{structmenu__info__t_acdaeddbe7e241346d454cf07ad6ef2bb}{is\_menu}) \{
+700     impossible(\textcolor{stringliteral}{"select\_menu:  called before start\_menu"});
+701     \textcolor{keywordflow}{return} 0;
+702     \}
+703 
+704     menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} = (short) \hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how};
+705 
+706     \textcolor{comment}{/* collect group accelerators; for PICK\_NONE, they're ignored;}
+707 \textcolor{comment}{       for PICK\_ONE, only those which match exactly one entry will be}
+708 \textcolor{comment}{       accepted; for PICK\_ANY, those which match any entry are okay */}
+709     gacc[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+710     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} != \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE}) \{
+711     \textcolor{keywordtype}{int} i, n, gcnt[128];
+712 \textcolor{preprocessor}{#define GSELIDX(c) ((c) & 127)  }\textcolor{comment}{/* guard against `signed char' */}\textcolor{preprocessor}{}
+713 
+714     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}(gcnt); i++) gcnt[i] = 0;
+715     \textcolor{keywordflow}{for} (n = 0, curr = menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}; curr; curr = curr->
+      \hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next})
+716         \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector} && curr->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector} != curr->
+      \hyperlink{structx11__mi_aebb497676a238d95ae96abc951958c48}{selector}) \{
+717         ++n;
+718         ++gcnt[\hyperlink{win_2X11_2winmenu_8c_a0343a377783990db02db3d59ee298104}{GSELIDX}(curr->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector})];
+719         \}
+720 
+721     \textcolor{keywordflow}{if} (n > 0)  \textcolor{comment}{/* at least one group accelerator found */}
+722         \textcolor{keywordflow}{for} (ap = gacc, curr = menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base};
+723             curr; curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next})
+724         \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector} && !\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(gacc, curr->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector}) &&
+725             (menu\_info->\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ||
+726                 gcnt[\hyperlink{win_2X11_2winmenu_8c_a0343a377783990db02db3d59ee298104}{GSELIDX}(curr->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector})] == 1)) \{
+727             *ap++ = curr->\hyperlink{structx11__mi_a5b55248468ee6afbab99a22e5faacfe9}{gselector};
+728             *ap = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{/* re-terminate for index() */}
+729         \}
+730     \}
+731     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_add1624fb9ee5a8b54a7c409af24d0318}{gacc} = \hyperlink{win_2X11_2winmenu_8c_ae74ebfb52b42500b20beb3f69867d74a}{copy\_of}(gacc);
+732     \hyperlink{win_2X11_2winmenu_8c_a4ecfa0660c93460eece05f49a488b1b9}{reset\_menu\_count}(menu\_info);
+733 
+734     \textcolor{comment}{/*}
+735 \textcolor{comment}{     * Create a string and sensitive list for the new menu.}
+736 \textcolor{comment}{     */}
+737     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer} = ptr = (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} *)
+738         \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned}) (\textcolor{keyword}{sizeof}(\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String}) * (menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.
+      \hyperlink{structmenu_a3d6c8d06c1b134f60244b4449a094d16}{count}+1)));
+739     \textcolor{keywordflow}{for} (curr = menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}; curr; ptr++, curr = curr->
+      \hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next})
+740     *ptr = (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String}) curr->\hyperlink{structx11__mi_a9a83733faede9dce800417224d72b8cc}{str};
+741     *ptr = 0;       \textcolor{comment}{/* terminate list with null */}
+742 
+743 #ifdef USE\_FWF
+744     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_aa5c38839b8f6012c50835704a25d7f26}{sensitive} = boolp = (Boolean *)
+745         \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned}) (\textcolor{keyword}{sizeof}(Boolean) * (menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.
+      \hyperlink{structmenu_a3d6c8d06c1b134f60244b4449a094d16}{count})));
+746     \textcolor{keywordflow}{for} (curr = menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}; curr; boolp++, curr = curr->
+      \hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next})
+747     *boolp = (curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} != 0);
+748 \textcolor{preprocessor}{#else}
+749     menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_aa5c38839b8f6012c50835704a25d7f26}{sensitive} = (Boolean *) 0;
+750 \textcolor{preprocessor}{#endif}
+751     labeled = (menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a2efbe98465e0876eb876ec9c17646bae}{query} && *(menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.
+      \hyperlink{structmenu_a2efbe98465e0876eb876ec9c17646bae}{query}))
+752     ? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+753 
+754     \textcolor{comment}{/*}
+755 \textcolor{comment}{     * Menus don't appear to size components correctly, except}
+756 \textcolor{comment}{     * when first created.  For 3.2.0 release, just recreate}
+757 \textcolor{comment}{     * each time.}
+758 \textcolor{comment}{     */}
+759     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_ab313bdca14966e71791ea9e53dd3019f}{valid\_widgets}
+760             && (window != \hyperlink{decl_8h_aabd3637304d093f7077c788661a0a5fd}{WIN\_INVEN} || !\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a678425f43c32a2f4fae46534b1904f1c}{perm\_invent})) \{
+761     XtDestroyWidget(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+762     menu\_info->\hyperlink{structmenu__info__t_ab313bdca14966e71791ea9e53dd3019f}{valid\_widgets} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+763     menu\_info->\hyperlink{structmenu__info__t_add9292ec792c147f95126c726d42f6c9}{is\_up} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+764     \}
+765 
+766     \textcolor{keywordflow}{if} (!menu\_info->\hyperlink{structmenu__info__t_ab313bdca14966e71791ea9e53dd3019f}{valid\_widgets}) \{
+767     Dimension row\_spacing;
+768 
+769     num\_args = 0;
+770     XtSetArg(args[num\_args], XtNallowShellResize, True); num\_args++;
+771     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = XtCreatePopupShell(
+772             window == \hyperlink{decl_8h_aabd3637304d093f7077c788661a0a5fd}{WIN\_INVEN} ? \textcolor{stringliteral}{"inventory"} : \textcolor{stringliteral}{"menu"},
+773             \hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE} ? topLevelShellWidgetClass:
+774                     transientShellWidgetClass,
+775             \hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel}, args, num\_args);
+776     XtOverrideTranslations(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup},
+777         XtParseTranslationTable(\textcolor{stringliteral}{"<Message>WM\_PROTOCOLS: menu\_delete()"}));
+778 
+779 
+780     num\_args = 0;
+781     XtSetArg(args[num\_args], XtNtranslations,
+782         XtParseTranslationTable(\hyperlink{win_2X11_2winmenu_8c_ac8f768dc52a09995be17e329ae646776}{menu\_translations}));   num\_args++;
+783     form = XtCreateManagedWidget(\textcolor{stringliteral}{"mform"},
+784                     formWidgetClass,
+785                     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup},
+786                     args, num\_args);
+787 
+788     num\_args = 0;
+789     XtSetArg(args[num\_args], XtNborderWidth, 0);        num\_args++;
+790     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+791     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+792     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+793     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+794 
+795     \textcolor{keywordflow}{if} (labeled)
+796         label = XtCreateManagedWidget(menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a2efbe98465e0876eb876ec9c17646bae}{query},
+797                     labelWidgetClass,
+798                     form,
+799                     args, num\_args);
+800     \textcolor{keywordflow}{else} label = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+801 
+802     \textcolor{comment}{/*}
+803 \textcolor{comment}{     * Create ok, cancel, all, none, invert, and search buttons..}
+804 \textcolor{comment}{     */}
+805     num\_args = 0;
+806     XtSetArg(args[num\_args], XtNfromVert, label);       num\_args++;
+807     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+808     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+809     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+810     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+811     ok = XtCreateManagedWidget(\textcolor{stringliteral}{"OK"},
+812             commandWidgetClass,
+813             form,
+814             args, num\_args);
+815     XtAddCallback(ok, XtNcallback, \hyperlink{win_2X11_2winmenu_8c_ae055ee6d07dc1f4426e190049c837b90}{menu\_ok}, (XtPointer) wp);
+816 
+817     num\_args = 0;
+818     XtSetArg(args[num\_args], XtNfromVert, label);       num\_args++;
+819     XtSetArg(args[num\_args], XtNfromHoriz, ok);     num\_args++;
+820     XtSetArg(args[num\_args], XtNsensitive, \hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how}!=\hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE}); num\_args++;
+821     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+822     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+823     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+824     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+825     cancel = XtCreateManagedWidget(\textcolor{stringliteral}{"cancel"},
+826             commandWidgetClass,
+827             form,
+828             args, num\_args);
+829     XtAddCallback(cancel, XtNcallback, \hyperlink{win_2X11_2winmenu_8c_ab30dd70724ea5aefd65ee673324e478a}{menu\_cancel}, (XtPointer) wp);
+830 
+831     sens = (\hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY});
+832     num\_args = 0;
+833     XtSetArg(args[num\_args], XtNfromVert, label);       num\_args++;
+834     XtSetArg(args[num\_args], XtNfromHoriz, cancel);     num\_args++;
+835     XtSetArg(args[num\_args], XtNsensitive, sens);       num\_args++;
+836     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+837     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+838     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+839     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+840     all = XtCreateManagedWidget(\textcolor{stringliteral}{"all"},
+841             commandWidgetClass,
+842             form,
+843             args, num\_args);
+844     XtAddCallback(all, XtNcallback, \hyperlink{win_2X11_2winmenu_8c_ac9bae3360ea15fdcf8050f004f0e97dc}{menu\_all}, (XtPointer) wp);
+845 
+846     num\_args = 0;
+847     XtSetArg(args[num\_args], XtNfromVert, label);       num\_args++;
+848     XtSetArg(args[num\_args], XtNfromHoriz, all);        num\_args++;
+849     XtSetArg(args[num\_args], XtNsensitive, sens);       num\_args++;
+850     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+851     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+852     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+853     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+854     none = XtCreateManagedWidget(\textcolor{stringliteral}{"none"},
+855             commandWidgetClass,
+856             form,
+857             args, num\_args);
+858     XtAddCallback(none, XtNcallback, \hyperlink{win_2X11_2winmenu_8c_a2cb870f761039f73b4e31014e82b3e07}{menu\_none}, (XtPointer) wp);
+859 
+860     num\_args = 0;
+861     XtSetArg(args[num\_args], XtNfromVert, label);       num\_args++;
+862     XtSetArg(args[num\_args], XtNfromHoriz, none);       num\_args++;
+863     XtSetArg(args[num\_args], XtNsensitive, sens);       num\_args++;
+864     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+865     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+866     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+867     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+868     invert = XtCreateManagedWidget(\textcolor{stringliteral}{"invert"},
+869             commandWidgetClass,
+870             form,
+871             args, num\_args);
+872     XtAddCallback(invert, XtNcallback, \hyperlink{win_2X11_2winmenu_8c_a65850adcc34103a08da041be932c5123}{menu\_invert}, (XtPointer) wp);
+873 
+874     num\_args = 0;
+875     XtSetArg(args[num\_args], XtNfromVert, label);       num\_args++;
+876     XtSetArg(args[num\_args], XtNfromHoriz, invert);     num\_args++;
+877     XtSetArg(args[num\_args], XtNsensitive, \hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how}!=\hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE}); num\_args++;
+878     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+879     XtSetArg(args[num\_args], XtNbottom, XtChainTop);    num\_args++;
+880     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+881     XtSetArg(args[num\_args], XtNright, XtChainLeft);    num\_args++;
+882     search = XtCreateManagedWidget(\textcolor{stringliteral}{"search"},
+883             commandWidgetClass,
+884             form,
+885             args, num\_args);
+886     XtAddCallback(search, XtNcallback, \hyperlink{win_2X11_2winmenu_8c_afdbf4bf3ef9281b5ae23aa9a18b0a2f4}{menu\_search}, (XtPointer) wp);
+887 
+888     num\_args = 0;
+889     XtSetArg(args[num\_args], XtNallowVert,  True);      num\_args++;
+890     XtSetArg(args[num\_args], XtNallowHoriz, False);     num\_args++;
+891     XtSetArg(args[num\_args], XtNuseBottom, True);       num\_args++;
+892     XtSetArg(args[num\_args], XtNuseRight, True);        num\_args++;
+893 \textcolor{comment}{/*}
+894 \textcolor{comment}{    XtSetArg(args[num\_args], XtNforceBars, True);       num\_args++;}
+895 \textcolor{comment}{*/}
+896     XtSetArg(args[num\_args], XtNfromVert, all);     num\_args++;
+897     XtSetArg(args[num\_args], XtNtop, XtChainTop);       num\_args++;
+898     XtSetArg(args[num\_args], XtNbottom, XtChainBottom); num\_args++;
+899     XtSetArg(args[num\_args], XtNleft, XtChainLeft);     num\_args++;
+900     XtSetArg(args[num\_args], XtNright, XtChainRight);   num\_args++;
+901     viewport\_widget = XtCreateManagedWidget(
+902             \textcolor{stringliteral}{"menu\_viewport"},    \textcolor{comment}{/* name */}
+903             viewportWidgetClass,
+904             form,       \textcolor{comment}{/* parent widget */}
+905             args, num\_args);    \textcolor{comment}{/* values, and number of values */}
+906 
+907     \textcolor{comment}{/* make new menu the current menu */}
+908     \hyperlink{win_2X11_2winmenu_8c_aa0739d4a6908a4f8507db37723586897}{move\_menu}(&menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}, &menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu});
+909 
+910     num\_args = 0;
+911     XtSetArg(args[num\_args], XtNforceColumns, True);    num\_args++;
+912     XtSetArg(args[num\_args], XtNcolumnSpacing, 1);      num\_args++;
+913     XtSetArg(args[num\_args], XtNdefaultColumns, 1);     num\_args++;
+914     XtSetArg(args[num\_args], XtNlist,
+915             menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer});    num\_args++;
+916 \textcolor{preprocessor}{#ifdef USE\_FWF}
+917     XtSetArg(args[num\_args], XtNsensitiveArray,
+918             menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_aa5c38839b8f6012c50835704a25d7f26}{sensitive});  num\_args++;
+919     XtSetArg(args[num\_args], XtNmaxSelectable,
+920             menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a3d6c8d06c1b134f60244b4449a094d16}{count});      num\_args++;
+921 \textcolor{preprocessor}{#endif}
+922     wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} = XtCreateManagedWidget(
+923             \textcolor{stringliteral}{"menu\_list"},        \textcolor{comment}{/* name */}
+924 #ifdef USE\_FWF
+925             xfwfMultiListWidgetClass,
+926 #\textcolor{keywordflow}{else}
+927             listWidgetClass,
+928 #endif
+929             viewport\_widget,        \textcolor{comment}{/* parent widget */}
+930             args,           \textcolor{comment}{/* set some values */}
+931             num\_args);          \textcolor{comment}{/* number of values to set */}
+932 
+933     XtAddCallback(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, XtNcallback, \hyperlink{win_2X11_2winmenu_8c_a6b7784544c4e02f24eadcddc1f3d7593}{menu\_select}, (XtPointer) 0);
+934 
+935     \textcolor{comment}{/* Get the font and margin information. */}
+936     num\_args = 0;
+937     XtSetArg(args[num\_args], XtNfont, &menu\_info->\hyperlink{structmenu__info__t_a154f8896fd4e9c248cab6ec1f5006a49}{fs});    num\_args++;
+938     XtSetArg(args[num\_args], XtNinternalHeight,
+939                 &menu\_info->\hyperlink{structmenu__info__t_a0dea626d0109b30b18484e26a2c5733c}{internal\_height});    num\_args++;
+940     XtSetArg(args[num\_args], XtNinternalWidth,
+941                 &menu\_info->\hyperlink{structmenu__info__t_a6e17292848a33ea6a90687c997786a43}{internal\_width});  num\_args++;
+942     XtSetArg(args[num\_args], XtNrowSpacing, &row\_spacing);  num\_args++;
+943     XtGetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+944 
+945     \textcolor{comment}{/* font height is ascent + descent */}
+946     menu\_info->\hyperlink{structmenu__info__t_a370a43d822791dc3562033b47299fb8e}{line\_height} =
+947         menu\_info->\hyperlink{structmenu__info__t_a154f8896fd4e9c248cab6ec1f5006a49}{fs}->max\_bounds.ascent +
+948         menu\_info->\hyperlink{structmenu__info__t_a154f8896fd4e9c248cab6ec1f5006a49}{fs}->max\_bounds.descent + row\_spacing;
+949 
+950     menu\_info->\hyperlink{structmenu__info__t_ab313bdca14966e71791ea9e53dd3019f}{valid\_widgets} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+951 
+952     num\_args = 0;
+953     XtSetArg(args[num\_args], XtNwidth, &v\_pixel\_width); num\_args++;
+954     XtSetArg(args[num\_args], XtNheight, &v\_pixel\_height);   num\_args++;
+955     XtGetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+956     \} \textcolor{keywordflow}{else} \{
+957     Dimension len;
+958 
+959     viewport\_widget = XtParent(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+960 
+961     \textcolor{comment}{/* get the longest string on new menu */}
+962     v\_pixel\_width = 0;
+963     \textcolor{keywordflow}{for} (ptr = menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer}; *ptr; ptr++) \{
+964         len = XTextWidth(menu\_info->\hyperlink{structmenu__info__t_a154f8896fd4e9c248cab6ec1f5006a49}{fs}, *ptr, strlen(*ptr));
+965         \textcolor{keywordflow}{if} (len > v\_pixel\_width) v\_pixel\_width = len;
+966     \}
+967 
+968     \textcolor{comment}{/* add viewport internal border */}
+969     v\_pixel\_width += 2 * menu\_info->\hyperlink{structmenu__info__t_a6e17292848a33ea6a90687c997786a43}{internal\_width};
+970     v\_pixel\_height = (2 * menu\_info->\hyperlink{structmenu__info__t_a0dea626d0109b30b18484e26a2c5733c}{internal\_height}) +
+971         (menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}.\hyperlink{structmenu_a3d6c8d06c1b134f60244b4449a094d16}{count} * menu\_info->\hyperlink{structmenu__info__t_a370a43d822791dc3562033b47299fb8e}{line\_height});
+972 
+973     \textcolor{comment}{/* make new menu the current menu */}
+974     \hyperlink{win_2X11_2winmenu_8c_aa0739d4a6908a4f8507db37723586897}{move\_menu}(&menu\_info->\hyperlink{structmenu__info__t_a9f0590d4ac57838754e95bbfd20c702d}{new\_menu}, &menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu});
+975 \textcolor{preprocessor}{#ifdef USE\_FWF}
+976     XfwfMultiListSetNewData((XfwfMultiListWidget)wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w},
+977         menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer}, 0, 0, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE},
+978         menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_aa5c38839b8f6012c50835704a25d7f26}{sensitive});
+979 \textcolor{preprocessor}{#else}
+980     XawListChange(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a2178029afde307157f89e6a2fc454636}{list\_pointer}, 0, 0, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+981 \textcolor{preprocessor}{#endif}
+982     \}
+983 
+984     \textcolor{comment}{/* if viewport will be bigger than the screen, limit its height */}
+985     num\_args = 0;
+986     XtSetArg(args[num\_args], XtNwidth, &v\_pixel\_width); num\_args++;
+987     XtSetArg(args[num\_args], XtNheight, &v\_pixel\_height);   num\_args++;
+988     XtGetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+989     \textcolor{keywordflow}{if} ((Dimension) XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})->height * 5 / 6 < v\_pixel\_height) \{
+990     \textcolor{comment}{/* scrollbar is 14 pixels wide.  Widen the form to accommodate it. */}
+991     v\_pixel\_width += 14;
+992 
+993     \textcolor{comment}{/* shrink to fit vertically */}
+994     v\_pixel\_height = XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})->height * 5 / 6;
+995 
+996     num\_args = 0;
+997     XtSetArg(args[num\_args], XtNwidth, v\_pixel\_width); num\_args++;
+998     XtSetArg(args[num\_args], XtNheight, v\_pixel\_height); num\_args++;
+999     XtSetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+1000     \}
+1001     XtRealizeWidget(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});    \textcolor{comment}{/* need to realize before we position */}
+1002 
+1003     \textcolor{comment}{/* if menu is not up, position it */}
+1004     \textcolor{keywordflow}{if} (!menu\_info->\hyperlink{structmenu__info__t_add9292ec792c147f95126c726d42f6c9}{is\_up}) \hyperlink{dialogs_8c_a710147c680e59c5715d771d7b709a8b1}{positionpopup}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1005 
+1006     menu\_info->\hyperlink{structmenu__info__t_add9292ec792c147f95126c726d42f6c9}{is\_up} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1007     \textcolor{keywordflow}{if} (window == \hyperlink{decl_8h_aabd3637304d093f7077c788661a0a5fd}{WIN\_INVEN} && \hyperlink{structmenu__info__t_a96feb8d0ee474a21f1357ac961f0a5ab}{how} == \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE}) \{
+1008     \textcolor{comment}{/* cant use nh\_XtPopup() because it may try to grab the focus */}
+1009     XtPopup(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, (\textcolor{keywordtype}{int})XtGrabNone);
+1010     \textcolor{keywordflow}{if} (!\hyperlink{winX_8h_a5be39c9d6f64801a6bfb3c28f2464300}{updated\_inventory})
+1011         XMapRaised(XtDisplay(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}), XtWindow(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}));
+1012     XSetWMProtocols(XtDisplay(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}), XtWindow(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}),
+1013                             &\hyperlink{winX_8h_ae061cf257d8ee1f9907008f160d340b7}{wm\_delete\_window}, 1);
+1014     retval = 0;
+1015     \} \textcolor{keywordflow}{else} \{
+1016     menu\_info->\hyperlink{structmenu__info__t_aa6ca6a4d2dff17cfc00063110467bb33}{is\_active} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};   \textcolor{comment}{/* waiting for user response */}
+1017     menu\_info->\hyperlink{structmenu__info__t_a30d245252e40e13b6352f3d81a31190a}{cancelled} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1018     \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, (\textcolor{keywordtype}{int})XtGrabExclusive, wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+1019     (void) \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\_event}(\hyperlink{winX_8h_a819d0a7d125d95a69564c36141d32159}{EXIT\_ON\_EXIT});
+1020     menu\_info->\hyperlink{structmenu__info__t_aa6ca6a4d2dff17cfc00063110467bb33}{is\_active} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1021     \textcolor{keywordflow}{if} (menu\_info->\hyperlink{structmenu__info__t_a30d245252e40e13b6352f3d81a31190a}{cancelled})
+1022         \textcolor{keywordflow}{return} -1;
+1023 
+1024     retval = 0;
+1025     \textcolor{keywordflow}{for} (curr = menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}; curr; curr = curr->\hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next})
+1026         \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected}) retval++;
+1027 
+1028     \textcolor{keywordflow}{if} (retval) \{
+1029         \hyperlink{structmi}{menu\_item} *\hyperlink{structmi}{mi};
+1030 
+1031         *menu\_list = mi = (\hyperlink{structmi}{menu\_item} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(retval * \textcolor{keyword}{sizeof}(
+      \hyperlink{structmi}{menu\_item}));
+1032         \textcolor{keywordflow}{for} (curr = menu\_info->\hyperlink{structmenu__info__t_a38a857462707f62f7eaafe8b8bbf9f9c}{curr\_menu}.\hyperlink{structmenu_a30450aa383e44be5f35d09029718688c}{base}; curr; curr = curr->
+      \hyperlink{structx11__mi_a30ef44cd1db7f059c3ea38ff354ca3c7}{next})
+1033         \textcolor{keywordflow}{if} (curr->\hyperlink{structx11__mi_a902f7ae6edb62076a998bcb9fb848fb1}{selected}) \{
+1034             mi->\hyperlink{structmi_a24f26cd1b01d3cf3ed16b1fd020d3a08}{item} = curr->\hyperlink{structx11__mi_a80d53847aac61da4300f9fd5690b97f7}{identifier};
+1035             mi->\hyperlink{structmi_a008e5c33aa571223ec592e0725c5fb73}{count} = curr->\hyperlink{structx11__mi_a8ac48ec61fd5a7ff698e446261aef123}{pick\_count};
+1036             mi++;
+1037         \}
+1038     \}
+1039     \}
+1040 
+1041     \textcolor{keywordflow}{return} retval;
+1042 \}
+\end{DoxyCode}
+\hypertarget{win_2X11_2winmenu_8c_a74336bff7d49c1c23af7dae5180a343e}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!X11\+\_\+start\+\_\+menu@{X11\+\_\+start\+\_\+menu}}
+\index{X11\+\_\+start\+\_\+menu@{X11\+\_\+start\+\_\+menu}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{X11\+\_\+start\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+start\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window}
+\end{DoxyParamCaption}
+)}}\label{win_2X11_2winmenu_8c_a74336bff7d49c1c23af7dae5180a343e}
+
+
+Definition at line 568 of file winmenu.\+c.
+
+
+
+References check\+\_\+winid, free\+\_\+menu(), T\+R\+U\+E, and window\+\_\+list.
+
+
+\begin{DoxyCode}
+570 \{
+571     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+572     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+573 
+574     wp = &\hyperlink{winX_8h_a1cb661b814dda71497f293665f910cb3}{window\_list}[window];
+575 
+576     \textcolor{keywordflow}{if} (wp->menu\_information->is\_menu) \{
+577     \textcolor{comment}{/* make sure we'ere starting with a clean slate */}
+578     \hyperlink{win_2X11_2winmenu_8c_a5226cf7762df9d93e3a02e5b81928fc1}{free\_menu}(&wp->menu\_information->new\_menu);
+579     \} \textcolor{keywordflow}{else} \{
+580     wp->menu\_information->is\_menu = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+581     \}
+582 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{win_2X11_2winmenu_8c_ac8f768dc52a09995be17e329ae646776}{\index{win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}!menu\+\_\+translations@{menu\+\_\+translations}}
+\index{menu\+\_\+translations@{menu\+\_\+translations}!win/\+X11/winmenu.\+c@{win/\+X11/winmenu.\+c}}
+\subsubsection[{menu\+\_\+translations}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char menu\+\_\+translations\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2X11_2winmenu_8c_ac8f768dc52a09995be17e329ae646776}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"#override\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>Left: scroll(4)\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>Right: scroll(6)\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>Up: scroll(8)\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>Down: scroll(2)\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>: menu\_key()"}
+\end{DoxyCode}
+
+
+Definition at line 71 of file winmenu.\+c.
+

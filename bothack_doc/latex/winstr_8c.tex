@@ -1,0 +1,709 @@
+\hypertarget{winstr_8c}{\section{nethack/sys/amiga/winstr.c File Reference}
+\label{winstr_8c}\index{nethack/sys/amiga/winstr.\+c@{nethack/sys/amiga/winstr.\+c}}
+}
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/windefs.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winext.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winproto.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{winstr_8c_a9fdbf76005ec3ae5b77b3002366c04d3}{amii\+\_\+putstr} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window, int attr, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$str)
+\item 
+void \hyperlink{winstr_8c_aead52ebe70c4c803280a76eb0f962239}{amii\+\_\+scrollmsg} (struct Window $\ast$w, struct \hyperlink{structamii__WinDesc}{amii\+\_\+\+Win\+Desc} $\ast$cw)
+\item 
+int \hyperlink{winstr_8c_afd2be902c5244111f384679cbc6e938a}{amii\+\_\+msgborder} (struct Window $\ast$w)
+\item 
+void \hyperlink{winstr_8c_a55e9e9c33e29d3698d29ff252bf2aae8}{outmore} (struct \hyperlink{structamii__WinDesc}{amii\+\_\+\+Win\+Desc} $\ast$cw)
+\item 
+void \hyperlink{winstr_8c_a93a76f6f311b1a6c5bf0b64a3904c462}{outsubstr} (struct \hyperlink{structamii__WinDesc}{amii\+\_\+\+Win\+Desc} $\ast$cw, char $\ast$str, int len, int fudge)
+\item 
+void \hyperlink{winstr_8c_a79bd8694c08f5692ceb222c0ff4f5336}{amii\+\_\+putsym} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} st, int i, int y, \hyperlink{wingem1_8c_ada878a8b4864a1658ee0f0acd5a89412}{C\+H\+A\+R\+\_\+\+P} c)
+\item 
+void \hyperlink{winstr_8c_ae3ee6decc1b9ab077ecd57ee01e044fc}{amii\+\_\+addtopl} (char $\ast$s) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{winstr_8c_a948e00a84111ca94231f9b411ed7ec42}{Text\+Spaces} (struct Rast\+Port $\ast$\hyperlink{amirip_8c_aa0639b6491ec144930d14703053f32a4}{rp}, int nr)
+\item 
+void \hyperlink{winstr_8c_af48c2a050e6fded36593b3f822f4180d}{amii\+\_\+remember\+\_\+topl} ()
+\item 
+int \hyperlink{winstr_8c_aa578bbd8564ef39a517c58fd4dc56335}{amii\+\_\+doprev\+\_\+message} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{winstr_8c_ae3ee6decc1b9ab077ecd57ee01e044fc}{\index{winstr.\+c@{winstr.\+c}!amii\+\_\+addtopl@{amii\+\_\+addtopl}}
+\index{amii\+\_\+addtopl@{amii\+\_\+addtopl}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{amii\+\_\+addtopl}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+addtopl (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+) const}}\label{winstr_8c_ae3ee6decc1b9ab077ecd57ee01e044fc}
+
+
+Definition at line 421 of file winstr.\+c.
+
+
+
+References amii\+\_\+msgborder(), amii\+\_\+putstr(), amii\+\_\+putsym(), amii\+\_\+wins, amii\+\_\+\+Win\+Desc\+::cols, amii\+\_\+\+Win\+Desc\+::curx, amii\+\_\+\+Win\+Desc\+::win, and W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E.
+
+
+\begin{DoxyCode}
+423 \{
+424     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structamii__WinDesc}{amii\_WinDesc} *cw = \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[
+      \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}];
+425 
+426     \textcolor{keywordflow}{while}(*s) \{
+427     \textcolor{keywordflow}{if}(cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} == cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols} - 1)
+428         \hyperlink{winstr_8c_a9fdbf76005ec3ae5b77b3002366c04d3}{amii\_putstr}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, 0, \textcolor{stringliteral}{""});
+429     \hyperlink{winstr_8c_a79bd8694c08f5692ceb222c0ff4f5336}{amii\_putsym}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} + 1, 
+      \hyperlink{winstr_8c_afd2be902c5244111f384679cbc6e938a}{amii\_msgborder}(cw->\hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win}), *s++);
+430     cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx}++;
+431     \}
+432 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_aa578bbd8564ef39a517c58fd4dc56335}{\index{winstr.\+c@{winstr.\+c}!amii\+\_\+doprev\+\_\+message@{amii\+\_\+doprev\+\_\+message}}
+\index{amii\+\_\+doprev\+\_\+message@{amii\+\_\+doprev\+\_\+message}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{amii\+\_\+doprev\+\_\+message}]{\setlength{\rightskip}{0pt plus 5cm}int amii\+\_\+doprev\+\_\+message (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_aa578bbd8564ef39a517c58fd4dc56335}
+
+
+Definition at line 460 of file winstr.\+c.
+
+
+
+References amii\+\_\+cl\+\_\+end(), amii\+\_\+curs(), amii\+\_\+setdrawpens(), amii\+\_\+wins, amii\+\_\+\+Win\+Desc\+::cols, amii\+\_\+\+Win\+Desc\+::curx, amii\+\_\+\+Win\+Desc\+::data, Display\+Data(), max, amii\+\_\+\+Win\+Desc\+::maxcol, amii\+\_\+\+Win\+Desc\+::maxrow, Msg\+Scroll, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+U\+L\+L, panic(), scrollmsg, Set\+Prop\+Info(), S\+O\+F\+F, amii\+\_\+\+Win\+Desc\+::vwy, amii\+\_\+\+Win\+Desc\+::win, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, and winpanicstr.
+
+
+\begin{DoxyCode}
+461 \{
+462     \textcolor{keyword}{struct }\hyperlink{structamii__WinDesc}{amii\_WinDesc} *cw;
+463     \textcolor{keyword}{struct }Window *w;
+464     \textcolor{keywordtype}{char} *str;
+465 
+466     \textcolor{keywordflow}{if}( \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} == \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} ||
+467     ( cw = \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[ \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} ] ) == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} || ( w = cw->
+      \hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win} ) == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+468     \{
+469     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\hyperlink{winext_8h_a4264157ee8930111caf21b62c212e08c}{winpanicstr},WIN\_MESSAGE, \textcolor{stringliteral}{"doprev\_message"});
+470     \}
+471 
+472     \textcolor{comment}{/* When an interlaced/tall screen is in use, the scroll bar will be there */}
+473     \textcolor{comment}{/* Or in some other cases as well */}
+474     \textcolor{keywordflow}{if}( \hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} )
+475     \{
+476     \textcolor{keyword}{struct }Gadget *gd;
+477     \textcolor{keyword}{struct }PropInfo *pip;
+478     \textcolor{keywordtype}{int} hidden, topidx, i, total, wheight;
+479 
+480     \textcolor{keywordflow}{for}( gd = w->FirstGadget; gd && gd->GadgetID != 1; )
+481         gd = gd->NextGadget;
+482 
+483     \textcolor{keywordflow}{if}( gd )
+484     \{
+485         pip = (\textcolor{keyword}{struct }PropInfo *)gd->SpecialInfo;
+486         wheight = ( w->Height - w->BorderTop -
+487                 w->BorderBottom - 2 ) / w->RPort->TxHeight;
+488         hidden = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}( cw->\hyperlink{structamii__WinDesc_a1ca7af4b595bf7bb077ed78546548670}{maxrow} - wheight, 0 );
+489         topidx = (((\hyperlink{def__os2_8h_af632da489ebc3708ec3ab6791ee53fa4}{ULONG})hidden * pip->VertPot) + (MAXPOT/2)) >> 16;
+490         \textcolor{keywordflow}{for}( total = i = 0; i < cw->\hyperlink{structamii__WinDesc_a1ca7af4b595bf7bb077ed78546548670}{maxrow}; ++i )
+491         \{
+492         \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[i][1] != 0 )
+493             ++total;
+494         \}
+495 
+496         i = 0;
+497         topidx -= wheight/4 + 1;
+498         \textcolor{keywordflow}{if} (topidx < 0)
+499         topidx = 0;
+500         \hyperlink{sys_2amiga_2winmenu_8c_a28121fc0d5fc72d2292fa04d5bbf7d60}{SetPropInfo}( w, &\hyperlink{winext_8h_a7714cdb5ca9e060cae6bfc059f1973f4}{MsgScroll}, wheight, total, topidx );
+501         \hyperlink{sys_2amiga_2winmenu_8c_a3b9f0aa6b0cb58acb709d87e44a3eb99}{DisplayData}( WIN\_MESSAGE, topidx );
+502     \}
+503     \textcolor{keywordflow}{return}(0);
+504     \}
+505 
+506     \textcolor{keywordflow}{if}( --cw->\hyperlink{structamii__WinDesc_a55e0b7473323fe60385ad4750437b831}{vwy} < 0 )
+507     \{
+508     cw->\hyperlink{structamii__WinDesc_a7abaf7568c45c6f6efabdfdc13164a4c}{maxcol} = 0;
+509     DisplayBeep( \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+510     str = \textcolor{stringliteral}{"\(\backslash\)0\(\backslash\)0No more history saved..."};
+511     \}
+512     \textcolor{keywordflow}{else}
+513     str = cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ cw->\hyperlink{structamii__WinDesc_a55e0b7473323fe60385ad4750437b831}{vwy} ];
+514 
+515     \hyperlink{winfuncs_8c_ace7ed7ac165d8e68bbc3df59a8ac5ec6}{amii\_cl\_end}(cw, 0);
+516     \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}( WIN\_MESSAGE, 1, 0 );
+517     \hyperlink{winfuncs_8c_a2c51c999c9751e89fcdcbf313d741da7}{amii\_setdrawpens}( \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[WIN\_MESSAGE]->win, 
+      \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE} );
+518     Text(w->RPort,str+\hyperlink{windefs_8h_a18a002ccef5ceab145570860644dfc74}{SOFF},strlen(str+\hyperlink{windefs_8h_a18a002ccef5ceab145570860644dfc74}{SOFF}));
+519     cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} = cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols} + 1;
+520 
+521     \textcolor{keywordflow}{return}( 0 );
+522 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_afd2be902c5244111f384679cbc6e938a}{\index{winstr.\+c@{winstr.\+c}!amii\+\_\+msgborder@{amii\+\_\+msgborder}}
+\index{amii\+\_\+msgborder@{amii\+\_\+msgborder}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{amii\+\_\+msgborder}]{\setlength{\rightskip}{0pt plus 5cm}int amii\+\_\+msgborder (
+\begin{DoxyParamCaption}
+\item[{struct Window $\ast$}]{w}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_afd2be902c5244111f384679cbc6e938a}
+
+
+Definition at line 324 of file winstr.\+c.
+
+
+
+Referenced by amii\+\_\+addtopl(), amii\+\_\+putstr(), amii\+\_\+scrollmsg(), and outmore().
+
+
+\begin{DoxyCode}
+326 \{
+327     \textcolor{keyword}{register} \textcolor{keywordtype}{int} bottom;
+328 
+329     \textcolor{comment}{/* There is a one pixel border at the borders, so subtract two */}
+330     bottom = w->Height - w->BorderTop - w->BorderBottom - 2;
+331     bottom /= w->RPort->TxHeight;
+332     \textcolor{keywordflow}{if}( bottom > 0 )
+333     --bottom;
+334     \textcolor{keywordflow}{return}( bottom );
+335 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_a9fdbf76005ec3ae5b77b3002366c04d3}{\index{winstr.\+c@{winstr.\+c}!amii\+\_\+putstr@{amii\+\_\+putstr}}
+\index{amii\+\_\+putstr@{amii\+\_\+putstr}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{amii\+\_\+putstr}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+putstr (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{int}]{attr, }
+\item[{{\bf const} char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_a9fdbf76005ec3ae5b77b3002366c04d3}
+
+
+Definition at line 12 of file winstr.\+c.
+
+
+
+References alloc(), amii\+\_\+cl\+\_\+end(), amii\+\_\+create\+\_\+nhwindow(), amii\+\_\+curs(), amii\+\_\+msgborder(), amii\+\_\+scrollmsg(), amii\+\_\+sethipens(), amii\+\_\+wins, ami\+I\+Display, flag\+::botlx, amii\+\_\+\+Win\+Desc\+::cols, Count\+Lines(), amii\+\_\+\+Win\+Desc\+::curx, amii\+\_\+\+Win\+Desc\+::cury, amii\+\_\+\+Win\+Desc\+::data, flags, F\+L\+M\+S\+G\+\_\+\+F\+I\+R\+S\+T, free(), iflags, amii\+\_\+\+Display\+Desc\+::lastwin, max, amii\+\_\+\+Win\+Desc\+::maxcol, amii\+\_\+\+Win\+Desc\+::maxrow, instance\+\_\+flags\+::msg\+\_\+history, Msg\+Scroll, N\+H\+W\+\_\+\+B\+A\+S\+E, N\+H\+W\+\_\+\+M\+A\+P, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, N\+U\+L\+L, outmore(), outsubstr(), panic(), amii\+\_\+\+Win\+Desc\+::rows, scrollmsg, S\+E\+L\+\_\+\+I\+T\+E\+M, Set\+Prop\+Info(), S\+O\+F\+F, Strcpy, T\+B\+U\+F\+S\+Z, Text\+Spaces(), toplines, amii\+\_\+\+Win\+Desc\+::type, V\+A\+T\+T\+R, amii\+\_\+\+Win\+Desc\+::vwy, amii\+\_\+\+Win\+Desc\+::wflags, amii\+\_\+\+Win\+Desc\+::win, W\+I\+N\+\_\+\+B\+A\+S\+E, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, instance\+\_\+flags\+::window\+\_\+inited, winpanicstr, and W\+I\+N\+V\+E\+R\+S\+\_\+\+A\+M\+I\+V.
+
+
+
+Referenced by amii\+\_\+add\+\_\+menu(), amii\+\_\+addtopl(), amii\+\_\+init\+\_\+nhwindows(), amii\+\_\+raw\+\_\+print(), amii\+\_\+raw\+\_\+print\+\_\+bold(), and amiv\+\_\+flush\+\_\+glyph\+\_\+buffer().
+
+
+\begin{DoxyCode}
+16 \{
+17     \textcolor{keywordtype}{int} fudge;
+18     \textcolor{keywordtype}{int} len;
+19     \textcolor{keyword}{struct }Window *w;
+20     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structamii__WinDesc}{amii\_WinDesc} *cw;
+21     \textcolor{keywordtype}{char} *ob;
+22     \textcolor{keywordtype}{int} i, j, n0, bottom, totalvis, wheight;
+23     \textcolor{keyword}{static} \textcolor{keywordtype}{int} wrapping = 0;
+24 
+25     \textcolor{comment}{/* Always try to avoid a panic when there is no window */}
+26     \textcolor{keywordflow}{if}( window == \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} )
+27     \{
+28     window = \hyperlink{winami_8h_a5a32a2aaab2d6b517c4afde059621c35}{WIN\_BASE};
+29     \textcolor{keywordflow}{if}( window == \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} )
+30         window = \hyperlink{winami_8h_a5a32a2aaab2d6b517c4afde059621c35}{WIN\_BASE} = \hyperlink{winfuncs_8c_accd860a04364dbcccc55022ee713e9d4}{amii\_create\_nhwindow}( 
+      \hyperlink{macwin_8h_ab575e634e51462bf534b7ee541cefc46}{NHW\_BASE} );
+31     \}
+32 
+33     \textcolor{keywordflow}{if}( window == \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} || ( cw = \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[window] ) == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+34     \{
+35     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2fc6c78c4c5f6e1d0027ac575135426f}{window\_inited}=0;
+36     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\hyperlink{winext_8h_a4264157ee8930111caf21b62c212e08c}{winpanicstr},window, \textcolor{stringliteral}{"putstr"});
+37     \}
+38 
+39     w = cw->\hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win};
+40 
+41     \textcolor{keywordflow}{if}(!str) \textcolor{keywordflow}{return};
+42     \hyperlink{winami_8h_a0ecec29922f9b6272c2b5344ce40b283}{amiIDisplay}->\hyperlink{structamii__DisplayDesc_a7cba815a57de07b72960832e3e454fb2}{lastwin} = window;    \textcolor{comment}{/* do we care??? */}
+43 
+44     \textcolor{comment}{/* NHW\_MENU windows are not opened immediately, so check if we}
+45 \textcolor{comment}{     * have the window pointer yet}
+46 \textcolor{comment}{     */}
+47 
+48     \textcolor{keywordflow}{if}( w )
+49     \{
+50     \textcolor{comment}{/* Set the drawing mode and pen colors */}
+51     SetDrMd( w->RPort, JAM2 );
+52     \hyperlink{winfuncs_8c_af3f6522f0bcc54d4a193d32ff11ec28b}{amii\_sethipens}( w, cw->\hyperlink{structamii__WinDesc_ab90130f7f09b474842877b2f71d708e0}{type}, attr );
+53     \}
+54     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_ab90130f7f09b474842877b2f71d708e0}{type} != \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU} && cw->\hyperlink{structamii__WinDesc_ab90130f7f09b474842877b2f71d708e0}{type} != \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT} )
+55     \{
+56     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"NULL window pointer in putstr 2: %d"}, window );
+57     \}
+58 
+59     \textcolor{comment}{/* Okay now do the work for each type */}
+60 
+61     \textcolor{keywordflow}{switch}(cw->\hyperlink{structamii__WinDesc_ab90130f7f09b474842877b2f71d708e0}{type})
+62     \{
+63     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}:
+64     \textcolor{keywordflow}{if}( \hyperlink{windefs_8h_aa0b90aaeb74b2488a95f0902cef09cbf}{WINVERS\_AMIV} )
+65         fudge = 2;
+66     \textcolor{keywordflow}{else}
+67     \{
+68         \textcolor{comment}{/* 8 for --more--, 1 for preceeding sp, 1 for putstr pad */}
+69         fudge = 10;
+70     \}
+71 
+72         \textcolor{comment}{/* There is a one pixel border at the borders, so subtract two */}
+73         bottom = \hyperlink{winstr_8c_afd2be902c5244111f384679cbc6e938a}{amii\_msgborder}( w );
+74 
+75     wheight = ( w->Height - w->BorderTop -
+76                 w->BorderBottom - 3 ) / w->RPort->TxHeight;
+77     
+78     if (\hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} || wheight > 1)
+79         fudge = 0;
+80 
+81     \hyperlink{winstr_8c_aead52ebe70c4c803280a76eb0f962239}{amii\_scrollmsg}( w, cw );
+82 
+83     \textcolor{keywordflow}{while} (isspace(*str)) str++;
+84     strncpy( \hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines}, str, \hyperlink{global_8h_aa18046886c403e831e620d0bfb76bdc7}{TBUFSZ} );
+85     \hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines}[ \hyperlink{global_8h_aa18046886c403e831e620d0bfb76bdc7}{TBUFSZ} - 1 ] = 0;
+86 
+87     \textcolor{comment}{/* For initial message to be visible, we need to explicitly position the}
+88 \textcolor{comment}{     * cursor.  This flag, cw->curx == -1 is set elsewhere to force the}
+89 \textcolor{comment}{     * cursor to be repositioned to the "bottom".}
+90 \textcolor{comment}{     */}
+91     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} == -1 )
+92     \{
+93         \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}( \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, 1, bottom );
+94         cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} = 0;
+95     \}
+96 
+97     \textcolor{comment}{/* If used all of history lines, move them down */}
+98     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a1ca7af4b595bf7bb077ed78546548670}{maxrow} >= \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adbf4e331046e9ace346e832fc8a59074}{msg\_history} )
+99     \{
+100         \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ 0 ] )
+101         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ 0 ] );
+102         memcpy( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}, &cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ 1 ],
+103         ( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adbf4e331046e9ace346e832fc8a59074}{msg\_history} - 1 ) * \textcolor{keyword}{sizeof}( \textcolor{keywordtype}{char} * ) );
+104         cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adbf4e331046e9ace346e832fc8a59074}{msg\_history} - 1 ] =
+105                 (\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}( strlen( \hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines} ) + 5 );
+106         strcpy( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ i = \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adbf4e331046e9ace346e832fc8a59074}{msg\_history} - 1 ] +
+107                 \hyperlink{windefs_8h_a18a002ccef5ceab145570860644dfc74}{SOFF} + (\hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg}!=0), \hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines} );
+108     \}
+109     \textcolor{keywordflow}{else}
+110     \{
+111         \textcolor{comment}{/* Otherwise, allocate a new one and copy the line in */}
+112         cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ cw->\hyperlink{structamii__WinDesc_a1ca7af4b595bf7bb077ed78546548670}{maxrow} ] = (\textcolor{keywordtype}{char} *)
+113                     \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}( strlen( \hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines} ) + 5 );
+114         strcpy( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ i = cw->\hyperlink{structamii__WinDesc_a1ca7af4b595bf7bb077ed78546548670}{maxrow}++ ] +
+115                 \hyperlink{windefs_8h_a18a002ccef5ceab145570860644dfc74}{SOFF} + (\hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg}!=0), \hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines} );
+116     \}
+117     cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ i ][ \hyperlink{windefs_8h_a5840a65df04b15a5a319b3cae209fe18}{SEL\_ITEM} ] = 1;
+118     cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ i ][ \hyperlink{windefs_8h_af0df26fe796d3771454cde6d3438a11b}{VATTR} ] = attr+1;
+119 
+120     \textcolor{keywordflow}{if}( \hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} )
+121     \{
+122         cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} = 0;
+123         cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ i ][2] = (cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} & \hyperlink{winami_8h_af95b04a23fff7c0980bd67ba40e706c3}{FLMSG\_FIRST} ) ? \textcolor{charliteral}{'>'} : \textcolor{charliteral}{' '};
+124     \}
+125 
+126     str = cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[i] + \hyperlink{windefs_8h_a18a002ccef5ceab145570860644dfc74}{SOFF};
+127     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} + strlen(str) >= (cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols}-fudge) )
+128     \{
+129         \textcolor{keywordtype}{int} i;
+130         \textcolor{keywordtype}{char} *ostr = (\textcolor{keywordtype}{char} *)str;
+131         \textcolor{keywordtype}{char} *p;
+132 
+133         \textcolor{keywordflow}{while}( cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} + strlen( str ) >= (cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols}-fudge) )
+134         \{
+135         \textcolor{keywordflow}{for}(p=((\textcolor{keywordtype}{char} *)&str[ cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols}-1 - cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} ])-fudge; !isspace(*p) && p > str;)
+136             --p;
+137         \textcolor{keywordflow}{if} (p < str) p = (\textcolor{keywordtype}{char} *)str;
+138 
+139         \textcolor{keywordflow}{if}( p == str ) \{
+140         \textcolor{comment}{/*    p = (char *)&str[ cw->cols ]; */}
+141             \hyperlink{winstr_8c_a55e9e9c33e29d3698d29ff252bf2aae8}{outmore}(cw);
+142             \textcolor{keywordflow}{continue};
+143         \}
+144 
+145         i = (long)p-(\textcolor{keywordtype}{long})str;
+146         \hyperlink{winstr_8c_a93a76f6f311b1a6c5bf0b64a3904c462}{outsubstr}( cw, (\textcolor{keywordtype}{char} *)str, i, fudge );
+147         cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} += i;
+148 
+149         \textcolor{keywordflow}{while}(isspace(*p)) p++;
+150         str = p;
+151 
+152 \textcolor{preprocessor}{#if 0}
+153         \textcolor{keywordflow}{if}( str != ostr ) \{
+154             \hyperlink{winstr_8c_a93a76f6f311b1a6c5bf0b64a3904c462}{outsubstr}( cw, \textcolor{stringliteral}{"+"}, 1, fudge );
+155             cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx}+=2;
+156         \}
+157 \textcolor{preprocessor}{#endif}
+158         \textcolor{keywordflow}{if}(*str)
+159             \hyperlink{winstr_8c_aead52ebe70c4c803280a76eb0f962239}{amii\_scrollmsg}( w, cw );
+160         \hyperlink{winfuncs_8c_ace7ed7ac165d8e68bbc3df59a8ac5ec6}{amii\_cl\_end}( cw, cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} );
+161         \}
+162 
+163         \textcolor{keywordflow}{if}( *str )
+164         \{
+165         \textcolor{keywordflow}{if}( str != ostr )
+166         \{
+167             \hyperlink{winstr_8c_a93a76f6f311b1a6c5bf0b64a3904c462}{outsubstr}( cw, \textcolor{stringliteral}{"+"}, 1, fudge );
+168             cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx}+=2;
+169         \}
+170         \textcolor{keywordflow}{while} ( isspace( *str ) )
+171             ++str;
+172         \hyperlink{winstr_8c_a93a76f6f311b1a6c5bf0b64a3904c462}{outsubstr}( cw, (\textcolor{keywordtype}{char} *)str, i = strlen( (\textcolor{keywordtype}{char} *)str ), fudge );
+173         cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} += i;
+174         \hyperlink{winfuncs_8c_ace7ed7ac165d8e68bbc3df59a8ac5ec6}{amii\_cl\_end}( cw, cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} );
+175         \}
+176     \}
+177     \textcolor{keywordflow}{else}
+178     \{
+179         \hyperlink{winstr_8c_a93a76f6f311b1a6c5bf0b64a3904c462}{outsubstr}( cw, (\textcolor{keywordtype}{char} *)str, i = strlen( (\textcolor{keywordtype}{char} *)str ), fudge );
+180         cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} += i;
+181         \hyperlink{winfuncs_8c_ace7ed7ac165d8e68bbc3df59a8ac5ec6}{amii\_cl\_end}( cw, cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} );
+182     \}
+183     cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} &= ~\hyperlink{winami_8h_af95b04a23fff7c0980bd67ba40e706c3}{FLMSG\_FIRST};
+184     len = 0;
+185     \textcolor{keywordflow}{if}( \hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} )
+186     \{
+187         totalvis = \hyperlink{sys_2amiga_2winmenu_8c_aab1d3a28e3b2dd6770eae7e837fa27dd}{CountLines}( window );
+188         \hyperlink{sys_2amiga_2winmenu_8c_a28121fc0d5fc72d2292fa04d5bbf7d60}{SetPropInfo}( w, &\hyperlink{winext_8h_a7714cdb5ca9e060cae6bfc059f1973f4}{MsgScroll},
+189           ( w->Height-w->BorderTop-w->BorderBottom ) / w->RPort->TxHeight,
+190           totalvis, totalvis );
+191     \}
+192     i = strlen( \hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines} + \hyperlink{windefs_8h_a18a002ccef5ceab145570860644dfc74}{SOFF} );
+193     cw->\hyperlink{structamii__WinDesc_a7abaf7568c45c6f6efabdfdc13164a4c}{maxcol} = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}( cw->\hyperlink{structamii__WinDesc_a7abaf7568c45c6f6efabdfdc13164a4c}{maxcol}, i );
+194     cw->\hyperlink{structamii__WinDesc_a55e0b7473323fe60385ad4750437b831}{vwy} = cw->\hyperlink{structamii__WinDesc_a1ca7af4b595bf7bb077ed78546548670}{maxrow};
+195     \textcolor{keywordflow}{break};
+196 
+197     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}:
+198     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[ cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury} ] == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+199         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"NULL pointer for status window"} );
+200     ob = &cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}][j = cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx}];
+201     \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4f41387168e1a58d95db3f635eec780e}{botlx}) *ob = 0;
+202 
+203         \textcolor{comment}{/* Display when beam at top to avoid flicker... */}
+204     WaitTOF();
+205     Text(w->RPort,(\textcolor{keywordtype}{char} *)str,strlen((\textcolor{keywordtype}{char} *)str));
+206     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols} > strlen( str ) )
+207         \hyperlink{winstr_8c_a948e00a84111ca94231f9b411ed7ec42}{TextSpaces}( w->RPort, cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols} - strlen( str ) );
+208 
+209     (void) strncpy(cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}], str, cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols} );
+210     cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}][cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols}-1] = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{/* null terminate */}
+211     cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury} = (cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}+1) % 2;
+212     cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} = 0;
+213     \textcolor{keywordflow}{break};
+214 
+215     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}:
+216     \textcolor{keywordflow}{case} \hyperlink{macwin_8h_ab575e634e51462bf534b7ee541cefc46}{NHW\_BASE}:
+217     \textcolor{keywordflow}{if} (cw->\hyperlink{structamii__WinDesc_ab90130f7f09b474842877b2f71d708e0}{type} == \hyperlink{macwin_8h_ab575e634e51462bf534b7ee541cefc46}{NHW\_BASE} && wrapping) \{
+218         \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}(window, cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx}+1, cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury});
+219         \hyperlink{winstr_8c_a948e00a84111ca94231f9b411ed7ec42}{TextSpaces}(w->RPort, cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols});
+220         \textcolor{keywordflow}{if} (cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury} < cw->\hyperlink{structamii__WinDesc_a465b4a9c04b3c325f2af2722aac9c5f3}{rows}) \{
+221         \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}(window, cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx}+1, cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}+1);
+222         \hyperlink{winstr_8c_a948e00a84111ca94231f9b411ed7ec42}{TextSpaces}(w->RPort, cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols});
+223         cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}--;
+224         \}
+225     \}
+226     \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}(window, cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx}+1, cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury});
+227     Text(w->RPort,(\textcolor{keywordtype}{char} *)str,strlen((\textcolor{keywordtype}{char} *)str));
+228     cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} = 0;
+229         \textcolor{comment}{/* CR-LF is automatic in these windows */}
+230     cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}++;
+231     \textcolor{keywordflow}{if} (cw->\hyperlink{structamii__WinDesc_ab90130f7f09b474842877b2f71d708e0}{type} == \hyperlink{macwin_8h_ab575e634e51462bf534b7ee541cefc46}{NHW\_BASE} && cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury} >= cw->\hyperlink{structamii__WinDesc_a465b4a9c04b3c325f2af2722aac9c5f3}{rows}) \{
+232         cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury} = 0;
+233         wrapping = 1;
+234     \}
+235     \textcolor{keywordflow}{break};
+236 
+237     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}:
+238     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}:
+239 
+240     \textcolor{comment}{/* always grows one at a time, but alloc 12 at a time */}
+241 
+242     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury} >= cw->\hyperlink{structamii__WinDesc_a465b4a9c04b3c325f2af2722aac9c5f3}{rows} || !cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data} )
+243     \{
+244         \textcolor{keywordtype}{char} **tmp;
+245 
+246         \textcolor{comment}{/* Allocate 12 more rows */}
+247         cw->\hyperlink{structamii__WinDesc_a465b4a9c04b3c325f2af2722aac9c5f3}{rows} += 12;
+248         tmp = (\textcolor{keywordtype}{char}**) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}*) * cw->\hyperlink{structamii__WinDesc_a465b4a9c04b3c325f2af2722aac9c5f3}{rows});
+249 
+250         \textcolor{comment}{/* Copy the old lines */}
+251         \textcolor{keywordflow}{for}(i=0; i<cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}; i++)
+252         tmp[i] = cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[i];
+253 
+254         \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data} ) \{
+255         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data} );
+256         cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data} = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+257         \}
+258 
+259         cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data} = tmp;
+260 
+261         \textcolor{comment}{/* Null out the unused entries. */}
+262         \textcolor{keywordflow}{for}(i=cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}; i<cw->\hyperlink{structamii__WinDesc_a465b4a9c04b3c325f2af2722aac9c5f3}{rows}; i++)
+263         cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[i] = 0;
+264     \}
+265 
+266     \textcolor{keywordflow}{if}( !cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data} )
+267         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"no data storage"});
+268 
+269         \textcolor{comment}{/* Shouldn't need to do this, but... */}
+270 
+271     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data} && cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}] ) \{
+272         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}] );
+273         cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}] = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+274     \}
+275 
+276     n0 = strlen(str)+1;
+277     cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}] = (\textcolor{keywordtype}{char}*) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(n0+\hyperlink{windefs_8h_a18a002ccef5ceab145570860644dfc74}{SOFF});
+278 
+279         \textcolor{comment}{/* avoid nuls, for convenience */}
+280     cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}][\hyperlink{windefs_8h_af0df26fe796d3771454cde6d3438a11b}{VATTR}] = attr+1;
+281     cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}][\hyperlink{windefs_8h_a5840a65df04b15a5a319b3cae209fe18}{SEL\_ITEM}] = 0;
+282     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}( cw->\hyperlink{structamii__WinDesc_a1be96ba5842aef93cb36e73173277ad6}{data}[cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}] + \hyperlink{windefs_8h_a18a002ccef5ceab145570860644dfc74}{SOFF}, str);
+283 
+284     \textcolor{keywordflow}{if}(n0 > cw->\hyperlink{structamii__WinDesc_a7abaf7568c45c6f6efabdfdc13164a4c}{maxcol}) cw->\hyperlink{structamii__WinDesc_a7abaf7568c45c6f6efabdfdc13164a4c}{maxcol} = n0;
+285     \textcolor{keywordflow}{if}(++cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury} > cw->\hyperlink{structamii__WinDesc_a1ca7af4b595bf7bb077ed78546548670}{maxrow}) cw->\hyperlink{structamii__WinDesc_a1ca7af4b595bf7bb077ed78546548670}{maxrow} = cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury};
+286     \textcolor{keywordflow}{break};
+287 
+288     \textcolor{keywordflow}{default}:
+289     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Invalid or unset window type in putstr()"});
+290     \}
+291 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_a79bd8694c08f5692ceb222c0ff4f5336}{\index{winstr.\+c@{winstr.\+c}!amii\+\_\+putsym@{amii\+\_\+putsym}}
+\index{amii\+\_\+putsym@{amii\+\_\+putsym}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{amii\+\_\+putsym}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+putsym (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{st, }
+\item[{int}]{i, }
+\item[{int}]{y, }
+\item[{{\bf C\+H\+A\+R\+\_\+\+P}}]{c}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_a79bd8694c08f5692ceb222c0ff4f5336}
+
+
+Definition at line 409 of file winstr.\+c.
+
+
+
+References amii\+\_\+curs(), and amii\+\_\+wins.
+
+
+
+Referenced by amii\+\_\+addtopl().
+
+
+\begin{DoxyCode}
+413 \{
+414     \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}( st, i, y );
+415     Text(\hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[st]->\hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win}->RPort, &c, 1);
+416 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_af48c2a050e6fded36593b3f822f4180d}{\index{winstr.\+c@{winstr.\+c}!amii\+\_\+remember\+\_\+topl@{amii\+\_\+remember\+\_\+topl}}
+\index{amii\+\_\+remember\+\_\+topl@{amii\+\_\+remember\+\_\+topl}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{amii\+\_\+remember\+\_\+topl}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+remember\+\_\+topl (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_af48c2a050e6fded36593b3f822f4180d}
+
+
+Definition at line 452 of file winstr.\+c.
+
+
+\begin{DoxyCode}
+453 \{
+454     \textcolor{comment}{/* ignore for now.  I think this will be done automatically by}
+455 \textcolor{comment}{     * the code writing to the message window, but I could be wrong.}
+456 \textcolor{comment}{     */}
+457 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_aead52ebe70c4c803280a76eb0f962239}{\index{winstr.\+c@{winstr.\+c}!amii\+\_\+scrollmsg@{amii\+\_\+scrollmsg}}
+\index{amii\+\_\+scrollmsg@{amii\+\_\+scrollmsg}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{amii\+\_\+scrollmsg}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+scrollmsg (
+\begin{DoxyParamCaption}
+\item[{struct Window $\ast$}]{w, }
+\item[{struct {\bf amii\+\_\+\+Win\+Desc} $\ast$}]{cw}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_aead52ebe70c4c803280a76eb0f962239}
+
+
+Definition at line 294 of file winstr.\+c.
+
+
+
+References amii\+\_\+curs(), amii\+\_\+msgborder(), outmore(), scrollmsg, and W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E.
+
+
+
+Referenced by amii\+\_\+putstr().
+
+
+\begin{DoxyCode}
+297 \{
+298     \textcolor{keywordtype}{int} bottom, wheight;
+299 
+300     bottom = \hyperlink{winstr_8c_afd2be902c5244111f384679cbc6e938a}{amii\_msgborder}( w );
+301 
+302     wheight = ( w->Height - w->BorderTop -
+303             w->BorderBottom - 3 ) / w->RPort->TxHeight;
+304     
+305     \textcolor{keywordflow}{if}( \hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} )
+306     \{
+307     \textcolor{keywordflow}{if}( ++cw->\hyperlink{structamii__WinDesc_ad73ea3210d2bf3840205b8a4b720f13d}{disprows} > wheight )
+308     \{
+309         \hyperlink{winstr_8c_a55e9e9c33e29d3698d29ff252bf2aae8}{outmore}( cw );
+310         cw->\hyperlink{structamii__WinDesc_ad73ea3210d2bf3840205b8a4b720f13d}{disprows} = 1; \textcolor{comment}{/* count this line... */}
+311     \}
+312     \textcolor{keywordflow}{else}
+313     \{
+314         ScrollRaster( w->RPort, 0, w->RPort->TxHeight,
+315             w->BorderLeft, w->BorderTop + 1,
+316             w->Width - w->BorderRight-1,
+317             w->Height - w->BorderBottom - 1 );
+318     \}
+319     \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}( \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, 1, bottom );
+320     \}
+321 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_a55e9e9c33e29d3698d29ff252bf2aae8}{\index{winstr.\+c@{winstr.\+c}!outmore@{outmore}}
+\index{outmore@{outmore}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{outmore}]{\setlength{\rightskip}{0pt plus 5cm}void outmore (
+\begin{DoxyParamCaption}
+\item[{struct {\bf amii\+\_\+\+Win\+Desc} $\ast$}]{cw}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_a55e9e9c33e29d3698d29ff252bf2aae8}
+
+
+Definition at line 338 of file winstr.\+c.
+
+
+
+References amii\+\_\+cl\+\_\+end(), amii\+\_\+curs(), amii\+\_\+msgborder(), F\+L\+M\+A\+P\+\_\+\+S\+K\+I\+P, flush\+I\+D\+C\+M\+P(), Hack\+Port, W\+E\+V\+E\+N\+T\+::key, lastevent, scrollmsg, W\+E\+V\+E\+N\+T\+::type, W\+E\+V\+E\+N\+T\+::un, W\+E\+K\+E\+Y, amii\+\_\+\+Win\+Desc\+::win, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, and Window\+Getchar().
+
+
+
+Referenced by amii\+\_\+display\+\_\+nhwindow(), amii\+\_\+putstr(), amii\+\_\+scrollmsg(), and outsubstr().
+
+
+\begin{DoxyCode}
+340 \{
+341     \textcolor{keyword}{struct }Window *w = cw->\hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win};
+342 
+343     \textcolor{keywordflow}{if}((cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} & \hyperlink{winami_8h_a20db85ff854e288c5f3b7c380e6ceb91}{FLMAP\_SKIP}) == 0)
+344     \{
+345     \textcolor{keywordflow}{if}( \hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} )
+346     \{
+347         \textcolor{keywordtype}{int} bottom;
+348 
+349         bottom = \hyperlink{winstr_8c_afd2be902c5244111f384679cbc6e938a}{amii\_msgborder}( w );
+350 
+351         ScrollRaster( w->RPort, 0, w->RPort->TxHeight,
+352             w->BorderLeft, w->BorderTop+1,
+353             w->Width - w->BorderRight-1,
+354             w->Height - w->BorderBottom - 1 );
+355         \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}( \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, 1, bottom ); \textcolor{comment}{/* -1 for inner border */}
+356         Text( w->RPort, \textcolor{stringliteral}{"--more--"}, 8 );
+357     \}
+358     \textcolor{keywordflow}{else}
+359         Text( w->RPort, \textcolor{stringliteral}{" --more--"}, 9 );
+360 
+361     \textcolor{comment}{/* Make sure there are no events in the queue */}
+362     \hyperlink{winfuncs_8c_ae8d6b32a14e062f051d36de0fab26495}{flushIDCMP}( \hyperlink{winext_8h_a392c49118e04b9257df71fca005829e0}{HackPort} );
+363 
+364     \textcolor{comment}{/* Allow mouse clicks to clear --more-- */}
+365     \hyperlink{winproto_8h_a173d2dc6a888352bb65b7cacd4576308}{WindowGetchar}();
+366     \textcolor{keywordflow}{if}( \hyperlink{winext_8h_ad7aa01c8c967c217496fa16833727f6c}{lastevent}.\hyperlink{structWEVENT_a218bdffc41cff7b53f666a9a1f0fd714}{type} == \hyperlink{winami_8h_a947974ed96ae99c292b698854e310ebea04eab5e241ff2fdc5893f123379e58ca}{WEKEY} && \hyperlink{winext_8h_ad7aa01c8c967c217496fa16833727f6c}{lastevent}.\hyperlink{structWEVENT_aa1fde3395f49a17259c056ec58ffc1e9}{un}.\hyperlink{structWEVENT_a33aabbd5a0f5cb005e24df8ccc93bf67}{key} == \textcolor{stringliteral}{'\(\backslash\)33'} )
+367         cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} |= \hyperlink{winami_8h_a20db85ff854e288c5f3b7c380e6ceb91}{FLMAP\_SKIP};
+368     \}
+369     \textcolor{keywordflow}{if}( !\hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} )
+370     \{
+371     \hyperlink{winfuncs_8c_ad16d76372b2790f7b6926dc6174e4111}{amii\_curs}( \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, 1, 0 );
+372     \hyperlink{winfuncs_8c_ace7ed7ac165d8e68bbc3df59a8ac5ec6}{amii\_cl\_end}( cw, cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} );
+373     \}
+374 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_a93a76f6f311b1a6c5bf0b64a3904c462}{\index{winstr.\+c@{winstr.\+c}!outsubstr@{outsubstr}}
+\index{outsubstr@{outsubstr}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{outsubstr}]{\setlength{\rightskip}{0pt plus 5cm}void outsubstr (
+\begin{DoxyParamCaption}
+\item[{struct {\bf amii\+\_\+\+Win\+Desc} $\ast$}]{cw, }
+\item[{char $\ast$}]{str, }
+\item[{int}]{len, }
+\item[{int}]{fudge}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_a93a76f6f311b1a6c5bf0b64a3904c462}
+
+
+Definition at line 377 of file winstr.\+c.
+
+
+
+References outmore(), scrollmsg, spaces, and amii\+\_\+\+Win\+Desc\+::win.
+
+
+
+Referenced by amii\+\_\+putstr().
+
+
+\begin{DoxyCode}
+382 \{
+383     \textcolor{keyword}{struct }Window *w = cw->\hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win};
+384 
+385     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} )
+386     \{
+387     \textcolor{comment}{/* Check if this string and --more-- fit, if not,}
+388 \textcolor{comment}{     * then put out --more-- and wait for a key.}
+389 \textcolor{comment}{     */}
+390     \textcolor{keywordflow}{if}( (len + fudge ) + cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} >= cw->\hyperlink{structamii__WinDesc_a8ef9da0197015f48920307f3692f2a54}{cols} )
+391     \{
+392         \textcolor{keywordflow}{if}( !\hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} )
+393         \hyperlink{winstr_8c_a55e9e9c33e29d3698d29ff252bf2aae8}{outmore}( cw );
+394     \}
+395     \textcolor{keywordflow}{else}
+396     \{
+397         \textcolor{comment}{/* Otherwise, move and put out a blank separator */}
+398         Text( w->RPort, \hyperlink{winext_8h_aa3ba0c07a0e95c967d350590b6aaef7a}{spaces}, 1 );
+399         cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} += 1;
+400     \}
+401     \}
+402 
+403     Text(w->RPort,str,len);
+404 \}
+\end{DoxyCode}
+\hypertarget{winstr_8c_a948e00a84111ca94231f9b411ed7ec42}{\index{winstr.\+c@{winstr.\+c}!Text\+Spaces@{Text\+Spaces}}
+\index{Text\+Spaces@{Text\+Spaces}!winstr.\+c@{winstr.\+c}}
+\subsubsection[{Text\+Spaces}]{\setlength{\rightskip}{0pt plus 5cm}void Text\+Spaces (
+\begin{DoxyParamCaption}
+\item[{struct Rast\+Port $\ast$}]{rp, }
+\item[{int}]{nr}
+\end{DoxyParamCaption}
+)}}\label{winstr_8c_a948e00a84111ca94231f9b411ed7ec42}
+
+
+Definition at line 435 of file winstr.\+c.
+
+
+
+References spaces.
+
+
+
+Referenced by amii\+\_\+cl\+\_\+end(), amii\+\_\+clear\+\_\+nhwindow(), and amii\+\_\+putstr().
+
+
+\begin{DoxyCode}
+438 \{
+439     \textcolor{keywordflow}{if}( nr < 1 )
+440     \textcolor{keywordflow}{return};
+441 
+442     \textcolor{keywordflow}{while} (nr > \textcolor{keyword}{sizeof}(\hyperlink{winext_8h_aa3ba0c07a0e95c967d350590b6aaef7a}{spaces}) - 1)
+443     \{
+444     Text(\hyperlink{amirip_8c_aa0639b6491ec144930d14703053f32a4}{rp}, \hyperlink{winext_8h_aa3ba0c07a0e95c967d350590b6aaef7a}{spaces}, (\textcolor{keywordtype}{long})\textcolor{keyword}{sizeof}(\hyperlink{winext_8h_aa3ba0c07a0e95c967d350590b6aaef7a}{spaces}) - 1);
+445     nr -= \textcolor{keyword}{sizeof}(\hyperlink{winext_8h_aa3ba0c07a0e95c967d350590b6aaef7a}{spaces}) - 1;
+446     \}
+447     \textcolor{keywordflow}{if} (nr > 0)
+448     Text(\hyperlink{amirip_8c_aa0639b6491ec144930d14703053f32a4}{rp}, \hyperlink{winext_8h_aa3ba0c07a0e95c967d350590b6aaef7a}{spaces}, (\textcolor{keywordtype}{long})nr);
+449 \}
+\end{DoxyCode}

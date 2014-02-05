@@ -1,0 +1,73 @@
+\hypertarget{gnaskstr_8h}{\section{nethack/win/gnome/gnaskstr.h File Reference}
+\label{gnaskstr_8h}\index{nethack/win/gnome/gnaskstr.\+h@{nethack/win/gnome/gnaskstr.\+h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gnaskstr_8h_ab0b5ca2dcaa16377b7f41f09900e4f27}{ghack\+\_\+ask\+\_\+string\+\_\+dialog} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$sz\+Message\+Str, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$sz\+Default\+Str, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$sz\+Title\+Str, char $\ast$buffer)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gnaskstr_8h_ab0b5ca2dcaa16377b7f41f09900e4f27}{\index{gnaskstr.\+h@{gnaskstr.\+h}!ghack\+\_\+ask\+\_\+string\+\_\+dialog@{ghack\+\_\+ask\+\_\+string\+\_\+dialog}}
+\index{ghack\+\_\+ask\+\_\+string\+\_\+dialog@{ghack\+\_\+ask\+\_\+string\+\_\+dialog}!gnaskstr.\+h@{gnaskstr.\+h}}
+\subsubsection[{ghack\+\_\+ask\+\_\+string\+\_\+dialog}]{\setlength{\rightskip}{0pt plus 5cm}int ghack\+\_\+ask\+\_\+string\+\_\+dialog (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{sz\+Message\+Str, }
+\item[{{\bf const} char $\ast$}]{sz\+Default\+Str, }
+\item[{{\bf const} char $\ast$}]{sz\+Title\+Str, }
+\item[{char $\ast$}]{buffer}
+\end{DoxyParamCaption}
+)}}\label{gnaskstr_8h_ab0b5ca2dcaa16377b7f41f09900e4f27}
+
+
+Definition at line 21 of file gnaskstr.\+c.
+
+
+
+References F\+A\+L\+S\+E, ghack\+\_\+ask\+\_\+string\+\_\+callback(), ghack\+\_\+get\+\_\+main\+\_\+window(), N\+U\+L\+L, and T\+R\+U\+E.
+
+
+
+Referenced by gnome\+\_\+askname(), and gnome\+\_\+getlin().
+
+
+\begin{DoxyCode}
+24 \{
+25     \textcolor{keywordtype}{int} i;
+26     GtkWidget* dialog;
+27     gchar   *user\_text = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+28 
+29     dialog = gnome\_request\_dialog(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, szMessageStr,
+30                       szDefaultStr, 0,
+31                   \hyperlink{gnaskstr_8c_a9cc58609b3155f0c0a7d94f62cc91a6c}{ghack\_ask\_string\_callback},
+32                   &user\_text, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+33     g\_assert(dialog != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+34 
+35     gtk\_window\_set\_title(GTK\_WINDOW(dialog), szTitleStr);
+36 
+37     gnome\_dialog\_set\_default( GNOME\_DIALOG(dialog), 0);
+38     gtk\_window\_set\_modal( GTK\_WINDOW(dialog), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+39     gnome\_dialog\_set\_parent (GNOME\_DIALOG (dialog), 
+40         GTK\_WINDOW (\hyperlink{gnmain_8c_a103200f2f57b9258dfa18159191ea650}{ghack\_get\_main\_window} ()) );
+41 
+42     i = gnome\_dialog\_run\_and\_close (GNOME\_DIALOG (dialog));
+43     
+44     \textcolor{comment}{/* Quit */}
+45     \textcolor{keywordflow}{if} ( i != 0 || user\_text == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \{
+46     \textcolor{keywordflow}{if} (user\_text)
+47       g\_free(user\_text);
+48     \textcolor{keywordflow}{return} -1;
+49     \}
+50 
+51     \textcolor{keywordflow}{if} ( *user\_text == 0 ) \{
+52       g\_free(user\_text);
+53       \textcolor{keywordflow}{return} -1;
+54     \}
+55 
+56     g\_assert(strlen(user\_text) > 0);
+57     strcpy (buffer, user\_text);
+58     g\_free(user\_text);
+59     \textcolor{keywordflow}{return} 0;
+60 \}
+\end{DoxyCode}

@@ -1,0 +1,1948 @@
+\hypertarget{mondata_8h}{\section{nethack/include/mondata.h File Reference}
+\label{mondata_8h}\index{nethack/include/mondata.\+h@{nethack/include/mondata.\+h}}
+}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mondata_8h_a655fd80b963b28e5f4b7a52fc8d1f32d}{verysmall}(ptr)~((ptr)-\/$>$msize $<$ \hyperlink{monflag_8h_a202353ef2b65bee48c346db8a9ea7561}{M\+Z\+\_\+\+S\+M\+A\+L\+L})
+\item 
+\#define \hyperlink{mondata_8h_a28750a402487965f08dcce597c8af6be}{bigmonst}(ptr)~((ptr)-\/$>$msize $>$= \hyperlink{monflag_8h_a92eb054766bb974914121c7949817c74}{M\+Z\+\_\+\+L\+A\+R\+G\+E})
+\item 
+\#define \hyperlink{mondata_8h_a17cf7d4bd486ef41147798b0eee91b89}{pm\+\_\+resistance}(ptr, typ)~(((ptr)-\/$>$mresists \& (typ)) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a9cd1ee3ba3c1e0e78509b763ce6d38d1}{resists\+\_\+fire}(mon)~(((mon)-\/$>$mintrinsics \& \hyperlink{monflag_8h_aaa293df3b8df0c738d1b9f06135cc58d}{M\+R\+\_\+\+F\+I\+R\+E}) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a889684d1afa503bfbfcd1a3e84035b92}{resists\+\_\+cold}(mon)~(((mon)-\/$>$mintrinsics \& \hyperlink{monflag_8h_a57d3c86a5c8fda5bd5cd17ac9c407347}{M\+R\+\_\+\+C\+O\+L\+D}) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a478840ecec21a45e763f2fb5b466cf49}{resists\+\_\+sleep}(mon)~(((mon)-\/$>$mintrinsics \& \hyperlink{monflag_8h_a5a1d38dac4ee4d111a27204a1c8d2ac9}{M\+R\+\_\+\+S\+L\+E\+E\+P}) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a0c7ceab0ce4d4134e0fccef5b385854f}{resists\+\_\+disint}(mon)~(((mon)-\/$>$mintrinsics \& \hyperlink{monflag_8h_a95a9c3331b6dba869f702e931198ae4f}{M\+R\+\_\+\+D\+I\+S\+I\+N\+T}) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a3ec4a5375d05f427a8e3e9d4f0b55f0e}{resists\+\_\+elec}(mon)~(((mon)-\/$>$mintrinsics \& \hyperlink{monflag_8h_a82a87e21ad1d6fb7bc469f2c66d8b4d6}{M\+R\+\_\+\+E\+L\+E\+C}) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a419ec031ff4b2508bcd1304366f93ce2}{resists\+\_\+poison}(mon)~(((mon)-\/$>$mintrinsics \& \hyperlink{monflag_8h_a2929be5a3b4cf0af432a91af6c8b695a}{M\+R\+\_\+\+P\+O\+I\+S\+O\+N}) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a67859b0b3aa8e4ac0d74a818013cb507}{resists\+\_\+acid}(mon)~(((mon)-\/$>$mintrinsics \& \hyperlink{monflag_8h_abebd654e60202b44562754dac0ee0eba}{M\+R\+\_\+\+A\+C\+I\+D}) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a372753958b3b36d2edd0add67aa6fc75}{resists\+\_\+ston}(mon)~(((mon)-\/$>$mintrinsics \& \hyperlink{monflag_8h_a3bbf7e73ae67577a889b02d1dce86b89}{M\+R\+\_\+\+S\+T\+O\+N\+E}) != 0)
+\item 
+\#define \hyperlink{mondata_8h_a6bd06bc29ef4aaf6e4f982b587e1ea88}{is\+\_\+lminion}(mon)
+\item 
+\#define \hyperlink{mondata_8h_a4407b2600bc3b320829630ed895960c0}{is\+\_\+flyer}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_aedf6ff8537fed1ff989d2614a4366a8a}{M1\+\_\+\+F\+L\+Y}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_aa0333e705b2ebafe594ebcdbed885cce}{is\+\_\+floater}(ptr)~((ptr)-\/$>$mlet == \hyperlink{monsym_8h_ad779c279de48439a29d52616da39b899}{S\+\_\+\+E\+Y\+E})
+\item 
+\#define \hyperlink{mondata_8h_a5033772c28e21c8fad44f02e4a5eb4e1}{is\+\_\+clinger}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a827a34d5c4124c0a0ae10c177448f732}{M1\+\_\+\+C\+L\+I\+N\+G}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ab8ffd447c2b8217b49848268e2b6493d}{is\+\_\+swimmer}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a9e8fd88568c34c02f64d9a8e11e6922b}{M1\+\_\+\+S\+W\+I\+M}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a77944b6442832379493a29ea70661a96}{breathless}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_aebfcd832c7c2d54949fa493314ead54a}{M1\+\_\+\+B\+R\+E\+A\+T\+H\+L\+E\+S\+S}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_af598ecbfaf539d9840a9b5e4a872f6b7}{amphibious}(ptr)~(((ptr)-\/$>$mflags1 \& (\hyperlink{monflag_8h_aa2ffe25b2eb3bd1fd5fc813fef8e5ef1}{M1\+\_\+\+A\+M\+P\+H\+I\+B\+I\+O\+U\+S} $\vert$ \hyperlink{monflag_8h_aebfcd832c7c2d54949fa493314ead54a}{M1\+\_\+\+B\+R\+E\+A\+T\+H\+L\+E\+S\+S})) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a42b9f266cafddebd01c657d1e39ae72d}{passes\+\_\+walls}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_ab2052077cc375583a45373c626b6e89d}{M1\+\_\+\+W\+A\+L\+L\+W\+A\+L\+K}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ac3d4d869d4c7625a840b9731b591e90b}{amorphous}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_aaccb9b38a9e0973f62596938e5941ce3}{M1\+\_\+\+A\+M\+O\+R\+P\+H\+O\+U\+S}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a8ef85e65e7dda38e65d7e3801cde6d2e}{noncorporeal}(ptr)~((ptr)-\/$>$mlet == \hyperlink{monsym_8h_a6a49698b20c68f36bcef22d45c3ef986}{S\+\_\+\+G\+H\+O\+S\+T})
+\item 
+\#define \hyperlink{mondata_8h_acbc229490eac9b4bc4651e75a2431402}{tunnels}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a1ee25fdcad9147d3e1748821d43d0cba}{M1\+\_\+\+T\+U\+N\+N\+E\+L}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ab2a6ce07b586640a6dcf1f3efc67f67c}{needspick}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a308a56429bb51a5546fdc2fd927d67ac}{M1\+\_\+\+N\+E\+E\+D\+P\+I\+C\+K}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a37a7b9dfee69b94d8e6946bb04c22874}{hides\+\_\+under}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_aebf31f76063f2e428a006208e8447b3e}{M1\+\_\+\+C\+O\+N\+C\+E\+A\+L}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a40ebe51354acef5cc9591afbdd769c36}{is\+\_\+hider}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a95840a7840b337d1ff559445ab14726d}{M1\+\_\+\+H\+I\+D\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_acef071254b9ae0dcf53724485be10841}{haseyes}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_ab840fc3b6f40042c3c521ecd069be35a}{M1\+\_\+\+N\+O\+E\+Y\+E\+S}) == 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a92feea53299371976971e15c43923a26}{eyecount}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_ae13d4a4d0a9842348cffbb5dae990771}{nohands}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_af10aa4406d6c929201eb796e60df2475}{M1\+\_\+\+N\+O\+H\+A\+N\+D\+S}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a9e529fc9e93948358711f5420caee8fa}{nolimbs}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_acef560b7ccbb4d4a557e4c19159da39a}{M1\+\_\+\+N\+O\+L\+I\+M\+B\+S}) == \hyperlink{monflag_8h_acef560b7ccbb4d4a557e4c19159da39a}{M1\+\_\+\+N\+O\+L\+I\+M\+B\+S})
+\item 
+\#define \hyperlink{mondata_8h_ae0efcbbbb687279e0ad93ffd19797c4a}{notake}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a88f4c85b02756dc0a925e93c7675fdb7}{M1\+\_\+\+N\+O\+T\+A\+K\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ac3233fd10c8acdc9c9533dea67d53e08}{has\+\_\+head}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a9eb1a62f835e491f80af46dfbbd34f32}{M1\+\_\+\+N\+O\+H\+E\+A\+D}) == 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a98e33091114b0f4ea59f7dea0ac1adcd}{has\+\_\+horns}(ptr)~(num\+\_\+horns(ptr) $>$ 0)
+\item 
+\#define \hyperlink{mondata_8h_ad5ce5d0c9e98b8d48b288b01a961e8d0}{is\+\_\+whirly}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_aadb2718743a42260876de9cb19469e1b}{flaming}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_ab815056260a8ee0db98b4a1ffc5cee54}{is\+\_\+silent}(ptr)~((ptr)-\/$>$msound == \hyperlink{monflag_8h_a47d6ffe53362b344d12c1b4a0d8f3cfe}{M\+S\+\_\+\+S\+I\+L\+E\+N\+T})
+\item 
+\#define \hyperlink{mondata_8h_aa072852c97f59a8374d1595cda2ab700}{unsolid}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a576b92b08f0bda3acfd82a9df6e9b15f}{M1\+\_\+\+U\+N\+S\+O\+L\+I\+D}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a9b2e225376aeed6f19559b2c2dced2d0}{mindless}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a8a6bed71660f920bbb2088753fa0a914}{M1\+\_\+\+M\+I\+N\+D\+L\+E\+S\+S}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a1f7524ff25e459cd9832bfa069188312}{humanoid}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_af3d735e109b9ae7c2d44a532bc6d6154}{M1\+\_\+\+H\+U\+M\+A\+N\+O\+I\+D}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a6633b7e5ce3955ef878c6890a72b9392}{is\+\_\+animal}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a313d3f222a4489078acc8c0cc396f801}{M1\+\_\+\+A\+N\+I\+M\+A\+L}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a9be35efaf79658a7043053e73cc055de}{slithy}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_acd9611dbb526b069f87b268cc06d79e3}{M1\+\_\+\+S\+L\+I\+T\+H\+Y}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_aa7d16a2e835cb029ca8b81c806c9a890}{is\+\_\+wooden}(ptr)~((ptr) == \&\hyperlink{monst_8c_ab96e7c4682ea5ae4f83339a15c06f676}{mons}\mbox{[}P\+M\+\_\+\+W\+O\+O\+D\+\_\+\+G\+O\+L\+E\+M\mbox{]})
+\item 
+\#define \hyperlink{mondata_8h_a8d3b0784e67294ee9fae355fb1dcf8d3}{thick\+\_\+skinned}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a9f0f56ddd565aa3ba90ff85c9587aaf7}{M1\+\_\+\+T\+H\+I\+C\+K\+\_\+\+H\+I\+D\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a52531d6807321aaf7fc7f7fb45849e11}{lays\+\_\+eggs}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a0185c901444a1ee4fb7becbd1ea9a458}{M1\+\_\+\+O\+V\+I\+P\+A\+R\+O\+U\+S}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a303d7bb02af920f071d9b92618d0ae42}{regenerates}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a28bae58dbadfbc1ba60a320f29b824d5}{M1\+\_\+\+R\+E\+G\+E\+N}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_aae2aafa26364f2f1482eb90bd1f3e127}{perceives}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a0c64d9b5d4622c381ab91f6256e85496}{M1\+\_\+\+S\+E\+E\+\_\+\+I\+N\+V\+I\+S}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a2625fab363d7462975fcbc0cb394c619}{can\+\_\+teleport}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a7182cd7b2a1e81028749cf24e9619902}{M1\+\_\+\+T\+P\+O\+R\+T}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ae019008f3e3da37fb38e84378fa713df}{control\+\_\+teleport}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_ad79d732baa41c63fc9955c392a42bd7a}{M1\+\_\+\+T\+P\+O\+R\+T\+\_\+\+C\+N\+T\+R\+L}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a1c25995382972d17d737ac6110d44d06}{telepathic}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_ab87aa9751f23a675185a8e27a2e68448}{is\+\_\+armed}(ptr)~attacktype(ptr, \hyperlink{monattk_8h_a6db6784344c2424d385f6b460f0c029f}{A\+T\+\_\+\+W\+E\+A\+P})
+\item 
+\#define \hyperlink{mondata_8h_afc5fcbf092cceab8ec5c683c392dfb22}{acidic}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a40b6cd2781ff35279195283ceb7e4e24}{M1\+\_\+\+A\+C\+I\+D}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a37ead51ac913801d2e9ba70b99c09261}{poisonous}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a6738b74c92624dda9d5885a7c569e36d}{M1\+\_\+\+P\+O\+I\+S}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_af1c4acbf3e1e7008fd7d326d752a8ceb}{carnivorous}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a55602f7b0bdc176d19d4db114fb52882}{M1\+\_\+\+C\+A\+R\+N\+I\+V\+O\+R\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a98253161354cffd67bd13ea0ec9363f9}{herbivorous}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_a1635ef145121643387dd8dd87dac8da0}{M1\+\_\+\+H\+E\+R\+B\+I\+V\+O\+R\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ae0dc40465dc327b05d8398b216e74678}{metallivorous}(ptr)~(((ptr)-\/$>$mflags1 \& \hyperlink{monflag_8h_adc00b7485a463b6d706f868d3f62def8}{M1\+\_\+\+M\+E\+T\+A\+L\+L\+I\+V\+O\+R\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ae3fc76deae1d53c379ae392fdcc2e500}{polyok}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_aa6a7f16529bc73cc6a6f98e3012a721b}{M2\+\_\+\+N\+O\+P\+O\+L\+Y}) == 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a8e10c42bf31c42d748765a29105842fc}{is\+\_\+undead}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_ad82535d324f602fbac7518b0b5737f4b}{M2\+\_\+\+U\+N\+D\+E\+A\+D}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_aa6aa8708ddeeabb47bd2a3ae3326bfc7}{is\+\_\+were}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a0fe59b1c4009c5d36301513207986dfc}{M2\+\_\+\+W\+E\+R\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a34b30264e47f5967d450cc2c050951ce}{is\+\_\+elf}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a8dd2e91ee90968833159523008e9ae96}{M2\+\_\+\+E\+L\+F}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ac52963ce02f1942e6260de79578fbed2}{is\+\_\+dwarf}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a16a86916709461b487ec49608114f57b}{M2\+\_\+\+D\+W\+A\+R\+F}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a90adf2a605a1bc9319762de148bfe079}{is\+\_\+gnome}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a408c38ac34e6676726ba1a784a59516b}{M2\+\_\+\+G\+N\+O\+M\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a2e5dce3b8165535b75a3b710aa3dc0bb}{is\+\_\+orc}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a842cf9dc6aa8876a2f5d8ba6f535f8b2}{M2\+\_\+\+O\+R\+C}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a840fe1e2cd576dae2a5597d5c10526d8}{is\+\_\+human}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a22907fce7bbb740c97dcf8183e5a352d}{M2\+\_\+\+H\+U\+M\+A\+N}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a620adc730907c7d05a67956897fc4bcb}{your\+\_\+race}(ptr)~(((ptr)-\/$>$mflags2 \& urace.\+selfmask) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ac458b2a33cdc76df339d7d836b0748f0}{is\+\_\+bat}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_addfe7112d3415cced8c9c2fcbb427935}{is\+\_\+bird}(ptr)~((ptr)-\/$>$mlet == \hyperlink{monsym_8h_a01e8c6d504db131fb9f679c90270124f}{S\+\_\+\+B\+A\+T} \&\& !\hyperlink{mondata_8h_ac458b2a33cdc76df339d7d836b0748f0}{is\+\_\+bat}(ptr))
+\item 
+\#define \hyperlink{mondata_8h_ab19a9ff386dd9b2935e8d72395116035}{is\+\_\+giant}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_ab145fee832b08524952ccb1893133688}{M2\+\_\+\+G\+I\+A\+N\+T}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a6fd7f5f330b2b760d6a27b06062945a4}{is\+\_\+golem}(ptr)~((ptr)-\/$>$mlet == \hyperlink{monsym_8h_a7319e740583e5a9f74ddb1f435769fa5}{S\+\_\+\+G\+O\+L\+E\+M})
+\item 
+\#define \hyperlink{mondata_8h_a65c0304895a5c2786ce72fc2646ccf68}{is\+\_\+domestic}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a1b5362d9d97c61a88936ab58f6f97fb4}{M2\+\_\+\+D\+O\+M\+E\+S\+T\+I\+C}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a9f5d39edf86a6137fd76d419c7914af4}{is\+\_\+demon}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a26002e2e9bee1231b79a41f488099717}{M2\+\_\+\+D\+E\+M\+O\+N}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a6d73bc7ae8f744da17f71450f865aacc}{is\+\_\+mercenary}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_ac813730a433442fb696f63a48433afe6}{M2\+\_\+\+M\+E\+R\+C}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_af87dbfd43bde750d2dceabc5d50353f4}{is\+\_\+male}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_aa60aff4c3cb6bcdf3f7a0edc148b9a82}{M2\+\_\+\+M\+A\+L\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a4ef9c86fddd17a5704d9312dd66d37f0}{is\+\_\+female}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a69a2f9fc352f531828676efdf5d1436f}{M2\+\_\+\+F\+E\+M\+A\+L\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_aecc24783c116f7d8a9f23d424dd339ce}{is\+\_\+neuter}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a97a9661701b3f5835d3b00f2fda2b99f}{M2\+\_\+\+N\+E\+U\+T\+E\+R}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_af45dcafe1da8b174174fe10721c513d2}{is\+\_\+wanderer}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_afe10ae1f9d9e92b65932beb1930c7b33}{M2\+\_\+\+W\+A\+N\+D\+E\+R}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a4009754855425b7a9d4f1256086c82e2}{always\+\_\+hostile}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a20c7f91e355794d999ba23e95e06e3e7}{M2\+\_\+\+H\+O\+S\+T\+I\+L\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a8a9268e51bec1a39e89e4a969721179a}{always\+\_\+peaceful}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a18535af1508e418579a601e74ab571c8}{M2\+\_\+\+P\+E\+A\+C\+E\+F\+U\+L}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a5ab488202bebe9f5289b187f1bc0ef07}{race\+\_\+hostile}(ptr)~(((ptr)-\/$>$mflags2 \& urace.\+hatemask) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a6fdc7de403be6968bbd1ea97e851c883}{race\+\_\+peaceful}(ptr)~(((ptr)-\/$>$mflags2 \& urace.\+lovemask) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a43a56f8da67bffad8570befaef4cb528}{extra\+\_\+nasty}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a61e8e846ead219820cce7f0961a27f25}{M2\+\_\+\+N\+A\+S\+T\+Y}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ac9771120ab9458112bfd7b8099f978ba}{strongmonst}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a4a0727d8dcbbc504a7f3acaf0051350a}{M2\+\_\+\+S\+T\+R\+O\+N\+G}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a88260bbdc5bfec24692a997c03968739}{can\+\_\+breathe}(ptr)~attacktype(ptr, \hyperlink{monattk_8h_a0c8b4d5ce553a46024b2cb67c441514b}{A\+T\+\_\+\+B\+R\+E\+A})
+\item 
+\#define \hyperlink{mondata_8h_affb79b25deabc9564b20a275b5ac7e5f}{cantwield}(ptr)~(\hyperlink{mondata_8h_ae13d4a4d0a9842348cffbb5dae990771}{nohands}(ptr) $\vert$$\vert$ \hyperlink{mondata_8h_a655fd80b963b28e5f4b7a52fc8d1f32d}{verysmall}(ptr))
+\item 
+\#define \hyperlink{mondata_8h_a4c22bce1fdf1e06fec6f6534a1bfde9d}{could\+\_\+twoweap}(ptr)~((ptr)-\/$>$mattk\mbox{[}1\mbox{]}.aatyp == \hyperlink{monattk_8h_a6db6784344c2424d385f6b460f0c029f}{A\+T\+\_\+\+W\+E\+A\+P})
+\item 
+\#define \hyperlink{mondata_8h_a08fcb907e85a73d4dbd5109fe1abdf5d}{cantweararm}(ptr)~(breakarm(ptr) $\vert$$\vert$ sliparm(ptr))
+\item 
+\#define \hyperlink{mondata_8h_af1c84d35ae8812186eaf635bc27b37c0}{throws\+\_\+rocks}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_ad7fa9bc225790cc6e9bb3c11241f4bed}{M2\+\_\+\+R\+O\+C\+K\+T\+H\+R\+O\+W}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a431e6a2710b289745d56debf83fafc33}{type\+\_\+is\+\_\+pname}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_adcdf8bc9678fc4f69ae34014f3e77e1b}{M2\+\_\+\+P\+N\+A\+M\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_afeb3370436f9f0f0543e3546a2782b3d}{is\+\_\+lord}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a843cb4db142d1427e32d8508ae30d0df}{M2\+\_\+\+L\+O\+R\+D}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a88f89429a4a8ec2fdaa354be5bc612c1}{is\+\_\+prince}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_a344da967e8ba9320fc1e3f80f4d64940}{M2\+\_\+\+P\+R\+I\+N\+C\+E}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a4e4710e23825db37f89573ca6ab1e3b4}{is\+\_\+ndemon}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_ae6e0c04112b1025e2f836baa3c70b320}{is\+\_\+dlord}(ptr)~(\hyperlink{mondata_8h_a9f5d39edf86a6137fd76d419c7914af4}{is\+\_\+demon}(ptr) \&\& \hyperlink{mondata_8h_afeb3370436f9f0f0543e3546a2782b3d}{is\+\_\+lord}(ptr))
+\item 
+\#define \hyperlink{mondata_8h_adea0f5aad9185b27a8244ef26d388f15}{is\+\_\+dprince}(ptr)~(\hyperlink{mondata_8h_a9f5d39edf86a6137fd76d419c7914af4}{is\+\_\+demon}(ptr) \&\& \hyperlink{mondata_8h_a88f89429a4a8ec2fdaa354be5bc612c1}{is\+\_\+prince}(ptr))
+\item 
+\#define \hyperlink{mondata_8h_acc1e74b977b15476da10116f621dddfe}{is\+\_\+minion}(ptr)~((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_ac8bc68f71cd5c82fc3ec518e5ce82f74}{M2\+\_\+\+M\+I\+N\+I\+O\+N})
+\item 
+\#define \hyperlink{mondata_8h_ad02aec9b6259664d1426ae16d60d7338}{likes\+\_\+gold}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_af6569e024dfaa9ec23f8d378183f9dc5}{M2\+\_\+\+G\+R\+E\+E\+D\+Y}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a083bc8d20c8fbfc9fadc8e10a4fceb90}{likes\+\_\+gems}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_aaaee82cb199dc8bb7933a989523446a7}{M2\+\_\+\+J\+E\+W\+E\+L\+S}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_a3f8a4c9532655ee36075579c0eb2cee2}{likes\+\_\+objs}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a197355accf026cad35837cab85d54ef1}{likes\+\_\+magic}(ptr)~(((ptr)-\/$>$mflags2 \& \hyperlink{monflag_8h_aced44015e4c82841599082fba9c84315}{M2\+\_\+\+M\+A\+G\+I\+C}) != 0\+L)
+\item 
+\#define \hyperlink{mondata_8h_ab42772fd30d6a9de6591bd8deb85e1d4}{webmaker}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_aea6ec71970ce94bddd2270e198ff62f6}{is\+\_\+unicorn}(ptr)~((ptr)-\/$>$mlet == \hyperlink{monsym_8h_a5fbb649f5f1192ce9fd21c64ba22f2e1}{S\+\_\+\+U\+N\+I\+C\+O\+R\+N} \&\& \hyperlink{mondata_8h_a083bc8d20c8fbfc9fadc8e10a4fceb90}{likes\+\_\+gems}(ptr))
+\item 
+\#define \hyperlink{mondata_8h_ab416708e04e3a2e7d9f4ac450a260db1}{is\+\_\+longworm}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_ab0cdbecbce4b88b729f7f2fa54b02f62}{is\+\_\+covetous}(ptr)~((ptr-\/$>$mflags3 \& \hyperlink{monflag_8h_aaa87423f55ea8955edff5f996a5e169c}{M3\+\_\+\+C\+O\+V\+E\+T\+O\+U\+S}))
+\item 
+\#define \hyperlink{mondata_8h_a3b5d3f1b275870b7bc12d709a6dbe103}{infravision}(ptr)~((ptr-\/$>$mflags3 \& \hyperlink{monflag_8h_a5cbd6bf71a0f186dded9e9c1d783b7af}{M3\+\_\+\+I\+N\+F\+R\+A\+V\+I\+S\+I\+O\+N}))
+\item 
+\#define \hyperlink{mondata_8h_a975de1d293eb2dd0ca70c74b529d4421}{infravisible}(ptr)~((ptr-\/$>$mflags3 \& \hyperlink{monflag_8h_a35601bfe705faa8924481e5a0192b66b}{M3\+\_\+\+I\+N\+F\+R\+A\+V\+I\+S\+I\+B\+L\+E}))
+\item 
+\#define \hyperlink{mondata_8h_a8bca282ec1e3773ac219c334e54071d5}{is\+\_\+mplayer}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_ae65c0c7b92cbe7cb6e8550523ef4f175}{is\+\_\+rider}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a79f42d78ef48eeced079d5c5de9b0fa2}{is\+\_\+placeholder}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a4b8f393ac3721468b49765dc67278250}{is\+\_\+reviver}(ptr)~(\hyperlink{mondata_8h_ae65c0c7b92cbe7cb6e8550523ef4f175}{is\+\_\+rider}(ptr) $\vert$$\vert$ (ptr)-\/$>$mlet == \hyperlink{monsym_8h_adfd7d880ae86198cb104883f1644ebcc}{S\+\_\+\+T\+R\+O\+L\+L})
+\item 
+\#define \hyperlink{mondata_8h_a8ab6bc25a724f40d5f1c0b0a11b27ac3}{emits\+\_\+light}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a764fcf4ead77e4b394306f02ad61c684}{likes\+\_\+lava}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a372e92dba1620dd3a559527bd0d57a92}{pm\+\_\+invisible}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a9ea17981ce8883ae03efa196bf14f209}{likes\+\_\+fire}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_ad1e85e493d27cdfdbe94c43710c4b191}{touch\+\_\+petrifies}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a276cb4e7ce786a99559a4922b61b0353}{is\+\_\+mind\+\_\+flayer}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_aeae2da0c70efc6db9195f4216943a3a1}{nonliving}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a028ffec60e35d2250ae328b2dbd8acf4}{vegan}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_a57bbc8d06bdcc1788f06bcd3a9028845}{vegetarian}(ptr)
+\item 
+\#define \hyperlink{mondata_8h_aa9f2656d72ad9ee8ad096a8867bf3d5f}{befriend\+\_\+with\+\_\+obj}(ptr, \hyperlink{structobj}{obj})
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{mondata_8h_afc5fcbf092cceab8ec5c683c392dfb22}{\index{mondata.\+h@{mondata.\+h}!acidic@{acidic}}
+\index{acidic@{acidic}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{acidic}]{\setlength{\rightskip}{0pt plus 5cm}\#define acidic(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+A\+C\+I\+D}) != 0\+L)}}\label{mondata_8h_afc5fcbf092cceab8ec5c683c392dfb22}
+
+
+Definition at line 72 of file mondata.\+h.
+
+
+
+Referenced by mon\+\_\+consume\+\_\+unstone(), munstone(), and searches\+\_\+for\+\_\+item().
+
+\hypertarget{mondata_8h_a4009754855425b7a9d4f1256086c82e2}{\index{mondata.\+h@{mondata.\+h}!always\+\_\+hostile@{always\+\_\+hostile}}
+\index{always\+\_\+hostile@{always\+\_\+hostile}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{always\+\_\+hostile}]{\setlength{\rightskip}{0pt plus 5cm}\#define always\+\_\+hostile(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+H\+O\+S\+T\+I\+L\+E}) != 0\+L)}}\label{mondata_8h_a4009754855425b7a9d4f1256086c82e2}
+
+
+Definition at line 99 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a8a9268e51bec1a39e89e4a969721179a}{\index{mondata.\+h@{mondata.\+h}!always\+\_\+peaceful@{always\+\_\+peaceful}}
+\index{always\+\_\+peaceful@{always\+\_\+peaceful}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{always\+\_\+peaceful}]{\setlength{\rightskip}{0pt plus 5cm}\#define always\+\_\+peaceful(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+P\+E\+A\+C\+E\+F\+U\+L}) != 0\+L)}}\label{mondata_8h_a8a9268e51bec1a39e89e4a969721179a}
+
+
+Definition at line 100 of file mondata.\+h.
+
+\hypertarget{mondata_8h_ac3d4d869d4c7625a840b9731b591e90b}{\index{mondata.\+h@{mondata.\+h}!amorphous@{amorphous}}
+\index{amorphous@{amorphous}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{amorphous}]{\setlength{\rightskip}{0pt plus 5cm}\#define amorphous(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+A\+M\+O\+R\+P\+H\+O\+U\+S}) != 0\+L)}}\label{mondata_8h_ac3d4d869d4c7625a840b9731b591e90b}
+
+
+Definition at line 34 of file mondata.\+h.
+
+
+
+Referenced by find\+\_\+offensive(), goodpos(), rnd\+\_\+offensive\+\_\+item(), and use\+\_\+offensive().
+
+\hypertarget{mondata_8h_af598ecbfaf539d9840a9b5e4a872f6b7}{\index{mondata.\+h@{mondata.\+h}!amphibious@{amphibious}}
+\index{amphibious@{amphibious}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{amphibious}]{\setlength{\rightskip}{0pt plus 5cm}\#define amphibious(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& ({\bf M1\+\_\+\+A\+M\+P\+H\+I\+B\+I\+O\+U\+S} $\vert$ {\bf M1\+\_\+\+B\+R\+E\+A\+T\+H\+L\+E\+S\+S})) != 0\+L)}}\label{mondata_8h_af598ecbfaf539d9840a9b5e4a872f6b7}
+
+
+Definition at line 32 of file mondata.\+h.
+
+
+
+Referenced by damageum(), and gulpum().
+
+\hypertarget{mondata_8h_aa9f2656d72ad9ee8ad096a8867bf3d5f}{\index{mondata.\+h@{mondata.\+h}!befriend\+\_\+with\+\_\+obj@{befriend\+\_\+with\+\_\+obj}}
+\index{befriend\+\_\+with\+\_\+obj@{befriend\+\_\+with\+\_\+obj}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{befriend\+\_\+with\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}\#define befriend\+\_\+with\+\_\+obj(
+\begin{DoxyParamCaption}
+\item[{}]{ptr, }
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_aa9f2656d72ad9ee8ad096a8867bf3d5f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{structobj}{obj})->oclass == \hyperlink{objclass_8h_a98c4704dea5f0606fe545294b44f8fd6}{FOOD\_CLASS} && \(\backslash\)
+                     \hyperlink{mondata_8h_a65c0304895a5c2786ce72fc2646ccf68}{is\_domestic}(ptr))
+\end{DoxyCode}
+
+
+Definition at line 190 of file mondata.\+h.
+
+
+
+Referenced by thitmonst().
+
+\hypertarget{mondata_8h_a28750a402487965f08dcce597c8af6be}{\index{mondata.\+h@{mondata.\+h}!bigmonst@{bigmonst}}
+\index{bigmonst@{bigmonst}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{bigmonst}]{\setlength{\rightskip}{0pt plus 5cm}\#define bigmonst(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$msize $>$= {\bf M\+Z\+\_\+\+L\+A\+R\+G\+E})}}\label{mondata_8h_a28750a402487965f08dcce597c8af6be}
+
+
+Definition at line 9 of file mondata.\+h.
+
+
+
+Referenced by hmon\+\_\+hitmon(), hurtle\+\_\+step(), in\+\_\+container(), kick\+\_\+monster(), and kickdmg().
+
+\hypertarget{mondata_8h_a77944b6442832379493a29ea70661a96}{\index{mondata.\+h@{mondata.\+h}!breathless@{breathless}}
+\index{breathless@{breathless}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{breathless}]{\setlength{\rightskip}{0pt plus 5cm}\#define breathless(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+B\+R\+E\+A\+T\+H\+L\+E\+S\+S}) != 0\+L)}}\label{mondata_8h_a77944b6442832379493a29ea70661a96}
+
+
+Definition at line 31 of file mondata.\+h.
+
+
+
+Referenced by breakobj(), and inside\+\_\+gas\+\_\+cloud().
+
+\hypertarget{mondata_8h_a88260bbdc5bfec24692a997c03968739}{\index{mondata.\+h@{mondata.\+h}!can\+\_\+breathe@{can\+\_\+breathe}}
+\index{can\+\_\+breathe@{can\+\_\+breathe}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{can\+\_\+breathe}]{\setlength{\rightskip}{0pt plus 5cm}\#define can\+\_\+breathe(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~attacktype(ptr, {\bf A\+T\+\_\+\+B\+R\+E\+A})}}\label{mondata_8h_a88260bbdc5bfec24692a997c03968739}
+
+
+Definition at line 105 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a2625fab363d7462975fcbc0cb394c619}{\index{mondata.\+h@{mondata.\+h}!can\+\_\+teleport@{can\+\_\+teleport}}
+\index{can\+\_\+teleport@{can\+\_\+teleport}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{can\+\_\+teleport}]{\setlength{\rightskip}{0pt plus 5cm}\#define can\+\_\+teleport(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+T\+P\+O\+R\+T}) != 0\+L)}}\label{mondata_8h_a2625fab363d7462975fcbc0cb394c619}
+
+
+Definition at line 66 of file mondata.\+h.
+
+
+
+Referenced by dotele(), and kick\+\_\+monster().
+
+\hypertarget{mondata_8h_a08fcb907e85a73d4dbd5109fe1abdf5d}{\index{mondata.\+h@{mondata.\+h}!cantweararm@{cantweararm}}
+\index{cantweararm@{cantweararm}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{cantweararm}]{\setlength{\rightskip}{0pt plus 5cm}\#define cantweararm(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(breakarm(ptr) $\vert$$\vert$ sliparm(ptr))}}\label{mondata_8h_a08fcb907e85a73d4dbd5109fe1abdf5d}
+
+
+Definition at line 108 of file mondata.\+h.
+
+
+
+Referenced by m\+\_\+dowear().
+
+\hypertarget{mondata_8h_affb79b25deabc9564b20a275b5ac7e5f}{\index{mondata.\+h@{mondata.\+h}!cantwield@{cantwield}}
+\index{cantwield@{cantwield}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{cantwield}]{\setlength{\rightskip}{0pt plus 5cm}\#define cantwield(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~({\bf nohands}(ptr) $\vert$$\vert$ {\bf verysmall}(ptr))}}\label{mondata_8h_affb79b25deabc9564b20a275b5ac7e5f}
+
+
+Definition at line 106 of file mondata.\+h.
+
+
+
+Referenced by attack(), doswapweapon(), dowield(), hmonas(), and wield\+\_\+tool().
+
+\hypertarget{mondata_8h_af1c4acbf3e1e7008fd7d326d752a8ceb}{\index{mondata.\+h@{mondata.\+h}!carnivorous@{carnivorous}}
+\index{carnivorous@{carnivorous}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{carnivorous}]{\setlength{\rightskip}{0pt plus 5cm}\#define carnivorous(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+C\+A\+R\+N\+I\+V\+O\+R\+E}) != 0\+L)}}\label{mondata_8h_af1c4acbf3e1e7008fd7d326d752a8ceb}
+
+
+Definition at line 74 of file mondata.\+h.
+
+\hypertarget{mondata_8h_ae019008f3e3da37fb38e84378fa713df}{\index{mondata.\+h@{mondata.\+h}!control\+\_\+teleport@{control\+\_\+teleport}}
+\index{control\+\_\+teleport@{control\+\_\+teleport}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{control\+\_\+teleport}]{\setlength{\rightskip}{0pt plus 5cm}\#define control\+\_\+teleport(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+T\+P\+O\+R\+T\+\_\+\+C\+N\+T\+R\+L}) != 0\+L)}}\label{mondata_8h_ae019008f3e3da37fb38e84378fa713df}
+
+
+Definition at line 67 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a4c22bce1fdf1e06fec6f6534a1bfde9d}{\index{mondata.\+h@{mondata.\+h}!could\+\_\+twoweap@{could\+\_\+twoweap}}
+\index{could\+\_\+twoweap@{could\+\_\+twoweap}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{could\+\_\+twoweap}]{\setlength{\rightskip}{0pt plus 5cm}\#define could\+\_\+twoweap(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$mattk\mbox{[}1\mbox{]}.aatyp == {\bf A\+T\+\_\+\+W\+E\+A\+P})}}\label{mondata_8h_a4c22bce1fdf1e06fec6f6534a1bfde9d}
+
+
+Definition at line 107 of file mondata.\+h.
+
+
+
+Referenced by can\+\_\+twoweapon().
+
+\hypertarget{mondata_8h_a8ab6bc25a724f40d5f1c0b0a11b27ac3}{\index{mondata.\+h@{mondata.\+h}!emits\+\_\+light@{emits\+\_\+light}}
+\index{emits\+\_\+light@{emits\+\_\+light}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{emits\+\_\+light}]{\setlength{\rightskip}{0pt plus 5cm}\#define emits\+\_\+light(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a8ab6bc25a724f40d5f1c0b0a11b27ac3}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((ptr)->mlet == \hyperlink{monsym_8h_a12f9073e331246f69c12938498713b20}{S\_LIGHT} || \(\backslash\)
+                  (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FLAMING\_SPHERE] || \(\backslash\)
+                  (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_SHOCKING\_SPHERE] || \(\backslash\)
+                  (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FIRE\_VORTEX]) ? 1 : \(\backslash\)
+                 ((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FIRE\_ELEMENTAL]) ? 1 : 0)
+\end{DoxyCode}
+
+
+Definition at line 146 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a43a56f8da67bffad8570befaef4cb528}{\index{mondata.\+h@{mondata.\+h}!extra\+\_\+nasty@{extra\+\_\+nasty}}
+\index{extra\+\_\+nasty@{extra\+\_\+nasty}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{extra\+\_\+nasty}]{\setlength{\rightskip}{0pt plus 5cm}\#define extra\+\_\+nasty(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+N\+A\+S\+T\+Y}) != 0\+L)}}\label{mondata_8h_a43a56f8da67bffad8570befaef4cb528}
+
+
+Definition at line 103 of file mondata.\+h.
+
+
+
+Referenced by experience().
+
+\hypertarget{mondata_8h_a92feea53299371976971e15c43923a26}{\index{mondata.\+h@{mondata.\+h}!eyecount@{eyecount}}
+\index{eyecount@{eyecount}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{eyecount}]{\setlength{\rightskip}{0pt plus 5cm}\#define eyecount(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a92feea53299371976971e15c43923a26}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(!\hyperlink{mondata_8h_acef071254b9ae0dcf53724485be10841}{haseyes}(ptr) ? 0 : \(\backslash\)
+                 ((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_CYCLOPS] || \(\backslash\)
+                  (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FLOATING\_EYE]) ? 1 : 2)
+\end{DoxyCode}
+
+
+Definition at line 41 of file mondata.\+h.
+
+
+
+Referenced by breakobj(), and fix\+\_\+worst\+\_\+trouble().
+
+\hypertarget{mondata_8h_aadb2718743a42260876de9cb19469e1b}{\index{mondata.\+h@{mondata.\+h}!flaming@{flaming}}
+\index{flaming@{flaming}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{flaming}]{\setlength{\rightskip}{0pt plus 5cm}\#define flaming(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_aadb2718743a42260876de9cb19469e1b}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FIRE\_VORTEX] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FLAMING\_SPHERE] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FIRE\_ELEMENTAL] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_SALAMANDER])
+\end{DoxyCode}
+
+
+Definition at line 51 of file mondata.\+h.
+
+
+
+Referenced by damageum(), and gulpum().
+
+\hypertarget{mondata_8h_ac3233fd10c8acdc9c9533dea67d53e08}{\index{mondata.\+h@{mondata.\+h}!has\+\_\+head@{has\+\_\+head}}
+\index{has\+\_\+head@{has\+\_\+head}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{has\+\_\+head}]{\setlength{\rightskip}{0pt plus 5cm}\#define has\+\_\+head(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+N\+O\+H\+E\+A\+D}) == 0\+L)}}\label{mondata_8h_ac3233fd10c8acdc9c9533dea67d53e08}
+
+
+Definition at line 47 of file mondata.\+h.
+
+
+
+Referenced by damageum().
+
+\hypertarget{mondata_8h_a98e33091114b0f4ea59f7dea0ac1adcd}{\index{mondata.\+h@{mondata.\+h}!has\+\_\+horns@{has\+\_\+horns}}
+\index{has\+\_\+horns@{has\+\_\+horns}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{has\+\_\+horns}]{\setlength{\rightskip}{0pt plus 5cm}\#define has\+\_\+horns(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(num\+\_\+horns(ptr) $>$ 0)}}\label{mondata_8h_a98e33091114b0f4ea59f7dea0ac1adcd}
+
+
+Definition at line 48 of file mondata.\+h.
+
+
+
+Referenced by m\+\_\+dowear\+\_\+type(), and mon\+\_\+break\+\_\+armor().
+
+\hypertarget{mondata_8h_acef071254b9ae0dcf53724485be10841}{\index{mondata.\+h@{mondata.\+h}!haseyes@{haseyes}}
+\index{haseyes@{haseyes}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{haseyes}]{\setlength{\rightskip}{0pt plus 5cm}\#define haseyes(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+N\+O\+E\+Y\+E\+S}) == 0\+L)}}\label{mondata_8h_acef071254b9ae0dcf53724485be10841}
+
+
+Definition at line 40 of file mondata.\+h.
+
+
+
+Referenced by breakobj(), explum(), find\+\_\+defensive(), find\+\_\+offensive(), hmon\+\_\+hitmon(), hmonas(), in\+\_\+trouble(), inside\+\_\+gas\+\_\+cloud(), and kick\+\_\+monster().
+
+\hypertarget{mondata_8h_a98253161354cffd67bd13ea0ec9363f9}{\index{mondata.\+h@{mondata.\+h}!herbivorous@{herbivorous}}
+\index{herbivorous@{herbivorous}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{herbivorous}]{\setlength{\rightskip}{0pt plus 5cm}\#define herbivorous(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+H\+E\+R\+B\+I\+V\+O\+R\+E}) != 0\+L)}}\label{mondata_8h_a98253161354cffd67bd13ea0ec9363f9}
+
+
+Definition at line 75 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a37a7b9dfee69b94d8e6946bb04c22874}{\index{mondata.\+h@{mondata.\+h}!hides\+\_\+under@{hides\+\_\+under}}
+\index{hides\+\_\+under@{hides\+\_\+under}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{hides\+\_\+under}]{\setlength{\rightskip}{0pt plus 5cm}\#define hides\+\_\+under(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+C\+O\+N\+C\+E\+A\+L}) != 0\+L)}}\label{mondata_8h_a37a7b9dfee69b94d8e6946bb04c22874}
+
+
+Definition at line 38 of file mondata.\+h.
+
+
+
+Referenced by attack\+\_\+checks(), and teleds().
+
+\hypertarget{mondata_8h_a1f7524ff25e459cd9832bfa069188312}{\index{mondata.\+h@{mondata.\+h}!humanoid@{humanoid}}
+\index{humanoid@{humanoid}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{humanoid}]{\setlength{\rightskip}{0pt plus 5cm}\#define humanoid(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+H\+U\+M\+A\+N\+O\+I\+D}) != 0\+L)}}\label{mondata_8h_a1f7524ff25e459cd9832bfa069188312}
+
+
+Definition at line 58 of file mondata.\+h.
+
+
+
+Referenced by do\+\_\+earthquake(), and dosit().
+
+\hypertarget{mondata_8h_a975de1d293eb2dd0ca70c74b529d4421}{\index{mondata.\+h@{mondata.\+h}!infravisible@{infravisible}}
+\index{infravisible@{infravisible}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{infravisible}]{\setlength{\rightskip}{0pt plus 5cm}\#define infravisible(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr-\/$>$mflags3 \& {\bf M3\+\_\+\+I\+N\+F\+R\+A\+V\+I\+S\+I\+B\+L\+E}))}}\label{mondata_8h_a975de1d293eb2dd0ca70c74b529d4421}
+
+
+Definition at line 131 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a3b5d3f1b275870b7bc12d709a6dbe103}{\index{mondata.\+h@{mondata.\+h}!infravision@{infravision}}
+\index{infravision@{infravision}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{infravision}]{\setlength{\rightskip}{0pt plus 5cm}\#define infravision(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr-\/$>$mflags3 \& {\bf M3\+\_\+\+I\+N\+F\+R\+A\+V\+I\+S\+I\+O\+N}))}}\label{mondata_8h_a3b5d3f1b275870b7bc12d709a6dbe103}
+
+
+Definition at line 130 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a6633b7e5ce3955ef878c6890a72b9392}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+animal@{is\+\_\+animal}}
+\index{is\+\_\+animal@{is\+\_\+animal}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+animal}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+animal(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+A\+N\+I\+M\+A\+L}) != 0\+L)}}\label{mondata_8h_a6633b7e5ce3955ef878c6890a72b9392}
+
+
+Definition at line 59 of file mondata.\+h.
+
+
+
+Referenced by dokick(), find\+\_\+defensive(), find\+\_\+misc(), find\+\_\+offensive(), gulpum(), m\+\_\+dowear(), openit(), rnd\+\_\+defensive\+\_\+item(), rnd\+\_\+misc\+\_\+item(), rnd\+\_\+offensive\+\_\+item(), searches\+\_\+for\+\_\+item(), thitmonst(), and throw\+\_\+gold().
+
+\hypertarget{mondata_8h_ab87aa9751f23a675185a8e27a2e68448}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+armed@{is\+\_\+armed}}
+\index{is\+\_\+armed@{is\+\_\+armed}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+armed}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+armed(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~attacktype(ptr, {\bf A\+T\+\_\+\+W\+E\+A\+P})}}\label{mondata_8h_ab87aa9751f23a675185a8e27a2e68448}
+
+
+Definition at line 71 of file mondata.\+h.
+
+\hypertarget{mondata_8h_ac458b2a33cdc76df339d7d836b0748f0}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+bat@{is\+\_\+bat}}
+\index{is\+\_\+bat@{is\+\_\+bat}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+bat}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+bat(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_ac458b2a33cdc76df339d7d836b0748f0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_BAT] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_GIANT\_BAT] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_VAMPIRE\_BAT])
+\end{DoxyCode}
+
+
+Definition at line 86 of file mondata.\+h.
+
+\hypertarget{mondata_8h_addfe7112d3415cced8c9c2fcbb427935}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+bird@{is\+\_\+bird}}
+\index{is\+\_\+bird@{is\+\_\+bird}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+bird}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+bird(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$mlet == {\bf S\+\_\+\+B\+A\+T} \&\& !{\bf is\+\_\+bat}(ptr))}}\label{mondata_8h_addfe7112d3415cced8c9c2fcbb427935}
+
+
+Definition at line 89 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a5033772c28e21c8fad44f02e4a5eb4e1}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+clinger@{is\+\_\+clinger}}
+\index{is\+\_\+clinger@{is\+\_\+clinger}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+clinger}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+clinger(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+C\+L\+I\+N\+G}) != 0\+L)}}\label{mondata_8h_a5033772c28e21c8fad44f02e4a5eb4e1}
+
+
+Definition at line 29 of file mondata.\+h.
+
+
+
+Referenced by do\+\_\+earthquake(), and goodpos().
+
+\hypertarget{mondata_8h_ab0cdbecbce4b88b729f7f2fa54b02f62}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+covetous@{is\+\_\+covetous}}
+\index{is\+\_\+covetous@{is\+\_\+covetous}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+covetous}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+covetous(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr-\/$>$mflags3 \& {\bf M3\+\_\+\+C\+O\+V\+E\+T\+O\+U\+S}))}}\label{mondata_8h_ab0cdbecbce4b88b729f7f2fa54b02f62}
+
+
+Definition at line 129 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a9f5d39edf86a6137fd76d419c7914af4}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+demon@{is\+\_\+demon}}
+\index{is\+\_\+demon@{is\+\_\+demon}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+demon}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+demon(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+D\+E\+M\+O\+N}) != 0\+L)}}\label{mondata_8h_a9f5d39edf86a6137fd76d419c7914af4}
+
+
+Definition at line 93 of file mondata.\+h.
+
+
+
+Referenced by can\+\_\+pray(), damageum(), dosacrifice(), doturn(), hmon\+\_\+hitmon(), and kickdmg().
+
+\hypertarget{mondata_8h_ae6e0c04112b1025e2f836baa3c70b320}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+dlord@{is\+\_\+dlord}}
+\index{is\+\_\+dlord@{is\+\_\+dlord}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+dlord}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+dlord(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~({\bf is\+\_\+demon}(ptr) \&\& {\bf is\+\_\+lord}(ptr))}}\label{mondata_8h_ae6e0c04112b1025e2f836baa3c70b320}
+
+
+Definition at line 115 of file mondata.\+h.
+
+
+
+Referenced by msummon().
+
+\hypertarget{mondata_8h_a65c0304895a5c2786ce72fc2646ccf68}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+domestic@{is\+\_\+domestic}}
+\index{is\+\_\+domestic@{is\+\_\+domestic}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+domestic}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+domestic(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+D\+O\+M\+E\+S\+T\+I\+C}) != 0\+L)}}\label{mondata_8h_a65c0304895a5c2786ce72fc2646ccf68}
+
+
+Definition at line 92 of file mondata.\+h.
+
+\hypertarget{mondata_8h_adea0f5aad9185b27a8244ef26d388f15}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+dprince@{is\+\_\+dprince}}
+\index{is\+\_\+dprince@{is\+\_\+dprince}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+dprince}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+dprince(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~({\bf is\+\_\+demon}(ptr) \&\& {\bf is\+\_\+prince}(ptr))}}\label{mondata_8h_adea0f5aad9185b27a8244ef26d388f15}
+
+
+Definition at line 116 of file mondata.\+h.
+
+
+
+Referenced by demon\+\_\+talk(), and msummon().
+
+\hypertarget{mondata_8h_ac52963ce02f1942e6260de79578fbed2}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+dwarf@{is\+\_\+dwarf}}
+\index{is\+\_\+dwarf@{is\+\_\+dwarf}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+dwarf}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+dwarf(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+D\+W\+A\+R\+F}) != 0\+L)}}\label{mondata_8h_ac52963ce02f1942e6260de79578fbed2}
+
+
+Definition at line 81 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a34b30264e47f5967d450cc2c050951ce}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+elf@{is\+\_\+elf}}
+\index{is\+\_\+elf@{is\+\_\+elf}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+elf}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+elf(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+E\+L\+F}) != 0\+L)}}\label{mondata_8h_a34b30264e47f5967d450cc2c050951ce}
+
+
+Definition at line 80 of file mondata.\+h.
+
+
+
+Referenced by find\+\_\+roll\+\_\+to\+\_\+hit(), and thitmonst().
+
+\hypertarget{mondata_8h_a4ef9c86fddd17a5704d9312dd66d37f0}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+female@{is\+\_\+female}}
+\index{is\+\_\+female@{is\+\_\+female}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+female}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+female(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+F\+E\+M\+A\+L\+E}) != 0\+L)}}\label{mondata_8h_a4ef9c86fddd17a5704d9312dd66d37f0}
+
+
+Definition at line 96 of file mondata.\+h.
+
+
+
+Referenced by get\+\_\+mplname().
+
+\hypertarget{mondata_8h_aa0333e705b2ebafe594ebcdbed885cce}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+floater@{is\+\_\+floater}}
+\index{is\+\_\+floater@{is\+\_\+floater}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+floater}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+floater(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$mlet == {\bf S\+\_\+\+E\+Y\+E})}}\label{mondata_8h_aa0333e705b2ebafe594ebcdbed885cce}
+
+
+Definition at line 28 of file mondata.\+h.
+
+
+
+Referenced by find\+\_\+defensive(), kick\+\_\+monster(), rnd\+\_\+defensive\+\_\+item(), and searches\+\_\+for\+\_\+item().
+
+\hypertarget{mondata_8h_a4407b2600bc3b320829630ed895960c0}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+flyer@{is\+\_\+flyer}}
+\index{is\+\_\+flyer@{is\+\_\+flyer}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+flyer}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+flyer(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+F\+L\+Y}) != 0\+L)}}\label{mondata_8h_a4407b2600bc3b320829630ed895960c0}
+
+
+Definition at line 27 of file mondata.\+h.
+
+
+
+Referenced by do\+\_\+earthquake(), goodpos(), kick\+\_\+monster(), and use\+\_\+defensive().
+
+\hypertarget{mondata_8h_ab19a9ff386dd9b2935e8d72395116035}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+giant@{is\+\_\+giant}}
+\index{is\+\_\+giant@{is\+\_\+giant}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+giant}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+giant(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+G\+I\+A\+N\+T}) != 0\+L)}}\label{mondata_8h_ab19a9ff386dd9b2935e8d72395116035}
+
+
+Definition at line 90 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a90adf2a605a1bc9319762de148bfe079}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+gnome@{is\+\_\+gnome}}
+\index{is\+\_\+gnome@{is\+\_\+gnome}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+gnome}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+gnome(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+G\+N\+O\+M\+E}) != 0\+L)}}\label{mondata_8h_a90adf2a605a1bc9319762de148bfe079}
+
+
+Definition at line 82 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a6fd7f5f330b2b760d6a27b06062945a4}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+golem@{is\+\_\+golem}}
+\index{is\+\_\+golem@{is\+\_\+golem}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+golem}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+golem(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$mlet == {\bf S\+\_\+\+G\+O\+L\+E\+M})}}\label{mondata_8h_a6fd7f5f330b2b760d6a27b06062945a4}
+
+
+Definition at line 91 of file mondata.\+h.
+
+
+
+Referenced by explum().
+
+\hypertarget{mondata_8h_a40ebe51354acef5cc9591afbdd769c36}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+hider@{is\+\_\+hider}}
+\index{is\+\_\+hider@{is\+\_\+hider}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+hider}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+hider(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+H\+I\+D\+E}) != 0\+L)}}\label{mondata_8h_a40ebe51354acef5cc9591afbdd769c36}
+
+
+Definition at line 39 of file mondata.\+h.
+
+
+
+Referenced by do\+\_\+earthquake(), dosearch0(), and findone().
+
+\hypertarget{mondata_8h_a840fe1e2cd576dae2a5597d5c10526d8}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+human@{is\+\_\+human}}
+\index{is\+\_\+human@{is\+\_\+human}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+human}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+human(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+H\+U\+M\+A\+N}) != 0\+L)}}\label{mondata_8h_a840fe1e2cd576dae2a5597d5c10526d8}
+
+
+Definition at line 84 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a6bd06bc29ef4aaf6e4f982b587e1ea88}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+lminion@{is\+\_\+lminion}}
+\index{is\+\_\+lminion@{is\+\_\+lminion}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+lminion}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+lminion(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a6bd06bc29ef4aaf6e4f982b587e1ea88}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mondata_8h_acc1e74b977b15476da10116f621dddfe}{is\_minion}((mon)->data) && \(\backslash\)
+                 (mon)->data->maligntyp >= \hyperlink{align_8h_a2500c073b54ffef15f521a3978286845}{A\_COALIGNED} && \(\backslash\)
+                 ((mon)->data != &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_ANGEL] || \hyperlink{epri_8h_a8af728f8ed3894c68f86757f5308af8f}{\(\backslash\)}
+\hyperlink{epri_8h_a8af728f8ed3894c68f86757f5308af8f}{                  EPRI}(mon)->shralign > 0))
+\end{DoxyCode}
+
+
+Definition at line 22 of file mondata.\+h.
+
+
+
+Referenced by msummon().
+
+\hypertarget{mondata_8h_ab416708e04e3a2e7d9f4ac450a260db1}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+longworm@{is\+\_\+longworm}}
+\index{is\+\_\+longworm@{is\+\_\+longworm}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+longworm}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+longworm(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_ab416708e04e3a2e7d9f4ac450a260db1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_BABY\_LONG\_WORM]) || \(\backslash\)
+                 ((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_LONG\_WORM]) || \(\backslash\)
+                 ((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_LONG\_WORM\_TAIL]))
+\end{DoxyCode}
+
+
+Definition at line 126 of file mondata.\+h.
+
+
+
+Referenced by attack().
+
+\hypertarget{mondata_8h_afeb3370436f9f0f0543e3546a2782b3d}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+lord@{is\+\_\+lord}}
+\index{is\+\_\+lord@{is\+\_\+lord}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+lord}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+lord(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+L\+O\+R\+D}) != 0\+L)}}\label{mondata_8h_afeb3370436f9f0f0543e3546a2782b3d}
+
+
+Definition at line 111 of file mondata.\+h.
+
+
+
+Referenced by lminion(), and msummon().
+
+\hypertarget{mondata_8h_af87dbfd43bde750d2dceabc5d50353f4}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+male@{is\+\_\+male}}
+\index{is\+\_\+male@{is\+\_\+male}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+male}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+male(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+M\+A\+L\+E}) != 0\+L)}}\label{mondata_8h_af87dbfd43bde750d2dceabc5d50353f4}
+
+
+Definition at line 95 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a6d73bc7ae8f744da17f71450f865aacc}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+mercenary@{is\+\_\+mercenary}}
+\index{is\+\_\+mercenary@{is\+\_\+mercenary}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+mercenary}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+mercenary(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+M\+E\+R\+C}) != 0\+L)}}\label{mondata_8h_a6d73bc7ae8f744da17f71450f865aacc}
+
+
+Definition at line 94 of file mondata.\+h.
+
+
+
+Referenced by awaken\+\_\+soldiers(), find\+\_\+defensive(), and ghitm().
+
+\hypertarget{mondata_8h_a276cb4e7ce786a99559a4922b61b0353}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+mind\+\_\+flayer@{is\+\_\+mind\+\_\+flayer}}
+\index{is\+\_\+mind\+\_\+flayer@{is\+\_\+mind\+\_\+flayer}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+mind\+\_\+flayer}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+mind\+\_\+flayer(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a276cb4e7ce786a99559a4922b61b0353}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_MIND\_FLAYER] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_MASTER\_MIND\_FLAYER])
+\end{DoxyCode}
+
+
+Definition at line 165 of file mondata.\+h.
+
+\hypertarget{mondata_8h_acc1e74b977b15476da10116f621dddfe}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+minion@{is\+\_\+minion}}
+\index{is\+\_\+minion@{is\+\_\+minion}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+minion}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+minion(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+M\+I\+N\+I\+O\+N})}}\label{mondata_8h_acc1e74b977b15476da10116f621dddfe}
+
+
+Definition at line 117 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a8bca282ec1e3773ac219c334e54071d5}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+mplayer@{is\+\_\+mplayer}}
+\index{is\+\_\+mplayer@{is\+\_\+mplayer}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+mplayer}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+mplayer(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a8bca282ec1e3773ac219c334e54071d5}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((ptr) >= &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_ARCHEOLOGIST]) && \(\backslash\)
+                 ((ptr) <= &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_WIZARD]))
+\end{DoxyCode}
+
+
+Definition at line 132 of file mondata.\+h.
+
+
+
+Referenced by dev\+\_\+name(), and mk\+\_\+mplayer().
+
+\hypertarget{mondata_8h_a4e4710e23825db37f89573ca6ab1e3b4}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+ndemon@{is\+\_\+ndemon}}
+\index{is\+\_\+ndemon@{is\+\_\+ndemon}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+ndemon}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+ndemon(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a4e4710e23825db37f89573ca6ab1e3b4}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mondata_8h_a9f5d39edf86a6137fd76d419c7914af4}{is\_demon}(ptr) && \(\backslash\)
+                 (((ptr)->mflags2 & (\hyperlink{monflag_8h_a843cb4db142d1427e32d8508ae30d0df}{M2\_LORD}|\hyperlink{monflag_8h_a344da967e8ba9320fc1e3f80f4d64940}{M2\_PRINCE})) == 0L))
+\end{DoxyCode}
+
+
+Definition at line 113 of file mondata.\+h.
+
+
+
+Referenced by msummon(), and ndemon().
+
+\hypertarget{mondata_8h_aecc24783c116f7d8a9f23d424dd339ce}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+neuter@{is\+\_\+neuter}}
+\index{is\+\_\+neuter@{is\+\_\+neuter}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+neuter}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+neuter(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+N\+E\+U\+T\+E\+R}) != 0\+L)}}\label{mondata_8h_aecc24783c116f7d8a9f23d424dd339ce}
+
+
+Definition at line 97 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a2e5dce3b8165535b75a3b710aa3dc0bb}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+orc@{is\+\_\+orc}}
+\index{is\+\_\+orc@{is\+\_\+orc}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+orc}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+orc(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+O\+R\+C}) != 0\+L)}}\label{mondata_8h_a2e5dce3b8165535b75a3b710aa3dc0bb}
+
+
+Definition at line 83 of file mondata.\+h.
+
+
+
+Referenced by find\+\_\+roll\+\_\+to\+\_\+hit(), and thitmonst().
+
+\hypertarget{mondata_8h_a79f42d78ef48eeced079d5c5de9b0fa2}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+placeholder@{is\+\_\+placeholder}}
+\index{is\+\_\+placeholder@{is\+\_\+placeholder}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+placeholder}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+placeholder(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a79f42d78ef48eeced079d5c5de9b0fa2}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_ORC] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_GIANT] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_ELF] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_HUMAN])
+\end{DoxyCode}
+
+
+Definition at line 137 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a88f89429a4a8ec2fdaa354be5bc612c1}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+prince@{is\+\_\+prince}}
+\index{is\+\_\+prince@{is\+\_\+prince}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+prince}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+prince(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+P\+R\+I\+N\+C\+E}) != 0\+L)}}\label{mondata_8h_a88f89429a4a8ec2fdaa354be5bc612c1}
+
+
+Definition at line 112 of file mondata.\+h.
+
+
+
+Referenced by dosit().
+
+\hypertarget{mondata_8h_a4b8f393ac3721468b49765dc67278250}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+reviver@{is\+\_\+reviver}}
+\index{is\+\_\+reviver@{is\+\_\+reviver}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+reviver}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+reviver(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~({\bf is\+\_\+rider}(ptr) $\vert$$\vert$ (ptr)-\/$>$mlet == {\bf S\+\_\+\+T\+R\+O\+L\+L})}}\label{mondata_8h_a4b8f393ac3721468b49765dc67278250}
+
+
+Definition at line 142 of file mondata.\+h.
+
+\hypertarget{mondata_8h_ae65c0c7b92cbe7cb6e8550523ef4f175}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+rider@{is\+\_\+rider}}
+\index{is\+\_\+rider@{is\+\_\+rider}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+rider}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+rider(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_ae65c0c7b92cbe7cb6e8550523ef4f175}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_DEATH] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FAMINE] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_PESTILENCE])
+\end{DoxyCode}
+
+
+Definition at line 134 of file mondata.\+h.
+
+
+
+Referenced by gulpum(), pickup\+\_\+object(), rloco(), and u\+\_\+teleport\+\_\+mon().
+
+\hypertarget{mondata_8h_ab815056260a8ee0db98b4a1ffc5cee54}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+silent@{is\+\_\+silent}}
+\index{is\+\_\+silent@{is\+\_\+silent}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+silent}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+silent(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$msound == {\bf M\+S\+\_\+\+S\+I\+L\+E\+N\+T})}}\label{mondata_8h_ab815056260a8ee0db98b4a1ffc5cee54}
+
+
+Definition at line 55 of file mondata.\+h.
+
+
+
+Referenced by level\+\_\+tele().
+
+\hypertarget{mondata_8h_ab8ffd447c2b8217b49848268e2b6493d}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+swimmer@{is\+\_\+swimmer}}
+\index{is\+\_\+swimmer@{is\+\_\+swimmer}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+swimmer}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+swimmer(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+S\+W\+I\+M}) != 0\+L)}}\label{mondata_8h_ab8ffd447c2b8217b49848268e2b6493d}
+
+
+Definition at line 30 of file mondata.\+h.
+
+
+
+Referenced by create\+\_\+monster(), damageum(), and goodpos().
+
+\hypertarget{mondata_8h_a8e10c42bf31c42d748765a29105842fc}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+undead@{is\+\_\+undead}}
+\index{is\+\_\+undead@{is\+\_\+undead}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+undead}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+undead(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+U\+N\+D\+E\+A\+D}) != 0\+L)}}\label{mondata_8h_a8e10c42bf31c42d748765a29105842fc}
+
+
+Definition at line 78 of file mondata.\+h.
+
+
+
+Referenced by can\+\_\+pray(), deadbook(), dosacrifice(), doturn(), hmon\+\_\+hitmon(), and kickdmg().
+
+\hypertarget{mondata_8h_aea6ec71970ce94bddd2270e198ff62f6}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+unicorn@{is\+\_\+unicorn}}
+\index{is\+\_\+unicorn@{is\+\_\+unicorn}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+unicorn}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+unicorn(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$mlet == {\bf S\+\_\+\+U\+N\+I\+C\+O\+R\+N} \&\& {\bf likes\+\_\+gems}(ptr))}}\label{mondata_8h_aea6ec71970ce94bddd2270e198ff62f6}
+
+
+Definition at line 125 of file mondata.\+h.
+
+
+
+Referenced by dosacrifice(), find\+\_\+defensive(), searches\+\_\+for\+\_\+item(), and thitmonst().
+
+\hypertarget{mondata_8h_af45dcafe1da8b174174fe10721c513d2}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+wanderer@{is\+\_\+wanderer}}
+\index{is\+\_\+wanderer@{is\+\_\+wanderer}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+wanderer}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+wanderer(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+W\+A\+N\+D\+E\+R}) != 0\+L)}}\label{mondata_8h_af45dcafe1da8b174174fe10721c513d2}
+
+
+Definition at line 98 of file mondata.\+h.
+
+\hypertarget{mondata_8h_aa6aa8708ddeeabb47bd2a3ae3326bfc7}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+were@{is\+\_\+were}}
+\index{is\+\_\+were@{is\+\_\+were}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+were}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+were(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+W\+E\+R\+E}) != 0\+L)}}\label{mondata_8h_aa6aa8708ddeeabb47bd2a3ae3326bfc7}
+
+
+Definition at line 79 of file mondata.\+h.
+
+\hypertarget{mondata_8h_ad5ce5d0c9e98b8d48b288b01a961e8d0}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+whirly@{is\+\_\+whirly}}
+\index{is\+\_\+whirly@{is\+\_\+whirly}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+whirly}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+whirly(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_ad5ce5d0c9e98b8d48b288b01a961e8d0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr)->mlet == \hyperlink{monsym_8h_a0d1c239605b3accad0a9404c182568fb}{S\_VORTEX} || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_AIR\_ELEMENTAL])
+\end{DoxyCode}
+
+
+Definition at line 49 of file mondata.\+h.
+
+
+
+Referenced by mon\+\_\+break\+\_\+armor().
+
+\hypertarget{mondata_8h_aa7d16a2e835cb029ca8b81c806c9a890}{\index{mondata.\+h@{mondata.\+h}!is\+\_\+wooden@{is\+\_\+wooden}}
+\index{is\+\_\+wooden@{is\+\_\+wooden}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{is\+\_\+wooden}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+wooden(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr) == \&{\bf mons}\mbox{[}P\+M\+\_\+\+W\+O\+O\+D\+\_\+\+G\+O\+L\+E\+M\mbox{]})}}\label{mondata_8h_aa7d16a2e835cb029ca8b81c806c9a890}
+
+
+Definition at line 61 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a52531d6807321aaf7fc7f7fb45849e11}{\index{mondata.\+h@{mondata.\+h}!lays\+\_\+eggs@{lays\+\_\+eggs}}
+\index{lays\+\_\+eggs@{lays\+\_\+eggs}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{lays\+\_\+eggs}]{\setlength{\rightskip}{0pt plus 5cm}\#define lays\+\_\+eggs(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+O\+V\+I\+P\+A\+R\+O\+U\+S}) != 0\+L)}}\label{mondata_8h_a52531d6807321aaf7fc7f7fb45849e11}
+
+
+Definition at line 63 of file mondata.\+h.
+
+
+
+Referenced by dosit().
+
+\hypertarget{mondata_8h_a9ea17981ce8883ae03efa196bf14f209}{\index{mondata.\+h@{mondata.\+h}!likes\+\_\+fire@{likes\+\_\+fire}}
+\index{likes\+\_\+fire@{likes\+\_\+fire}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{likes\+\_\+fire}]{\setlength{\rightskip}{0pt plus 5cm}\#define likes\+\_\+fire(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a9ea17981ce8883ae03efa196bf14f209}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FIRE\_VORTEX] || \(\backslash\)
+                  (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FLAMING\_SPHERE] || \hyperlink{mondata_8h_a764fcf4ead77e4b394306f02ad61c684}{\(\backslash\)}
+\hyperlink{mondata_8h_a764fcf4ead77e4b394306f02ad61c684}{                 likes\_lava}(ptr))
+\end{DoxyCode}
+
+
+Definition at line 158 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a083bc8d20c8fbfc9fadc8e10a4fceb90}{\index{mondata.\+h@{mondata.\+h}!likes\+\_\+gems@{likes\+\_\+gems}}
+\index{likes\+\_\+gems@{likes\+\_\+gems}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{likes\+\_\+gems}]{\setlength{\rightskip}{0pt plus 5cm}\#define likes\+\_\+gems(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+J\+E\+W\+E\+L\+S}) != 0\+L)}}\label{mondata_8h_a083bc8d20c8fbfc9fadc8e10a4fceb90}
+
+
+Definition at line 119 of file mondata.\+h.
+
+\hypertarget{mondata_8h_ad02aec9b6259664d1426ae16d60d7338}{\index{mondata.\+h@{mondata.\+h}!likes\+\_\+gold@{likes\+\_\+gold}}
+\index{likes\+\_\+gold@{likes\+\_\+gold}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{likes\+\_\+gold}]{\setlength{\rightskip}{0pt plus 5cm}\#define likes\+\_\+gold(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+G\+R\+E\+E\+D\+Y}) != 0\+L)}}\label{mondata_8h_ad02aec9b6259664d1426ae16d60d7338}
+
+
+Definition at line 118 of file mondata.\+h.
+
+
+
+Referenced by ghitm().
+
+\hypertarget{mondata_8h_a764fcf4ead77e4b394306f02ad61c684}{\index{mondata.\+h@{mondata.\+h}!likes\+\_\+lava@{likes\+\_\+lava}}
+\index{likes\+\_\+lava@{likes\+\_\+lava}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{likes\+\_\+lava}]{\setlength{\rightskip}{0pt plus 5cm}\#define likes\+\_\+lava(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a764fcf4ead77e4b394306f02ad61c684}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(ptr == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FIRE\_ELEMENTAL] || \(\backslash\)
+                 ptr == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_SALAMANDER])
+\end{DoxyCode}
+
+
+Definition at line 152 of file mondata.\+h.
+
+
+
+Referenced by dosit(), and goodpos().
+
+\hypertarget{mondata_8h_a197355accf026cad35837cab85d54ef1}{\index{mondata.\+h@{mondata.\+h}!likes\+\_\+magic@{likes\+\_\+magic}}
+\index{likes\+\_\+magic@{likes\+\_\+magic}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{likes\+\_\+magic}]{\setlength{\rightskip}{0pt plus 5cm}\#define likes\+\_\+magic(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+M\+A\+G\+I\+C}) != 0\+L)}}\label{mondata_8h_a197355accf026cad35837cab85d54ef1}
+
+
+Definition at line 122 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a3f8a4c9532655ee36075579c0eb2cee2}{\index{mondata.\+h@{mondata.\+h}!likes\+\_\+objs@{likes\+\_\+objs}}
+\index{likes\+\_\+objs@{likes\+\_\+objs}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{likes\+\_\+objs}]{\setlength{\rightskip}{0pt plus 5cm}\#define likes\+\_\+objs(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a3f8a4c9532655ee36075579c0eb2cee2}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((ptr)->mflags2 & \hyperlink{monflag_8h_a0e8bd7c237e5188ece9f95674464be25}{M2\_COLLECT}) != 0L || \hyperlink{mondata_8h_ab87aa9751f23a675185a8e27a2e68448}{\(\backslash\)}
+\hyperlink{mondata_8h_ab87aa9751f23a675185a8e27a2e68448}{                 is\_armed}(ptr))
+\end{DoxyCode}
+
+
+Definition at line 120 of file mondata.\+h.
+
+\hypertarget{mondata_8h_ae0dc40465dc327b05d8398b216e74678}{\index{mondata.\+h@{mondata.\+h}!metallivorous@{metallivorous}}
+\index{metallivorous@{metallivorous}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{metallivorous}]{\setlength{\rightskip}{0pt plus 5cm}\#define metallivorous(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+M\+E\+T\+A\+L\+L\+I\+V\+O\+R\+E}) != 0\+L)}}\label{mondata_8h_ae0dc40465dc327b05d8398b216e74678}
+
+
+Definition at line 76 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a9b2e225376aeed6f19559b2c2dced2d0}{\index{mondata.\+h@{mondata.\+h}!mindless@{mindless}}
+\index{mindless@{mindless}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{mindless}]{\setlength{\rightskip}{0pt plus 5cm}\#define mindless(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+M\+I\+N\+D\+L\+E\+S\+S}) != 0\+L)}}\label{mondata_8h_a9b2e225376aeed6f19559b2c2dced2d0}
+
+
+Definition at line 57 of file mondata.\+h.
+
+
+
+Referenced by damageum(), find\+\_\+defensive(), find\+\_\+misc(), find\+\_\+offensive(), m\+\_\+dowear(), rnd\+\_\+defensive\+\_\+item(), rnd\+\_\+misc\+\_\+item(), rnd\+\_\+offensive\+\_\+item(), and searches\+\_\+for\+\_\+item().
+
+\hypertarget{mondata_8h_ab2a6ce07b586640a6dcf1f3efc67f67c}{\index{mondata.\+h@{mondata.\+h}!needspick@{needspick}}
+\index{needspick@{needspick}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{needspick}]{\setlength{\rightskip}{0pt plus 5cm}\#define needspick(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+N\+E\+E\+D\+P\+I\+C\+K}) != 0\+L)}}\label{mondata_8h_ab2a6ce07b586640a6dcf1f3efc67f67c}
+
+
+Definition at line 37 of file mondata.\+h.
+
+
+
+Referenced by searches\+\_\+for\+\_\+item().
+
+\hypertarget{mondata_8h_ae13d4a4d0a9842348cffbb5dae990771}{\index{mondata.\+h@{mondata.\+h}!nohands@{nohands}}
+\index{nohands@{nohands}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{nohands}]{\setlength{\rightskip}{0pt plus 5cm}\#define nohands(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+N\+O\+H\+A\+N\+D\+S}) != 0\+L)}}\label{mondata_8h_ae13d4a4d0a9842348cffbb5dae990771}
+
+
+Definition at line 44 of file mondata.\+h.
+
+
+
+Referenced by doloot(), dowrite(), find\+\_\+defensive(), find\+\_\+misc(), find\+\_\+offensive(), fix\+\_\+worst\+\_\+trouble(), in\+\_\+trouble(), kick\+\_\+monster(), m\+\_\+dowear(), mon\+\_\+break\+\_\+armor(), and use\+\_\+container().
+
+\hypertarget{mondata_8h_a9e529fc9e93948358711f5420caee8fa}{\index{mondata.\+h@{mondata.\+h}!nolimbs@{nolimbs}}
+\index{nolimbs@{nolimbs}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{nolimbs}]{\setlength{\rightskip}{0pt plus 5cm}\#define nolimbs(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+N\+O\+L\+I\+M\+B\+S}) == {\bf M1\+\_\+\+N\+O\+L\+I\+M\+B\+S})}}\label{mondata_8h_a9e529fc9e93948358711f5420caee8fa}
+
+
+Definition at line 45 of file mondata.\+h.
+
+
+
+Referenced by able\+\_\+to\+\_\+loot(), dokick(), kick\+\_\+monster(), and loot\+\_\+mon().
+
+\hypertarget{mondata_8h_a8ef85e65e7dda38e65d7e3801cde6d2e}{\index{mondata.\+h@{mondata.\+h}!noncorporeal@{noncorporeal}}
+\index{noncorporeal@{noncorporeal}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{noncorporeal}]{\setlength{\rightskip}{0pt plus 5cm}\#define noncorporeal(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$mlet == {\bf S\+\_\+\+G\+H\+O\+S\+T})}}\label{mondata_8h_a8ef85e65e7dda38e65d7e3801cde6d2e}
+
+
+Definition at line 35 of file mondata.\+h.
+
+
+
+Referenced by find\+\_\+offensive(), hmon\+\_\+hitmon(), rnd\+\_\+offensive\+\_\+item(), and use\+\_\+offensive().
+
+\hypertarget{mondata_8h_aeae2da0c70efc6db9195f4216943a3a1}{\index{mondata.\+h@{mondata.\+h}!nonliving@{nonliving}}
+\index{nonliving@{nonliving}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{nonliving}]{\setlength{\rightskip}{0pt plus 5cm}\#define nonliving(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_aeae2da0c70efc6db9195f4216943a3a1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mondata_8h_a6fd7f5f330b2b760d6a27b06062945a4}{is\_golem}(ptr) || \hyperlink{mondata_8h_a8e10c42bf31c42d748765a29105842fc}{is\_undead}(ptr) || \(\backslash\)
+                 (ptr)->mlet == \hyperlink{monsym_8h_a0d1c239605b3accad0a9404c182568fb}{S\_VORTEX} || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_MANES])
+\end{DoxyCode}
+
+
+Definition at line 168 of file mondata.\+h.
+
+
+
+Referenced by inside\+\_\+gas\+\_\+cloud(), rnd\+\_\+misc\+\_\+item(), and searches\+\_\+for\+\_\+item().
+
+\hypertarget{mondata_8h_ae0efcbbbb687279e0ad93ffd19797c4a}{\index{mondata.\+h@{mondata.\+h}!notake@{notake}}
+\index{notake@{notake}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{notake}]{\setlength{\rightskip}{0pt plus 5cm}\#define notake(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+N\+O\+T\+A\+K\+E}) != 0\+L)}}\label{mondata_8h_ae0efcbbbb687279e0ad93ffd19797c4a}
+
+
+Definition at line 46 of file mondata.\+h.
+
+
+
+Referenced by dofire(), dothrow(), and pickup().
+
+\hypertarget{mondata_8h_a42b9f266cafddebd01c657d1e39ae72d}{\index{mondata.\+h@{mondata.\+h}!passes\+\_\+walls@{passes\+\_\+walls}}
+\index{passes\+\_\+walls@{passes\+\_\+walls}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{passes\+\_\+walls}]{\setlength{\rightskip}{0pt plus 5cm}\#define passes\+\_\+walls(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+W\+A\+L\+L\+W\+A\+L\+K}) != 0\+L)}}\label{mondata_8h_a42b9f266cafddebd01c657d1e39ae72d}
+
+
+Definition at line 33 of file mondata.\+h.
+
+
+
+Referenced by attack(), find\+\_\+defensive(), find\+\_\+misc(), find\+\_\+offensive(), goodpos(), rnd\+\_\+offensive\+\_\+item(), and use\+\_\+offensive().
+
+\hypertarget{mondata_8h_aae2aafa26364f2f1482eb90bd1f3e127}{\index{mondata.\+h@{mondata.\+h}!perceives@{perceives}}
+\index{perceives@{perceives}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{perceives}]{\setlength{\rightskip}{0pt plus 5cm}\#define perceives(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+S\+E\+E\+\_\+\+I\+N\+V\+I\+S}) != 0\+L)}}\label{mondata_8h_aae2aafa26364f2f1482eb90bd1f3e127}
+
+
+Definition at line 65 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a372e92dba1620dd3a559527bd0d57a92}{\index{mondata.\+h@{mondata.\+h}!pm\+\_\+invisible@{pm\+\_\+invisible}}
+\index{pm\+\_\+invisible@{pm\+\_\+invisible}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{pm\+\_\+invisible}]{\setlength{\rightskip}{0pt plus 5cm}\#define pm\+\_\+invisible(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a372e92dba1620dd3a559527bd0d57a92}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_STALKER] || \(\backslash\)
+               (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_BLACK\_LIGHT])
+\end{DoxyCode}
+
+
+Definition at line 154 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a17cf7d4bd486ef41147798b0eee91b89}{\index{mondata.\+h@{mondata.\+h}!pm\+\_\+resistance@{pm\+\_\+resistance}}
+\index{pm\+\_\+resistance@{pm\+\_\+resistance}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{pm\+\_\+resistance}]{\setlength{\rightskip}{0pt plus 5cm}\#define pm\+\_\+resistance(
+\begin{DoxyParamCaption}
+\item[{}]{ptr, }
+\item[{}]{typ}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mresists \& (typ)) != 0)}}\label{mondata_8h_a17cf7d4bd486ef41147798b0eee91b89}
+
+
+Definition at line 11 of file mondata.\+h.
+
+
+
+Referenced by fixup\+\_\+special().
+
+\hypertarget{mondata_8h_a37ead51ac913801d2e9ba70b99c09261}{\index{mondata.\+h@{mondata.\+h}!poisonous@{poisonous}}
+\index{poisonous@{poisonous}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{poisonous}]{\setlength{\rightskip}{0pt plus 5cm}\#define poisonous(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+P\+O\+I\+S}) != 0\+L)}}\label{mondata_8h_a37ead51ac913801d2e9ba70b99c09261}
+
+
+Definition at line 73 of file mondata.\+h.
+
+\hypertarget{mondata_8h_ae3fc76deae1d53c379ae392fdcc2e500}{\index{mondata.\+h@{mondata.\+h}!polyok@{polyok}}
+\index{polyok@{polyok}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{polyok}]{\setlength{\rightskip}{0pt plus 5cm}\#define polyok(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+N\+O\+P\+O\+L\+Y}) == 0\+L)}}\label{mondata_8h_ae3fc76deae1d53c379ae392fdcc2e500}
+
+
+Definition at line 77 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a5ab488202bebe9f5289b187f1bc0ef07}{\index{mondata.\+h@{mondata.\+h}!race\+\_\+hostile@{race\+\_\+hostile}}
+\index{race\+\_\+hostile@{race\+\_\+hostile}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{race\+\_\+hostile}]{\setlength{\rightskip}{0pt plus 5cm}\#define race\+\_\+hostile(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& urace.\+hatemask) != 0\+L)}}\label{mondata_8h_a5ab488202bebe9f5289b187f1bc0ef07}
+
+
+Definition at line 101 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a6fdc7de403be6968bbd1ea97e851c883}{\index{mondata.\+h@{mondata.\+h}!race\+\_\+peaceful@{race\+\_\+peaceful}}
+\index{race\+\_\+peaceful@{race\+\_\+peaceful}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{race\+\_\+peaceful}]{\setlength{\rightskip}{0pt plus 5cm}\#define race\+\_\+peaceful(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& urace.\+lovemask) != 0\+L)}}\label{mondata_8h_a6fdc7de403be6968bbd1ea97e851c883}
+
+
+Definition at line 102 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a303d7bb02af920f071d9b92618d0ae42}{\index{mondata.\+h@{mondata.\+h}!regenerates@{regenerates}}
+\index{regenerates@{regenerates}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{regenerates}]{\setlength{\rightskip}{0pt plus 5cm}\#define regenerates(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+R\+E\+G\+E\+N}) != 0\+L)}}\label{mondata_8h_a303d7bb02af920f071d9b92618d0ae42}
+
+
+Definition at line 64 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a67859b0b3aa8e4ac0d74a818013cb507}{\index{mondata.\+h@{mondata.\+h}!resists\+\_\+acid@{resists\+\_\+acid}}
+\index{resists\+\_\+acid@{resists\+\_\+acid}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{resists\+\_\+acid}]{\setlength{\rightskip}{0pt plus 5cm}\#define resists\+\_\+acid(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(((mon)-\/$>$mintrinsics \& {\bf M\+R\+\_\+\+A\+C\+I\+D}) != 0)}}\label{mondata_8h_a67859b0b3aa8e4ac0d74a818013cb507}
+
+
+Definition at line 19 of file mondata.\+h.
+
+
+
+Referenced by damageum(), gulpum(), hmon\+\_\+hitmon(), and mon\+\_\+consume\+\_\+unstone().
+
+\hypertarget{mondata_8h_a889684d1afa503bfbfcd1a3e84035b92}{\index{mondata.\+h@{mondata.\+h}!resists\+\_\+cold@{resists\+\_\+cold}}
+\index{resists\+\_\+cold@{resists\+\_\+cold}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{resists\+\_\+cold}]{\setlength{\rightskip}{0pt plus 5cm}\#define resists\+\_\+cold(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(((mon)-\/$>$mintrinsics \& {\bf M\+R\+\_\+\+C\+O\+L\+D}) != 0)}}\label{mondata_8h_a889684d1afa503bfbfcd1a3e84035b92}
+
+
+Definition at line 14 of file mondata.\+h.
+
+
+
+Referenced by damageum(), explum(), gulpum(), and use\+\_\+offensive().
+
+\hypertarget{mondata_8h_a0c7ceab0ce4d4134e0fccef5b385854f}{\index{mondata.\+h@{mondata.\+h}!resists\+\_\+disint@{resists\+\_\+disint}}
+\index{resists\+\_\+disint@{resists\+\_\+disint}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{resists\+\_\+disint}]{\setlength{\rightskip}{0pt plus 5cm}\#define resists\+\_\+disint(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(((mon)-\/$>$mintrinsics \& {\bf M\+R\+\_\+\+D\+I\+S\+I\+N\+T}) != 0)}}\label{mondata_8h_a0c7ceab0ce4d4134e0fccef5b385854f}
+
+
+Definition at line 16 of file mondata.\+h.
+
+
+
+Referenced by god\+\_\+zaps\+\_\+you().
+
+\hypertarget{mondata_8h_a3ec4a5375d05f427a8e3e9d4f0b55f0e}{\index{mondata.\+h@{mondata.\+h}!resists\+\_\+elec@{resists\+\_\+elec}}
+\index{resists\+\_\+elec@{resists\+\_\+elec}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{resists\+\_\+elec}]{\setlength{\rightskip}{0pt plus 5cm}\#define resists\+\_\+elec(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(((mon)-\/$>$mintrinsics \& {\bf M\+R\+\_\+\+E\+L\+E\+C}) != 0)}}\label{mondata_8h_a3ec4a5375d05f427a8e3e9d4f0b55f0e}
+
+
+Definition at line 17 of file mondata.\+h.
+
+
+
+Referenced by damageum(), explum(), god\+\_\+zaps\+\_\+you(), and gulpum().
+
+\hypertarget{mondata_8h_a9cd1ee3ba3c1e0e78509b763ce6d38d1}{\index{mondata.\+h@{mondata.\+h}!resists\+\_\+fire@{resists\+\_\+fire}}
+\index{resists\+\_\+fire@{resists\+\_\+fire}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{resists\+\_\+fire}]{\setlength{\rightskip}{0pt plus 5cm}\#define resists\+\_\+fire(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(((mon)-\/$>$mintrinsics \& {\bf M\+R\+\_\+\+F\+I\+R\+E}) != 0)}}\label{mondata_8h_a9cd1ee3ba3c1e0e78509b763ce6d38d1}
+
+
+Definition at line 13 of file mondata.\+h.
+
+
+
+Referenced by damageum(), explum(), find\+\_\+offensive(), gulpum(), and use\+\_\+offensive().
+
+\hypertarget{mondata_8h_a419ec031ff4b2508bcd1304366f93ce2}{\index{mondata.\+h@{mondata.\+h}!resists\+\_\+poison@{resists\+\_\+poison}}
+\index{resists\+\_\+poison@{resists\+\_\+poison}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{resists\+\_\+poison}]{\setlength{\rightskip}{0pt plus 5cm}\#define resists\+\_\+poison(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(((mon)-\/$>$mintrinsics \& {\bf M\+R\+\_\+\+P\+O\+I\+S\+O\+N}) != 0)}}\label{mondata_8h_a419ec031ff4b2508bcd1304366f93ce2}
+
+
+Definition at line 18 of file mondata.\+h.
+
+
+
+Referenced by damageum(), hmon\+\_\+hitmon(), and inside\+\_\+gas\+\_\+cloud().
+
+\hypertarget{mondata_8h_a478840ecec21a45e763f2fb5b466cf49}{\index{mondata.\+h@{mondata.\+h}!resists\+\_\+sleep@{resists\+\_\+sleep}}
+\index{resists\+\_\+sleep@{resists\+\_\+sleep}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{resists\+\_\+sleep}]{\setlength{\rightskip}{0pt plus 5cm}\#define resists\+\_\+sleep(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(((mon)-\/$>$mintrinsics \& {\bf M\+R\+\_\+\+S\+L\+E\+E\+P}) != 0)}}\label{mondata_8h_a478840ecec21a45e763f2fb5b466cf49}
+
+
+Definition at line 15 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a372753958b3b36d2edd0add67aa6fc75}{\index{mondata.\+h@{mondata.\+h}!resists\+\_\+ston@{resists\+\_\+ston}}
+\index{resists\+\_\+ston@{resists\+\_\+ston}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{resists\+\_\+ston}]{\setlength{\rightskip}{0pt plus 5cm}\#define resists\+\_\+ston(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(((mon)-\/$>$mintrinsics \& {\bf M\+R\+\_\+\+S\+T\+O\+N\+E}) != 0)}}\label{mondata_8h_a372753958b3b36d2edd0add67aa6fc75}
+
+
+Definition at line 20 of file mondata.\+h.
+
+
+
+Referenced by create\+\_\+object(), hmon\+\_\+hitmon(), munstone(), and searches\+\_\+for\+\_\+item().
+
+\hypertarget{mondata_8h_a9be35efaf79658a7043053e73cc055de}{\index{mondata.\+h@{mondata.\+h}!slithy@{slithy}}
+\index{slithy@{slithy}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{slithy}]{\setlength{\rightskip}{0pt plus 5cm}\#define slithy(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+S\+L\+I\+T\+H\+Y}) != 0\+L)}}\label{mondata_8h_a9be35efaf79658a7043053e73cc055de}
+
+
+Definition at line 60 of file mondata.\+h.
+
+
+
+Referenced by dokick(), kick\+\_\+monster(), m\+\_\+dowear(), and mon\+\_\+break\+\_\+armor().
+
+\hypertarget{mondata_8h_ac9771120ab9458112bfd7b8099f978ba}{\index{mondata.\+h@{mondata.\+h}!strongmonst@{strongmonst}}
+\index{strongmonst@{strongmonst}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{strongmonst}]{\setlength{\rightskip}{0pt plus 5cm}\#define strongmonst(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+S\+T\+R\+O\+N\+G}) != 0\+L)}}\label{mondata_8h_ac9771120ab9458112bfd7b8099f978ba}
+
+
+Definition at line 104 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a1c25995382972d17d737ac6110d44d06}{\index{mondata.\+h@{mondata.\+h}!telepathic@{telepathic}}
+\index{telepathic@{telepathic}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{telepathic}]{\setlength{\rightskip}{0pt plus 5cm}\#define telepathic(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a1c25995382972d17d737ac6110d44d06}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FLOATING\_EYE] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_MIND\_FLAYER] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_MASTER\_MIND\_FLAYER])
+\end{DoxyCode}
+
+
+Definition at line 68 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a8d3b0784e67294ee9fae355fb1dcf8d3}{\index{mondata.\+h@{mondata.\+h}!thick\+\_\+skinned@{thick\+\_\+skinned}}
+\index{thick\+\_\+skinned@{thick\+\_\+skinned}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{thick\+\_\+skinned}]{\setlength{\rightskip}{0pt plus 5cm}\#define thick\+\_\+skinned(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+T\+H\+I\+C\+K\+\_\+\+H\+I\+D\+E}) != 0\+L)}}\label{mondata_8h_a8d3b0784e67294ee9fae355fb1dcf8d3}
+
+
+Definition at line 62 of file mondata.\+h.
+
+
+
+Referenced by damageum(), hmon\+\_\+hitmon(), kick\+\_\+monster(), and kickdmg().
+
+\hypertarget{mondata_8h_af1c84d35ae8812186eaf635bc27b37c0}{\index{mondata.\+h@{mondata.\+h}!throws\+\_\+rocks@{throws\+\_\+rocks}}
+\index{throws\+\_\+rocks@{throws\+\_\+rocks}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{throws\+\_\+rocks}]{\setlength{\rightskip}{0pt plus 5cm}\#define throws\+\_\+rocks(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+R\+O\+C\+K\+T\+H\+R\+O\+W}) != 0\+L)}}\label{mondata_8h_af1c84d35ae8812186eaf635bc27b37c0}
+
+
+Definition at line 109 of file mondata.\+h.
+
+
+
+Referenced by find\+\_\+defensive(), find\+\_\+misc(), goodpos(), in\+\_\+trouble(), lift\+\_\+object(), and throw\+\_\+obj().
+
+\hypertarget{mondata_8h_ad1e85e493d27cdfdbe94c43710c4b191}{\index{mondata.\+h@{mondata.\+h}!touch\+\_\+petrifies@{touch\+\_\+petrifies}}
+\index{touch\+\_\+petrifies@{touch\+\_\+petrifies}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{touch\+\_\+petrifies}]{\setlength{\rightskip}{0pt plus 5cm}\#define touch\+\_\+petrifies(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_ad1e85e493d27cdfdbe94c43710c4b191}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_COCKATRICE] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_CHICKATRICE])
+\end{DoxyCode}
+
+
+Definition at line 162 of file mondata.\+h.
+
+
+
+Referenced by can\+\_\+twoweapon(), damageum(), done\+\_\+in\+\_\+by(), gulpum(), hmon\+\_\+hitmon(), in\+\_\+container(), kick\+\_\+object(), mon\+\_\+break\+\_\+armor(), out\+\_\+container(), pickup\+\_\+object(), ready\+\_\+weapon(), searches\+\_\+for\+\_\+item(), steal\+\_\+it(), thitmonst(), throw\+\_\+obj(), and toss\+\_\+up().
+
+\hypertarget{mondata_8h_acbc229490eac9b4bc4651e75a2431402}{\index{mondata.\+h@{mondata.\+h}!tunnels@{tunnels}}
+\index{tunnels@{tunnels}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{tunnels}]{\setlength{\rightskip}{0pt plus 5cm}\#define tunnels(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+T\+U\+N\+N\+E\+L}) != 0\+L)}}\label{mondata_8h_acbc229490eac9b4bc4651e75a2431402}
+
+
+Definition at line 36 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a431e6a2710b289745d56debf83fafc33}{\index{mondata.\+h@{mondata.\+h}!type\+\_\+is\+\_\+pname@{type\+\_\+is\+\_\+pname}}
+\index{type\+\_\+is\+\_\+pname@{type\+\_\+is\+\_\+pname}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{type\+\_\+is\+\_\+pname}]{\setlength{\rightskip}{0pt plus 5cm}\#define type\+\_\+is\+\_\+pname(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& {\bf M2\+\_\+\+P\+N\+A\+M\+E}) != 0\+L)}}\label{mondata_8h_a431e6a2710b289745d56debf83fafc33}
+
+
+Definition at line 110 of file mondata.\+h.
+
+
+
+Referenced by done\+\_\+in\+\_\+by(), ldrname(), list\+\_\+genocided(), list\+\_\+vanquished(), neminame(), and otransit\+\_\+msg().
+
+\hypertarget{mondata_8h_aa072852c97f59a8374d1595cda2ab700}{\index{mondata.\+h@{mondata.\+h}!unsolid@{unsolid}}
+\index{unsolid@{unsolid}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{unsolid}]{\setlength{\rightskip}{0pt plus 5cm}\#define unsolid(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags1 \& {\bf M1\+\_\+\+U\+N\+S\+O\+L\+I\+D}) != 0\+L)}}\label{mondata_8h_aa072852c97f59a8374d1595cda2ab700}
+
+
+Definition at line 56 of file mondata.\+h.
+
+
+
+Referenced by find\+\_\+offensive(), joust(), rnd\+\_\+offensive\+\_\+item(), and use\+\_\+offensive().
+
+\hypertarget{mondata_8h_a028ffec60e35d2250ae328b2dbd8acf4}{\index{mondata.\+h@{mondata.\+h}!vegan@{vegan}}
+\index{vegan@{vegan}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{vegan}]{\setlength{\rightskip}{0pt plus 5cm}\#define vegan(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a028ffec60e35d2250ae328b2dbd8acf4}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr)->mlet == \hyperlink{monsym_8h_a359f27d13f0cd0fc2ee13dafbc459cb6}{S\_BLOB} || \(\backslash\)
+                 (ptr)->mlet == \hyperlink{monsym_8h_a1ab75540e2c5bc9dec93642e30d1387f}{S\_JELLY} ||            \(\backslash\)
+                 (ptr)->mlet == \hyperlink{monsym_8h_ad38d8d013dbcd5e778c100535acaafc2}{S\_FUNGUS} ||           \(\backslash\)
+                 (ptr)->mlet == \hyperlink{monsym_8h_a0d1c239605b3accad0a9404c182568fb}{S\_VORTEX} ||           \(\backslash\)
+                 (ptr)->mlet == \hyperlink{monsym_8h_a12f9073e331246f69c12938498713b20}{S\_LIGHT} ||            \(\backslash\)
+                ((ptr)->mlet == \hyperlink{monsym_8h_a94b7f79df356477345c1ed49f9f6a7cc}{S\_ELEMENTAL} &&        \(\backslash\)
+                 (ptr) != &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_STALKER]) ||       \(\backslash\)
+                ((ptr)->mlet == \hyperlink{monsym_8h_a7319e740583e5a9f74ddb1f435769fa5}{S\_GOLEM} &&            \(\backslash\)
+                 (ptr) != &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_FLESH\_GOLEM] &&    \(\backslash\)
+                 (ptr) != &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_LEATHER\_GOLEM]) || \hyperlink{mondata_8h_a8ef85e65e7dda38e65d7e3801cde6d2e}{\(\backslash\)}
+\hyperlink{mondata_8h_a8ef85e65e7dda38e65d7e3801cde6d2e}{                 noncorporeal}(ptr))
+\end{DoxyCode}
+
+
+Definition at line 175 of file mondata.\+h.
+
+
+
+Referenced by damageum(), and gulpum().
+
+\hypertarget{mondata_8h_a57bbc8d06bdcc1788f06bcd3a9028845}{\index{mondata.\+h@{mondata.\+h}!vegetarian@{vegetarian}}
+\index{vegetarian@{vegetarian}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{vegetarian}]{\setlength{\rightskip}{0pt plus 5cm}\#define vegetarian(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_a57bbc8d06bdcc1788f06bcd3a9028845}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mondata_8h_a028ffec60e35d2250ae328b2dbd8acf4}{vegan}(ptr) || \(\backslash\)
+                ((ptr)->mlet == \hyperlink{monsym_8h_a2d69eefcc223695faafd2afacb70bd51}{S\_PUDDING} &&         \(\backslash\)
+                 (ptr) != &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_BLACK\_PUDDING]))
+\end{DoxyCode}
+
+
+Definition at line 186 of file mondata.\+h.
+
+
+
+Referenced by damageum(), and gulpum().
+
+\hypertarget{mondata_8h_a655fd80b963b28e5f4b7a52fc8d1f32d}{\index{mondata.\+h@{mondata.\+h}!verysmall@{verysmall}}
+\index{verysmall@{verysmall}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{verysmall}]{\setlength{\rightskip}{0pt plus 5cm}\#define verysmall(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~((ptr)-\/$>$msize $<$ {\bf M\+Z\+\_\+\+S\+M\+A\+L\+L})}}\label{mondata_8h_a655fd80b963b28e5f4b7a52fc8d1f32d}
+
+
+Definition at line 8 of file mondata.\+h.
+
+
+
+Referenced by dokick(), find\+\_\+defensive(), find\+\_\+misc(), kick\+\_\+monster(), m\+\_\+dowear(), and mon\+\_\+break\+\_\+armor().
+
+\hypertarget{mondata_8h_ab42772fd30d6a9de6591bd8deb85e1d4}{\index{mondata.\+h@{mondata.\+h}!webmaker@{webmaker}}
+\index{webmaker@{webmaker}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{webmaker}]{\setlength{\rightskip}{0pt plus 5cm}\#define webmaker(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)}}\label{mondata_8h_ab42772fd30d6a9de6591bd8deb85e1d4}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_CAVE\_SPIDER] || \(\backslash\)
+                 (ptr) == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_GIANT\_SPIDER])
+\end{DoxyCode}
+
+
+Definition at line 123 of file mondata.\+h.
+
+\hypertarget{mondata_8h_a620adc730907c7d05a67956897fc4bcb}{\index{mondata.\+h@{mondata.\+h}!your\+\_\+race@{your\+\_\+race}}
+\index{your\+\_\+race@{your\+\_\+race}!mondata.\+h@{mondata.\+h}}
+\subsubsection[{your\+\_\+race}]{\setlength{\rightskip}{0pt plus 5cm}\#define your\+\_\+race(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~(((ptr)-\/$>$mflags2 \& urace.\+selfmask) != 0\+L)}}\label{mondata_8h_a620adc730907c7d05a67956897fc4bcb}
+
+
+Definition at line 85 of file mondata.\+h.
+
+
+
+Referenced by create\+\_\+monster(), dosacrifice(), and thitmonst().
+

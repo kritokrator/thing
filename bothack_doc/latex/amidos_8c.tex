@@ -1,0 +1,229 @@
+\hypertarget{amidos_8c}{\section{nethack/sys/amiga/amidos.c File Reference}
+\label{amidos_8c}\index{nethack/sys/amiga/amidos.\+c@{nethack/sys/amiga/amidos.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}winami.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$libraries/dos.\+h$>$}\\*
+{\ttfamily \#include $<$exec/execbase.\+h$>$}\\*
+{\ttfamily \#include $<$intuition/intuition.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winami.\+p\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/amiwind.\+p\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/amidos.\+p\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{amidos_8c_a3c4377f71f040f111ec23aafeb720e6f}{record\+\_\+exists} (void)
+\item 
+void \hyperlink{amidos_8c_a3ae75ca6d6a54d3b9ea1bed0affdf452}{flushout} ()
+\item 
+\hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid} ()
+\item 
+char $\ast$ \hyperlink{amidos_8c_a188f761bb917910d27259874fe60236f}{getlogin} ()
+\item 
+int \hyperlink{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}{abs} (int x)
+\item 
+void \hyperlink{amidos_8c_a4902ef2ae21802ccf41278daef11a537}{nethack\+\_\+exit} (code)
+\item 
+void \hyperlink{amidos_8c_a8937ede58517f812b44a36c286f504b4}{regularize} (char $\ast$s)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{amidos_8c_a55b41cec1916f4628807321204d03d9f}{Initialized}
+\item 
+struct \hyperlink{structwindow__procs}{window\+\_\+procs} \hyperlink{amidos_8c_a15de23af499d6c155c1ba39cec0e1cb2}{amii\+\_\+procs}
+\item 
+int \hyperlink{amidos_8c_ae41524ae5496f81c255cffe1a20197d0}{Enable\+\_\+\+Abort} = 0
+\item 
+char \hyperlink{amidos_8c_af77cc8dab27f9104708772362097679e}{P\+A\+T\+H} \mbox{[}\hyperlink{wceconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{P\+A\+T\+H\+L\+E\+N}\mbox{]} = \char`\"{}Net\+Hack\+:\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}{\index{amidos.\+c@{amidos.\+c}!abs@{abs}}
+\index{abs@{abs}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{abs}]{\setlength{\rightskip}{0pt plus 5cm}int abs (
+\begin{DoxyParamCaption}
+\item[{int}]{x}
+\end{DoxyParamCaption}
+)}}\label{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}
+
+
+Definition at line 71 of file amidos.\+c.
+
+
+
+Referenced by create\+\_\+room(), create\+\_\+subroom(), dig\+\_\+corridor(), drag\+\_\+ball(), fill\+\_\+room(), load\+\_\+maze(), makelevel(), makemaz(), and mkmap().
+
+
+\begin{DoxyCode}
+73 \{
+74     \textcolor{keywordflow}{return} x < 0? -x: x;
+75 \}
+\end{DoxyCode}
+\hypertarget{amidos_8c_a3ae75ca6d6a54d3b9ea1bed0affdf452}{\index{amidos.\+c@{amidos.\+c}!flushout@{flushout}}
+\index{flushout@{flushout}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{flushout}]{\setlength{\rightskip}{0pt plus 5cm}void flushout (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{amidos_8c_a3ae75ca6d6a54d3b9ea1bed0affdf452}
+
+
+Definition at line 49 of file amidos.\+c.
+
+
+
+References stdout.
+
+
+
+Referenced by dosave0().
+
+
+\begin{DoxyCode}
+50 \{
+51     (void) fflush(\hyperlink{lev__lex_8h_a0c0ef221f95f64e8632451312fd18cc8}{stdout});
+52 \}
+\end{DoxyCode}
+\hypertarget{amidos_8c_a188f761bb917910d27259874fe60236f}{\index{amidos.\+c@{amidos.\+c}!getlogin@{getlogin}}
+\index{getlogin@{getlogin}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{getlogin}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ getlogin (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{amidos_8c_a188f761bb917910d27259874fe60236f}
+
+
+Definition at line 63 of file amidos.\+c.
+
+
+
+References N\+U\+L\+L.
+
+
+\begin{DoxyCode}
+64 \{
+65     \textcolor{keywordflow}{return} ((\textcolor{keywordtype}{char} *) \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+66 \}
+\end{DoxyCode}
+\hypertarget{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{\index{amidos.\+c@{amidos.\+c}!getuid@{getuid}}
+\index{getuid@{getuid}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{getuid}]{\setlength{\rightskip}{0pt plus 5cm}getuid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}
+
+
+Definition at line 55 of file amidos.\+c.
+
+
+
+Referenced by create\+\_\+savefile(), get\+\_\+saved\+\_\+games(), ghack\+\_\+init\+\_\+main\+\_\+window(), ghack\+\_\+sig\+\_\+handler(), M\+A\+I\+N(), main(), process\+\_\+options(), prscore(), restgamestate(), savegamestate(), set\+\_\+savefile\+\_\+name(), topten(), vms\+\_\+getuid(), and X11\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+56 \{
+57     \textcolor{keywordflow}{return} 1;
+58 \}
+\end{DoxyCode}
+\hypertarget{amidos_8c_a4902ef2ae21802ccf41278daef11a537}{\index{amidos.\+c@{amidos.\+c}!nethack\+\_\+exit@{nethack\+\_\+exit}}
+\index{nethack\+\_\+exit@{nethack\+\_\+exit}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{nethack\+\_\+exit}]{\setlength{\rightskip}{0pt plus 5cm}void nethack\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{code}]{}
+\end{DoxyParamCaption}
+)}}\label{amidos_8c_a4902ef2ae21802ccf41278daef11a537}
+
+
+Definition at line 465 of file amidos.\+c.
+
+
+
+References amii\+\_\+procs, chdir(), Clean\+Up(), exit(), and windowprocs.
+
+
+\begin{DoxyCode}
+466 \{
+467 \textcolor{preprocessor}{#ifdef CHDIR}
+468     \textcolor{keyword}{extern} \textcolor{keywordtype}{char} \hyperlink{pcmain_8c_a660405f8daeac10e2bcc02e76a58dc83}{orgdir}[];
+469 \textcolor{preprocessor}{#endif}
+470 
+471 \textcolor{preprocessor}{#ifdef CHDIR}
+472     \hyperlink{wceconf_8h_ae6d5c38f8d7036c9010142bf4291d5ca}{chdir}(orgdir);      \textcolor{comment}{/* chdir, not chdirx */}
+473 \textcolor{preprocessor}{#endif}
+474 
+475 \textcolor{preprocessor}{#ifdef AMII\_GRAPHICS}
+476     \textcolor{keywordflow}{if}(\hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.win\_init\_nhwindows==\hyperlink{amidos_8c_a15de23af499d6c155c1ba39cec0e1cb2}{amii\_procs}.win\_init\_nhwindows)
+477     \hyperlink{amiwind_8c_abfc30f91ab75c6f4552003f777672e74}{CleanUp}();
+478 \textcolor{preprocessor}{#endif}
+479     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(code);
+480 \}
+\end{DoxyCode}
+\hypertarget{amidos_8c_a3c4377f71f040f111ec23aafeb720e6f}{\index{amidos.\+c@{amidos.\+c}!record\+\_\+exists@{record\+\_\+exists}}
+\index{record\+\_\+exists@{record\+\_\+exists}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{record\+\_\+exists}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf boolean} record\+\_\+exists (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{amidos_8c_a3c4377f71f040f111ec23aafeb720e6f}
+\hypertarget{amidos_8c_a8937ede58517f812b44a36c286f504b4}{\index{amidos.\+c@{amidos.\+c}!regularize@{regularize}}
+\index{regularize@{regularize}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{regularize}]{\setlength{\rightskip}{0pt plus 5cm}void regularize (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{amidos_8c_a8937ede58517f812b44a36c286f504b4}
+
+
+Definition at line 483 of file amidos.\+c.
+
+
+
+References index().
+
+
+\begin{DoxyCode}
+485 \{
+486     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *lp;
+487 
+488     \textcolor{keywordflow}{while}((lp = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(s, \textcolor{charliteral}{':'})) || (lp = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(s, \textcolor{charliteral}{'/'})))
+489     *lp = \textcolor{charliteral}{'\_'};
+490 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{amidos_8c_a15de23af499d6c155c1ba39cec0e1cb2}{\index{amidos.\+c@{amidos.\+c}!amii\+\_\+procs@{amii\+\_\+procs}}
+\index{amii\+\_\+procs@{amii\+\_\+procs}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{amii\+\_\+procs}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf window\+\_\+procs} amii\+\_\+procs}}\label{amidos_8c_a15de23af499d6c155c1ba39cec0e1cb2}
+
+
+Referenced by Abort(), kbhit(), and nethack\+\_\+exit().
+
+\hypertarget{amidos_8c_ae41524ae5496f81c255cffe1a20197d0}{\index{amidos.\+c@{amidos.\+c}!Enable\+\_\+\+Abort@{Enable\+\_\+\+Abort}}
+\index{Enable\+\_\+\+Abort@{Enable\+\_\+\+Abort}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{Enable\+\_\+\+Abort}]{\setlength{\rightskip}{0pt plus 5cm}int Enable\+\_\+\+Abort = 0}}\label{amidos_8c_ae41524ae5496f81c255cffe1a20197d0}
+
+
+Definition at line 40 of file amidos.\+c.
+
+\hypertarget{amidos_8c_a55b41cec1916f4628807321204d03d9f}{\index{amidos.\+c@{amidos.\+c}!Initialized@{Initialized}}
+\index{Initialized@{Initialized}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{Initialized}]{\setlength{\rightskip}{0pt plus 5cm}char Initialized}}\label{amidos_8c_a55b41cec1916f4628807321204d03d9f}
+
+
+Referenced by amii\+\_\+display\+\_\+nhwindow(), amii\+\_\+init\+\_\+nhwindows(), amii\+\_\+raw\+\_\+print(), and amii\+\_\+raw\+\_\+print\+\_\+bold().
+
+\hypertarget{amidos_8c_af77cc8dab27f9104708772362097679e}{\index{amidos.\+c@{amidos.\+c}!P\+A\+T\+H@{P\+A\+T\+H}}
+\index{P\+A\+T\+H@{P\+A\+T\+H}!amidos.\+c@{amidos.\+c}}
+\subsubsection[{P\+A\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}char P\+A\+T\+H\mbox{[}{\bf P\+A\+T\+H\+L\+E\+N}\mbox{]} = \char`\"{}Net\+Hack\+:\char`\"{}}}\label{amidos_8c_af77cc8dab27f9104708772362097679e}
+
+
+Definition at line 44 of file amidos.\+c.
+
+
+
+Referenced by parse\+\_\+config\+\_\+line().
+

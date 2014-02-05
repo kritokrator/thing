@@ -1,0 +1,385 @@
+\hypertarget{macmain_8c}{\section{nethack/sys/mac/macmain.c File Reference}
+\label{macmain_8c}\index{nethack/sys/mac/macmain.\+c@{nethack/sys/mac/macmain.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macwin.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mactty.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$O\+S\+Utils.\+h$>$}\\*
+{\ttfamily \#include $<$files.\+h$>$}\\*
+{\ttfamily \#include $<$Types.\+h$>$}\\*
+{\ttfamily \#include $<$Dialogs.\+h$>$}\\*
+{\ttfamily \#include $<$Packages.\+h$>$}\\*
+{\ttfamily \#include $<$Tool\+Utils.\+h$>$}\\*
+{\ttfamily \#include $<$Resources.\+h$>$}\\*
+{\ttfamily \#include $<$Errors.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{macmain_8c_a343d4a26b94e5eaaf0eac551fed5f1ba}{finder\+\_\+file\+\_\+request} (void)
+\item 
+int \hyperlink{macmain_8c_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\item 
+static O\+S\+Err \hyperlink{macmain_8c_a36e168badcb7c81aa60b811567fbdd8d}{copy\+\_\+file} (short src\+\_\+vol, long src\+\_\+dir, short dst\+\_\+vol, long dst\+\_\+dir, Str255 f\+Name, pascal O\+S\+Err($\ast$opener)(short \hyperlink{mrecover_8c_a6a9372b0fa6049c8cf13e1089785f82c}{v\+Ref\+Num}, long \hyperlink{mrecover_8c_a8f30312ecf6d1e4f2d152f708c742903}{dir\+I\+D}, Const\+Str255\+Param file\+Name, \hyperlink{tradstdc_8h_ae31516cd0c4adc3d52b93ef2e5c6117b}{signed} char permission, short $\ast$ref\+Num))
+\item 
+static void \hyperlink{macmain_8c_a932f5be97f926b60c3dabc05bf78c960}{force\+\_\+hdelete} (short vol, long dir, Str255 f\+Name)
+\item 
+void \hyperlink{macmain_8c_a79a71ef5731200df6d5ec30a89df29a4}{process\+\_\+openfile} (short src\+\_\+vol, long src\+\_\+dir, Str255 f\+Name, O\+S\+Type ftype)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{macmain_8c_a36e168badcb7c81aa60b811567fbdd8d}{\index{macmain.\+c@{macmain.\+c}!copy\+\_\+file@{copy\+\_\+file}}
+\index{copy\+\_\+file@{copy\+\_\+file}!macmain.\+c@{macmain.\+c}}
+\subsubsection[{copy\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}static O\+S\+Err copy\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{short}]{src\+\_\+vol, }
+\item[{long}]{src\+\_\+dir, }
+\item[{short}]{dst\+\_\+vol, }
+\item[{long}]{dst\+\_\+dir, }
+\item[{Str255}]{f\+Name, }
+\item[{pascal O\+S\+Err($\ast$)(short {\bf v\+Ref\+Num}, long {\bf dir\+I\+D}, Const\+Str255\+Param file\+Name, {\bf signed} char permission, short $\ast$ref\+Num)}]{opener}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmain_8c_a36e168badcb7c81aa60b811567fbdd8d}
+
+
+Definition at line 151 of file macmain.\+c.
+
+
+
+References buf, and count.
+
+
+
+Referenced by process\+\_\+openfile().
+
+
+\begin{DoxyCode}
+155                                                                         \{
+156     \textcolor{keywordtype}{short} src\_ref, dst\_ref;
+157     OSErr err = (*opener)(src\_vol, src\_dir, fName, fsRdPerm, &src\_ref);
+158     \textcolor{keywordflow}{if} (err == noErr) \{
+159         err = (*opener)(dst\_vol, dst\_dir, fName, fsWrPerm, &dst\_ref);
+160         \textcolor{keywordflow}{if} (err == noErr) \{
+161 
+162             \textcolor{keywordtype}{long} file\_len;
+163             err = GetEOF(src\_ref, &file\_len);
+164             \textcolor{keywordflow}{if} (err == noErr) \{
+165                 Handle \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+166                 \textcolor{keywordtype}{long} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count} = MaxBlock();
+167                 \textcolor{keywordflow}{if} (count > file\_len)
+168                     count = file\_len;
+169 
+170                 buf = NewHandle(count);
+171                 err = MemError();
+172                 \textcolor{keywordflow}{if} (err == noErr) \{
+173 
+174                     \textcolor{keywordflow}{while} (count > 0) \{
+175                         OSErr rd\_err = FSRead(src\_ref, &count, *buf);
+176                         err = FSWrite(dst\_ref, &count, *buf);
+177                         \textcolor{keywordflow}{if} (err == noErr)
+178                             err = rd\_err;
+179                         file\_len -= \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+180                     \}
+181                     \textcolor{keywordflow}{if} (file\_len == 0)
+182                         err = noErr;
+183 
+184                     DisposeHandle(buf);
+185 
+186                 \}
+187             \}
+188             FSClose(dst\_ref);
+189         \}
+190         FSClose(src\_ref);
+191     \}
+192 
+193     \textcolor{keywordflow}{return} err;
+194 \}
+\end{DoxyCode}
+\hypertarget{macmain_8c_a343d4a26b94e5eaaf0eac551fed5f1ba}{\index{macmain.\+c@{macmain.\+c}!finder\+\_\+file\+\_\+request@{finder\+\_\+file\+\_\+request}}
+\index{finder\+\_\+file\+\_\+request@{finder\+\_\+file\+\_\+request}!macmain.\+c@{macmain.\+c}}
+\subsubsection[{finder\+\_\+file\+\_\+request}]{\setlength{\rightskip}{0pt plus 5cm}static void finder\+\_\+file\+\_\+request (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmain_8c_a343d4a26b94e5eaaf0eac551fed5f1ba}
+
+
+Definition at line 250 of file macmain.\+c.
+
+
+
+References mac\+Flags, and process\+\_\+openfile().
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+251 \{
+252     \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.hasAE) \{
+253         \textcolor{comment}{/* we're capable of handling Apple Events, so let's see if we have any */}
+254         EventRecord event;
+255         \textcolor{keywordtype}{long} toWhen = TickCount () + 20;    \textcolor{comment}{/* wait a third of a second for all initial AE */}
+256 
+257         \textcolor{keywordflow}{while} (TickCount () < toWhen) \{
+258             \textcolor{keywordflow}{if} (WaitNextEvent (highLevelEventMask, &event, 3L, 0)) \{
+259                 AEProcessAppleEvent(&event);
+260                 \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.gotOpen)
+261                     \textcolor{keywordflow}{break};
+262             \}
+263         \}   
+264     \}
+265 \textcolor{preprocessor}{#if 0}
+266 \textcolor{preprocessor}{#ifdef MAC68K}
+267     \textcolor{keywordflow}{else} \{
+268         \textcolor{keywordtype}{short} finder\_msg, file\_count;
+269         CountAppFiles(&finder\_msg, &file\_count);
+270         \textcolor{keywordflow}{if} (finder\_msg == appOpen && file\_count == 1) \{
+271             OSErr   err;
+272             AppFile src;
+273             FSSpec filespec;
+274 
+275             GetAppFiles(1, &src);
+276             err = FSMakeFSSpec(src.vRefNum, 0, src.fName, &filespec);
+277             \textcolor{keywordflow}{if} (err == noErr && src.fType == SAVE\_TYPE) \{
+278                 \hyperlink{macmain_8c_a79a71ef5731200df6d5ec30a89df29a4}{process\_openfile} (filespec.vRefNum, filespec.parID, filespec.name, src.
+      fType);
+279                 \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.gotOpen)
+280                     ClrAppFiles(1);
+281             \}
+282         \}
+283     \}
+284 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* MAC68K */}\textcolor{preprocessor}{}
+285 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* 0 */}\textcolor{preprocessor}{}
+286 \}
+\end{DoxyCode}
+\hypertarget{macmain_8c_a932f5be97f926b60c3dabc05bf78c960}{\index{macmain.\+c@{macmain.\+c}!force\+\_\+hdelete@{force\+\_\+hdelete}}
+\index{force\+\_\+hdelete@{force\+\_\+hdelete}!macmain.\+c@{macmain.\+c}}
+\subsubsection[{force\+\_\+hdelete}]{\setlength{\rightskip}{0pt plus 5cm}static void force\+\_\+hdelete (
+\begin{DoxyParamCaption}
+\item[{short}]{vol, }
+\item[{long}]{dir, }
+\item[{Str255}]{f\+Name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmain_8c_a932f5be97f926b60c3dabc05bf78c960}
+
+
+Definition at line 197 of file macmain.\+c.
+
+
+
+Referenced by process\+\_\+openfile().
+
+
+\begin{DoxyCode}
+198 \{
+199     HRstFLock(vol, dir, fName);
+200     HDelete (vol, dir, fName);
+201 \}
+\end{DoxyCode}
+\hypertarget{macmain_8c_a840291bc02cba5474a4cb46a9b9566fe}{\index{macmain.\+c@{macmain.\+c}!main@{main}}
+\index{main@{main}!macmain.\+c@{macmain.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{macmain_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+Definition at line 36 of file macmain.\+c.
+
+
+
+References askname, C\+O\+L\+N\+O, compress(), delete\+\_\+savefile(), discover, display\+\_\+file, dlb\+\_\+init, dorecover(), exit(), E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, F\+A\+L\+S\+E, finder\+\_\+file\+\_\+request(), flags, fqname(), game\+\_\+active, getlock(), getuid(), hackpid, hname, iflags, init\+\_\+nhwindows, Init\+Mac(), initoptions(), lock, mac\+\_\+procs, mark\+\_\+synch, flag\+::move, N\+E\+W\+S, instance\+\_\+flags\+::news, pickup(), player\+\_\+selection, plname, plnamesuffix(), restore\+\_\+saved\+\_\+game(), R\+O\+W\+N\+O, S\+A\+V\+E\+F, S\+A\+V\+E\+P\+R\+E\+F\+I\+X, Sprintf, Strcpy, T\+R\+U\+E, u, you\+::uhp, Undim\+Menu\+Bar, vision\+\_\+init(), windowprocs, wizard, x\+\_\+maze\+\_\+max, y\+\_\+maze\+\_\+max, and yn.
+
+
+\begin{DoxyCode}
+37 \{
+38     \textcolor{keyword}{register} \textcolor{keywordtype}{int} fd = -1;
+39     \textcolor{keywordtype}{int} argc = 1;
+40 
+41     \hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs} = \hyperlink{macwin_8h_aa72d16131d9b80284c64c6bf72bf2c57}{mac\_procs};
+42     \hyperlink{macwin_8c_a54c2f66a0df7da8300cf8b4cb6bfdb3e}{InitMac} ();
+43 
+44     \hyperlink{decl_8h_a723eae5bf45a5d8ecb28dbf26d05bc98}{hname} = \textcolor{stringliteral}{"Mac Hack"};
+45     \hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid} = getpid();
+46 
+47     \textcolor{comment}{/*}
+48 \textcolor{comment}{     * Initialisation of the boundaries of the mazes}
+49 \textcolor{comment}{     * Both boundaries have to be even.}
+50 \textcolor{comment}{     */}
+51 
+52     \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max} = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+53     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max} % 2)
+54         \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max}--;
+55     \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max} = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1;
+56     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max} % 2)
+57         \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max}--;
+58 
+59     setrandom();
+60     \hyperlink{options_8c_a2f4ef6da0d84a10cf334449f652decc9}{initoptions}();
+61     \hyperlink{winprocs_8h_a613c5d847a2df7d7ddca4a1308014964}{init\_nhwindows}(&argc, (\textcolor{keywordtype}{char} **)&\hyperlink{decl_8h_a723eae5bf45a5d8ecb28dbf26d05bc98}{hname});
+62 
+63     \textcolor{comment}{/*}
+64 \textcolor{comment}{     * It seems you really want to play.}
+65 \textcolor{comment}{     */}
+66     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} = 1;  \textcolor{comment}{/* prevent RIP on early quits */}
+67 
+68     \hyperlink{macmain_8c_a343d4a26b94e5eaaf0eac551fed5f1ba}{finder\_file\_request} ();
+69 
+70     \hyperlink{dlb_8h_af25f20c0b4f30c2b124fbe4f2e54ad3c}{dlb\_init}();     \textcolor{comment}{/* must be before newgame() */}
+71 
+72     \textcolor{comment}{/*}
+73 \textcolor{comment}{     *  Initialize the vision system.  This must be before mklev() on a}
+74 \textcolor{comment}{     *  new game or before a level restore on a saved game.}
+75 \textcolor{comment}{     */}
+76     \hyperlink{vision_8c_ae84d85f205596be999ea45113fb8810f}{vision\_init}();
+77 
+78     display\_gamewindows();
+79 
+80 \textcolor{preprocessor}{#ifdef WIZARD}
+81     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard})
+82         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"wizard"});
+83     \textcolor{keywordflow}{else}
+84 \textcolor{preprocessor}{#endif}
+85     \textcolor{keywordflow}{if}(!*\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname} || !strncmp(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"player"}, 4) || !strncmp(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"games"}, 4))
+86         \hyperlink{winprocs_8h_ad24a017e7b5381254a426b4f653881d6}{askname}();
+87     \hyperlink{role_8c_aa0498399050c03eb7ddd757e2d7f320e}{plnamesuffix}();     \textcolor{comment}{/* strip suffix from name; calls askname() */}
+88                 \textcolor{comment}{/* again if suffix was whole name */}
+89                 \textcolor{comment}{/* accepts any suffix */}
+90 
+91     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf} (\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \textcolor{stringliteral}{"%d%s"}, \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid} (), \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+92     \hyperlink{bemain_8c_a21738d427cae396cec6f2f009adb29c3}{getlock} ();
+93 
+94     \textcolor{keywordflow}{if} ((fd = \hyperlink{files_8c_af780b8c38357751a8a60624825b8e2d8}{restore\_saved\_game}()) >= 0) \{
+95 \textcolor{preprocessor}{#ifdef WIZARD}
+96         \textcolor{comment}{/* Since wizard is actually flags.debug, restoring might}
+97 \textcolor{comment}{         * overwrite it.}
+98 \textcolor{comment}{         */}
+99         \textcolor{keywordtype}{boolean} remember\_wiz\_mode = \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard};
+100 \textcolor{preprocessor}{#endif}
+101 \textcolor{preprocessor}{#ifdef NEWS}
+102         \textcolor{keywordflow}{if}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news}) \{
+103             \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{config_8h_adfcdf96482b20ff90defa8fd75b84a7c}{NEWS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+104             \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}; \textcolor{comment}{/* in case dorecover() fails */}
+105         \}
+106 \textcolor{preprocessor}{#endif}
+107         pline(\textcolor{stringliteral}{"Restoring save file..."});
+108         \hyperlink{winprocs_8h_a72bbad3e5805d71f128c614261fc7ee0}{mark\_synch}(); \textcolor{comment}{/* flush output */}
+109         \hyperlink{mactty_8h_a312aaf7b101e387746a054cfcec0266b}{game\_active} = 1;
+110         \textcolor{keywordflow}{if} (\hyperlink{restore_8c_a4fb439a417b679a962bff63981841e4c}{dorecover}(fd)) \{
+111 \textcolor{preprocessor}{#ifdef WIZARD}
+112             \textcolor{keywordflow}{if}(!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && remember\_wiz\_mode) \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+113 \textcolor{preprocessor}{#endif}
+114             check\_special\_room(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+115 
+116             \textcolor{keywordflow}{if} (\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover} || \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \{
+117                 \textcolor{keywordflow}{if}(\hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(\textcolor{stringliteral}{"Do you want to keep the save file?"}) == \textcolor{charliteral}{'n'})
+118                     (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+119                 \textcolor{keywordflow}{else} \{
+120                     \hyperlink{files_8c_a972d5467067d99c9406312d01203d690}{compress}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a12ec3caf95cc60603fc1ecc9b7266e48}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 0));
+121                 \}
+122             \}
+123         \}
+124         \textcolor{keywordflow}{else} \{
+125             fd = -1; \textcolor{comment}{/* set bad status */}
+126         \}
+127     \}
+128     \textcolor{keywordflow}{if} (fd < 0) \{
+129         \hyperlink{winprocs_8h_ac766fbb6f1679d4a7d996e8b0cfc6cea}{player\_selection}();
+130         \hyperlink{mactty_8h_a312aaf7b101e387746a054cfcec0266b}{game\_active} = 1; \textcolor{comment}{/* done with selection, draw active game window */}
+131         newgame();
+132         set\_wear();
+133         (void) \hyperlink{pickup_8c_ab9fd1f5835d6d35507a05e910e86d862}{pickup}(1);
+134     \}
+135 
+136     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover})
+137         You(\textcolor{stringliteral}{"are in non-scoring discovery mode."});
+138     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae91760a156a6d1949297a53272137325}{move} = 0;
+139 
+140     \hyperlink{macwin_8h_ad36b663e11e5adfe9f595eb2fcdc3bbf}{UndimMenuBar} (); \textcolor{comment}{/* Yes, this is the place for it (!) */}
+141     
+142     moveloop();
+143 
+144     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+145     \textcolor{comment}{/*NOTREACHED*/}
+146     \textcolor{keywordflow}{return} 0;
+147 \}
+\end{DoxyCode}
+\hypertarget{macmain_8c_a79a71ef5731200df6d5ec30a89df29a4}{\index{macmain.\+c@{macmain.\+c}!process\+\_\+openfile@{process\+\_\+openfile}}
+\index{process\+\_\+openfile@{process\+\_\+openfile}!macmain.\+c@{macmain.\+c}}
+\subsubsection[{process\+\_\+openfile}]{\setlength{\rightskip}{0pt plus 5cm}void process\+\_\+openfile (
+\begin{DoxyParamCaption}
+\item[{short}]{src\+\_\+vol, }
+\item[{long}]{src\+\_\+dir, }
+\item[{Str255}]{f\+Name, }
+\item[{O\+S\+Type}]{ftype}
+\end{DoxyParamCaption}
+)}}\label{macmain_8c_a79a71ef5731200df6d5ec30a89df29a4}
+
+
+Definition at line 205 of file macmain.\+c.
+
+
+
+References C2\+P(), copy\+\_\+file(), macdirs\+::data\+Dir\+I\+D, macdirs\+::data\+Ref\+Num, force\+\_\+hdelete(), fqname(), mac\+Flags, name, P2\+C(), P\+L\+A\+Y\+E\+R\+\_\+\+N\+A\+M\+E\+\_\+\+R\+E\+S\+\_\+\+I\+D, plname, S\+A\+V\+E\+F, S\+A\+V\+E\+P\+R\+E\+F\+I\+X, set\+\_\+savefile\+\_\+name(), and the\+Dirs.
+
+
+
+Referenced by Apple\+Event\+Handler(), and finder\+\_\+file\+\_\+request().
+
+
+\begin{DoxyCode}
+206 \{
+207     OSErr   err = noErr;
+208     
+209     \textcolor{keywordflow}{if} (ftype != SAVE\_TYPE)
+210         \textcolor{keywordflow}{return};     \textcolor{comment}{/* only deal with save files */}
+211         
+212     \textcolor{keywordflow}{if} (src\_vol != \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_a803339ee5c502383a0fd1c95adc5f238}{dataRefNum} || src\_dir != \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.
+      \hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID} &&
+213          CatMove(src\_vol, src\_dir, fName, \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID}, \textcolor{stringliteral}{"\(\backslash\)p:"}) != noErr) \{
+214 
+215         HCreate(\hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_a803339ee5c502383a0fd1c95adc5f238}{dataRefNum}, \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID}, fName, MAC\_CREATOR,
+       SAVE\_TYPE);
+216         err = \hyperlink{macmain_8c_a36e168badcb7c81aa60b811567fbdd8d}{copy\_file}(src\_vol, src\_dir, \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_a803339ee5c502383a0fd1c95adc5f238}{dataRefNum}, 
+      \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID},
+217                         fName, &HOpen); \textcolor{comment}{/* HOpenDF is only there under 7.0 */}
+218         \textcolor{keywordflow}{if} (err == noErr)
+219             err = \hyperlink{macmain_8c_a36e168badcb7c81aa60b811567fbdd8d}{copy\_file}(src\_vol, src\_dir, \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_a803339ee5c502383a0fd1c95adc5f238}{dataRefNum}, 
+      \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID},
+220                             fName, &HOpenRF);
+221         \textcolor{keywordflow}{if} (err == noErr)
+222             \hyperlink{macmain_8c_a932f5be97f926b60c3dabc05bf78c960}{force\_hdelete}(src\_vol, src\_dir, fName);
+223         \textcolor{keywordflow}{else}
+224             HDelete(\hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_a803339ee5c502383a0fd1c95adc5f238}{dataRefNum}, \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.
+      \hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID}, fName);
+225     \}
+226 
+227     \textcolor{keywordflow}{if} (err == noErr) \{
+228         \textcolor{keywordtype}{short} ref;
+229 
+230         ref = HOpenResFile(\hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_a803339ee5c502383a0fd1c95adc5f238}{dataRefNum}, \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.
+      \hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID}, fName, fsRdPerm);
+231         \textcolor{keywordflow}{if} (ref != -1) \{
+232             Handle \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} = Get1Resource(\textcolor{stringliteral}{'STR '}, \hyperlink{macwin_8h_a8e12e738f24334cdde1ede34d8480712}{PLAYER\_NAME\_RES\_ID});
+233             \textcolor{keywordflow}{if} (name) \{
+234                 Str255 save\_f\_p;
+235                 \hyperlink{macfile_8c_a61558aef8a378648e38b7dd5babea7b1}{P2C}(*(StringHandle)name, \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+236                 \hyperlink{files_8c_a6d746be0f6526c7549d1192d39ffc0ac}{set\_savefile\_name}();
+237                 \hyperlink{macfile_8c_a83774f183f96a11c2fb8314369d23c44}{C2P}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a12ec3caf95cc60603fc1ecc9b7266e48}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 0), save\_f\_p);
+238                 \hyperlink{macmain_8c_a932f5be97f926b60c3dabc05bf78c960}{force\_hdelete}(\hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_a803339ee5c502383a0fd1c95adc5f238}{dataRefNum}, 
+      \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID}, save\_f\_p);
+239 
+240                 \textcolor{keywordflow}{if} (HRename(\hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.\hyperlink{structmacdirs_a803339ee5c502383a0fd1c95adc5f238}{dataRefNum}, \hyperlink{macwin_8h_ac0238265b5dda31c8e69ea0fc6aa6f88}{theDirs}.
+      \hyperlink{structmacdirs_acb3952b06a7f1b1c3b79af045ba99d71}{dataDirID}, fName, save\_f\_p) == noErr)
+241                     \hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.gotOpen = 1;
+242             \}
+243             CloseResFile(ref);
+244         \}
+245     \}
+246 \}
+\end{DoxyCode}

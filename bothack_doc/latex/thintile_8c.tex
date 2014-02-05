@@ -1,0 +1,326 @@
+\hypertarget{thintile_8c}{\section{nethack/win/share/thintile.c File Reference}
+\label{thintile_8c}\index{nethack/win/share/thintile.\+c@{nethack/win/share/thintile.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{thintile_8c_a3a3bd94950c348036934733651d81742}{copy\+\_\+colormap} ()
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{thintile_8c_aa3e76ec24e96c517c0790773c0101bb1}{read\+\_\+txttile} ()
+\item 
+static void \hyperlink{thintile_8c_a8e01ff340011a910e6895e4a0dacd591}{write\+\_\+thintile} ()
+\item 
+int \hyperlink{thintile_8c_afced8478b91af5c169926dfa4426333d}{main} (int argc, argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static char \hyperlink{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{pixels} \mbox{[}\hyperlink{win_2win32_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{T\+I\+L\+E\+\_\+\+Y}\mbox{]}\mbox{[}\hyperlink{win_2win32_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{T\+I\+L\+E\+\_\+\+X}\mbox{]}
+\item 
+static char $\ast$ \hyperlink{thintile_8c_a9090421c00e86159a9ae368bda865721}{tilefiles} \mbox{[}$\,$\mbox{]}
+\item 
+static char $\ast$ \hyperlink{thintile_8c_ade664df319b2170c2da180e45a3646e9}{thinfiles} \mbox{[}$\,$\mbox{]}
+\item 
+static F\+I\+L\+E $\ast$ \hyperlink{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{infile}
+\item 
+static F\+I\+L\+E $\ast$ \hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile}
+\item 
+static int \hyperlink{thintile_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount}
+\item 
+static int \hyperlink{thintile_8c_a5910f15dc36e510c3f5f600c0ea1f0b4}{tilecount\+\_\+per\+\_\+file}
+\item 
+static int \hyperlink{thintile_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum}
+\item 
+static char \hyperlink{thintile_8c_a2b99606d56c8d0fc4c2fb00852128f19}{comment} \mbox{[}\hyperlink{wingem1_8c_ab26c26cbf7a0c97d8960c3cfb413f882}{B\+U\+F\+S\+Z}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{thintile_8c_a3a3bd94950c348036934733651d81742}{\index{thintile.\+c@{thintile.\+c}!copy\+\_\+colormap@{copy\+\_\+colormap}}
+\index{copy\+\_\+colormap@{copy\+\_\+colormap}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{copy\+\_\+colormap}]{\setlength{\rightskip}{0pt plus 5cm}static void copy\+\_\+colormap (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_a3a3bd94950c348036934733651d81742}
+
+
+Definition at line 30 of file thintile.\+c.
+
+
+
+References Fprintf, infile, and outfile.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+31 \{
+32     \textcolor{keywordtype}{int} r, g, b;
+33     \textcolor{keywordtype}{char} c[2];
+34 
+35     \textcolor{keywordflow}{while} (fscanf(\hyperlink{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{infile}, \textcolor{stringliteral}{"%[A-Za-z0-9] = (%d, %d, %d) "}, c, &r, &g, &b)
+36                                 == 4) \{
+37         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(\hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile}, \textcolor{stringliteral}{"%c = (%d, %d, %d)\(\backslash\)n"}, c[0], r, g, b);
+38     \}
+39 \}
+\end{DoxyCode}
+\hypertarget{thintile_8c_afced8478b91af5c169926dfa4426333d}{\index{thintile.\+c@{thintile.\+c}!main@{main}}
+\index{main@{main}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)}}\label{thintile_8c_afced8478b91af5c169926dfa4426333d}
+
+
+Definition at line 103 of file thintile.\+c.
+
+
+
+References copy\+\_\+colormap(), exit(), E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, filenum, infile, outfile, printf, R\+D\+T\+M\+O\+D\+E, read\+\_\+txttile(), thinfiles, tilecount, tilecount\+\_\+per\+\_\+file, tilefiles, write\+\_\+thintile(), and W\+R\+T\+M\+O\+D\+E.
+
+
+\begin{DoxyCode}
+106 \{
+107     \textcolor{keywordflow}{while} (\hyperlink{thintile_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum} < 3) \{
+108         \hyperlink{thintile_8c_a5910f15dc36e510c3f5f600c0ea1f0b4}{tilecount\_per\_file} = 0;
+109         \hyperlink{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{infile} = fopen(\hyperlink{thintile_8c_a9090421c00e86159a9ae368bda865721}{tilefiles}[\hyperlink{thintile_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum}], \hyperlink{dlb_8h_a52b55e796a44079bc56afab59e8c0c89}{RDTMODE});
+110         \hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile} = fopen(\hyperlink{thintile_8c_ade664df319b2170c2da180e45a3646e9}{thinfiles}[\hyperlink{thintile_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum}], \hyperlink{dlb_8h_a157992706d1f539fba42c6ff1af07764}{WRTMODE});
+111         \hyperlink{thintile_8c_a3a3bd94950c348036934733651d81742}{copy\_colormap}();
+112         \textcolor{keywordflow}{while} (\hyperlink{thintile_8c_aa3e76ec24e96c517c0790773c0101bb1}{read\_txttile}()) \{
+113                 \hyperlink{thintile_8c_a8e01ff340011a910e6895e4a0dacd591}{write\_thintile}();
+114                 \hyperlink{thintile_8c_a5910f15dc36e510c3f5f600c0ea1f0b4}{tilecount\_per\_file}++;
+115                 \hyperlink{thintile_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount}++;
+116         \}
+117         fclose(\hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile});
+118         fclose(\hyperlink{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{infile});
+119         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%d tiles processed from %s\(\backslash\)n"},
+120             \hyperlink{thintile_8c_a5910f15dc36e510c3f5f600c0ea1f0b4}{tilecount\_per\_file}, \hyperlink{thintile_8c_a9090421c00e86159a9ae368bda865721}{tilefiles}[\hyperlink{thintile_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum}]);
+121         ++\hyperlink{thintile_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum};
+122     \}
+123     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Grand total of %d tiles processed.\(\backslash\)n"}, \hyperlink{thintile_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount});
+124     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+125     \textcolor{comment}{/*NOTREACHED*/}
+126     \textcolor{keywordflow}{return} 0;
+127 \}
+\end{DoxyCode}
+\hypertarget{thintile_8c_aa3e76ec24e96c517c0790773c0101bb1}{\index{thintile.\+c@{thintile.\+c}!read\+\_\+txttile@{read\+\_\+txttile}}
+\index{read\+\_\+txttile@{read\+\_\+txttile}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{read\+\_\+txttile}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf boolean} read\+\_\+txttile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_aa3e76ec24e96c517c0790773c0101bb1}
+
+
+Definition at line 42 of file thintile.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, comment, F\+A\+L\+S\+E, Fprintf, infile, pixels, Sprintf, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, and T\+R\+U\+E.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+43 \{
+44     \textcolor{keywordtype}{int} i, j;
+45     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+46     \textcolor{keywordtype}{char} buf2[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+47 
+48     \textcolor{keywordtype}{char} c[2];
+49 
+50 
+51     \textcolor{keywordflow}{if} (fscanf(\hyperlink{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{infile}, \textcolor{stringliteral}{"# %s %d (%[^)])"}, buf2, &i, buf) <= 0)
+52         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+53     
+54     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{thintile_8c_a2b99606d56c8d0fc4c2fb00852128f19}{comment},\textcolor{stringliteral}{"# tile %d (%s)"}, i, buf);
+55     
+56     \textcolor{comment}{/* look for non-whitespace at each stage */}
+57     \textcolor{keywordflow}{if} (fscanf(\hyperlink{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{infile}, \textcolor{stringliteral}{"%1s"}, c) < 0) \{
+58         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"unexpected EOF\(\backslash\)n"});
+59         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+60     \}
+61     \textcolor{keywordflow}{if} (c[0] != \textcolor{charliteral}{'\{'}) \{
+62         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"didn't find expected '\{'\(\backslash\)n"});
+63         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+64     \}
+65     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+66         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}; i++) \{
+67             \textcolor{keywordflow}{if} (fscanf(\hyperlink{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{infile}, \textcolor{stringliteral}{"%1s"}, c) < 0) \{
+68                 \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"unexpected EOF\(\backslash\)n"});
+69                 \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+70             \}
+71             \hyperlink{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{pixels}[j][i] = c[0];
+72         \}
+73     \}
+74     \textcolor{keywordflow}{if} (fscanf(\hyperlink{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{infile}, \textcolor{stringliteral}{"%1s "}, c) < 0) \{
+75         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"unexpected EOF\(\backslash\)n"});
+76         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+77     \}
+78     \textcolor{keywordflow}{if} (c[0] != \textcolor{charliteral}{'\}'}) \{
+79         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"didn't find expected '\}'\(\backslash\)n"});
+80         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+81     \}
+82     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+83 \}
+\end{DoxyCode}
+\hypertarget{thintile_8c_a8e01ff340011a910e6895e4a0dacd591}{\index{thintile.\+c@{thintile.\+c}!write\+\_\+thintile@{write\+\_\+thintile}}
+\index{write\+\_\+thintile@{write\+\_\+thintile}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{write\+\_\+thintile}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+thintile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_a8e01ff340011a910e6895e4a0dacd591}
+
+
+Definition at line 86 of file thintile.\+c.
+
+
+
+References comment, Fprintf, outfile, pixels, T\+I\+L\+E\+\_\+\+X, and T\+I\+L\+E\+\_\+\+Y.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+87 \{
+88     \textcolor{keywordtype}{int} i, j;
+89 
+90 
+91     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(\hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile}, \textcolor{stringliteral}{"%s\(\backslash\)n"}, \hyperlink{thintile_8c_a2b99606d56c8d0fc4c2fb00852128f19}{comment});
+92     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(\hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile}, \textcolor{stringliteral}{"\{\(\backslash\)n"});
+93     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+94         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(\hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile}, \textcolor{stringliteral}{"  "});
+95         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}; i += 2) \{
+96             (void) fputc(\hyperlink{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{pixels}[j][i], \hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile});
+97         \}
+98         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(\hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile}, \textcolor{stringliteral}{"\(\backslash\)n"});
+99     \}
+100     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(\hyperlink{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{outfile}, \textcolor{stringliteral}{"\}\(\backslash\)n"});
+101 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{thintile_8c_a2b99606d56c8d0fc4c2fb00852128f19}{\index{thintile.\+c@{thintile.\+c}!comment@{comment}}
+\index{comment@{comment}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{comment}]{\setlength{\rightskip}{0pt plus 5cm}char comment\mbox{[}{\bf B\+U\+F\+S\+Z}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_a2b99606d56c8d0fc4c2fb00852128f19}
+
+
+Definition at line 27 of file thintile.\+c.
+
+
+
+Referenced by read\+\_\+txttile(), and write\+\_\+thintile().
+
+\hypertarget{thintile_8c_abe68cf66428f1e3a981ada366cfd3f07}{\index{thintile.\+c@{thintile.\+c}!filenum@{filenum}}
+\index{filenum@{filenum}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{filenum}]{\setlength{\rightskip}{0pt plus 5cm}int filenum\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_abe68cf66428f1e3a981ada366cfd3f07}
+
+
+Definition at line 26 of file thintile.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}{\index{thintile.\+c@{thintile.\+c}!infile@{infile}}
+\index{infile@{infile}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{infile}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ infile\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_af19157da745ecb3f2b088c8f3a10c0a7}
+
+
+Definition at line 23 of file thintile.\+c.
+
+
+
+Referenced by copy\+\_\+colormap(), do\+\_\+data(), do\+\_\+oracles(), do\+\_\+rumors(), main(), and read\+\_\+txttile().
+
+\hypertarget{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}{\index{thintile.\+c@{thintile.\+c}!outfile@{outfile}}
+\index{outfile@{outfile}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{outfile}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E $\ast$ outfile\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_acb214c31edc2f5651a5bfdd0b6a575f8}
+
+
+Definition at line 23 of file thintile.\+c.
+
+
+
+Referenced by copy\+\_\+colormap(), main(), and write\+\_\+thintile().
+
+\hypertarget{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{\index{thintile.\+c@{thintile.\+c}!pixels@{pixels}}
+\index{pixels@{pixels}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{pixels}]{\setlength{\rightskip}{0pt plus 5cm}char pixels\mbox{[}{\bf T\+I\+L\+E\+\_\+\+Y}\mbox{]}\mbox{[}{\bf T\+I\+L\+E\+\_\+\+X}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}
+
+
+Definition at line 14 of file thintile.\+c.
+
+
+
+Referenced by read\+\_\+txttile(), and write\+\_\+thintile().
+
+\hypertarget{thintile_8c_ade664df319b2170c2da180e45a3646e9}{\index{thintile.\+c@{thintile.\+c}!thinfiles@{thinfiles}}
+\index{thinfiles@{thinfiles}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{thinfiles}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ thinfiles\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_ade664df319b2170c2da180e45a3646e9}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \textcolor{stringliteral}{"../win/share/monthin.txt"},
+                \textcolor{stringliteral}{"../win/share/objthin.txt"},
+                \textcolor{stringliteral}{"../win/share/oththin.txt"}\}
+\end{DoxyCode}
+
+
+Definition at line 20 of file thintile.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{thintile_8c_acdb51e97098c918a8dbf4b45e77e0b43}{\index{thintile.\+c@{thintile.\+c}!tilecount@{tilecount}}
+\index{tilecount@{tilecount}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{tilecount}]{\setlength{\rightskip}{0pt plus 5cm}int tilecount\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_acdb51e97098c918a8dbf4b45e77e0b43}
+
+
+Definition at line 24 of file thintile.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{thintile_8c_a5910f15dc36e510c3f5f600c0ea1f0b4}{\index{thintile.\+c@{thintile.\+c}!tilecount\+\_\+per\+\_\+file@{tilecount\+\_\+per\+\_\+file}}
+\index{tilecount\+\_\+per\+\_\+file@{tilecount\+\_\+per\+\_\+file}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{tilecount\+\_\+per\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}int tilecount\+\_\+per\+\_\+file\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_a5910f15dc36e510c3f5f600c0ea1f0b4}
+
+
+Definition at line 25 of file thintile.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{thintile_8c_a9090421c00e86159a9ae368bda865721}{\index{thintile.\+c@{thintile.\+c}!tilefiles@{tilefiles}}
+\index{tilefiles@{tilefiles}!thintile.\+c@{thintile.\+c}}
+\subsubsection[{tilefiles}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ tilefiles\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{thintile_8c_a9090421c00e86159a9ae368bda865721}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \textcolor{stringliteral}{"../win/share/monsters.txt"},
+                \textcolor{stringliteral}{"../win/share/objects.txt"},
+                \textcolor{stringliteral}{"../win/share/other.txt"}\}
+\end{DoxyCode}
+
+
+Definition at line 16 of file thintile.\+c.
+
+
+
+Referenced by main().
+

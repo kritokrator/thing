@@ -1,0 +1,923 @@
+\hypertarget{vmstty_8c}{\section{nethack/sys/vms/vmstty.c File Reference}
+\label{vmstty_8c}\index{nethack/sys/vms/vmstty.\+c@{nethack/sys/vms/vmstty.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wintty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tcap.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$descrip.\+h$>$}\\*
+{\ttfamily \#include $<$iodef.\+h$>$}\\*
+{\ttfamily \#include $<$smgdef.\+h$>$}\\*
+{\ttfamily \#include $<$ttdef.\+h$>$}\\*
+{\ttfamily \#include $<$tt2def.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct__rd__iosb}{\+\_\+rd\+\_\+iosb}
+\item 
+struct \hyperlink{struct__wr__iosb}{\+\_\+wr\+\_\+iosb}
+\item 
+struct \hyperlink{struct__sm__iosb}{\+\_\+sm\+\_\+iosb}
+\item 
+struct \hyperlink{struct__sm__bufr}{\+\_\+sm\+\_\+bufr}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{vmstty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}
+\item 
+\#define \hyperlink{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}{vms\+\_\+ok}(sts)~((sts)\&1)
+\item 
+\#define \hyperlink{vmstty_8c_a3f437fcc45d6a9cda7fe593ce350aaad}{M\+E\+T\+A}(c)~((c)$\vert$0x80)	/$\ast$ 8th bit $\ast$/
+\item 
+\#define \hyperlink{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}{C\+T\+R\+L}(c)~((c)\&0x1\+F)
+\item 
+\#define \hyperlink{vmstty_8c_a8eeddd82796f2adfe6f59a431555b262}{C\+M\+A\+S\+K}(c)~(1$<$$<$\hyperlink{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}{C\+T\+R\+L}(c))
+\item 
+\#define \hyperlink{vmstty_8c_aabca768b051a5ba6553d48151f525577}{L\+I\+B}~\$M\+\_\+\+C\+L\+I\+\_\+\+C\+T\+R\+L\+T \hyperlink{vmstty_8c_a8eeddd82796f2adfe6f59a431555b262}{C\+M\+A\+S\+K}('T')	/$\ast$ 0x00100000 $\ast$/
+\item 
+\#define \hyperlink{vmstty_8c_aabca768b051a5ba6553d48151f525577}{L\+I\+B}~\$M\+\_\+\+C\+L\+I\+\_\+\+C\+T\+R\+L\+Y \hyperlink{vmstty_8c_a8eeddd82796f2adfe6f59a431555b262}{C\+M\+A\+S\+K}('Y')	/$\ast$ 0x02000000 $\ast$/
+\item 
+\#define \hyperlink{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}{E\+S\+C}~'\textbackslash{}033'
+\item 
+\#define \hyperlink{vmstty_8c_abc85bb07f8fa1e7c2eba467b6c8e8624}{C\+S\+I}~\hyperlink{vmstty_8c_a3f437fcc45d6a9cda7fe593ce350aaad}{M\+E\+T\+A}(\hyperlink{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}{E\+S\+C})		/$\ast$ '\textbackslash{}233' $\ast$/
+\item 
+\#define \hyperlink{vmstty_8c_af93150f78298c944b62303ea784b1653}{S\+S3}~\hyperlink{vmstty_8c_a3f437fcc45d6a9cda7fe593ce350aaad}{M\+E\+T\+A}(\hyperlink{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}{C\+T\+R\+L}('O'))	/$\ast$ '\textbackslash{}217' $\ast$/
+\item 
+\#define \hyperlink{vmstty_8c_a902ca6aeb6518d2aa30ed12231df526b}{Q\+I\+O\+\_\+\+F\+U\+N\+C}~I\+O\$\+\_\+\+T\+T\+Y\+R\+E\+A\+D\+A\+L\+L$\vert$I\+O\$\+M\+\_\+\+N\+O\+E\+C\+H\+O$\vert$I\+O\$\+M\+\_\+\+T\+R\+M\+N\+O\+E\+C\+H\+O
+\item 
+\#define \hyperlink{vmstty_8c_a16926b051c254041cff3669439b99e06}{T\+T\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G}~(T\+T\$\+M\+\_\+\+M\+E\+C\+H\+T\+A\+B$\vert$T\+T\$\+M\+\_\+\+M\+E\+C\+H\+F\+O\+R\+M)
+\item 
+\#define \hyperlink{vmstty_8c_a81fef7debeb2493aa8d8a21c420388e0}{T\+T2\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G}~(0)
+\item 
+\#define \hyperlink{vmstty_8c_a6124fd8a90b8b651aacc9d98026ad4e4}{Uword}~unsigned short
+\item 
+\#define \hyperlink{vmstty_8c_ad63f4b09652b16512a7f3f814177ff65}{Ubyte}~unsigned char
+\item 
+\#define \hyperlink{vmstty_8c_a0f5362ad603717049bd907a22d42089f}{page\+\_\+width}~buf\+\_\+siz		/$\ast$ number of columns $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned long lib \hyperlink{vmstty_8c_a34479cdfd6c374dfa10a53fd9d361b67}{\$disable\+\_\+ctrl} ()
+\item 
+unsigned long lib lib \hyperlink{vmstty_8c_a2dfa4e0787dde03674f73281ec378bd1}{\$enable\+\_\+ctrl} ()
+\item 
+unsigned long sys \hyperlink{vmstty_8c_a068f2520ce3747c675a5b541ac761fa1}{\$assign} ()
+\item 
+unsigned long sys sys \hyperlink{vmstty_8c_a1161d83c2848cc06576ada5349b718eb}{\$dassgn} ()
+\item 
+unsigned long sys sys sys \hyperlink{vmstty_8c_a7c6a03713e798e7ad829aac9ad1df070}{\$qiow} ()
+\item 
+unsigned long smg \hyperlink{vmstty_8c_a0181ca0d316649a46bc65e1ac7d9df7f}{\$create\+\_\+virtual\+\_\+keyboard} ()
+\item 
+unsigned long smg smg \hyperlink{vmstty_8c_a69c2c6f82b7a4bf31387f4fb605f4385}{\$delete\+\_\+virtual\+\_\+keyboard} ()
+\item 
+unsigned long smg smg smg \hyperlink{vmstty_8c_a485a591a16d792d261806d84314ae7a4}{\$read\+\_\+keystroke} ()
+\item 
+unsigned long smg smg smg smg \hyperlink{vmstty_8c_a10acea58ee5f67ab39eb0d36853d8fb6}{\$cancel\+\_\+input} ()
+\item 
+static void \hyperlink{vmstty_8c_ac2adb91a733f1368143e270e7e2ef997}{N\+D\+E\+C\+L} (\hyperlink{vmstty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty})
+\item 
+static void \hyperlink{vmstty_8c_aab8cdbb9753905431836f0765a002f53}{N\+D\+E\+C\+L} (\hyperlink{vmstty_8c_ac76d243003d8823b1261ab3d4c225d69}{resettty})
+\item 
+int \hyperlink{vmstty_8c_a74ecf56911d5d9657e8e4be04b1d8941}{vms\+\_\+getchar} ()
+\item 
+static void \hyperlink{vmstty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty} ()
+\item 
+static void \hyperlink{vmstty_8c_ac76d243003d8823b1261ab3d4c225d69}{resettty} ()
+\item 
+void \hyperlink{vmstty_8c_a373d362cb59d42622763edf0206cc038}{gettty} ()
+\item 
+void \hyperlink{vmstty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}{settty} (char $\ast$s) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{vmstty_8c_a5872f6e6132faf3220a81636fd5835f7}{shuttty} (char $\ast$s) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{vmstty_8c_aaa4a2930941423d431515f11436497b6}{setftty} ()
+\item 
+void \hyperlink{vmstty_8c_a801ec867d5c7166d2faa1afc552f7d0e}{intron} ()
+\item 
+void \hyperlink{vmstty_8c_a48af2a23abad925191f7ad766f1b6f44}{introff} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+short \hyperlink{vmstty_8c_ac95761f812b1cd22186a50db1ef8030b}{ospeed}
+\item 
+char \hyperlink{vmstty_8c_a290d0adea4016784acb151e2620c902a}{erase\+\_\+char}
+\item 
+char \hyperlink{vmstty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\+\_\+char}
+\item 
+char \hyperlink{vmstty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{kill\+\_\+char}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{vmstty_8c_a889ea83f1c92b34d38debe95ae5ac89e}{settty\+\_\+needed} = \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{vmstty_8c_a6a90f0eba5bd6243819e294c9207ec48}{bombing} = \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\item 
+static unsigned long \hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb} = 0
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>struct \hyperlink{struct__sm__iosb}{\_sm\_iosb} \hyperlink{vmstty_8c_ad1f38908c61b9823f7b2b6e2b7a9482c}{io}\\
+\>struct \hyperlink{struct__sm__bufr}{\_sm\_bufr} \hyperlink{vmstty_8c_aa26ef43221f648102c8a042ac2b14261}{sm}\\
+\} \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg} = \{\{0\},\{0\}\}\\
+
+\end{tabbing}\item 
+static unsigned short \hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\+\_\+chan} = 0
+\item 
+static unsigned long \hyperlink{vmstty_8c_a5b473d449057ac00b1d4db7bbbf53908}{tt\+\_\+char\+\_\+restore} = 0
+\item 
+static unsigned long \hyperlink{vmstty_8c_ae3dd2f7f88c51ebdb5c53fa669f30f13}{tt\+\_\+char\+\_\+active} = 0
+\item 
+static unsigned long \hyperlink{vmstty_8c_a5b80526c71a70b644897a3020acdff66}{tt2\+\_\+char\+\_\+restore} = 0
+\item 
+static unsigned long \hyperlink{vmstty_8c_aa236230d938a9ffc66b26bd2af62c576}{tt2\+\_\+char\+\_\+active} = 0
+\item 
+static unsigned long \hyperlink{vmstty_8c_ad60ee227231df21954b7444ae48c7dcc}{ctrl\+\_\+mask} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{vmstty_8c_a8eeddd82796f2adfe6f59a431555b262}{\index{vmstty.\+c@{vmstty.\+c}!C\+M\+A\+S\+K@{C\+M\+A\+S\+K}}
+\index{C\+M\+A\+S\+K@{C\+M\+A\+S\+K}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{C\+M\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+M\+A\+S\+K(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~(1$<$$<${\bf C\+T\+R\+L}(c))}}\label{vmstty_8c_a8eeddd82796f2adfe6f59a431555b262}
+
+
+Definition at line 48 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_abc85bb07f8fa1e7c2eba467b6c8e8624}{\index{vmstty.\+c@{vmstty.\+c}!C\+S\+I@{C\+S\+I}}
+\index{C\+S\+I@{C\+S\+I}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{C\+S\+I}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+S\+I~{\bf M\+E\+T\+A}({\bf E\+S\+C})		/$\ast$ '\textbackslash{}233' $\ast$/}}\label{vmstty_8c_abc85bb07f8fa1e7c2eba467b6c8e8624}
+
+
+Definition at line 52 of file vmstty.\+c.
+
+
+
+Referenced by vms\+\_\+getchar().
+
+\hypertarget{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}{\index{vmstty.\+c@{vmstty.\+c}!C\+T\+R\+L@{C\+T\+R\+L}}
+\index{C\+T\+R\+L@{C\+T\+R\+L}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{C\+T\+R\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+T\+R\+L(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~((c)\&0x1\+F)}}\label{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}
+
+
+Definition at line 47 of file vmstty.\+c.
+
+
+
+Referenced by gettty(), intron(), and vms\+\_\+getchar().
+
+\hypertarget{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}{\index{vmstty.\+c@{vmstty.\+c}!E\+S\+C@{E\+S\+C}}
+\index{E\+S\+C@{E\+S\+C}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{E\+S\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+S\+C~'\textbackslash{}033'}}\label{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}
+
+
+Definition at line 51 of file vmstty.\+c.
+
+
+
+Referenced by vms\+\_\+getchar().
+
+\hypertarget{vmstty_8c_aabca768b051a5ba6553d48151f525577}{\index{vmstty.\+c@{vmstty.\+c}!L\+I\+B@{L\+I\+B}}
+\index{L\+I\+B@{L\+I\+B}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{L\+I\+B}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+B~\$M\+\_\+\+C\+L\+I\+\_\+\+C\+T\+R\+L\+T {\bf C\+M\+A\+S\+K}('T')	/$\ast$ 0x00100000 $\ast$/}}\label{vmstty_8c_aabca768b051a5ba6553d48151f525577}
+
+
+Definition at line 50 of file vmstty.\+c.
+
+
+
+Referenced by setftty().
+
+\hypertarget{vmstty_8c_aabca768b051a5ba6553d48151f525577}{\index{vmstty.\+c@{vmstty.\+c}!L\+I\+B@{L\+I\+B}}
+\index{L\+I\+B@{L\+I\+B}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{L\+I\+B}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+B~\$M\+\_\+\+C\+L\+I\+\_\+\+C\+T\+R\+L\+Y {\bf C\+M\+A\+S\+K}('Y')	/$\ast$ 0x02000000 $\ast$/}}\label{vmstty_8c_aabca768b051a5ba6553d48151f525577}
+
+
+Definition at line 50 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a3f437fcc45d6a9cda7fe593ce350aaad}{\index{vmstty.\+c@{vmstty.\+c}!M\+E\+T\+A@{M\+E\+T\+A}}
+\index{M\+E\+T\+A@{M\+E\+T\+A}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{M\+E\+T\+A}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+T\+A(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~((c)$\vert$0x80)	/$\ast$ 8th bit $\ast$/}}\label{vmstty_8c_a3f437fcc45d6a9cda7fe593ce350aaad}
+
+
+Definition at line 46 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}{\index{vmstty.\+c@{vmstty.\+c}!N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S@{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}}
+\index{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S@{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}}\label{vmstty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}
+
+
+Definition at line 6 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a0f5362ad603717049bd907a22d42089f}{\index{vmstty.\+c@{vmstty.\+c}!page\+\_\+width@{page\+\_\+width}}
+\index{page\+\_\+width@{page\+\_\+width}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{page\+\_\+width}]{\setlength{\rightskip}{0pt plus 5cm}\#define page\+\_\+width~buf\+\_\+siz		/$\ast$ number of columns $\ast$/}}\label{vmstty_8c_a0f5362ad603717049bd907a22d42089f}
+
+
+Definition at line 91 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a902ca6aeb6518d2aa30ed12231df526b}{\index{vmstty.\+c@{vmstty.\+c}!Q\+I\+O\+\_\+\+F\+U\+N\+C@{Q\+I\+O\+\_\+\+F\+U\+N\+C}}
+\index{Q\+I\+O\+\_\+\+F\+U\+N\+C@{Q\+I\+O\+\_\+\+F\+U\+N\+C}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{Q\+I\+O\+\_\+\+F\+U\+N\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define Q\+I\+O\+\_\+\+F\+U\+N\+C~I\+O\$\+\_\+\+T\+T\+Y\+R\+E\+A\+D\+A\+L\+L$\vert$I\+O\$\+M\+\_\+\+N\+O\+E\+C\+H\+O$\vert$I\+O\$\+M\+\_\+\+T\+R\+M\+N\+O\+E\+C\+H\+O}}\label{vmstty_8c_a902ca6aeb6518d2aa30ed12231df526b}
+
+
+Definition at line 64 of file vmstty.\+c.
+
+
+
+Referenced by vms\+\_\+getchar().
+
+\hypertarget{vmstty_8c_af93150f78298c944b62303ea784b1653}{\index{vmstty.\+c@{vmstty.\+c}!S\+S3@{S\+S3}}
+\index{S\+S3@{S\+S3}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{S\+S3}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+S3~{\bf M\+E\+T\+A}({\bf C\+T\+R\+L}('O'))	/$\ast$ '\textbackslash{}217' $\ast$/}}\label{vmstty_8c_af93150f78298c944b62303ea784b1653}
+
+
+Definition at line 53 of file vmstty.\+c.
+
+
+
+Referenced by vms\+\_\+getchar().
+
+\hypertarget{vmstty_8c_a81fef7debeb2493aa8d8a21c420388e0}{\index{vmstty.\+c@{vmstty.\+c}!T\+T2\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G@{T\+T2\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G}}
+\index{T\+T2\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G@{T\+T2\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{T\+T2\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+T2\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G~(0)}}\label{vmstty_8c_a81fef7debeb2493aa8d8a21c420388e0}
+
+
+Definition at line 70 of file vmstty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{vmstty_8c_a16926b051c254041cff3669439b99e06}{\index{vmstty.\+c@{vmstty.\+c}!T\+T\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G@{T\+T\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G}}
+\index{T\+T\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G@{T\+T\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{T\+T\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+T\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G~(T\+T\$\+M\+\_\+\+M\+E\+C\+H\+T\+A\+B$\vert$T\+T\$\+M\+\_\+\+M\+E\+C\+H\+F\+O\+R\+M)}}\label{vmstty_8c_a16926b051c254041cff3669439b99e06}
+
+
+Definition at line 69 of file vmstty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{vmstty_8c_ad63f4b09652b16512a7f3f814177ff65}{\index{vmstty.\+c@{vmstty.\+c}!Ubyte@{Ubyte}}
+\index{Ubyte@{Ubyte}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{Ubyte}]{\setlength{\rightskip}{0pt plus 5cm}\#define Ubyte~unsigned char}}\label{vmstty_8c_ad63f4b09652b16512a7f3f814177ff65}
+
+
+Definition at line 73 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a6124fd8a90b8b651aacc9d98026ad4e4}{\index{vmstty.\+c@{vmstty.\+c}!Uword@{Uword}}
+\index{Uword@{Uword}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{Uword}]{\setlength{\rightskip}{0pt plus 5cm}\#define Uword~unsigned short}}\label{vmstty_8c_a6124fd8a90b8b651aacc9d98026ad4e4}
+
+
+Definition at line 72 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}{\index{vmstty.\+c@{vmstty.\+c}!vms\+\_\+ok@{vms\+\_\+ok}}
+\index{vms\+\_\+ok@{vms\+\_\+ok}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{vms\+\_\+ok}]{\setlength{\rightskip}{0pt plus 5cm}\#define vms\+\_\+ok(
+\begin{DoxyParamCaption}
+\item[{}]{sts}
+\end{DoxyParamCaption}
+)~((sts)\&1)}}\label{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}
+
+
+Definition at line 45 of file vmstty.\+c.
+
+
+
+Referenced by gettty(), setctty(), and vms\+\_\+getchar().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{vmstty_8c_a068f2520ce3747c675a5b541ac761fa1}{\index{vmstty.\+c@{vmstty.\+c}!\$assign@{\$assign}}
+\index{\$assign@{\$assign}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$assign}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long sys \$assign (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a068f2520ce3747c675a5b541ac761fa1}
+
+
+Referenced by gettty().
+
+\hypertarget{vmstty_8c_a10acea58ee5f67ab39eb0d36853d8fb6}{\index{vmstty.\+c@{vmstty.\+c}!\$cancel\+\_\+input@{\$cancel\+\_\+input}}
+\index{\$cancel\+\_\+input@{\$cancel\+\_\+input}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$cancel\+\_\+input}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long smg smg smg smg \$cancel\+\_\+input (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a10acea58ee5f67ab39eb0d36853d8fb6}
+\hypertarget{vmstty_8c_a0181ca0d316649a46bc65e1ac7d9df7f}{\index{vmstty.\+c@{vmstty.\+c}!\$create\+\_\+virtual\+\_\+keyboard@{\$create\+\_\+virtual\+\_\+keyboard}}
+\index{\$create\+\_\+virtual\+\_\+keyboard@{\$create\+\_\+virtual\+\_\+keyboard}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$create\+\_\+virtual\+\_\+keyboard}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long smg \$create\+\_\+virtual\+\_\+keyboard (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a0181ca0d316649a46bc65e1ac7d9df7f}
+\hypertarget{vmstty_8c_a1161d83c2848cc06576ada5349b718eb}{\index{vmstty.\+c@{vmstty.\+c}!\$dassgn@{\$dassgn}}
+\index{\$dassgn@{\$dassgn}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$dassgn}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long sys sys \$dassgn (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a1161d83c2848cc06576ada5349b718eb}
+
+
+Referenced by resettty().
+
+\hypertarget{vmstty_8c_a69c2c6f82b7a4bf31387f4fb605f4385}{\index{vmstty.\+c@{vmstty.\+c}!\$delete\+\_\+virtual\+\_\+keyboard@{\$delete\+\_\+virtual\+\_\+keyboard}}
+\index{\$delete\+\_\+virtual\+\_\+keyboard@{\$delete\+\_\+virtual\+\_\+keyboard}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$delete\+\_\+virtual\+\_\+keyboard}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long smg smg \$delete\+\_\+virtual\+\_\+keyboard (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a69c2c6f82b7a4bf31387f4fb605f4385}
+
+
+Referenced by settty().
+
+\hypertarget{vmstty_8c_a34479cdfd6c374dfa10a53fd9d361b67}{\index{vmstty.\+c@{vmstty.\+c}!\$disable\+\_\+ctrl@{\$disable\+\_\+ctrl}}
+\index{\$disable\+\_\+ctrl@{\$disable\+\_\+ctrl}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$disable\+\_\+ctrl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long lib \$disable\+\_\+ctrl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a34479cdfd6c374dfa10a53fd9d361b67}
+
+
+Referenced by setftty().
+
+\hypertarget{vmstty_8c_a2dfa4e0787dde03674f73281ec378bd1}{\index{vmstty.\+c@{vmstty.\+c}!\$enable\+\_\+ctrl@{\$enable\+\_\+ctrl}}
+\index{\$enable\+\_\+ctrl@{\$enable\+\_\+ctrl}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$enable\+\_\+ctrl}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long lib lib \$enable\+\_\+ctrl (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a2dfa4e0787dde03674f73281ec378bd1}
+
+
+Referenced by gettty(), and settty().
+
+\hypertarget{vmstty_8c_a7c6a03713e798e7ad829aac9ad1df070}{\index{vmstty.\+c@{vmstty.\+c}!\$qiow@{\$qiow}}
+\index{\$qiow@{\$qiow}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$qiow}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long sys sys sys \$qiow (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a7c6a03713e798e7ad829aac9ad1df070}
+
+
+Referenced by gettty(), setctty(), and vms\+\_\+getchar().
+
+\hypertarget{vmstty_8c_a485a591a16d792d261806d84314ae7a4}{\index{vmstty.\+c@{vmstty.\+c}!\$read\+\_\+keystroke@{\$read\+\_\+keystroke}}
+\index{\$read\+\_\+keystroke@{\$read\+\_\+keystroke}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{\$read\+\_\+keystroke}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long smg smg smg \$read\+\_\+keystroke (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a485a591a16d792d261806d84314ae7a4}
+
+
+Referenced by vms\+\_\+getchar().
+
+\hypertarget{vmstty_8c_a373d362cb59d42622763edf0206cc038}{\index{vmstty.\+c@{vmstty.\+c}!gettty@{gettty}}
+\index{gettty@{gettty}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{gettty}]{\setlength{\rightskip}{0pt plus 5cm}void gettty (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a373d362cb59d42622763edf0206cc038}
+
+
+Definition at line 326 of file vmstty.\+c.
+
+
+
+References \$assign(), \$enable\+\_\+ctrl(), \$qiow(), instance\+\_\+flags\+::cbreak, C\+O, C\+T\+R\+L, instance\+\_\+flags\+::echo, errno, iflags, L\+I, O\+F\+F, O\+N, perror, raw\+\_\+print, resettty(), setctty(), sg, \+\_\+sm\+\_\+iosb\+::status, tt2\+\_\+char\+\_\+active, tt2\+\_\+char\+\_\+restore, T\+T2\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G, tt\+\_\+char\+\_\+active, T\+T\+\_\+\+S\+P\+E\+C\+I\+A\+L\+\_\+\+H\+A\+N\+D\+L\+I\+N\+G, vms\+\_\+ok, and wait\+\_\+synch.
+
+
+\begin{DoxyCode}
+327 \{
+328     \textcolor{keyword}{static} \textcolor{keywordtype}{char} dev\_tty[] = \textcolor{stringliteral}{"TT:"};
+329     \textcolor{keyword}{static} $DESCRIPTOR(tty\_dsc, dev\_tty);
+330     \textcolor{keywordtype}{int} err = 0;
+331     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} status, zero = 0;
+332 
+333     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\_chan} == 0) \{      \textcolor{comment}{/* do this stuff once only */}
+334     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_acc12d1d0c33d63aee349eac10eec35a5}{cbreak} = \hyperlink{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{OFF},  \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a4a064908e2a505018c11319cc53d7fe1}{echo} = \hyperlink{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{ON};  \textcolor{comment}{/* until setup is complete */}
+335     status = sys\hyperlink{vmstty_8c_a068f2520ce3747c675a5b541ac761fa1}{$assign}(&tty\_dsc, &\hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\_chan}, 0, 0);
+336     \textcolor{keywordflow}{if} (!\hyperlink{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}{vms\_ok}(status)) \{
+337         \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{""}),  err++;
+338         \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} = EVMSERR,  vaxc$errno = status;
+339         \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(\textcolor{stringliteral}{"NetHack(gettty: $assign)"});
+340     \}
+341     atexit(\hyperlink{vmstty_8c_ac76d243003d8823b1261ab3d4c225d69}{resettty});   \textcolor{comment}{/* register an exit handler to reset things */}
+342     \}
+343     status = sys\hyperlink{vmstty_8c_a7c6a03713e798e7ad829aac9ad1df070}{$qiow}(0, \hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\_chan}, IO$\_SENSEMODE, &\hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.io, (\textcolor{keywordtype}{void}(*)())0, 0,
+344               &\hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm, \textcolor{keyword}{sizeof} \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm, 0, 0, 0, 0);
+345     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}{vms\_ok}(status))  status = \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.io.status;
+346     \textcolor{keywordflow}{if} (!\hyperlink{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}{vms\_ok}(status)) \{
+347     \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{""}),  err++;
+348     \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} = EVMSERR,  vaxc$errno = status;
+349     \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(\textcolor{stringliteral}{"NetHack(gettty: sensemode)"});
+350     \}
+351     \hyperlink{vmstty_8c_ac95761f812b1cd22186a50db1ef8030b}{ospeed} = \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.io.xmt\_speed;
+352     \hyperlink{vmstty_8c_a290d0adea4016784acb151e2620c902a}{erase\_char} = \textcolor{stringliteral}{'\(\backslash\)177'};  \textcolor{comment}{/* <rubout>, aka <delete> */}
+353     \hyperlink{vmstty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{kill\_char} = \hyperlink{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}{CTRL}(\textcolor{charliteral}{'U'});
+354     \hyperlink{vmstty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\_char} = \hyperlink{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}{CTRL}(\textcolor{charliteral}{'C'});
+355     (void) lib\hyperlink{vmstty_8c_a2dfa4e0787dde03674f73281ec378bd1}{$enable\_ctrl}(&zero, &\hyperlink{vmstty_8c_ad60ee227231df21954b7444ae48c7dcc}{ctrl\_mask});
+356     \textcolor{comment}{/* Use the systems's values for lines and columns if it has any idea. */}
+357     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.page\_length)
+358     \hyperlink{winext_8h_a4952935dee70ae06274495dcddf10856}{LI} = \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.page\_length;
+359     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.page\_width)
+360     \hyperlink{winext_8h_abdcb66bae1fc240beb333f1932bdc30d}{CO} = \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.page\_width;
+361     \textcolor{comment}{/* suppress tab and form-feed expansion, in case termcap uses them */}
+362     \hyperlink{vmstty_8c_a5b473d449057ac00b1d4db7bbbf53908}{tt\_char\_restore}  = \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt\_char;
+363     \hyperlink{vmstty_8c_ae3dd2f7f88c51ebdb5c53fa669f30f13}{tt\_char\_active}   = \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt\_char |= \hyperlink{vmstty_8c_a16926b051c254041cff3669439b99e06}{TT\_SPECIAL\_HANDLING};
+364     \hyperlink{vmstty_8c_a5b80526c71a70b644897a3020acdff66}{tt2\_char\_restore} = \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt2\_char;
+365     \hyperlink{vmstty_8c_aa236230d938a9ffc66b26bd2af62c576}{tt2\_char\_active}  = \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt2\_char |= \hyperlink{vmstty_8c_a81fef7debeb2493aa8d8a21c420388e0}{TT2\_SPECIAL\_HANDLING};
+366 \textcolor{preprocessor}{#if 0       }\textcolor{comment}{/*[ defer until setftty() ]*/}\textcolor{preprocessor}{}
+367     \hyperlink{vmstty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty}();
+368 \textcolor{preprocessor}{#endif}
+369 
+370     \textcolor{keywordflow}{if} (err) \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+371 \}
+\end{DoxyCode}
+\hypertarget{vmstty_8c_a48af2a23abad925191f7ad766f1b6f44}{\index{vmstty.\+c@{vmstty.\+c}!introff@{introff}}
+\index{introff@{introff}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{introff}]{\setlength{\rightskip}{0pt plus 5cm}void introff (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a48af2a23abad925191f7ad766f1b6f44}
+
+
+Definition at line 440 of file vmstty.\+c.
+
+
+\begin{DoxyCode}
+441 \{
+442     \hyperlink{vmstty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\_char} = 0;
+443 \}
+\end{DoxyCode}
+\hypertarget{vmstty_8c_a801ec867d5c7166d2faa1afc552f7d0e}{\index{vmstty.\+c@{vmstty.\+c}!intron@{intron}}
+\index{intron@{intron}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{intron}]{\setlength{\rightskip}{0pt plus 5cm}void intron (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a801ec867d5c7166d2faa1afc552f7d0e}
+
+
+Definition at line 434 of file vmstty.\+c.
+
+
+
+References C\+T\+R\+L.
+
+
+\begin{DoxyCode}
+435 \{
+436     \hyperlink{vmstty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\_char} = \hyperlink{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}{CTRL}(\textcolor{charliteral}{'C'});
+437 \}
+\end{DoxyCode}
+\hypertarget{vmstty_8c_ac2adb91a733f1368143e270e7e2ef997}{\index{vmstty.\+c@{vmstty.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf setctty}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_ac2adb91a733f1368143e270e7e2ef997}
+\hypertarget{vmstty_8c_aab8cdbb9753905431836f0765a002f53}{\index{vmstty.\+c@{vmstty.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf resettty}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_aab8cdbb9753905431836f0765a002f53}
+\hypertarget{vmstty_8c_ac76d243003d8823b1261ab3d4c225d69}{\index{vmstty.\+c@{vmstty.\+c}!resettty@{resettty}}
+\index{resettty@{resettty}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{resettty}]{\setlength{\rightskip}{0pt plus 5cm}static void resettty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_ac76d243003d8823b1261ab3d4c225d69}
+
+
+Definition at line 310 of file vmstty.\+c.
+
+
+
+References \$dassgn(), settty(), and T\+R\+U\+E.
+
+
+
+Referenced by gettty().
+
+
+\begin{DoxyCode}
+311 \{
+312     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a889ea83f1c92b34d38debe95ae5ac89e}{settty\_needed}) \{
+313     \hyperlink{vmstty_8c_a6a90f0eba5bd6243819e294c9207ec48}{bombing} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};     \textcolor{comment}{/* don't clear screen; preserve traceback info */}
+314     \hyperlink{vmstty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}{settty}((\textcolor{keywordtype}{char} *)0);
+315     \}
+316     (void) sys\hyperlink{vmstty_8c_a1161d83c2848cc06576ada5349b718eb}{$dassgn}(\hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\_chan}),  \hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\_chan} = 0;
+317 \}
+\end{DoxyCode}
+\hypertarget{vmstty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{\index{vmstty.\+c@{vmstty.\+c}!setctty@{setctty}}
+\index{setctty@{setctty}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{setctty}]{\setlength{\rightskip}{0pt plus 5cm}static void setctty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}
+
+
+Definition at line 290 of file vmstty.\+c.
+
+
+
+References \$qiow(), errno, number\+\_\+pad, perror, raw\+\_\+print, sg, \+\_\+sm\+\_\+iosb\+::status, vms\+\_\+ok, and wait\+\_\+synch.
+
+
+
+Referenced by gettty(), setftty(), and settty().
+
+
+\begin{DoxyCode}
+291 \{
+292     \textcolor{keyword}{struct }\hyperlink{struct__sm__iosb}{\_sm\_iosb} iosb;
+293     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \hyperlink{struct__sm__iosb_afff4b38c827f86942891823ba8b917ec}{status};
+294 
+295     status = sys\hyperlink{vmstty_8c_a7c6a03713e798e7ad829aac9ad1df070}{$qiow}(0, \hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\_chan}, IO$\_SETMODE, &iosb, (\textcolor{keywordtype}{void}(*)())0, 0,
+296               &\hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm, \textcolor{keyword}{sizeof} \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm, 0, 0, 0, 0);
+297     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}{vms\_ok}(status))  status = iosb.status;
+298     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}{vms\_ok}(status)) \{
+299     \textcolor{comment}{/* try to force terminal into synch with TTDRIVER's setting */}
+300     \hyperlink{winprocs_8h_a175952a25a38000ea7a5ac97940f01bb}{number\_pad}((\hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt2\_char & TT2$M\_APP\_KEYPAD) ? -1 : 1);
+301     \} \textcolor{keywordflow}{else} \{
+302     \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{""});
+303     \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} = EVMSERR,  vaxc$errno = \hyperlink{struct__sm__iosb_afff4b38c827f86942891823ba8b917ec}{status};
+304     \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(\textcolor{stringliteral}{"NetHack(setctty: setmode)"});
+305     \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+306     \}
+307 \}
+\end{DoxyCode}
+\hypertarget{vmstty_8c_aaa4a2930941423d431515f11436497b6}{\index{vmstty.\+c@{vmstty.\+c}!setftty@{setftty}}
+\index{setftty@{setftty}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{setftty}]{\setlength{\rightskip}{0pt plus 5cm}void setftty (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_aaa4a2930941423d431515f11436497b6}
+U\+S\+E\+\_\+\+Q\+I\+O\+\_\+\+I\+N\+P\+U\+T 
+
+Definition at line 408 of file vmstty.\+c.
+
+
+
+References \$disable\+\_\+ctrl(), instance\+\_\+flags\+::cbreak, instance\+\_\+flags\+::echo, enable\+\_\+broadcast\+\_\+trapping(), iflags, init\+\_\+broadcast\+\_\+trapping(), L\+I\+B, O\+F\+F, O\+N, setctty(), sg, start\+\_\+screen, T\+R\+U\+E, tt2\+\_\+char\+\_\+active, tt\+\_\+chan, and tt\+\_\+char\+\_\+active.
+
+
+\begin{DoxyCode}
+409 \{
+410     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} mask = \hyperlink{vmstty_8c_aabca768b051a5ba6553d48151f525577}{LIB}$M\_CLI\_CTRLT | \hyperlink{vmstty_8c_aabca768b051a5ba6553d48151f525577}{LIB}$M\_CLI\_CTRLY;
+411 
+412     (void) lib\hyperlink{vmstty_8c_a34479cdfd6c374dfa10a53fd9d361b67}{$disable\_ctrl}(&mask, 0);
+413     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb} == 0) \{        \textcolor{comment}{/* do this stuff once only */}
+414 \textcolor{preprocessor}{#ifdef USE\_QIO\_INPUT}
+415         \hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb} = \hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\_chan};
+416 \textcolor{preprocessor}{#else   }
+417 \textcolor{preprocessor}{        smg$create\_virtual\_keyboard(&kb);}
+418 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/*USE\_QIO\_INPUT*/}\textcolor{preprocessor}{}
+419         \hyperlink{vmsmail_8c_aabf5f23c6b77867f40c3491d9eb780db}{init\_broadcast\_trapping}();
+420     \}
+421     \hyperlink{vmsmail_8c_ae2dcb201978a4d47c2d5c4765b001423}{enable\_broadcast\_trapping}();   \textcolor{comment}{/* no-op if !defined(MAIL) */}
+422     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_acc12d1d0c33d63aee349eac10eec35a5}{cbreak} = (\hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb} != 0) ? \hyperlink{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{ON} : \hyperlink{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{OFF};
+423     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a4a064908e2a505018c11319cc53d7fe1}{echo}   = (\hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb} != 0) ? \hyperlink{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{OFF} : \hyperlink{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{ON};
+424     \textcolor{comment}{/* disable tab & form-feed expansion; prepare for broadcast trapping */}
+425     \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt\_char  = \hyperlink{vmstty_8c_ae3dd2f7f88c51ebdb5c53fa669f30f13}{tt\_char\_active};
+426     \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt2\_char = \hyperlink{vmstty_8c_aa236230d938a9ffc66b26bd2af62c576}{tt2\_char\_active};
+427     \hyperlink{vmstty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty}();
+428 
+429     \hyperlink{winprocs_8h_a3e68a74ac942b6042d4aadbdb33f9af5}{start\_screen}();
+430     \hyperlink{vmstty_8c_a889ea83f1c92b34d38debe95ae5ac89e}{settty\_needed} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+431 \}
+\end{DoxyCode}
+\hypertarget{vmstty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}{\index{vmstty.\+c@{vmstty.\+c}!settty@{settty}}
+\index{settty@{settty}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{settty}]{\setlength{\rightskip}{0pt plus 5cm}void settty (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+) const}}\label{vmstty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}
+
+
+Definition at line 375 of file vmstty.\+c.
+
+
+
+References \$delete\+\_\+virtual\+\_\+keyboard(), \$enable\+\_\+ctrl(), instance\+\_\+flags\+::cbreak, disable\+\_\+broadcast\+\_\+trapping(), instance\+\_\+flags\+::echo, end\+\_\+screen, F\+A\+L\+S\+E, iflags, O\+F\+F, O\+N, raw\+\_\+print, setctty(), sg, tt2\+\_\+char\+\_\+restore, and tt\+\_\+char\+\_\+restore.
+
+
+
+Referenced by resettty(), and shuttty().
+
+
+\begin{DoxyCode}
+377 \{
+378     \textcolor{keywordflow}{if} (!\hyperlink{vmstty_8c_a6a90f0eba5bd6243819e294c9207ec48}{bombing}) \hyperlink{winprocs_8h_ad07041de3a8f09c2e440adba39093b6b}{end\_screen}();
+379     \textcolor{keywordflow}{if} (s) \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(s);
+380     \hyperlink{vmsmail_8c_aa8d5e9f7cdf268abdd26ab92758571d1}{disable\_broadcast\_trapping}();
+381 \textcolor{preprocessor}{#if 0       }\textcolor{comment}{/* let SMG's exit handler do the cleanup (as per doc) */}\textcolor{preprocessor}{}
+382 \textcolor{comment}{/* #ifndef USE\_QIO\_INPUT */}
+383     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb})  smg\hyperlink{vmstty_8c_a69c2c6f82b7a4bf31387f4fb605f4385}{$delete\_virtual\_keyboard}(&\hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb}),  \hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb} = 0;
+384 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* 0 (!USE\_QIO\_INPUT) */}\textcolor{preprocessor}{}
+385     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_ad60ee227231df21954b7444ae48c7dcc}{ctrl\_mask})
+386         (void) lib\hyperlink{vmstty_8c_a2dfa4e0787dde03674f73281ec378bd1}{$enable\_ctrl}(&\hyperlink{vmstty_8c_ad60ee227231df21954b7444ae48c7dcc}{ctrl\_mask}, 0);
+387     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a4a064908e2a505018c11319cc53d7fe1}{echo} = \hyperlink{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{ON};
+388     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_acc12d1d0c33d63aee349eac10eec35a5}{cbreak} = \hyperlink{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{OFF};
+389     \textcolor{comment}{/* reset original tab, form-feed, broadcast settings */}
+390     \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt\_char  = \hyperlink{vmstty_8c_a5b473d449057ac00b1d4db7bbbf53908}{tt\_char\_restore};
+391     \hyperlink{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{sg}.sm.tt2\_char = \hyperlink{vmstty_8c_a5b80526c71a70b644897a3020acdff66}{tt2\_char\_restore};
+392     \hyperlink{vmstty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty}();
+393 
+394     \hyperlink{vmstty_8c_a889ea83f1c92b34d38debe95ae5ac89e}{settty\_needed} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+395 \}
+\end{DoxyCode}
+\hypertarget{vmstty_8c_a5872f6e6132faf3220a81636fd5835f7}{\index{vmstty.\+c@{vmstty.\+c}!shuttty@{shuttty}}
+\index{shuttty@{shuttty}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{shuttty}]{\setlength{\rightskip}{0pt plus 5cm}void shuttty (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+) const}}\label{vmstty_8c_a5872f6e6132faf3220a81636fd5835f7}
+
+
+Definition at line 399 of file vmstty.\+c.
+
+
+
+References F\+A\+L\+S\+E, settty(), and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+401 \{
+402     \hyperlink{vmstty_8c_a6a90f0eba5bd6243819e294c9207ec48}{bombing} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+403     \hyperlink{vmstty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}{settty}(s);
+404     \hyperlink{vmstty_8c_a6a90f0eba5bd6243819e294c9207ec48}{bombing} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+405 \}
+\end{DoxyCode}
+\hypertarget{vmstty_8c_a74ecf56911d5d9657e8e4be04b1d8941}{\index{vmstty.\+c@{vmstty.\+c}!vms\+\_\+getchar@{vms\+\_\+getchar}}
+\index{vms\+\_\+getchar@{vms\+\_\+getchar}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{vms\+\_\+getchar}]{\setlength{\rightskip}{0pt plus 5cm}int vms\+\_\+getchar (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vmstty_8c_a74ecf56911d5d9657e8e4be04b1d8941}
+U\+S\+E\+\_\+\+Q\+I\+O\+\_\+\+I\+N\+P\+U\+T 
+
+Definition at line 106 of file vmstty.\+c.
+
+
+
+References \$qiow(), \$read\+\_\+keystroke(), C\+S\+I, C\+T\+R\+L, E\+S\+C, iflags, instance\+\_\+flags\+::num\+\_\+pad, program\+\_\+state, Q\+I\+O\+\_\+\+F\+U\+N\+C, S\+S3, \+\_\+rd\+\_\+iosb\+::status, and vms\+\_\+ok.
+
+
+\begin{DoxyCode}
+107 \{
+108     \textcolor{keywordtype}{short} key;
+109 \textcolor{preprocessor}{#ifdef USE\_QIO\_INPUT}
+110     \textcolor{keyword}{struct }\hyperlink{struct__rd__iosb}{\_rd\_iosb} iosb;
+111     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} sts;
+112     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} kb\_buf;
+113 \textcolor{preprocessor}{#else   }\textcolor{comment}{/* SMG input */}\textcolor{preprocessor}{}
+114     \textcolor{keyword}{static} \textcolor{keyword}{volatile} \textcolor{keywordtype}{int} recurse = 0;    \textcolor{comment}{/* SMG is not AST re-entrant! */}
+115 \textcolor{preprocessor}{#endif}
+116 
+117     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.done\_hup) \{
+118     \textcolor{comment}{/* hangup has occurred; do not attempt to get further user input */}
+119     \textcolor{keywordflow}{return} \hyperlink{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}{ESC};
+120     \}
+121 
+122 \textcolor{preprocessor}{#ifdef USE\_QIO\_INPUT}
+123     \textcolor{keywordflow}{if} (inc > 0) \{
+124     \textcolor{comment}{/* we have buffered character(s) from previous read */}
+125     kb\_buf = *inp++;
+126     --inc;
+127     sts = SS$\_NORMAL;
+128     \} \textcolor{keywordflow}{else} \{
+129     sts = sys\hyperlink{vmstty_8c_a7c6a03713e798e7ad829aac9ad1df070}{$qiow}(0, \hyperlink{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{tt\_chan}, \hyperlink{vmstty_8c_a902ca6aeb6518d2aa30ed12231df526b}{QIO\_FUNC}, &iosb, (\textcolor{keywordtype}{void}(*)())0, 0,
+130                &kb\_buf, \textcolor{keyword}{sizeof} kb\_buf, 0, 0, 0, 0);
+131     \}
+132     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a48ea266d94b89f45f4a28763250adf15}{vms\_ok}(sts)) \{
+133     \textcolor{keywordflow}{if} (kb\_buf == \hyperlink{vmstty_8c_a38adf45853bf0ab387f2b9ce3145cd37}{CTRL}(\textcolor{charliteral}{'C'})) \{
+134         \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\_char}) gsignal(SIGINT);
+135         key = (short)kb\_buf;
+136     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (kb\_buf == \textcolor{charliteral}{'\(\backslash\)r'}) \{    \textcolor{comment}{/* <return> */}
+137         key = (short)\textcolor{charliteral}{'\(\backslash\)n'};
+138     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (kb\_buf == \hyperlink{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}{ESC} || kb\_buf == \hyperlink{vmstty_8c_abc85bb07f8fa1e7c2eba467b6c8e8624}{CSI} || kb\_buf == \hyperlink{vmstty_8c_af93150f78298c944b62303ea784b1653}{SS3}) \{
+139         \textcolor{keywordflow}{switch}(parse\_function\_key((\textcolor{keywordtype}{int})kb\_buf)) \{
+140           \textcolor{keywordflow}{case} SMG$K\_TRM\_UP:    key = \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad} ? \textcolor{charliteral}{'8'} : \textcolor{charliteral}{'k'};  \textcolor{keywordflow}{break};
+141           \textcolor{keywordflow}{case} SMG$K\_TRM\_DOWN:  key = \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad} ? \textcolor{charliteral}{'2'} : \textcolor{charliteral}{'j'};  \textcolor{keywordflow}{break};
+142           \textcolor{keywordflow}{case} SMG$K\_TRM\_LEFT:  key = \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad} ? \textcolor{charliteral}{'4'} : \textcolor{charliteral}{'h'};  \textcolor{keywordflow}{break};
+143           \textcolor{keywordflow}{case} SMG$K\_TRM\_RIGHT: key = \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad} ? \textcolor{charliteral}{'6'} : \textcolor{charliteral}{'l'};  \textcolor{keywordflow}{break};
+144           \textcolor{keywordflow}{default}:          key = \hyperlink{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}{ESC};   \textcolor{keywordflow}{break};
+145         \}
+146     \} \textcolor{keywordflow}{else} \{
+147         key = (short)kb\_buf;
+148     \}
+149     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (sts == SS$\_HANGUP || iosb.status == SS$\_HANGUP
+150         || sts == SS$\_DEVOFFLINE) \{
+151     gsignal(SIGHUP);
+152     key = \hyperlink{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}{ESC};
+153     \} \textcolor{keywordflow}{else}          \textcolor{comment}{/*(this should never happen)*/}
+154     key = getchar();
+155 
+156 \textcolor{preprocessor}{#else   }
+157 \textcolor{preprocessor}{    if (recurse++ == 0 && kb != 0) \{}
+158     smg\hyperlink{vmstty_8c_a485a591a16d792d261806d84314ae7a4}{$read\_keystroke}(&\hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb}, &key);
+159     \textcolor{keywordflow}{switch} (key) \{
+160       \textcolor{keywordflow}{case} SMG$K\_TRM\_UP:    \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad} ? \textcolor{charliteral}{'8'} : key = \textcolor{charliteral}{'k'};  \textcolor{keywordflow}{break};
+161       \textcolor{keywordflow}{case} SMG$K\_TRM\_DOWN:  \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad} ? \textcolor{charliteral}{'2'} : key = \textcolor{charliteral}{'j'};  \textcolor{keywordflow}{break};
+162       \textcolor{keywordflow}{case} SMG$K\_TRM\_LEFT:  \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad} ? \textcolor{charliteral}{'4'} : key = \textcolor{charliteral}{'h'};  \textcolor{keywordflow}{break};
+163       \textcolor{keywordflow}{case} SMG$K\_TRM\_RIGHT: \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad} ? \textcolor{charliteral}{'6'} : key = \textcolor{charliteral}{'l'};  \textcolor{keywordflow}{break};
+164       \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)r'}:        key = \textcolor{charliteral}{'\(\backslash\)n'}; \textcolor{keywordflow}{break};
+165       \textcolor{keywordflow}{default}:      \textcolor{keywordflow}{if} (key > 255)  key = \hyperlink{vmstty_8c_a4af1b6159e447ba72652bb7fcdfa726e}{ESC};
+166                 \textcolor{keywordflow}{break};
+167     \}
+168     \} \textcolor{keywordflow}{else} \{
+169     \textcolor{comment}{/* abnormal input--either SMG didn't initialize properly or}
+170 \textcolor{comment}{       vms\_getchar() has been called recursively (via SIGINT handler).}
+171 \textcolor{comment}{     */}
+172     \textcolor{keywordflow}{if} (\hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb} != 0)          \textcolor{comment}{/* must have been a recursive call */}
+173         smg\hyperlink{vmstty_8c_a10acea58ee5f67ab39eb0d36853d8fb6}{$cancel\_input}(&\hyperlink{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{kb});   \textcolor{comment}{/*  from an interrupt handler      */}
+174     key = getchar();
+175     \}
+176     --recurse;
+177 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* USE\_QIO\_INPUT */}\textcolor{preprocessor}{}
+178 
+179     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{int})key;
+180 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{vmstty_8c_a6a90f0eba5bd6243819e294c9207ec48}{\index{vmstty.\+c@{vmstty.\+c}!bombing@{bombing}}
+\index{bombing@{bombing}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{bombing}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} bombing = {\bf F\+A\+L\+S\+E}\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_a6a90f0eba5bd6243819e294c9207ec48}
+
+
+Definition at line 57 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_ad60ee227231df21954b7444ae48c7dcc}{\index{vmstty.\+c@{vmstty.\+c}!ctrl\+\_\+mask@{ctrl\+\_\+mask}}
+\index{ctrl\+\_\+mask@{ctrl\+\_\+mask}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{ctrl\+\_\+mask}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long ctrl\+\_\+mask = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_ad60ee227231df21954b7444ae48c7dcc}
+
+
+Definition at line 103 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a290d0adea4016784acb151e2620c902a}{\index{vmstty.\+c@{vmstty.\+c}!erase\+\_\+char@{erase\+\_\+char}}
+\index{erase\+\_\+char@{erase\+\_\+char}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{erase\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char erase\+\_\+char}}\label{vmstty_8c_a290d0adea4016784acb151e2620c902a}
+
+
+Definition at line 56 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{\index{vmstty.\+c@{vmstty.\+c}!intr\+\_\+char@{intr\+\_\+char}}
+\index{intr\+\_\+char@{intr\+\_\+char}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{intr\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char intr\+\_\+char}}\label{vmstty_8c_a9a36ce0a8c96d97bd9d993e353072f21}
+
+
+Definition at line 56 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_ad1f38908c61b9823f7b2b6e2b7a9482c}{\index{vmstty.\+c@{vmstty.\+c}!io@{io}}
+\index{io@{io}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{io}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf \+\_\+sm\+\_\+iosb} io}}\label{vmstty_8c_ad1f38908c61b9823f7b2b6e2b7a9482c}
+
+
+Definition at line 97 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}{\index{vmstty.\+c@{vmstty.\+c}!kb@{kb}}
+\index{kb@{kb}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{kb}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long kb = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_a493cc54f727aff11a35493038a3a3ceb}
+
+
+Definition at line 58 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{\index{vmstty.\+c@{vmstty.\+c}!kill\+\_\+char@{kill\+\_\+char}}
+\index{kill\+\_\+char@{kill\+\_\+char}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{kill\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char kill\+\_\+char}}\label{vmstty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}
+
+
+Definition at line 56 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_ac95761f812b1cd22186a50db1ef8030b}{\index{vmstty.\+c@{vmstty.\+c}!ospeed@{ospeed}}
+\index{ospeed@{ospeed}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{ospeed}]{\setlength{\rightskip}{0pt plus 5cm}short ospeed}}\label{vmstty_8c_ac95761f812b1cd22186a50db1ef8030b}
+
+
+Definition at line 21 of file tclib.\+c.
+
+
+
+Referenced by gettty(), tc\+\_\+store(), and tputs().
+
+\hypertarget{vmstty_8c_a889ea83f1c92b34d38debe95ae5ac89e}{\index{vmstty.\+c@{vmstty.\+c}!settty\+\_\+needed@{settty\+\_\+needed}}
+\index{settty\+\_\+needed@{settty\+\_\+needed}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{settty\+\_\+needed}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} settty\+\_\+needed = {\bf F\+A\+L\+S\+E}\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_a889ea83f1c92b34d38debe95ae5ac89e}
+
+
+Definition at line 57 of file vmstty.\+c.
+
+\hypertarget{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}{\index{vmstty.\+c@{vmstty.\+c}!sg@{sg}}
+\index{sg@{sg}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{sg}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   sg\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_ac886722fdcad3975eb1e131a9eacc503}
+
+
+Referenced by gettty(), setctty(), setftty(), and settty().
+
+\hypertarget{vmstty_8c_aa26ef43221f648102c8a042ac2b14261}{\index{vmstty.\+c@{vmstty.\+c}!sm@{sm}}
+\index{sm@{sm}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{sm}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf \+\_\+sm\+\_\+bufr} sm}}\label{vmstty_8c_aa26ef43221f648102c8a042ac2b14261}
+
+
+Definition at line 98 of file vmstty.\+c.
+
+
+
+Referenced by join\+\_\+map().
+
+\hypertarget{vmstty_8c_aa236230d938a9ffc66b26bd2af62c576}{\index{vmstty.\+c@{vmstty.\+c}!tt2\+\_\+char\+\_\+active@{tt2\+\_\+char\+\_\+active}}
+\index{tt2\+\_\+char\+\_\+active@{tt2\+\_\+char\+\_\+active}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{tt2\+\_\+char\+\_\+active}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long tt2\+\_\+char\+\_\+active = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_aa236230d938a9ffc66b26bd2af62c576}
+
+
+Definition at line 102 of file vmstty.\+c.
+
+
+
+Referenced by gettty(), and setftty().
+
+\hypertarget{vmstty_8c_a5b80526c71a70b644897a3020acdff66}{\index{vmstty.\+c@{vmstty.\+c}!tt2\+\_\+char\+\_\+restore@{tt2\+\_\+char\+\_\+restore}}
+\index{tt2\+\_\+char\+\_\+restore@{tt2\+\_\+char\+\_\+restore}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{tt2\+\_\+char\+\_\+restore}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long tt2\+\_\+char\+\_\+restore = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_a5b80526c71a70b644897a3020acdff66}
+
+
+Definition at line 102 of file vmstty.\+c.
+
+
+
+Referenced by gettty(), and settty().
+
+\hypertarget{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}{\index{vmstty.\+c@{vmstty.\+c}!tt\+\_\+chan@{tt\+\_\+chan}}
+\index{tt\+\_\+chan@{tt\+\_\+chan}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{tt\+\_\+chan}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short tt\+\_\+chan = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_a135bf3d4eda369ab2a9ee7a99a7ecd7e}
+
+
+Definition at line 100 of file vmstty.\+c.
+
+
+
+Referenced by setftty().
+
+\hypertarget{vmstty_8c_ae3dd2f7f88c51ebdb5c53fa669f30f13}{\index{vmstty.\+c@{vmstty.\+c}!tt\+\_\+char\+\_\+active@{tt\+\_\+char\+\_\+active}}
+\index{tt\+\_\+char\+\_\+active@{tt\+\_\+char\+\_\+active}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{tt\+\_\+char\+\_\+active}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long tt\+\_\+char\+\_\+active = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_ae3dd2f7f88c51ebdb5c53fa669f30f13}
+
+
+Definition at line 101 of file vmstty.\+c.
+
+
+
+Referenced by gettty(), and setftty().
+
+\hypertarget{vmstty_8c_a5b473d449057ac00b1d4db7bbbf53908}{\index{vmstty.\+c@{vmstty.\+c}!tt\+\_\+char\+\_\+restore@{tt\+\_\+char\+\_\+restore}}
+\index{tt\+\_\+char\+\_\+restore@{tt\+\_\+char\+\_\+restore}!vmstty.\+c@{vmstty.\+c}}
+\subsubsection[{tt\+\_\+char\+\_\+restore}]{\setlength{\rightskip}{0pt plus 5cm}unsigned long tt\+\_\+char\+\_\+restore = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{vmstty_8c_a5b473d449057ac00b1d4db7bbbf53908}
+
+
+Definition at line 101 of file vmstty.\+c.
+
+
+
+Referenced by settty().
+

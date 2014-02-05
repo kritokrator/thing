@@ -1,0 +1,538 @@
+\hypertarget{nhraykey_8c}{\section{nethack/sys/winnt/nhraykey.c File Reference}
+\label{nhraykey_8c}\index{nethack/sys/winnt/nhraykey.\+c@{nethack/sys/winnt/nhraykey.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wintty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}win32api.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structpad}{pad}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{nhraykey_8c_acf18a975fff4cf90bfce9deab5086f05}{K\+E\+Y\+P\+A\+D\+L\+O}~0x47
+\item 
+\#define \hyperlink{nhraykey_8c_ae755ba9a07039e5619f9d60c52fc3ed9}{K\+E\+Y\+P\+A\+D\+H\+I}~0x53
+\item 
+\#define \hyperlink{nhraykey_8c_aa5b353d8836ddaccdd103da5798386a5}{P\+A\+D\+K\+E\+Y\+S}~(\hyperlink{wingem1_8c_ae755ba9a07039e5619f9d60c52fc3ed9}{K\+E\+Y\+P\+A\+D\+H\+I} -\/ \hyperlink{wingem1_8c_acf18a975fff4cf90bfce9deab5086f05}{K\+E\+Y\+P\+A\+D\+L\+O} + 1)
+\item 
+\#define \hyperlink{nhraykey_8c_ab9d30ff1fc8d60c8dd5baf0c045d9100}{iskeypad}(x)~(\hyperlink{wingem1_8c_acf18a975fff4cf90bfce9deab5086f05}{K\+E\+Y\+P\+A\+D\+L\+O} $<$= (x) \&\& (x) $<$= \hyperlink{wingem1_8c_ae755ba9a07039e5619f9d60c52fc3ed9}{K\+E\+Y\+P\+A\+D\+H\+I})
+\item 
+\#define \hyperlink{nhraykey_8c_a6228f8d69194385af429c63787533c62}{isnumkeypad}(x)~(\hyperlink{wingem1_8c_acf18a975fff4cf90bfce9deab5086f05}{K\+E\+Y\+P\+A\+D\+L\+O} $<$= (x) \&\& (x) $<$= 0x51 \&\& (x) != 0x4\+A \&\& (x) != 0x4\+E)
+\item 
+\#define \hyperlink{nhraykey_8c_a5d9506e55d2bb8b5072b999965290112}{inmap}(x, vk)~(((x) $>$ '\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}' \&\& (x) $<$ 'Z') $\vert$$\vert$ (vk) == 0x\+B\+F $\vert$$\vert$ (x) == '2')
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{nhraykey_8c_a3f7ba082a0fabb0cc4e4cff20b00dc76}{F\+D\+E\+C\+L} (\hyperlink{nhraykey_8c_a38f693ac15864e7d2b981ab25ee7461c}{\+\_\+\+\_\+declspec}(dllexport) \+\_\+\+\_\+stdcall Process\+Keystroke,(H\+A\+N\+D\+L\+E \hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{h\+Con\+In}, I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D $\ast$\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} $\ast$valid, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P} numberpad, int portdebug))
+\item 
+int W\+I\+N\+A\+P\+I \hyperlink{nhraykey_8c_ae5b2db88ecc64d6e4686b5714e9a940d}{Dll\+Main} (H\+I\+N\+S\+T\+A\+N\+C\+E h\+Instance, D\+W\+O\+R\+D fdw\+Reason, \hyperlink{def__os2_8h_a7bf1af67649a59328d45cbbfa9c344dd}{P\+V\+O\+I\+D} pv\+Reserved)
+\item 
+int \hyperlink{nhraykey_8c_a6fe958a2f045c79235fade98bc60a0a7}{F\+D\+E\+C\+L} (\hyperlink{nhraykey_8c_a7b61805c38c02bfed73cd5882254cc25}{process\+\_\+keystroke2},(H\+A\+N\+D\+L\+E, I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D $\ast$\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} $\ast$valid))
+\item 
+static int \hyperlink{nhraykey_8c_aa58b4585855a0159af988dff39e830f8}{F\+D\+E\+C\+L} (\hyperlink{nhraykey_8c_ac4d780aed8d74517d19b4a1aa316ca5f}{is\+\_\+altseq},(unsigned long shiftstate))
+\item 
+static int \hyperlink{nhraykey_8c_ac4d780aed8d74517d19b4a1aa316ca5f}{is\+\_\+altseq} (unsigned long shiftstate)
+\item 
+int \hyperlink{nhraykey_8c_a38f693ac15864e7d2b981ab25ee7461c}{\+\_\+\+\_\+declspec} (dllexport)
+\item 
+int \hyperlink{nhraykey_8c_a7b61805c38c02bfed73cd5882254cc25}{process\+\_\+keystroke2} (H\+A\+N\+D\+L\+E \hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{h\+Con\+In}, I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D $\ast$\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} $\ast$valid)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static char \hyperlink{nhraykey_8c_a64b61eb3872f2fc06f8aae1b5591cdb1}{where\+\_\+to\+\_\+get\+\_\+source} \mbox{[}$\,$\mbox{]} = \char`\"{}http\+://www.\+nethack.\+org/\char`\"{}
+\item 
+static char \hyperlink{nhraykey_8c_aa9adb332a99d2f887901faae016a3d70}{author} \mbox{[}$\,$\mbox{]} = \char`\"{}Ray Chason\char`\"{}
+\item 
+H\+A\+N\+D\+L\+E \hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{h\+Con\+In}
+\item 
+I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}
+\item 
+char \hyperlink{nhraykey_8c_a9977760c7f06d8918fdcbf711e24dd2b}{dllname} \mbox{[}512\mbox{]}
+\item 
+char $\ast$ \hyperlink{nhraykey_8c_a329a24856dfe7e97527778a2564e7860}{shortdllname}
+\item 
+static I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D \hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\+\_\+key}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} struct \hyperlink{structpad}{pad} \hyperlink{nhraykey_8c_ad22673a2b3cfa73ca7b9b0c8186ecdf2}{keypad} \mbox{[}\hyperlink{wingem1_8c_aa5b353d8836ddaccdd103da5798386a5}{P\+A\+D\+K\+E\+Y\+S}\mbox{]}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} struct \hyperlink{structpad}{pad} \hyperlink{nhraykey_8c_a1f5d2fad9a6ece1a0c526c2b72c6c206}{numpad} \mbox{[}\hyperlink{wingem1_8c_aa5b353d8836ddaccdd103da5798386a5}{P\+A\+D\+K\+E\+Y\+S}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{nhraykey_8c_a5d9506e55d2bb8b5072b999965290112}{\index{nhraykey.\+c@{nhraykey.\+c}!inmap@{inmap}}
+\index{inmap@{inmap}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{inmap}]{\setlength{\rightskip}{0pt plus 5cm}\#define inmap(
+\begin{DoxyParamCaption}
+\item[{}]{x, }
+\item[{}]{vk}
+\end{DoxyParamCaption}
+)~(((x) $>$ '{\bf A}' \&\& (x) $<$ 'Z') $\vert$$\vert$ (vk) == 0x\+B\+F $\vert$$\vert$ (x) == '2')}}\label{nhraykey_8c_a5d9506e55d2bb8b5072b999965290112}
+
+
+Definition at line 251 of file nhraykey.\+c.
+
+
+
+Referenced by \+\_\+\+\_\+declspec().
+
+\hypertarget{nhraykey_8c_ab9d30ff1fc8d60c8dd5baf0c045d9100}{\index{nhraykey.\+c@{nhraykey.\+c}!iskeypad@{iskeypad}}
+\index{iskeypad@{iskeypad}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{iskeypad}]{\setlength{\rightskip}{0pt plus 5cm}\#define iskeypad(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~({\bf K\+E\+Y\+P\+A\+D\+L\+O} $<$= (x) \&\& (x) $<$= {\bf K\+E\+Y\+P\+A\+D\+H\+I})}}\label{nhraykey_8c_ab9d30ff1fc8d60c8dd5baf0c045d9100}
+
+
+Definition at line 210 of file nhraykey.\+c.
+
+
+
+Referenced by \+\_\+\+\_\+declspec(), and process\+\_\+keystroke2().
+
+\hypertarget{nhraykey_8c_a6228f8d69194385af429c63787533c62}{\index{nhraykey.\+c@{nhraykey.\+c}!isnumkeypad@{isnumkeypad}}
+\index{isnumkeypad@{isnumkeypad}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{isnumkeypad}]{\setlength{\rightskip}{0pt plus 5cm}\#define isnumkeypad(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~({\bf K\+E\+Y\+P\+A\+D\+L\+O} $<$= (x) \&\& (x) $<$= 0x51 \&\& (x) != 0x4\+A \&\& (x) != 0x4\+E)}}\label{nhraykey_8c_a6228f8d69194385af429c63787533c62}
+
+
+Definition at line 211 of file nhraykey.\+c.
+
+
+
+Referenced by \+\_\+\+\_\+declspec(), and process\+\_\+keystroke2().
+
+\hypertarget{nhraykey_8c_ae755ba9a07039e5619f9d60c52fc3ed9}{\index{nhraykey.\+c@{nhraykey.\+c}!K\+E\+Y\+P\+A\+D\+H\+I@{K\+E\+Y\+P\+A\+D\+H\+I}}
+\index{K\+E\+Y\+P\+A\+D\+H\+I@{K\+E\+Y\+P\+A\+D\+H\+I}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{K\+E\+Y\+P\+A\+D\+H\+I}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+E\+Y\+P\+A\+D\+H\+I~0x53}}\label{nhraykey_8c_ae755ba9a07039e5619f9d60c52fc3ed9}
+
+
+Definition at line 207 of file nhraykey.\+c.
+
+\hypertarget{nhraykey_8c_acf18a975fff4cf90bfce9deab5086f05}{\index{nhraykey.\+c@{nhraykey.\+c}!K\+E\+Y\+P\+A\+D\+L\+O@{K\+E\+Y\+P\+A\+D\+L\+O}}
+\index{K\+E\+Y\+P\+A\+D\+L\+O@{K\+E\+Y\+P\+A\+D\+L\+O}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{K\+E\+Y\+P\+A\+D\+L\+O}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+E\+Y\+P\+A\+D\+L\+O~0x47}}\label{nhraykey_8c_acf18a975fff4cf90bfce9deab5086f05}
+
+
+Definition at line 206 of file nhraykey.\+c.
+
+
+
+Referenced by \+\_\+\+\_\+declspec(), and process\+\_\+keystroke2().
+
+\hypertarget{nhraykey_8c_aa5b353d8836ddaccdd103da5798386a5}{\index{nhraykey.\+c@{nhraykey.\+c}!P\+A\+D\+K\+E\+Y\+S@{P\+A\+D\+K\+E\+Y\+S}}
+\index{P\+A\+D\+K\+E\+Y\+S@{P\+A\+D\+K\+E\+Y\+S}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{P\+A\+D\+K\+E\+Y\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+D\+K\+E\+Y\+S~({\bf K\+E\+Y\+P\+A\+D\+H\+I} -\/ {\bf K\+E\+Y\+P\+A\+D\+L\+O} + 1)}}\label{nhraykey_8c_aa5b353d8836ddaccdd103da5798386a5}
+
+
+Definition at line 209 of file nhraykey.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{nhraykey_8c_a38f693ac15864e7d2b981ab25ee7461c}{\index{nhraykey.\+c@{nhraykey.\+c}!\+\_\+\+\_\+declspec@{\+\_\+\+\_\+declspec}}
+\index{\+\_\+\+\_\+declspec@{\+\_\+\+\_\+declspec}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{\+\_\+\+\_\+declspec}]{\setlength{\rightskip}{0pt plus 5cm}int \+\_\+\+\_\+declspec (
+\begin{DoxyParamCaption}
+\item[{dllexport}]{}
+\end{DoxyParamCaption}
+)}}\label{nhraykey_8c_a38f693ac15864e7d2b981ab25ee7461c}
+
+
+Definition at line 281 of file nhraykey.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, pad\+::cntrl, count, F\+A\+L\+S\+E, inmap, is\+\_\+altseq(), iskeypad, isnumkeypad, keypad, K\+E\+Y\+P\+A\+D\+L\+O, M, pad\+::normal, N\+U\+L\+L, numpad, pad\+::shift, Sprintf, stdout, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+288 \{
+289     \textcolor{keywordtype}{int} metaflags = 0, k = 0;
+290     \textcolor{keywordtype}{int} keycode, vk;
+291     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} ch, pre\_ch, mk = 0;
+292     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} \textcolor{keywordtype}{int} scan;
+293     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} shiftstate;
+294     \textcolor{keywordtype}{int} altseq = 0;
+295     \textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structpad}{pad} *kpad;
+296     DWORD \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+297 
+298     shiftstate = 0L;
+299     ch = pre\_ch = \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}->Event.KeyEvent.uChar.AsciiChar;
+300     scan  = \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}->Event.KeyEvent.wVirtualScanCode;
+301     vk    = \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}->Event.KeyEvent.wVirtualKeyCode;
+302     keycode = MapVirtualKey(vk, 2);
+303     shiftstate = \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}->Event.KeyEvent.dwControlKeyState;
+304     \textcolor{keywordflow}{if} (scan == 0 && vk == 0) \{
+305         \textcolor{comment}{/* It's the bogus\_key */}
+306         ReadConsoleInput(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir},1,&count);
+307         *valid = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+308         \textcolor{keywordflow}{return} 0;
+309     \}
+310 
+311     \textcolor{keywordflow}{if} (\hyperlink{nhraykey_8c_ac4d780aed8d74517d19b4a1aa316ca5f}{is\_altseq}(shiftstate)) \{
+312         \textcolor{keywordflow}{if} (ch || \hyperlink{nhraykey_8c_a5d9506e55d2bb8b5072b999965290112}{inmap}(keycode,vk)) altseq = 1;
+313         \textcolor{keywordflow}{else} altseq = -1;   \textcolor{comment}{/* invalid altseq */}
+314     \}
+315     \textcolor{keywordflow}{if} (ch || (\hyperlink{nhraykey_8c_ab9d30ff1fc8d60c8dd5baf0c045d9100}{iskeypad}(scan)) || (altseq > 0))
+316         *valid = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+317     \textcolor{comment}{/* if (!valid) return 0; */}
+318         \textcolor{comment}{/*}
+319 \textcolor{comment}{     * shiftstate can be checked to see if various special}
+320 \textcolor{comment}{         * keys were pressed at the same time as the key.}
+321 \textcolor{comment}{         * Currently we are using the ALT & SHIFT & CONTROLS.}
+322 \textcolor{comment}{         *}
+323 \textcolor{comment}{         *           RIGHT\_ALT\_PRESSED, LEFT\_ALT\_PRESSED,}
+324 \textcolor{comment}{         *           RIGHT\_CTRL\_PRESSED, LEFT\_CTRL\_PRESSED,}
+325 \textcolor{comment}{         *           SHIFT\_PRESSED,NUMLOCK\_ON, SCROLLLOCK\_ON,}
+326 \textcolor{comment}{         *           CAPSLOCK\_ON, ENHANCED\_KEY}
+327 \textcolor{comment}{         *}
+328 \textcolor{comment}{         * are all valid bit masks to use on shiftstate.}
+329 \textcolor{comment}{         * eg. (shiftstate & LEFT\_CTRL\_PRESSED) is true if the}
+330 \textcolor{comment}{         *      left control key was pressed with the keystroke.}
+331 \textcolor{comment}{         */}
+332         \textcolor{keywordflow}{if} (\hyperlink{nhraykey_8c_ab9d30ff1fc8d60c8dd5baf0c045d9100}{iskeypad}(scan)) \{
+333         ReadConsoleInput(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir},1,&count);
+334             kpad = numberpad ? \hyperlink{nhraykey_8c_a1f5d2fad9a6ece1a0c526c2b72c6c206}{numpad} : \hyperlink{nhraykey_8c_ad22673a2b3cfa73ca7b9b0c8186ecdf2}{keypad};
+335             \textcolor{keywordflow}{if} (shiftstate & SHIFT\_PRESSED) \{
+336                 ch = kpad[scan - \hyperlink{nhraykey_8c_acf18a975fff4cf90bfce9deab5086f05}{KEYPADLO}].\hyperlink{structpad_a42a0cc78157ef5c948b92bbf379ab3d4}{shift};
+337             \}
+338             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (shiftstate & (LEFT\_CTRL\_PRESSED | RIGHT\_CTRL\_PRESSED)) \{
+339                 ch = kpad[scan - \hyperlink{nhraykey_8c_acf18a975fff4cf90bfce9deab5086f05}{KEYPADLO}].\hyperlink{structpad_a5ebaedfe034b7f53a586260426085e14}{cntrl};
+340             \}
+341             \textcolor{keywordflow}{else} \{
+342                 ch = kpad[scan - \hyperlink{nhraykey_8c_acf18a975fff4cf90bfce9deab5086f05}{KEYPADLO}].\hyperlink{structpad_a4cd6384a403104717c1aec3768969e9a}{normal};
+343             \}
+344         \}
+345         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (altseq > 0) \{ \textcolor{comment}{/* ALT sequence */}
+346         ReadConsoleInput(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir},1,&count);
+347         \textcolor{keywordflow}{if} (vk == 0xBF) ch = \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'?'});
+348         \textcolor{keywordflow}{else} ch = \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(tolower(keycode));
+349         \}
+350     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ch < 32 && !\hyperlink{nhraykey_8c_a6228f8d69194385af429c63787533c62}{isnumkeypad}(scan)) \{
+351         \textcolor{comment}{/* Control code; ReadConsole seems to filter some of these,}
+352 \textcolor{comment}{         * including ESC */}
+353         ReadConsoleInput(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir},1,&count);
+354     \}
+355     \textcolor{comment}{/* Attempt to work better with international keyboards. */}
+356     \textcolor{keywordflow}{else} \{
+357         \hyperlink{def__os2_8h_aebb9e13210d88d43e32e735ada43a425}{CHAR} ch2;
+358         DWORD written;
+359         \textcolor{comment}{/* The bogus\_key guarantees that ReadConsole will return,}
+360 \textcolor{comment}{         * and does not itself do anything */}
+361         WriteConsoleInput(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn}, &\hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\_key}, 1, &written);
+362         ReadConsole(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},&ch2,1,&count,\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+363         \textcolor{comment}{/* Prevent high characters from being interpreted as alt}
+364 \textcolor{comment}{         * sequences; also filter the bogus\_key */}
+365         \textcolor{keywordflow}{if} (ch2 & 0x80)
+366             *valid = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+367         \textcolor{keywordflow}{else}
+368             ch = ch2;
+369                 \textcolor{keywordflow}{if} (ch == 0) *valid = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+370     \}
+371     \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'\(\backslash\)r'}) ch = \textcolor{charliteral}{'\(\backslash\)n'};
+372 \textcolor{preprocessor}{#ifdef PORT\_DEBUG}
+373     \textcolor{keywordflow}{if} (portdebug) \{
+374         \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+375         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf,
+376     \textcolor{stringliteral}{"PORTDEBUG: ch=%u, scan=%u, vk=%d, pre=%d, shiftstate=0x%X (ESC to end)\(\backslash\)n"},
+377             ch, scan, vk, pre\_ch, shiftstate);
+378         fprintf(\hyperlink{lev__lex_8h_a0c0ef221f95f64e8632451312fd18cc8}{stdout}, \textcolor{stringliteral}{"\(\backslash\)n%s"}, buf);
+379     \}
+380 \textcolor{preprocessor}{#endif}
+381     \textcolor{keywordflow}{return} ch;
+382 \}
+\end{DoxyCode}
+\hypertarget{nhraykey_8c_ae5b2db88ecc64d6e4686b5714e9a940d}{\index{nhraykey.\+c@{nhraykey.\+c}!Dll\+Main@{Dll\+Main}}
+\index{Dll\+Main@{Dll\+Main}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{Dll\+Main}]{\setlength{\rightskip}{0pt plus 5cm}int W\+I\+N\+A\+P\+I Dll\+Main (
+\begin{DoxyParamCaption}
+\item[{H\+I\+N\+S\+T\+A\+N\+C\+E}]{h\+Instance, }
+\item[{D\+W\+O\+R\+D}]{fdw\+Reason, }
+\item[{{\bf P\+V\+O\+I\+D}}]{pv\+Reserved}
+\end{DoxyParamCaption}
+)}}\label{nhraykey_8c_ae5b2db88ecc64d6e4686b5714e9a940d}
+
+
+Definition at line 178 of file nhraykey.\+c.
+
+
+
+References dllname, shortdllname, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+179 \{
+180     \textcolor{keywordtype}{char} dlltmpname[512];
+181     \textcolor{keywordtype}{char} *tmp = dlltmpname, *tmp2;
+182     *(tmp + GetModuleFileName(hInstance, tmp, 511)) = \textcolor{charliteral}{'\(\backslash\)0'};
+183     (void)strcpy(\hyperlink{nhraykey_8c_a9977760c7f06d8918fdcbf711e24dd2b}{dllname}, tmp);
+184     tmp2 = strrchr(\hyperlink{nhraykey_8c_a9977760c7f06d8918fdcbf711e24dd2b}{dllname}, \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'});
+185     \textcolor{keywordflow}{if} (tmp2) \{
+186         tmp2++;
+187         \hyperlink{nhraykey_8c_a329a24856dfe7e97527778a2564e7860}{shortdllname} = tmp2;
+188     \}
+189     \textcolor{comment}{/* A bogus key that will be filtered when received, to keep ReadConsole}
+190 \textcolor{comment}{     * from blocking */}
+191     \hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\_key}.EventType = KEY\_EVENT;
+192     \hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\_key}.Event.KeyEvent.bKeyDown = 1;
+193     \hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\_key}.Event.KeyEvent.wRepeatCount = 1;
+194     \hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\_key}.Event.KeyEvent.wVirtualKeyCode = 0;
+195     \hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\_key}.Event.KeyEvent.wVirtualScanCode = 0;
+196     \hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\_key}.Event.KeyEvent.uChar.AsciiChar = (\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar})0x80;
+197     \hyperlink{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{bogus\_key}.Event.KeyEvent.dwControlKeyState = 0;
+198     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+199 \}
+\end{DoxyCode}
+\hypertarget{nhraykey_8c_a3f7ba082a0fabb0cc4e4cff20b00dc76}{\index{nhraykey.\+c@{nhraykey.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf \+\_\+\+\_\+declspec}(dllexport) \+\_\+\+\_\+stdcall}]{Process\+Keystroke, }
+\item[{(H\+A\+N\+D\+L\+E {\bf h\+Con\+In}, I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D $\ast${\bf ir}, {\bf boolean} $\ast$valid, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P} numberpad, int portdebug)}]{}
+\end{DoxyParamCaption}
+)}}\label{nhraykey_8c_a3f7ba082a0fabb0cc4e4cff20b00dc76}
+\hypertarget{nhraykey_8c_a6fe958a2f045c79235fade98bc60a0a7}{\index{nhraykey.\+c@{nhraykey.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf process\+\_\+keystroke2}}]{, }
+\item[{(H\+A\+N\+D\+L\+E, I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D $\ast${\bf ir}, {\bf boolean} $\ast$valid)}]{}
+\end{DoxyParamCaption}
+)}}\label{nhraykey_8c_a6fe958a2f045c79235fade98bc60a0a7}
+\hypertarget{nhraykey_8c_aa58b4585855a0159af988dff39e830f8}{\index{nhraykey.\+c@{nhraykey.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf is\+\_\+altseq}}]{, }
+\item[{(unsigned long shiftstate)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{nhraykey_8c_aa58b4585855a0159af988dff39e830f8}
+\hypertarget{nhraykey_8c_ac4d780aed8d74517d19b4a1aa316ca5f}{\index{nhraykey.\+c@{nhraykey.\+c}!is\+\_\+altseq@{is\+\_\+altseq}}
+\index{is\+\_\+altseq@{is\+\_\+altseq}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{is\+\_\+altseq}]{\setlength{\rightskip}{0pt plus 5cm}static int is\+\_\+altseq (
+\begin{DoxyParamCaption}
+\item[{unsigned long}]{shiftstate}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{nhraykey_8c_ac4d780aed8d74517d19b4a1aa316ca5f}
+
+
+Definition at line 259 of file nhraykey.\+c.
+
+
+
+Referenced by \+\_\+\+\_\+declspec(), and process\+\_\+keystroke2().
+
+
+\begin{DoxyCode}
+261 \{
+262     \textcolor{comment}{/* We need to distinguish the Alt keys from the AltGr key.}
+263 \textcolor{comment}{     * On NT-based Windows, AltGr signals as right Alt and left Ctrl together;}
+264 \textcolor{comment}{     * on 95-based Windows, AltGr signals as right Alt only.}
+265 \textcolor{comment}{     * So on NT, we signal Alt if either Alt is pressed and left Ctrl is not,}
+266 \textcolor{comment}{     * and on 95, we signal Alt for left Alt only. */}
+267     \textcolor{keywordflow}{switch} (shiftstate & (RIGHT\_ALT\_PRESSED | LEFT\_ALT\_PRESSED | LEFT\_CTRL\_PRESSED)) \{
+268     \textcolor{keywordflow}{case} LEFT\_ALT\_PRESSED:
+269     \textcolor{keywordflow}{case} LEFT\_ALT\_PRESSED | LEFT\_CTRL\_PRESSED:
+270         \textcolor{keywordflow}{return} 1;
+271 
+272     \textcolor{keywordflow}{case} RIGHT\_ALT\_PRESSED:
+273     \textcolor{keywordflow}{case} RIGHT\_ALT\_PRESSED | LEFT\_ALT\_PRESSED:
+274         \textcolor{keywordflow}{return} (GetVersion() & 0x80000000) == 0;
+275 
+276         \textcolor{keywordflow}{default}:
+277             \textcolor{keywordflow}{return} 0;
+278     \}
+279 \}
+\end{DoxyCode}
+\hypertarget{nhraykey_8c_a7b61805c38c02bfed73cd5882254cc25}{\index{nhraykey.\+c@{nhraykey.\+c}!process\+\_\+keystroke2@{process\+\_\+keystroke2}}
+\index{process\+\_\+keystroke2@{process\+\_\+keystroke2}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{process\+\_\+keystroke2}]{\setlength{\rightskip}{0pt plus 5cm}int process\+\_\+keystroke2 (
+\begin{DoxyParamCaption}
+\item[{H\+A\+N\+D\+L\+E}]{h\+Con\+In, }
+\item[{I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D $\ast$}]{ir, }
+\item[{{\bf boolean} $\ast$}]{valid}
+\end{DoxyParamCaption}
+)}}\label{nhraykey_8c_a7b61805c38c02bfed73cd5882254cc25}
+
+
+Definition at line 384 of file nhraykey.\+c.
+
+
+
+References count, F\+A\+L\+S\+E, is\+\_\+altseq(), iskeypad, isnumkeypad, K\+E\+Y\+P\+A\+D\+L\+O, N\+U\+L\+L, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+388 \{
+389     \textcolor{comment}{/* Use these values for the numeric keypad */}
+390     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} keypad\_nums[] = \textcolor{stringliteral}{"789-456+1230."};
+391 
+392     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} ch;
+393     \textcolor{keywordtype}{int} vk;
+394     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} \textcolor{keywordtype}{int} scan;
+395     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} shiftstate;
+396     \textcolor{keywordtype}{int} altseq;
+397     DWORD \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+398 
+399     ch    = \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}->Event.KeyEvent.uChar.AsciiChar;
+400     vk    = \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}->Event.KeyEvent.wVirtualKeyCode;
+401     scan  = \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}->Event.KeyEvent.wVirtualScanCode;
+402     shiftstate = \hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir}->Event.KeyEvent.dwControlKeyState;
+403 
+404     \textcolor{keywordflow}{if} (scan == 0 && vk == 0) \{
+405         \textcolor{comment}{/* It's the bogus\_key */}
+406         ReadConsoleInput(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir},1,&count);
+407         *valid = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+408         \textcolor{keywordflow}{return} 0;
+409     \}
+410 
+411     altseq = \hyperlink{nhraykey_8c_ac4d780aed8d74517d19b4a1aa316ca5f}{is\_altseq}(shiftstate);
+412     \textcolor{keywordflow}{if} (ch || (\hyperlink{nhraykey_8c_ab9d30ff1fc8d60c8dd5baf0c045d9100}{iskeypad}(scan)) || altseq)
+413         *valid = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+414     \textcolor{comment}{/* if (!valid) return 0; */}
+415         \textcolor{comment}{/*}
+416 \textcolor{comment}{     * shiftstate can be checked to see if various special}
+417 \textcolor{comment}{         * keys were pressed at the same time as the key.}
+418 \textcolor{comment}{         * Currently we are using the ALT & SHIFT & CONTROLS.}
+419 \textcolor{comment}{         *}
+420 \textcolor{comment}{         *           RIGHT\_ALT\_PRESSED, LEFT\_ALT\_PRESSED,}
+421 \textcolor{comment}{         *           RIGHT\_CTRL\_PRESSED, LEFT\_CTRL\_PRESSED,}
+422 \textcolor{comment}{         *           SHIFT\_PRESSED,NUMLOCK\_ON, SCROLLLOCK\_ON,}
+423 \textcolor{comment}{         *           CAPSLOCK\_ON, ENHANCED\_KEY}
+424 \textcolor{comment}{         *}
+425 \textcolor{comment}{         * are all valid bit masks to use on shiftstate.}
+426 \textcolor{comment}{         * eg. (shiftstate & LEFT\_CTRL\_PRESSED) is true if the}
+427 \textcolor{comment}{         *      left control key was pressed with the keystroke.}
+428 \textcolor{comment}{         */}
+429         \textcolor{keywordflow}{if} (\hyperlink{nhraykey_8c_ab9d30ff1fc8d60c8dd5baf0c045d9100}{iskeypad}(scan) && !altseq) \{
+430         ReadConsoleInput(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir},1,&count);
+431             ch = keypad\_nums[scan - \hyperlink{nhraykey_8c_acf18a975fff4cf90bfce9deab5086f05}{KEYPADLO}];
+432         \}
+433     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ch < 32 && !\hyperlink{nhraykey_8c_a6228f8d69194385af429c63787533c62}{isnumkeypad}(scan)) \{
+434             \textcolor{comment}{/* Control code; ReadConsole seems to filter some of these,}
+435 \textcolor{comment}{         * including ESC */}
+436         ReadConsoleInput(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},\hyperlink{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{ir},1,&count);
+437     \}
+438     \textcolor{comment}{/* Attempt to work better with international keyboards. */}
+439     \textcolor{keywordflow}{else} \{
+440         \hyperlink{def__os2_8h_aebb9e13210d88d43e32e735ada43a425}{CHAR} ch2;
+441         ReadConsole(\hyperlink{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{hConIn},&ch2,1,&count,\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+442         ch = ch2 & 0xFF;
+443                 \textcolor{keywordflow}{if} (ch == 0) *valid = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+444     \}
+445     \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'\(\backslash\)r'}) ch = \textcolor{charliteral}{'\(\backslash\)n'};
+446     \textcolor{keywordflow}{return} ch;
+447 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{nhraykey_8c_aa9adb332a99d2f887901faae016a3d70}{\index{nhraykey.\+c@{nhraykey.\+c}!author@{author}}
+\index{author@{author}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{author}]{\setlength{\rightskip}{0pt plus 5cm}char author\mbox{[}$\,$\mbox{]} = \char`\"{}Ray Chason\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{nhraykey_8c_aa9adb332a99d2f887901faae016a3d70}
+
+
+Definition at line 161 of file nhraykey.\+c.
+
+\hypertarget{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}{\index{nhraykey.\+c@{nhraykey.\+c}!bogus\+\_\+key@{bogus\+\_\+key}}
+\index{bogus\+\_\+key@{bogus\+\_\+key}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{bogus\+\_\+key}]{\setlength{\rightskip}{0pt plus 5cm}I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D bogus\+\_\+key\hspace{0.3cm}{\ttfamily [static]}}}\label{nhraykey_8c_a0785ad9ca1be1aadcce210b10403ea73}
+
+
+Definition at line 176 of file nhraykey.\+c.
+
+\hypertarget{nhraykey_8c_a9977760c7f06d8918fdcbf711e24dd2b}{\index{nhraykey.\+c@{nhraykey.\+c}!dllname@{dllname}}
+\index{dllname@{dllname}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{dllname}]{\setlength{\rightskip}{0pt plus 5cm}char dllname\mbox{[}512\mbox{]}}}\label{nhraykey_8c_a9977760c7f06d8918fdcbf711e24dd2b}
+
+
+Definition at line 169 of file nhraykey.\+c.
+
+
+
+Referenced by Dll\+Main().
+
+\hypertarget{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}{\index{nhraykey.\+c@{nhraykey.\+c}!h\+Con\+In@{h\+Con\+In}}
+\index{h\+Con\+In@{h\+Con\+In}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{h\+Con\+In}]{\setlength{\rightskip}{0pt plus 5cm}H\+A\+N\+D\+L\+E h\+Con\+In}}\label{nhraykey_8c_a8769eb5a4e6cf9a83a2b14bc86e1711a}
+\hypertarget{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}{\index{nhraykey.\+c@{nhraykey.\+c}!ir@{ir}}
+\index{ir@{ir}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{ir}]{\setlength{\rightskip}{0pt plus 5cm}I\+N\+P\+U\+T\+\_\+\+R\+E\+C\+O\+R\+D ir}}\label{nhraykey_8c_a36fbf43baf7ce389c31a934faf4d0277}
+\hypertarget{nhraykey_8c_ad22673a2b3cfa73ca7b9b0c8186ecdf2}{\index{nhraykey.\+c@{nhraykey.\+c}!keypad@{keypad}}
+\index{keypad@{keypad}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{keypad}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} struct {\bf pad}  keypad\mbox{[}{\bf P\+A\+D\+K\+E\+Y\+S}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{nhraykey_8c_ad22673a2b3cfa73ca7b9b0c8186ecdf2}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+            \{\textcolor{charliteral}{'y'}, \textcolor{charliteral}{'Y'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'y'})\},        
+            \{\textcolor{charliteral}{'k'}, \textcolor{charliteral}{'K'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'k'})\},        
+            \{\textcolor{charliteral}{'u'}, \textcolor{charliteral}{'U'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'u'})\},        
+            \{\textcolor{charliteral}{'m'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'p'}), \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'p'})\},        
+            \{\textcolor{charliteral}{'h'}, \textcolor{charliteral}{'H'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'h'})\},        
+            \{\textcolor{charliteral}{'g'}, \textcolor{charliteral}{'G'}, \textcolor{charliteral}{'g'}\},        
+            \{\textcolor{charliteral}{'l'}, \textcolor{charliteral}{'L'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'l'})\},        
+            \{\textcolor{charliteral}{'+'}, \textcolor{charliteral}{'P'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'p'})\},        
+            \{\textcolor{charliteral}{'b'}, \textcolor{charliteral}{'B'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'b'})\},        
+            \{\textcolor{charliteral}{'j'}, \textcolor{charliteral}{'J'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'j'})\},        
+            \{\textcolor{charliteral}{'n'}, \textcolor{charliteral}{'N'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'n'})\},        
+            \{\textcolor{charliteral}{'i'}, \textcolor{charliteral}{'I'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'i'})\},        
+            \{\textcolor{charliteral}{'.'}, \textcolor{charliteral}{':'}, \textcolor{charliteral}{':'}\}         
+\}
+\end{DoxyCode}
+
+
+Referenced by \+\_\+\+\_\+declspec().
+
+\hypertarget{nhraykey_8c_a1f5d2fad9a6ece1a0c526c2b72c6c206}{\index{nhraykey.\+c@{nhraykey.\+c}!numpad@{numpad}}
+\index{numpad@{numpad}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{numpad}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} struct {\bf pad}  numpad\mbox{[}{\bf P\+A\+D\+K\+E\+Y\+S}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{nhraykey_8c_a1f5d2fad9a6ece1a0c526c2b72c6c206}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+            \{\textcolor{charliteral}{'7'}, \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'7'}), \textcolor{charliteral}{'7'}\},        
+            \{\textcolor{charliteral}{'8'}, \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'8'}), \textcolor{charliteral}{'8'}\},        
+            \{\textcolor{charliteral}{'9'}, \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'9'}), \textcolor{charliteral}{'9'}\},        
+            \{\textcolor{charliteral}{'m'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'p'}), \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'p'})\},        
+            \{\textcolor{charliteral}{'4'}, \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'4'}), \textcolor{charliteral}{'4'}\},        
+            \{\textcolor{charliteral}{'g'}, \textcolor{charliteral}{'G'}, \textcolor{charliteral}{'g'}\},        
+            \{\textcolor{charliteral}{'6'}, \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'6'}), \textcolor{charliteral}{'6'}\},        
+            \{\textcolor{charliteral}{'+'}, \textcolor{charliteral}{'P'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'p'})\},        
+            \{\textcolor{charliteral}{'1'}, \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'1'}), \textcolor{charliteral}{'1'}\},        
+            \{\textcolor{charliteral}{'2'}, \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'2'}), \textcolor{charliteral}{'2'}\},        
+            \{\textcolor{charliteral}{'3'}, \hyperlink{micro_8h_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'3'}), \textcolor{charliteral}{'3'}\},        
+            \{\textcolor{charliteral}{'i'}, \textcolor{charliteral}{'I'}, \hyperlink{micro_8h_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'i'})\},        
+            \{\textcolor{charliteral}{'.'}, \textcolor{charliteral}{':'}, \textcolor{charliteral}{':'}\}         
+\}
+\end{DoxyCode}
+
+
+Referenced by \+\_\+\+\_\+declspec().
+
+\hypertarget{nhraykey_8c_a329a24856dfe7e97527778a2564e7860}{\index{nhraykey.\+c@{nhraykey.\+c}!shortdllname@{shortdllname}}
+\index{shortdllname@{shortdllname}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{shortdllname}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ shortdllname}}\label{nhraykey_8c_a329a24856dfe7e97527778a2564e7860}
+
+
+Definition at line 170 of file nhraykey.\+c.
+
+
+
+Referenced by Dll\+Main().
+
+\hypertarget{nhraykey_8c_a64b61eb3872f2fc06f8aae1b5591cdb1}{\index{nhraykey.\+c@{nhraykey.\+c}!where\+\_\+to\+\_\+get\+\_\+source@{where\+\_\+to\+\_\+get\+\_\+source}}
+\index{where\+\_\+to\+\_\+get\+\_\+source@{where\+\_\+to\+\_\+get\+\_\+source}!nhraykey.\+c@{nhraykey.\+c}}
+\subsubsection[{where\+\_\+to\+\_\+get\+\_\+source}]{\setlength{\rightskip}{0pt plus 5cm}char where\+\_\+to\+\_\+get\+\_\+source\mbox{[}$\,$\mbox{]} = \char`\"{}http\+://www.\+nethack.\+org/\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{nhraykey_8c_a64b61eb3872f2fc06f8aae1b5591cdb1}
+
+
+Definition at line 160 of file nhraykey.\+c.
+

@@ -1,0 +1,2131 @@
+\hypertarget{sys_2wince_2mhmenu_8c}{\section{nethack/sys/wince/mhmenu.c File Reference}
+\label{sys_2wince_2mhmenu_8c}\index{nethack/sys/wince/mhmenu.\+c@{nethack/sys/wince/mhmenu.\+c}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mhmenu.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhmain.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhmsg.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhcmd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhinput.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhfont.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhcolor.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhtxtbuf.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmswin__menu__item}{mswin\+\_\+menu\+\_\+item}
+\item 
+struct \hyperlink{structmswin__nethack__menu__window}{mswin\+\_\+nethack\+\_\+menu\+\_\+window}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{M\+E\+N\+U\+\_\+\+M\+A\+R\+G\+I\+N}~0
+\item 
+\#define \hyperlink{sys_2wince_2mhmenu_8c_a952b01afec1711bc486a207765acb1a6}{N\+H\+M\+E\+N\+U\+\_\+\+S\+T\+R\+\_\+\+S\+I\+Z\+E}~\hyperlink{wingem1_8c_ab26c26cbf7a0c97d8960c3cfb413f882}{B\+U\+F\+S\+Z}
+\item 
+\#define \hyperlink{sys_2wince_2mhmenu_8c_a511a6820684a87ea7109582ac3f158eb}{M\+I\+N\+\_\+\+T\+A\+B\+S\+T\+O\+P\+\_\+\+S\+I\+Z\+E}~0
+\item 
+\#define \hyperlink{sys_2wince_2mhmenu_8c_a2431d5b90e503a443a8e29c37a5ef549}{N\+U\+M\+T\+A\+B\+S}~15
+\item 
+\#define \hyperlink{sys_2wince_2mhmenu_8c_a2d7b0f76873a47cdd301b0a7c222a681}{T\+A\+B\+\_\+\+S\+E\+P\+A\+R\+A\+T\+I\+O\+N}~10 /$\ast$ \hyperlink{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{pixels} between each tab stop $\ast$/
+\item 
+\#define \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E}(item)~((item).identifier.\+a\+\_\+obj!=\hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+L\+L})
+\item 
+\#define \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}(item)~((item).count!=0)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structmswin__menu__item}{mswin\+\_\+menu\+\_\+item} \hyperlink{sys_2wince_2mhmenu_8c_a5c437eaf797666e94d39f0393883c161}{N\+H\+Menu\+Item}
+\item 
+typedef struct \hyperlink{structmswin__menu__item}{mswin\+\_\+menu\+\_\+item} $\ast$ \hyperlink{sys_2wince_2mhmenu_8c_aaac97a082e26a50927b1796fd38fc7e2}{P\+N\+H\+Menu\+Item}
+\item 
+typedef struct \\*
+\hyperlink{structmswin__nethack__menu__window}{mswin\+\_\+nethack\+\_\+menu\+\_\+window} \hyperlink{sys_2wince_2mhmenu_8c_afae72ef7d34728051a94b6e1f84ccb10}{N\+H\+Menu\+Window}
+\item 
+typedef struct \\*
+\hyperlink{structmswin__nethack__menu__window}{mswin\+\_\+nethack\+\_\+menu\+\_\+window} $\ast$ \hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{P\+N\+H\+Menu\+Window}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+L\+R\+E\+S\+U\+L\+T C\+A\+L\+L\+B\+A\+C\+K \hyperlink{sys_2wince_2mhmenu_8c_a085082d0591741058c85b4ff41570488}{Menu\+Wnd\+Proc} (H\+W\+N\+D, \hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T}, W\+P\+A\+R\+A\+M, L\+P\+A\+R\+A\+M)
+\item 
+L\+R\+E\+S\+U\+L\+T C\+A\+L\+L\+B\+A\+C\+K \hyperlink{sys_2wince_2mhmenu_8c_a98cae3dd2cc1e5ed8696141ea0af9736}{N\+H\+Menu\+List\+Wnd\+Proc} (H\+W\+N\+D, \hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T}, W\+P\+A\+R\+A\+M, L\+P\+A\+R\+A\+M)
+\item 
+L\+R\+E\+S\+U\+L\+T C\+A\+L\+L\+B\+A\+C\+K \hyperlink{sys_2wince_2mhmenu_8c_a05d16c255df1c3017ab9d2db72a80352}{N\+H\+Menu\+Text\+Wnd\+Proc} (H\+W\+N\+D, \hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T}, W\+P\+A\+R\+A\+M, L\+P\+A\+R\+A\+M)
+\item 
+static void \hyperlink{sys_2wince_2mhmenu_8c_a6a6825def849c9bc2c004ccf747065bb}{Check\+Input\+Dialog} (H\+W\+N\+D h\+Wnd, \hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T} message, W\+P\+A\+R\+A\+M w\+Param, L\+P\+A\+R\+A\+M l\+Param)
+\item 
+static void \hyperlink{sys_2wince_2mhmenu_8c_ab1f0aceef05a1dec643246c7cbf5353c}{on\+M\+S\+N\+H\+Command} (H\+W\+N\+D h\+Wnd, W\+P\+A\+R\+A\+M w\+Param, L\+P\+A\+R\+A\+M l\+Param)
+\item 
+static L\+R\+E\+S\+U\+L\+T \hyperlink{sys_2wince_2mhmenu_8c_a6973a65d552ed28980c910d3a0bdfd9e}{on\+Measure\+Item} (H\+W\+N\+D h\+Wnd, W\+P\+A\+R\+A\+M w\+Param, L\+P\+A\+R\+A\+M l\+Param)
+\item 
+static L\+R\+E\+S\+U\+L\+T \hyperlink{sys_2wince_2mhmenu_8c_a78faafa6cdec64d753aec5a898f67f10}{on\+Draw\+Item} (H\+W\+N\+D h\+Wnd, W\+P\+A\+R\+A\+M w\+Param, L\+P\+A\+R\+A\+M l\+Param)
+\item 
+static void \hyperlink{sys_2wince_2mhmenu_8c_a4aff550d92784a0c5e7fcb8b9f86a15e}{Layout\+Menu} (H\+W\+N\+D hwnd)
+\item 
+static void \hyperlink{sys_2wince_2mhmenu_8c_a9a4ac79f4c285b52ae25582c25beb82d}{Set\+Menu\+Type} (H\+W\+N\+D hwnd, int \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type})
+\item 
+static void \hyperlink{sys_2wince_2mhmenu_8c_a9935a9b932fd4f54e94b72e7cd0dee54}{Set\+Menu\+List\+Type} (H\+W\+N\+D hwnd, int now)
+\item 
+static H\+W\+N\+D \hyperlink{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{Get\+Menu\+Control} (H\+W\+N\+D hwnd)
+\item 
+static void \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{Select\+Menu\+Item} (H\+W\+N\+D hwnd\+List, \hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{P\+N\+H\+Menu\+Window} data, int item, int \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count})
+\item 
+static void \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\+\_\+menu\+\_\+count} (H\+W\+N\+D hwnd\+List, \hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{P\+N\+H\+Menu\+Window} data)
+\item 
+static L\+R\+E\+S\+U\+L\+T \hyperlink{sys_2wince_2mhmenu_8c_a0fc93365413fa232f797e9bffa6780a9}{on\+List\+Char} (H\+W\+N\+D h\+Wnd, H\+W\+N\+D hwnd\+List, W\+O\+R\+D ch)
+\item 
+static char $\ast$ \hyperlink{sys_2wince_2mhmenu_8c_aebcc2a512c5982c376bd775b68d4a1c9}{parse\+\_\+menu\+\_\+str} (char $\ast$dest, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$src, size\+\_\+t \hyperlink{structsize}{size})
+\item 
+H\+W\+N\+D \hyperlink{sys_2wince_2mhmenu_8c_a8c5ddcafb43564d6bbc9a6a422974797}{mswin\+\_\+init\+\_\+menu\+\_\+window} (int \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type})
+\item 
+int \hyperlink{sys_2wince_2mhmenu_8c_ad900b8c309861a1826a11b4c49432c2a}{mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu} (H\+W\+N\+D h\+Wnd, int how, \hyperlink{wintype_8h_a56b56557611b7f64f4e6585a1b78c8f9}{M\+E\+N\+U\+\_\+\+I\+T\+E\+M\+\_\+\+P} $\ast$$\ast$\+\_\+selected)
+\item 
+void \hyperlink{sys_2wince_2mhmenu_8c_a522c5050d80d7397e9f59b00c47e13f0}{mswin\+\_\+menu\+\_\+window\+\_\+size} (H\+W\+N\+D h\+Wnd, L\+P\+S\+I\+Z\+E sz)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+short \hyperlink{sys_2wince_2mhmenu_8c_a4d61aa736dae8287d97c3a68a3a917c5}{glyph2tile} \mbox{[}$\,$\mbox{]}
+\item 
+static W\+N\+D\+P\+R\+O\+C \hyperlink{sys_2wince_2mhmenu_8c_a34b2053bf1601b3dc7b10796c1040cdc}{wnd\+Proc\+List\+View\+Orig} = \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+L\+L}
+\item 
+static W\+N\+D\+P\+R\+O\+C \hyperlink{sys_2wince_2mhmenu_8c_ad6488b0aa2546ac1e148bc6ca7b51087}{edit\+Control\+Wnd\+Proc} = \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+L\+L}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!M\+E\+N\+U\+\_\+\+M\+A\+R\+G\+I\+N@{M\+E\+N\+U\+\_\+\+M\+A\+R\+G\+I\+N}}
+\index{M\+E\+N\+U\+\_\+\+M\+A\+R\+G\+I\+N@{M\+E\+N\+U\+\_\+\+M\+A\+R\+G\+I\+N}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{M\+E\+N\+U\+\_\+\+M\+A\+R\+G\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+N\+U\+\_\+\+M\+A\+R\+G\+I\+N~0}}\label{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}
+
+
+Definition at line 14 of file mhmenu.\+c.
+
+
+
+Referenced by Layout\+Menu().
+
+\hypertarget{sys_2wince_2mhmenu_8c_a511a6820684a87ea7109582ac3f158eb}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!M\+I\+N\+\_\+\+T\+A\+B\+S\+T\+O\+P\+\_\+\+S\+I\+Z\+E@{M\+I\+N\+\_\+\+T\+A\+B\+S\+T\+O\+P\+\_\+\+S\+I\+Z\+E}}
+\index{M\+I\+N\+\_\+\+T\+A\+B\+S\+T\+O\+P\+\_\+\+S\+I\+Z\+E@{M\+I\+N\+\_\+\+T\+A\+B\+S\+T\+O\+P\+\_\+\+S\+I\+Z\+E}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{M\+I\+N\+\_\+\+T\+A\+B\+S\+T\+O\+P\+\_\+\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+N\+\_\+\+T\+A\+B\+S\+T\+O\+P\+\_\+\+S\+I\+Z\+E~0}}\label{sys_2wince_2mhmenu_8c_a511a6820684a87ea7109582ac3f158eb}
+
+
+Definition at line 16 of file mhmenu.\+c.
+
+
+
+Referenced by on\+M\+S\+N\+H\+Command().
+
+\hypertarget{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E@{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E}}
+\index{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E@{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E(
+\begin{DoxyParamCaption}
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~((item).identifier.\+a\+\_\+obj!={\bf N\+U\+L\+L})}}\label{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}
+
+
+Definition at line 65 of file mhmenu.\+c.
+
+
+
+Referenced by Menu\+Wnd\+Proc(), mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu(), on\+Draw\+Item(), and on\+List\+Char().
+
+\hypertarget{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D@{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}}
+\index{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D@{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D(
+\begin{DoxyParamCaption}
+\item[{}]{item}
+\end{DoxyParamCaption}
+)~((item).count!=0)}}\label{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}
+
+
+Definition at line 66 of file mhmenu.\+c.
+
+
+
+Referenced by Menu\+Wnd\+Proc(), mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu(), and on\+List\+Char().
+
+\hypertarget{sys_2wince_2mhmenu_8c_a952b01afec1711bc486a207765acb1a6}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!N\+H\+M\+E\+N\+U\+\_\+\+S\+T\+R\+\_\+\+S\+I\+Z\+E@{N\+H\+M\+E\+N\+U\+\_\+\+S\+T\+R\+\_\+\+S\+I\+Z\+E}}
+\index{N\+H\+M\+E\+N\+U\+\_\+\+S\+T\+R\+\_\+\+S\+I\+Z\+E@{N\+H\+M\+E\+N\+U\+\_\+\+S\+T\+R\+\_\+\+S\+I\+Z\+E}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{N\+H\+M\+E\+N\+U\+\_\+\+S\+T\+R\+\_\+\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+M\+E\+N\+U\+\_\+\+S\+T\+R\+\_\+\+S\+I\+Z\+E~{\bf B\+U\+F\+S\+Z}}}\label{sys_2wince_2mhmenu_8c_a952b01afec1711bc486a207765acb1a6}
+
+
+Definition at line 15 of file mhmenu.\+c.
+
+
+
+Referenced by on\+M\+S\+N\+H\+Command().
+
+\hypertarget{sys_2wince_2mhmenu_8c_a2431d5b90e503a443a8e29c37a5ef549}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!N\+U\+M\+T\+A\+B\+S@{N\+U\+M\+T\+A\+B\+S}}
+\index{N\+U\+M\+T\+A\+B\+S@{N\+U\+M\+T\+A\+B\+S}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{N\+U\+M\+T\+A\+B\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+T\+A\+B\+S~15}}\label{sys_2wince_2mhmenu_8c_a2431d5b90e503a443a8e29c37a5ef549}
+
+
+Definition at line 17 of file mhmenu.\+c.
+
+
+
+Referenced by on\+M\+S\+N\+H\+Command().
+
+\hypertarget{sys_2wince_2mhmenu_8c_a2d7b0f76873a47cdd301b0a7c222a681}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!T\+A\+B\+\_\+\+S\+E\+P\+A\+R\+A\+T\+I\+O\+N@{T\+A\+B\+\_\+\+S\+E\+P\+A\+R\+A\+T\+I\+O\+N}}
+\index{T\+A\+B\+\_\+\+S\+E\+P\+A\+R\+A\+T\+I\+O\+N@{T\+A\+B\+\_\+\+S\+E\+P\+A\+R\+A\+T\+I\+O\+N}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{T\+A\+B\+\_\+\+S\+E\+P\+A\+R\+A\+T\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+A\+B\+\_\+\+S\+E\+P\+A\+R\+A\+T\+I\+O\+N~10 /$\ast$ {\bf pixels} between each tab stop $\ast$/}}\label{sys_2wince_2mhmenu_8c_a2d7b0f76873a47cdd301b0a7c222a681}
+
+
+Definition at line 18 of file mhmenu.\+c.
+
+
+
+Referenced by mswin\+\_\+menu\+\_\+window\+\_\+size(), and on\+Draw\+Item().
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{sys_2wince_2mhmenu_8c_a5c437eaf797666e94d39f0393883c161}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!N\+H\+Menu\+Item@{N\+H\+Menu\+Item}}
+\index{N\+H\+Menu\+Item@{N\+H\+Menu\+Item}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{N\+H\+Menu\+Item}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mswin\+\_\+menu\+\_\+item}  {\bf N\+H\+Menu\+Item}}}\label{sys_2wince_2mhmenu_8c_a5c437eaf797666e94d39f0393883c161}
+\hypertarget{sys_2wince_2mhmenu_8c_afae72ef7d34728051a94b6e1f84ccb10}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!N\+H\+Menu\+Window@{N\+H\+Menu\+Window}}
+\index{N\+H\+Menu\+Window@{N\+H\+Menu\+Window}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{N\+H\+Menu\+Window}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mswin\+\_\+nethack\+\_\+menu\+\_\+window}  {\bf N\+H\+Menu\+Window}}}\label{sys_2wince_2mhmenu_8c_afae72ef7d34728051a94b6e1f84ccb10}
+\hypertarget{sys_2wince_2mhmenu_8c_aaac97a082e26a50927b1796fd38fc7e2}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!P\+N\+H\+Menu\+Item@{P\+N\+H\+Menu\+Item}}
+\index{P\+N\+H\+Menu\+Item@{P\+N\+H\+Menu\+Item}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{P\+N\+H\+Menu\+Item}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mswin\+\_\+menu\+\_\+item} $\ast$ {\bf P\+N\+H\+Menu\+Item}}}\label{sys_2wince_2mhmenu_8c_aaac97a082e26a50927b1796fd38fc7e2}
+\hypertarget{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!P\+N\+H\+Menu\+Window@{P\+N\+H\+Menu\+Window}}
+\index{P\+N\+H\+Menu\+Window@{P\+N\+H\+Menu\+Window}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{P\+N\+H\+Menu\+Window}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mswin\+\_\+nethack\+\_\+menu\+\_\+window} $\ast$ {\bf P\+N\+H\+Menu\+Window}}}\label{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}
+
+
+\subsection{Function Documentation}
+\hypertarget{sys_2wince_2mhmenu_8c_a6a6825def849c9bc2c004ccf747065bb}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!Check\+Input\+Dialog@{Check\+Input\+Dialog}}
+\index{Check\+Input\+Dialog@{Check\+Input\+Dialog}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{Check\+Input\+Dialog}]{\setlength{\rightskip}{0pt plus 5cm}void Check\+Input\+Dialog (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf U\+I\+N\+T}}]{message, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a6a6825def849c9bc2c004ccf747065bb}
+
+
+Definition at line 456 of file mhmenu.\+c.
+
+
+
+References mswin\+\_\+nhwindow\+\_\+app\+::b\+Use\+S\+I\+P, Get\+N\+H\+App(), mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::how, M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+N\+U, P\+I\+C\+K\+\_\+\+A\+N\+Y, P\+I\+C\+K\+\_\+\+O\+N\+E, and mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::type.
+
+
+
+Referenced by Menu\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+457 \{
+458 \textcolor{preprocessor}{#if defined(WIN\_CE\_POCKETPC)}
+459     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+460 
+461     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+462 
+463     \textcolor{keywordflow}{if}( !( data && 
+464            data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}==\hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} &&
+465            (data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} || data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY}) ) ) \textcolor{keywordflow}{return};
+466     
+467     \textcolor{keywordflow}{switch}(message) \{
+468     \textcolor{keywordflow}{case} WM\_SETFOCUS:
+469         \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_af8a7fc1fc5568f109bb31fd054a38470}{bUseSIP} ) SHSipPreference(hWnd, SIP\_UP);
+470     \textcolor{keywordflow}{return};
+471 
+472     \textcolor{keywordflow}{case} WM\_DESTROY:
+473     \textcolor{keywordflow}{case} WM\_KILLFOCUS:
+474         \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_af8a7fc1fc5568f109bb31fd054a38470}{bUseSIP} ) SHSipPreference(hWnd, SIP\_DOWN);
+475     \textcolor{keywordflow}{return};
+476 
+477     \textcolor{keywordflow}{case} WM\_NOTIFY:
+478     \{
+479         LPNMHDR lpnmhdr = (LPNMHDR)lParam;
+480         \textcolor{keywordflow}{switch}(lpnmhdr->code) \{
+481         \textcolor{keywordflow}{case} NM\_SETFOCUS:
+482             \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_af8a7fc1fc5568f109bb31fd054a38470}{bUseSIP} ) SHSipPreference(hWnd, SIP\_UP);
+483         \textcolor{keywordflow}{break};
+484         \textcolor{keywordflow}{case} NM\_KILLFOCUS:
+485             \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_af8a7fc1fc5568f109bb31fd054a38470}{bUseSIP} ) SHSipPreference(hWnd, SIP\_DOWN);
+486         \textcolor{keywordflow}{break};
+487         \}
+488     \} \textcolor{keywordflow}{return};
+489 
+490     \textcolor{keywordflow}{case} WM\_COMMAND:
+491         \textcolor{keywordflow}{switch}(HIWORD(wParam)) \{
+492         \textcolor{keywordflow}{case} BN\_SETFOCUS:
+493             \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_af8a7fc1fc5568f109bb31fd054a38470}{bUseSIP} ) SHSipPreference(hWnd, SIP\_UP);
+494         \textcolor{keywordflow}{break};
+495         \textcolor{keywordflow}{case} BN\_KILLFOCUS:
+496             \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_af8a7fc1fc5568f109bb31fd054a38470}{bUseSIP} ) SHSipPreference(hWnd, SIP\_DOWN);
+497         \textcolor{keywordflow}{break};
+498         \}
+499     \textcolor{keywordflow}{return};
+500 
+501     \} \textcolor{comment}{/* end switch */}
+502 \textcolor{preprocessor}{#endif}
+503 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!Get\+Menu\+Control@{Get\+Menu\+Control}}
+\index{Get\+Menu\+Control@{Get\+Menu\+Control}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{Get\+Menu\+Control}]{\setlength{\rightskip}{0pt plus 5cm}H\+W\+N\+D Get\+Menu\+Control (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}
+
+
+Definition at line 810 of file mhmenu.\+c.
+
+
+
+References I\+D\+C\+\_\+\+M\+E\+N\+U\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+M\+E\+N\+U\+\_\+\+T\+E\+X\+T, M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+E\+X\+T, and mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::type.
+
+
+
+Referenced by Layout\+Menu(), Menu\+Wnd\+Proc(), mswin\+\_\+menu\+\_\+window\+\_\+size(), and on\+Measure\+Item().
+
+
+\begin{DoxyCode}
+811 \{
+812     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+813 
+814     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+815 
+816     \textcolor{keywordflow}{if}(data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}==\hyperlink{sys_2wince_2mhmenu_8h_ad863ba4d93ea3f9619d1f82c79c620e7}{MENU\_TYPE\_TEXT}) \{
+817         \textcolor{keywordflow}{return} GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_add6d9e4e19e8e119d474ba980520a4d2}{IDC\_MENU\_TEXT});
+818     \} \textcolor{keywordflow}{else} \{
+819         \textcolor{keywordflow}{return} GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a1af3a3967bc3f6d66a75d340c1f56678}{IDC\_MENU\_LIST});
+820     \}
+821 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a4aff550d92784a0c5e7fcb8b9f86a15e}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!Layout\+Menu@{Layout\+Menu}}
+\index{Layout\+Menu@{Layout\+Menu}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{Layout\+Menu}]{\setlength{\rightskip}{0pt plus 5cm}void Layout\+Menu (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a4aff550d92784a0c5e7fcb8b9f86a15e}
+
+
+Definition at line 629 of file mhmenu.\+c.
+
+
+
+References Get\+Menu\+Control(), menu\+\_\+cancel(), M\+E\+N\+U\+\_\+\+M\+A\+R\+G\+I\+N, menu\+\_\+ok(), M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+E\+X\+T, min, mswin\+\_\+render\+\_\+text(), S\+I\+Z\+E, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::text, T\+R\+U\+E, and mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::type.
+
+
+
+Referenced by Menu\+Wnd\+Proc(), and Set\+Menu\+Type().
+
+
+\begin{DoxyCode}
+630 \{
+631     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+632     HWND  \hyperlink{win_2X11_2winmenu_8c_ae055ee6d07dc1f4426e190049c837b90}{menu\_ok};
+633     HWND  \hyperlink{win_2X11_2winmenu_8c_ab30dd70724ea5aefd65ee673324e478a}{menu\_cancel};
+634     RECT  clrt, rt;
+635     POINT pt\_elem, pt\_ok, pt\_cancel;
+636     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}  sz\_elem, sz\_ok, sz\_cancel;
+637 
+638     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+639     menu\_ok = GetDlgItem(hWnd, IDOK);
+640     menu\_cancel = GetDlgItem(hWnd, IDCANCEL);
+641 
+642     \textcolor{comment}{/* get window coordinates */}
+643     GetClientRect(hWnd, &clrt );
+644     
+645     \textcolor{comment}{/* set window placements */}
+646     \textcolor{keywordflow}{if}( IsWindow(menu\_ok) ) \{
+647         GetWindowRect(menu\_ok, &rt);
+648         sz\_ok.cx = (clrt.right - clrt.left)/2 - 2*\hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN};
+649         sz\_ok.cy = rt.bottom-rt.top;
+650         pt\_ok.x = clrt.left + \hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN};
+651         pt\_ok.y = clrt.bottom - \hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN} - sz\_ok.cy;
+652         MoveWindow(menu\_ok, pt\_ok.x, pt\_ok.y, sz\_ok.cx, sz\_ok.cy, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+653     \} \textcolor{keywordflow}{else} \{
+654         pt\_ok.x = 0;
+655         pt\_ok.y = clrt.bottom;
+656         sz\_ok.cx = sz\_ok.cy = 0;
+657     \}
+658     
+659     \textcolor{keywordflow}{if}( IsWindow(menu\_cancel) ) \{
+660         GetWindowRect(menu\_cancel, &rt);
+661         sz\_cancel.cx = (clrt.right - clrt.left)/2 - 2*\hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN};
+662         sz\_cancel.cy = rt.bottom-rt.top;
+663         pt\_cancel.x = (clrt.left + clrt.right)/2 + \hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN};
+664         pt\_cancel.y = clrt.bottom - \hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN} - sz\_cancel.cy;
+665         MoveWindow(menu\_cancel, pt\_cancel.x, pt\_cancel.y, sz\_cancel.cx, sz\_cancel.cy, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+666     \} \textcolor{keywordflow}{else} \{
+667         pt\_cancel.x = 0;
+668         pt\_cancel.y = clrt.bottom;
+669         sz\_cancel.cx = sz\_cancel.cy = 0;
+670     \}
+671 
+672     pt\_elem.x = clrt.left + \hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN};
+673     pt\_elem.y = clrt.top + \hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN};
+674     sz\_elem.cx = (clrt.right - clrt.left) - 2*\hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN};
+675     sz\_elem.cy = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(pt\_cancel.y, pt\_ok.y) - \hyperlink{sys_2wince_2mhmenu_8c_a39692f505d39ae8632a93d9d755c3708}{MENU\_MARGIN} - pt\_elem.y;
+676     MoveWindow(\hyperlink{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{GetMenuControl}(hWnd), pt\_elem.x, pt\_elem.y, sz\_elem.cx, sz\_elem.cy, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+677 
+678     \textcolor{comment}{/* reformat text for the text menu */}
+679     \textcolor{keywordflow}{if}( data && 
+680         data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}==\hyperlink{sys_2wince_2mhmenu_8h_ad863ba4d93ea3f9619d1f82c79c620e7}{MENU\_TYPE\_TEXT} &&
+681         data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text )
+682         \hyperlink{mhtxtbuf_8c_ad3aa1058c339493ae60ba46351d4b2d4}{mswin\_render\_text}(data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text, \hyperlink{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{GetMenuControl}(hWnd));
+683 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a085082d0591741058c85b4ff41570488}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!Menu\+Wnd\+Proc@{Menu\+Wnd\+Proc}}
+\index{Menu\+Wnd\+Proc@{Menu\+Wnd\+Proc}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{Menu\+Wnd\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}B\+O\+O\+L C\+A\+L\+L\+B\+A\+C\+K Menu\+Wnd\+Proc (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf U\+I\+N\+T}}]{message, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhmenu_8c_a085082d0591741058c85b4ff41570488}
+
+
+Definition at line 232 of file mhmenu.\+c.
+
+
+
+References A\+T\+R\+\_\+\+N\+O\+N\+E, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::bmp\+Checked, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::bmp\+Checked\+Count, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::bmp\+Not\+Checked, Check\+Input\+Dialog(), mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::done, edit\+Control\+Wnd\+Proc, F\+A\+L\+S\+E, free(), Get\+Menu\+Control(), Get\+N\+H\+App(), mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::how, I\+D\+B\+\_\+\+M\+E\+N\+U\+\_\+\+S\+E\+L, I\+D\+B\+\_\+\+M\+E\+N\+U\+\_\+\+S\+E\+L\+\_\+\+C\+O\+U\+N\+T, I\+D\+B\+\_\+\+M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L, I\+D\+C\+\_\+\+M\+E\+N\+U\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+M\+E\+N\+U\+\_\+\+T\+E\+X\+T, Layout\+Menu(), malloc(), mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::menu, M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+N\+U, M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+E\+X\+T, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+G, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+F\+G, mswin\+\_\+free\+\_\+text\+\_\+buffer(), mswin\+\_\+get\+\_\+brush(), mswin\+\_\+get\+\_\+color(), mswin\+\_\+get\+\_\+font(), N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E, N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D, N\+H\+Menu\+Text\+Wnd\+Proc(), N\+H\+W\+\_\+\+T\+E\+X\+T, N\+U\+L\+L, on\+Draw\+Item(), on\+Measure\+Item(), on\+M\+S\+N\+H\+Command(), P\+I\+C\+K\+\_\+\+A\+N\+Y, P\+I\+C\+K\+\_\+\+N\+O\+N\+E, P\+I\+C\+K\+\_\+\+O\+N\+E, reset\+\_\+menu\+\_\+count(), mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::result, Select\+Menu\+Item(), mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::text, T\+R\+U\+E, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::type, and W\+M\+\_\+\+M\+S\+N\+H\+\_\+\+C\+O\+M\+M\+A\+N\+D.
+
+
+
+Referenced by mswin\+\_\+init\+\_\+menu\+\_\+window().
+
+
+\begin{DoxyCode}
+233 \{
+234     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+235     
+236     \hyperlink{sys_2wince_2mhmenu_8c_a6a6825def849c9bc2c004ccf747065bb}{CheckInputDialog}(hWnd, message, wParam, lParam);    
+237 
+238     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+239     \textcolor{keywordflow}{switch} (message) 
+240     \{
+241     \textcolor{keywordflow}{case} WM\_INITDIALOG: \{
+242         HWND text\_control;
+243         HDC hDC;
+244 
+245         text\_control = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_add6d9e4e19e8e119d474ba980520a4d2}{IDC\_MENU\_TEXT});
+246 
+247         data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(\textcolor{keyword}{sizeof}(\hyperlink{structmswin__nethack__menu__window}{NHMenuWindow}));
+248         ZeroMemory(data, \textcolor{keyword}{sizeof}(\hyperlink{structmswin__nethack__menu__window}{NHMenuWindow}));
+249         data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type} = \hyperlink{sys_2wince_2mhmenu_8h_ad863ba4d93ea3f9619d1f82c79c620e7}{MENU\_TYPE\_TEXT};
+250         data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} = \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE};
+251         data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} = 0;
+252         data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done} = 0;
+253         data->\hyperlink{structmswin__nethack__menu__window_a547aec082271327296a222cd550d0339}{bmpChecked} = LoadBitmap(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp, MAKEINTRESOURCE(
+      \hyperlink{sys_2wince_2resource_8h_a90d12d567c7350d9f2898c2d629bb106}{IDB\_MENU\_SEL}));
+254         data->\hyperlink{structmswin__nethack__menu__window_a489e74d381e225e45bdcd709b76a9c4a}{bmpCheckedCount} = LoadBitmap(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp, MAKEINTRESOURCE(
+      \hyperlink{sys_2wince_2resource_8h_a8fdb5e8a629c32021045679b730d3a0d}{IDB\_MENU\_SEL\_COUNT}));
+255         data->\hyperlink{structmswin__nethack__menu__window_a815f5ad41abbfa599ea0b35ddb7e2742}{bmpNotChecked} = LoadBitmap(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp, MAKEINTRESOURCE(
+      \hyperlink{sys_2wince_2resource_8h_a55cf1ff7c2dfc10d8c35b0b8a238c354}{IDB\_MENU\_UNSEL}));
+256         SetWindowLong(hWnd, GWL\_USERDATA, (LONG)data);
+257 
+258         \textcolor{comment}{/* subclass edit control */}
+259         \hyperlink{sys_2wince_2mhmenu_8c_ad6488b0aa2546ac1e148bc6ca7b51087}{editControlWndProc} = (WNDPROC)GetWindowLong(text\_control, GWL\_WNDPROC);
+260         SetWindowLong(text\_control, GWL\_WNDPROC, (LONG)\hyperlink{sys_2wince_2mhmenu_8c_a05d16c255df1c3017ab9d2db72a80352}{NHMenuTextWndProc});
+261 
+262         \textcolor{comment}{/* set text window font */}
+263         hDC = GetDC(text\_control);
+264         SendMessage(
+265             text\_control, 
+266             WM\_SETFONT, 
+267             (WPARAM)\hyperlink{sys_2wince_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{mswin\_get\_font}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}, \hyperlink{wintype_8h_a20a20b74e8cf84ecfbf3c8665c059636}{ATR\_NONE}, hDC, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}),
+268             (LPARAM)0
+269         );
+270         ReleaseDC(text\_control, hDC);
+271 
+272 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+273         \textcolor{comment}{/* special initialization for SmartPhone dialogs */} 
+274         NHSPhoneDialogSetup(hWnd, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->bFullScreen);
+275 \textcolor{preprocessor}{#endif}
+276     \} \textcolor{keywordflow}{break};
+277 
+278     \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2mhmsg_8h_a55eac656fabe0d462816201ac756eab6}{WM\_MSNH\_COMMAND}:
+279         \hyperlink{sys_2wince_2mhmenu_8c_ab1f0aceef05a1dec643246c7cbf5353c}{onMSNHCommand}(hWnd, wParam, lParam);
+280     \textcolor{keywordflow}{break};
+281 
+282     \textcolor{keywordflow}{case} WM\_SIZE:
+283         \hyperlink{sys_2wince_2mhmenu_8c_a4aff550d92784a0c5e7fcb8b9f86a15e}{LayoutMenu}(hWnd);
+284     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+285 
+286     \textcolor{keywordflow}{case} WM\_COMMAND: 
+287     \{
+288         \textcolor{keywordflow}{switch} (LOWORD(wParam)) 
+289         \{ 
+290         \textcolor{keywordflow}{case} IDCANCEL:
+291             \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type} == \hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} && 
+292                 (data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} || data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY}) &&
+293                 data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.counting) \{
+294                 HWND list;
+295                 \textcolor{keywordtype}{int} i;
+296 
+297                 \textcolor{comment}{/* reset counter if counting is in progress */}
+298                 list = \hyperlink{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{GetMenuControl}(hWnd);
+299                 i = ListView\_GetNextItem(list, -1,  LVNI\_FOCUSED);
+300                 \textcolor{keywordflow}{if}( i>=0 ) \{
+301                     \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(list, data, i,  0);
+302                 \}
+303                 \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+304             \} \textcolor{keywordflow}{else} \{
+305                 data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} = -1;
+306                 data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done} = 1;
+307             \}
+308         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+309 
+310         \textcolor{keywordflow}{case} IDOK:
+311             data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done} = 1;
+312             data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} = 0;
+313         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+314         \}
+315     \} \textcolor{keywordflow}{break};
+316 
+317     \textcolor{keywordflow}{case} WM\_NOTIFY:
+318     \{
+319         LPNMHDR lpnmhdr = (LPNMHDR)lParam;
+320         \textcolor{keywordflow}{switch} (LOWORD(wParam)) \{
+321         \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2resource_8h_a1af3a3967bc3f6d66a75d340c1f56678}{IDC\_MENU\_LIST}:
+322         \{
+323             \textcolor{keywordflow}{if}( !data || data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}!=\hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} ) \textcolor{keywordflow}{break};
+324 
+325             \textcolor{keywordflow}{switch}(lpnmhdr->code) \{
+326             \textcolor{keywordflow}{case} LVN\_ITEMACTIVATE: 
+327             \{
+328                 LPNMLISTVIEW lpnmlv = (LPNMLISTVIEW)lParam;
+329                 \textcolor{keywordflow}{if}(data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}) \{
+330                     \textcolor{keywordflow}{if}( lpnmlv->iItem>=0 &&
+331                         lpnmlv->iItem<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size &&
+332                         \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpnmlv->iItem]) ) \{
+333                         \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+334                             lpnmlv->hdr.hwndFrom, 
+335                             data, 
+336                             lpnmlv->iItem, 
+337                             -1
+338                         );
+339                         data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done} = 1;
+340                         data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} = 0;
+341                         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+342                     \}
+343                 \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+344                     \textcolor{keywordflow}{if}( lpnmlv->iItem>=0 &&
+345                         lpnmlv->iItem<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size &&
+346                         \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpnmlv->iItem]) ) \{
+347                         \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+348                             lpnmlv->hdr.hwndFrom, 
+349                             data, 
+350                             lpnmlv->iItem, 
+351                             \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpnmlv->iItem])? 0 : 
+      -1
+352                         );
+353                     \}
+354                 \}
+355             \} \textcolor{keywordflow}{break};
+356 
+357             \textcolor{keywordflow}{case} NM\_CLICK: \{
+358                 LPNMLISTVIEW lpnmlv = (LPNMLISTVIEW) lParam;
+359                 \textcolor{keywordflow}{if}( lpnmlv->iItem==-1 ) \textcolor{keywordflow}{return} 0;
+360                 \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+361                     \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+362                         lpnmlv->hdr.hwndFrom, 
+363                         data, 
+364                         lpnmlv->iItem, 
+365                         \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpnmlv->iItem])? 0 : -1
+366                     );
+367                 \}
+368             \} \textcolor{keywordflow}{break};
+369 
+370             \textcolor{keywordflow}{case} LVN\_ITEMCHANGED: 
+371             \{
+372                 LPNMLISTVIEW lpnmlv = (LPNMLISTVIEW)lParam;
+373                 \textcolor{keywordflow}{if}( lpnmlv->iItem==-1 ) \textcolor{keywordflow}{return} 0;
+374                 \textcolor{keywordflow}{if}( !(lpnmlv->uChanged & LVIF\_STATE) ) \textcolor{keywordflow}{return} 0;
+375 
+376                 \textcolor{comment}{/* update item that has the focus */}
+377                 data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpnmlv->iItem].has\_focus = !!(lpnmlv->uNewState & LVIS\_FOCUSED);
+378                 ListView\_RedrawItems(lpnmlv->hdr.hwndFrom, lpnmlv->iItem, lpnmlv->iItem);
+379 
+380                 \textcolor{comment}{/* update count for single-selection menu (follow the listview selection) */}
+381                 \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} ) \{
+382                     \textcolor{keywordflow}{if}( lpnmlv->uNewState & LVIS\_SELECTED ) \{
+383                         \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+384                             lpnmlv->hdr.hwndFrom, 
+385                             data, 
+386                             lpnmlv->iItem, 
+387                             -1
+388                         );
+389                     \}
+390                 \}
+391 
+392                 \textcolor{comment}{/* check item focus */}
+393                 data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpnmlv->iItem].has\_focus = !!(lpnmlv->uNewState & LVIS\_FOCUSED);
+394                 ListView\_RedrawItems(lpnmlv->hdr.hwndFrom, lpnmlv->iItem, lpnmlv->iItem);
+395             \} \textcolor{keywordflow}{break};
+396 
+397             \textcolor{keywordflow}{case} NM\_KILLFOCUS:
+398                 \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(lpnmhdr->hwndFrom, data);
+399             \textcolor{keywordflow}{break};
+400 
+401             \}
+402         \} \textcolor{keywordflow}{break};
+403         \}
+404     \} \textcolor{keywordflow}{break};
+405 
+406     \textcolor{keywordflow}{case} WM\_SETFOCUS:
+407         \textcolor{keywordflow}{if}( hWnd!=\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hPopupWnd ) \{
+408             SetFocus(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hPopupWnd );
+409             \textcolor{keywordflow}{return} 0;
+410         \}
+411     \textcolor{keywordflow}{break};
+412     
+413     \textcolor{keywordflow}{case} WM\_MEASUREITEM: 
+414         \textcolor{keywordflow}{if}( wParam==\hyperlink{sys_2wince_2resource_8h_a1af3a3967bc3f6d66a75d340c1f56678}{IDC\_MENU\_LIST} )
+415             \textcolor{keywordflow}{return} \hyperlink{sys_2wince_2mhmenu_8c_a6973a65d552ed28980c910d3a0bdfd9e}{onMeasureItem}(hWnd, wParam, lParam);
+416         \textcolor{keywordflow}{else}
+417             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+418 
+419     \textcolor{keywordflow}{case} WM\_DRAWITEM:
+420         \textcolor{keywordflow}{if}( wParam==\hyperlink{sys_2wince_2resource_8h_a1af3a3967bc3f6d66a75d340c1f56678}{IDC\_MENU\_LIST} )
+421             \textcolor{keywordflow}{return} \hyperlink{sys_2wince_2mhmenu_8c_a78faafa6cdec64d753aec5a898f67f10}{onDrawItem}(hWnd, wParam, lParam);
+422         \textcolor{keywordflow}{else}
+423             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+424 
+425     \textcolor{keywordflow}{case} WM\_CTLCOLORBTN:
+426     \textcolor{keywordflow}{case} WM\_CTLCOLOREDIT:
+427     \textcolor{keywordflow}{case} WM\_CTLCOLORSTATIC: \{ \textcolor{comment}{/* sent by edit control before it is drawn */}
+428         HDC hdcEdit = (HDC) wParam; 
+429         HWND hwndEdit = (HWND) lParam;
+430         \textcolor{keywordflow}{if}( hwndEdit == GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_add6d9e4e19e8e119d474ba980520a4d2}{IDC\_MENU\_TEXT}) ) \{
+431             SetBkColor(hdcEdit, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}, 
+      \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}));
+432             SetTextColor(hdcEdit, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}, 
+      \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG})); 
+433             \textcolor{keywordflow}{return} (BOOL)\hyperlink{mhcolor_8c_ace6d2982c253de50f648605b5352e083}{mswin\_get\_brush}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}, 
+      \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG});
+434         \}
+435     \} \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+436 
+437     \textcolor{keywordflow}{case} WM\_DESTROY:
+438         \textcolor{keywordflow}{if}( data ) \{
+439             DeleteObject(data->\hyperlink{structmswin__nethack__menu__window_a547aec082271327296a222cd550d0339}{bmpChecked});
+440             DeleteObject(data->\hyperlink{structmswin__nethack__menu__window_a489e74d381e225e45bdcd709b76a9c4a}{bmpCheckedCount});
+441             DeleteObject(data->\hyperlink{structmswin__nethack__menu__window_a815f5ad41abbfa599ea0b35ddb7e2742}{bmpNotChecked});
+442             \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type} == \hyperlink{sys_2wince_2mhmenu_8h_ad863ba4d93ea3f9619d1f82c79c620e7}{MENU\_TYPE\_TEXT} ) \{
+443                 \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text ) \{
+444                     \hyperlink{mhtxtbuf_8c_a63fe01aa79509551331fc693eb26b49d}{mswin\_free\_text\_buffer}(data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text);
+445                     data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+446                 \}
+447             \}
+448             \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(data);
+449             SetWindowLong(hWnd, GWL\_USERDATA, (LONG)0);
+450         \}
+451         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+452     \}
+453     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+454 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a8c5ddcafb43564d6bbc9a6a422974797}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!mswin\+\_\+init\+\_\+menu\+\_\+window@{mswin\+\_\+init\+\_\+menu\+\_\+window}}
+\index{mswin\+\_\+init\+\_\+menu\+\_\+window@{mswin\+\_\+init\+\_\+menu\+\_\+window}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{mswin\+\_\+init\+\_\+menu\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}H\+W\+N\+D mswin\+\_\+init\+\_\+menu\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{int}]{type}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhmenu_8c_a8c5ddcafb43564d6bbc9a6a422974797}
+
+
+Definition at line 84 of file mhmenu.\+c.
+
+
+
+Referenced by mswin\+\_\+putstr\+\_\+ex(), and mswin\+\_\+start\+\_\+menu().
+
+
+\begin{DoxyCode}
+84                                        \{
+85     HWND ret;
+86 
+87     ret = \hyperlink{dialogs_8c_aaf356545a4c5797e317091864c988de0}{CreateDialog}(
+88             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+89             MAKEINTRESOURCE(\hyperlink{sys_2wince_2resource_8h_a7a706fe51baa9204554045ed82ca2c9f}{IDD\_MENU}),
+90             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,
+91             \hyperlink{sys_2wince_2mhmenu_8c_a085082d0591741058c85b4ff41570488}{MenuWndProc}
+92     );
+93     \textcolor{keywordflow}{if}( !ret ) \{
+94         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create menu window"});
+95     \}
+96     
+97     \hyperlink{sys_2wince_2mhmenu_8c_a9a4ac79f4c285b52ae25582c25beb82d}{SetMenuType}(ret, \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type});
+98     \textcolor{keywordflow}{return} ret;
+99 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_ad900b8c309861a1826a11b4c49432c2a}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu@{mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu}}
+\index{mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu@{mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu}]{\setlength{\rightskip}{0pt plus 5cm}int mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{int}]{how, }
+\item[{{\bf M\+E\+N\+U\+\_\+\+I\+T\+E\+M\+\_\+\+P} $\ast$$\ast$}]{\+\_\+selected}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhmenu_8c_ad900b8c309861a1826a11b4c49432c2a}
+
+
+Definition at line 102 of file mhmenu.\+c.
+
+
+
+Referenced by mswin\+\_\+display\+\_\+nhwindow(), and mswin\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+103 \{
+104     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+105     \textcolor{keywordtype}{int} ret\_val;
+106     \hyperlink{wintype_8h_a56b56557611b7f64f4e6585a1b78c8f9}{MENU\_ITEM\_P} *selected = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+107     \textcolor{keywordtype}{int} i;
+108     \textcolor{keywordtype}{char}* ap;
+109     \textcolor{keywordtype}{char} accell\_str[256];
+110 
+111     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}( \_selected!=\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+112     *\_selected = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+113     ret\_val = -1;
+114 
+115     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+116 
+117     \textcolor{comment}{/* set menu type */}
+118     \hyperlink{sys_2wince_2mhmenu_8c_a9935a9b932fd4f54e94b72e7cd0dee54}{SetMenuListType}(hWnd, how);
+119 
+120     \textcolor{comment}{/* Ok, now give items a unique accelerators */}
+121     ZeroMemory(accell\_str, \textcolor{keyword}{sizeof}(accell\_str));
+122     ap = accell\_str;
+123 
+124 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+125     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size>10 ) \{
+126         *ap++ = \hyperlink{wintype_8h_a3eed1da5a8a308f757ae0bc07dc185b3}{MENU\_FIRST\_PAGE};
+127         *ap++ = \hyperlink{wintype_8h_a0d14d3fa404cc391d604a8c990af0954}{MENU\_LAST\_PAGE};
+128         *ap++ = \hyperlink{wintype_8h_a38905328dea58bbf036f93b7b5a6a6ef}{MENU\_NEXT\_PAGE};
+129         *ap++ = \hyperlink{wintype_8h_a688fe5156d1b2c3cce5d71e50d62bfea}{MENU\_PREVIOUS\_PAGE};
+130         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+131             *ap++ = \hyperlink{wintype_8h_a6c705d18a063df81d02997c09d14157f}{MENU\_SELECT\_ALL};
+132             *ap++ = \hyperlink{wintype_8h_a3a476dd165f2b9254ecc1ab3047238f8}{MENU\_UNSELECT\_ALL};
+133             *ap++ = \hyperlink{wintype_8h_a7be1bf4583bee8feddb61ab15e634fd9}{MENU\_INVERT\_ALL};
+134             *ap++ = \hyperlink{wintype_8h_a8ee870b720cd0aab7743ba83f8fb0a1b}{MENU\_SELECT\_PAGE};
+135             *ap++ = \hyperlink{wintype_8h_a18e91769b9181b3462efe03f534bd6e1}{MENU\_UNSELECT\_PAGE};
+136             *ap++ = \hyperlink{wintype_8h_ad3dbb023bb0ffc9ffdf822e36734cedc}{MENU\_INVERT\_PAGE};
+137         \}
+138         *ap++ = \hyperlink{wintype_8h_a1c3201f2628d34d0880a40dbb566f316}{MENU\_SEARCH};
+139     \}
+140 \textcolor{preprocessor}{#endif}
+141 
+142     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type} == \hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} ) \{
+143         \textcolor{keywordtype}{char} next\_char = \textcolor{charliteral}{'a'};
+144 
+145         \textcolor{keywordflow}{for}( i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size;  i++) \{
+146             \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator!=0 ) \{
+147                 *ap++ = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator;
+148                 next\_char = (char)(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator+1);
+149             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i]) ) \{
+150                 \textcolor{keywordflow}{if} ( (next\_char>=\textcolor{charliteral}{'a'} && next\_char<=\textcolor{charliteral}{'z'}) ||
+151                      (next\_char>=\textcolor{charliteral}{'A'} && next\_char<=\textcolor{charliteral}{'Z'}) )  \{
+152                      data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator = next\_char;
+153                      *ap++ = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator;
+154                 \} \textcolor{keywordflow}{else} \{
+155                     \textcolor{keywordflow}{if}( next\_char > \textcolor{charliteral}{'z'} ) next\_char = \textcolor{charliteral}{'A'};
+156                     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ( next\_char > \textcolor{charliteral}{'Z'} ) \textcolor{keywordflow}{break};
+157 
+158                     data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator = next\_char;
+159                     *ap++ = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator;
+160                 \}
+161 
+162                 next\_char ++;
+163             \}
+164         \}
+165 
+166         \textcolor{comment}{/* collect group accelerators */}
+167         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.gacc[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+168         ap = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.gacc;
+169         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} != \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE} ) \{
+170             \textcolor{keywordflow}{for}( i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size;  i++) \{
+171                 \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].group\_accel && 
+172                     !strchr(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.gacc, data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].group\_accel) ) \{
+173                     *ap++ = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].group\_accel;
+174                     *ap = \textcolor{stringliteral}{'\(\backslash\)x0'};
+175                 \}
+176             \}
+177         \}
+178 
+179         \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, data);
+180     \}
+181 
+182 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+183     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}==\hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} ) NHSPhoneSetKeypadFromString( accell\_str );
+184 \textcolor{preprocessor}{#endif}
+185 
+186     \hyperlink{sys_2wince_2mswproc_8c_a2a23443a8cfc6b5b41024850877e0f5e}{mswin\_popup\_display}(hWnd, &data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done});
+187 
+188     \textcolor{comment}{/* get the result */}
+189     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} != -1 ) \{
+190         \textcolor{keywordflow}{if}(how==\hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE}) \{
+191             \textcolor{keywordflow}{if}(data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result}>=0) ret\_val=0;
+192             \textcolor{keywordflow}{else}                ret\_val=-1;
+193         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(how==\hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} || how==\hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY}) \{
+194             \textcolor{comment}{/* count selected items */}
+195             ret\_val = 0;
+196             \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+197                 \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i]) &&
+198                     \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i]) ) \{
+199                     ret\_val++;
+200                 \}
+201             \}
+202             \textcolor{keywordflow}{if}( ret\_val > 0 ) \{
+203                 \textcolor{keywordtype}{int} sel\_ind;
+204 
+205                 selected = (\hyperlink{wintype_8h_a56b56557611b7f64f4e6585a1b78c8f9}{MENU\_ITEM\_P}*)\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(ret\_val*\textcolor{keyword}{sizeof}(
+      \hyperlink{wintype_8h_a56b56557611b7f64f4e6585a1b78c8f9}{MENU\_ITEM\_P}));
+206                 \textcolor{keywordflow}{if}( !selected ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"out of memory"});
+207 
+208                 sel\_ind = 0;
+209                 \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+210                     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i]) &&
+211                         \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i]) ) \{
+212                         selected[sel\_ind].item = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].identifier;
+213                         selected[sel\_ind].count = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].count;
+214                         sel\_ind++;
+215                     \}
+216                 \}
+217                 ret\_val = sel\_ind;
+218                 *\_selected = selected;
+219             \}
+220         \}
+221     \}
+222 
+223     \hyperlink{sys_2wince_2mswproc_8c_a49804134a4aaa8874010372eae4612f9}{mswin\_popup\_destroy}(hWnd);
+224 
+225 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+226     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}==\hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} ) NHSPhoneSetKeypadDefault();
+227 \textcolor{preprocessor}{#endif}
+228 
+229     \textcolor{keywordflow}{return} ret\_val;
+230 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a522c5050d80d7397e9f59b00c47e13f0}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!mswin\+\_\+menu\+\_\+window\+\_\+size@{mswin\+\_\+menu\+\_\+window\+\_\+size}}
+\index{mswin\+\_\+menu\+\_\+window\+\_\+size@{mswin\+\_\+menu\+\_\+window\+\_\+size}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{mswin\+\_\+menu\+\_\+window\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+menu\+\_\+window\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{L\+P\+S\+I\+Z\+E}]{sz}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhmenu_8c_a522c5050d80d7397e9f59b00c47e13f0}
+
+
+Definition at line 1317 of file mhmenu.\+c.
+
+
+
+Referenced by mswin\+\_\+layout\+\_\+main\+\_\+window(), and Set\+Menu\+List\+Type().
+
+
+\begin{DoxyCode}
+1318 \{
+1319     TEXTMETRIC \hyperlink{structtm}{tm};
+1320     HWND control;
+1321     HGDIOBJ saveFont;
+1322     HDC hdc;
+1323     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+1324     \textcolor{keywordtype}{int} i;
+1325     RECT rt, wrt;
+1326     \textcolor{keywordtype}{int} extra\_cx;
+1327 
+1328     GetClientRect(hWnd, &rt);
+1329     sz->cx = rt.right - rt.left;
+1330     sz->cy = rt.bottom - rt.top;
+1331 
+1332     GetWindowRect(hWnd, &wrt);
+1333     extra\_cx = (wrt.right-wrt.left) - sz->cx;
+1334 
+1335     data = (\hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+1336     \textcolor{keywordflow}{if}(data) \{
+1337         control = \hyperlink{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{GetMenuControl}(hWnd);
+1338         hdc = GetDC(control);
+1339 
+1340         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}==\hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} ) \{
+1341             \textcolor{comment}{/* Calculate the width of the list box. */}
+1342             saveFont = SelectObject(hdc, \hyperlink{sys_2wince_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{mswin\_get\_font}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, 
+      \hyperlink{wintype_8h_a20a20b74e8cf84ecfbf3c8665c059636}{ATR\_NONE}, hdc, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}));
+1343             GetTextMetrics(hdc, &tm);
+1344             \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+1345                 LONG menuitemwidth = 0;
+1346                 \textcolor{keywordtype}{int} column;
+1347                 \textcolor{keywordtype}{char} *p, *p1;
+1348 
+1349                 p1 = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].str;
+1350                 p = strchr(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].str, \textcolor{charliteral}{'\(\backslash\)t'});
+1351                 column = 0;
+1352                 \textcolor{keywordflow}{for} (;;) \{
+1353                     TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1354                     RECT tabRect;
+1355                     SetRect ( &tabRect, 0, 0, 1, 1 );
+1356                     \textcolor{keywordflow}{if} (p != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) *p = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{/* for time being, view tab field as zstring */}
+1357                     DrawText(hdc,
+1358                         \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(p1, wbuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}),
+1359                         strlen(p1),
+1360                         &tabRect,
+1361                         DT\_CALCRECT | DT\_LEFT | DT\_VCENTER | DT\_SINGLELINE
+1362                     );
+1363                     \textcolor{comment}{/* it probably isn't necessary to recompute the tab width now, but do so}
+1364 \textcolor{comment}{                     * just in case, honoring the previously computed value}
+1365 \textcolor{comment}{                     */}
+1366                     menuitemwidth += \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.tab\_stop\_size[column],
+1367                         tabRect.right - tabRect.left);
+1368                     \textcolor{keywordflow}{if} (p != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) *p = \textcolor{charliteral}{'\(\backslash\)t'};
+1369                     \textcolor{keywordflow}{else} \textcolor{comment}{/* last string so, */} \textcolor{keywordflow}{break};
+1370                     \textcolor{comment}{/* add the separation only when not the last item */}
+1371                     \textcolor{comment}{/* in the last item, we break out of the loop, in the statement just above */}
+1372                     menuitemwidth += \hyperlink{sys_2wince_2mhmenu_8c_a2d7b0f76873a47cdd301b0a7c222a681}{TAB\_SEPARATION};
+1373                     ++column;
+1374                     p1 = p + 1;
+1375                     p = strchr(p1, \textcolor{charliteral}{'\(\backslash\)t'});
+1376                 \}
+1377 
+1378                 sz->cx = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(sz->cx, 
+1379                     (LONG)(2*\hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X} + menuitemwidth + tm.tmAveCharWidth*12 + tm.tmOverhang));
+1380             \}
+1381             SelectObject(hdc, saveFont);
+1382         \} \textcolor{keywordflow}{else} \{
+1383             \textcolor{comment}{/* do not change size for text output - the text will be formatted to}
+1384 \textcolor{comment}{               fit any window */}
+1385         \}
+1386         sz->cx += extra\_cx;
+1387 
+1388         ReleaseDC(control, hdc);
+1389     \}
+1390 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a98cae3dd2cc1e5ed8696141ea0af9736}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!N\+H\+Menu\+List\+Wnd\+Proc@{N\+H\+Menu\+List\+Wnd\+Proc}}
+\index{N\+H\+Menu\+List\+Wnd\+Proc@{N\+H\+Menu\+List\+Wnd\+Proc}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{N\+H\+Menu\+List\+Wnd\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}L\+R\+E\+S\+U\+L\+T C\+A\+L\+L\+B\+A\+C\+K N\+H\+Menu\+List\+Wnd\+Proc (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf U\+I\+N\+T}}]{message, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhmenu_8c_a98cae3dd2cc1e5ed8696141ea0af9736}
+
+
+Definition at line 1422 of file mhmenu.\+c.
+
+
+
+References F\+A\+L\+S\+E, mswin\+\_\+event\+::kbd, mswin\+\_\+have\+\_\+input(), mswin\+\_\+input\+\_\+pop(), N\+H\+E\+V\+E\+N\+T\+\_\+\+C\+H\+A\+R, on\+List\+Char(), T\+R\+U\+E, mswin\+\_\+event\+::type, and wnd\+Proc\+List\+View\+Orig.
+
+
+
+Referenced by Set\+Menu\+List\+Type().
+
+
+\begin{DoxyCode}
+1423 \{
+1424     BOOL bUpdateFocusItem = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1425 
+1426     \textcolor{keywordflow}{switch}(message) \{
+1427 
+1428     \textcolor{comment}{/* filter keyboard input for the control */}
+1429 \textcolor{preprocessor}{#if !defined(WIN\_CE\_SMARTPHONE)}
+1430     \textcolor{keywordflow}{case} WM\_KEYDOWN:
+1431     \textcolor{keywordflow}{case} WM\_KEYUP: \{
+1432         MSG msg;
+1433 
+1434         \textcolor{keywordflow}{if}( PeekMessage(&msg, hWnd, WM\_CHAR, WM\_CHAR, PM\_REMOVE) ) \{
+1435             \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_a0fc93365413fa232f797e9bffa6780a9}{onListChar}(GetParent(hWnd), hWnd, (\textcolor{keywordtype}{char})msg.wParam)==-2 ) \{
+1436                 \textcolor{keywordflow}{return} 0;
+1437             \}
+1438         \}
+1439 
+1440         \textcolor{keywordflow}{if}( wParam==VK\_LEFT || wParam==VK\_RIGHT )
+1441             bUpdateFocusItem = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1442     \} \textcolor{keywordflow}{break};
+1443 
+1444 \textcolor{preprocessor}{#else }\textcolor{comment}{/* defined(WIN\_CE\_SMARTPHONE) */}\textcolor{preprocessor}{}
+1445     \textcolor{keywordflow}{case} WM\_KEYDOWN:
+1446         \textcolor{keywordflow}{if}( wParam==VK\_TACTION ) \{
+1447             \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_a0fc93365413fa232f797e9bffa6780a9}{onListChar}(GetParent(hWnd), hWnd, \textcolor{charliteral}{' '})==-2 ) \{
+1448                 \textcolor{keywordflow}{return} 0;
+1449             \}
+1450         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( NHSPhoneTranslateKbdMessage(wParam, lParam, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}) ) \{
+1451             \hyperlink{structmswin__event}{PMSNHEvent}    evt;
+1452             BOOL processed = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1453             \textcolor{keywordflow}{if}( \hyperlink{wceconf_8h_ac3f8f3ca6bf373418ca678c94249d550}{mswin\_have\_input}() ) \{
+1454                 evt = \hyperlink{sys_2wince_2mhinput_8c_a956ca789dfd164267928c8d98e3ee13b}{mswin\_input\_pop}();
+1455                 \textcolor{keywordflow}{if}( evt->\hyperlink{structmswin__event_a2cd42be6dadd3c4d0340108b1c92fee7}{type}==\hyperlink{sys_2wince_2mhinput_8h_aa21ee5bbaf0dc20461decbe3869878e0}{NHEVENT\_CHAR} && 
+1456                     \hyperlink{sys_2wince_2mhmenu_8c_a0fc93365413fa232f797e9bffa6780a9}{onListChar}(GetParent(hWnd), hWnd, evt->\hyperlink{structmswin__event_a42d63af297fdf4fdf081198553a74c57}{kbd}.ch)==-2 ) \{
+1457                     processed = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1458                 \}
+1459 
+1460                 \textcolor{comment}{/* eat the rest of the events */}
+1461                 \textcolor{keywordflow}{if}( \hyperlink{wceconf_8h_ac3f8f3ca6bf373418ca678c94249d550}{mswin\_have\_input}() ) \hyperlink{sys_2wince_2mhinput_8c_a956ca789dfd164267928c8d98e3ee13b}{mswin\_input\_pop}();
+1462             \}
+1463             \textcolor{keywordflow}{if}( processed ) \textcolor{keywordflow}{return} 0;
+1464         \}
+1465 
+1466         \textcolor{keywordflow}{if}( wParam==VK\_LEFT || wParam==VK\_RIGHT )
+1467             bUpdateFocusItem = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1468     \textcolor{keywordflow}{break};
+1469 
+1470     \textcolor{keywordflow}{case} WM\_KEYUP:
+1471         \textcolor{comment}{/* translate SmartPhone keyboard message */}
+1472         \textcolor{keywordflow}{if}( NHSPhoneTranslateKbdMessage(wParam, lParam, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}) )
+1473             \textcolor{keywordflow}{return} 0;
+1474     \textcolor{keywordflow}{break};
+1475 
+1476     \textcolor{comment}{/* tell Windows not to process default button on VK\_RETURN */}
+1477     \textcolor{keywordflow}{case} WM\_GETDLGCODE: 
+1478         \textcolor{keywordflow}{return} DLGC\_DEFPUSHBUTTON | DLGC\_WANTALLKEYS |
+1479                (\hyperlink{sys_2wince_2mhmenu_8c_a34b2053bf1601b3dc7b10796c1040cdc}{wndProcListViewOrig}? 
+1480                         CallWindowProc(\hyperlink{sys_2wince_2mhmenu_8c_a34b2053bf1601b3dc7b10796c1040cdc}{wndProcListViewOrig}, hWnd, message, wParam, 
+      lParam) 
+1481                         : 0 );
+1482 \textcolor{preprocessor}{#endif}
+1483 
+1484     \textcolor{keywordflow}{case} WM\_SIZE:
+1485     \textcolor{keywordflow}{case} WM\_HSCROLL:
+1486         bUpdateFocusItem = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1487     \textcolor{keywordflow}{break};
+1488 
+1489     \}
+1490 
+1491     \textcolor{keywordflow}{if}( bUpdateFocusItem ) \{
+1492         \textcolor{keywordtype}{int} i;
+1493         RECT rt;
+1494 
+1495         \textcolor{comment}{/* invalidate the focus rectangle */}
+1496         i = ListView\_GetNextItem(hWnd, -1,  LVNI\_FOCUSED);
+1497         \textcolor{keywordflow}{if}( i!=-1 ) \{
+1498             ListView\_GetItemRect(hWnd, i, &rt, LVIR\_BOUNDS);
+1499             InvalidateRect(hWnd, &rt, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1500         \}
+1501     \}
+1502 
+1503     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_a34b2053bf1601b3dc7b10796c1040cdc}{wndProcListViewOrig} ) 
+1504         \textcolor{keywordflow}{return} CallWindowProc(\hyperlink{sys_2wince_2mhmenu_8c_a34b2053bf1601b3dc7b10796c1040cdc}{wndProcListViewOrig}, hWnd, message, wParam, lParam);
+1505     \textcolor{keywordflow}{else} 
+1506         \textcolor{keywordflow}{return} 0;
+1507 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a05d16c255df1c3017ab9d2db72a80352}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!N\+H\+Menu\+Text\+Wnd\+Proc@{N\+H\+Menu\+Text\+Wnd\+Proc}}
+\index{N\+H\+Menu\+Text\+Wnd\+Proc@{N\+H\+Menu\+Text\+Wnd\+Proc}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{N\+H\+Menu\+Text\+Wnd\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}L\+R\+E\+S\+U\+L\+T C\+A\+L\+L\+B\+A\+C\+K N\+H\+Menu\+Text\+Wnd\+Proc (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf U\+I\+N\+T}}]{message, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhmenu_8c_a05d16c255df1c3017ab9d2db72a80352}
+
+
+Definition at line 1510 of file mhmenu.\+c.
+
+
+
+References edit\+Control\+Wnd\+Proc, and N\+U\+L\+L.
+
+
+
+Referenced by Menu\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+1511 \{
+1512     \textcolor{keywordflow}{switch}(message) \{
+1513     \textcolor{keywordflow}{case} WM\_KEYUP:
+1514         \textcolor{keywordflow}{switch}( wParam ) \{
+1515         \textcolor{keywordflow}{case} VK\_SPACE:
+1516         \textcolor{keywordflow}{case} VK\_RETURN:
+1517             \textcolor{comment}{/* close on space */}
+1518             PostMessage(GetParent(hWnd), WM\_COMMAND, MAKELONG(IDOK, 0), 0);
+1519             \textcolor{keywordflow}{return} 0;
+1520         
+1521         \textcolor{keywordflow}{case} VK\_UP:
+1522             \textcolor{comment}{/* scoll up */}
+1523             PostMessage(hWnd, WM\_VSCROLL, MAKEWPARAM(SB\_LINEUP, 0), (LPARAM)\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+1524             \textcolor{keywordflow}{return} 0;
+1525 
+1526         \textcolor{keywordflow}{case} VK\_DOWN:
+1527             \textcolor{comment}{/* scoll down */}
+1528             PostMessage(hWnd, WM\_VSCROLL, MAKEWPARAM(SB\_LINEDOWN, 0), (LPARAM)
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+1529             \textcolor{keywordflow}{return} 0;
+1530 
+1531         \textcolor{keywordflow}{case} VK\_LEFT:
+1532             \textcolor{comment}{/* scoll left */}
+1533             PostMessage(hWnd, WM\_HSCROLL, MAKEWPARAM(SB\_LINELEFT, 0), (LPARAM)
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+1534             \textcolor{keywordflow}{return} 0;
+1535 
+1536         \textcolor{keywordflow}{case} VK\_RIGHT:
+1537             \textcolor{comment}{/* scoll right */}
+1538             PostMessage(hWnd, WM\_HSCROLL, MAKEWPARAM(SB\_LINERIGHT, 0), (LPARAM)
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+1539             \textcolor{keywordflow}{return} 0;
+1540         \}
+1541         \textcolor{keywordflow}{break}; \textcolor{comment}{/* case WM\_KEYUP: */}
+1542     \}
+1543 
+1544     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_ad6488b0aa2546ac1e148bc6ca7b51087}{editControlWndProc} ) 
+1545         \textcolor{keywordflow}{return} CallWindowProc(\hyperlink{sys_2wince_2mhmenu_8c_ad6488b0aa2546ac1e148bc6ca7b51087}{editControlWndProc}, hWnd, message, wParam, lParam);
+1546     \textcolor{keywordflow}{else} 
+1547         \textcolor{keywordflow}{return} 0;
+1548 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a78faafa6cdec64d753aec5a898f67f10}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!on\+Draw\+Item@{on\+Draw\+Item}}
+\index{on\+Draw\+Item@{on\+Draw\+Item}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{on\+Draw\+Item}]{\setlength{\rightskip}{0pt plus 5cm}L\+R\+E\+S\+U\+L\+T on\+Draw\+Item (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a78faafa6cdec64d753aec5a898f67f10}
+
+
+Definition at line 850 of file mhmenu.\+c.
+
+
+
+References mswin\+\_\+menu\+\_\+item\+::accelerator, A\+T\+R\+\_\+\+B\+L\+I\+N\+K, mswin\+\_\+menu\+\_\+item\+::attr, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::bmp\+Checked, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::bmp\+Checked\+Count, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::bmp\+Not\+Checked, buf, B\+U\+F\+S\+Z, mswin\+\_\+menu\+\_\+item\+::count, F\+A\+L\+S\+E, Get\+N\+H\+App(), mswin\+\_\+menu\+\_\+item\+::glyph, glyph2tile, mswin\+\_\+menu\+\_\+item\+::has\+\_\+focus, mswin\+\_\+menu\+\_\+item\+::has\+\_\+tab, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::how, max, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::menu, min, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+G, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+F\+G, mswin\+\_\+get\+\_\+color(), mswin\+\_\+get\+\_\+font(), N\+H\+\_\+\+A2\+W, nhapply\+\_\+image\+\_\+transparent(), N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+O\+\_\+\+G\+L\+Y\+P\+H, N\+U\+L\+L, P\+I\+C\+K\+\_\+\+N\+O\+N\+E, mswin\+\_\+menu\+\_\+item\+::str, T\+A\+B\+\_\+\+S\+E\+P\+A\+R\+A\+T\+I\+O\+N, T\+I\+L\+E\+\_\+\+B\+K\+\_\+\+C\+O\+L\+O\+R, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+L\+I\+N\+E, and T\+R\+U\+E.
+
+
+
+Referenced by Menu\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+851 \{
+852     LPDRAWITEMSTRUCT lpdis; 
+853     \hyperlink{structmswin__menu__item}{PNHMenuItem} item;
+854     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+855     TEXTMETRIC \hyperlink{structtm}{tm};
+856     HGDIOBJ saveFont;
+857     HDC tileDC;
+858     \textcolor{keywordtype}{short} ntile;
+859     \textcolor{keywordtype}{int} t\_x, t\_y;
+860     \textcolor{keywordtype}{int} x, y;
+861     TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+862     RECT drawRect;
+863     COLORREF OldBg, OldFg, NewBg;
+864     \textcolor{keywordtype}{char} *p, *p1;
+865     \textcolor{keywordtype}{int} column;
+866 
+867     lpdis = (LPDRAWITEMSTRUCT) lParam; 
+868 
+869     \textcolor{comment}{/* If there are no list box items, skip this message. */}
+870     \textcolor{keywordflow}{if} (lpdis->itemID == -1) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+871 
+872     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+873 
+874     item = &data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpdis->itemID];
+875 
+876     tileDC = CreateCompatibleDC(lpdis->hDC);
+877     saveFont = SelectObject(lpdis->hDC, \hyperlink{sys_2wince_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{mswin\_get\_font}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, item->
+      \hyperlink{structmswin__menu__item_aac16c04c8ecd7b7870d65034453cfd34}{attr}, lpdis->hDC, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}));
+878     NewBg = \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG});
+879     OldBg = SetBkColor(lpdis->hDC, NewBg);
+880     OldFg = SetTextColor(lpdis->hDC, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, 
+      \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG})); 
+881 
+882     GetTextMetrics(lpdis->hDC, &tm);
+883 
+884     x = lpdis->rcItem.left + 1;
+885 
+886     \textcolor{comment}{/* print check mark if it is a "selectable" menu */}
+887     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}!=\hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE} ) \{
+888         \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(*item) ) \{
+889             HGDIOBJ saveBrush;
+890             HBRUSH  hbrCheckMark;
+891             \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[2];
+892 
+893             \textcolor{keywordflow}{switch}(item->\hyperlink{structmswin__menu__item_a28629e81df6ba5b0b67cf8309e20edaa}{count}) \{
+894             \textcolor{keywordflow}{case} -1: hbrCheckMark = CreatePatternBrush(data->\hyperlink{structmswin__nethack__menu__window_a547aec082271327296a222cd550d0339}{bmpChecked}); \textcolor{keywordflow}{break};
+895             \textcolor{keywordflow}{case} 0: hbrCheckMark = CreatePatternBrush(data->\hyperlink{structmswin__nethack__menu__window_a815f5ad41abbfa599ea0b35ddb7e2742}{bmpNotChecked}); \textcolor{keywordflow}{break};
+896             \textcolor{keywordflow}{default}: hbrCheckMark = CreatePatternBrush(data->\hyperlink{structmswin__nethack__menu__window_a489e74d381e225e45bdcd709b76a9c4a}{bmpCheckedCount}); \textcolor{keywordflow}{break};
+897             \}
+898 
+899             y = (lpdis->rcItem.bottom + lpdis->rcItem.top - \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}) / 2; 
+900             SetBrushOrgEx(lpdis->hDC, x, y, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+901             saveBrush = SelectObject(lpdis->hDC, hbrCheckMark);
+902             PatBlt(lpdis->hDC, x, y, \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}, \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}, PATCOPY);
+903             SelectObject(lpdis->hDC, saveBrush);
+904             DeleteObject(hbrCheckMark);
+905 
+906             x += \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X} + 5;
+907 
+908             \textcolor{keywordflow}{if}(item->\hyperlink{structmswin__menu__item_a68edbe01b9a5545b8d4c54fb70a51300}{accelerator}!=0) \{
+909                 buf[0] = item->\hyperlink{structmswin__menu__item_a68edbe01b9a5545b8d4c54fb70a51300}{accelerator};
+910                 buf[1] = \textcolor{stringliteral}{'\(\backslash\)x0'};
+911 
+912                 SetRect( &drawRect, x, lpdis->rcItem.top, lpdis->rcItem.right, lpdis->rcItem.bottom );
+913                 DrawText(lpdis->hDC, \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(buf, wbuf, 2), 1, &drawRect, DT\_LEFT | DT\_VCENTER | 
+      DT\_SINGLELINE | DT\_NOPREFIX);
+914             \}
+915             x += tm.tmAveCharWidth + tm.tmOverhang + 5;
+916         \} \textcolor{keywordflow}{else} \{
+917             x += \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X} + tm.tmAveCharWidth + tm.tmOverhang + 10;
+918         \}
+919     \}
+920 
+921     \textcolor{comment}{/* print glyph if present */}
+922     \textcolor{keywordflow}{if}( item->\hyperlink{structmswin__menu__item_a9184b47db8a12d06f5247a420a9ece34}{glyph} != \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH} ) \{
+923         HGDIOBJ saveBmp;
+924 
+925         saveBmp = SelectObject(tileDC, \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->bmpTiles);               
+926         ntile = \hyperlink{sys_2wince_2mhmenu_8c_a4d61aa736dae8287d97c3a68a3a917c5}{glyph2tile}[ item->\hyperlink{structmswin__menu__item_a9184b47db8a12d06f5247a420a9ece34}{glyph} ];
+927         t\_x = (ntile % \hyperlink{sys_2wince_2winMS_8h_a1eaa02a47952ddaac086c1c00b92d0d6}{TILES\_PER\_LINE})*\hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+928         t\_y = (ntile / \hyperlink{sys_2wince_2winMS_8h_a1eaa02a47952ddaac086c1c00b92d0d6}{TILES\_PER\_LINE})*\hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y};
+929 
+930         y = (lpdis->rcItem.bottom + lpdis->rcItem.top - \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}) / 2; 
+931 
+932         \hyperlink{sys_2wince_2mhmap_8c_afb458d94567c267343944df598e6f1e9}{nhapply\_image\_transparent}(
+933             lpdis->hDC, x, y, \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}, \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}, 
+934             tileDC, t\_x, t\_y, \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}, \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}, \hyperlink{sys_2wince_2winMS_8h_a43f48db3369313aac6df5acfab57a642}{TILE\_BK\_COLOR} );
+935         SelectObject(tileDC, saveBmp);
+936     \}
+937 
+938     x += \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X} + 5;
+939 
+940     \textcolor{comment}{/* draw item text */}
+941     \textcolor{keywordflow}{if}( item->\hyperlink{structmswin__menu__item_ab310dbf6cbde678708f0b3de148470a8}{has\_tab} ) \{
+942         p1 = item->\hyperlink{structmswin__menu__item_a6644e3aa5c3da84efdad362cc01adc66}{str};
+943         p = strchr(item->\hyperlink{structmswin__menu__item_a6644e3aa5c3da84efdad362cc01adc66}{str}, \textcolor{charliteral}{'\(\backslash\)t'});
+944         column = 0;
+945         SetRect( &drawRect, x, lpdis->rcItem.top, \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(x + data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.tab\_stop\_size[0], lpdis->rcItem
+      .right),
+946             lpdis->rcItem.bottom );
+947         \textcolor{keywordflow}{for} (;;) \{
+948             TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+949             \textcolor{keywordflow}{if} (p != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) *p = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{/* for time being, view tab field as zstring */}
+950             DrawText(lpdis->hDC,
+951                 \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(p1, wbuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}),
+952                 strlen(p1),
+953                 &drawRect,
+954                 DT\_LEFT | DT\_VCENTER | DT\_SINGLELINE
+955             );
+956             \textcolor{keywordflow}{if} (p != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) *p = \textcolor{charliteral}{'\(\backslash\)t'};
+957             \textcolor{keywordflow}{else} \textcolor{comment}{/* last string so, */} \textcolor{keywordflow}{break};
+958 
+959             p1 = p + 1;
+960             p = strchr(p1, \textcolor{charliteral}{'\(\backslash\)t'});
+961             drawRect.left = drawRect.right + \hyperlink{sys_2wince_2mhmenu_8c_a2d7b0f76873a47cdd301b0a7c222a681}{TAB\_SEPARATION};
+962             ++column;
+963             drawRect.right = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min} (drawRect.left + data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.tab\_stop\_size[column], lpdis->rcItem.
+      right);
+964         \}
+965     \} \textcolor{keywordflow}{else} \{
+966         TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+967         SetRect( &drawRect, x, lpdis->rcItem.top, lpdis->rcItem.right, lpdis->rcItem.bottom);
+968         DrawText(lpdis->hDC,
+969             \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(item->\hyperlink{structmswin__menu__item_a6644e3aa5c3da84efdad362cc01adc66}{str}, wbuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}),
+970             strlen(item->\hyperlink{structmswin__menu__item_a6644e3aa5c3da84efdad362cc01adc66}{str}),
+971             &drawRect,
+972             DT\_LEFT | DT\_VCENTER | DT\_SINGLELINE
+973         );
+974     \}
+975 
+976     \textcolor{comment}{/* draw focused item */}
+977     \textcolor{keywordflow}{if}( item->\hyperlink{structmswin__menu__item_ab880fce63154e7b3be65441f1f11f1c8}{has\_focus} ) \{
+978         RECT client\_rt;
+979         HBRUSH bkBrush;
+980 
+981         GetClientRect(lpdis->hwndItem, &client\_rt);
+982         \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(*item) && 
+983             data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpdis->itemID].count>0 &&
+984             item->\hyperlink{structmswin__menu__item_a9184b47db8a12d06f5247a420a9ece34}{glyph} != \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH} ) \{
+985             \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpdis->itemID].count==-1 ) \{
+986                 \_stprintf(wbuf, TEXT(\textcolor{stringliteral}{"Count: All"}) );
+987             \} \textcolor{keywordflow}{else} \{
+988                 \_stprintf(wbuf, TEXT(\textcolor{stringliteral}{"Count: %d"}), data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[lpdis->itemID].count );
+989             \}
+990 
+991             SelectObject(lpdis->hDC, \hyperlink{sys_2wince_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{mswin\_get\_font}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, 
+      \hyperlink{wintype_8h_a9d66a94b42076440893a6250fe72a8a8}{ATR\_BLINK}, lpdis->hDC, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}));
+992 
+993             \textcolor{comment}{/* calculate text rectangle */}
+994             SetRect( &drawRect, client\_rt.left, lpdis->rcItem.top, client\_rt.right, lpdis->rcItem.bottom );
+995             DrawText(lpdis->hDC, wbuf, \_tcslen(wbuf), &drawRect, 
+996                      DT\_CALCRECT | DT\_RIGHT | DT\_VCENTER | DT\_SINGLELINE | DT\_NOPREFIX );
+997             
+998             \textcolor{comment}{/* erase text rectangle */}
+999             drawRect.left = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(client\_rt.left+1, client\_rt.right - (drawRect.right - drawRect.left) - 1
+      0);
+1000             drawRect.right = client\_rt.right-1;
+1001             drawRect.top = lpdis->rcItem.top;
+1002             drawRect.bottom = lpdis->rcItem.bottom;
+1003             bkBrush = CreateSolidBrush( GetBkColor(lpdis->hDC) );
+1004             FillRect(lpdis->hDC, &drawRect, bkBrush );
+1005             DeleteObject( bkBrush );
+1006 
+1007             \textcolor{comment}{/* draw text */}
+1008             DrawText(lpdis->hDC, wbuf, \_tcslen(wbuf), &drawRect, 
+1009                      DT\_RIGHT | DT\_VCENTER | DT\_SINGLELINE | DT\_NOPREFIX );
+1010         \}
+1011 
+1012         \textcolor{comment}{/* draw focus rect */}
+1013         SetRect( &drawRect, client\_rt.left, lpdis->rcItem.top, client\_rt.right, lpdis->rcItem.bottom );
+1014         DrawFocusRect(lpdis->hDC, &drawRect);
+1015     \}
+1016 
+1017     SetTextColor (lpdis->hDC, OldFg);
+1018     SetBkColor (lpdis->hDC, OldBg);
+1019     SelectObject(lpdis->hDC, saveFont);
+1020     DeleteDC(tileDC);
+1021     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1022 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a0fc93365413fa232f797e9bffa6780a9}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!on\+List\+Char@{on\+List\+Char}}
+\index{on\+List\+Char@{on\+List\+Char}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{on\+List\+Char}]{\setlength{\rightskip}{0pt plus 5cm}B\+O\+O\+L on\+List\+Char (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{H\+W\+N\+D}]{hwnd\+List, }
+\item[{W\+O\+R\+D}]{ch}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a0fc93365413fa232f797e9bffa6780a9}
+
+
+Definition at line 1024 of file mhmenu.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, count, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::done, F\+A\+L\+S\+E, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::how, max, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::menu, M\+E\+N\+U\+\_\+\+F\+I\+R\+S\+T\+\_\+\+P\+A\+G\+E, M\+E\+N\+U\+\_\+\+I\+N\+V\+E\+R\+T\+\_\+\+A\+L\+L, M\+E\+N\+U\+\_\+\+I\+N\+V\+E\+R\+T\+\_\+\+P\+A\+G\+E, M\+E\+N\+U\+\_\+\+L\+A\+S\+T\+\_\+\+P\+A\+G\+E, M\+E\+N\+U\+\_\+\+N\+E\+X\+T\+\_\+\+P\+A\+G\+E, M\+E\+N\+U\+\_\+\+P\+R\+E\+V\+I\+O\+U\+S\+\_\+\+P\+A\+G\+E, M\+E\+N\+U\+\_\+\+S\+E\+A\+R\+C\+H, M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+A\+L\+L, M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+P\+A\+G\+E, M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+\_\+\+A\+L\+L, M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+\_\+\+P\+A\+G\+E, min, mswin\+\_\+getlin(), mswin\+\_\+nhbell(), N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+A\+B\+L\+E, N\+H\+M\+E\+N\+U\+\_\+\+I\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D, P\+I\+C\+K\+\_\+\+A\+N\+Y, P\+I\+C\+K\+\_\+\+N\+O\+N\+E, P\+I\+C\+K\+\_\+\+O\+N\+E, reset\+\_\+menu\+\_\+count(), mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::result, Select\+Menu\+Item(), and T\+R\+U\+E.
+
+
+
+Referenced by N\+H\+Menu\+List\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+1025 \{
+1026     \textcolor{keywordtype}{int} i = 0;
+1027     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+1028     \textcolor{keywordtype}{int} curIndex, topIndex, pageSize;
+1029     \textcolor{keywordtype}{boolean} is\_accelerator = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1030 
+1031     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+1032 
+1033     \textcolor{keywordflow}{switch}( ch ) \{
+1034     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a3eed1da5a8a308f757ae0bc07dc185b3}{MENU\_FIRST\_PAGE}:
+1035         i = 0;
+1036         ListView\_SetItemState(hwndList, i, LVIS\_FOCUSED, LVIS\_FOCUSED);
+1037         ListView\_EnsureVisible(hwndList, i, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1038     \textcolor{keywordflow}{return} -2;
+1039 
+1040     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a0d14d3fa404cc391d604a8c990af0954}{MENU\_LAST\_PAGE}:
+1041         i = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(0, data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size-1);
+1042         ListView\_SetItemState(hwndList, i, LVIS\_FOCUSED, LVIS\_FOCUSED);
+1043         ListView\_EnsureVisible(hwndList, i, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1044     \textcolor{keywordflow}{return} -2;
+1045 
+1046     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a38905328dea58bbf036f93b7b5a6a6ef}{MENU\_NEXT\_PAGE}:
+1047         topIndex = ListView\_GetTopIndex( hwndList );
+1048         pageSize = ListView\_GetCountPerPage( hwndList );
+1049         curIndex = ListView\_GetNextItem(hwndList, -1,   LVNI\_FOCUSED);
+1050         \textcolor{comment}{/* Focus down one page */}
+1051         i = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(curIndex+pageSize, data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size-1);
+1052         ListView\_SetItemState(hwndList, i, LVIS\_FOCUSED, LVIS\_FOCUSED);
+1053         \textcolor{comment}{/* Scrollpos down one page */}
+1054         i = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(topIndex+(2*pageSize - 1), data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size-1);
+1055         ListView\_EnsureVisible(hwndList, i, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1056     \textcolor{keywordflow}{return} -2;
+1057 
+1058     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a688fe5156d1b2c3cce5d71e50d62bfea}{MENU\_PREVIOUS\_PAGE}:
+1059         topIndex = ListView\_GetTopIndex( hwndList );
+1060         pageSize = ListView\_GetCountPerPage( hwndList );
+1061         curIndex = ListView\_GetNextItem(hwndList, -1,   LVNI\_FOCUSED);
+1062         \textcolor{comment}{/* Focus up one page */}
+1063         i = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(curIndex-pageSize, 0);
+1064         ListView\_SetItemState(hwndList, i, LVIS\_FOCUSED, LVIS\_FOCUSED);
+1065         \textcolor{comment}{/* Scrollpos up one page */}
+1066         i = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(topIndex-pageSize, 0);
+1067         ListView\_EnsureVisible(hwndList, i, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1068     \textcolor{keywordflow}{break};
+1069 
+1070     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a6c705d18a063df81d02997c09d14157f}{MENU\_SELECT\_ALL}:
+1071         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1072             \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1073             \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+1074                 \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(hwndList, data, i, -1);
+1075             \}
+1076             \textcolor{keywordflow}{return} -2;
+1077         \}
+1078     \textcolor{keywordflow}{break};
+1079 
+1080     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a3a476dd165f2b9254ecc1ab3047238f8}{MENU\_UNSELECT\_ALL}:
+1081         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1082             \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1083             \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+1084                 \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(hwndList, data, i, 0);
+1085             \}
+1086             \textcolor{keywordflow}{return} -2;
+1087         \}
+1088     \textcolor{keywordflow}{break};
+1089 
+1090     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7be1bf4583bee8feddb61ab15e634fd9}{MENU\_INVERT\_ALL}:
+1091         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1092             \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1093             \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+1094                 \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1095                     hwndList, 
+1096                     data, 
+1097                     i, 
+1098                     \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i])? 0 : -1
+1099                 );
+1100             \}
+1101             \textcolor{keywordflow}{return} -2;
+1102         \}
+1103     \textcolor{keywordflow}{break};
+1104 
+1105     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ee870b720cd0aab7743ba83f8fb0a1b}{MENU\_SELECT\_PAGE}:
+1106         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1107             \textcolor{keywordtype}{int} from, to;
+1108             \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1109             topIndex = ListView\_GetTopIndex( hwndList );
+1110             pageSize = ListView\_GetCountPerPage( hwndList );
+1111             from = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(0, topIndex);
+1112             to = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size, from+pageSize);
+1113             \textcolor{keywordflow}{for}(i=from; i<to; i++ ) \{
+1114                 \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(hwndList, data, i, -1);
+1115             \}
+1116             \textcolor{keywordflow}{return} -2;
+1117         \}
+1118     \textcolor{keywordflow}{break};
+1119 
+1120     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a18e91769b9181b3462efe03f534bd6e1}{MENU\_UNSELECT\_PAGE}:
+1121         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1122             \textcolor{keywordtype}{int} from, to;
+1123             \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1124             topIndex = ListView\_GetTopIndex( hwndList );
+1125             pageSize = ListView\_GetCountPerPage( hwndList );
+1126             from = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(0, topIndex);
+1127             to = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size, from+pageSize);
+1128             \textcolor{keywordflow}{for}(i=from; i<to; i++ ) \{
+1129                 \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(hwndList, data, i, 0);
+1130             \}
+1131             \textcolor{keywordflow}{return} -2;
+1132         \}
+1133     \textcolor{keywordflow}{break};
+1134 
+1135     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ad3dbb023bb0ffc9ffdf822e36734cedc}{MENU\_INVERT\_PAGE}:
+1136         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1137             \textcolor{keywordtype}{int} from, to;
+1138             \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1139             topIndex = ListView\_GetTopIndex( hwndList );
+1140             pageSize = ListView\_GetCountPerPage( hwndList );
+1141             from = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(0, topIndex);
+1142             to = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size, from+pageSize);
+1143             \textcolor{keywordflow}{for}(i=from; i<to; i++ ) \{
+1144                 \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1145                     hwndList, 
+1146                     data, 
+1147                     i, 
+1148                     \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i])? 0 : -1
+1149                 );
+1150             \}
+1151             \textcolor{keywordflow}{return} -2;
+1152         \}
+1153     \textcolor{keywordflow}{break};
+1154 
+1155     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a1c3201f2628d34d0880a40dbb566f316}{MENU\_SEARCH}:
+1156         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} || data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} ) \{
+1157             \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1158             \textcolor{keywordtype}{int}  selected\_item;
+1159             
+1160             \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1161             \hyperlink{sys_2wince_2mswproc_8c_abba2c51bc4441e5065264ad8893e6a27}{mswin\_getlin}(\textcolor{stringliteral}{"Search for:"}, buf);
+1162             \textcolor{keywordflow}{if} (!*buf || *buf == \textcolor{charliteral}{'\(\backslash\)033'}) \textcolor{keywordflow}{return} -2;
+1163             selected\_item = -1;
+1164             \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+1165                 \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i])
+1166                     && strstr(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].str, buf) ) \{
+1167                     \textcolor{keywordflow}{if} (data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY}) \{
+1168                         \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1169                             hwndList, 
+1170                             data, 
+1171                             i, 
+1172                             \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i])? 0 : -1
+1173                         );
+1174                         \textcolor{comment}{/* save the first item - we will move focus to it */}
+1175                         \textcolor{keywordflow}{if}( selected\_item == -1 ) selected\_item = i;
+1176                     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} ) \{
+1177                         \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1178                             hwndList, 
+1179                             data, 
+1180                             i, 
+1181                             -1
+1182                         );
+1183                         selected\_item = i;
+1184                         \textcolor{keywordflow}{break};
+1185                     \}
+1186                 \}
+1187             \} 
+1188 
+1189             \textcolor{keywordflow}{if}( selected\_item>0 ) \{
+1190                 ListView\_SetItemState(hwndList, selected\_item, LVIS\_FOCUSED, LVIS\_FOCUSED);
+1191                 ListView\_EnsureVisible(hwndList, selected\_item, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1192             \}
+1193         \} \textcolor{keywordflow}{else} \{
+1194             \hyperlink{sys_2wince_2mswproc_8c_acfd44b324a001d918123b85df7f81af1}{mswin\_nhbell}();
+1195         \}
+1196     \textcolor{keywordflow}{return} -2;
+1197 
+1198     \textcolor{keywordflow}{case} \textcolor{charliteral}{' '}:
+1199         \textcolor{comment}{/* ends menu for PICK\_ONE/PICK\_NONE}
+1200 \textcolor{comment}{           select item for PICK\_ANY */}
+1201         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} || data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE} ) \{
+1202             data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done} = 1;
+1203             data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} = 0;
+1204             \textcolor{keywordflow}{return} -2;
+1205         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1206             i = ListView\_GetNextItem(hwndList, -1,  LVNI\_FOCUSED);
+1207             \textcolor{keywordflow}{if}( i>=0 ) \{
+1208                 \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1209                     hwndList, 
+1210                     data, 
+1211                     i, 
+1212                     \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i])? 0 : -1
+1213                 );
+1214             \}
+1215             \textcolor{keywordflow}{return} -2;
+1216         \}
+1217     \textcolor{keywordflow}{break};
+1218 
+1219     \textcolor{keywordflow}{default}:
+1220         \textcolor{keywordflow}{if}( strchr(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.gacc, ch) &&
+1221             !(ch==\textcolor{charliteral}{'0'} && data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.counting) ) \{
+1222             \textcolor{comment}{/* matched a group accelerator */}
+1223             \textcolor{keywordflow}{if} (data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} || data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}) \{
+1224                 \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1225                 \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+1226                     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmenu_8c_aa8bce4ca1a293da05862b6183251c5a0}{NHMENU\_IS\_SELECTABLE}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i]) &&
+1227                         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].group\_accel == ch ) \{
+1228                         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1229                             \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1230                                 hwndList, 
+1231                                 data, 
+1232                                 i, 
+1233                                 \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i])? 0 : -1
+1234                             );
+1235                         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} ) \{
+1236                             \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1237                                 hwndList, 
+1238                                 data, 
+1239                                 i, 
+1240                                 -1
+1241                             );
+1242                             data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} = 0;
+1243                             data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done} = 1;
+1244                             \textcolor{keywordflow}{return} -2;
+1245                         \}
+1246                     \}
+1247                 \}
+1248                 \textcolor{keywordflow}{return} -2;
+1249             \} \textcolor{keywordflow}{else} \{
+1250                 \hyperlink{sys_2wince_2mswproc_8c_acfd44b324a001d918123b85df7f81af1}{mswin\_nhbell}();
+1251                 \textcolor{keywordflow}{return} -2;
+1252             \}
+1253         \}
+1254 
+1255         \textcolor{keywordflow}{if} (isdigit(ch)) \{
+1256             \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1257             i = ListView\_GetNextItem(hwndList, -1,  LVNI\_FOCUSED);
+1258             \textcolor{keywordflow}{if}( i>=0 ) \{
+1259                 count = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].count;
+1260                 \textcolor{keywordflow}{if}( count==-1 ) count=0;
+1261                 count *= 10L;
+1262                 count += (int)(ch - \textcolor{charliteral}{'0'});
+1263                 \textcolor{keywordflow}{if} (count != 0) \textcolor{comment}{/* ignore leading zeros */} \{
+1264                     data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.counting = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1265                     data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].count = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(100000, count);
+1266                     ListView\_RedrawItems( hwndList, i, i ); \textcolor{comment}{/* update count mark */}
+1267                 \}
+1268             \}
+1269             \textcolor{keywordflow}{return} -2;
+1270         \}
+1271 
+1272         is\_accelerator = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1273         \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++) \{
+1274             \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator == ch ) \{
+1275                 is\_accelerator = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1276                 \textcolor{keywordflow}{break};
+1277             \}
+1278         \}
+1279 
+1280         \textcolor{keywordflow}{if}( (ch>=\textcolor{charliteral}{'a'} && ch<=\textcolor{charliteral}{'z'}) ||
+1281             (ch>=\textcolor{charliteral}{'A'} && ch<=\textcolor{charliteral}{'Z'}) || is\_accelerator) \{
+1282             \textcolor{keywordflow}{if} (data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} || data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}) \{
+1283                 \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+1284                     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator == ch ) \{
+1285                         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY} ) \{
+1286                             \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1287                                 hwndList, 
+1288                                 data, 
+1289                                 i, 
+1290                                 \hyperlink{sys_2wince_2mhmenu_8c_aca5111f9b75578b43ee24bca0e3f2985}{NHMENU\_IS\_SELECTED}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i])? 0 : -1
+1291                             );
+1292                             ListView\_SetItemState(hwndList, i, LVIS\_FOCUSED, LVIS\_FOCUSED);
+1293                             ListView\_EnsureVisible(hwndList, i, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1294                             \textcolor{keywordflow}{return} -2;
+1295                         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} == \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} ) \{
+1296                             \hyperlink{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{SelectMenuItem}(
+1297                                 hwndList, 
+1298                                 data, 
+1299                                 i, 
+1300                                 -1
+1301                             );
+1302                             data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} = 0;
+1303                             data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done} = 1;
+1304                             \textcolor{keywordflow}{return} -2;
+1305                         \}
+1306                     \}
+1307                 \}
+1308             \}
+1309         \}
+1310     \textcolor{keywordflow}{break};
+1311     \}
+1312 
+1313     \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1314     \textcolor{keywordflow}{return} -1;
+1315 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a6973a65d552ed28980c910d3a0bdfd9e}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!on\+Measure\+Item@{on\+Measure\+Item}}
+\index{on\+Measure\+Item@{on\+Measure\+Item}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{on\+Measure\+Item}]{\setlength{\rightskip}{0pt plus 5cm}L\+R\+E\+S\+U\+L\+T on\+Measure\+Item (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a6973a65d552ed28980c910d3a0bdfd9e}
+
+
+Definition at line 824 of file mhmenu.\+c.
+
+
+
+References A\+T\+R\+\_\+\+I\+N\+V\+E\+R\+S\+E, F\+A\+L\+S\+E, Get\+Menu\+Control(), max, mswin\+\_\+get\+\_\+font(), N\+H\+W\+\_\+\+M\+E\+N\+U, T\+I\+L\+E\+\_\+\+Y, and T\+R\+U\+E.
+
+
+
+Referenced by Menu\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+825 \{
+826     LPMEASUREITEMSTRUCT lpmis; 
+827     TEXTMETRIC \hyperlink{structtm}{tm};
+828     HGDIOBJ saveFont;
+829     HDC hdc;
+830     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+831     RECT list\_rect;
+832 
+833     lpmis = (LPMEASUREITEMSTRUCT) lParam; 
+834     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+835     GetClientRect(\hyperlink{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{GetMenuControl}(hWnd), &list\_rect);
+836 
+837     hdc = GetDC(\hyperlink{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{GetMenuControl}(hWnd));
+838     saveFont = SelectObject(hdc, \hyperlink{sys_2wince_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{mswin\_get\_font}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, 
+      \hyperlink{wintype_8h_a043c5fd85034778be335623e273d0777}{ATR\_INVERSE}, hdc, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}));
+839     GetTextMetrics(hdc, &tm);
+840 
+841     \textcolor{comment}{/* Set the height of the list box items. */}
+842     lpmis->itemHeight = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(tm.tmHeight, \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y})+2;
+843     lpmis->itemWidth = list\_rect.right - list\_rect.left;
+844 
+845     SelectObject(hdc, saveFont);
+846     ReleaseDC(\hyperlink{sys_2wince_2mhmenu_8c_a871d7d2f2639f7ebf2e8e9f6f681bd0a}{GetMenuControl}(hWnd), hdc);
+847     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+848 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_ab1f0aceef05a1dec643246c7cbf5353c}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!on\+M\+S\+N\+H\+Command@{on\+M\+S\+N\+H\+Command}}
+\index{on\+M\+S\+N\+H\+Command@{on\+M\+S\+N\+H\+Command}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{on\+M\+S\+N\+H\+Command}]{\setlength{\rightskip}{0pt plus 5cm}void on\+M\+S\+N\+H\+Command (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_ab1f0aceef05a1dec643246c7cbf5353c}
+
+
+Definition at line 505 of file mhmenu.\+c.
+
+
+
+References mswin\+\_\+nhmsg\+\_\+add\+\_\+menu\+::accelerator, mswin\+\_\+nhmsg\+\_\+putstr\+::attr, mswin\+\_\+nhmsg\+\_\+add\+\_\+menu\+::attr, B\+U\+F\+S\+Z, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::done, F\+A\+L\+S\+E, free(), sinfo\+::gameover, Get\+N\+H\+App(), mswin\+\_\+nhmsg\+\_\+add\+\_\+menu\+::glyph, mswin\+\_\+nhmsg\+\_\+add\+\_\+menu\+::group\+\_\+accel, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::how, I\+D\+C\+\_\+\+M\+E\+N\+U\+\_\+\+T\+E\+X\+T, mswin\+\_\+nhmsg\+\_\+add\+\_\+menu\+::identifier, max, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::menu, M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+N\+U, M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+E\+X\+T, M\+I\+N\+\_\+\+T\+A\+B\+S\+T\+O\+P\+\_\+\+S\+I\+Z\+E, M\+S\+N\+H\+\_\+\+M\+S\+G\+\_\+\+A\+D\+D\+M\+E\+N\+U, M\+S\+N\+H\+\_\+\+M\+S\+G\+\_\+\+E\+N\+D\+M\+E\+N\+U, M\+S\+N\+H\+\_\+\+M\+S\+G\+\_\+\+P\+U\+T\+S\+T\+R, M\+S\+N\+H\+\_\+\+M\+S\+G\+\_\+\+S\+T\+A\+R\+T\+M\+E\+N\+U, mswin\+\_\+add\+\_\+text(), mswin\+\_\+get\+\_\+font(), mswin\+\_\+init\+\_\+text\+\_\+buffer(), mswin\+\_\+render\+\_\+text(), N\+H\+\_\+\+A2\+W, N\+H\+M\+E\+N\+U\+\_\+\+S\+T\+R\+\_\+\+S\+I\+Z\+E, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+U\+L\+L, N\+U\+M\+T\+A\+B\+S, panic(), parse\+\_\+menu\+\_\+str(), P\+I\+C\+K\+\_\+\+N\+O\+N\+E, mswin\+\_\+nhmsg\+\_\+add\+\_\+menu\+::presel, program\+\_\+state, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::result, Set\+Menu\+Type(), mswin\+\_\+nhmsg\+\_\+add\+\_\+menu\+::str, mswin\+\_\+nhmsg\+\_\+putstr\+::text, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::text, mswin\+\_\+nhmsg\+\_\+end\+\_\+menu\+::text, T\+R\+U\+E, and mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::type.
+
+
+
+Referenced by Menu\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+506 \{
+507     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+508 
+509     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+510     \textcolor{keywordflow}{switch}( wParam ) \{
+511     \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2mhmsg_8h_a483b8d3a386f1c5d76da1dff6ed549a8}{MSNH\_MSG\_PUTSTR}: 
+512     \{
+513         \hyperlink{structmswin__nhmsg__putstr}{PMSNHMsgPutstr} msg\_data = (\hyperlink{sys_2wince_2mhmsg_8h_ad6db1f0e39180f07f00581a93dbdd846}{PMSNHMsgPutstr})lParam;
+514         HWND   text\_view;
+515 
+516         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}!=\hyperlink{sys_2wince_2mhmenu_8h_ad863ba4d93ea3f9619d1f82c79c620e7}{MENU\_TYPE\_TEXT} )
+517             \hyperlink{sys_2wince_2mhmenu_8c_a9a4ac79f4c285b52ae25582c25beb82d}{SetMenuType}(hWnd, \hyperlink{sys_2wince_2mhmenu_8h_ad863ba4d93ea3f9619d1f82c79c620e7}{MENU\_TYPE\_TEXT});
+518 
+519         \textcolor{keywordflow}{if}( !data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text ) \{
+520             data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text = \hyperlink{mhtxtbuf_8c_a4fd9327233e68071e2a79c64b2e40d2b}{mswin\_init\_text\_buffer}(
+521                         \hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.\hyperlink{structsinfo_ac1f9d8fcec6871fb805fe566ac8a8823}{gameover}? \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} : 
+      \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->bWrapText
+522                     );
+523             \textcolor{keywordflow}{if}( !data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text ) \textcolor{keywordflow}{break};
+524         \}
+525         
+526         \hyperlink{mhtxtbuf_8c_a35f7fea200655732ca987c85a767df1f}{mswin\_add\_text}(data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text, msg\_data->\hyperlink{structmswin__nhmsg__putstr_aefa22819f8c3ca3574cfbcfd583ded58}{attr}, msg\_data->
+      \hyperlink{structmswin__nhmsg__putstr_a27f09d7286c01fe17c1289761b63502e}{text}); 
+527         
+528         text\_view = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_add6d9e4e19e8e119d474ba980520a4d2}{IDC\_MENU\_TEXT});
+529         \textcolor{keywordflow}{if}( !text\_view ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"cannot get text view window"});
+530         \hyperlink{mhtxtbuf_8c_ad3aa1058c339493ae60ba46351d4b2d4}{mswin\_render\_text}(data->\hyperlink{structmswin__nethack__menu__window_ac6c6169f2aa8de6b303db695539d770a}{text}.text, text\_view);
+531     \} \textcolor{keywordflow}{break};
+532 
+533     \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2mhmsg_8h_a7086205b68db99e06544110233c90219}{MSNH\_MSG\_STARTMENU}:
+534     \{
+535         \textcolor{keywordtype}{int} i;
+536 
+537         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}!=\hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} )
+538             \hyperlink{sys_2wince_2mhmenu_8c_a9a4ac79f4c285b52ae25582c25beb82d}{SetMenuType}(hWnd, \hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU});
+539 
+540         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items ) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items);
+541         data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} = \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE};
+542         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+543         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size = 0;
+544         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.allocated = 0;
+545         data->\hyperlink{structmswin__nethack__menu__window_aaeb9b85cb77679ee1b41ac2b0377d90b}{done} = 0;
+546         data->\hyperlink{structmswin__nethack__menu__window_a8ec6092e0354a2a0d233634b120e4d78}{result} = 0;
+547         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2mhmenu_8c_a2431d5b90e503a443a8e29c37a5ef549}{NUMTABS}; ++i)
+548             data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.tab\_stop\_size[i] = \hyperlink{sys_2wince_2mhmenu_8c_a511a6820684a87ea7109582ac3f158eb}{MIN\_TABSTOP\_SIZE};
+549     \} \textcolor{keywordflow}{break};
+550 
+551     \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2mhmsg_8h_a95b5a261f9ef7b21daae9c1c076d105c}{MSNH\_MSG\_ADDMENU}:
+552     \{
+553         \hyperlink{structmswin__nhmsg__add__menu}{PMSNHMsgAddMenu} msg\_data = (\hyperlink{sys_2wince_2mhmsg_8h_a15379b5fcc8fd17481e686cbd0d0a3d2}{PMSNHMsgAddMenu})lParam;
+554         \textcolor{keywordtype}{char} *p, *p1;
+555         \textcolor{keywordtype}{int} new\_item;
+556         HDC hDC;
+557         \textcolor{keywordtype}{int} column;
+558         HFONT saveFont;
+559         
+560         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}!=\hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} ) \textcolor{keywordflow}{break};
+561         \textcolor{keywordflow}{if}( strlen(msg\_data->\hyperlink{structmswin__nhmsg__add__menu_affef89042e33c9d34265eadc957330d6}{str})==0 ) \textcolor{keywordflow}{break};
+562 
+563         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size==data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.allocated ) \{
+564             data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.allocated += 10;
+565             data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items = (\hyperlink{sys_2wince_2mhmenu_8c_aaac97a082e26a50927b1796fd38fc7e2}{PNHMenuItem})realloc(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items, data->
+      \hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.allocated*\textcolor{keyword}{sizeof}(\hyperlink{structmswin__menu__item}{NHMenuItem}));
+566         \}
+567 
+568         new\_item = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size;
+569         ZeroMemory( &data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item], \textcolor{keyword}{sizeof}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item]));
+570         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].glyph = msg\_data->\hyperlink{structmswin__nhmsg__add__menu_a6be452cac105dee1671e9e61bafb58ae}{glyph};
+571         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].identifier = *msg\_data->\hyperlink{structmswin__nhmsg__add__menu_a5ce3f435709df4a7e6442cebba1593ee}{identifier};
+572         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].accelerator = msg\_data->\hyperlink{structmswin__nhmsg__add__menu_abad930c46c0bc05bff9e362d191e6255}{accelerator};
+573         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].group\_accel = msg\_data->\hyperlink{structmswin__nhmsg__add__menu_a5ad28b8447917e56539afb498fffc98a}{group\_accel};
+574         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].attr = msg\_data->\hyperlink{structmswin__nhmsg__add__menu_a01defd06f0fe00fc1b1986744ad288c9}{attr};
+575         \hyperlink{sys_2wince_2mhmenu_8c_aebcc2a512c5982c376bd775b68d4a1c9}{parse\_menu\_str}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].str, msg\_data->
+      \hyperlink{structmswin__nhmsg__add__menu_affef89042e33c9d34265eadc957330d6}{str}, \hyperlink{sys_2wince_2mhmenu_8c_a952b01afec1711bc486a207765acb1a6}{NHMENU\_STR\_SIZE});
+576         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].presel = msg\_data->\hyperlink{structmswin__nhmsg__add__menu_aff828569cd76f607d077f89e23383938}{presel};
+577 
+578         \textcolor{comment}{/* calculate tabstop size */}
+579         p = strchr(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].str, \textcolor{charliteral}{'\(\backslash\)t'});
+580         \textcolor{keywordflow}{if}( p ) \{
+581             data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].has\_tab = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+582             hDC = GetDC(hWnd);
+583             saveFont = SelectObject(hDC, \hyperlink{sys_2wince_2mhfont_8c_a480013e685b85460be07910c65a1ef51}{mswin\_get\_font}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, msg\_data->
+      \hyperlink{structmswin__nhmsg__add__menu_a01defd06f0fe00fc1b1986744ad288c9}{attr}, hDC, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}));
+584             p1 = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].str;
+585             column = 0;
+586             \textcolor{keywordflow}{for} (;;) \{
+587                 TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+588                 RECT drawRect;
+589                 SetRect ( &drawRect, 0, 0, 1, 1 );
+590                 \textcolor{keywordflow}{if} (p != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) *p = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{/* for time being, view tab field as zstring */}
+591                 DrawText(hDC,
+592                     \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(p1, wbuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}),
+593                     strlen(p1),
+594                     &drawRect,
+595                     DT\_CALCRECT | DT\_LEFT | DT\_VCENTER | DT\_EXPANDTABS | DT\_SINGLELINE
+596                 );
+597                 data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.tab\_stop\_size[column] =
+598                     \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.tab\_stop\_size[column], drawRect.right - drawRect.left );
+599                 \textcolor{keywordflow}{if} (p != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) *p = \textcolor{charliteral}{'\(\backslash\)t'};
+600                 \textcolor{keywordflow}{else} \textcolor{comment}{/* last string so, */} \textcolor{keywordflow}{break};
+601 
+602                 ++column;
+603                 p1 = p + 1;
+604                 p = strchr(p1, \textcolor{charliteral}{'\(\backslash\)t'});
+605             \}
+606             SelectObject(hDC, saveFont);
+607             ReleaseDC(hWnd, hDC);
+608         \} \textcolor{keywordflow}{else} \{
+609             data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[new\_item].has\_tab = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+610         \}
+611 
+612         \textcolor{comment}{/* increment size */}
+613         data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size++;
+614     \} \textcolor{keywordflow}{break};
+615 
+616     \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2mhmsg_8h_a84f0789ba098698824ad1fdaeb83bb2b}{MSNH\_MSG\_ENDMENU}:
+617     \{
+618         \hyperlink{structmswin__nhmsg__end__menu}{PMSNHMsgEndMenu} msg\_data = (\hyperlink{sys_2wince_2mhmsg_8h_ad45300192aec5760b1295d3749eb4d19}{PMSNHMsgEndMenu})lParam;
+619         \textcolor{keywordflow}{if}( msg\_data->\hyperlink{structmswin__nhmsg__end__menu_ad09bb3853bacd831228b72ab2bd9e4eb}{text} ) \{
+620             strncpy( data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.prompt, msg\_data->\hyperlink{structmswin__nhmsg__end__menu_ad09bb3853bacd831228b72ab2bd9e4eb}{text}, \textcolor{keyword}{sizeof}(data->
+      \hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.prompt)-1 );
+621         \} \textcolor{keywordflow}{else} \{
+622             ZeroMemory(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.prompt, \textcolor{keyword}{sizeof}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.prompt));
+623         \}
+624     \} \textcolor{keywordflow}{break};
+625 
+626     \} \textcolor{comment}{/* end switch */}
+627 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_aebcc2a512c5982c376bd775b68d4a1c9}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!parse\+\_\+menu\+\_\+str@{parse\+\_\+menu\+\_\+str}}
+\index{parse\+\_\+menu\+\_\+str@{parse\+\_\+menu\+\_\+str}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{parse\+\_\+menu\+\_\+str}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ parse\+\_\+menu\+\_\+str (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{dest, }
+\item[{{\bf const} char $\ast$}]{src, }
+\item[{size\+\_\+t}]{size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_aebcc2a512c5982c376bd775b68d4a1c9}
+
+
+Definition at line 1550 of file mhmenu.\+c.
+
+
+
+References N\+U\+L\+L.
+
+
+
+Referenced by on\+M\+S\+N\+H\+Command().
+
+
+\begin{DoxyCode}
+1551 \{
+1552     \textcolor{keywordtype}{char} *p1, *p2;
+1553     \textcolor{keywordflow}{if}( !dest || \hyperlink{structsize}{size}==0 ) \textcolor{keywordflow}{return} \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+1554 
+1555     strncpy(dest, src, \hyperlink{structsize}{size});
+1556     dest[\hyperlink{structsize}{size}-1] = \textcolor{stringliteral}{'\(\backslash\)x0'};
+1557 
+1558     \textcolor{comment}{/* replace "[ ]*\(\backslash\)[" with "\(\backslash\)t\(\backslash\)[" */}
+1559     p1 = p2 = strstr(dest, \textcolor{stringliteral}{" ["});
+1560     \textcolor{keywordflow}{if}( p1 ) \{
+1561         \textcolor{keywordflow}{while}( p1!=dest && *p1==\textcolor{charliteral}{' '}) p1--;
+1562         p1++; \textcolor{comment}{/* backup to space */}
+1563         *p2 = \textcolor{charliteral}{'\(\backslash\)t'};
+1564         memmove(p1, p2, strlen(p2));
+1565         p1[strlen(p2)] = \textcolor{stringliteral}{'\(\backslash\)x0'};
+1566     \}
+1567     \textcolor{keywordflow}{return} dest;
+1568 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!reset\+\_\+menu\+\_\+count@{reset\+\_\+menu\+\_\+count}}
+\index{reset\+\_\+menu\+\_\+count@{reset\+\_\+menu\+\_\+count}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{reset\+\_\+menu\+\_\+count}]{\setlength{\rightskip}{0pt plus 5cm}void reset\+\_\+menu\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd\+List, }
+\item[{{\bf P\+N\+H\+Menu\+Window}}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}
+
+
+Definition at line 1411 of file mhmenu.\+c.
+
+
+
+References F\+A\+L\+S\+E, and mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::menu.
+
+
+
+Referenced by Menu\+Wnd\+Proc(), mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu(), on\+List\+Char(), and Select\+Menu\+Item().
+
+
+\begin{DoxyCode}
+1412 \{
+1413     \textcolor{keywordtype}{int} i; 
+1414     data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.counting = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1415     \textcolor{keywordflow}{if}( IsWindow(hwndList) ) \{
+1416         i = ListView\_GetNextItem((hwndList), -1, LVNI\_FOCUSED);
+1417         \textcolor{keywordflow}{if}( i>=0 ) ListView\_RedrawItems( hwndList, i, i ); 
+1418     \}
+1419 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!Select\+Menu\+Item@{Select\+Menu\+Item}}
+\index{Select\+Menu\+Item@{Select\+Menu\+Item}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{Select\+Menu\+Item}]{\setlength{\rightskip}{0pt plus 5cm}void Select\+Menu\+Item (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd\+List, }
+\item[{{\bf P\+N\+H\+Menu\+Window}}]{data, }
+\item[{int}]{item, }
+\item[{int}]{count}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a15c608c8e8d9f2b0d6be8c3443db0470}
+
+
+Definition at line 1392 of file mhmenu.\+c.
+
+
+
+References count, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::how, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::menu, P\+I\+C\+K\+\_\+\+O\+N\+E, and reset\+\_\+menu\+\_\+count().
+
+
+
+Referenced by Menu\+Wnd\+Proc(), and on\+List\+Char().
+
+
+\begin{DoxyCode}
+1393 \{
+1394     \textcolor{keywordtype}{int} i;
+1395 
+1396     \textcolor{keywordflow}{if}( item<0 || item>=data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size ) \textcolor{keywordflow}{return};
+1397 
+1398     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how}==\hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE} && \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count}!=0 ) \{
+1399         \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++) 
+1400             \textcolor{keywordflow}{if}( item!=i && data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].count!=0 ) \{
+1401                 data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].count = 0;
+1402                 ListView\_RedrawItems( hwndList, i, i );
+1403             \};
+1404     \}
+1405 
+1406     data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[item].count = \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1407     ListView\_RedrawItems( hwndList, item, item );
+1408     \hyperlink{sys_2wince_2mhmenu_8c_a5ecda635f7697da558dc112094c8be0e}{reset\_menu\_count}(hwndList, data);
+1409 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a9935a9b932fd4f54e94b72e7cd0dee54}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!Set\+Menu\+List\+Type@{Set\+Menu\+List\+Type}}
+\index{Set\+Menu\+List\+Type@{Set\+Menu\+List\+Type}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{Set\+Menu\+List\+Type}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Menu\+List\+Type (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd, }
+\item[{int}]{now}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a9935a9b932fd4f54e94b72e7cd0dee54}
+
+
+Definition at line 712 of file mhmenu.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, Get\+N\+H\+App(), mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::how, I\+D\+C\+\_\+\+M\+E\+N\+U\+\_\+\+L\+I\+S\+T, max, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::menu, M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+E\+N\+U, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+G, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+F\+G, mswin\+\_\+get\+\_\+color(), mswin\+\_\+menu\+\_\+window\+\_\+size(), N\+H\+\_\+\+A2\+W, N\+H\+Menu\+List\+Wnd\+Proc(), N\+H\+W\+\_\+\+M\+E\+N\+U, N\+U\+L\+L, panic(), P\+I\+C\+K\+\_\+\+A\+N\+Y, P\+I\+C\+K\+\_\+\+N\+O\+N\+E, P\+I\+C\+K\+\_\+\+O\+N\+E, S\+I\+Z\+E, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::type, and wnd\+Proc\+List\+View\+Orig.
+
+
+
+Referenced by mswin\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu().
+
+
+\begin{DoxyCode}
+713 \{
+714     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+715     RECT rt;
+716     DWORD dwStyles;
+717     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+718     TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+719     \textcolor{keywordtype}{int} nItem;
+720     \textcolor{keywordtype}{int} i;
+721     HWND control;
+722     LVCOLUMN lvcol;
+723     LRESULT fnt;
+724     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} wnd\_size;
+725 
+726     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+727     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type} != \hyperlink{sys_2wince_2mhmenu_8h_a721a1d91420a4ebad6c2d4c37c344557}{MENU\_TYPE\_MENU} ) \textcolor{keywordflow}{return};
+728 
+729     data->\hyperlink{structmswin__nethack__menu__window_aa165ee77989c4e4cec77f8ce58ca27b9}{how} = how;
+730 
+731     \textcolor{keywordflow}{switch}(how) \{
+732     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE}: 
+733         dwStyles = WS\_VISIBLE | WS\_TABSTOP | WS\_BORDER | WS\_CHILD 
+734             | WS\_VSCROLL | WS\_HSCROLL | LVS\_REPORT
+735             | LVS\_OWNERDRAWFIXED | LVS\_SINGLESEL; 
+736         \textcolor{keywordflow}{break};
+737     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}: 
+738         dwStyles = WS\_VISIBLE | WS\_TABSTOP | WS\_BORDER | WS\_CHILD 
+739             | WS\_VSCROLL | WS\_HSCROLL | LVS\_REPORT
+740             | LVS\_OWNERDRAWFIXED | LVS\_SINGLESEL; 
+741         \textcolor{keywordflow}{break};
+742     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a2bd6d317ee7338c416301da3d054dd9f}{PICK\_ANY}: 
+743         dwStyles = WS\_VISIBLE | WS\_TABSTOP | WS\_BORDER | WS\_CHILD 
+744             | WS\_VSCROLL | WS\_HSCROLL | LVS\_REPORT
+745             | LVS\_OWNERDRAWFIXED | LVS\_SINGLESEL; 
+746         \textcolor{keywordflow}{break};
+747     \textcolor{keywordflow}{default}: \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"how should be one of PICK\_NONE, PICK\_ONE or PICK\_ANY"});
+748     \};
+749     \textcolor{keywordflow}{if}( strlen(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.prompt)==0 ) \{
+750         dwStyles |= LVS\_NOCOLUMNHEADER ;
+751     \}
+752 
+753     GetWindowRect(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a1af3a3967bc3f6d66a75d340c1f56678}{IDC\_MENU\_LIST}), &rt);
+754     DestroyWindow(GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a1af3a3967bc3f6d66a75d340c1f56678}{IDC\_MENU\_LIST}));
+755     control = CreateWindow(WC\_LISTVIEW, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 
+756         dwStyles,
+757         rt.left,
+758         rt.top,
+759         rt.right - rt.left,
+760         rt.bottom - rt.top,
+761         hWnd,
+762         (HMENU)\hyperlink{sys_2wince_2resource_8h_a1af3a3967bc3f6d66a75d340c1f56678}{IDC\_MENU\_LIST},
+763         \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+764         \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+765     \textcolor{keywordflow}{if}( !control ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"cannot create menu control"} );
+766     
+767     \textcolor{comment}{/* install the hook for the control window procedure */}
+768     \hyperlink{sys_2wince_2mhmenu_8c_a34b2053bf1601b3dc7b10796c1040cdc}{wndProcListViewOrig} = (WNDPROC)GetWindowLong(control, GWL\_WNDPROC);
+769     SetWindowLong(control, GWL\_WNDPROC, (LONG)\hyperlink{sys_2wince_2mhmenu_8c_a98cae3dd2cc1e5ed8696141ea0af9736}{NHMenuListWndProc});
+770 
+771     \textcolor{comment}{/* set control font */}
+772     fnt = SendMessage(hWnd, WM\_GETFONT, (WPARAM)0, (LPARAM)0);
+773     SendMessage(control, WM\_SETFONT, (WPARAM)fnt, (LPARAM)0);
+774 
+775     \textcolor{comment}{/* set control colors */}
+776     ListView\_SetBkColor(control, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, 
+      \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}));
+777     ListView\_SetTextBkColor(control, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, 
+      \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}));
+778     ListView\_SetTextColor(control, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, 
+      \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG}));
+779 
+780     \textcolor{comment}{/* add column to the list view */}
+781     \hyperlink{sys_2wince_2mhmenu_8c_a522c5050d80d7397e9f59b00c47e13f0}{mswin\_menu\_window\_size}(hWnd, &wnd\_size);
+782 
+783     ZeroMemory(&lvcol, \textcolor{keyword}{sizeof}(lvcol));
+784     lvcol.mask = LVCF\_WIDTH | LVCF\_TEXT;
+785     lvcol.cx = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}( wnd\_size.cx, GetSystemMetrics(SM\_CXSCREEN));
+786     lvcol.pszText = \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.prompt, wbuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ});
+787     ListView\_InsertColumn(control, 0, &lvcol);
+788 
+789     \textcolor{comment}{/* add items to the list view */}
+790     \textcolor{keywordflow}{for}(i=0; i<data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.size; i++ ) \{
+791         LVITEM lvitem;
+792         ZeroMemory( &lvitem, \textcolor{keyword}{sizeof}(lvitem) );
+793         sprintf(buf, \textcolor{stringliteral}{"%c - %s"}, \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].accelerator, \textcolor{charliteral}{' '}), data->
+      \hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].str );
+794 
+795         lvitem.mask = LVIF\_PARAM | LVIF\_STATE | LVIF\_TEXT;
+796         lvitem.iItem = i;
+797         lvitem.iSubItem = 0;
+798         lvitem.state = data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i].presel? LVIS\_SELECTED : 0;
+799         lvitem.pszText = \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(buf, wbuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ});
+800         lvitem.lParam = (LPARAM)&data->\hyperlink{structmswin__nethack__menu__window_a8da0ac3642664655477707181c2b4284}{menu}.items[i];
+801         nItem = SendMessage(control, LB\_ADDSTRING, (WPARAM)0, (LPARAM) buf); 
+802         \textcolor{keywordflow}{if}( ListView\_InsertItem(control, &lvitem)==-1 ) \{
+803             \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"cannot insert menu item"});
+804         \}
+805     \}
+806     SetFocus(control);
+807 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmenu_8c_a9a4ac79f4c285b52ae25582c25beb82d}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!Set\+Menu\+Type@{Set\+Menu\+Type}}
+\index{Set\+Menu\+Type@{Set\+Menu\+Type}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{Set\+Menu\+Type}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Menu\+Type (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd, }
+\item[{int}]{type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a9a4ac79f4c285b52ae25582c25beb82d}
+
+
+Definition at line 685 of file mhmenu.\+c.
+
+
+
+References F\+A\+L\+S\+E, I\+D\+C\+\_\+\+M\+E\+N\+U\+\_\+\+L\+I\+S\+T, I\+D\+C\+\_\+\+M\+E\+N\+U\+\_\+\+T\+E\+X\+T, Layout\+Menu(), M\+E\+N\+U\+\_\+\+T\+Y\+P\+E\+\_\+\+T\+E\+X\+T, T\+R\+U\+E, mswin\+\_\+nethack\+\_\+menu\+\_\+window\+::type, and type.
+
+
+
+Referenced by mswin\+\_\+init\+\_\+menu\+\_\+window(), and on\+M\+S\+N\+H\+Command().
+
+
+\begin{DoxyCode}
+686 \{
+687     \hyperlink{structmswin__nethack__menu__window}{PNHMenuWindow} data;
+688     HWND list, text;
+689 
+690     data = (\hyperlink{sys_2wince_2mhmenu_8c_a8dfb3f69fcbf57a3843c996afc7410df}{PNHMenuWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+691 
+692     data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type} = \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+693     
+694     text = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_add6d9e4e19e8e119d474ba980520a4d2}{IDC\_MENU\_TEXT});
+695     list = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a1af3a3967bc3f6d66a75d340c1f56678}{IDC\_MENU\_LIST});
+696     \textcolor{keywordflow}{if}(data->\hyperlink{structmswin__nethack__menu__window_ab0fda81d90930a6d45dd16aeb8ce4f8a}{type}==\hyperlink{sys_2wince_2mhmenu_8h_ad863ba4d93ea3f9619d1f82c79c620e7}{MENU\_TYPE\_TEXT}) \{
+697         ShowWindow(list, SW\_HIDE);
+698         EnableWindow(list, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+699         EnableWindow(text, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+700         ShowWindow(text, SW\_SHOW);
+701         SetFocus(text);
+702     \} \textcolor{keywordflow}{else} \{
+703         ShowWindow(text, SW\_HIDE);
+704         EnableWindow(text, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+705         EnableWindow(list, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+706         ShowWindow(list, SW\_SHOW);
+707         SetFocus(list);
+708     \}
+709     \hyperlink{sys_2wince_2mhmenu_8c_a4aff550d92784a0c5e7fcb8b9f86a15e}{LayoutMenu}(hWnd);
+710 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{sys_2wince_2mhmenu_8c_ad6488b0aa2546ac1e148bc6ca7b51087}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!edit\+Control\+Wnd\+Proc@{edit\+Control\+Wnd\+Proc}}
+\index{edit\+Control\+Wnd\+Proc@{edit\+Control\+Wnd\+Proc}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{edit\+Control\+Wnd\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}W\+N\+D\+P\+R\+O\+C edit\+Control\+Wnd\+Proc = {\bf N\+U\+L\+L}\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_ad6488b0aa2546ac1e148bc6ca7b51087}
+
+
+Definition at line 63 of file mhmenu.\+c.
+
+
+
+Referenced by Menu\+Wnd\+Proc(), and N\+H\+Menu\+Text\+Wnd\+Proc().
+
+\hypertarget{sys_2wince_2mhmenu_8c_a4d61aa736dae8287d97c3a68a3a917c5}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!glyph2tile@{glyph2tile}}
+\index{glyph2tile@{glyph2tile}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{glyph2tile}]{\setlength{\rightskip}{0pt plus 5cm}short glyph2tile\mbox{[}$\,$\mbox{]}}}\label{sys_2wince_2mhmenu_8c_a4d61aa736dae8287d97c3a68a3a917c5}
+
+
+Referenced by on\+Draw\+Item().
+
+\hypertarget{sys_2wince_2mhmenu_8c_a34b2053bf1601b3dc7b10796c1040cdc}{\index{sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}!wnd\+Proc\+List\+View\+Orig@{wnd\+Proc\+List\+View\+Orig}}
+\index{wnd\+Proc\+List\+View\+Orig@{wnd\+Proc\+List\+View\+Orig}!sys/wince/mhmenu.\+c@{sys/wince/mhmenu.\+c}}
+\subsubsection[{wnd\+Proc\+List\+View\+Orig}]{\setlength{\rightskip}{0pt plus 5cm}W\+N\+D\+P\+R\+O\+C wnd\+Proc\+List\+View\+Orig = {\bf N\+U\+L\+L}\hspace{0.3cm}{\ttfamily [static]}}}\label{sys_2wince_2mhmenu_8c_a34b2053bf1601b3dc7b10796c1040cdc}
+
+
+Definition at line 62 of file mhmenu.\+c.
+
+
+
+Referenced by N\+H\+Menu\+List\+Wnd\+Proc(), and Set\+Menu\+List\+Type().
+

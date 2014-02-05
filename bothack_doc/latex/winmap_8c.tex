@@ -1,0 +1,2264 @@
+\hypertarget{winmap_8c}{\section{nethack/win/\+X11/winmap.c File Reference}
+\label{winmap_8c}\index{nethack/win/\+X11/winmap.\+c@{nethack/win/\+X11/winmap.\+c}}
+}
+{\ttfamily \#include $<$X11/\+Intrinsic.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+String\+Defs.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Shell.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Cardinals.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Scrollbar.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Viewport.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xatom.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}xwindow.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}win\+X.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile2x11.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtile__annotation}{tile\+\_\+annotation}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{winmap_8c_a871513d8c7abd319565c0f9393d28f9a}{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/
+\item 
+\#define \hyperlink{winmap_8c_a0a31d440c11414ed340182655a1000cb}{U\+S\+E\+\_\+\+W\+H\+I\+T\+E}~/$\ast$ almost always use white as a \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile} cursor border $\ast$/
+\item 
+\#define \hyperlink{winmap_8c_a210fdfa95c34137b2f384f585657e4a9}{V\+\_\+\+B\+O\+R\+D\+E\+R}~0.\+3	/$\ast$ if this far from vert edge, shift $\ast$/
+\item 
+\#define \hyperlink{winmap_8c_a6a7dea2b00c335616fb8bf5f972826f5}{H\+\_\+\+B\+O\+R\+D\+E\+R}~0.\+3	/$\ast$ if this from from horiz edge, shift $\ast$/
+\item 
+\#define \hyperlink{winmap_8c_ac306dc70903a927a8be3921213906b7c}{H\+\_\+\+D\+E\+L\+T\+A}~0.\+4	/$\ast$ distance of horiz shift $\ast$/
+\item 
+\#define \hyperlink{winmap_8c_a785d2720b29e2fba9a3c9d11e8f6ec52}{V\+\_\+\+D\+E\+L\+T\+A}~0.\+4	/$\ast$ distance of vert shift $\ast$/
+\item 
+\#define \hyperlink{winmap_8c_a6378f14810330164b7fb66f3334b2a27}{I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E}~64
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{winmap_8c_a6bf4d9526398bed4a016257308327434}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_a457ac973ae6f958907bd59d5eac9e5d4}{init\+\_\+tiles},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static void \hyperlink{winmap_8c_a0dcb64850bd79079e0ccc1395236bd0c}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_abd2b79c7e20dcc6bf32f2eded68cd4a1}{set\+\_\+button\+\_\+values},(Widget, int, int, unsigned))
+\item 
+static void \hyperlink{winmap_8c_a7feaf4ef9fb1dfeafe08e77a85addc60}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_a46622642d3d926a4ec0fa7a6e94bd5b4}{map\+\_\+check\+\_\+size\+\_\+change},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static void \hyperlink{winmap_8c_af17dcb96396174caa274d5a740bfe454}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_a6d6d931138e6d13469b728f44ec57640}{map\+\_\+update},(struct \hyperlink{structxwindow}{xwindow} $\ast$, int, int, int, int, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+static void \hyperlink{winmap_8c_a0ccb38960bf0929224f9568e5079bf7e}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_ac7b07b2224b13cb5c4684432801accb9}{init\+\_\+text},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static void \hyperlink{winmap_8c_a7bab562bc0b832cabceb176d4af1e8eb}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_a412bb48f2edc39008277c39f3b2ac665}{map\+\_\+exposed},(Widget, Xt\+Pointer, Xt\+Pointer))
+\item 
+static void \hyperlink{winmap_8c_afcca8ad8277d0de48d4ba2d4114a7904}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_a1c1077108ba42d3e6837286762f5773b}{set\+\_\+gc},(Widget, Font, char $\ast$, Pixel, G\+C $\ast$, G\+C $\ast$))
+\item 
+static void \hyperlink{winmap_8c_a98164111bbc5c6e57b42593ebe0d21a7}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_adf4769b49fd0e5326d3c1251726b158b}{get\+\_\+text\+\_\+gc},(struct \hyperlink{structxwindow}{xwindow} $\ast$, Font))
+\item 
+static void \hyperlink{winmap_8c_a4696cf7e11d599feb44b6995b0111613}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_adf5aaa5bec353977c25b5884787dd8a7}{get\+\_\+char\+\_\+info},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static void \hyperlink{winmap_8c_a0ce9b403aa12dccde917447a74cf4c6f}{F\+D\+E\+C\+L} (\hyperlink{winmap_8c_a12ab5ce826fbe9dcbc9138ff15cc33b1}{display\+\_\+cursor},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+void \hyperlink{winmap_8c_afcd0aaaab88ed43b3b0d7236c8899352}{X11\+\_\+print\+\_\+glyph} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, int glyph)
+\item 
+static void \hyperlink{winmap_8c_a0ccff0920250a213f3ec155334933b72}{init\+\_\+annotation} (struct \hyperlink{structtile__annotation}{tile\+\_\+annotation} $\ast$annotation, char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, Pixel colorpixel)
+\item 
+void \hyperlink{winmap_8c_a485e7ef14f0713eb988fe6068352f42a}{post\+\_\+process\+\_\+tiles} ()
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{winmap_8c_a457ac973ae6f958907bd59d5eac9e5d4}{init\+\_\+tiles} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{winmap_8c_ae2f397aa82a775c888b716c9dc9dbd9a}{check\+\_\+cursor\+\_\+visibility} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+static void \hyperlink{winmap_8c_a46622642d3d926a4ec0fa7a6e94bd5b4}{map\+\_\+check\+\_\+size\+\_\+change} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+static void \hyperlink{winmap_8c_a1c1077108ba42d3e6837286762f5773b}{set\+\_\+gc} (Widget w, Font font, char $\ast$resource\+\_\+name, Pixel bgpixel, G\+C $\ast$regular, G\+C $\ast$inverse)
+\item 
+static void \hyperlink{winmap_8c_adf4769b49fd0e5326d3c1251726b158b}{get\+\_\+text\+\_\+gc} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, Font font)
+\item 
+static void \hyperlink{winmap_8c_a12ab5ce826fbe9dcbc9138ff15cc33b1}{display\+\_\+cursor} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{winmap_8c_ad3df570a0708227ec369dbc1ad724a8b}{display\+\_\+map\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+static void \hyperlink{winmap_8c_a193931ece6ab17846702b6f289030c5c}{map\+\_\+all\+\_\+stone} (struct \hyperlink{structmap__info__t}{map\+\_\+info\+\_\+t} $\ast$map\+\_\+info)
+\item 
+void \hyperlink{winmap_8c_aeb371f1d7d59024d89c2e2d848123c56}{clear\+\_\+map\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+static void \hyperlink{winmap_8c_adf5aaa5bec353977c25b5884787dd8a7}{get\+\_\+char\+\_\+info} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{winmap_8c_ae4a947fe0b04a246c222a8d904f60dc6}{map\+\_\+input} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+static void \hyperlink{winmap_8c_abd2b79c7e20dcc6bf32f2eded68cd4a1}{set\+\_\+button\+\_\+values} (Widget w, int x, int y, unsigned int button)
+\item 
+static void \hyperlink{winmap_8c_a412bb48f2edc39008277c39f3b2ac665}{map\+\_\+exposed} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer widget\+\_\+data)
+\item 
+static void \hyperlink{winmap_8c_a6d6d931138e6d13469b728f44ec57640}{map\+\_\+update} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, int \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\+\_\+row}, int stop\+\_\+row, int \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\+\_\+col}, int stop\+\_\+col, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} inverted)
+\item 
+void \hyperlink{winmap_8c_ad9fe51faff55646a7523d3aca4bb3fdb}{set\+\_\+map\+\_\+size} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, Dimension cols, Dimension rows)
+\item 
+static void \hyperlink{winmap_8c_ac7b07b2224b13cb5c4684432801accb9}{init\+\_\+text} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{winmap_8c_a31703da034dd70eb3a40553e02f4cfad}{create\+\_\+map\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} create\+\_\+popup, Widget parent)
+\item 
+void \hyperlink{winmap_8c_a8dceaea4cbbd44d029f975a12fe2d7fe}{destroy\+\_\+map\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+int \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\+\_\+event} (int exit\+\_\+condition)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+short \hyperlink{winmap_8c_a4d61aa736dae8287d97c3a68a3a917c5}{glyph2tile} \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{winmap_8c_ab9e267f9b355345083b806bf0948c10b}{total\+\_\+tiles\+\_\+used}
+\item 
+Pixmap \hyperlink{winmap_8c_a2c291722f764515415f084ffce557615}{tile\+\_\+pixmap} = None
+\item 
+static int \hyperlink{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{tile\+\_\+width}
+\item 
+static int \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\+\_\+height}
+\item 
+static int \hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\+\_\+count}
+\item 
+static X\+Image $\ast$ \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\+\_\+image} = 0
+\item 
+static struct \hyperlink{structtile__annotation}{tile\+\_\+annotation} \hyperlink{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}{pet\+\_\+annotation}
+\item 
+int \hyperlink{winmap_8c_a0c678a8351750fc7e2221f2431974581}{inbuf} \mbox{[}\hyperlink{winmap_8c_a6378f14810330164b7fb66f3334b2a27}{I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E}\mbox{]}
+\item 
+int \hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount} = 0
+\item 
+int \hyperlink{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{inptr} = 0
+\item 
+static char \hyperlink{winmap_8c_abec71265ff2e674336cbe7d67dd90842}{map\+\_\+translations} \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{winmap_8c_a61becf4c1d004d3cbfde7ae52a5ee504}{exit\+\_\+x\+\_\+event}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{winmap_8c_a6a7dea2b00c335616fb8bf5f972826f5}{\index{winmap.\+c@{winmap.\+c}!H\+\_\+\+B\+O\+R\+D\+E\+R@{H\+\_\+\+B\+O\+R\+D\+E\+R}}
+\index{H\+\_\+\+B\+O\+R\+D\+E\+R@{H\+\_\+\+B\+O\+R\+D\+E\+R}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{H\+\_\+\+B\+O\+R\+D\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+\_\+\+B\+O\+R\+D\+E\+R~0.\+3	/$\ast$ if this from from horiz edge, shift $\ast$/}}\label{winmap_8c_a6a7dea2b00c335616fb8bf5f972826f5}
+
+
+Referenced by check\+\_\+cursor\+\_\+visibility().
+
+\hypertarget{winmap_8c_ac306dc70903a927a8be3921213906b7c}{\index{winmap.\+c@{winmap.\+c}!H\+\_\+\+D\+E\+L\+T\+A@{H\+\_\+\+D\+E\+L\+T\+A}}
+\index{H\+\_\+\+D\+E\+L\+T\+A@{H\+\_\+\+D\+E\+L\+T\+A}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{H\+\_\+\+D\+E\+L\+T\+A}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+\_\+\+D\+E\+L\+T\+A~0.\+4	/$\ast$ distance of horiz shift $\ast$/}}\label{winmap_8c_ac306dc70903a927a8be3921213906b7c}
+
+
+Referenced by check\+\_\+cursor\+\_\+visibility().
+
+\hypertarget{winmap_8c_a6378f14810330164b7fb66f3334b2a27}{\index{winmap.\+c@{winmap.\+c}!I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E@{I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E}}
+\index{I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E@{I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E~64}}\label{winmap_8c_a6378f14810330164b7fb66f3334b2a27}
+
+
+Definition at line 950 of file winmap.\+c.
+
+
+
+Referenced by map\+\_\+input(), and x\+\_\+event().
+
+\hypertarget{winmap_8c_a871513d8c7abd319565c0f9393d28f9a}{\index{winmap.\+c@{winmap.\+c}!P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}}
+\index{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/}}\label{winmap_8c_a871513d8c7abd319565c0f9393d28f9a}
+
+
+Definition at line 19 of file winmap.\+c.
+
+\hypertarget{winmap_8c_a0a31d440c11414ed340182655a1000cb}{\index{winmap.\+c@{winmap.\+c}!U\+S\+E\+\_\+\+W\+H\+I\+T\+E@{U\+S\+E\+\_\+\+W\+H\+I\+T\+E}}
+\index{U\+S\+E\+\_\+\+W\+H\+I\+T\+E@{U\+S\+E\+\_\+\+W\+H\+I\+T\+E}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{U\+S\+E\+\_\+\+W\+H\+I\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+S\+E\+\_\+\+W\+H\+I\+T\+E~/$\ast$ almost always use white as a {\bf tile} cursor border $\ast$/}}\label{winmap_8c_a0a31d440c11414ed340182655a1000cb}
+
+
+Definition at line 58 of file winmap.\+c.
+
+
+
+Referenced by map\+\_\+update().
+
+\hypertarget{winmap_8c_a210fdfa95c34137b2f384f585657e4a9}{\index{winmap.\+c@{winmap.\+c}!V\+\_\+\+B\+O\+R\+D\+E\+R@{V\+\_\+\+B\+O\+R\+D\+E\+R}}
+\index{V\+\_\+\+B\+O\+R\+D\+E\+R@{V\+\_\+\+B\+O\+R\+D\+E\+R}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{V\+\_\+\+B\+O\+R\+D\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+\_\+\+B\+O\+R\+D\+E\+R~0.\+3	/$\ast$ if this far from vert edge, shift $\ast$/}}\label{winmap_8c_a210fdfa95c34137b2f384f585657e4a9}
+
+
+Referenced by check\+\_\+cursor\+\_\+visibility().
+
+\hypertarget{winmap_8c_a785d2720b29e2fba9a3c9d11e8f6ec52}{\index{winmap.\+c@{winmap.\+c}!V\+\_\+\+D\+E\+L\+T\+A@{V\+\_\+\+D\+E\+L\+T\+A}}
+\index{V\+\_\+\+D\+E\+L\+T\+A@{V\+\_\+\+D\+E\+L\+T\+A}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{V\+\_\+\+D\+E\+L\+T\+A}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+\_\+\+D\+E\+L\+T\+A~0.\+4	/$\ast$ distance of vert shift $\ast$/}}\label{winmap_8c_a785d2720b29e2fba9a3c9d11e8f6ec52}
+
+
+Referenced by check\+\_\+cursor\+\_\+visibility().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{winmap_8c_ae2f397aa82a775c888b716c9dc9dbd9a}{\index{winmap.\+c@{winmap.\+c}!check\+\_\+cursor\+\_\+visibility@{check\+\_\+cursor\+\_\+visibility}}
+\index{check\+\_\+cursor\+\_\+visibility@{check\+\_\+cursor\+\_\+visibility}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{check\+\_\+cursor\+\_\+visibility}]{\setlength{\rightskip}{0pt plus 5cm}void check\+\_\+cursor\+\_\+visibility (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_ae2f397aa82a775c888b716c9dc9dbd9a}
+
+
+Definition at line 551 of file winmap.\+c.
+
+
+
+References display\+\_\+cursor(), H\+\_\+\+B\+O\+R\+D\+E\+R, H\+\_\+\+D\+E\+L\+T\+A, printf, V\+\_\+\+B\+O\+R\+D\+E\+R, and V\+\_\+\+D\+E\+L\+T\+A.
+
+
+
+Referenced by input\+\_\+event(), and map\+\_\+check\+\_\+size\+\_\+change().
+
+
+\begin{DoxyCode}
+553 \{
+554     Arg arg[2];
+555     Widget viewport, horiz\_sb, vert\_sb;
+556     \textcolor{keywordtype}{float} top, shown, cursor\_middle;
+557     Boolean do\_call, adjusted = False;
+558 \textcolor{preprocessor}{#ifdef VERBOSE}
+559     \textcolor{keywordtype}{char} *s;
+560 \textcolor{preprocessor}{#endif}
+561 
+562     viewport = XtParent(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+563     horiz\_sb = XtNameToWidget(viewport, \textcolor{stringliteral}{"horizontal"});
+564     vert\_sb  = XtNameToWidget(viewport, \textcolor{stringliteral}{"vertical"});
+565 
+566 \textcolor{comment}{/* All values are relative to currently visible area */}
+567 
+568 \textcolor{preprocessor}{#define V\_BORDER 0.3    }\textcolor{comment}{/* if this far from vert edge, shift */}\textcolor{preprocessor}{}
+569 \textcolor{preprocessor}{#define H\_BORDER 0.3    }\textcolor{comment}{/* if this from from horiz edge, shift */}\textcolor{preprocessor}{}
+570 
+571 \textcolor{preprocessor}{#define H\_DELTA 0.4 }\textcolor{comment}{/* distance of horiz shift */}\textcolor{preprocessor}{}
+572 \textcolor{preprocessor}{#define V\_DELTA 0.4 }\textcolor{comment}{/* distance of vert shift */}\textcolor{preprocessor}{}
+573 
+574     \textcolor{keywordflow}{if} (horiz\_sb) \{
+575     XtSetArg(arg[0], XtNshown,  &shown);
+576     XtSetArg(arg[1], XtNtopOfThumb, &top);
+577     XtGetValues(horiz\_sb, arg, TWO);
+578 
+579     \textcolor{comment}{/* [ALI] Don't assume map widget is the same size as actual map */}
+580     cursor\_middle = (wp->\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx} + 0.5) * wp->map\_information->square\_width /
+581       wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width};
+582     do\_call = True;
+583 
+584 \textcolor{preprocessor}{#ifdef VERBOSE}
+585     \textcolor{keywordflow}{if} (cursor\_middle < top) \{
+586         s = \textcolor{stringliteral}{" outside left"};
+587     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle < top + shown*\hyperlink{winmap_8c_a6a7dea2b00c335616fb8bf5f972826f5}{H\_BORDER}) \{
+588         s = \textcolor{stringliteral}{" close to left"};
+589     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle > (top + shown)) \{
+590         s = \textcolor{stringliteral}{" outside right"};
+591     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle > (top + shown - shown*H\_BORDER)) \{
+592         s = \textcolor{stringliteral}{" close to right"};
+593     \} \textcolor{keywordflow}{else} \{
+594         s = \textcolor{stringliteral}{""};
+595     \}
+596     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Horiz: shown = %3.2f, top = %3.2f%s"}, shown, top, s);
+597 \textcolor{preprocessor}{#endif}
+598 
+599     \textcolor{keywordflow}{if} (cursor\_middle < top) \{
+600         top = cursor\_middle - shown*\hyperlink{winmap_8c_ac306dc70903a927a8be3921213906b7c}{H\_DELTA};
+601         \textcolor{keywordflow}{if} (top < 0.0) top = 0.0;
+602     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle < top + shown*H\_BORDER) \{
+603         top -= shown*\hyperlink{winmap_8c_ac306dc70903a927a8be3921213906b7c}{H\_DELTA};
+604         \textcolor{keywordflow}{if} (top < 0.0) top = 0.0;
+605     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle > (top + shown)) \{
+606         top = cursor\_middle - shown*\hyperlink{winmap_8c_ac306dc70903a927a8be3921213906b7c}{H\_DELTA};
+607         \textcolor{keywordflow}{if} (top < 0.0) top = 0.0;
+608         \textcolor{keywordflow}{if} (top + shown > 1.0) top = 1.0 - shown;
+609     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle > (top + shown - shown*H\_BORDER)) \{
+610         top += shown*\hyperlink{winmap_8c_ac306dc70903a927a8be3921213906b7c}{H\_DELTA};
+611         \textcolor{keywordflow}{if} (top + shown > 1.0) top = 1.0 - shown;
+612     \} \textcolor{keywordflow}{else} \{
+613         do\_call = False;
+614     \}
+615 
+616     \textcolor{keywordflow}{if} (do\_call) \{
+617         XtCallCallbacks(horiz\_sb, XtNjumpProc, &top);
+618         adjusted = True;
+619     \}
+620     \}
+621 
+622     \textcolor{keywordflow}{if} (vert\_sb) \{
+623     XtSetArg(arg[0], XtNshown,      &shown);
+624     XtSetArg(arg[1], XtNtopOfThumb, &top);
+625     XtGetValues(vert\_sb, arg, TWO);
+626 
+627     cursor\_middle = (wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy} + 0.5) * wp->map\_information->square\_height /
+628       wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height};
+629     do\_call = True;
+630 
+631 \textcolor{preprocessor}{#ifdef VERBOSE}
+632     \textcolor{keywordflow}{if} (cursor\_middle < top) \{
+633         s = \textcolor{stringliteral}{" above top"};
+634     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle < top + shown*\hyperlink{winmap_8c_a210fdfa95c34137b2f384f585657e4a9}{V\_BORDER}) \{
+635         s = \textcolor{stringliteral}{" close to top"};
+636     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle > (top + shown)) \{
+637         s = \textcolor{stringliteral}{" below bottom"};
+638     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle > (top + shown - shown*V\_BORDER)) \{
+639         s = \textcolor{stringliteral}{" close to bottom"};
+640     \} \textcolor{keywordflow}{else} \{
+641         s = \textcolor{stringliteral}{""};
+642     \}
+643     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sVert: shown = %3.2f, top = %3.2f%s"},
+644                     horiz\_sb ? \textcolor{stringliteral}{";  "} : \textcolor{stringliteral}{""}, shown, top, s);
+645 \textcolor{preprocessor}{#endif}
+646 
+647     \textcolor{keywordflow}{if} (cursor\_middle < top) \{
+648         top = cursor\_middle - shown*\hyperlink{winmap_8c_a785d2720b29e2fba9a3c9d11e8f6ec52}{V\_DELTA};
+649         \textcolor{keywordflow}{if} (top < 0.0) top = 0.0;
+650     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle < top + shown*V\_BORDER) \{
+651         top -= shown*\hyperlink{winmap_8c_a785d2720b29e2fba9a3c9d11e8f6ec52}{V\_DELTA};
+652         \textcolor{keywordflow}{if} (top < 0.0) top = 0.0;
+653     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle > (top + shown)) \{
+654         top = cursor\_middle - shown*\hyperlink{winmap_8c_a785d2720b29e2fba9a3c9d11e8f6ec52}{V\_DELTA};
+655         \textcolor{keywordflow}{if} (top < 0.0) top = 0.0;
+656         \textcolor{keywordflow}{if} (top + shown > 1.0) top = 1.0 - shown;
+657     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (cursor\_middle > (top + shown - shown*V\_BORDER)) \{
+658         top += shown*\hyperlink{winmap_8c_a785d2720b29e2fba9a3c9d11e8f6ec52}{V\_DELTA};
+659         \textcolor{keywordflow}{if} (top + shown > 1.0) top = 1.0 - shown;
+660     \} \textcolor{keywordflow}{else} \{
+661         do\_call = False;
+662     \}
+663 
+664     \textcolor{keywordflow}{if} (do\_call) \{
+665         XtCallCallbacks(vert\_sb, XtNjumpProc, &top);
+666         adjusted = True;
+667     \}
+668     \}
+669 
+670     \textcolor{comment}{/* make sure cursor is displayed during dowhatis.. */}
+671     \textcolor{keywordflow}{if} (adjusted) \hyperlink{winmap_8c_a12ab5ce826fbe9dcbc9138ff15cc33b1}{display\_cursor}(wp);
+672 
+673 \textcolor{preprocessor}{#ifdef VERBOSE}
+674     \textcolor{keywordflow}{if} (horiz\_sb || vert\_sb) \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"\(\backslash\)n"});
+675 \textcolor{preprocessor}{#endif}
+676 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_aeb371f1d7d59024d89c2e2d848123c56}{\index{winmap.\+c@{winmap.\+c}!clear\+\_\+map\+\_\+window@{clear\+\_\+map\+\_\+window}}
+\index{clear\+\_\+map\+\_\+window@{clear\+\_\+map\+\_\+window}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{clear\+\_\+map\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void clear\+\_\+map\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_aeb371f1d7d59024d89c2e2d848123c56}
+
+
+Definition at line 882 of file winmap.\+c.
+
+
+
+References C\+O\+L\+N\+O, display\+\_\+map\+\_\+window(), map\+\_\+info\+\_\+t\+::is\+\_\+tile, map\+\_\+all\+\_\+stone(), map\+\_\+info\+\_\+t\+::mtype, N\+O\+\_\+\+C\+O\+L\+O\+R, map\+\_\+info\+\_\+t\+::t\+\_\+start, map\+\_\+info\+\_\+t\+::t\+\_\+stop, text\+\_\+map\+\_\+info\+\_\+t\+::text, and map\+\_\+info\+\_\+t\+::text\+\_\+map.
+
+
+
+Referenced by X11\+\_\+clear\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+884 \{
+885     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = wp->map\_information;
+886 
+887     \textcolor{keywordflow}{if} (map\_info->\hyperlink{structmap__info__t_a2e6326b9aa9caa2d1663125c45966979}{is\_tile}) \{
+888     \hyperlink{winmap_8c_a193931ece6ab17846702b6f289030c5c}{map\_all\_stone}(map\_info);
+889     \} \textcolor{keywordflow}{else} \{
+890     \textcolor{comment}{/* Fill text with spaces, and update */}
+891     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map}->
+      \hyperlink{structtext__map__info__t_ad278ca28ea443157e23f8030dc673a5d}{text}, \textcolor{charliteral}{' '},
+892             \textcolor{keyword}{sizeof}(map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map}->\hyperlink{structtext__map__info__t_ad278ca28ea443157e23f8030dc673a5d}{text}));
+893 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+894     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map}->colors, 
+      \hyperlink{color_8h_a69d859e537f858ca285d77a66755ded6}{NO\_COLOR},
+895             \textcolor{keyword}{sizeof}(map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map}->colors));
+896 \textcolor{preprocessor}{#endif}
+897     \}
+898 
+899     \textcolor{comment}{/* force a full update */}
+900     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}, (char) 0,
+901             \textcolor{keyword}{sizeof}(map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}));
+902     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}, (char) 
+      \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1,
+903             \textcolor{keyword}{sizeof}(map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}));
+904     \hyperlink{winmap_8c_ad3df570a0708227ec369dbc1ad724a8b}{display\_map\_window}(wp);
+905 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a31703da034dd70eb3a40553e02f4cfad}{\index{winmap.\+c@{winmap.\+c}!create\+\_\+map\+\_\+window@{create\+\_\+map\+\_\+window}}
+\index{create\+\_\+map\+\_\+window@{create\+\_\+map\+\_\+window}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{create\+\_\+map\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void create\+\_\+map\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{{\bf boolean}}]{create\+\_\+popup, }
+\item[{Widget}]{parent}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_a31703da034dd70eb3a40553e02f4cfad}
+
+
+Definition at line 1365 of file winmap.\+c.
+
+
+
+References alloc(), app\+Resources, C\+O\+L\+N\+O, F\+A\+L\+S\+E, init\+\_\+text(), init\+\_\+tiles(), map\+\_\+info\+\_\+t\+::is\+\_\+tile, map, map\+\_\+all\+\_\+stone(), map\+\_\+exposed(), N\+H\+W\+\_\+\+M\+A\+P, R\+O\+W\+N\+O, set\+\_\+map\+\_\+size(), map\+\_\+info\+\_\+t\+::square\+\_\+height, map\+\_\+info\+\_\+t\+::square\+\_\+width, map\+\_\+info\+\_\+t\+::t\+\_\+start, map\+\_\+info\+\_\+t\+::t\+\_\+stop, App\+Resources\+::tile\+\_\+file, toplevel, T\+R\+U\+E, map\+\_\+info\+\_\+t\+::viewport\+\_\+height, map\+\_\+info\+\_\+t\+::viewport\+\_\+width, window\+Widget\+Class, wm\+\_\+delete\+\_\+window, Xt\+Ncolumns, Xt\+Nexpose\+Callback, and Xt\+Nrows.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows(), and X11\+\_\+create\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+1369 \{
+1370     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info;  \textcolor{comment}{/* map info pointer */}
+1371     Widget \hyperlink{gnmap_8c_a76baf160a8e960d9716bd9125f044b28}{map}, viewport;
+1372     Arg args[16];
+1373     Cardinal num\_args;
+1374     Dimension rows, columns;
+1375 \textcolor{preprocessor}{#if 0}
+1376     \textcolor{keywordtype}{int} screen\_width, screen\_height;
+1377 \textcolor{preprocessor}{#endif}
+1378 
+1379     wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP};
+1380 
+1381     \textcolor{keywordflow}{if} (create\_popup) \{
+1382     \textcolor{comment}{/*}
+1383 \textcolor{comment}{     * Create a popup that accepts key and button events.}
+1384 \textcolor{comment}{     */}
+1385     num\_args = 0;
+1386     XtSetArg(args[num\_args], XtNinput, False);            num\_args++;
+1387 
+1388     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = parent = XtCreatePopupShell(\textcolor{stringliteral}{"nethack"},
+1389                     topLevelShellWidgetClass,
+1390                        \hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel}, args, num\_args);
+1391     \textcolor{comment}{/*}
+1392 \textcolor{comment}{     * If we're here, then this is an auxiliary map window.  If we're}
+1393 \textcolor{comment}{     * cancelled via a delete window message, we should just pop down.}
+1394 \textcolor{comment}{     */}
+1395     \}
+1396 
+1397     num\_args = 0;
+1398     XtSetArg(args[num\_args], XtNallowHoriz, True);  num\_args++;
+1399     XtSetArg(args[num\_args], XtNallowVert,  True);  num\_args++;
+1400     \textcolor{comment}{/* XtSetArg(args[num\_args], XtNforceBars,  True);   num\_args++; */}
+1401     XtSetArg(args[num\_args], XtNuseBottom,  True);  num\_args++;
+1402     XtSetArg(args[num\_args], XtNtranslations,
+1403         XtParseTranslationTable(\hyperlink{winmap_8c_abec71265ff2e674336cbe7d67dd90842}{map\_translations})); num\_args++;
+1404     viewport = XtCreateManagedWidget(
+1405             \textcolor{stringliteral}{"map\_viewport"},     \textcolor{comment}{/* name */}
+1406             viewportWidgetClass,    \textcolor{comment}{/* widget class from Window.h */}
+1407             parent,         \textcolor{comment}{/* parent widget */}
+1408             args,           \textcolor{comment}{/* set some values */}
+1409             num\_args);      \textcolor{comment}{/* number of values to set */}
+1410 
+1411     \textcolor{comment}{/*}
+1412 \textcolor{comment}{     * Create a map window.  We need to set the width and height to some}
+1413 \textcolor{comment}{     * value when we create it.  We will change it to the value we want}
+1414 \textcolor{comment}{     * later}
+1415 \textcolor{comment}{     */}
+1416     num\_args = 0;
+1417     XtSetArg(args[num\_args], XtNwidth,  100); num\_args++;
+1418     XtSetArg(args[num\_args], XtNheight, 100); num\_args++;
+1419     XtSetArg(args[num\_args], XtNtranslations,
+1420         XtParseTranslationTable(\hyperlink{winmap_8c_abec71265ff2e674336cbe7d67dd90842}{map\_translations})); num\_args++;
+1421 
+1422     wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} = map = XtCreateManagedWidget(
+1423         \textcolor{stringliteral}{"map"},          \textcolor{comment}{/* name */}
+1424         \hyperlink{xwindow_8h_ac26290ed68699f657f8270a3b9527fbf}{windowWidgetClass}, \textcolor{comment}{/* widget class from Window.h */}
+1425         viewport,       \textcolor{comment}{/* parent widget */}
+1426         args,           \textcolor{comment}{/* set some values */}
+1427         num\_args);      \textcolor{comment}{/* number of values to set */}
+1428 
+1429     XtAddCallback(map, \hyperlink{xwindow_8h_a77f1e01f5cfe4720cf7cc1fdfdb01ece}{XtNexposeCallback}, \hyperlink{winmap_8c_a412bb48f2edc39008277c39f3b2ac665}{map\_exposed}, (XtPointer) 0);
+1430 
+1431     map\_info = wp->map\_information =
+1432             (\textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structmap__info__t}{map\_info\_t}));
+1433 
+1434     map\_info->\hyperlink{structmap__info__t_a7bfa57571a4fbddbcb6514b23e1cf186}{viewport\_width} = map\_info->\hyperlink{structmap__info__t_a0a0556414a1dfe75a986264538d66632}{viewport\_height} = 0;
+1435 
+1436     \textcolor{comment}{/* reset the "new entry" indicators */}
+1437     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}, (char) 
+      \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO},
+1438             \textcolor{keyword}{sizeof}(map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}));
+1439     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}, (char) 0,
+1440             \textcolor{keyword}{sizeof}(map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}));
+1441 
+1442     \textcolor{comment}{/* we probably want to restrict this to the 1st map window only */}
+1443     \textcolor{keywordflow}{if} (\hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a7fb6f484113fc3cb8bc76fe9cc9fc05e}{tile\_file}[0] && \hyperlink{winmap_8c_a457ac973ae6f958907bd59d5eac9e5d4}{init\_tiles}(wp)) \{
+1444     map\_info->\hyperlink{structmap__info__t_a2e6326b9aa9caa2d1663125c45966979}{is\_tile} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1445     \} \textcolor{keywordflow}{else} \{
+1446     \hyperlink{winmap_8c_ac7b07b2224b13cb5c4684432801accb9}{init\_text}(wp);
+1447     map\_info->\hyperlink{structmap__info__t_a2e6326b9aa9caa2d1663125c45966979}{is\_tile} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1448     \}
+1449 
+1450 
+1451     \textcolor{comment}{/*}
+1452 \textcolor{comment}{     * Initially, set the map widget to be the size specified by the}
+1453 \textcolor{comment}{     * widget rows and columns resources.  We need to do this to}
+1454 \textcolor{comment}{     * correctly set the viewport window size.  After the viewport is}
+1455 \textcolor{comment}{     * realized, then the map can resize to its normal size.}
+1456 \textcolor{comment}{     */}
+1457     num\_args = 0;
+1458     XtSetArg(args[num\_args], \hyperlink{xwindow_8h_a48be185f269fd20e7528a78d0245ae61}{XtNrows},    &rows); num\_args++;
+1459     XtSetArg(args[num\_args], \hyperlink{xwindow_8h_a2d712feb7d9a0f6133bfcfe01ef62e75}{XtNcolumns}, &columns);   num\_args++;
+1460     XtGetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+1461 
+1462     \textcolor{comment}{/* Don't bother with windows larger than ROWNOxCOLNO. */}
+1463     \textcolor{keywordflow}{if} (columns > \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) columns = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO};
+1464     \textcolor{keywordflow}{if} (rows    > \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) rows = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO};
+1465 
+1466 \textcolor{preprocessor}{#if 0 }\textcolor{comment}{/* This is insufficient.  We now resize final window in winX.c */}\textcolor{preprocessor}{}
+1467     \textcolor{comment}{/*}
+1468 \textcolor{comment}{     * Check for overrunning the size of the screen.  This does an ad hoc}
+1469 \textcolor{comment}{     * job.}
+1470 \textcolor{comment}{     *}
+1471 \textcolor{comment}{     * Width:   We expect that there is nothing but borders on either side}
+1472 \textcolor{comment}{     *      of the map window.  Use some arbitrary width to decide}
+1473 \textcolor{comment}{     *      when to shrink.}
+1474 \textcolor{comment}{     *}
+1475 \textcolor{comment}{     * Height:  if the map takes up more than 1/2 of the screen height, start}
+1476 \textcolor{comment}{     *      reducing its size.}
+1477 \textcolor{comment}{     */}
+1478     screen\_height = HeightOfScreen(XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}));
+1479     screen\_width  = WidthOfScreen(XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}));
+1480 
+1481 \textcolor{preprocessor}{#define WOFF 50}
+1482     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int})(columns*map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width}) > screen\_width-WOFF) \{
+1483     columns = (screen\_width-WOFF) / map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width};
+1484     if (columns == 0) columns = 1;
+1485     \}
+1486 
+1487     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int})(rows*map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height}) > screen\_height/2) \{
+1488     rows = screen\_height / (2*map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height});
+1489     \textcolor{keywordflow}{if} (rows == 0) rows = 1;
+1490     \}
+1491 \textcolor{preprocessor}{#endif}
+1492 
+1493     \hyperlink{winmap_8c_ad9fe51faff55646a7523d3aca4bb3fdb}{set\_map\_size}(wp, columns, rows);
+1494 
+1495 
+1496     \textcolor{comment}{/*}
+1497 \textcolor{comment}{     * If we have created our own popup, then realize it so that the}
+1498 \textcolor{comment}{     * viewport is also realized.  Then resize the map window.}
+1499 \textcolor{comment}{     */}
+1500     \textcolor{keywordflow}{if} (create\_popup) \{
+1501     XtRealizeWidget(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+1502     XSetWMProtocols(XtDisplay(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}), XtWindow(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}),
+1503             &\hyperlink{winX_8h_ae061cf257d8ee1f9907008f160d340b7}{wm\_delete\_window}, 1);
+1504     \hyperlink{winmap_8c_ad9fe51faff55646a7523d3aca4bb3fdb}{set\_map\_size}(wp, \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}, \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO});
+1505     \}
+1506 
+1507     \textcolor{keywordflow}{if} (map\_info->\hyperlink{structmap__info__t_a2e6326b9aa9caa2d1663125c45966979}{is\_tile}) \{
+1508     \hyperlink{winmap_8c_a193931ece6ab17846702b6f289030c5c}{map\_all\_stone}(map\_info);
+1509     \}
+1510 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a8dceaea4cbbd44d029f975a12fe2d7fe}{\index{winmap.\+c@{winmap.\+c}!destroy\+\_\+map\+\_\+window@{destroy\+\_\+map\+\_\+window}}
+\index{destroy\+\_\+map\+\_\+window@{destroy\+\_\+map\+\_\+window}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{destroy\+\_\+map\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+\_\+map\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_a8dceaea4cbbd44d029f975a12fe2d7fe}
+
+
+Definition at line 1516 of file winmap.\+c.
+
+
+
+References C\+L\+R\+\_\+\+M\+A\+X, text\+\_\+map\+\_\+info\+\_\+t\+::copy\+\_\+gc, free(), text\+\_\+map\+\_\+info\+\_\+t\+::inv\+\_\+copy\+\_\+gc, map\+\_\+info\+\_\+t\+::is\+\_\+tile, map\+\_\+exposed(), map\+\_\+info\+\_\+t\+::mtype, nh\+\_\+\+Xt\+Popdown(), N\+H\+W\+\_\+\+N\+O\+N\+E, map\+\_\+info\+\_\+t\+::text\+\_\+map, and Xt\+Nexpose\+Callback.
+
+
+
+Referenced by X11\+\_\+destroy\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+1518 \{
+1519     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = wp->map\_information;
+1520 
+1521     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup})
+1522     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+1523 
+1524     \textcolor{keywordflow}{if} (map\_info) \{
+1525     \textcolor{keyword}{struct }\hyperlink{structtext__map__info__t}{text\_map\_info\_t} *text\_map = map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.
+      \hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map};
+1526 
+1527     \textcolor{comment}{/* Free allocated GCs. */}
+1528     \textcolor{keywordflow}{if} (!map\_info->\hyperlink{structmap__info__t_a2e6326b9aa9caa2d1663125c45966979}{is\_tile}) \{
+1529 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+1530         \textcolor{keywordtype}{int} i;
+1531 
+1532         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{color_8h_ab706645da4a8e133e1c8641932eef9be}{CLR\_MAX}; i++) \{
+1533         XtReleaseGC(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, text\_map->color\_gcs[i]);
+1534         XtReleaseGC(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, text\_map->inv\_color\_gcs[i]);
+1535         \}
+1536 \textcolor{preprocessor}{#else}
+1537         XtReleaseGC(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, text\_map->\hyperlink{structtext__map__info__t_a4e3aedaf8e638c12ba150a0c848dc263}{copy\_gc});
+1538         XtReleaseGC(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, text\_map->\hyperlink{structtext__map__info__t_a4b413e5d7506a16b271d791babf99444}{inv\_copy\_gc});
+1539 \textcolor{preprocessor}{#endif}
+1540     \}
+1541     \textcolor{comment}{/* free alloc'ed text information */}
+1542     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})text\_map),   map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.
+      \hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map} = 0;
+1543 
+1544     \textcolor{comment}{/* Free malloc'ed space. */}
+1545     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})map\_info),  wp->map\_information = 0;
+1546     \}
+1547 
+1548     \textcolor{comment}{/* Destroy map widget. */}
+1549     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} && !wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window})
+1550     XtDestroyWidget(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}),  wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = (Widget)0;
+1551 
+1552     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window})
+1553     XtRemoveCallback(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, \hyperlink{xwindow_8h_a77f1e01f5cfe4720cf7cc1fdfdb01ece}{XtNexposeCallback}, \hyperlink{winmap_8c_a412bb48f2edc39008277c39f3b2ac665}{map\_exposed}, (XtPointer)0);
+1554     \textcolor{keywordflow}{else}
+1555     wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{winX_8h_ad149374e5170c08d2036a33dbf0f7b23}{NHW\_NONE};    \textcolor{comment}{/* allow re-use */}
+1556 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a12ab5ce826fbe9dcbc9138ff15cc33b1}{\index{winmap.\+c@{winmap.\+c}!display\+\_\+cursor@{display\+\_\+cursor}}
+\index{display\+\_\+cursor@{display\+\_\+cursor}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{display\+\_\+cursor}]{\setlength{\rightskip}{0pt plus 5cm}static void display\+\_\+cursor (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a12ab5ce826fbe9dcbc9138ff15cc33b1}
+
+
+Definition at line 815 of file winmap.\+c.
+
+
+
+References map\+\_\+update(), and T\+R\+U\+E.
+
+
+
+Referenced by check\+\_\+cursor\+\_\+visibility(), display\+\_\+map\+\_\+window(), and map\+\_\+exposed().
+
+
+\begin{DoxyCode}
+817 \{
+818     \textcolor{comment}{/* Redisplay the cursor location inverted. */}
+819     \hyperlink{winmap_8c_a6d6d931138e6d13469b728f44ec57640}{map\_update}(wp, wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy}, wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy}, wp->\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx}, wp->
+      \hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+820 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_ad3df570a0708227ec369dbc1ad724a8b}{\index{winmap.\+c@{winmap.\+c}!display\+\_\+map\+\_\+window@{display\+\_\+map\+\_\+window}}
+\index{display\+\_\+map\+\_\+window@{display\+\_\+map\+\_\+window}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{display\+\_\+map\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void display\+\_\+map\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_ad3df570a0708227ec369dbc1ad724a8b}
+
+
+Definition at line 828 of file winmap.\+c.
+
+
+
+References C\+O\+L\+N\+O, display\+\_\+cursor(), F\+A\+L\+S\+E, map\+\_\+update(), R\+O\+W\+N\+O, map\+\_\+info\+\_\+t\+::t\+\_\+start, and map\+\_\+info\+\_\+t\+::t\+\_\+stop.
+
+
+
+Referenced by clear\+\_\+map\+\_\+window(), and X11\+\_\+display\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+830 \{
+831     \textcolor{keyword}{register} \textcolor{keywordtype}{int} row;
+832     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = wp->map\_information;
+833 
+834     \textcolor{comment}{/*}
+835 \textcolor{comment}{     * If the previous cursor position is not the same as the current}
+836 \textcolor{comment}{     * cursor position, then update the old cursor position.}
+837 \textcolor{comment}{     */}
+838     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_ab8c3e2d2d6643622d57d1110837780fe}{prevx} != wp->\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx} || wp->\hyperlink{structxwindow_a493627beb90e722882da46ed2227a30e}{prevy} != wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy}) \{
+839     \textcolor{keyword}{register} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} x = wp->\hyperlink{structxwindow_ab8c3e2d2d6643622d57d1110837780fe}{prevx}, y = wp->\hyperlink{structxwindow_a493627beb90e722882da46ed2227a30e}{prevy};
+840     \textcolor{keywordflow}{if} (x < map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}[y]) map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}[y] = x;
+841     \textcolor{keywordflow}{if} (x > map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}[y])  map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}[y]  = x;
+842     \}
+843 
+844     \textcolor{keywordflow}{for} (row = 0; row < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; row++) \{
+845     \textcolor{keywordflow}{if} (map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}[row] <= map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}[row]) \{
+846         \hyperlink{winmap_8c_a6d6d931138e6d13469b728f44ec57640}{map\_update}(wp, row, row,
+847             (\textcolor{keywordtype}{int}) map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}[row],
+848             (\textcolor{keywordtype}{int}) map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}[row], \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+849         map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}[row] = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+850         map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}[row] = 0;
+851     \}
+852     \}
+853     \hyperlink{winmap_8c_a12ab5ce826fbe9dcbc9138ff15cc33b1}{display\_cursor}(wp);
+854     wp->\hyperlink{structxwindow_ab8c3e2d2d6643622d57d1110837780fe}{prevx} = wp->\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx};    \textcolor{comment}{/* adjust old cursor position */}
+855     wp->\hyperlink{structxwindow_a493627beb90e722882da46ed2227a30e}{prevy} = wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy};
+856 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a6bf4d9526398bed4a016257308327434}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+tiles}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a6bf4d9526398bed4a016257308327434}
+\hypertarget{winmap_8c_a0dcb64850bd79079e0ccc1395236bd0c}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf set\+\_\+button\+\_\+values}}]{, }
+\item[{(Widget, int, int, unsigned)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a0dcb64850bd79079e0ccc1395236bd0c}
+\hypertarget{winmap_8c_a7feaf4ef9fb1dfeafe08e77a85addc60}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf map\+\_\+check\+\_\+size\+\_\+change}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a7feaf4ef9fb1dfeafe08e77a85addc60}
+\hypertarget{winmap_8c_af17dcb96396174caa274d5a740bfe454}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf map\+\_\+update}}]{, }
+\item[{(struct {\bf xwindow} $\ast$, int, int, int, int, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_af17dcb96396174caa274d5a740bfe454}
+\hypertarget{winmap_8c_a0ccb38960bf0929224f9568e5079bf7e}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+text}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a0ccb38960bf0929224f9568e5079bf7e}
+\hypertarget{winmap_8c_a7bab562bc0b832cabceb176d4af1e8eb}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf map\+\_\+exposed}}]{, }
+\item[{(Widget, Xt\+Pointer, Xt\+Pointer)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a7bab562bc0b832cabceb176d4af1e8eb}
+\hypertarget{winmap_8c_afcca8ad8277d0de48d4ba2d4114a7904}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf set\+\_\+gc}}]{, }
+\item[{(Widget, Font, char $\ast$, Pixel, G\+C $\ast$, G\+C $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_afcca8ad8277d0de48d4ba2d4114a7904}
+\hypertarget{winmap_8c_a98164111bbc5c6e57b42593ebe0d21a7}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf get\+\_\+text\+\_\+gc}}]{, }
+\item[{(struct {\bf xwindow} $\ast$, Font)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a98164111bbc5c6e57b42593ebe0d21a7}
+\hypertarget{winmap_8c_a4696cf7e11d599feb44b6995b0111613}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf get\+\_\+char\+\_\+info}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a4696cf7e11d599feb44b6995b0111613}
+\hypertarget{winmap_8c_a0ce9b403aa12dccde917447a74cf4c6f}{\index{winmap.\+c@{winmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf display\+\_\+cursor}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a0ce9b403aa12dccde917447a74cf4c6f}
+\hypertarget{winmap_8c_adf5aaa5bec353977c25b5884787dd8a7}{\index{winmap.\+c@{winmap.\+c}!get\+\_\+char\+\_\+info@{get\+\_\+char\+\_\+info}}
+\index{get\+\_\+char\+\_\+info@{get\+\_\+char\+\_\+info}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{get\+\_\+char\+\_\+info}]{\setlength{\rightskip}{0pt plus 5cm}static void get\+\_\+char\+\_\+info (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_adf5aaa5bec353977c25b5884787dd8a7}
+
+
+Definition at line 912 of file winmap.\+c.
+
+
+
+References printf, map\+\_\+info\+\_\+t\+::square\+\_\+ascent, map\+\_\+info\+\_\+t\+::square\+\_\+height, map\+\_\+info\+\_\+t\+::square\+\_\+lbearing, map\+\_\+info\+\_\+t\+::square\+\_\+width, Window\+Font\+Struct(), and X11\+\_\+raw\+\_\+print().
+
+
+
+Referenced by init\+\_\+text().
+
+
+\begin{DoxyCode}
+914 \{
+915     XFontStruct *fs;
+916     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = wp->map\_information;
+917 
+918     fs = \hyperlink{xwindow_8h_ac7cf236fd449f56cb96277c837e1a5d8}{WindowFontStruct}(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+919     map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width}    = fs->max\_bounds.width;
+920     map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height}   = fs->max\_bounds.ascent + fs->max\_bounds.descent;
+921     map\_info->\hyperlink{structmap__info__t_a9275412eabdcb189618c01314406b1ad}{square\_ascent}   = fs->max\_bounds.ascent;
+922     map\_info->\hyperlink{structmap__info__t_a6e4474b98d61592c9a57f3316d196d33}{square\_lbearing} = -fs->min\_bounds.lbearing;
+923 
+924 \textcolor{preprocessor}{#ifdef VERBOSE}
+925     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Font information:\(\backslash\)n"});
+926     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"fid = %ld, direction = %d\(\backslash\)n"}, fs->fid, fs->direction);
+927     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"first = %d, last = %d\(\backslash\)n"},
+928             fs->min\_char\_or\_byte2, fs->max\_char\_or\_byte2);
+929     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"all chars exist? %s\(\backslash\)n"}, fs->all\_chars\_exist?\textcolor{stringliteral}{"yes"}:\textcolor{stringliteral}{"no"});
+930     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"min\_bounds:lb=%d rb=%d width=%d asc=%d des=%d attr=%d\(\backslash\)n"},
+931         fs->min\_bounds.lbearing, fs->min\_bounds.rbearing,
+932         fs->min\_bounds.width, fs->min\_bounds.ascent,
+933         fs->min\_bounds.descent, fs->min\_bounds.attributes);
+934     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"max\_bounds:lb=%d rb=%d width=%d asc=%d des=%d attr=%d\(\backslash\)n"},
+935         fs->max\_bounds.lbearing, fs->max\_bounds.rbearing,
+936         fs->max\_bounds.width, fs->max\_bounds.ascent,
+937         fs->max\_bounds.descent, fs->max\_bounds.attributes);
+938     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"per\_char = 0x%lx\(\backslash\)n"}, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long}) fs->per\_char);
+939     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Text: (max) width = %d, height = %d\(\backslash\)n"},
+940         map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width}, map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height});
+941 \textcolor{preprocessor}{#endif}
+942 
+943     \textcolor{keywordflow}{if} (fs->min\_bounds.width != fs->max\_bounds.width)
+944     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"Warning:  map font is not monospaced!"});
+945 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_adf4769b49fd0e5326d3c1251726b158b}{\index{winmap.\+c@{winmap.\+c}!get\+\_\+text\+\_\+gc@{get\+\_\+text\+\_\+gc}}
+\index{get\+\_\+text\+\_\+gc@{get\+\_\+text\+\_\+gc}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{get\+\_\+text\+\_\+gc}]{\setlength{\rightskip}{0pt plus 5cm}static void get\+\_\+text\+\_\+gc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{Font}]{font}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_adf4769b49fd0e5326d3c1251726b158b}
+
+
+Definition at line 769 of file winmap.\+c.
+
+
+
+References C\+L\+R\+\_\+\+B\+L\+A\+C\+K, C\+L\+R\+\_\+\+B\+L\+U\+E, C\+L\+R\+\_\+\+B\+R\+I\+G\+H\+T\+\_\+\+B\+L\+U\+E, C\+L\+R\+\_\+\+B\+R\+I\+G\+H\+T\+\_\+\+C\+Y\+A\+N, C\+L\+R\+\_\+\+B\+R\+I\+G\+H\+T\+\_\+\+G\+R\+E\+E\+N, C\+L\+R\+\_\+\+B\+R\+I\+G\+H\+T\+\_\+\+M\+A\+G\+E\+N\+T\+A, C\+L\+R\+\_\+\+B\+R\+O\+W\+N, C\+L\+R\+\_\+\+C\+Y\+A\+N, C\+L\+R\+\_\+\+G\+R\+A\+Y, C\+L\+R\+\_\+\+G\+R\+E\+E\+N, C\+L\+R\+\_\+\+M\+A\+G\+E\+N\+T\+A, C\+L\+R\+\_\+\+O\+R\+A\+N\+G\+E, C\+L\+R\+\_\+\+R\+E\+D, C\+L\+R\+\_\+\+W\+H\+I\+T\+E, C\+L\+R\+\_\+\+Y\+E\+L\+L\+O\+W, text\+\_\+map\+\_\+info\+\_\+t\+::copy\+\_\+gc, text\+\_\+map\+\_\+info\+\_\+t\+::inv\+\_\+copy\+\_\+gc, map\+\_\+info\+\_\+t\+::mtype, N\+O\+\_\+\+C\+O\+L\+O\+R, set\+\_\+gc(), map\+\_\+info\+\_\+t\+::text\+\_\+map, Xt\+Nblack, Xt\+Nblue, Xt\+Nbright\+\_\+blue, Xt\+Nbright\+\_\+cyan, Xt\+Nbright\+\_\+green, Xt\+Nbright\+\_\+magenta, Xt\+Nbrown, Xt\+Ncyan, Xt\+Ngray, Xt\+Ngreen, Xt\+Nmagenta, Xt\+Norange, Xt\+Nred, Xt\+Nwhite, and Xt\+Nyellow.
+
+
+
+Referenced by init\+\_\+text().
+
+
+\begin{DoxyCode}
+772 \{
+773     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = wp->map\_information;
+774     Pixel bgpixel;
+775     Arg arg[1];
+776 
+777     \textcolor{comment}{/* Get background pixel. */}
+778     XtSetArg(arg[0], XtNbackground, &bgpixel);
+779     XtGetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, arg, ONE);
+780 
+781 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+782 \textcolor{preprocessor}{#define set\_color\_gc(nh\_color, resource\_name)           \(\backslash\)}
+783 \textcolor{preprocessor}{        set\_gc(wp->w, font, resource\_name, bgpixel,     \(\backslash\)}
+784 \textcolor{preprocessor}{        &map\_info->mtype.text\_map->color\_gcs[nh\_color], \(\backslash\)}
+785 \textcolor{preprocessor}{            &map\_info->mtype.text\_map->inv\_color\_gcs[nh\_color]);}
+786 
+787     set\_color\_gc(\hyperlink{color_8h_ad8fc23ac0b5f8e6292135c5647486d5a}{CLR\_BLACK},    \hyperlink{xwindow_8h_abb3dade48914401d2e932639accf212f}{XtNblack});
+788     set\_color\_gc(\hyperlink{color_8h_a440726f8973da46eba779f170566b4cc}{CLR\_RED},    \hyperlink{xwindow_8h_a68c379820326faeaf7de48fa27af7102}{XtNred});
+789     set\_color\_gc(\hyperlink{color_8h_a0c8c42824dd44b52d4289558804a128a}{CLR\_GREEN},    \hyperlink{xwindow_8h_a7232a37f8ebcc6ad44a2d19cf8425111}{XtNgreen});
+790     set\_color\_gc(\hyperlink{color_8h_ae6183033e0a87a0dc8f345aad0ceb94f}{CLR\_BROWN},    \hyperlink{xwindow_8h_a07fc506784c4c16476a16e2a617f1d54}{XtNbrown});
+791     set\_color\_gc(\hyperlink{color_8h_a0dab0df401c468a1012750cc6331dbe4}{CLR\_BLUE},  \hyperlink{xwindow_8h_a294e427c078c3ef0cce12c7220a01bfa}{XtNblue});
+792     set\_color\_gc(\hyperlink{color_8h_ab6d8d8f1ba06b04bc27ec83e59fad1eb}{CLR\_MAGENTA},    \hyperlink{xwindow_8h_a7cb9ed30914e516c0ac99e8145d9a7ad}{XtNmagenta});
+793     set\_color\_gc(\hyperlink{color_8h_a59d8c7d9960773718d8dac44a99bcac4}{CLR\_CYAN},  \hyperlink{xwindow_8h_a213276dc01ff10dbe4ce83307fc49786}{XtNcyan});
+794     set\_color\_gc(\hyperlink{color_8h_ae6bc9ef7ab884321d5aed99e40b8bfbf}{CLR\_GRAY},  \hyperlink{xwindow_8h_ad4b2e3a0d6839b4f1837f1c1475ce501}{XtNgray});
+795     set\_color\_gc(\hyperlink{color_8h_a69d859e537f858ca285d77a66755ded6}{NO\_COLOR},  XtNforeground);
+796     set\_color\_gc(\hyperlink{color_8h_a82bbec903d4fb5d640e1730763a59427}{CLR\_ORANGE},  \hyperlink{xwindow_8h_add56acde5f38f3512c963a1447f2f9c3}{XtNorange});
+797     set\_color\_gc(\hyperlink{color_8h_ab92660142f4d1045ec3bf75f75bbd351}{CLR\_BRIGHT\_GREEN}, \hyperlink{xwindow_8h_a8c51011e4395a6f6fbf51e7d3c99ca87}{XtNbright\_green});
+798     set\_color\_gc(\hyperlink{color_8h_ae0a5a80f5e963a782350b12e9cfcc9f3}{CLR\_YELLOW},  \hyperlink{xwindow_8h_a7cb1bd29df7bf5a7bd6fe465ae66df1e}{XtNyellow});
+799     set\_color\_gc(\hyperlink{color_8h_a5dfd5b39ea9035f71a7054e066c76093}{CLR\_BRIGHT\_BLUE}, \hyperlink{xwindow_8h_a0693dbddc6d6fd02de351c092924e38b}{XtNbright\_blue});
+800     set\_color\_gc(\hyperlink{color_8h_aaf5c56b44c1ce54ae9b26278f652ea17}{CLR\_BRIGHT\_MAGENTA}, \hyperlink{xwindow_8h_afcef5176d70490d003a0e67c5e852156}{XtNbright\_magenta});
+801     set\_color\_gc(\hyperlink{color_8h_a830c7dc413dc0174d1bad9f6c162fbe9}{CLR\_BRIGHT\_CYAN}, \hyperlink{xwindow_8h_a0454b89fff8b572617a884d5c2ebdf9c}{XtNbright\_cyan});
+802     set\_color\_gc(\hyperlink{color_8h_a200fd50f64e8a7777954547ef30798a1}{CLR\_WHITE},    \hyperlink{xwindow_8h_a220a5e028eab7025c821461310f2bb5d}{XtNwhite});
+803 \textcolor{preprocessor}{#else}
+804     \hyperlink{winmap_8c_a1c1077108ba42d3e6837286762f5773b}{set\_gc}(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, font, XtNforeground, bgpixel,
+805         &map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map}->\hyperlink{structtext__map__info__t_a4e3aedaf8e638c12ba150a0c848dc263}{copy\_gc},
+806         &map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map}->\hyperlink{structtext__map__info__t_a4b413e5d7506a16b271d791babf99444}{inv\_copy\_gc});
+807 \textcolor{preprocessor}{#endif}
+808 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a0ccff0920250a213f3ec155334933b72}{\index{winmap.\+c@{winmap.\+c}!init\+\_\+annotation@{init\+\_\+annotation}}
+\index{init\+\_\+annotation@{init\+\_\+annotation}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{init\+\_\+annotation}]{\setlength{\rightskip}{0pt plus 5cm}static void init\+\_\+annotation (
+\begin{DoxyParamCaption}
+\item[{struct {\bf tile\+\_\+annotation} $\ast$}]{annotation, }
+\item[{char $\ast$}]{filename, }
+\item[{Pixel}]{colorpixel}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a0ccff0920250a213f3ec155334933b72}
+
+
+Definition at line 176 of file winmap.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, Sprintf, toplevel, and X11\+\_\+raw\+\_\+print().
+
+
+
+Referenced by post\+\_\+process\+\_\+tiles().
+
+
+\begin{DoxyCode}
+180 \{
+181     Display *dpy = XtDisplay(\hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel});
+182 
+183     \textcolor{keywordflow}{if} (0!=XReadBitmapFile(dpy, XtWindow(\hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel}), \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename},
+184         &annotation->\hyperlink{structtile__annotation_abebdada9a87e5e8252ad6213f48aee66}{width}, &annotation->\hyperlink{structtile__annotation_acf8b8bf29e89acd084f07e7b55e20c79}{height}, &annotation->\hyperlink{structtile__annotation_a608fc9986eb459e676f77d7f3b4822a7}{bitmap},
+185         &annotation->\hyperlink{structtile__annotation_a162bca91c97a60e8099c5f9305210258}{hotx}, &annotation->\hyperlink{structtile__annotation_ad2ca18d1296b8e792ee8e70bad9fd524}{hoty})) \{
+186     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+187     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"Failed to load %s"}, \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename});
+188     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(buf);
+189     \}
+190 
+191     annotation->\hyperlink{structtile__annotation_a1bc456a3e868aec0ecc8c92e6244fa59}{foreground} = colorpixel;
+192 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_ac7b07b2224b13cb5c4684432801accb9}{\index{winmap.\+c@{winmap.\+c}!init\+\_\+text@{init\+\_\+text}}
+\index{init\+\_\+text@{init\+\_\+text}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{init\+\_\+text}]{\setlength{\rightskip}{0pt plus 5cm}static void init\+\_\+text (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_ac7b07b2224b13cb5c4684432801accb9}
+
+
+Definition at line 1331 of file winmap.\+c.
+
+
+
+References alloc(), F\+A\+L\+S\+E, get\+\_\+char\+\_\+info(), get\+\_\+text\+\_\+gc(), map\+\_\+info\+\_\+t\+::is\+\_\+tile, map\+\_\+info\+\_\+t\+::mtype, N\+O\+\_\+\+C\+O\+L\+O\+R, text\+\_\+map\+\_\+info\+\_\+t\+::text, map\+\_\+info\+\_\+t\+::text\+\_\+map, and Window\+Font().
+
+
+
+Referenced by create\+\_\+map\+\_\+window().
+
+
+\begin{DoxyCode}
+1333 \{
+1334 
+1335     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = wp->map\_information;
+1336     \textcolor{keyword}{struct }\hyperlink{structtext__map__info__t}{text\_map\_info\_t} *text\_map;
+1337 
+1338     map\_info->\hyperlink{structmap__info__t_a2e6326b9aa9caa2d1663125c45966979}{is\_tile} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1339     text\_map = map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map} =
+1340     (\textcolor{keyword}{struct }\hyperlink{structtext__map__info__t}{text\_map\_info\_t} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structtext__map__info__t}{text\_map\_info\_t}));
+1341 
+1342     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) text\_map->\hyperlink{structtext__map__info__t_ad278ca28ea443157e23f8030dc673a5d}{text}, \textcolor{charliteral}{' '}, \textcolor{keyword}{sizeof}(text\_map->
+      \hyperlink{structtext__map__info__t_ad278ca28ea443157e23f8030dc673a5d}{text}));
+1343 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+1344     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) text\_map->colors, \hyperlink{color_8h_a69d859e537f858ca285d77a66755ded6}{NO\_COLOR},
+1345             \textcolor{keyword}{sizeof}(text\_map->colors));
+1346 \textcolor{preprocessor}{#endif}
+1347 
+1348     \hyperlink{winmap_8c_adf5aaa5bec353977c25b5884787dd8a7}{get\_char\_info}(wp);
+1349     \hyperlink{winmap_8c_adf4769b49fd0e5326d3c1251726b158b}{get\_text\_gc}(wp, \hyperlink{xwindow_8h_a2a2cd7926a16390e97ac6a1e111be9b2}{WindowFont}(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}));
+1350 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a457ac973ae6f958907bd59d5eac9e5d4}{\index{winmap.\+c@{winmap.\+c}!init\+\_\+tiles@{init\+\_\+tiles}}
+\index{init\+\_\+tiles@{init\+\_\+tiles}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{init\+\_\+tiles}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf boolean} init\+\_\+tiles (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a457ac973ae6f958907bd59d5eac9e5d4}
+
+
+Definition at line 239 of file winmap.\+c.
+
+
+
+References alloc(), app\+Resources, tile\+\_\+map\+\_\+info\+\_\+t\+::black\+\_\+gc, buf, B\+U\+F\+S\+Z, cmap\+\_\+to\+\_\+glyph, App\+Resources\+::double\+\_\+tile\+\_\+size, F\+A\+L\+S\+E, fopen\+\_\+datafile(), fp, free(), glyph2tile, header, tile\+\_\+map\+\_\+info\+\_\+t\+::image\+\_\+height, tile\+\_\+map\+\_\+info\+\_\+t\+::image\+\_\+width, map\+\_\+info\+\_\+t\+::mtype, x11\+\_\+header\+::ncolors, nh\+Approx\+Color(), x11\+\_\+header\+::ntiles, x11\+\_\+header\+::per\+\_\+row, R\+D\+B\+M\+O\+D\+E, S\+\_\+corr, Sprintf, map\+\_\+info\+\_\+t\+::square\+\_\+ascent, map\+\_\+info\+\_\+t\+::square\+\_\+height, map\+\_\+info\+\_\+t\+::square\+\_\+lbearing, map\+\_\+info\+\_\+t\+::square\+\_\+width, tile\+\_\+bytes, tile\+\_\+count, App\+Resources\+::tile\+\_\+file, x11\+\_\+header\+::tile\+\_\+height, tile\+\_\+height, map\+\_\+info\+\_\+t\+::tile\+\_\+map, x11\+\_\+header\+::tile\+\_\+width, tile\+\_\+width, T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+R\+O\+W, toplevel, total\+\_\+tiles\+\_\+used, T\+R\+U\+E, x11\+\_\+header\+::version, tile\+\_\+map\+\_\+info\+\_\+t\+::white\+\_\+gc, and X11\+\_\+raw\+\_\+print().
+
+
+
+Referenced by create\+\_\+map\+\_\+window().
+
+
+\begin{DoxyCode}
+241 \{
+242 \textcolor{preprocessor}{#ifdef USE\_XPM}
+243     XpmAttributes attributes;
+244     \textcolor{keywordtype}{int} errorcode;
+245 \textcolor{preprocessor}{#else}
+246     FILE *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp} = (FILE *)0;
+247     \hyperlink{structx11__header}{x11\_header} \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header};
+248     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *cp, *colormap = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *)0;
+249     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *tb, *\hyperlink{tile2x11_8c_a997326307063682dcaca122b8813544d}{tile\_bytes} = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *)0;
+250     \textcolor{keywordtype}{int} \hyperlink{structsize}{size};
+251     XColor *colors = (XColor *)0;
+252     \textcolor{keywordtype}{int} i, x, y;
+253     \textcolor{keywordtype}{int} bitmap\_pad;
+254     \textcolor{keywordtype}{int} ddepth;
+255 \textcolor{preprocessor}{#endif}
+256     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+257     Display *dpy = XtDisplay(\hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel});
+258     Screen *screen = DefaultScreenOfDisplay(dpy);
+259     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = (\textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *)0;
+260     \textcolor{keyword}{struct }\hyperlink{structtile__map__info__t}{tile\_map\_info\_t} *tile\_info = (\textcolor{keyword}{struct }\hyperlink{structtile__map__info__t}{tile\_map\_info\_t} *)0;
+261     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \hyperlink{structtile__map__info__t_a76968db088c03de48d2412082d5494f0}{image\_height} = 0, \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width} = 0;
+262     \textcolor{keywordtype}{boolean} result = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+263     XGCValues values;
+264     XtGCMask mask;
+265 
+266     \textcolor{comment}{/* already have tile information */}
+267     \textcolor{keywordflow}{if} (\hyperlink{winmap_8c_a2c291722f764515415f084ffce557615}{tile\_pixmap} != None) \textcolor{keywordflow}{goto} tiledone;
+268 
+269     map\_info = wp->map\_information;
+270     tile\_info = map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_ad3a25f3b733498af77bc597a2d4edb17}{tile\_map} =
+271         (\textcolor{keyword}{struct }\hyperlink{structtile__map__info__t}{tile\_map\_info\_t} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structtile__map__info__t}{tile\_map\_info\_t}));
+272     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) tile\_info, 0,
+273                 \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }\hyperlink{structtile__map__info__t}{tile\_map\_info\_t}));
+274 
+275 \textcolor{preprocessor}{#ifdef USE\_XPM}
+276     attributes.valuemask = XpmCloseness;
+277     attributes.closeness = 25000;
+278 
+279     errorcode = XpmReadFileToImage(dpy, \hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a7fb6f484113fc3cb8bc76fe9cc9fc05e}{tile\_file},
+280                    &\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}, 0, &attributes);
+281 
+282     \textcolor{keywordflow}{if} (errorcode == XpmColorFailed) \{
+283     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"Insufficient colors available to load %s."},
+284         \hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a7fb6f484113fc3cb8bc76fe9cc9fc05e}{tile\_file});
+285     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(buf);
+286     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"Try closing other colorful applications and restart."});
+287     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"Attempting to load with inferior colors."});
+288     attributes.closeness = 50000;
+289     errorcode = XpmReadFileToImage(dpy, \hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a7fb6f484113fc3cb8bc76fe9cc9fc05e}{tile\_file},
+290                        &\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}, 0, &attributes);
+291     \}
+292 
+293     \textcolor{keywordflow}{if} (errorcode != XpmSuccess) \{
+294     \textcolor{keywordflow}{if} (errorcode == XpmColorFailed) \{
+295         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"Insufficient colors available to load %s."},
+296             \hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a7fb6f484113fc3cb8bc76fe9cc9fc05e}{tile\_file});
+297         \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(buf);
+298     \} \textcolor{keywordflow}{else} \{
+299         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"Failed to load %s: %s"}, \hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.
+      \hyperlink{structAppResources_a7fb6f484113fc3cb8bc76fe9cc9fc05e}{tile\_file},
+300             XpmGetErrorString(errorcode));
+301         \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(buf);
+302     \}
+303     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+304     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"Switching to text-based mode."});
+305     \textcolor{keywordflow}{goto} tiledone;
+306     \}
+307 
+308     \textcolor{comment}{/* assume a fixed number of tiles per row */}
+309     \textcolor{keywordflow}{if} (\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}->width % \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW} != 0 ||
+310     \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}->width <= \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) \{
+311     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf,
+312         \textcolor{stringliteral}{"%s is not a multiple of %d (number of tiles/row) pixels wide"},
+313         \hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a7fb6f484113fc3cb8bc76fe9cc9fc05e}{tile\_file}, \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW});
+314     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(buf);
+315     XDestroyImage(\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image});
+316     \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image} = 0;
+317     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+318     \textcolor{keywordflow}{goto} tiledone;
+319     \}
+320 
+321     \textcolor{comment}{/* infer tile dimensions from image size and TILES\_PER\_ROW */}
+322     \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width} = \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}->width;
+323     image\_height = \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}->height;
+324 
+325     \hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} = \hyperlink{winmap_8c_ab9e267f9b355345083b806bf0948c10b}{total\_tiles\_used};
+326     \textcolor{keywordflow}{if} ((\hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} % \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) != 0) \{
+327     \hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} += TILES\_PER\_ROW - (\hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} % 
+      \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW});
+328     \}
+329     \hyperlink{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{tile\_width} = \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width} / \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW};
+330     \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\_height} = image\_height / (\hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} / 
+      \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW});
+331 \textcolor{preprocessor}{#else}
+332     \textcolor{comment}{/* any less than 16 colours makes tiles useless */}
+333     ddepth = DefaultDepthOfScreen(screen);
+334     \textcolor{keywordflow}{if} (ddepth < 4) \{
+335     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"need a screen depth of at least 4"});
+336     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+337     \textcolor{keywordflow}{goto} tiledone;
+338     \}
+339 
+340     fp = \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\_datafile}(\hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a7fb6f484113fc3cb8bc76fe9cc9fc05e}{tile\_file}, 
+      \hyperlink{dlb_8h_a79632e8c9d823c787062c20ec123ae24}{RDBMODE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+341     \textcolor{keywordflow}{if} (!fp) \{
+342     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"can't open tile file"});
+343     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+344     \textcolor{keywordflow}{goto} tiledone;
+345     \}
+346 
+347     \textcolor{keywordflow}{if} (fread((\textcolor{keywordtype}{char} *) &header, \textcolor{keyword}{sizeof}(header), 1, fp) != 1) \{
+348     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"read of header failed"});
+349     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+350     \textcolor{keywordflow}{goto} tiledone;
+351     \}
+352 
+353     \textcolor{keywordflow}{if} (header.\hyperlink{structx11__header_afeb200c99dc3b2fd297b209c8ad9dd8d}{version} != 2) \{
+354     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"Wrong tile file version, expected 2, got %lu"},
+355         header.\hyperlink{structx11__header_afeb200c99dc3b2fd297b209c8ad9dd8d}{version});
+356     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(buf);
+357     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+358     \textcolor{keywordflow}{goto} tiledone;
+359     \}
+360 
+361 \textcolor{preprocessor}{# ifdef VERBOSE}
+362     fprintf(stderr, \textcolor{stringliteral}{"X11 tile file:\(\backslash\)n    version %ld\(\backslash\)n    ncolors %ld\(\backslash\)n    tile width %ld\(\backslash\)n    tile height
+       %ld\(\backslash\)n    per row %ld\(\backslash\)n    ntiles %ld\(\backslash\)n"},
+363     header.\hyperlink{structx11__header_afeb200c99dc3b2fd297b209c8ad9dd8d}{version},
+364     header.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors},
+365     header.\hyperlink{structx11__header_a7d80edb8d769660ce1149ffe41113e4e}{tile\_width},
+366     header.\hyperlink{structx11__header_a7fcb99ec6211c004413a72d551e5c30e}{tile\_height},
+367     header.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row},
+368     header.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles});
+369 \textcolor{preprocessor}{# endif}
+370 
+371     size = 3*header.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors};
+372     colormap = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned})size);
+373     \textcolor{keywordflow}{if} (fread((\textcolor{keywordtype}{char} *) colormap, 1, size, fp) != size) \{
+374     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"read of colormap failed"});
+375     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+376     \textcolor{keywordflow}{goto} tiledone;
+377     \}
+378 
+379 \textcolor{comment}{/* defined in decl.h - these are \_not\_ good defines to have */}
+380 \textcolor{preprocessor}{#undef red}
+381 \textcolor{preprocessor}{#undef green}
+382 \textcolor{preprocessor}{#undef blue}
+383 
+384     colors = (XColor *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(XColor) * (unsigned)header.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors});
+385     \textcolor{keywordflow}{for} (i = 0; i < header.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors}; i++) \{
+386     cp = colormap + (3 * i);
+387     colors[i].red   = cp[0] * 256;
+388     colors[i].green = cp[1] * 256;
+389     colors[i].blue  = cp[2] * 256;
+390     colors[i].flags = 0;
+391     colors[i].pixel = 0;
+392 
+393     \textcolor{keywordflow}{if} (!XAllocColor(dpy, DefaultColormapOfScreen(screen), &colors[i]) &&
+394         !\hyperlink{winX_8c_a19ba03dc489f783e4184ddd73158b4ed}{nhApproxColor}(screen, DefaultColormapOfScreen(screen),
+395                (\textcolor{keywordtype}{char} *)0, &colors[i])) \{
+396         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"%dth out of %ld color allocation failed"},
+397             i, header.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors});
+398         \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(buf);
+399         result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+400         \textcolor{keywordflow}{goto} tiledone;
+401     \}
+402     \}
+403 
+404     size = header.\hyperlink{structx11__header_a7fcb99ec6211c004413a72d551e5c30e}{tile\_height} * header.\hyperlink{structx11__header_a7d80edb8d769660ce1149ffe41113e4e}{tile\_width};
+405     \textcolor{comment}{/*}
+406 \textcolor{comment}{     * This alloc() and the one below require 32-bit ints, since tile\_bytes}
+407 \textcolor{comment}{     * is currently ~200k and alloc() takes an int}
+408 \textcolor{comment}{     */}
+409     \hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} = header.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles};
+410     \textcolor{keywordflow}{if} ((\hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} % header.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row}) != 0) \{
+411     \hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} += header.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row} - (\hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count} % header.
+      \hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row});
+412     \}
+413     tile\_bytes = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned})\hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count}*size);
+414     \textcolor{keywordflow}{if} (fread((\textcolor{keywordtype}{char} *) \hyperlink{tile2x11_8c_a997326307063682dcaca122b8813544d}{tile\_bytes}, size, \hyperlink{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{tile\_count}, \hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}) != tile\_count) \{
+415     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(\textcolor{stringliteral}{"read of tile bytes failed"});
+416     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+417     \textcolor{keywordflow}{goto} tiledone;
+418     \}
+419 
+420     \textcolor{keywordflow}{if} (header.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles} < \hyperlink{winmap_8c_ab9e267f9b355345083b806bf0948c10b}{total\_tiles\_used}) \{
+421     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"tile file incomplete, expecting %d tiles, found %lu"},
+422         \hyperlink{winmap_8c_ab9e267f9b355345083b806bf0948c10b}{total\_tiles\_used}, header.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles});
+423     \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\_raw\_print}(buf);
+424     result = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+425     \textcolor{keywordflow}{goto} tiledone;
+426     \}
+427 
+428 
+429     \textcolor{keywordflow}{if} (\hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a21178d8005fbcf96d12f1c7a19299ebd}{double\_tile\_size}) \{
+430     \hyperlink{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{tile\_width}  = 2*header.\hyperlink{structx11__header_a7d80edb8d769660ce1149ffe41113e4e}{tile\_width};
+431     \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\_height} = 2*header.\hyperlink{structx11__header_a7fcb99ec6211c004413a72d551e5c30e}{tile\_height};
+432     \} \textcolor{keywordflow}{else} \{
+433     \hyperlink{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{tile\_width}  = header.\hyperlink{structx11__header_a7d80edb8d769660ce1149ffe41113e4e}{tile\_width};
+434     \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\_height} = header.\hyperlink{structx11__header_a7fcb99ec6211c004413a72d551e5c30e}{tile\_height};
+435     \}
+436 
+437     image\_height = \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\_height} * tile\_count / header.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row};
+438     \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width}  = \hyperlink{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{tile\_width} * header.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row};
+439 
+440     \textcolor{comment}{/* calculate bitmap\_pad */}
+441     \textcolor{keywordflow}{if} (ddepth > 16)
+442     bitmap\_pad = 32;
+443     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ddepth > 8)
+444     bitmap\_pad = 16;
+445     \textcolor{keywordflow}{else}
+446     bitmap\_pad = 8;
+447 
+448     \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image} = XCreateImage(dpy, DefaultVisualOfScreen(screen),
+449         ddepth,         \textcolor{comment}{/* depth */}
+450         ZPixmap,        \textcolor{comment}{/* format */}
+451         0,          \textcolor{comment}{/* offset */}
+452         0,          \textcolor{comment}{/* data */}
+453         \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width},     \textcolor{comment}{/* width */}
+454         image\_height,       \textcolor{comment}{/* height */}
+455         bitmap\_pad,     \textcolor{comment}{/* bit pad */}
+456         0);         \textcolor{comment}{/* bytes\_per\_line */}
+457 
+458     \textcolor{keywordflow}{if} (!\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image})
+459     impossible(\textcolor{stringliteral}{"init\_tiles: insufficient memory to create image"});
+460 
+461     \textcolor{comment}{/* now we know the physical memory requirements, we can allocate space */}
+462     \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}->data =
+463     (\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned})\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}->bytes\_per\_line * 
+      \hyperlink{structtile__map__info__t_a76968db088c03de48d2412082d5494f0}{image\_height});
+464 
+465     \textcolor{keywordflow}{if} (\hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a21178d8005fbcf96d12f1c7a19299ebd}{double\_tile\_size}) \{
+466     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *expanded\_row =
+467         (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} *)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long})*(unsigned)\hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width});
+468 
+469     tb = \hyperlink{tile2x11_8c_a997326307063682dcaca122b8813544d}{tile\_bytes};
+470     \textcolor{keywordflow}{for} (y = 0; y < \hyperlink{structtile__map__info__t_a76968db088c03de48d2412082d5494f0}{image\_height}; y++) \{
+471         \textcolor{keywordflow}{for} (x = 0; x < image\_width/2; x++)
+472         expanded\_row[2*x] =
+473                 expanded\_row[(2*x)+1] = colors[*tb++].pixel;
+474 
+475         \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width}; x++)
+476         XPutPixel(\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}, x, y, expanded\_row[x]);
+477 
+478         y++;    \textcolor{comment}{/* duplicate row */}
+479         \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width}; x++)
+480         XPutPixel(\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}, x, y, expanded\_row[x]);
+481     \}
+482     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})expanded\_row);
+483 
+484     \} \textcolor{keywordflow}{else} \{
+485 
+486     \textcolor{keywordflow}{for} (tb = tile\_bytes, y = 0; y < \hyperlink{structtile__map__info__t_a76968db088c03de48d2412082d5494f0}{image\_height}; y++)
+487         \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width}; x++, tb++)
+488         XPutPixel(\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}, x, y, colors[*tb].\hyperlink{structpixel}{pixel});
+489     \}
+490 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_XPM */}\textcolor{preprocessor}{}
+491 
+492     \textcolor{comment}{/* fake an inverted tile by drawing a border around the edges */}
+493 \textcolor{preprocessor}{#ifdef USE\_WHITE}
+494     \textcolor{comment}{/* use white or black as the border */}
+495     mask = GCFunction | GCForeground | GCGraphicsExposures;
+496     values.graphics\_exposures = False;
+497     values.foreground = WhitePixelOfScreen(screen);
+498     values.function   = GXcopy;
+499     tile\_info->\hyperlink{structtile__map__info__t_a3ea92989ad6f713bd32bade086be7c64}{white\_gc} = XtGetGC(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, mask, &values);
+500     values.graphics\_exposures = False;
+501     values.foreground = BlackPixelOfScreen(screen);
+502     values.function   = GXcopy;
+503     tile\_info->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc} = XtGetGC(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, mask, &values);
+504 \textcolor{preprocessor}{#else}
+505     \textcolor{comment}{/*}
+506 \textcolor{comment}{     * Use xor so we don't have to check for special colors.  Xor white}
+507 \textcolor{comment}{     * against the upper left pixel of the corridor so that we have a}
+508 \textcolor{comment}{     * white rectangle when in a corridor.}
+509 \textcolor{comment}{     */}
+510     mask = GCFunction | GCForeground | GCGraphicsExposures;
+511     values.graphics\_exposures = False;
+512     values.foreground = WhitePixelOfScreen(screen) ^
+513     XGetPixel(\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}, 0, \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\_height}*\hyperlink{winmap_8c_a4d61aa736dae8287d97c3a68a3a917c5}{glyph2tile}[
+      \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\_to\_glyph}(\hyperlink{rm_8h_a3d0d27bd7691a72bc0b278df4d82ca02}{S\_corr})]);
+514     values.function = GXxor;
+515     tile\_info->\hyperlink{structtile__map__info__t_a3ea92989ad6f713bd32bade086be7c64}{white\_gc} = XtGetGC(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, mask, &values);
+516 
+517     mask = GCFunction | GCGraphicsExposures;
+518     values.function = GXCopy;
+519     values.graphics\_exposures = False;
+520     tile\_info->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc} = XtGetGC(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, mask, &values);
+521 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* USE\_WHITE */}\textcolor{preprocessor}{}
+522 
+523 tiledone:
+524 \textcolor{preprocessor}{#ifndef USE\_XPM}
+525     \textcolor{keywordflow}{if} (fp) (void) fclose(fp);
+526     \textcolor{keywordflow}{if} (colormap) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})colormap);
+527     \textcolor{keywordflow}{if} (tile\_bytes) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})tile\_bytes);
+528     \textcolor{keywordflow}{if} (colors) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})colors);
+529 \textcolor{preprocessor}{#endif}
+530 
+531     \textcolor{keywordflow}{if} (result) \{               \textcolor{comment}{/* succeeded */}
+532     map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height} = \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\_height};
+533     map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width} = \hyperlink{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{tile\_width};
+534     map\_info->\hyperlink{structmap__info__t_a9275412eabdcb189618c01314406b1ad}{square\_ascent} = 0;
+535     map\_info->\hyperlink{structmap__info__t_a6e4474b98d61592c9a57f3316d196d33}{square\_lbearing} = 0;
+536     tile\_info->\hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width} = \hyperlink{structtile__map__info__t_aaaaff269c12a93230ddd2a565690871a}{image\_width};
+537     tile\_info->\hyperlink{structtile__map__info__t_a76968db088c03de48d2412082d5494f0}{image\_height} = \hyperlink{structtile__map__info__t_a76968db088c03de48d2412082d5494f0}{image\_height};
+538     \} \textcolor{keywordflow}{else} \{
+539     \textcolor{keywordflow}{if} (tile\_info) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})tile\_info);
+540     tile\_info = 0;
+541     \}
+542 
+543     \textcolor{keywordflow}{return} result;
+544 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a193931ece6ab17846702b6f289030c5c}{\index{winmap.\+c@{winmap.\+c}!map\+\_\+all\+\_\+stone@{map\+\_\+all\+\_\+stone}}
+\index{map\+\_\+all\+\_\+stone@{map\+\_\+all\+\_\+stone}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{map\+\_\+all\+\_\+stone}]{\setlength{\rightskip}{0pt plus 5cm}static void map\+\_\+all\+\_\+stone (
+\begin{DoxyParamCaption}
+\item[{struct {\bf map\+\_\+info\+\_\+t} $\ast$}]{map\+\_\+info}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a193931ece6ab17846702b6f289030c5c}
+
+
+Definition at line 862 of file winmap.\+c.
+
+
+
+References cmap\+\_\+to\+\_\+glyph, C\+O\+L\+N\+O, R\+O\+W\+N\+O, and S\+\_\+stone.
+
+
+
+Referenced by clear\+\_\+map\+\_\+window(), and create\+\_\+map\+\_\+window().
+
+
+\begin{DoxyCode}
+864 \{
+865     \textcolor{keywordtype}{int} i;
+866     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} *sp, stone;
+867     stone = \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\_to\_glyph}(\hyperlink{rm_8h_a342b42eb0fe3236adbc700b6e725d781}{S\_stone});
+868 
+869     \textcolor{keywordflow}{for} (sp = (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} *) map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_ad3a25f3b733498af77bc597a2d4edb17}{tile\_map}->\hyperlink{structtile__map__info__t_a8d55ef351991c46cbbec36471b28c19d}{glyphs}, i = 0;
+870     i < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}*\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; sp++, i++)
+871 
+872     *sp = stone;
+873 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a46622642d3d926a4ec0fa7a6e94bd5b4}{\index{winmap.\+c@{winmap.\+c}!map\+\_\+check\+\_\+size\+\_\+change@{map\+\_\+check\+\_\+size\+\_\+change}}
+\index{map\+\_\+check\+\_\+size\+\_\+change@{map\+\_\+check\+\_\+size\+\_\+change}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{map\+\_\+check\+\_\+size\+\_\+change}]{\setlength{\rightskip}{0pt plus 5cm}static void map\+\_\+check\+\_\+size\+\_\+change (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a46622642d3d926a4ec0fa7a6e94bd5b4}
+
+
+Definition at line 685 of file winmap.\+c.
+
+
+
+References check\+\_\+cursor\+\_\+visibility(), C\+O\+L\+N\+O, R\+O\+W\+N\+O, map\+\_\+info\+\_\+t\+::square\+\_\+height, map\+\_\+info\+\_\+t\+::square\+\_\+width, map\+\_\+info\+\_\+t\+::viewport\+\_\+height, and map\+\_\+info\+\_\+t\+::viewport\+\_\+width.
+
+
+
+Referenced by map\+\_\+exposed().
+
+
+\begin{DoxyCode}
+687 \{
+688     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = wp->map\_information;
+689     Arg arg[2];
+690     Dimension new\_width, new\_height;
+691     Widget viewport;
+692 
+693     viewport = XtParent(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+694 
+695     XtSetArg(arg[0], XtNwidth,  &new\_width);
+696     XtSetArg(arg[1], XtNheight, &new\_height);
+697     XtGetValues(viewport, arg, TWO);
+698 
+699     \textcolor{comment}{/* Only do cursor check if new size is smaller. */}
+700     \textcolor{keywordflow}{if} (new\_width < map\_info->\hyperlink{structmap__info__t_a7bfa57571a4fbddbcb6514b23e1cf186}{viewport\_width}
+701             || new\_height < map\_info->\hyperlink{structmap__info__t_a0a0556414a1dfe75a986264538d66632}{viewport\_height}) \{
+702     \textcolor{comment}{/* [ALI] If the viewport was larger than the map (and so the map}
+703 \textcolor{comment}{     * widget was contrained to be larger than the actual map) then we}
+704 \textcolor{comment}{     * may be able to shrink the map widget as the viewport shrinks.}
+705 \textcolor{comment}{     */}
+706     wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width} = map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width} * \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO};
+707     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width} < new\_width)
+708         wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width} = new\_width;
+709     wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} = map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height} * \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO};
+710     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} < new\_height)
+711         wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} = new\_height;
+712     XtSetArg(arg[0], XtNwidth, wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width});
+713     XtSetArg(arg[1], XtNheight, wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height});
+714     XtSetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, arg, TWO);
+715 
+716     \hyperlink{winmap_8c_ae2f397aa82a775c888b716c9dc9dbd9a}{check\_cursor\_visibility}(wp);
+717     \}
+718 
+719     map\_info->\hyperlink{structmap__info__t_a7bfa57571a4fbddbcb6514b23e1cf186}{viewport\_width} = new\_width;
+720     map\_info->\hyperlink{structmap__info__t_a0a0556414a1dfe75a986264538d66632}{viewport\_height} = new\_height;
+721 
+722     \textcolor{comment}{/* [ALI] These may have changed if the user has re-sized the viewport */}
+723     XtSetArg(arg[0], XtNwidth, &wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width});
+724     XtSetArg(arg[1], XtNheight, &wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height});
+725     XtGetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, arg, TWO);
+726 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a412bb48f2edc39008277c39f3b2ac665}{\index{winmap.\+c@{winmap.\+c}!map\+\_\+exposed@{map\+\_\+exposed}}
+\index{map\+\_\+exposed@{map\+\_\+exposed}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{map\+\_\+exposed}]{\setlength{\rightskip}{0pt plus 5cm}static void map\+\_\+exposed (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{widget\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a412bb48f2edc39008277c39f3b2ac665}
+
+
+Definition at line 1089 of file winmap.\+c.
+
+
+
+References C\+O\+L\+N\+O, display\+\_\+cursor(), F\+A\+L\+S\+E, find\+\_\+widget(), height, xwindow\+::keep\+\_\+window, map\+\_\+check\+\_\+size\+\_\+change(), map\+\_\+update(), xwindow\+::pixel\+\_\+height, xwindow\+::pixel\+\_\+width, printf, R\+O\+W\+N\+O, map\+\_\+info\+\_\+t\+::square\+\_\+height, map\+\_\+info\+\_\+t\+::square\+\_\+width, start\+\_\+col, start\+\_\+row, and width.
+
+
+
+Referenced by create\+\_\+map\+\_\+window(), and destroy\+\_\+map\+\_\+window().
+
+
+\begin{DoxyCode}
+1093 \{
+1094     \textcolor{keywordtype}{int} x, y;
+1095     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+1096     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info;
+1097     \textcolor{keywordtype}{unsigned} \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height};
+1098     \textcolor{keywordtype}{int} \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row}, stop\_row, \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}, stop\_col;
+1099     XExposeEvent *\textcolor{keyword}{event} = (XExposeEvent *) widget\_data;
+1100     \textcolor{keywordtype}{int} t\_height, t\_width;  \textcolor{comment}{/* tile/text height & width */}
+1101 
+1102     \textcolor{keywordflow}{if} (!XtIsRealized(w) || \textcolor{keyword}{event}->count > 0) \textcolor{keywordflow}{return};
+1103 
+1104     wp = \hyperlink{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{find\_widget}(w);
+1105     map\_info = wp->map\_information;
+1106     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window} && !map\_info) \textcolor{keywordflow}{return};
+1107     \textcolor{comment}{/*}
+1108 \textcolor{comment}{     * The map is sent an expose event when the viewport resizes.  Make sure}
+1109 \textcolor{comment}{     * that the cursor is still in the viewport after the resize.}
+1110 \textcolor{comment}{     */}
+1111     \hyperlink{winmap_8c_a46622642d3d926a4ec0fa7a6e94bd5b4}{map\_check\_size\_change}(wp);
+1112 
+1113     \textcolor{keywordflow}{if} (event) \{        \textcolor{comment}{/* called from button-event */}
+1114     x      = \textcolor{keyword}{event}->x;
+1115     y      = \textcolor{keyword}{event}->y;
+1116     width  = \textcolor{keyword}{event}->width;
+1117     height = \textcolor{keyword}{event}->height;
+1118     \} \textcolor{keywordflow}{else} \{
+1119     x     = 0;
+1120     y     = 0;
+1121     width = wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width};
+1122     height= wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height};
+1123     \}
+1124     \textcolor{comment}{/*}
+1125 \textcolor{comment}{     * Convert pixels into INCLUSIVE text rows and columns.}
+1126 \textcolor{comment}{     */}
+1127     t\_height = map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height};
+1128     t\_width = map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width};
+1129     start\_row = y / t\_height;
+1130     stop\_row = ((y + \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}) / t\_height) +
+1131         ((((y + \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}) % t\_height) == 0) ? 0 : 1) - 1;
+1132 
+1133     start\_col = x / t\_width;
+1134     stop\_col = ((x + \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}) / t\_width) +
+1135         ((((x + \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}) % t\_width) == 0) ? 0 : 1) - 1;
+1136 
+1137 \textcolor{preprocessor}{#ifdef VERBOSE}
+1138     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"map\_exposed: x = %d, y = %d, width = %d, height = %d\(\backslash\)n"},
+1139                             x, y, width, height);
+1140     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"chars %d x %d, rows %d to %d, columns %d to %d\(\backslash\)n"},
+1141             map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height}, map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width},
+1142             start\_row, stop\_row, start\_col, stop\_col);
+1143 \textcolor{preprocessor}{#endif}
+1144 
+1145     \textcolor{comment}{/* Out of range values are possible if the map window is resized to be */}
+1146     \textcolor{comment}{/* bigger than the largest expected value.                 */}
+1147     \textcolor{keywordflow}{if} (stop\_row >= \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) stop\_row = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1;
+1148     \textcolor{keywordflow}{if} (stop\_col >= \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) stop\_col = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+1149 
+1150     \hyperlink{winmap_8c_a6d6d931138e6d13469b728f44ec57640}{map\_update}(wp, start\_row, stop\_row, start\_col, stop\_col, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1151     \hyperlink{winmap_8c_a12ab5ce826fbe9dcbc9138ff15cc33b1}{display\_cursor}(wp);       \textcolor{comment}{/* make sure cursor shows up */}
+1152 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_ae4a947fe0b04a246c222a8d904f60dc6}{\index{winmap.\+c@{winmap.\+c}!map\+\_\+input@{map\+\_\+input}}
+\index{map\+\_\+input@{map\+\_\+input}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{map\+\_\+input}]{\setlength{\rightskip}{0pt plus 5cm}void map\+\_\+input (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event   $\ast$}]{event, }
+\item[{{\bf String}   $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_ae4a947fe0b04a246c222a8d904f60dc6}
+
+
+Definition at line 960 of file winmap.\+c.
+
+
+
+References app\+Resources, F\+A\+L\+S\+E, I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E, incount, input\+\_\+func, M\+A\+X\+\_\+\+K\+E\+Y\+\_\+\+S\+T\+R\+I\+N\+G, printf, set\+\_\+button\+\_\+values(), App\+Resources\+::slow, Strcpy, W\+I\+N\+\_\+\+M\+A\+P, window\+\_\+list, and X11\+\_\+nhbell().
+
+
+
+Referenced by msgkey(), and yn\+\_\+key().
+
+
+\begin{DoxyCode}
+965 \{
+966     XKeyEvent *key;
+967     XButtonEvent *button;
+968     \textcolor{keywordtype}{boolean} meta = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+969     \textcolor{keywordtype}{int} i, nbytes;
+970     Cardinal in\_nparams = (num\_params ? *num\_params : 0);
+971     \textcolor{keywordtype}{char} c;
+972     \textcolor{keywordtype}{char} keystring[\hyperlink{winX_8h_a43522ef8ffe4c41d70f34c0e4ddf2336}{MAX\_KEY\_STRING}];
+973 
+974     \textcolor{keywordflow}{switch} (event->type) \{
+975     \textcolor{keywordflow}{case} ButtonPress:
+976         button = (XButtonEvent *) event;
+977 \textcolor{preprocessor}{#ifdef VERBOSE\_INPUT}
+978         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"button press\(\backslash\)n"});
+979 \textcolor{preprocessor}{#endif}
+980         \textcolor{keywordflow}{if} (in\_nparams > 0 &&
+981         (nbytes = strlen(params[0])) < \hyperlink{winX_8h_a43522ef8ffe4c41d70f34c0e4ddf2336}{MAX\_KEY\_STRING}) \{
+982         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(keystring, params[0]);
+983         key = (XKeyEvent *) event; \textcolor{comment}{/* just in case */}
+984         \textcolor{keywordflow}{goto} key\_events;
+985         \}
+986         \textcolor{keywordflow}{if} (w != \hyperlink{winX_8h_a1cb661b814dda71497f293665f910cb3}{window\_list}[\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}].w) \{
+987 \textcolor{preprocessor}{#ifdef VERBOSE\_INPUT}
+988         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"map\_input called from wrong window\(\backslash\)n"});
+989 \textcolor{preprocessor}{#endif}
+990         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+991         \textcolor{keywordflow}{return};
+992         \}
+993         \hyperlink{winmap_8c_abd2b79c7e20dcc6bf32f2eded68cd4a1}{set\_button\_values}(w, button->x, button->y, button->button);
+994         \textcolor{keywordflow}{break};
+995     \textcolor{keywordflow}{case} KeyPress:
+996 \textcolor{preprocessor}{#ifdef VERBOSE\_INPUT}
+997         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"key: "});
+998 \textcolor{preprocessor}{#endif}
+999         \textcolor{keywordflow}{if}(\hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a1c7a8208dca6dbf4d9907629bc1e8f7f}{slow} && \hyperlink{winX_8h_a71168197df994d22165ba05dadb4892a}{input\_func}) \{
+1000         (*input\_func)(w, event, params, num\_params);
+1001         \textcolor{keywordflow}{break};
+1002         \}
+1003 
+1004         \textcolor{comment}{/*}
+1005 \textcolor{comment}{         * Don't use key\_event\_to\_char() because we want to be able}
+1006 \textcolor{comment}{         * to allow keys mapped to multiple characters.}
+1007 \textcolor{comment}{         */}
+1008         key = (XKeyEvent *) event;
+1009         \textcolor{keywordflow}{if} (in\_nparams > 0 &&
+1010         (nbytes = strlen(params[0])) < \hyperlink{winX_8h_a43522ef8ffe4c41d70f34c0e4ddf2336}{MAX\_KEY\_STRING}) \{
+1011         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(keystring, params[0]);
+1012         \} \textcolor{keywordflow}{else} \{
+1013         \textcolor{comment}{/*}
+1014 \textcolor{comment}{         * Assume that mod1 is really the meta key.}
+1015 \textcolor{comment}{         */}
+1016         meta = !!(key->state & Mod1Mask);
+1017         nbytes =
+1018             XLookupString(key, keystring, \hyperlink{winX_8h_a43522ef8ffe4c41d70f34c0e4ddf2336}{MAX\_KEY\_STRING},
+1019                   (KeySym *)0, (XComposeStatus *)0);
+1020         \}
+1021     key\_events:
+1022         \textcolor{comment}{/* Modifier keys return a zero length string when pressed. */}
+1023         \textcolor{keywordflow}{if} (nbytes) \{
+1024 \textcolor{preprocessor}{#ifdef VERBOSE\_INPUT}
+1025         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"\(\backslash\)""});
+1026 \textcolor{preprocessor}{#endif}
+1027         \textcolor{keywordflow}{for} (i = 0; i < nbytes; i++) \{
+1028             c = keystring[i];
+1029 
+1030             \textcolor{keywordflow}{if} (\hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount} < \hyperlink{winmap_8c_a6378f14810330164b7fb66f3334b2a27}{INBUF\_SIZE}) \{
+1031             \hyperlink{winmap_8c_a0c678a8351750fc7e2221f2431974581}{inbuf}[(\hyperlink{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{inptr}+\hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount})%\hyperlink{winmap_8c_a6378f14810330164b7fb66f3334b2a27}{INBUF\_SIZE}] =
+1032                 ((\textcolor{keywordtype}{int}) c) + (meta ? 0x80 : 0);
+1033             \hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount}++;
+1034             \} else \{
+1035             \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+1036             \}
+1037 \textcolor{preprocessor}{#ifdef VERBOSE\_INPUT}
+1038             \textcolor{keywordflow}{if} (meta)           \textcolor{comment}{/* meta will print as M<c> */}
+1039             (void) putchar(\textcolor{charliteral}{'M'});
+1040             \textcolor{keywordflow}{if} (c < \textcolor{charliteral}{' '}) \{      \textcolor{comment}{/* ctrl will print as ^<c> */}
+1041             (void) putchar(\textcolor{charliteral}{'^'});
+1042             c += \textcolor{charliteral}{'@'};
+1043             \}
+1044             (void) putchar(c);
+1045 \textcolor{preprocessor}{#endif}
+1046         \}
+1047 \textcolor{preprocessor}{#ifdef VERBOSE\_INPUT}
+1048         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"\(\backslash\)" [%d bytes]\(\backslash\)n"}, nbytes);
+1049 \textcolor{preprocessor}{#endif}
+1050         \}
+1051         \textcolor{keywordflow}{break};
+1052 
+1053     \textcolor{keywordflow}{default}:
+1054         impossible(\textcolor{stringliteral}{"unexpected X event, type = %d\(\backslash\)n"}, (\textcolor{keywordtype}{int}) event->type);
+1055         \textcolor{keywordflow}{break};
+1056     \}
+1057 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a6d6d931138e6d13469b728f44ec57640}{\index{winmap.\+c@{winmap.\+c}!map\+\_\+update@{map\+\_\+update}}
+\index{map\+\_\+update@{map\+\_\+update}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{map\+\_\+update}]{\setlength{\rightskip}{0pt plus 5cm}static void map\+\_\+update (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{int}]{start\+\_\+row, }
+\item[{int}]{stop\+\_\+row, }
+\item[{int}]{start\+\_\+col, }
+\item[{int}]{stop\+\_\+col, }
+\item[{{\bf boolean}}]{inverted}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a6d6d931138e6d13469b728f44ec57640}
+
+
+Definition at line 1166 of file winmap.\+c.
+
+
+
+References tile\+\_\+annotation\+::bitmap, tile\+\_\+map\+\_\+info\+\_\+t\+::black\+\_\+gc, cmap\+\_\+to\+\_\+glyph, C\+O\+L\+N\+O, text\+\_\+map\+\_\+info\+\_\+t\+::copy\+\_\+gc, count, tile\+\_\+annotation\+::foreground, glyph2tile, glyph\+\_\+is\+\_\+pet, tile\+\_\+map\+\_\+info\+\_\+t\+::glyphs, tile\+\_\+annotation\+::height, iflags, text\+\_\+map\+\_\+info\+\_\+t\+::inv\+\_\+copy\+\_\+gc, map\+\_\+info\+\_\+t\+::is\+\_\+tile, map\+\_\+info\+\_\+t\+::mtype, pet\+\_\+annotation, printf, R\+O\+W\+N\+O, S\+\_\+ice, map\+\_\+info\+\_\+t\+::square\+\_\+ascent, map\+\_\+info\+\_\+t\+::square\+\_\+height, map\+\_\+info\+\_\+t\+::square\+\_\+lbearing, map\+\_\+info\+\_\+t\+::square\+\_\+width, start\+\_\+col, start\+\_\+row, text\+\_\+map\+\_\+info\+\_\+t\+::text, map\+\_\+info\+\_\+t\+::text\+\_\+map, tile, map\+\_\+info\+\_\+t\+::tile\+\_\+map, T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+R\+O\+W, U\+S\+E\+\_\+\+W\+H\+I\+T\+E, tile\+\_\+map\+\_\+info\+\_\+t\+::white\+\_\+gc, and tile\+\_\+annotation\+::width.
+
+
+
+Referenced by display\+\_\+cursor(), display\+\_\+map\+\_\+window(), and map\+\_\+exposed().
+
+
+\begin{DoxyCode}
+1170 \{
+1171     \textcolor{keywordtype}{int} win\_start\_row, win\_start\_col;
+1172     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info = wp->map\_information;
+1173     \textcolor{keywordtype}{int} row;
+1174     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1175 
+1176     \textcolor{keywordflow}{if} (start\_row < 0 || stop\_row >= \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) \{
+1177     impossible(\textcolor{stringliteral}{"map\_update:  bad row range %d-%d\(\backslash\)n"}, \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row}, stop\_row);
+1178     \textcolor{keywordflow}{return};
+1179     \}
+1180     \textcolor{keywordflow}{if} (start\_col < 0 || stop\_col >=\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) \{
+1181     impossible(\textcolor{stringliteral}{"map\_update:  bad col range %d-%d\(\backslash\)n"}, \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}, stop\_col);
+1182     \textcolor{keywordflow}{return};
+1183     \}
+1184 
+1185 \textcolor{preprocessor}{#ifdef VERBOSE\_UPDATE}
+1186     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"update: [0x%x] %d %d %d %d\(\backslash\)n"},
+1187         (\textcolor{keywordtype}{int}) wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row}, stop\_row, \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}, stop\_col);
+1188 \textcolor{preprocessor}{#endif}
+1189     win\_start\_row = \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row};
+1190     win\_start\_col = \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col};
+1191 
+1192     \textcolor{keywordflow}{if} (map\_info->\hyperlink{structmap__info__t_a2e6326b9aa9caa2d1663125c45966979}{is\_tile}) \{
+1193     \textcolor{keyword}{struct }\hyperlink{structtile__map__info__t}{tile\_map\_info\_t} *tile\_map = map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.
+      \hyperlink{structmap__info__t_ad3a25f3b733498af77bc597a2d4edb17}{tile\_map};
+1194     \textcolor{keywordtype}{int} cur\_col;
+1195     Display* dpy = XtDisplay(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+1196     Screen* screen = DefaultScreenOfDisplay(dpy);
+1197 
+1198     \textcolor{keywordflow}{for} (row = \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row}; row <= stop\_row; row++) \{
+1199         \textcolor{keywordflow}{for} (cur\_col = \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}; cur\_col <= stop\_col; cur\_col++) \{
+1200         \textcolor{keywordtype}{int} glyph = tile\_map->\hyperlink{structtile__map__info__t_a8d55ef351991c46cbbec36471b28c19d}{glyphs}[row][cur\_col];
+1201         \textcolor{keywordtype}{int} \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile} = \hyperlink{winmap_8c_a4d61aa736dae8287d97c3a68a3a917c5}{glyph2tile}[glyph];
+1202         \textcolor{keywordtype}{int} src\_x, src\_y;
+1203         \textcolor{keywordtype}{int} dest\_x = cur\_col * map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width};
+1204         \textcolor{keywordtype}{int} dest\_y = row * map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height};
+1205 
+1206         src\_x = (tile % \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) * \hyperlink{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{tile\_width};
+1207         src\_y = (tile / \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW}) * \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\_height};
+1208         XCopyArea(dpy, \hyperlink{winmap_8c_a2c291722f764515415f084ffce557615}{tile\_pixmap}, XtWindow(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}),
+1209               tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc},   \textcolor{comment}{/* no grapics\_expose */}
+1210               src\_x, src\_y,
+1211               \hyperlink{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{tile\_width}, \hyperlink{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{tile\_height},
+1212               dest\_x, dest\_y);
+1213 
+1214         \textcolor{keywordflow}{if} (\hyperlink{display_8h_acc01c7be93d6e9a59ebe375de8879ca8}{glyph\_is\_pet}(glyph) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.hilite\_pet) \{
+1215             \textcolor{comment}{/* draw pet annotation (a heart) */}
+1216             XSetForeground(dpy, tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc}, \hyperlink{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}{pet\_annotation}.
+      \hyperlink{structtile__annotation_a1bc456a3e868aec0ecc8c92e6244fa59}{foreground});
+1217             XSetClipOrigin(dpy, tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc}, dest\_x, dest\_y);
+1218             XSetClipMask(dpy, tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc}, \hyperlink{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}{pet\_annotation}.
+      \hyperlink{structtile__annotation_a608fc9986eb459e676f77d7f3b4822a7}{bitmap});
+1219             XCopyPlane(
+1220             dpy,
+1221             \hyperlink{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}{pet\_annotation}.\hyperlink{structtile__annotation_a608fc9986eb459e676f77d7f3b4822a7}{bitmap},
+1222             XtWindow(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}),
+1223             tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc},
+1224             0,0,
+1225             \hyperlink{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}{pet\_annotation}.\hyperlink{structtile__annotation_abebdada9a87e5e8252ad6213f48aee66}{width},\hyperlink{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}{pet\_annotation}.
+      \hyperlink{structtile__annotation_acf8b8bf29e89acd084f07e7b55e20c79}{height},
+1226             dest\_x,dest\_y,
+1227             1
+1228             );
+1229             XSetClipOrigin(dpy, tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc}, 0, 0);
+1230             XSetClipMask(dpy, tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc}, None);
+1231             XSetForeground(dpy, tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc}, BlackPixelOfScreen(screen));
+1232         \}
+1233         \}
+1234     \}
+1235 
+1236     \textcolor{keywordflow}{if} (inverted) \{
+1237         XDrawRectangle(XtDisplay(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}), XtWindow(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}),
+1238 #ifdef \hyperlink{winmap_8c_a0a31d440c11414ed340182655a1000cb}{USE\_WHITE}
+1239         \textcolor{comment}{/* kludge for white square... */}
+1240         tile\_map->\hyperlink{structtile__map__info__t_a8d55ef351991c46cbbec36471b28c19d}{glyphs}[\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row}][\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}] ==
+1241             \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\_to\_glyph}(\hyperlink{rm_8h_afb2a96e1766823793c4460855b6b7b52}{S\_ice}) ?
+1242             tile\_map->\hyperlink{structtile__map__info__t_a8c0caa051bdeff44e65d8c57f0319e87}{black\_gc} : tile\_map->\hyperlink{structtile__map__info__t_a3ea92989ad6f713bd32bade086be7c64}{white\_gc},
+1243 #\textcolor{keywordflow}{else}
+1244         tile\_map->\hyperlink{structtile__map__info__t_a3ea92989ad6f713bd32bade086be7c64}{white\_gc},
+1245 #endif
+1246         \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col} * map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width},
+1247         \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row} * map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height},
+1248         map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width}-1,
+1249         map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height}-1);
+1250     \}
+1251     \} \textcolor{keywordflow}{else} \{
+1252     \textcolor{keyword}{struct }\hyperlink{structtext__map__info__t}{text\_map\_info\_t} *text\_map = map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.
+      \hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map};
+1253 
+1254 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+1255     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.use\_color) \{
+1256         \textcolor{keyword}{register} \textcolor{keywordtype}{char} *c\_ptr;
+1257         \textcolor{keywordtype}{char} *t\_ptr;
+1258         \textcolor{keywordtype}{int} cur\_col, color, win\_ystart;
+1259 
+1260         \textcolor{keywordflow}{for} (row = \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row}; row <= stop\_row; row++) \{
+1261         win\_ystart = map\_info->\hyperlink{structmap__info__t_a9275412eabdcb189618c01314406b1ad}{square\_ascent} +
+1262                     (row * map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height});
+1263 
+1264         t\_ptr = (\textcolor{keywordtype}{char} *) &(text\_map->\hyperlink{structtext__map__info__t_ad278ca28ea443157e23f8030dc673a5d}{text}[row][\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}]);
+1265         c\_ptr = (\textcolor{keywordtype}{char} *) &(text\_map->colors[row][start\_col]);
+1266         cur\_col = \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col};
+1267         \textcolor{keywordflow}{while} (cur\_col <= stop\_col) \{
+1268             color = *c\_ptr++;
+1269             count = 1;
+1270             \textcolor{keywordflow}{while} ((cur\_col + count) <= stop\_col && *c\_ptr == color) \{
+1271             count++;
+1272             c\_ptr++;
+1273             \}
+1274 
+1275             XDrawImageString(XtDisplay(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}), XtWindow(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}),
+1276             inverted ? text\_map->inv\_color\_gcs[color] :
+1277                    text\_map->color\_gcs[color],
+1278             map\_info->\hyperlink{structmap__info__t_a6e4474b98d61592c9a57f3316d196d33}{square\_lbearing} + (map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width} * cur\_col),
+1279             win\_ystart,
+1280             t\_ptr, count);
+1281 
+1282             \textcolor{comment}{/* move text pointer and column count */}
+1283             t\_ptr += \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1284             cur\_col += \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1285         \} \textcolor{comment}{/* col loop */}
+1286         \} \textcolor{comment}{/* row loop */}
+1287     \} \textcolor{keywordflow}{else}
+1288 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TEXTCOLOR */}\textcolor{preprocessor}{}
+1289     \{
+1290         \textcolor{keywordtype}{int} win\_row, win\_xstart;
+1291 
+1292         \textcolor{comment}{/* We always start at the same x window position and have   */}
+1293         \textcolor{comment}{/* the same character count.                */}
+1294         win\_xstart = map\_info->\hyperlink{structmap__info__t_a6e4474b98d61592c9a57f3316d196d33}{square\_lbearing} +
+1295                     (win\_start\_col * map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width});
+1296         count = stop\_col - start\_col + 1;
+1297 
+1298         \textcolor{keywordflow}{for} (row = \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row}, win\_row = win\_start\_row;
+1299                     row <= stop\_row; row++, win\_row++) \{
+1300 
+1301         XDrawImageString(XtDisplay(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}), XtWindow(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}),
+1302             inverted ? text\_map->\hyperlink{structtext__map__info__t_a4b413e5d7506a16b271d791babf99444}{inv\_copy\_gc} : text\_map->\hyperlink{structtext__map__info__t_a4e3aedaf8e638c12ba150a0c848dc263}{copy\_gc},
+1303             win\_xstart,
+1304             map\_info->\hyperlink{structmap__info__t_a9275412eabdcb189618c01314406b1ad}{square\_ascent} + (win\_row * map\_info->
+      \hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height}),
+1305             (\textcolor{keywordtype}{char} *) &(text\_map->\hyperlink{structtext__map__info__t_ad278ca28ea443157e23f8030dc673a5d}{text}[row][start\_col]), count);
+1306         \}
+1307     \}
+1308     \}
+1309 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a485e7ef14f0713eb988fe6068352f42a}{\index{winmap.\+c@{winmap.\+c}!post\+\_\+process\+\_\+tiles@{post\+\_\+process\+\_\+tiles}}
+\index{post\+\_\+process\+\_\+tiles@{post\+\_\+process\+\_\+tiles}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{post\+\_\+process\+\_\+tiles}]{\setlength{\rightskip}{0pt plus 5cm}void post\+\_\+process\+\_\+tiles (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_a485e7ef14f0713eb988fe6068352f42a}
+
+
+Definition at line 204 of file winmap.\+c.
+
+
+
+References app\+Resources, height, init\+\_\+annotation(), pet\+\_\+annotation, App\+Resources\+::pet\+\_\+mark\+\_\+bitmap, App\+Resources\+::pet\+\_\+mark\+\_\+color, toplevel, and width.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows().
+
+
+\begin{DoxyCode}
+205 \{
+206     Display *dpy = XtDisplay(\hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel});
+207     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height};
+208 
+209     \textcolor{keywordflow}{if} (\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image} == 0) \textcolor{keywordflow}{return};  \textcolor{comment}{/* no tiles */}
+210 
+211     height = \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}->height;
+212     width  = \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image}->width;
+213 
+214     \hyperlink{winmap_8c_a2c291722f764515415f084ffce557615}{tile\_pixmap} = XCreatePixmap(dpy, XtWindow(\hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel}),
+215             width,
+216                 height,
+217             DefaultDepth(dpy, DefaultScreen(dpy)));
+218 
+219     XPutImage(dpy, \hyperlink{winmap_8c_a2c291722f764515415f084ffce557615}{tile\_pixmap},
+220     DefaultGC(dpy, DefaultScreen(dpy)),
+221     \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image},
+222     0,0, 0,0,       \textcolor{comment}{/* src, dest top left */}
+223     width,
+224     height);
+225 
+226     XDestroyImage(\hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image});    \textcolor{comment}{/* data bytes free'd also */}
+227     \hyperlink{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{tile\_image} = 0;
+228 
+229     \hyperlink{winmap_8c_a0ccff0920250a213f3ec155334933b72}{init\_annotation}(&\hyperlink{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}{pet\_annotation},
+230     \hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.\hyperlink{structAppResources_a2d293512a3ea1acf1dc55a30ddd1dd9e}{pet\_mark\_bitmap}, \hyperlink{winX_8h_ade4731438ebdc0f73c31f52f6a64e032}{appResources}.
+      \hyperlink{structAppResources_a0f401bd76787c747f2fb7b8553d834ce}{pet\_mark\_color});
+231 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_abd2b79c7e20dcc6bf32f2eded68cd4a1}{\index{winmap.\+c@{winmap.\+c}!set\+\_\+button\+\_\+values@{set\+\_\+button\+\_\+values}}
+\index{set\+\_\+button\+\_\+values@{set\+\_\+button\+\_\+values}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{set\+\_\+button\+\_\+values}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+button\+\_\+values (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{unsigned int}]{button}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_abd2b79c7e20dcc6bf32f2eded68cd4a1}
+
+
+Definition at line 1060 of file winmap.\+c.
+
+
+
+References C\+L\+I\+C\+K\+\_\+1, C\+L\+I\+C\+K\+\_\+2, click\+\_\+button, click\+\_\+x, click\+\_\+y, C\+O\+L\+N\+O, find\+\_\+widget(), R\+O\+W\+N\+O, map\+\_\+info\+\_\+t\+::square\+\_\+height, and map\+\_\+info\+\_\+t\+::square\+\_\+width.
+
+
+
+Referenced by map\+\_\+input().
+
+
+\begin{DoxyCode}
+1065 \{
+1066     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+1067     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info;
+1068 
+1069     wp = \hyperlink{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{find\_widget}(w);
+1070     map\_info = wp->map\_information;
+1071 
+1072     \hyperlink{winX_8h_affe913b14f3095fe51d529d47375053f}{click\_x} = x / map\_info->\hyperlink{structmap__info__t_accdbb100815331534a3031f186eac852}{square\_width};
+1073     \hyperlink{winX_8h_a5fddba527b953f3b7a0a40201d8b478f}{click\_y} = y / map\_info->\hyperlink{structmap__info__t_afa20d151bdcd5b1c5951fffcbf41888f}{square\_height};
+1074 
+1075     \textcolor{comment}{/* The values can be out of range if the map window has been resized */}
+1076     \textcolor{comment}{/* to be larger than the max size.                   */}
+1077     \textcolor{keywordflow}{if} (\hyperlink{winX_8h_affe913b14f3095fe51d529d47375053f}{click\_x} >= \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) \hyperlink{winX_8h_affe913b14f3095fe51d529d47375053f}{click\_x} = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+1078     \textcolor{keywordflow}{if} (\hyperlink{winX_8h_a5fddba527b953f3b7a0a40201d8b478f}{click\_y} >= \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) \hyperlink{winX_8h_affe913b14f3095fe51d529d47375053f}{click\_x} = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1;
+1079 
+1080     \textcolor{comment}{/* Map all buttons but the first to the second click */}
+1081     \hyperlink{winX_8h_ac46f6a35e1c44daafb6a4820c14a52b5}{click\_button} = (button == Button1) ? \hyperlink{wintype_8h_acaefc3f142237be043fe21977bf19afe}{CLICK\_1} : \hyperlink{wintype_8h_ac44dad3d5c7ce9d3af01d967ea38e6e9}{CLICK\_2};
+1082 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_a1c1077108ba42d3e6837286762f5773b}{\index{winmap.\+c@{winmap.\+c}!set\+\_\+gc@{set\+\_\+gc}}
+\index{set\+\_\+gc@{set\+\_\+gc}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{set\+\_\+gc}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+gc (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Font}]{font, }
+\item[{char $\ast$}]{resource\+\_\+name, }
+\item[{Pixel}]{bgpixel, }
+\item[{G\+C   $\ast$}]{regular, }
+\item[{G\+C $\ast$}]{inverse}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a1c1077108ba42d3e6837286762f5773b}
+
+
+Definition at line 734 of file winmap.\+c.
+
+
+
+Referenced by get\+\_\+text\+\_\+gc().
+
+
+\begin{DoxyCode}
+740 \{
+741     XGCValues values;
+742     XtGCMask mask = GCFunction | GCForeground | GCBackground | GCFont;
+743     Pixel curpixel;
+744     Arg arg[1];
+745 
+746     XtSetArg(arg[0], resource\_name, &curpixel);
+747     XtGetValues(w, arg, ONE);
+748 
+749     values.foreground = curpixel;
+750     values.background = bgpixel;
+751     values.function   = GXcopy;
+752     values.font       = font;
+753     *regular = XtGetGC(w, mask, &values);
+754     values.foreground = bgpixel;
+755     values.background = curpixel;
+756     values.function   = GXcopy;
+757     values.font       = font;
+758     *inverse = XtGetGC(w, mask, &values);
+759 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_ad9fe51faff55646a7523d3aca4bb3fdb}{\index{winmap.\+c@{winmap.\+c}!set\+\_\+map\+\_\+size@{set\+\_\+map\+\_\+size}}
+\index{set\+\_\+map\+\_\+size@{set\+\_\+map\+\_\+size}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{set\+\_\+map\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+map\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{Dimension}]{cols, }
+\item[{Dimension}]{rows}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_ad9fe51faff55646a7523d3aca4bb3fdb}
+
+
+Definition at line 1313 of file winmap.\+c.
+
+
+
+References xwindow\+::pixel\+\_\+width.
+
+
+
+Referenced by create\+\_\+map\+\_\+window(), and init\+\_\+standard\+\_\+windows().
+
+
+\begin{DoxyCode}
+1316 \{
+1317     Arg args[4];
+1318     Cardinal num\_args;
+1319 
+1320     wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width}  = wp->map\_information->square\_width  * cols;
+1321     wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} = wp->map\_information->square\_height * rows;
+1322 
+1323     num\_args = 0;
+1324     XtSetArg(args[num\_args], XtNwidth, wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width});   num\_args++;
+1325     XtSetArg(args[num\_args], XtNheight, wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height}); num\_args++;
+1326     XtSetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+1327 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_afcd0aaaab88ed43b3b0d7236c8899352}{\index{winmap.\+c@{winmap.\+c}!X11\+\_\+print\+\_\+glyph@{X11\+\_\+print\+\_\+glyph}}
+\index{X11\+\_\+print\+\_\+glyph@{X11\+\_\+print\+\_\+glyph}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{X11\+\_\+print\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+print\+\_\+glyph (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{int}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_afcd0aaaab88ed43b3b0d7236c8899352}
+
+
+Definition at line 75 of file winmap.\+c.
+
+
+
+References check\+\_\+winid, F\+A\+L\+S\+E, tile\+\_\+map\+\_\+info\+\_\+t\+::glyphs, map\+\_\+info\+\_\+t\+::is\+\_\+tile, mapglyph(), map\+\_\+info\+\_\+t\+::mtype, N\+H\+W\+\_\+\+M\+A\+P, map\+\_\+info\+\_\+t\+::t\+\_\+start, map\+\_\+info\+\_\+t\+::t\+\_\+stop, text\+\_\+map\+\_\+info\+\_\+t\+::text, map\+\_\+info\+\_\+t\+::text\+\_\+map, map\+\_\+info\+\_\+t\+::tile\+\_\+map, T\+R\+U\+E, type, and window\+\_\+list.
+
+
+\begin{DoxyCode}
+79 \{
+80     \textcolor{keyword}{struct }\hyperlink{structmap__info__t}{map\_info\_t} *map\_info;
+81     \textcolor{keywordtype}{boolean} update\_bbox;
+82 
+83     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+84     \textcolor{keywordflow}{if} (\hyperlink{winX_8h_a1cb661b814dda71497f293665f910cb3}{window\_list}[window].\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} != \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}) \{
+85     impossible(\textcolor{stringliteral}{"print\_glyph: can (currently) only print to map windows"});
+86     \textcolor{keywordflow}{return};
+87     \}
+88     map\_info = \hyperlink{winX_8h_a1cb661b814dda71497f293665f910cb3}{window\_list}[window].map\_information;
+89 
+90     \textcolor{keywordflow}{if} (map\_info->\hyperlink{structmap__info__t_a2e6326b9aa9caa2d1663125c45966979}{is\_tile}) \{
+91     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} *t\_ptr;
+92 
+93     t\_ptr = &map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_ad3a25f3b733498af77bc597a2d4edb17}{tile\_map}->\hyperlink{structtile__map__info__t_a8d55ef351991c46cbbec36471b28c19d}{glyphs}[y][x];
+94 
+95     \textcolor{keywordflow}{if} (*t\_ptr != glyph) \{
+96         *t\_ptr = glyph;
+97         update\_bbox = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+98     \} \textcolor{keywordflow}{else}
+99         update\_bbox = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+100 
+101     \} \textcolor{keywordflow}{else} \{
+102     \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}          ch;
+103     \textcolor{keyword}{register} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *ch\_ptr;
+104     \textcolor{keywordtype}{int}         color,och;
+105     \textcolor{keywordtype}{unsigned}        special;
+106 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+107     \textcolor{keyword}{register} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *co\_ptr;
+108 \textcolor{preprocessor}{#endif}
+109     \textcolor{comment}{/* map glyph to character and color */}
+110         \hyperlink{mapglyph_8c_a41586afa30d047782223d168f8912784}{mapglyph}(glyph, &och, &color, &special, x, y);
+111     ch = (\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar})och;
+112     
+113     \textcolor{comment}{/* Only update if we need to. */}
+114     ch\_ptr = &map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map}->\hyperlink{structtext__map__info__t_ad278ca28ea443157e23f8030dc673a5d}{text}[y][x];
+115 
+116 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+117     co\_ptr = &map\_info->\hyperlink{structmap__info__t_a3166d09951aa9aecbcd6d1ee2d6d32fb}{mtype}.\hyperlink{structmap__info__t_a74f1e3443b492803837c6b2f56d65fd6}{text\_map}->colors[y][x];
+118     \textcolor{keywordflow}{if} (*ch\_ptr != ch || *co\_ptr != color)
+119 \textcolor{preprocessor}{#else}
+120     \textcolor{keywordflow}{if} (*ch\_ptr != ch)
+121 \textcolor{preprocessor}{#endif}
+122     \{
+123         *ch\_ptr = ch;
+124 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+125         *co\_ptr = color;
+126 \textcolor{preprocessor}{#endif}
+127         update\_bbox = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+128     \} \textcolor{keywordflow}{else}
+129         update\_bbox = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+130     \}
+131 
+132     \textcolor{keywordflow}{if} (update\_bbox) \{      \textcolor{comment}{/* update row bbox */}
+133     \textcolor{keywordflow}{if} ((\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}) x < map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}[y]) map\_info->\hyperlink{structmap__info__t_a06005b4fcfad49d4b5ac9f9877d58e43}{t\_start}[y] = x;
+134     if ((\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}) x > map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}[y])  map\_info->\hyperlink{structmap__info__t_a9f9afbc4cf9ed122146ad91f9589379d}{t\_stop}[y]  = x;
+135     \}
+136 \}
+\end{DoxyCode}
+\hypertarget{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{\index{winmap.\+c@{winmap.\+c}!x\+\_\+event@{x\+\_\+event}}
+\index{x\+\_\+event@{x\+\_\+event}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{x\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}int x\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{int}]{exit\+\_\+condition}
+\end{DoxyParamCaption}
+)}}\label{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}
+
+
+Definition at line 1574 of file winmap.\+c.
+
+
+
+References app\+\_\+context, click\+\_\+button, E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+E\+X\+I\+T, E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+O\+R\+\_\+\+B\+U\+T\+T\+O\+N\+\_\+\+P\+R\+E\+S\+S, E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+P\+R\+E\+S\+S, E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+S\+E\+N\+T\+\_\+\+E\+V\+E\+N\+T, exit\+\_\+x\+\_\+event, F\+A\+L\+S\+E, I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E, incount, inptr, N\+O\+\_\+\+C\+L\+I\+C\+K, panic(), and T\+R\+U\+E.
+
+
+
+Referenced by display\+\_\+text\+\_\+window(), input\+\_\+event(), X11\+\_\+askname(), X11\+\_\+delay\+\_\+output(), X11\+\_\+display\+\_\+nhwindow(), X11\+\_\+get\+\_\+ext\+\_\+cmd(), X11\+\_\+getlin(), X11\+\_\+player\+\_\+selection(), X11\+\_\+select\+\_\+menu(), and X11\+\_\+yn\+\_\+function().
+
+
+\begin{DoxyCode}
+1576 \{
+1577     XEvent  event;
+1578     \textcolor{keywordtype}{int}     retval = 0;
+1579     \textcolor{keywordtype}{boolean} keep\_going = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1580 
+1581     \textcolor{comment}{/* Hold globals so function is re-entrant */}
+1582     \textcolor{keywordtype}{boolean} hold\_exit\_x\_event = \hyperlink{winmap_8c_a61becf4c1d004d3cbfde7ae52a5ee504}{exit\_x\_event};
+1583 
+1584     \hyperlink{winX_8h_ac46f6a35e1c44daafb6a4820c14a52b5}{click\_button} = \hyperlink{winX_8h_a0639fdacf54c1acb63c6bab7a6b1b6c6}{NO\_CLICK};    \textcolor{comment}{/* reset click exit condition */}
+1585     \hyperlink{winmap_8c_a61becf4c1d004d3cbfde7ae52a5ee504}{exit\_x\_event} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};  \textcolor{comment}{/* reset callback exit condition */}
+1586 
+1587     \textcolor{comment}{/*}
+1588 \textcolor{comment}{     * Loop until we get a sent event, callback exit, or are accepting key}
+1589 \textcolor{comment}{     * press and button press events and we receive one.}
+1590 \textcolor{comment}{     */}
+1591     \textcolor{keywordflow}{if}((exit\_condition == \hyperlink{winX_8h_ac326aec2aab61c19424f64072ed1a724}{EXIT\_ON\_KEY\_PRESS} ||
+1592     exit\_condition == \hyperlink{winX_8h_a294c5c7b1a72b1a6e813df15ed869178}{EXIT\_ON\_KEY\_OR\_BUTTON\_PRESS}) && 
+      \hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount})
+1593     \textcolor{keywordflow}{goto} try\_test;
+1594 
+1595     \textcolor{keywordflow}{do} \{
+1596     XtAppNextEvent(\hyperlink{winX_8h_a2cfecc57e6840fbf5c906eeb0b929bea}{app\_context}, &event);
+1597     XtDispatchEvent(&event);
+1598 
+1599     \textcolor{comment}{/* See if we can exit. */}
+1600     try\_test:
+1601     \textcolor{keywordflow}{switch} (exit\_condition) \{
+1602         \textcolor{keywordflow}{case} \hyperlink{winX_8h_a66f59fd12b8c74fae9382a25381a797a}{EXIT\_ON\_SENT\_EVENT}: \{
+1603         XAnyEvent *\hyperlink{unionany}{any} = (XAnyEvent *) &event;
+1604         \textcolor{keywordflow}{if} (any->send\_event) \{
+1605             retval = 0;
+1606             keep\_going = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1607         \}
+1608         \textcolor{keywordflow}{break};
+1609         \}
+1610         \textcolor{keywordflow}{case} \hyperlink{winX_8h_a819d0a7d125d95a69564c36141d32159}{EXIT\_ON\_EXIT}:
+1611         \textcolor{keywordflow}{if} (\hyperlink{winmap_8c_a61becf4c1d004d3cbfde7ae52a5ee504}{exit\_x\_event}) \{
+1612             \hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount} = 0;
+1613             retval = 0;
+1614             keep\_going = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1615         \}
+1616         \textcolor{keywordflow}{break};
+1617         \textcolor{keywordflow}{case} \hyperlink{winX_8h_ac326aec2aab61c19424f64072ed1a724}{EXIT\_ON\_KEY\_PRESS}:
+1618         \textcolor{keywordflow}{if} (\hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount} != 0) \{
+1619             \textcolor{comment}{/* get first pressed key */}
+1620             --\hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount};
+1621             retval = \hyperlink{winmap_8c_a0c678a8351750fc7e2221f2431974581}{inbuf}[\hyperlink{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{inptr}];
+1622             \hyperlink{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{inptr} = (\hyperlink{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{inptr}+1) % \hyperlink{winmap_8c_a6378f14810330164b7fb66f3334b2a27}{INBUF\_SIZE};
+1623             \textcolor{comment}{/* pkey(retval); */}
+1624             keep\_going = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1625         \}
+1626         \textcolor{keywordflow}{break};
+1627         \textcolor{keywordflow}{case} \hyperlink{winX_8h_a294c5c7b1a72b1a6e813df15ed869178}{EXIT\_ON\_KEY\_OR\_BUTTON\_PRESS}:
+1628         \textcolor{keywordflow}{if} (\hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount} != 0 || \hyperlink{winX_8h_ac46f6a35e1c44daafb6a4820c14a52b5}{click\_button} != \hyperlink{winX_8h_a0639fdacf54c1acb63c6bab7a6b1b6c6}{NO\_CLICK}) \{
+1629             \textcolor{keywordflow}{if} (\hyperlink{winX_8h_ac46f6a35e1c44daafb6a4820c14a52b5}{click\_button} != \hyperlink{winX_8h_a0639fdacf54c1acb63c6bab7a6b1b6c6}{NO\_CLICK}) \{ \textcolor{comment}{/* button press */}
+1630             \textcolor{comment}{/* click values are already set */}
+1631             retval = 0;
+1632             \} \textcolor{keywordflow}{else} \{                \textcolor{comment}{/* key press */}
+1633             \textcolor{comment}{/* get first pressed key */}
+1634             --\hyperlink{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{incount};
+1635             retval = \hyperlink{winmap_8c_a0c678a8351750fc7e2221f2431974581}{inbuf}[\hyperlink{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{inptr}];
+1636             \hyperlink{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{inptr} = (\hyperlink{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{inptr}+1) % \hyperlink{winmap_8c_a6378f14810330164b7fb66f3334b2a27}{INBUF\_SIZE};
+1637             \textcolor{comment}{/* pkey(retval); */}
+1638             \}
+1639             keep\_going = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1640         \}
+1641         \textcolor{keywordflow}{break};
+1642         \textcolor{keywordflow}{default}:
+1643         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"x\_event: unknown exit condition %d"}, exit\_condition);
+1644         \textcolor{keywordflow}{break};
+1645     \}
+1646     \} \textcolor{keywordflow}{while} (keep\_going);
+1647 
+1648     \textcolor{comment}{/* Restore globals */}
+1649     \hyperlink{winmap_8c_a61becf4c1d004d3cbfde7ae52a5ee504}{exit\_x\_event} = hold\_exit\_x\_event;
+1650 
+1651     \textcolor{keywordflow}{return} retval;
+1652 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{winmap_8c_a61becf4c1d004d3cbfde7ae52a5ee504}{\index{winmap.\+c@{winmap.\+c}!exit\+\_\+x\+\_\+event@{exit\+\_\+x\+\_\+event}}
+\index{exit\+\_\+x\+\_\+event@{exit\+\_\+x\+\_\+event}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{exit\+\_\+x\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} exit\+\_\+x\+\_\+event}}\label{winmap_8c_a61becf4c1d004d3cbfde7ae52a5ee504}
+
+
+Definition at line 1560 of file winmap.\+c.
+
+
+
+Referenced by x\+\_\+event().
+
+\hypertarget{winmap_8c_a4d61aa736dae8287d97c3a68a3a917c5}{\index{winmap.\+c@{winmap.\+c}!glyph2tile@{glyph2tile}}
+\index{glyph2tile@{glyph2tile}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{glyph2tile}]{\setlength{\rightskip}{0pt plus 5cm}short glyph2tile\mbox{[}$\,$\mbox{]}}}\label{winmap_8c_a4d61aa736dae8287d97c3a68a3a917c5}
+
+
+Referenced by init\+\_\+tiles(), and map\+\_\+update().
+
+\hypertarget{winmap_8c_a0c678a8351750fc7e2221f2431974581}{\index{winmap.\+c@{winmap.\+c}!inbuf@{inbuf}}
+\index{inbuf@{inbuf}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{inbuf}]{\setlength{\rightskip}{0pt plus 5cm}int inbuf\mbox{[}{\bf I\+N\+B\+U\+F\+\_\+\+S\+I\+Z\+E}\mbox{]}}}\label{winmap_8c_a0c678a8351750fc7e2221f2431974581}
+
+
+Definition at line 951 of file winmap.\+c.
+
+
+
+Referenced by query\+\_\+classes().
+
+\hypertarget{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}{\index{winmap.\+c@{winmap.\+c}!incount@{incount}}
+\index{incount@{incount}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{incount}]{\setlength{\rightskip}{0pt plus 5cm}int incount = 0}}\label{winmap_8c_aeb67c5d07a9a094de6dc172d6ef53766}
+
+
+Definition at line 952 of file winmap.\+c.
+
+
+
+Referenced by map\+\_\+input(), and x\+\_\+event().
+
+\hypertarget{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}{\index{winmap.\+c@{winmap.\+c}!inptr@{inptr}}
+\index{inptr@{inptr}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{inptr}]{\setlength{\rightskip}{0pt plus 5cm}int inptr = 0}}\label{winmap_8c_a27c9a68df56ac0773898bdf419d1c8f4}
+
+
+Definition at line 953 of file winmap.\+c.
+
+
+
+Referenced by x\+\_\+event().
+
+\hypertarget{winmap_8c_abec71265ff2e674336cbe7d67dd90842}{\index{winmap.\+c@{winmap.\+c}!map\+\_\+translations@{map\+\_\+translations}}
+\index{map\+\_\+translations@{map\+\_\+translations}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{map\+\_\+translations}]{\setlength{\rightskip}{0pt plus 5cm}char map\+\_\+translations\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_abec71265ff2e674336cbe7d67dd90842}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+\textcolor{stringliteral}{"#override\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{ <Key>Left: scroll(4)\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{ <Key>Right: scroll(6)\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{ <Key>Up: scroll(8)\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{ <Key>Down: scroll(2)\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{ <Key>:     input() \(\backslash\)}
+\textcolor{stringliteral}{"}
+\end{DoxyCode}
+
+
+Definition at line 1352 of file winmap.\+c.
+
+\hypertarget{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}{\index{winmap.\+c@{winmap.\+c}!pet\+\_\+annotation@{pet\+\_\+annotation}}
+\index{pet\+\_\+annotation@{pet\+\_\+annotation}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{pet\+\_\+annotation}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tile\+\_\+annotation} pet\+\_\+annotation\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a0dfafe3efe6ffae56f39c19ef3b32d72}
+
+
+Definition at line 173 of file winmap.\+c.
+
+
+
+Referenced by map\+\_\+update(), and post\+\_\+process\+\_\+tiles().
+
+\hypertarget{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}{\index{winmap.\+c@{winmap.\+c}!tile\+\_\+count@{tile\+\_\+count}}
+\index{tile\+\_\+count@{tile\+\_\+count}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{tile\+\_\+count}]{\setlength{\rightskip}{0pt plus 5cm}int tile\+\_\+count\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a80717f0d42ac22b0b0476dc15f40b471}
+
+
+Definition at line 159 of file winmap.\+c.
+
+
+
+Referenced by init\+\_\+tiles().
+
+\hypertarget{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}{\index{winmap.\+c@{winmap.\+c}!tile\+\_\+height@{tile\+\_\+height}}
+\index{tile\+\_\+height@{tile\+\_\+height}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{tile\+\_\+height}]{\setlength{\rightskip}{0pt plus 5cm}int tile\+\_\+height\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a13db5e8388a2c5a7dad1477a2ff7abf3}
+
+
+Definition at line 158 of file winmap.\+c.
+
+
+
+Referenced by init\+\_\+tiles().
+
+\hypertarget{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}{\index{winmap.\+c@{winmap.\+c}!tile\+\_\+image@{tile\+\_\+image}}
+\index{tile\+\_\+image@{tile\+\_\+image}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{tile\+\_\+image}]{\setlength{\rightskip}{0pt plus 5cm}X\+Image$\ast$ tile\+\_\+image = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_a55e18cae4f73d5e10482e0a192bce898}
+
+
+Definition at line 160 of file winmap.\+c.
+
+\hypertarget{winmap_8c_a2c291722f764515415f084ffce557615}{\index{winmap.\+c@{winmap.\+c}!tile\+\_\+pixmap@{tile\+\_\+pixmap}}
+\index{tile\+\_\+pixmap@{tile\+\_\+pixmap}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{tile\+\_\+pixmap}]{\setlength{\rightskip}{0pt plus 5cm}Pixmap tile\+\_\+pixmap = None}}\label{winmap_8c_a2c291722f764515415f084ffce557615}
+
+
+Definition at line 156 of file winmap.\+c.
+
+
+
+Referenced by X11\+\_\+exit\+\_\+nhwindows().
+
+\hypertarget{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}{\index{winmap.\+c@{winmap.\+c}!tile\+\_\+width@{tile\+\_\+width}}
+\index{tile\+\_\+width@{tile\+\_\+width}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{tile\+\_\+width}]{\setlength{\rightskip}{0pt plus 5cm}int tile\+\_\+width\hspace{0.3cm}{\ttfamily [static]}}}\label{winmap_8c_af42934e0f1ac7d0c254a6bc58ea9b521}
+
+
+Definition at line 157 of file winmap.\+c.
+
+
+
+Referenced by init\+\_\+tiles().
+
+\hypertarget{winmap_8c_ab9e267f9b355345083b806bf0948c10b}{\index{winmap.\+c@{winmap.\+c}!total\+\_\+tiles\+\_\+used@{total\+\_\+tiles\+\_\+used}}
+\index{total\+\_\+tiles\+\_\+used@{total\+\_\+tiles\+\_\+used}!winmap.\+c@{winmap.\+c}}
+\subsubsection[{total\+\_\+tiles\+\_\+used}]{\setlength{\rightskip}{0pt plus 5cm}int total\+\_\+tiles\+\_\+used}}\label{winmap_8c_ab9e267f9b355345083b806bf0948c10b}
+
+
+Referenced by init\+\_\+tiles().
+

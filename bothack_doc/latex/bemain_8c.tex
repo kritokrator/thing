@@ -1,0 +1,411 @@
+\hypertarget{bemain_8c}{\section{nethack/sys/be/bemain.c File Reference}
+\label{bemain_8c}\index{nethack/sys/be/bemain.\+c@{nethack/sys/be/bemain.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{bemain_8c_a34b04bd23b07b485921a728ad0805ac4}{M\+A\+I\+N}~\hyperlink{tile2x11_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{bemain_8c_aa1ec3030d35367c399bd6c33b6493b9d}{whoami} (void)
+\item 
+static void \hyperlink{bemain_8c_ab4b288b9557b14f99fe9bb5e17cfa4c4}{process\+\_\+options} (int argc, char $\ast$$\ast$argv)
+\item 
+static void \hyperlink{bemain_8c_a53e222f64a70757b462220929a59eb89}{chdirx} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$dir)
+\item 
+static void \hyperlink{bemain_8c_a21738d427cae396cec6f2f009adb29c3}{getlock} (void)
+\item 
+int \hyperlink{bemain_8c_a696b34fc73de6680017ea21546705d97}{M\+A\+I\+N} (int argc, char $\ast$$\ast$argv)
+\item 
+void \hyperlink{bemain_8c_a8937ede58517f812b44a36c286f504b4}{regularize} (char $\ast$s)
+\item 
+void \hyperlink{bemain_8c_aaf78dc4561c71581ba8f98f2c8db8b9d}{nethack\+\_\+exit} (int status)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{bemain_8c_a34b04bd23b07b485921a728ad0805ac4}{\index{bemain.\+c@{bemain.\+c}!M\+A\+I\+N@{M\+A\+I\+N}}
+\index{M\+A\+I\+N@{M\+A\+I\+N}!bemain.\+c@{bemain.\+c}}
+\subsubsection[{M\+A\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+I\+N~{\bf main}}}\label{bemain_8c_a34b04bd23b07b485921a728ad0805ac4}
+
+
+Definition at line 18 of file bemain.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{bemain_8c_a53e222f64a70757b462220929a59eb89}{\index{bemain.\+c@{bemain.\+c}!chdirx@{chdirx}}
+\index{chdirx@{chdirx}!bemain.\+c@{bemain.\+c}}
+\subsubsection[{chdirx}]{\setlength{\rightskip}{0pt plus 5cm}static void chdirx (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{dir}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{bemain_8c_a53e222f64a70757b462220929a59eb89}
+
+
+Definition at line 226 of file bemain.\+c.
+
+
+
+References chdir(), check\+\_\+recordfile(), error(), and H\+A\+C\+K\+D\+I\+R.
+
+
+
+Referenced by M\+A\+I\+N(), and main().
+
+
+\begin{DoxyCode}
+227 \{
+228     \textcolor{keywordflow}{if} (!dir) dir = \hyperlink{config_8h_a335c50fb5c054415296fb087f2291268}{HACKDIR};
+229 
+230     \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_ae6d5c38f8d7036c9010142bf4291d5ca}{chdir}(dir) < 0)
+231         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Cannot chdir to %s."}, dir);
+232 
+233     \textcolor{comment}{/* Warn the player if we can't write the record file */}
+234     \textcolor{comment}{/* perhaps we should also test whether . is writable */}
+235     \hyperlink{files_8c_a710ea32cede86389c13b48ee7c6530e7}{check\_recordfile}(dir);
+236 \}
+\end{DoxyCode}
+\hypertarget{bemain_8c_a21738d427cae396cec6f2f009adb29c3}{\index{bemain.\+c@{bemain.\+c}!getlock@{getlock}}
+\index{getlock@{getlock}!bemain.\+c@{bemain.\+c}}
+\subsubsection[{getlock}]{\setlength{\rightskip}{0pt plus 5cm}void getlock (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{bemain_8c_a21738d427cae396cec6f2f009adb29c3}
+
+
+Definition at line 238 of file bemain.\+c.
+
+
+
+References close(), creat(), error(), F\+C\+M\+A\+S\+K, hackpid, lock, regularize(), set\+\_\+levelfile\+\_\+name(), and write().
+
+
+
+Referenced by M\+A\+I\+N(), and main().
+
+
+\begin{DoxyCode}
+239 \{
+240     \textcolor{keywordtype}{int} fd;
+241 
+242     \hyperlink{bemain_8c_a8937ede58517f812b44a36c286f504b4}{regularize}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock});
+243     \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, 0);
+244     fd = \hyperlink{wceconf_8h_a8e3d15ba88c8177901cb71711b060b36}{creat}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+245     \textcolor{keywordflow}{if}(fd == -1) \{
+246         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot creat lock file."});
+247     \} \textcolor{keywordflow}{else} \{
+248         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid}, \textcolor{keyword}{sizeof}(hackpid))
+249             != \textcolor{keyword}{sizeof}(hackpid))\{
+250             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot write lock"});
+251         \}
+252         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd) == -1) \{
+253             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot close lock"});
+254         \}
+255     \}
+256 \}
+\end{DoxyCode}
+\hypertarget{bemain_8c_a696b34fc73de6680017ea21546705d97}{\index{bemain.\+c@{bemain.\+c}!M\+A\+I\+N@{M\+A\+I\+N}}
+\index{M\+A\+I\+N@{M\+A\+I\+N}!bemain.\+c@{bemain.\+c}}
+\subsubsection[{M\+A\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}int M\+A\+I\+N (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{bemain_8c_a696b34fc73de6680017ea21546705d97}
+
+
+Definition at line 22 of file bemain.\+c.
+
+
+
+References askname, chdirx(), choose\+\_\+windows(), C\+O\+L\+N\+O, compress(), D\+E\+F\+A\+U\+L\+T\+\_\+\+W\+I\+N\+D\+O\+W\+\_\+\+S\+Y\+S, delete\+\_\+savefile(), discover, display\+\_\+file, dlb\+\_\+init, dorecover(), F\+A\+L\+S\+E, flags, fqname(), getlock(), getuid(), iflags, init\+\_\+nhwindows, initoptions(), lock, mark\+\_\+synch, flag\+::move, N\+E\+W\+S, instance\+\_\+flags\+::news, nh\+\_\+getenv(), pickup(), player\+\_\+selection, plname, plnamesuffix(), process\+\_\+options(), restore\+\_\+saved\+\_\+game(), R\+O\+W\+N\+O, S\+A\+V\+E\+F, S\+A\+V\+E\+P\+R\+E\+F\+I\+X, Sprintf, Strcpy, T\+R\+U\+E, u, you\+::uhp, vision\+\_\+init(), whoami(), wizard, x\+\_\+maze\+\_\+max, y\+\_\+maze\+\_\+max, and yn.
+
+
+\begin{DoxyCode}
+23 \{
+24     \textcolor{keywordtype}{int} fd;
+25     \textcolor{keywordtype}{char} *dir;  
+26 
+27     dir = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"NETHACKDIR"});
+28     \textcolor{keywordflow}{if} (!dir) dir = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"HACKDIR"});
+29 
+30     \hyperlink{windows_8c_a6879f435c2e64314706d8f2ba946a303}{choose\_windows}(\hyperlink{config_8h_ab27d30612b31fb7333fc40501e15d94c}{DEFAULT\_WINDOW\_SYS});
+31     \hyperlink{bemain_8c_a53e222f64a70757b462220929a59eb89}{chdirx}(dir);
+32     \hyperlink{options_8c_a2f4ef6da0d84a10cf334449f652decc9}{initoptions}();
+33 
+34     \hyperlink{winprocs_8h_a613c5d847a2df7d7ddca4a1308014964}{init\_nhwindows}(&argc, argv);
+35     \hyperlink{bemain_8c_aa1ec3030d35367c399bd6c33b6493b9d}{whoami}();
+36 
+37     \textcolor{comment}{/*}
+38 \textcolor{comment}{     * It seems you really want to play.}
+39 \textcolor{comment}{     */}
+40     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} = 1;  \textcolor{comment}{/* prevent RIP on early quits */}
+41     \hyperlink{bemain_8c_ab4b288b9557b14f99fe9bb5e17cfa4c4}{process\_options}(argc, argv); \textcolor{comment}{/* command line options */}
+42 
+43 
+44 \textcolor{preprocessor}{#ifdef WIZARD}
+45     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard})
+46         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"wizard"});
+47     \textcolor{keywordflow}{else}
+48 \textcolor{preprocessor}{#endif}
+49     \textcolor{keywordflow}{if}(!*\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname} || !strncmp(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"player"}, 4)
+50             || !strncmp(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"games"}, 4))
+51         \hyperlink{winprocs_8h_ad24a017e7b5381254a426b4f653881d6}{askname}();
+52     \hyperlink{role_8c_aa0498399050c03eb7ddd757e2d7f320e}{plnamesuffix}();     \textcolor{comment}{/* strip suffix from name; calls askname() */}
+53                         \textcolor{comment}{/* again if suffix was whole name */}
+54                         \textcolor{comment}{/* accepts any suffix */}
+55 
+56     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock},\textcolor{stringliteral}{"%d%s"}, \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}(), \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+57     \hyperlink{bemain_8c_a21738d427cae396cec6f2f009adb29c3}{getlock}();
+58 
+59 
+60     \hyperlink{dlb_8h_af25f20c0b4f30c2b124fbe4f2e54ad3c}{dlb\_init}();         \textcolor{comment}{/* must be before newgame() */}
+61 
+62     \textcolor{comment}{/*}
+63 \textcolor{comment}{     * Initialization of the boundaries of the mazes}
+64 \textcolor{comment}{     * Both boundaries have to be even.}
+65 \textcolor{comment}{     */}
+66     \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max} = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+67     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max} % 2)
+68         \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max}--;
+69     \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max} = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1;
+70     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max} % 2)
+71         \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max}--;
+72 
+73     \textcolor{comment}{/*}
+74 \textcolor{comment}{     * Initialize the vision system.  This must be before mklev() on a}
+75 \textcolor{comment}{     * new game or before a level restore on a saved game.}
+76 \textcolor{comment}{     */}
+77     \hyperlink{vision_8c_ae84d85f205596be999ea45113fb8810f}{vision\_init}();
+78 
+79     display\_gamewindows();
+80 
+81     \textcolor{keywordflow}{if} ((fd = \hyperlink{files_8c_af780b8c38357751a8a60624825b8e2d8}{restore\_saved\_game}()) >= 0) \{
+82 \textcolor{preprocessor}{#ifdef WIZARD}
+83         \textcolor{comment}{/* Since wizard is actually flags.debug, restoring might}
+84 \textcolor{comment}{         * overwrite it.}
+85 \textcolor{comment}{         */}
+86         \textcolor{keywordtype}{boolean} remember\_wiz\_mode = \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard};
+87 \textcolor{preprocessor}{#endif}
+88 \textcolor{preprocessor}{#ifdef NEWS}
+89         \textcolor{keywordflow}{if}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news}) \{
+90             \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{config_8h_adfcdf96482b20ff90defa8fd75b84a7c}{NEWS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+91             \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}; \textcolor{comment}{/* in case dorecover() fails */}
+92         \}
+93 \textcolor{preprocessor}{#endif}
+94         pline(\textcolor{stringliteral}{"Restoring save file..."});
+95         \hyperlink{winprocs_8h_a72bbad3e5805d71f128c614261fc7ee0}{mark\_synch}(); \textcolor{comment}{/* flush output */}
+96         \textcolor{keywordflow}{if}(!\hyperlink{restore_8c_a4fb439a417b679a962bff63981841e4c}{dorecover}(fd))
+97             \textcolor{keywordflow}{goto} not\_recovered;
+98 \textcolor{preprocessor}{#ifdef WIZARD}
+99         \textcolor{keywordflow}{if}(!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && remember\_wiz\_mode) \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+100 \textcolor{preprocessor}{#endif}
+101         check\_special\_room(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+102         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover})
+103             You(\textcolor{stringliteral}{"are in non-scoring discovery mode."});
+104 
+105         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover} || \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \{
+106             \textcolor{keywordflow}{if}(\hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(\textcolor{stringliteral}{"Do you want to keep the save file?"}) == \textcolor{charliteral}{'n'})
+107                 (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+108             \textcolor{keywordflow}{else} \{
+109                 \hyperlink{files_8c_a972d5467067d99c9406312d01203d690}{compress}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a12ec3caf95cc60603fc1ecc9b7266e48}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 0));
+110             \}
+111         \}
+112 
+113         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae91760a156a6d1949297a53272137325}{move} = 0;
+114     \} \textcolor{keywordflow}{else} \{
+115 not\_recovered:
+116         \hyperlink{winprocs_8h_ac766fbb6f1679d4a7d996e8b0cfc6cea}{player\_selection}();
+117         newgame();
+118         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover})
+119             You(\textcolor{stringliteral}{"are in non-scoring discovery mode."});
+120 
+121         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae91760a156a6d1949297a53272137325}{move} = 0;
+122         set\_wear();
+123         (void) \hyperlink{pickup_8c_ab9fd1f5835d6d35507a05e910e86d862}{pickup}(1);
+124     \}
+125 
+126     moveloop();
+127     \textcolor{keywordflow}{return} 0;
+128 \}
+\end{DoxyCode}
+\hypertarget{bemain_8c_aaf78dc4561c71581ba8f98f2c8db8b9d}{\index{bemain.\+c@{bemain.\+c}!nethack\+\_\+exit@{nethack\+\_\+exit}}
+\index{nethack\+\_\+exit@{nethack\+\_\+exit}!bemain.\+c@{bemain.\+c}}
+\subsubsection[{nethack\+\_\+exit}]{\setlength{\rightskip}{0pt plus 5cm}void nethack\+\_\+exit (
+\begin{DoxyParamCaption}
+\item[{int}]{status}
+\end{DoxyParamCaption}
+)}}\label{bemain_8c_aaf78dc4561c71581ba8f98f2c8db8b9d}
+
+
+Definition at line 264 of file bemain.\+c.
+
+
+
+References exit().
+
+
+\begin{DoxyCode}
+265 \{
+266     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(status);
+267 \}
+\end{DoxyCode}
+\hypertarget{bemain_8c_ab4b288b9557b14f99fe9bb5e17cfa4c4}{\index{bemain.\+c@{bemain.\+c}!process\+\_\+options@{process\+\_\+options}}
+\index{process\+\_\+options@{process\+\_\+options}!bemain.\+c@{bemain.\+c}}
+\subsubsection[{process\+\_\+options}]{\setlength{\rightskip}{0pt plus 5cm}static void process\+\_\+options (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{bemain_8c_ab4b288b9557b14f99fe9bb5e17cfa4c4}
+
+
+Definition at line 162 of file bemain.\+c.
+
+
+
+References discover, F\+A\+L\+S\+E, flags, iflags, flag\+::initrace, flag\+::initrole, instance\+\_\+flags\+::news, plname, flag\+::randomall, raw\+\_\+print, str2race(), str2role(), T\+R\+U\+E, and wizard.
+
+
+
+Referenced by M\+A\+I\+N().
+
+
+\begin{DoxyCode}
+163 \{
+164     \textcolor{keywordtype}{int} i;
+165 
+166     \textcolor{keywordflow}{while} (argc > 1 && argv[1][0] == \textcolor{charliteral}{'-'}) \{
+167         argv++;
+168         argc--;
+169         \textcolor{keywordflow}{switch} (argv[0][1]) \{
+170         \textcolor{keywordflow}{case} \textcolor{charliteral}{'D'}:
+171 \textcolor{preprocessor}{#ifdef WIZARD}
+172             \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+173             \textcolor{keywordflow}{break};
+174 \textcolor{preprocessor}{#endif}
+175             \textcolor{comment}{/* otherwise fall thru to discover */}
+176         \textcolor{keywordflow}{case} \textcolor{charliteral}{'X'}:
+177             \hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+178             \textcolor{keywordflow}{break};
+179 \textcolor{preprocessor}{#ifdef NEWS}
+180         \textcolor{keywordflow}{case} \textcolor{charliteral}{'n'}:
+181             \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+182             \textcolor{keywordflow}{break};
+183 \textcolor{preprocessor}{#endif}
+184         \textcolor{keywordflow}{case} \textcolor{charliteral}{'u'}:
+185             \textcolor{keywordflow}{if}(argv[0][2])
+186                 (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, argv[0]+2, \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+187             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc > 1) \{
+188                 argc--;
+189                 argv++;
+190                 (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, argv[0], \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+191             \} \textcolor{keywordflow}{else}
+192                 \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{"Player name expected after -u"});
+193             \textcolor{keywordflow}{break};
+194         \textcolor{keywordflow}{case} \textcolor{charliteral}{'p'}: \textcolor{comment}{/* profession (role) */}
+195             \textcolor{keywordflow}{if} (argv[0][2]) \{
+196                 \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(&argv[0][2])) >= 0)
+197                     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = i;
+198             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc > 1) \{
+199                 argc--;
+200                 argv++;
+201                 \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(argv[0])) >= 0)
+202                     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = i;
+203             \}
+204             \textcolor{keywordflow}{break};
+205         \textcolor{keywordflow}{case} \textcolor{charliteral}{'r'}: \textcolor{comment}{/* race */}
+206             \textcolor{keywordflow}{if} (argv[0][2]) \{
+207                 \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a53f7288b95e8681fa29297e9a569dedd}{str2race}(&argv[0][2])) >= 0)
+208                     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = i;
+209             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc > 1) \{
+210                 argc--;
+211                 argv++;
+212                 \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a53f7288b95e8681fa29297e9a569dedd}{str2race}(argv[0])) >= 0)
+213                     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = i;
+214             \}
+215             \textcolor{keywordflow}{break};
+216         \textcolor{keywordflow}{case} \textcolor{charliteral}{'@'}:
+217             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a06854edfd7c6649ef7381c7ca1865f85}{randomall} = 1;
+218             \textcolor{keywordflow}{break};
+219         \textcolor{keywordflow}{default}:
+220             raw\_printf(\textcolor{stringliteral}{"Unknown option: %s"}, *argv);
+221             \textcolor{keywordflow}{break};
+222         \}
+223     \}
+224 \}
+\end{DoxyCode}
+\hypertarget{bemain_8c_a8937ede58517f812b44a36c286f504b4}{\index{bemain.\+c@{bemain.\+c}!regularize@{regularize}}
+\index{regularize@{regularize}!bemain.\+c@{bemain.\+c}}
+\subsubsection[{regularize}]{\setlength{\rightskip}{0pt plus 5cm}void regularize (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{bemain_8c_a8937ede58517f812b44a36c286f504b4}
+
+
+Definition at line 154 of file bemain.\+c.
+
+
+
+Referenced by getlock().
+
+
+\begin{DoxyCode}
+155 \{
+156     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *lp;
+157 
+158     \textcolor{keywordflow}{while}((lp=strchr(s, \textcolor{charliteral}{'.'})) || (lp=strchr(s, \textcolor{charliteral}{'/'})) || (lp=strchr(s,\textcolor{charliteral}{' '})))
+159         *lp = \textcolor{charliteral}{'\_'};
+160 \}
+\end{DoxyCode}
+\hypertarget{bemain_8c_aa1ec3030d35367c399bd6c33b6493b9d}{\index{bemain.\+c@{bemain.\+c}!whoami@{whoami}}
+\index{whoami@{whoami}!bemain.\+c@{bemain.\+c}}
+\subsubsection[{whoami}]{\setlength{\rightskip}{0pt plus 5cm}static void whoami (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{bemain_8c_aa1ec3030d35367c399bd6c33b6493b9d}
+
+
+Definition at line 130 of file bemain.\+c.
+
+
+
+References nh\+\_\+getenv(), and plname.
+
+
+
+Referenced by M\+A\+I\+N().
+
+
+\begin{DoxyCode}
+131 \{
+132     \textcolor{comment}{/*}
+133 \textcolor{comment}{     * Who am i? Algorithm: 1. Use name as specified in NETHACKOPTIONS}
+134 \textcolor{comment}{     *                      2. Use $USER or $LOGNAME        (if 1. fails)}
+135 \textcolor{comment}{     * The resulting name is overridden by command line options.}
+136 \textcolor{comment}{     * If everything fails, or if the resulting name is some generic}
+137 \textcolor{comment}{     * account like "games", "play", "player", "hack" then eventually}
+138 \textcolor{comment}{     * we'll ask him.}
+139 \textcolor{comment}{     */}
+140     \textcolor{keywordtype}{char} *s;
+141 
+142     \textcolor{keywordflow}{if} (*\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}) \textcolor{keywordflow}{return};
+143     \textcolor{keywordflow}{if} (s = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"USER"})) \{
+144         (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, s, \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+145         \textcolor{keywordflow}{return};
+146     \}
+147     \textcolor{keywordflow}{if} (s = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"LOGNAME"})) \{
+148         (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, s, \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+149         \textcolor{keywordflow}{return};
+150     \}
+151 \}
+\end{DoxyCode}

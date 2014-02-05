@@ -1,0 +1,2228 @@
+\hypertarget{macmenu_8c}{\section{nethack/sys/mac/macmenu.c File Reference}
+\label{macmenu_8c}\index{nethack/sys/mac/macmenu.\+c@{nethack/sys/mac/macmenu.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mactty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macwin.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macpopup.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}patchlevel.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$Menus.\+h$>$}\\*
+{\ttfamily \#include $<$Devices.\+h$>$}\\*
+{\ttfamily \#include $<$Resources.\+h$>$}\\*
+{\ttfamily \#include $<$Text\+Utils.\+h$>$}\\*
+{\ttfamily \#include $<$Tool\+Utils.\+h$>$}\\*
+{\ttfamily \#include $<$Sound.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+union \hyperlink{unionmenuRefUnn}{menu\+Ref\+Unn}
+\item 
+struct \hyperlink{structmenuListRec}{menu\+List\+Rec}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{macmenu_8c_abcb53b94a9d6b7bfbde94b49c5f0830d}{I\+D1\+\_\+\+M\+B\+A\+R}~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{list\+Menubar}\mbox{]}-\/$>$first\+Menu\+I\+D
+\item 
+\#define \hyperlink{macmenu_8c_a6473b28d4f31e64641e58534511df4ee}{I\+D1\+\_\+\+S\+U\+B\+M}~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}{list\+Submenu}\mbox{]}-\/$>$first\+Menu\+I\+D
+\item 
+\#define \hyperlink{macmenu_8c_a9ced5ef2d1e44e4eb76f80a8e3305b28}{N\+U\+M\+\_\+\+M\+B\+A\+R}~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{list\+Menubar}\mbox{]}-\/$>$num\+Menus
+\item 
+\#define \hyperlink{macmenu_8c_a447b84be0a7e093f2ec8c81d069337a5}{N\+U\+M\+\_\+\+S\+U\+B\+M}~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}{list\+Submenu}\mbox{]}-\/$>$num\+Menus
+\item 
+\#define \hyperlink{macmenu_8c_a915ce6873ae137107924c6ea92e9cb46}{M\+H\+N\+D\+\_\+\+A\+P\+P\+L\+E}~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{list\+Menubar}\mbox{]}-\/$>$mref\mbox{[}\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4af638c9135c08bbb4fd140c25587cadca}{menu\+Apple}\mbox{]}.mhnd
+\item 
+\#define \hyperlink{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{M\+H\+N\+D\+\_\+\+F\+I\+L\+E}~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{list\+Menubar}\mbox{]}-\/$>$mref\mbox{[}\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a897d91548e60ea0a6d64aca07c8c61e5}{menu\+File}\mbox{]}.mhnd
+\item 
+\#define \hyperlink{macmenu_8c_a9b3f14363b035247cab32f3b78c774f6}{M\+H\+N\+D\+\_\+\+E\+D\+I\+T}~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{list\+Menubar}\mbox{]}-\/$>$mref\mbox{[}\hyperlink{mrecover_8c_aaf8fd5f0e57d456151c951e0f3715fc4a73a15e90b1f803bdab06a2b5ba2882f4}{menu\+Edit}\mbox{]}.mhnd
+\item 
+\#define \hyperlink{macmenu_8c_a983a960d897b089134838f6be3d7a91b}{M\+B\+A\+R\+H\+N\+D}(x)~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{list\+Menubar}\mbox{]}-\/$>$mref\mbox{[}(x)\mbox{]}.mhnd
+\item 
+\#define \hyperlink{macmenu_8c_af9e67875879ec2b7daa0e560cf02da6a}{M\+H\+N\+D\+\_\+\+W\+I\+Z}~\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List}\mbox{[}\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}{list\+Submenu}\mbox{]}-\/$>$mref\mbox{[}\hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea35979a090b2ebbc1b6f95b30983db30c}{menu\+Wizard}\mbox{]}.mhnd
+\item 
+\#define \hyperlink{macmenu_8c_ab38ea8c3d29870617af8fb86b18c074c}{W\+K\+N\+D\+\_\+\+M\+A\+P}~(\hyperlink{mactty_8h_ad35d647bd9f45579664218f94df87e13}{W\+I\+N\+\_\+\+B\+A\+S\+E\+\_\+\+K\+I\+N\+D} + \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{N\+H\+W\+\_\+\+M\+A\+P})
+\item 
+\#define \hyperlink{macmenu_8c_ac83e183eb03be8981aedf7b5f25dc9d9}{mstr\+End\+Char}~0x\+A5		/$\ast$ '\textbackslash{}245' or option-\/$\ast$ or \char`\"{}bullet\char`\"{} $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a841efbee4d95d466a04cbf13c6ae4221}{beep\+Menu\+Alert\+Err}~1		/$\ast$ \# of Sys\+Beep()'s before exitting $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a304b7aa8615ac61411a852a2a98303af}{R\+S\+R\+C\+\_\+\+A\+S\+K}~6000	/$\ast$ Askname dialog and item list $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a5a6131db1a398cfb5bdb68cba2010b10}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y}~1	/$\ast$	Play button $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a4a37bed439c88606e423b3e842791de8}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T}~2	/$\ast$	Quit button $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a4d50aacc97668b3960cb450dcfc69358}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T}~3	/$\ast$	Default ring $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E}~4	/$\ast$	\hyperlink{structRole}{Role} popup \hyperlink{structmenu}{menu} $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E}~5	/$\ast$	\hyperlink{structRace}{Race} popup \hyperlink{structmenu}{menu} $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D}~6	/$\ast$	\hyperlink{structGender}{Gender} popup \hyperlink{structmenu}{menu} $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N}~7	/$\ast$	Alignment popup \hyperlink{structmenu}{menu} $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E}~8	/$\ast$	Mode popup \hyperlink{structmenu}{menu} $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E}~9	/$\ast$	Name text field $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_afd80c2d0085ffd29c830d668a51292e1}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X}~10	/$\ast$	Maximum enabled item $\ast$/
+\item 
+\#define \hyperlink{macmenu_8c_ad0c475de6664a29bd77b0a977b7be38b}{K\+E\+Y\+\_\+\+M\+A\+S\+K}~0xff00
+\item 
+\#define \hyperlink{macmenu_8c_afe5716cf1626fceab51044a6c2492831}{K\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N}~0x2400
+\item 
+\#define \hyperlink{macmenu_8c_abaee5edb96e542206ae6c8102ac228af}{K\+E\+Y\+\_\+\+E\+N\+T\+E\+R}~0x4c00
+\item 
+\#define \hyperlink{macmenu_8c_a6c8ee53908fc5d6df19f1da8502b38dc}{K\+E\+Y\+\_\+\+E\+S\+C\+A\+P\+E}~0x3500
+\item 
+\#define \hyperlink{macmenu_8c_ac9620c52d2527df3b40e10439130e15e}{C\+H\+\_\+\+M\+A\+S\+K}~0x00ff
+\item 
+\#define \hyperlink{macmenu_8c_ad16150d987296ecfdc9c69b665fcce4f}{C\+H\+\_\+\+R\+E\+T\+U\+R\+N}~0x000d
+\item 
+\#define \hyperlink{macmenu_8c_abc83812b9b3909f3146b0014d7977168}{C\+H\+\_\+\+E\+N\+T\+E\+R}~0x0003
+\item 
+\#define \hyperlink{macmenu_8c_a1b67fcd45d68ddd8b8aafc3cd6dd6a42}{C\+H\+\_\+\+E\+S\+C\+A\+P\+E}~0x001b
+\item 
+\#define \hyperlink{macmenu_8c_a6411b89db3229d7d625730084ef22db5}{noresource}(t, n)~\{Sys\+Beep(3); Exit\+To\+Shell();\}
+\item 
+\#define \hyperlink{macmenu_8c_aa59d720a30ef6a81ae3087206a0af226}{fatal}(s)~\{Sys\+Beep(3); Exit\+To\+Shell();\}
+\item 
+\#define \hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole}~\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}\mbox{[}\hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E}\mbox{]}
+\item 
+\#define \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace}~\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}\mbox{[}\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E}\mbox{]}
+\item 
+\#define \hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend}~\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}\mbox{[}\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D}\mbox{]}
+\item 
+\#define \hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign}~\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}\mbox{[}\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N}\mbox{]}
+\item 
+\#define \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode}~\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}\mbox{[}\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E}\mbox{]}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef union \hyperlink{unionmenuRefUnn}{menu\+Ref\+Unn} \hyperlink{macmenu_8c_a65283d8dd6f1748b3008a5bcd2b8bf01}{menu\+Ref\+Unn}
+\item 
+typedef struct \hyperlink{structmenuListRec}{menu\+List\+Rec} \hyperlink{macmenu_8c_a0d967fcc6773d4e4fe29d57f5cd85b53}{menu\+List\+Rec}
+\item 
+typedef struct \hyperlink{structmenuListRec}{menu\+List\+Rec} $\ast$ \hyperlink{macmenu_8c_aedd6a029606a6b9d77b75af2f3be5bcc}{menu\+List\+Ptr}
+\item 
+typedef struct \hyperlink{structmenuListRec}{menu\+List\+Rec} $\ast$$\ast$ \hyperlink{macmenu_8c_abc5539239ee9e4de37321f58efa1556a}{menu\+List\+Handle}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{list\+Menubar}, 
+\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}{list\+Submenu}, 
+\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25aab3c6542717c75ce2f43bd9b7166ef43}{menu\+Bar\+List\+I\+D} = 128, 
+\hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25a09bf445de6e6d389cdae02611acc1515}{sub\+Menu\+List\+I\+D}
+ \}
+\item 
+enum \{ \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fceaf638c9135c08bbb4fd140c25587cadca}{menu\+Apple}, 
+\hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea897d91548e60ea0a6d64aca07c8c61e5}{menu\+File}, 
+\hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea73a15e90b1f803bdab06a2b5ba2882f4}{menu\+Edit}, 
+\hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea35979a090b2ebbc1b6f95b30983db30c}{menu\+Wizard} = 0
+ \}
+\item 
+enum \{ \\*
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa13398885933f7fb57a73604667e2a0e9}{menu\+Apple\+About\+Box} = 1, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa14ad763f9ccc7466c84a1fdba9dcfea8}{\+\_\+\+\_\+\+\_\+\+\_\+\+Apple\+\_\+\+\_\+1}, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaade9208aa80f23e98c0baf8197a2687f5}{menu\+File\+Redraw} = 1, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaa1d817989838fc4b6ea51ea918c1869}{menu\+File\+Prev\+Msg}, 
+\\*
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa8714d8d7400f9294db88fdc23552f44b}{menu\+File\+Cleanup}, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa156f224f616ba274796b7fbb2b760c89}{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+1}, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6f8c1472e99a5976161f61cc873c074c}{menu\+File\+Play\+Mode}, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa151546b07086ac457d4760d7d1fff0f5}{menu\+File\+Enter\+Explore}, 
+\\*
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa15efa849a4590885cd3d996c9093c5da}{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+2}, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6361c24212165430afb64ffa5fe04a8d}{menu\+File\+Save}, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa7bf91321307a1bbf4086191a168ff195}{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+3}, 
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaf14300476e224af39e290cbb1633675}{menu\+File\+Quit}, 
+\\*
+\hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa38ff9041f29d12603b8fce6cdafb6cac}{menu\+Wizard\+Attributes} = 1
+ \}
+\item 
+enum \{ \\*
+\hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa069fd2187ec2a5d96e908c37ba6699b7}{mbar\+Dim}, 
+\hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa6da5cbca84d0840ad32de1599109dd63}{mbar\+No\+Windows}, 
+\hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8bbb453817cc35c26bb4cb5640d900e3}{mbar\+D\+A}, 
+\hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8fb2dcb5f71aca50c2b3f57210fe2ce2}{mbar\+No\+Map}, 
+\\*
+\hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbar\+Regular}, 
+\hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaad41ae05a9d6f81a63893e8a036cbffa4}{mbar\+Special}
+ \}
+\item 
+enum \{ \\*
+\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a03c03198357f91b5341b3cf6c7a39a2e}{err\+Get\+Menu\+List}, 
+\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a78d6c64d5e90f2b087bef12e40d3c85f}{err\+Get\+Menu}, 
+\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960aaff96c672b29e548ac46e38ea2d56dc4}{err\+Get\+A\+N\+Dlog\+Template}, 
+\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960ae584aacbbda4049c0d83ccb3abb20136}{err\+Get\+A\+N\+Dlog\+Items}, 
+\\*
+\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a527ebeb964b9fc57bf219c1f7424fb2c}{err\+Get\+A\+N\+Dialog}, 
+\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a570ad9552f7de00066e1500f4bfc1a68}{err\+A\+N\+New\+Menu}, 
+\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a88de4d07b8fa108fc6b71a4def58d881}{err\+\_\+\+Menu\+\_\+total}
+ \}
+\item 
+enum \{ \hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409aa8cf4f71ac8c676c4e7ecf7e9ec5d4b5}{alrt\+\_\+\+Menu\+\_\+start} = 5000, 
+\hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a538dd9c5a5c08f0ea11c10f12ded04d6}{alrt\+Menu\+Note} = alrt\+\_\+\+Menu\+\_\+start, 
+\hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409af1438a788640970c73d52be7bb063cb3}{alrt\+Menu\+\_\+\+N\+Y}, 
+\hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a63882e0b47f9d41314e4a8653b5fcc96}{alrt\+\_\+\+Menu\+\_\+limit}
+ \}
+\item 
+enum \{ \hyperlink{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9a73a97e5d7d76e48d7921dd9a7f26d8de}{bttn\+Menu\+Alert\+No} = 1, 
+\hyperlink{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9ad6c6da24153945e0257457e89463b369}{bttn\+Menu\+Alert\+Yes}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{macmenu_8c_a42dff71141014121c2e7018135809a08}{align\+A\+D} (Rect $\ast$, short)
+\item 
+static void \hyperlink{macmenu_8c_a6f48c547f43e13f1f4c2c26778419049}{must\+Get\+Menu\+Alerts} (void)
+\item 
+static void \hyperlink{macmenu_8c_a3cb189d5db496801c1f11ebd5321700f}{menu\+Error} (short)
+\item 
+static void \hyperlink{macmenu_8c_ab2740dd2cf8332d13a6e9001c65cac8b}{about\+Net\+Hack} (void)
+\item 
+static void \hyperlink{macmenu_8c_a03b74f797e76f7bd03f731d891fe0349}{ask\+Save} (void)
+\item 
+static void \hyperlink{macmenu_8c_a95e53f79513c2a360fb2d6ac549d40e4}{ask\+Quit} (void)
+\item 
+static void \hyperlink{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}{ask\+\_\+restring} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$cstr, unsigned char $\ast$pstr)
+\item 
+static void \hyperlink{macmenu_8c_a4b63d5c730eeafc67853dd0016e8561a}{ask\+\_\+enable} (Dialog\+Ref wind, short item, int enable)
+\item 
+static pascal void \hyperlink{macmenu_8c_a48d41ec2e29aa8367917e79d0322aedf}{ask\+\_\+redraw} (Dialog\+Ref wind, Dialog\+Item\+Index item)
+\item 
+static pascal Boolean \hyperlink{macmenu_8c_aa5d592c78ac53770b4a495f38a2157bd}{ask\+\_\+filter} (Dialog\+Ref wind, Event\+Record $\ast$event, Dialog\+Item\+Index $\ast$item)
+\item 
+void \hyperlink{macmenu_8c_ae59423e364b81ddf8228e5f593bc8b06}{mac\+\_\+askname} ()
+\item 
+void \hyperlink{macmenu_8c_a27bdfbf06613e0160a9b9201fe1424c3}{Init\+Menu\+Res} ()
+\item 
+void \hyperlink{macmenu_8c_ae1b3f0744794bdc4332da2f604a8dbc3}{Adjust\+Menus} (short dim\+Menubar)
+\item 
+void \hyperlink{macmenu_8c_ab20fdf682773e28872ce3fbdafa60bbd}{Do\+Menu\+Evt} (long menu\+Entry)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Window\+Ptr \hyperlink{macmenu_8c_abfbaff06a50aea7b2035a3c443bb63ce}{\+\_\+mt\+\_\+window}
+\item 
+static unsigned char $\ast$ \hyperlink{macmenu_8c_a010710ff7f0f925d04e58532366e89fa}{menu\+Err\+Str} \mbox{[}\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a88de4d07b8fa108fc6b71a4def58d881}{err\+\_\+\+Menu\+\_\+total}\mbox{]}
+\item 
+static \hyperlink{macmenu_8c_aedd6a029606a6b9d77b75af2f3be5bcc}{menu\+List\+Ptr} \hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{p\+Menu\+List} \mbox{[}2\mbox{]}
+\item 
+static short \hyperlink{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{the\+Menubar} = \hyperlink{mrecover_8c_a39fca1837c5ce7715cbf571669660c13a8bbb453817cc35c26bb4cb5640d900e3}{mbar\+D\+A}
+\item 
+static short \hyperlink{macmenu_8c_aab720143bc129622492e4acbbc59255a}{k\+Adjust\+Wizard\+Menu} = 1
+\item 
+static Menu\+Handle \hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu} \mbox{[}\hyperlink{macmenu_8c_afd80c2d0085ffd29c830d668a51292e1}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X}\mbox{]}
+\item 
+static int \hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect} \mbox{[}\hyperlink{macmenu_8c_afd80c2d0085ffd29c830d668a51292e1}{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X}\mbox{]}
+\item 
+static R\+G\+B\+Color \hyperlink{macmenu_8c_ab40020a99f23e2b5cf53ed760540fdea}{blackcolor} = \{0x0000, 0x0000, 0x0000\}
+\item 
+static R\+G\+B\+Color \hyperlink{macmenu_8c_afd741c0f5142d7e55bc36004caf27b37}{darkcolor} = \{0x8000, 0x8000, 0x8000\}
+\item 
+static R\+G\+B\+Color \hyperlink{macmenu_8c_aff0b9ccd92c88d9e3e0dd6e5cdaf82ea}{backcolor} = \{0xdddd, 0xdddd, 0xdddd\}
+\item 
+static R\+G\+B\+Color \hyperlink{macmenu_8c_a176dfa03556fb872fb8a034cc56b7ec4}{lightcolor} = \{0xffff, 0xffff, 0xffff\}
+\item 
+static R\+G\+B\+Color \hyperlink{macmenu_8c_a48ffc652b0cfae5450bee6c2e34afe73}{whitecolor} = \{0xffff, 0xffff, 0xffff\}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{macmenu_8c_a841efbee4d95d466a04cbf13c6ae4221}{\index{macmenu.\+c@{macmenu.\+c}!beep\+Menu\+Alert\+Err@{beep\+Menu\+Alert\+Err}}
+\index{beep\+Menu\+Alert\+Err@{beep\+Menu\+Alert\+Err}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{beep\+Menu\+Alert\+Err}]{\setlength{\rightskip}{0pt plus 5cm}\#define beep\+Menu\+Alert\+Err~1		/$\ast$ \# of Sys\+Beep()'s before exitting $\ast$/}}\label{macmenu_8c_a841efbee4d95d466a04cbf13c6ae4221}
+
+
+Definition at line 189 of file macmenu.\+c.
+
+
+
+Referenced by menu\+Error(), and must\+Get\+Menu\+Alerts().
+
+\hypertarget{macmenu_8c_abc83812b9b3909f3146b0014d7977168}{\index{macmenu.\+c@{macmenu.\+c}!C\+H\+\_\+\+E\+N\+T\+E\+R@{C\+H\+\_\+\+E\+N\+T\+E\+R}}
+\index{C\+H\+\_\+\+E\+N\+T\+E\+R@{C\+H\+\_\+\+E\+N\+T\+E\+R}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{C\+H\+\_\+\+E\+N\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+\_\+\+E\+N\+T\+E\+R~0x0003}}\label{macmenu_8c_abc83812b9b3909f3146b0014d7977168}
+
+
+Definition at line 243 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter().
+
+\hypertarget{macmenu_8c_a1b67fcd45d68ddd8b8aafc3cd6dd6a42}{\index{macmenu.\+c@{macmenu.\+c}!C\+H\+\_\+\+E\+S\+C\+A\+P\+E@{C\+H\+\_\+\+E\+S\+C\+A\+P\+E}}
+\index{C\+H\+\_\+\+E\+S\+C\+A\+P\+E@{C\+H\+\_\+\+E\+S\+C\+A\+P\+E}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{C\+H\+\_\+\+E\+S\+C\+A\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+\_\+\+E\+S\+C\+A\+P\+E~0x001b}}\label{macmenu_8c_a1b67fcd45d68ddd8b8aafc3cd6dd6a42}
+
+
+Definition at line 244 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter().
+
+\hypertarget{macmenu_8c_ac9620c52d2527df3b40e10439130e15e}{\index{macmenu.\+c@{macmenu.\+c}!C\+H\+\_\+\+M\+A\+S\+K@{C\+H\+\_\+\+M\+A\+S\+K}}
+\index{C\+H\+\_\+\+M\+A\+S\+K@{C\+H\+\_\+\+M\+A\+S\+K}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{C\+H\+\_\+\+M\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+\_\+\+M\+A\+S\+K~0x00ff}}\label{macmenu_8c_ac9620c52d2527df3b40e10439130e15e}
+
+
+Definition at line 241 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter().
+
+\hypertarget{macmenu_8c_ad16150d987296ecfdc9c69b665fcce4f}{\index{macmenu.\+c@{macmenu.\+c}!C\+H\+\_\+\+R\+E\+T\+U\+R\+N@{C\+H\+\_\+\+R\+E\+T\+U\+R\+N}}
+\index{C\+H\+\_\+\+R\+E\+T\+U\+R\+N@{C\+H\+\_\+\+R\+E\+T\+U\+R\+N}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{C\+H\+\_\+\+R\+E\+T\+U\+R\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+\_\+\+R\+E\+T\+U\+R\+N~0x000d}}\label{macmenu_8c_ad16150d987296ecfdc9c69b665fcce4f}
+
+
+Definition at line 242 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter().
+
+\hypertarget{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{\index{macmenu.\+c@{macmenu.\+c}!curralign@{curralign}}
+\index{curralign@{curralign}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{curralign}]{\setlength{\rightskip}{0pt plus 5cm}\#define curralign~{\bf askselect}\mbox{[}{\bf R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N}\mbox{]}}}\label{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}
+
+
+Definition at line 258 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{\index{macmenu.\+c@{macmenu.\+c}!currgend@{currgend}}
+\index{currgend@{currgend}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{currgend}]{\setlength{\rightskip}{0pt plus 5cm}\#define currgend~{\bf askselect}\mbox{[}{\bf R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D}\mbox{]}}}\label{macmenu_8c_a546aca430d52c88f9e7578b589b323df}
+
+
+Definition at line 257 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{\index{macmenu.\+c@{macmenu.\+c}!currmode@{currmode}}
+\index{currmode@{currmode}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{currmode}]{\setlength{\rightskip}{0pt plus 5cm}\#define currmode~{\bf askselect}\mbox{[}{\bf R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E}\mbox{]}}}\label{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}
+
+
+Definition at line 259 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_adbafc5db37ec4724b16102563549210a}{\index{macmenu.\+c@{macmenu.\+c}!currrace@{currrace}}
+\index{currrace@{currrace}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{currrace}]{\setlength{\rightskip}{0pt plus 5cm}\#define currrace~{\bf askselect}\mbox{[}{\bf R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E}\mbox{]}}}\label{macmenu_8c_adbafc5db37ec4724b16102563549210a}
+
+
+Definition at line 256 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{\index{macmenu.\+c@{macmenu.\+c}!currrole@{currrole}}
+\index{currrole@{currrole}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{currrole}]{\setlength{\rightskip}{0pt plus 5cm}\#define currrole~{\bf askselect}\mbox{[}{\bf R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E}\mbox{]}}}\label{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}
+
+
+Definition at line 255 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_aa59d720a30ef6a81ae3087206a0af226}{\index{macmenu.\+c@{macmenu.\+c}!fatal@{fatal}}
+\index{fatal@{fatal}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{fatal}]{\setlength{\rightskip}{0pt plus 5cm}\#define fatal(
+\begin{DoxyParamCaption}
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~\{Sys\+Beep(3); Exit\+To\+Shell();\}}}\label{macmenu_8c_aa59d720a30ef6a81ae3087206a0af226}
+
+
+Definition at line 251 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_abcb53b94a9d6b7bfbde94b49c5f0830d}{\index{macmenu.\+c@{macmenu.\+c}!I\+D1\+\_\+\+M\+B\+A\+R@{I\+D1\+\_\+\+M\+B\+A\+R}}
+\index{I\+D1\+\_\+\+M\+B\+A\+R@{I\+D1\+\_\+\+M\+B\+A\+R}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{I\+D1\+\_\+\+M\+B\+A\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D1\+\_\+\+M\+B\+A\+R~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Menubar}\mbox{]}-\/$>$first\+Menu\+I\+D}}\label{macmenu_8c_abcb53b94a9d6b7bfbde94b49c5f0830d}
+
+
+Definition at line 135 of file macmenu.\+c.
+
+
+
+Referenced by Do\+Menu\+Evt().
+
+\hypertarget{macmenu_8c_a6473b28d4f31e64641e58534511df4ee}{\index{macmenu.\+c@{macmenu.\+c}!I\+D1\+\_\+\+S\+U\+B\+M@{I\+D1\+\_\+\+S\+U\+B\+M}}
+\index{I\+D1\+\_\+\+S\+U\+B\+M@{I\+D1\+\_\+\+S\+U\+B\+M}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{I\+D1\+\_\+\+S\+U\+B\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D1\+\_\+\+S\+U\+B\+M~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Submenu}\mbox{]}-\/$>$first\+Menu\+I\+D}}\label{macmenu_8c_a6473b28d4f31e64641e58534511df4ee}
+
+
+Definition at line 136 of file macmenu.\+c.
+
+\hypertarget{macmenu_8c_abaee5edb96e542206ae6c8102ac228af}{\index{macmenu.\+c@{macmenu.\+c}!K\+E\+Y\+\_\+\+E\+N\+T\+E\+R@{K\+E\+Y\+\_\+\+E\+N\+T\+E\+R}}
+\index{K\+E\+Y\+\_\+\+E\+N\+T\+E\+R@{K\+E\+Y\+\_\+\+E\+N\+T\+E\+R}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{K\+E\+Y\+\_\+\+E\+N\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+E\+Y\+\_\+\+E\+N\+T\+E\+R~0x4c00}}\label{macmenu_8c_abaee5edb96e542206ae6c8102ac228af}
+
+
+Definition at line 239 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter().
+
+\hypertarget{macmenu_8c_a6c8ee53908fc5d6df19f1da8502b38dc}{\index{macmenu.\+c@{macmenu.\+c}!K\+E\+Y\+\_\+\+E\+S\+C\+A\+P\+E@{K\+E\+Y\+\_\+\+E\+S\+C\+A\+P\+E}}
+\index{K\+E\+Y\+\_\+\+E\+S\+C\+A\+P\+E@{K\+E\+Y\+\_\+\+E\+S\+C\+A\+P\+E}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{K\+E\+Y\+\_\+\+E\+S\+C\+A\+P\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+E\+Y\+\_\+\+E\+S\+C\+A\+P\+E~0x3500}}\label{macmenu_8c_a6c8ee53908fc5d6df19f1da8502b38dc}
+
+
+Definition at line 240 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter().
+
+\hypertarget{macmenu_8c_ad0c475de6664a29bd77b0a977b7be38b}{\index{macmenu.\+c@{macmenu.\+c}!K\+E\+Y\+\_\+\+M\+A\+S\+K@{K\+E\+Y\+\_\+\+M\+A\+S\+K}}
+\index{K\+E\+Y\+\_\+\+M\+A\+S\+K@{K\+E\+Y\+\_\+\+M\+A\+S\+K}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{K\+E\+Y\+\_\+\+M\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+E\+Y\+\_\+\+M\+A\+S\+K~0xff00}}\label{macmenu_8c_ad0c475de6664a29bd77b0a977b7be38b}
+
+
+Definition at line 237 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter().
+
+\hypertarget{macmenu_8c_afe5716cf1626fceab51044a6c2492831}{\index{macmenu.\+c@{macmenu.\+c}!K\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N@{K\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N}}
+\index{K\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N@{K\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{K\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N~0x2400}}\label{macmenu_8c_afe5716cf1626fceab51044a6c2492831}
+
+
+Definition at line 238 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter().
+
+\hypertarget{macmenu_8c_a983a960d897b089134838f6be3d7a91b}{\index{macmenu.\+c@{macmenu.\+c}!M\+B\+A\+R\+H\+N\+D@{M\+B\+A\+R\+H\+N\+D}}
+\index{M\+B\+A\+R\+H\+N\+D@{M\+B\+A\+R\+H\+N\+D}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{M\+B\+A\+R\+H\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+B\+A\+R\+H\+N\+D(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Menubar}\mbox{]}-\/$>$mref\mbox{[}(x)\mbox{]}.mhnd}}\label{macmenu_8c_a983a960d897b089134838f6be3d7a91b}
+
+
+Definition at line 145 of file macmenu.\+c.
+
+
+
+Referenced by Adjust\+Menus().
+
+\hypertarget{macmenu_8c_a915ce6873ae137107924c6ea92e9cb46}{\index{macmenu.\+c@{macmenu.\+c}!M\+H\+N\+D\+\_\+\+A\+P\+P\+L\+E@{M\+H\+N\+D\+\_\+\+A\+P\+P\+L\+E}}
+\index{M\+H\+N\+D\+\_\+\+A\+P\+P\+L\+E@{M\+H\+N\+D\+\_\+\+A\+P\+P\+L\+E}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{M\+H\+N\+D\+\_\+\+A\+P\+P\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+H\+N\+D\+\_\+\+A\+P\+P\+L\+E~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Menubar}\mbox{]}-\/$>$mref\mbox{[}{\bf menu\+Apple}\mbox{]}.mhnd}}\label{macmenu_8c_a915ce6873ae137107924c6ea92e9cb46}
+
+
+Definition at line 141 of file macmenu.\+c.
+
+
+
+Referenced by Do\+Menu\+Evt().
+
+\hypertarget{macmenu_8c_a9b3f14363b035247cab32f3b78c774f6}{\index{macmenu.\+c@{macmenu.\+c}!M\+H\+N\+D\+\_\+\+E\+D\+I\+T@{M\+H\+N\+D\+\_\+\+E\+D\+I\+T}}
+\index{M\+H\+N\+D\+\_\+\+E\+D\+I\+T@{M\+H\+N\+D\+\_\+\+E\+D\+I\+T}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{M\+H\+N\+D\+\_\+\+E\+D\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+H\+N\+D\+\_\+\+E\+D\+I\+T~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Menubar}\mbox{]}-\/$>$mref\mbox{[}{\bf menu\+Edit}\mbox{]}.mhnd}}\label{macmenu_8c_a9b3f14363b035247cab32f3b78c774f6}
+
+
+Definition at line 143 of file macmenu.\+c.
+
+
+
+Referenced by Adjust\+Menus().
+
+\hypertarget{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{\index{macmenu.\+c@{macmenu.\+c}!M\+H\+N\+D\+\_\+\+F\+I\+L\+E@{M\+H\+N\+D\+\_\+\+F\+I\+L\+E}}
+\index{M\+H\+N\+D\+\_\+\+F\+I\+L\+E@{M\+H\+N\+D\+\_\+\+F\+I\+L\+E}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{M\+H\+N\+D\+\_\+\+F\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+H\+N\+D\+\_\+\+F\+I\+L\+E~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Menubar}\mbox{]}-\/$>$mref\mbox{[}{\bf menu\+File}\mbox{]}.mhnd}}\label{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}
+
+
+Definition at line 142 of file macmenu.\+c.
+
+
+
+Referenced by Adjust\+Menus().
+
+\hypertarget{macmenu_8c_af9e67875879ec2b7daa0e560cf02da6a}{\index{macmenu.\+c@{macmenu.\+c}!M\+H\+N\+D\+\_\+\+W\+I\+Z@{M\+H\+N\+D\+\_\+\+W\+I\+Z}}
+\index{M\+H\+N\+D\+\_\+\+W\+I\+Z@{M\+H\+N\+D\+\_\+\+W\+I\+Z}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{M\+H\+N\+D\+\_\+\+W\+I\+Z}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+H\+N\+D\+\_\+\+W\+I\+Z~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Submenu}\mbox{]}-\/$>$mref\mbox{[}{\bf menu\+Wizard}\mbox{]}.mhnd}}\label{macmenu_8c_af9e67875879ec2b7daa0e560cf02da6a}
+
+
+Definition at line 147 of file macmenu.\+c.
+
+
+
+Referenced by Adjust\+Menus().
+
+\hypertarget{macmenu_8c_ac83e183eb03be8981aedf7b5f25dc9d9}{\index{macmenu.\+c@{macmenu.\+c}!mstr\+End\+Char@{mstr\+End\+Char}}
+\index{mstr\+End\+Char@{mstr\+End\+Char}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{mstr\+End\+Char}]{\setlength{\rightskip}{0pt plus 5cm}\#define mstr\+End\+Char~0x\+A5		/$\ast$ '\textbackslash{}245' or option-\/$\ast$ or \char`\"{}bullet\char`\"{} $\ast$/}}\label{macmenu_8c_ac83e183eb03be8981aedf7b5f25dc9d9}
+
+
+Definition at line 178 of file macmenu.\+c.
+
+
+
+Referenced by Do\+Menu\+Evt().
+
+\hypertarget{macmenu_8c_a6411b89db3229d7d625730084ef22db5}{\index{macmenu.\+c@{macmenu.\+c}!noresource@{noresource}}
+\index{noresource@{noresource}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{noresource}]{\setlength{\rightskip}{0pt plus 5cm}\#define noresource(
+\begin{DoxyParamCaption}
+\item[{}]{t, }
+\item[{}]{n}
+\end{DoxyParamCaption}
+)~\{Sys\+Beep(3); Exit\+To\+Shell();\}}}\label{macmenu_8c_a6411b89db3229d7d625730084ef22db5}
+
+
+Definition at line 250 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_a9ced5ef2d1e44e4eb76f80a8e3305b28}{\index{macmenu.\+c@{macmenu.\+c}!N\+U\+M\+\_\+\+M\+B\+A\+R@{N\+U\+M\+\_\+\+M\+B\+A\+R}}
+\index{N\+U\+M\+\_\+\+M\+B\+A\+R@{N\+U\+M\+\_\+\+M\+B\+A\+R}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{N\+U\+M\+\_\+\+M\+B\+A\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+M\+B\+A\+R~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Menubar}\mbox{]}-\/$>$num\+Menus}}\label{macmenu_8c_a9ced5ef2d1e44e4eb76f80a8e3305b28}
+
+
+Definition at line 138 of file macmenu.\+c.
+
+
+
+Referenced by Adjust\+Menus().
+
+\hypertarget{macmenu_8c_a447b84be0a7e093f2ec8c81d069337a5}{\index{macmenu.\+c@{macmenu.\+c}!N\+U\+M\+\_\+\+S\+U\+B\+M@{N\+U\+M\+\_\+\+S\+U\+B\+M}}
+\index{N\+U\+M\+\_\+\+S\+U\+B\+M@{N\+U\+M\+\_\+\+S\+U\+B\+M}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{N\+U\+M\+\_\+\+S\+U\+B\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+S\+U\+B\+M~{\bf p\+Menu\+List}\mbox{[}{\bf list\+Submenu}\mbox{]}-\/$>$num\+Menus}}\label{macmenu_8c_a447b84be0a7e093f2ec8c81d069337a5}
+
+
+Definition at line 139 of file macmenu.\+c.
+
+\hypertarget{macmenu_8c_a304b7aa8615ac61411a852a2a98303af}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K@{R\+S\+R\+C\+\_\+\+A\+S\+K}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K@{R\+S\+R\+C\+\_\+\+A\+S\+K}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K~6000	/$\ast$ Askname dialog and item list $\ast$/}}\label{macmenu_8c_a304b7aa8615ac61411a852a2a98303af}
+
+
+Definition at line 225 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_ac4741548354affc91c823ec79f834d44}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N~7	/$\ast$	Alignment popup {\bf menu} $\ast$/}}\label{macmenu_8c_ac4741548354affc91c823ec79f834d44}
+
+
+Definition at line 232 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_a4d50aacc97668b3960cb450dcfc69358}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T~3	/$\ast$	Default ring $\ast$/}}\label{macmenu_8c_a4d50aacc97668b3960cb450dcfc69358}
+
+
+Definition at line 228 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D~6	/$\ast$	{\bf Gender} popup {\bf menu} $\ast$/}}\label{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}
+
+
+Definition at line 231 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_afd80c2d0085ffd29c830d668a51292e1}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X~10	/$\ast$	Maximum enabled item $\ast$/}}\label{macmenu_8c_afd80c2d0085ffd29c830d668a51292e1}
+
+
+Definition at line 235 of file macmenu.\+c.
+
+\hypertarget{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E~8	/$\ast$	Mode popup {\bf menu} $\ast$/}}\label{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}
+
+
+Definition at line 233 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter(), ask\+\_\+redraw(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E~9	/$\ast$	Name text field $\ast$/}}\label{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}
+
+
+Definition at line 234 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter(), ask\+\_\+redraw(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_a5a6131db1a398cfb5bdb68cba2010b10}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y~1	/$\ast$	Play button $\ast$/}}\label{macmenu_8c_a5a6131db1a398cfb5bdb68cba2010b10}
+
+
+Definition at line 226 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_a4a37bed439c88606e423b3e842791de8}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T~2	/$\ast$	Quit button $\ast$/}}\label{macmenu_8c_a4a37bed439c88606e423b3e842791de8}
+
+
+Definition at line 227 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+filter(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E~5	/$\ast$	{\bf Race} popup {\bf menu} $\ast$/}}\label{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}
+
+
+Definition at line 230 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{\index{macmenu.\+c@{macmenu.\+c}!R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E}}
+\index{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E@{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E~4	/$\ast$	{\bf Role} popup {\bf menu} $\ast$/}}\label{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}
+
+
+Definition at line 229 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_ab38ea8c3d29870617af8fb86b18c074c}{\index{macmenu.\+c@{macmenu.\+c}!W\+K\+N\+D\+\_\+\+M\+A\+P@{W\+K\+N\+D\+\_\+\+M\+A\+P}}
+\index{W\+K\+N\+D\+\_\+\+M\+A\+P@{W\+K\+N\+D\+\_\+\+M\+A\+P}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{W\+K\+N\+D\+\_\+\+M\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+K\+N\+D\+\_\+\+M\+A\+P~({\bf W\+I\+N\+\_\+\+B\+A\+S\+E\+\_\+\+K\+I\+N\+D} + {\bf N\+H\+W\+\_\+\+M\+A\+P})}}\label{macmenu_8c_ab38ea8c3d29870617af8fb86b18c074c}
+
+
+Definition at line 161 of file macmenu.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{macmenu_8c_abc5539239ee9e4de37321f58efa1556a}{\index{macmenu.\+c@{macmenu.\+c}!menu\+List\+Handle@{menu\+List\+Handle}}
+\index{menu\+List\+Handle@{menu\+List\+Handle}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{menu\+List\+Handle}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf menu\+List\+Rec} $\ast$$\ast$ {\bf menu\+List\+Handle}}}\label{macmenu_8c_abc5539239ee9e4de37321f58efa1556a}
+\hypertarget{macmenu_8c_aedd6a029606a6b9d77b75af2f3be5bcc}{\index{macmenu.\+c@{macmenu.\+c}!menu\+List\+Ptr@{menu\+List\+Ptr}}
+\index{menu\+List\+Ptr@{menu\+List\+Ptr}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{menu\+List\+Ptr}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf menu\+List\+Rec} $\ast$ {\bf menu\+List\+Ptr}}}\label{macmenu_8c_aedd6a029606a6b9d77b75af2f3be5bcc}
+\hypertarget{macmenu_8c_a0d967fcc6773d4e4fe29d57f5cd85b53}{\index{macmenu.\+c@{macmenu.\+c}!menu\+List\+Rec@{menu\+List\+Rec}}
+\index{menu\+List\+Rec@{menu\+List\+Rec}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{menu\+List\+Rec}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf menu\+List\+Rec}  {\bf menu\+List\+Rec}}}\label{macmenu_8c_a0d967fcc6773d4e4fe29d57f5cd85b53}
+\hypertarget{macmenu_8c_a65283d8dd6f1748b3008a5bcd2b8bf01}{\index{macmenu.\+c@{macmenu.\+c}!menu\+Ref\+Unn@{menu\+Ref\+Unn}}
+\index{menu\+Ref\+Unn@{menu\+Ref\+Unn}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{menu\+Ref\+Unn}]{\setlength{\rightskip}{0pt plus 5cm}typedef union {\bf menu\+Ref\+Unn}  {\bf menu\+Ref\+Unn}}}\label{macmenu_8c_a65283d8dd6f1748b3008a5bcd2b8bf01}
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{list\+Menubar@{list\+Menubar}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!list\+Menubar@{list\+Menubar}}\item[{\em 
+\hypertarget{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{list\+Menubar}\label{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}
+}]\index{list\+Submenu@{list\+Submenu}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!list\+Submenu@{list\+Submenu}}\item[{\em 
+\hypertarget{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}{list\+Submenu}\label{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}
+}]\index{menu\+Bar\+List\+I\+D@{menu\+Bar\+List\+I\+D}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+Bar\+List\+I\+D@{menu\+Bar\+List\+I\+D}}\item[{\em 
+\hypertarget{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25aab3c6542717c75ce2f43bd9b7166ef43}{menu\+Bar\+List\+I\+D}\label{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25aab3c6542717c75ce2f43bd9b7166ef43}
+}]\index{sub\+Menu\+List\+I\+D@{sub\+Menu\+List\+I\+D}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!sub\+Menu\+List\+I\+D@{sub\+Menu\+List\+I\+D}}\item[{\em 
+\hypertarget{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25a09bf445de6e6d389cdae02611acc1515}{sub\+Menu\+List\+I\+D}\label{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25a09bf445de6e6d389cdae02611acc1515}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 60 of file macmenu.\+c.
+
+
+\begin{DoxyCode}
+61 \{
+62     \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{listMenubar},
+63     \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}{listSubmenu},
+64 
+65     \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25aab3c6542717c75ce2f43bd9b7166ef43}{menuBarListID} = 128,
+66     \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25a09bf445de6e6d389cdae02611acc1515}{subMenuListID}
+67 \};
+\end{DoxyCode}
+\hypertarget{macmenu_8c_aaf105ae5beaca1dee30ae54530691fce}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{macmenu_8c_aaf105ae5beaca1dee30ae54530691fce}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{menu\+Apple@{menu\+Apple}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+Apple@{menu\+Apple}}\item[{\em 
+\hypertarget{macmenu_8c_aaf105ae5beaca1dee30ae54530691fceaf638c9135c08bbb4fd140c25587cadca}{menu\+Apple}\label{macmenu_8c_aaf105ae5beaca1dee30ae54530691fceaf638c9135c08bbb4fd140c25587cadca}
+}]\index{menu\+File@{menu\+File}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+File@{menu\+File}}\item[{\em 
+\hypertarget{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea897d91548e60ea0a6d64aca07c8c61e5}{menu\+File}\label{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea897d91548e60ea0a6d64aca07c8c61e5}
+}]\index{menu\+Edit@{menu\+Edit}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+Edit@{menu\+Edit}}\item[{\em 
+\hypertarget{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea73a15e90b1f803bdab06a2b5ba2882f4}{menu\+Edit}\label{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea73a15e90b1f803bdab06a2b5ba2882f4}
+}]\index{menu\+Wizard@{menu\+Wizard}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+Wizard@{menu\+Wizard}}\item[{\em 
+\hypertarget{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea35979a090b2ebbc1b6f95b30983db30c}{menu\+Wizard}\label{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea35979a090b2ebbc1b6f95b30983db30c}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 70 of file macmenu.\+c.
+
+
+\begin{DoxyCode}
+71 \{
+72     \textcolor{comment}{/* menu bar */}
+73     \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fceaf638c9135c08bbb4fd140c25587cadca}{menuApple},
+74     \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea897d91548e60ea0a6d64aca07c8c61e5}{menuFile},
+75     \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea73a15e90b1f803bdab06a2b5ba2882f4}{menuEdit},
+76 
+77     \textcolor{comment}{/* submenu */}
+78     \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea35979a090b2ebbc1b6f95b30983db30c}{menuWizard} = 0
+79 \};
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52caba}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{macmenu_8c_a80155586fa275b28773c9b203f52caba}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{menu\+Apple\+About\+Box@{menu\+Apple\+About\+Box}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+Apple\+About\+Box@{menu\+Apple\+About\+Box}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa13398885933f7fb57a73604667e2a0e9}{menu\+Apple\+About\+Box}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa13398885933f7fb57a73604667e2a0e9}
+}]\index{\+\_\+\+\_\+\+\_\+\+\_\+\+Apple\+\_\+\+\_\+1@{\+\_\+\+\_\+\+\_\+\+\_\+\+Apple\+\_\+\+\_\+1}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!\+\_\+\+\_\+\+\_\+\+\_\+\+Apple\+\_\+\+\_\+1@{\+\_\+\+\_\+\+\_\+\+\_\+\+Apple\+\_\+\+\_\+1}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa14ad763f9ccc7466c84a1fdba9dcfea8}{\+\_\+\+\_\+\+\_\+\+\_\+\+Apple\+\_\+\+\_\+1}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa14ad763f9ccc7466c84a1fdba9dcfea8}
+}]\index{menu\+File\+Redraw@{menu\+File\+Redraw}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+File\+Redraw@{menu\+File\+Redraw}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaade9208aa80f23e98c0baf8197a2687f5}{menu\+File\+Redraw}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaade9208aa80f23e98c0baf8197a2687f5}
+}]\index{menu\+File\+Prev\+Msg@{menu\+File\+Prev\+Msg}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+File\+Prev\+Msg@{menu\+File\+Prev\+Msg}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaa1d817989838fc4b6ea51ea918c1869}{menu\+File\+Prev\+Msg}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaa1d817989838fc4b6ea51ea918c1869}
+}]\index{menu\+File\+Cleanup@{menu\+File\+Cleanup}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+File\+Cleanup@{menu\+File\+Cleanup}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa8714d8d7400f9294db88fdc23552f44b}{menu\+File\+Cleanup}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa8714d8d7400f9294db88fdc23552f44b}
+}]\index{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+1@{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+1}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+1@{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+1}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa156f224f616ba274796b7fbb2b760c89}{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+1}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa156f224f616ba274796b7fbb2b760c89}
+}]\index{menu\+File\+Play\+Mode@{menu\+File\+Play\+Mode}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+File\+Play\+Mode@{menu\+File\+Play\+Mode}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6f8c1472e99a5976161f61cc873c074c}{menu\+File\+Play\+Mode}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6f8c1472e99a5976161f61cc873c074c}
+}]\index{menu\+File\+Enter\+Explore@{menu\+File\+Enter\+Explore}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+File\+Enter\+Explore@{menu\+File\+Enter\+Explore}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa151546b07086ac457d4760d7d1fff0f5}{menu\+File\+Enter\+Explore}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa151546b07086ac457d4760d7d1fff0f5}
+}]\index{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+2@{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+2}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+2@{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+2}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa15efa849a4590885cd3d996c9093c5da}{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+2}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa15efa849a4590885cd3d996c9093c5da}
+}]\index{menu\+File\+Save@{menu\+File\+Save}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+File\+Save@{menu\+File\+Save}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6361c24212165430afb64ffa5fe04a8d}{menu\+File\+Save}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6361c24212165430afb64ffa5fe04a8d}
+}]\index{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+3@{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+3}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+3@{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+3}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa7bf91321307a1bbf4086191a168ff195}{\+\_\+\+\_\+\+\_\+\+\_\+\+File\+\_\+\+\_\+\+\_\+3}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa7bf91321307a1bbf4086191a168ff195}
+}]\index{menu\+File\+Quit@{menu\+File\+Quit}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+File\+Quit@{menu\+File\+Quit}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaf14300476e224af39e290cbb1633675}{menu\+File\+Quit}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaf14300476e224af39e290cbb1633675}
+}]\index{menu\+Wizard\+Attributes@{menu\+Wizard\+Attributes}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!menu\+Wizard\+Attributes@{menu\+Wizard\+Attributes}}\item[{\em 
+\hypertarget{macmenu_8c_a80155586fa275b28773c9b203f52cabaa38ff9041f29d12603b8fce6cdafb6cac}{menu\+Wizard\+Attributes}\label{macmenu_8c_a80155586fa275b28773c9b203f52cabaa38ff9041f29d12603b8fce6cdafb6cac}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 82 of file macmenu.\+c.
+
+
+\begin{DoxyCode}
+83 \{
+84     \textcolor{comment}{/* apple */}
+85     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa13398885933f7fb57a73604667e2a0e9}{menuAppleAboutBox} = 1,
+86     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa14ad763f9ccc7466c84a1fdba9dcfea8}{\_\_\_\_Apple\_\_1},
+87 
+88     \textcolor{comment}{/* File */}
+89     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaade9208aa80f23e98c0baf8197a2687f5}{menuFileRedraw} = 1,
+90     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaa1d817989838fc4b6ea51ea918c1869}{menuFilePrevMsg},
+91     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa8714d8d7400f9294db88fdc23552f44b}{menuFileCleanup},
+92     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa156f224f616ba274796b7fbb2b760c89}{\_\_\_\_File\_\_\_1},
+93     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6f8c1472e99a5976161f61cc873c074c}{menuFilePlayMode},
+94     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa151546b07086ac457d4760d7d1fff0f5}{menuFileEnterExplore},
+95     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa15efa849a4590885cd3d996c9093c5da}{\_\_\_\_File\_\_\_2},
+96     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6361c24212165430afb64ffa5fe04a8d}{menuFileSave},
+97     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa7bf91321307a1bbf4086191a168ff195}{\_\_\_\_File\_\_\_3},
+98     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaf14300476e224af39e290cbb1633675}{menuFileQuit},
+99 
+100     \textcolor{comment}{/* standard minimum Edit menu items */}
+101 
+102     \textcolor{comment}{/* Wizard */}
+103     \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa38ff9041f29d12603b8fce6cdafb6cac}{menuWizardAttributes} = 1
+104 \};
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a6b7b47dd702d9e331586d485013fd1ea}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{macmenu_8c_a6b7b47dd702d9e331586d485013fd1ea}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{mbar\+Dim@{mbar\+Dim}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!mbar\+Dim@{mbar\+Dim}}\item[{\em 
+\hypertarget{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa069fd2187ec2a5d96e908c37ba6699b7}{mbar\+Dim}\label{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa069fd2187ec2a5d96e908c37ba6699b7}
+}]\index{mbar\+No\+Windows@{mbar\+No\+Windows}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!mbar\+No\+Windows@{mbar\+No\+Windows}}\item[{\em 
+\hypertarget{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa6da5cbca84d0840ad32de1599109dd63}{mbar\+No\+Windows}\label{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa6da5cbca84d0840ad32de1599109dd63}
+}]\index{mbar\+D\+A@{mbar\+D\+A}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!mbar\+D\+A@{mbar\+D\+A}}\item[{\em 
+\hypertarget{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8bbb453817cc35c26bb4cb5640d900e3}{mbar\+D\+A}\label{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8bbb453817cc35c26bb4cb5640d900e3}
+}]\index{mbar\+No\+Map@{mbar\+No\+Map}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!mbar\+No\+Map@{mbar\+No\+Map}}\item[{\em 
+\hypertarget{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8fb2dcb5f71aca50c2b3f57210fe2ce2}{mbar\+No\+Map}\label{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8fb2dcb5f71aca50c2b3f57210fe2ce2}
+}]\index{mbar\+Regular@{mbar\+Regular}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!mbar\+Regular@{mbar\+Regular}}\item[{\em 
+\hypertarget{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbar\+Regular}\label{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}
+}]\index{mbar\+Special@{mbar\+Special}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!mbar\+Special@{mbar\+Special}}\item[{\em 
+\hypertarget{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaad41ae05a9d6f81a63893e8a036cbffa4}{mbar\+Special}\label{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaad41ae05a9d6f81a63893e8a036cbffa4}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 151 of file macmenu.\+c.
+
+
+\begin{DoxyCode}
+152 \{
+153     \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa069fd2187ec2a5d96e908c37ba6699b7}{mbarDim},
+154     \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa6da5cbca84d0840ad32de1599109dd63}{mbarNoWindows},
+155     \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8bbb453817cc35c26bb4cb5640d900e3}{mbarDA},
+156     \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8fb2dcb5f71aca50c2b3f57210fe2ce2}{mbarNoMap},
+157     \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbarRegular},
+158     \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaad41ae05a9d6f81a63893e8a036cbffa4}{mbarSpecial}                  \textcolor{comment}{/* explore or debug mode */}
+159 \};
+\end{DoxyCode}
+\hypertarget{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{err\+Get\+Menu\+List@{err\+Get\+Menu\+List}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!err\+Get\+Menu\+List@{err\+Get\+Menu\+List}}\item[{\em 
+\hypertarget{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a03c03198357f91b5341b3cf6c7a39a2e}{err\+Get\+Menu\+List}\label{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a03c03198357f91b5341b3cf6c7a39a2e}
+}]\index{err\+Get\+Menu@{err\+Get\+Menu}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!err\+Get\+Menu@{err\+Get\+Menu}}\item[{\em 
+\hypertarget{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a78d6c64d5e90f2b087bef12e40d3c85f}{err\+Get\+Menu}\label{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a78d6c64d5e90f2b087bef12e40d3c85f}
+}]\index{err\+Get\+A\+N\+Dlog\+Template@{err\+Get\+A\+N\+Dlog\+Template}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!err\+Get\+A\+N\+Dlog\+Template@{err\+Get\+A\+N\+Dlog\+Template}}\item[{\em 
+\hypertarget{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960aaff96c672b29e548ac46e38ea2d56dc4}{err\+Get\+A\+N\+Dlog\+Template}\label{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960aaff96c672b29e548ac46e38ea2d56dc4}
+}]\index{err\+Get\+A\+N\+Dlog\+Items@{err\+Get\+A\+N\+Dlog\+Items}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!err\+Get\+A\+N\+Dlog\+Items@{err\+Get\+A\+N\+Dlog\+Items}}\item[{\em 
+\hypertarget{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960ae584aacbbda4049c0d83ccb3abb20136}{err\+Get\+A\+N\+Dlog\+Items}\label{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960ae584aacbbda4049c0d83ccb3abb20136}
+}]\index{err\+Get\+A\+N\+Dialog@{err\+Get\+A\+N\+Dialog}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!err\+Get\+A\+N\+Dialog@{err\+Get\+A\+N\+Dialog}}\item[{\em 
+\hypertarget{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a527ebeb964b9fc57bf219c1f7424fb2c}{err\+Get\+A\+N\+Dialog}\label{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a527ebeb964b9fc57bf219c1f7424fb2c}
+}]\index{err\+A\+N\+New\+Menu@{err\+A\+N\+New\+Menu}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!err\+A\+N\+New\+Menu@{err\+A\+N\+New\+Menu}}\item[{\em 
+\hypertarget{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a570ad9552f7de00066e1500f4bfc1a68}{err\+A\+N\+New\+Menu}\label{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a570ad9552f7de00066e1500f4bfc1a68}
+}]\index{err\+\_\+\+Menu\+\_\+total@{err\+\_\+\+Menu\+\_\+total}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!err\+\_\+\+Menu\+\_\+total@{err\+\_\+\+Menu\+\_\+total}}\item[{\em 
+\hypertarget{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a88de4d07b8fa108fc6b71a4def58d881}{err\+\_\+\+Menu\+\_\+total}\label{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a88de4d07b8fa108fc6b71a4def58d881}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 165 of file macmenu.\+c.
+
+
+\begin{DoxyCode}
+166 \{
+167     \hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a03c03198357f91b5341b3cf6c7a39a2e}{errGetMenuList},
+168     \hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a78d6c64d5e90f2b087bef12e40d3c85f}{errGetMenu},
+169     \hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960aaff96c672b29e548ac46e38ea2d56dc4}{errGetANDlogTemplate},
+170     \hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960ae584aacbbda4049c0d83ccb3abb20136}{errGetANDlogItems},
+171     \hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a527ebeb964b9fc57bf219c1f7424fb2c}{errGetANDialog},
+172     \hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a570ad9552f7de00066e1500f4bfc1a68}{errANNewMenu},
+173     \hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a88de4d07b8fa108fc6b71a4def58d881}{err\_Menu\_total}
+174 \};
+\end{DoxyCode}
+\hypertarget{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{alrt\+\_\+\+Menu\+\_\+start@{alrt\+\_\+\+Menu\+\_\+start}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!alrt\+\_\+\+Menu\+\_\+start@{alrt\+\_\+\+Menu\+\_\+start}}\item[{\em 
+\hypertarget{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409aa8cf4f71ac8c676c4e7ecf7e9ec5d4b5}{alrt\+\_\+\+Menu\+\_\+start}\label{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409aa8cf4f71ac8c676c4e7ecf7e9ec5d4b5}
+}]\index{alrt\+Menu\+Note@{alrt\+Menu\+Note}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!alrt\+Menu\+Note@{alrt\+Menu\+Note}}\item[{\em 
+\hypertarget{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a538dd9c5a5c08f0ea11c10f12ded04d6}{alrt\+Menu\+Note}\label{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a538dd9c5a5c08f0ea11c10f12ded04d6}
+}]\index{alrt\+Menu\+\_\+\+N\+Y@{alrt\+Menu\+\_\+\+N\+Y}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!alrt\+Menu\+\_\+\+N\+Y@{alrt\+Menu\+\_\+\+N\+Y}}\item[{\em 
+\hypertarget{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409af1438a788640970c73d52be7bb063cb3}{alrt\+Menu\+\_\+\+N\+Y}\label{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409af1438a788640970c73d52be7bb063cb3}
+}]\index{alrt\+\_\+\+Menu\+\_\+limit@{alrt\+\_\+\+Menu\+\_\+limit}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!alrt\+\_\+\+Menu\+\_\+limit@{alrt\+\_\+\+Menu\+\_\+limit}}\item[{\em 
+\hypertarget{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a63882e0b47f9d41314e4a8653b5fcc96}{alrt\+\_\+\+Menu\+\_\+limit}\label{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a63882e0b47f9d41314e4a8653b5fcc96}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 181 of file macmenu.\+c.
+
+
+\begin{DoxyCode}
+182 \{
+183     \hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409aa8cf4f71ac8c676c4e7ecf7e9ec5d4b5}{alrt\_Menu\_start} = 5000,
+184     \hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a538dd9c5a5c08f0ea11c10f12ded04d6}{alrtMenuNote} = \hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409aa8cf4f71ac8c676c4e7ecf7e9ec5d4b5}{alrt\_Menu\_start},
+185     \hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409af1438a788640970c73d52be7bb063cb3}{alrtMenu\_NY},
+186     \hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a63882e0b47f9d41314e4a8653b5fcc96}{alrt\_Menu\_limit}
+187 \};
+\end{DoxyCode}
+\hypertarget{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9}{\subsubsection[{anonymous enum}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}}\label{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{bttn\+Menu\+Alert\+No@{bttn\+Menu\+Alert\+No}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!bttn\+Menu\+Alert\+No@{bttn\+Menu\+Alert\+No}}\item[{\em 
+\hypertarget{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9a73a97e5d7d76e48d7921dd9a7f26d8de}{bttn\+Menu\+Alert\+No}\label{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9a73a97e5d7d76e48d7921dd9a7f26d8de}
+}]\index{bttn\+Menu\+Alert\+Yes@{bttn\+Menu\+Alert\+Yes}!macmenu.\+c@{macmenu.\+c}}\index{macmenu.\+c@{macmenu.\+c}!bttn\+Menu\+Alert\+Yes@{bttn\+Menu\+Alert\+Yes}}\item[{\em 
+\hypertarget{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9ad6c6da24153945e0257457e89463b369}{bttn\+Menu\+Alert\+Yes}\label{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9ad6c6da24153945e0257457e89463b369}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 190 of file macmenu.\+c.
+
+
+\begin{DoxyCode}
+191 \{
+192     \hyperlink{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9a73a97e5d7d76e48d7921dd9a7f26d8de}{bttnMenuAlertNo} = 1,
+193     \hyperlink{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9ad6c6da24153945e0257457e89463b369}{bttnMenuAlertYes}
+194 \};
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\hypertarget{macmenu_8c_ab2740dd2cf8332d13a6e9001c65cac8b}{\index{macmenu.\+c@{macmenu.\+c}!about\+Net\+Hack@{about\+Net\+Hack}}
+\index{about\+Net\+Hack@{about\+Net\+Hack}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{about\+Net\+Hack}]{\setlength{\rightskip}{0pt plus 5cm}static void about\+Net\+Hack (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_ab2740dd2cf8332d13a6e9001c65cac8b}
+
+
+Definition at line 1102 of file macmenu.\+c.
+
+
+
+References alrt\+Menu\+Note, doversion(), mbar\+Regular, P\+A\+T\+C\+H\+L\+E\+V\+E\+L, and the\+Menubar.
+
+
+
+Referenced by Do\+Menu\+Evt().
+
+
+\begin{DoxyCode}
+1102                \{
+1103     \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{theMenubar} >= \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbarRegular}) \{
+1104         (void) \hyperlink{version_8c_aa4ba7dc175f40ea8f0bf32fbb6d9dbcd}{doversion}();                \textcolor{comment}{/* is this necessary? */}
+1105     \} \textcolor{keywordflow}{else} \{
+1106         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} aboutStr[32] = \textcolor{stringliteral}{"\(\backslash\)pNetHack 3.4."};
+1107 
+1108         \textcolor{keywordflow}{if} (\hyperlink{patchlevel_8h_a0e36fabb240fb841cc1df19b076f45c9}{PATCHLEVEL} > 10) \{
+1109             aboutStr[++aboutStr[0]] = \textcolor{charliteral}{'0'}+\hyperlink{patchlevel_8h_a0e36fabb240fb841cc1df19b076f45c9}{PATCHLEVEL}/10;
+1110         \}
+1111 
+1112         aboutStr[++aboutStr[0]] = \textcolor{charliteral}{'0'} + (\hyperlink{patchlevel_8h_a0e36fabb240fb841cc1df19b076f45c9}{PATCHLEVEL} % 10);
+1113 
+1114         ParamText(aboutStr, \textcolor{stringliteral}{"\(\backslash\)p\(\backslash\)rdevteam@www.nethack.org"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"});
+1115         (void) Alert(\hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a538dd9c5a5c08f0ea11c10f12ded04d6}{alrtMenuNote}, (ModalFilterUPP) 0L);
+1116         ResetAlertStage();
+1117     \}
+1118 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_ae1b3f0744794bdc4332da2f604a8dbc3}{\index{macmenu.\+c@{macmenu.\+c}!Adjust\+Menus@{Adjust\+Menus}}
+\index{Adjust\+Menus@{Adjust\+Menus}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{Adjust\+Menus}]{\setlength{\rightskip}{0pt plus 5cm}void Adjust\+Menus (
+\begin{DoxyParamCaption}
+\item[{short}]{dim\+Menubar}
+\end{DoxyParamCaption}
+)}}\label{macmenu_8c_ae1b3f0744794bdc4332da2f604a8dbc3}
+
+
+Definition at line 913 of file macmenu.\+c.
+
+
+
+References \+\_\+mt\+\_\+window, discover, k\+Adjust\+Wizard\+Menu, mbar\+D\+A, mbar\+Dim, M\+B\+A\+R\+H\+N\+D, mbar\+No\+Map, mbar\+No\+Windows, mbar\+Regular, mbar\+Special, menu\+Edit, menu\+File, menu\+File\+Enter\+Explore, menu\+File\+Play\+Mode, menu\+File\+Redraw, menu\+Wizard\+Attributes, M\+H\+N\+D\+\_\+\+E\+D\+I\+T, M\+H\+N\+D\+\_\+\+F\+I\+L\+E, M\+H\+N\+D\+\_\+\+W\+I\+Z, N\+U\+M\+\_\+\+M\+B\+A\+R, the\+Menubar, and wizard.
+
+
+\begin{DoxyCode}
+914 \{
+915     \textcolor{keywordtype}{short}       newMenubar = \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbarRegular};
+916     WindowRef win = FrontWindow();
+917     \textcolor{keywordtype}{short}       i;
+918 
+919     \textcolor{comment}{/*}
+920 \textcolor{comment}{     *  if (windowprocs != mac\_procs) \{}
+921 \textcolor{comment}{     *      return;}
+922 \textcolor{comment}{     *  \}}
+923 \textcolor{comment}{     */}
+924     \textcolor{comment}{/* determine the new menubar state */}
+925     \textcolor{keywordflow}{if} (dimMenubar)
+926         newMenubar = \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa069fd2187ec2a5d96e908c37ba6699b7}{mbarDim};
+927     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!win)
+928         newMenubar = \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa6da5cbca84d0840ad32de1599109dd63}{mbarNoWindows};
+929     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (GetWindowKind(win) < 0)
+930         newMenubar = \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8bbb453817cc35c26bb4cb5640d900e3}{mbarDA};
+931     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!IsWindowVisible(\hyperlink{macmenu_8c_abfbaff06a50aea7b2035a3c443bb63ce}{\_mt\_window}))
+932         newMenubar = \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8fb2dcb5f71aca50c2b3f57210fe2ce2}{mbarNoMap};
+933 
+934     \textcolor{keywordflow}{if} (newMenubar != \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbarRegular})
+935         ;                           \textcolor{comment}{/* we've already found its state */}
+936 \textcolor{preprocessor}{#ifdef WIZARD}
+937     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard})
+938     \{
+939         newMenubar = \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaad41ae05a9d6f81a63893e8a036cbffa4}{mbarSpecial};
+940 
+941         \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_aab720143bc129622492e4acbbc59255a}{kAdjustWizardMenu})
+942         \{
+943             \hyperlink{macmenu_8c_aab720143bc129622492e4acbbc59255a}{kAdjustWizardMenu} = 0;
+944 
+945             SetMenuItemText(\hyperlink{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{MHND\_FILE}, \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6f8c1472e99a5976161f61cc873c074c}{menuFilePlayMode}, \textcolor{stringliteral}{"\(\backslash\)pDebug"});
+946         \}
+947     \}
+948 \textcolor{preprocessor}{#endif}
+949 
+950     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover})
+951     \{
+952         newMenubar = \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaad41ae05a9d6f81a63893e8a036cbffa4}{mbarSpecial};
+953 
+954         \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_aab720143bc129622492e4acbbc59255a}{kAdjustWizardMenu})
+955         \{
+956             \hyperlink{macmenu_8c_aab720143bc129622492e4acbbc59255a}{kAdjustWizardMenu} = 0;
+957 
+958             SetMenuItemText(\hyperlink{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{MHND\_FILE}, \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6f8c1472e99a5976161f61cc873c074c}{menuFilePlayMode}, \textcolor{stringliteral}{"\(\backslash\)pExplore"});
+959 
+960             \textcolor{keywordflow}{for} (i = CountMenuItems(\hyperlink{macmenu_8c_af9e67875879ec2b7daa0e560cf02da6a}{MHND\_WIZ}); i > \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa38ff9041f29d12603b8fce6cdafb6cac}{menuWizardAttributes}; i--)
+961                 DeleteMenuItem(\hyperlink{macmenu_8c_af9e67875879ec2b7daa0e560cf02da6a}{MHND\_WIZ}, i);
+962         \}
+963     \}
+964 
+965     \textcolor{comment}{/* adjust the menubar, if there's a state change */}
+966     \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{theMenubar} != newMenubar)
+967     \{
+968         \textcolor{keywordflow}{switch}(\hyperlink{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{theMenubar} = newMenubar)
+969         \{
+970         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa069fd2187ec2a5d96e908c37ba6699b7}{mbarDim}:
+971             \textcolor{comment}{/* disable all menus (except the apple menu) */}
+972             \textcolor{keywordflow}{for} (i = \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea897d91548e60ea0a6d64aca07c8c61e5}{menuFile}; i < \hyperlink{macmenu_8c_a9ced5ef2d1e44e4eb76f80a8e3305b28}{NUM\_MBAR}; i++)
+973                 DisableMenuItem(\hyperlink{macmenu_8c_a983a960d897b089134838f6be3d7a91b}{MBARHND}(i), 0);
+974             \textcolor{keywordflow}{break};
+975 
+976         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa6da5cbca84d0840ad32de1599109dd63}{mbarNoWindows}:
+977         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8bbb453817cc35c26bb4cb5640d900e3}{mbarDA}:
+978         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8fb2dcb5f71aca50c2b3f57210fe2ce2}{mbarNoMap}:
+979             \textcolor{comment}{/* enable the file menu, but ... */}
+980             EnableMenuItem(\hyperlink{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{MHND\_FILE}, 0);
+981 
+982             \textcolor{comment}{/* ... disable the window commands! */}
+983             \textcolor{keywordflow}{for} (i = \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaade9208aa80f23e98c0baf8197a2687f5}{menuFileRedraw}; i <= \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa151546b07086ac457d4760d7d1fff0f5}{menuFileEnterExplore}; i++)
+984                 DisableMenuItem(\hyperlink{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{MHND\_FILE}, i);
+985 
+986             \textcolor{comment}{/* ... and disable the rest of the menus */}
+987             \textcolor{keywordflow}{for} (i = \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea73a15e90b1f803bdab06a2b5ba2882f4}{menuEdit}; i < \hyperlink{macmenu_8c_a9ced5ef2d1e44e4eb76f80a8e3305b28}{NUM\_MBAR}; i++)
+988                 DisableMenuItem(\hyperlink{macmenu_8c_a983a960d897b089134838f6be3d7a91b}{MBARHND}(i), 0);
+989 
+990             \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{theMenubar} == \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa8bbb453817cc35c26bb4cb5640d900e3}{mbarDA})
+991                 EnableMenuItem(\hyperlink{macmenu_8c_a9b3f14363b035247cab32f3b78c774f6}{MHND\_EDIT}, 0);
+992 
+993             \textcolor{keywordflow}{break};
+994 
+995         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbarRegular}:
+996         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaad41ae05a9d6f81a63893e8a036cbffa4}{mbarSpecial}:
+997             \textcolor{comment}{/* enable all menus ... */}
+998             \textcolor{keywordflow}{for} (i = \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea897d91548e60ea0a6d64aca07c8c61e5}{menuFile}; i < \hyperlink{macmenu_8c_a9ced5ef2d1e44e4eb76f80a8e3305b28}{NUM\_MBAR}; i++)
+999                 EnableMenuItem(\hyperlink{macmenu_8c_a983a960d897b089134838f6be3d7a91b}{MBARHND}(i), 0);
+1000 
+1001             \textcolor{comment}{/* ... except the unused Edit menu */}
+1002             DisableMenuItem(\hyperlink{macmenu_8c_a9b3f14363b035247cab32f3b78c774f6}{MHND\_EDIT}, 0);
+1003 
+1004             \textcolor{comment}{/* ... enable the window commands */}
+1005             \textcolor{keywordflow}{for} (i = \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaade9208aa80f23e98c0baf8197a2687f5}{menuFileRedraw}; i <= \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa151546b07086ac457d4760d7d1fff0f5}{menuFileEnterExplore}; i++)
+1006                 EnableMenuItem(\hyperlink{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{MHND\_FILE}, i);
+1007 
+1008             \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{theMenubar} == \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbarRegular})
+1009                 DisableMenuItem(\hyperlink{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{MHND\_FILE}, \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6f8c1472e99a5976161f61cc873c074c}{menuFilePlayMode});
+1010             \textcolor{keywordflow}{else}
+1011                 DisableMenuItem(\hyperlink{macmenu_8c_aaf1927aac8a76ac4a92d0475ad8be2cd}{MHND\_FILE}, \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa151546b07086ac457d4760d7d1fff0f5}{menuFileEnterExplore});
+1012 
+1013             \textcolor{keywordflow}{break};
+1014         \}
+1015 
+1016         DrawMenuBar();
+1017     \}
+1018 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a42dff71141014121c2e7018135809a08}{\index{macmenu.\+c@{macmenu.\+c}!align\+A\+D@{align\+A\+D}}
+\index{align\+A\+D@{align\+A\+D}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{align\+A\+D}]{\setlength{\rightskip}{0pt plus 5cm}static void align\+A\+D (
+\begin{DoxyParamCaption}
+\item[{Rect $\ast$}]{p\+Rct, }
+\item[{short}]{v\+Exempt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a42dff71141014121c2e7018135809a08}
+
+
+Definition at line 816 of file macmenu.\+c.
+
+
+
+Referenced by must\+Get\+Menu\+Alerts().
+
+
+\begin{DoxyCode}
+817 \{
+818     BitMap qbitmap;
+819 
+820 
+821     GetQDGlobalsScreenBits(&qbitmap);
+822     (*pRct).right -= (*pRct).left;      \textcolor{comment}{/* width */}
+823     (*pRct).bottom -= (*pRct).top;      \textcolor{comment}{/* height */}
+824     (*pRct).left = (qbitmap.bounds.right - (*pRct).right) / 2;
+825     (*pRct).top = (qbitmap.bounds.bottom - (*pRct).bottom - vExempt) / 2;
+826     (*pRct).top += vExempt;
+827     (*pRct).right += (*pRct).left;
+828     (*pRct).bottom += (*pRct).top;
+829 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a4b63d5c730eeafc67853dd0016e8561a}{\index{macmenu.\+c@{macmenu.\+c}!ask\+\_\+enable@{ask\+\_\+enable}}
+\index{ask\+\_\+enable@{ask\+\_\+enable}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{ask\+\_\+enable}]{\setlength{\rightskip}{0pt plus 5cm}static void ask\+\_\+enable (
+\begin{DoxyParamCaption}
+\item[{Dialog\+Ref}]{wind, }
+\item[{short}]{item, }
+\item[{int}]{enable}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a4b63d5c730eeafc67853dd0016e8561a}
+
+
+Definition at line 288 of file macmenu.\+c.
+
+
+
+References rect, and type.
+
+
+
+Referenced by mac\+\_\+askname().
+
+
+\begin{DoxyCode}
+289 \{
+290     \textcolor{keywordtype}{short} \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+291     Handle handle;
+292     Rect \hyperlink{rect_8c_a58a1301fcdb736034a47900ee20578ec}{rect};
+293 
+294 
+295     \textcolor{comment}{/* Enable or disable the appropriate item */}
+296     GetDialogItem(wind, item, &type, &handle, &rect);
+297     \textcolor{keywordflow}{if} (enable) type &= ~itemDisable;
+298     \textcolor{keywordflow}{else}        type |= itemDisable;
+299     HiliteControl((ControlHandle)handle, enable ? 0 : 255);
+300     SetDialogItem(wind, item, type, handle, &rect);
+301     \textcolor{keywordflow}{return};
+302 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_aa5d592c78ac53770b4a495f38a2157bd}{\index{macmenu.\+c@{macmenu.\+c}!ask\+\_\+filter@{ask\+\_\+filter}}
+\index{ask\+\_\+filter@{ask\+\_\+filter}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{ask\+\_\+filter}]{\setlength{\rightskip}{0pt plus 5cm}static pascal Boolean ask\+\_\+filter (
+\begin{DoxyParamCaption}
+\item[{Dialog\+Ref}]{wind, }
+\item[{Event\+Record $\ast$}]{event, }
+\item[{Dialog\+Item\+Index $\ast$}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_aa5d592c78ac53770b4a495f38a2157bd}
+
+
+Definition at line 439 of file macmenu.\+c.
+
+
+
+References ask\+\_\+redraw(), C\+H\+\_\+\+E\+N\+T\+E\+R, C\+H\+\_\+\+E\+S\+C\+A\+P\+E, C\+H\+\_\+\+M\+A\+S\+K, C\+H\+\_\+\+R\+E\+T\+U\+R\+N, currmode, F\+A\+L\+S\+E, Flash\+Button(), K\+E\+Y\+\_\+\+E\+N\+T\+E\+R, K\+E\+Y\+\_\+\+E\+S\+C\+A\+P\+E, K\+E\+Y\+\_\+\+M\+A\+S\+K, K\+E\+Y\+\_\+\+R\+E\+T\+U\+R\+N, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T, and T\+R\+U\+E.
+
+
+
+Referenced by mac\+\_\+askname().
+
+
+\begin{DoxyCode}
+440 \{
+441     \textcolor{keywordtype}{short} ch, key;
+442 
+443 
+444     \textcolor{keywordflow}{switch} (event->what) \{
+445         \textcolor{keywordflow}{case} keyDown:
+446         \textcolor{keywordflow}{case} autoKey:
+447             ch = \textcolor{keyword}{event}->message & \hyperlink{macmenu_8c_ac9620c52d2527df3b40e10439130e15e}{CH\_MASK};
+448             key = \textcolor{keyword}{event}->message & \hyperlink{macmenu_8c_ad0c475de6664a29bd77b0a977b7be38b}{KEY\_MASK};
+449             \textcolor{comment}{/* Handle equivalents for OK */}
+450             \textcolor{keywordflow}{if} ((ch == \hyperlink{macmenu_8c_ad16150d987296ecfdc9c69b665fcce4f}{CH\_RETURN}) || (key == \hyperlink{macmenu_8c_afe5716cf1626fceab51044a6c2492831}{KEY\_RETURN}) ||
+451                 (ch == \hyperlink{macmenu_8c_abc83812b9b3909f3146b0014d7977168}{CH\_ENTER}) || (key == \hyperlink{macmenu_8c_abaee5edb96e542206ae6c8102ac228af}{KEY\_ENTER})) \{
+452                 \textcolor{keywordflow}{if} (GetDialogTextEditHandle(wind)[0]->teLength) \{
+453                     \hyperlink{macpopup_8h_a9a9c399fb98ac92081a8e3feb516d5cc}{FlashButton}(wind, \hyperlink{macmenu_8c_a5a6131db1a398cfb5bdb68cba2010b10}{RSRC\_ASK\_PLAY});
+454                     *item = \hyperlink{macmenu_8c_a5a6131db1a398cfb5bdb68cba2010b10}{RSRC\_ASK\_PLAY};
+455                 \} \textcolor{keywordflow}{else}
+456                     *item = 0;
+457                 \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+458             \}
+459             \textcolor{comment}{/* Handle equivalents for Normal/Explore/Debug */}
+460             \textcolor{keywordflow}{if} ((event->modifiers & cmdKey) && (ch == \textcolor{charliteral}{'n'})) \{
+461                 \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode} = 0;
+462                 \hyperlink{macmenu_8c_a48d41ec2e29aa8367917e79d0322aedf}{ask\_redraw}(wind, \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE});
+463                 *item = \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE};
+464                 \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+465             \}
+466             \textcolor{keywordflow}{if} ((event->modifiers & cmdKey) && (ch == \textcolor{charliteral}{'e'})) \{
+467                 \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode} = 1;
+468                 \hyperlink{macmenu_8c_a48d41ec2e29aa8367917e79d0322aedf}{ask\_redraw}(wind, \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE});
+469                 *item = \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE};
+470                 \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+471             \}
+472             \textcolor{keywordflow}{if} ((event->modifiers & cmdKey) && (ch == \textcolor{charliteral}{'d'})) \{
+473                 \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode} = 2;
+474                 \hyperlink{macmenu_8c_a48d41ec2e29aa8367917e79d0322aedf}{ask\_redraw}(wind, \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE});
+475                 *item = \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE};
+476                 \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+477             \}
+478             \textcolor{comment}{/* Handle equivalents for Cancel and Quit */}
+479             \textcolor{keywordflow}{if} ((ch == \hyperlink{macmenu_8c_a1b67fcd45d68ddd8b8aafc3cd6dd6a42}{CH\_ESCAPE}) || (key == \hyperlink{macmenu_8c_a6c8ee53908fc5d6df19f1da8502b38dc}{KEY\_ESCAPE}) ||
+480                 ((event->modifiers & cmdKey) && (ch == \textcolor{charliteral}{'q'})) ||
+481                 ((event->modifiers & cmdKey) && (ch == \textcolor{charliteral}{'.'}))) \{
+482                 \hyperlink{macpopup_8h_a9a9c399fb98ac92081a8e3feb516d5cc}{FlashButton}(wind, \hyperlink{macmenu_8c_a4a37bed439c88606e423b3e842791de8}{RSRC\_ASK\_QUIT});
+483                 *item = \hyperlink{macmenu_8c_a4a37bed439c88606e423b3e842791de8}{RSRC\_ASK\_QUIT};
+484                 \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+485             \}
+486             \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+487         \textcolor{keywordflow}{case} updateEvt:
+488             \hyperlink{macmenu_8c_a48d41ec2e29aa8367917e79d0322aedf}{ask\_redraw}(wind, \hyperlink{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{RSRC\_ASK\_NAME});
+489             \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+490         \textcolor{keywordflow}{default}:
+491             \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+492     \}
+493 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a48d41ec2e29aa8367917e79d0322aedf}{\index{macmenu.\+c@{macmenu.\+c}!ask\+\_\+redraw@{ask\+\_\+redraw}}
+\index{ask\+\_\+redraw@{ask\+\_\+redraw}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{ask\+\_\+redraw}]{\setlength{\rightskip}{0pt plus 5cm}static pascal void ask\+\_\+redraw (
+\begin{DoxyParamCaption}
+\item[{Dialog\+Ref}]{wind, }
+\item[{Dialog\+Item\+Index}]{item}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a48d41ec2e29aa8367917e79d0322aedf}
+
+
+Definition at line 306 of file macmenu.\+c.
+
+
+
+References aligns, askselect, backcolor, blackcolor, darkcolor, genders, lightcolor, mac\+Flags, races, rect, roles, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E, type, and whitecolor.
+
+
+
+Referenced by ask\+\_\+filter(), and mac\+\_\+askname().
+
+
+\begin{DoxyCode}
+307 \{
+308     \textcolor{keywordtype}{short} \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+309     Handle handle;
+310     Rect \hyperlink{rect_8c_a58a1301fcdb736034a47900ee20578ec}{rect};
+311     \textcolor{keyword}{static} \textcolor{keywordtype}{char} *modechar = \textcolor{stringliteral}{"NED"};
+312 
+313 
+314     \textcolor{comment}{/* Which item shall we redraw? */}
+315     GetDialogItem(wind, item, &type, &handle, &rect);
+316     \textcolor{keywordflow}{switch} (item) \{
+317         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a4d50aacc97668b3960cb450dcfc69358}{RSRC\_ASK\_DEFAULT}:
+318             PenSize(3, 3);
+319             FrameRoundRect(&rect, 16, 16);
+320             \textcolor{keywordflow}{break};
+321 
+322         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}:
+323         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}:
+324         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}:
+325         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}:
+326         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}:
+327             \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.color) \{
+328                 RGBForeColor(&\hyperlink{macmenu_8c_ab40020a99f23e2b5cf53ed760540fdea}{blackcolor});
+329                 RGBBackColor(&\hyperlink{macmenu_8c_aff0b9ccd92c88d9e3e0dd6e5cdaf82ea}{backcolor});
+330             \}
+331             PenNormal();
+332             TextMode(srcOr);
+333             EraseRect(&rect);
+334 
+335             \textcolor{comment}{/* Draw the frame and drop shadow */}
+336             rect.right--;
+337             rect.bottom--;
+338             FrameRect(&rect);
+339             MoveTo(rect.right, rect.top+1);
+340             LineTo(rect.right, rect.bottom);
+341             LineTo(rect.left+1, rect.bottom);
+342 
+343             \textcolor{comment}{/* Draw the menu character */}
+344             MoveTo(rect.left+4, rect.top+12);
+345             \textcolor{keywordflow}{switch} (item) \{
+346             \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}:
+347                 DrawText(\hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}[item]].filecode, 0, 3);
+348                 \textcolor{keywordflow}{break};
+349             \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}:
+350                 DrawText(\hyperlink{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{races}[\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}[item]].filecode, 0, 3);
+351                 \textcolor{keywordflow}{break};
+352             \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}:
+353                 DrawText(\hyperlink{you_8h_a054315bd2a7d5525da7f008b40c3a6bf}{genders}[\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}[item]].filecode, 0, 3);
+354                 \textcolor{keywordflow}{break};
+355             \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}:
+356                 DrawText(\hyperlink{you_8h_abbb6c9f0c6fc7aa532b2ed8dec7ffb29}{aligns}[\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}[item]].filecode, 0, 3);
+357                 \textcolor{keywordflow}{break};
+358             \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}:
+359                 DrawChar(modechar[\hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}[item]]);
+360                 \textcolor{keywordflow}{break};
+361             \}
+362 
+363             \textcolor{comment}{/* Draw the popup symbol */}
+364             MoveTo(rect.right - 16, rect.top + 5);
+365             LineTo(rect.right -  6, rect.top + 5);
+366             LineTo(rect.right - 11, rect.top + 10);
+367             LineTo(rect.right - 15, rect.top + 6);
+368             LineTo(rect.right -  8, rect.top + 6);
+369             LineTo(rect.right - 11, rect.top + 9);
+370             LineTo(rect.right - 13, rect.top + 7);
+371             LineTo(rect.right - 10, rect.top + 7);
+372             LineTo(rect.right - 11, rect.top + 8);
+373 
+374             \textcolor{comment}{/* Draw the shadow */}
+375             InsetRect(&rect, 1, 1);
+376             \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.color) \{
+377                 RGBColor color;
+378 
+379 
+380                 \textcolor{comment}{/* Save the foreground color */}
+381                 GetForeColor(&color);
+382 
+383                 \textcolor{comment}{/* Draw the top and left */}
+384                 RGBForeColor(&\hyperlink{macmenu_8c_a176dfa03556fb872fb8a034cc56b7ec4}{lightcolor});
+385                 MoveTo(rect.left, rect.bottom-1);
+386                 LineTo(rect.left, rect.top);
+387                 LineTo(rect.right-1, rect.top);
+388 
+389                 \textcolor{comment}{/* Draw the bottom and right */}
+390                 RGBForeColor(&\hyperlink{macmenu_8c_afd741c0f5142d7e55bc36004caf27b37}{darkcolor});
+391                 MoveTo(rect.right-1, rect.top+1);
+392                 LineTo(rect.right-1, rect.bottom-1);
+393                 LineTo(rect.left+1, rect.bottom-1);
+394 
+395                 \textcolor{comment}{/* Restore the foreground color */}
+396                 RGBForeColor(&color);
+397             \}
+398             \textcolor{keywordflow}{break};
+399 
+400         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{RSRC\_ASK\_NAME}:
+401             PenNormal();
+402             \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.color) \{
+403                 RGBForeColor(&\hyperlink{macmenu_8c_a48ffc652b0cfae5450bee6c2e34afe73}{whitecolor});
+404                 RGBBackColor(&\hyperlink{macmenu_8c_a48ffc652b0cfae5450bee6c2e34afe73}{whitecolor});
+405                 TextMode(srcOr);
+406             \} \textcolor{keywordflow}{else} \{
+407                 PenMode(notPatCopy);
+408                 TextMode(srcBic);
+409             \}
+410             InsetRect(&rect, -1, -1);
+411             FrameRect(&rect);
+412             InsetRect(&rect, -1, -1);
+413             FrameRect(&rect);
+414             InsetRect(&rect, -2, -2);
+415             \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.color) \{
+416                 \textcolor{comment}{/* Draw the top and left */}
+417                 RGBForeColor(&\hyperlink{macmenu_8c_afd741c0f5142d7e55bc36004caf27b37}{darkcolor});
+418                 MoveTo(rect.left, rect.bottom-1);
+419                 LineTo(rect.left, rect.top);
+420                 LineTo(rect.right-1, rect.top);
+421 
+422                 \textcolor{comment}{/* Draw the bottom and right */}
+423                 RGBForeColor(&\hyperlink{macmenu_8c_a176dfa03556fb872fb8a034cc56b7ec4}{lightcolor});
+424                 MoveTo(rect.right-1, rect.top+1);
+425                 LineTo(rect.right-1, rect.bottom-1);
+426                 LineTo(rect.left+1, rect.bottom-1);
+427 
+428                 \textcolor{comment}{/* Restore the colors */}
+429                 RGBForeColor(&\hyperlink{macmenu_8c_ab40020a99f23e2b5cf53ed760540fdea}{blackcolor});
+430                 RGBBackColor(&\hyperlink{macmenu_8c_aff0b9ccd92c88d9e3e0dd6e5cdaf82ea}{backcolor});
+431             \}
+432             \textcolor{keywordflow}{break};
+433     \}
+434     \textcolor{keywordflow}{return};
+435 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}{\index{macmenu.\+c@{macmenu.\+c}!ask\+\_\+restring@{ask\+\_\+restring}}
+\index{ask\+\_\+restring@{ask\+\_\+restring}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{ask\+\_\+restring}]{\setlength{\rightskip}{0pt plus 5cm}static void ask\+\_\+restring (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{cstr, }
+\item[{unsigned char $\ast$}]{pstr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}
+
+
+Definition at line 272 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+
+\begin{DoxyCode}
+273 \{
+274     \textcolor{keywordtype}{int} i;
+275 
+276 
+277     \textcolor{keywordflow}{for} (i = 0; *cstr && (i < 255); i++)
+278         pstr[i+1] = *cstr++;
+279     pstr[0] = i;
+280     \textcolor{keywordflow}{if} ((pstr[1] >= \textcolor{charliteral}{'a'}) && (pstr[1] <= \textcolor{charliteral}{'z'}))
+281         pstr[1] += \textcolor{charliteral}{'A'} - \textcolor{charliteral}{'a'};
+282     \textcolor{keywordflow}{return};
+283 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a95e53f79513c2a360fb2d6ac549d40e4}{\index{macmenu.\+c@{macmenu.\+c}!ask\+Quit@{ask\+Quit}}
+\index{ask\+Quit@{ask\+Quit}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{ask\+Quit}]{\setlength{\rightskip}{0pt plus 5cm}static void ask\+Quit (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a95e53f79513c2a360fb2d6ac549d40e4}
+
+
+Definition at line 1149 of file macmenu.\+c.
+
+
+
+References Add\+To\+Key\+Queue(), alrt\+Menu\+\_\+\+N\+Y, bttn\+Menu\+Alert\+Yes, mbar\+Regular, window\+\_\+procs\+::name, the\+Menubar, and windowprocs.
+
+
+
+Referenced by Do\+Menu\+Evt().
+
+
+\begin{DoxyCode}
+1150 \{
+1151     Boolean doQuit = 1;
+1152     Boolean doYes = 0;
+1153     Boolean winMac;
+1154     \textcolor{keywordtype}{char} *quitinput;
+1155 
+1156     \textcolor{keywordflow}{if} (!strcmp (\hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.\hyperlink{structwindow__procs_a3c3f9beba0ac50aabe7ce172f042e917}{name}, \textcolor{stringliteral}{"mac"}))
+1157         winMac = 1;
+1158     \textcolor{keywordflow}{else}
+1159         winMac = 0;
+1160         
+1161     \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{theMenubar} < \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbarRegular}) \{
+1162     \textcolor{keywordtype}{short}   itemHit;
+1163 
+1164         ParamText(\textcolor{stringliteral}{"\(\backslash\)pReally Quit?"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"});
+1165         itemHit = Alert(\hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409af1438a788640970c73d52be7bb063cb3}{alrtMenu\_NY}, (ModalFilterUPP) 0L);
+1166         ResetAlertStage();
+1167 
+1168         \textcolor{keywordflow}{if} (itemHit != \hyperlink{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9ad6c6da24153945e0257457e89463b369}{bttnMenuAlertYes}) \{
+1169             doQuit = 0;
+1170         \} \textcolor{keywordflow}{else} \{
+1171             doYes = 1;
+1172         \}
+1173     \}
+1174     \textcolor{keywordflow}{if} (doQuit) \{
+1175         \textcolor{comment}{/* MWM -- forgive me lord, an even uglier kludge to deal with differences}
+1176 \textcolor{comment}{            in command input handling}
+1177 \textcolor{comment}{         */}
+1178          \textcolor{keywordflow}{if} (winMac)
+1179             quitinput = \textcolor{stringliteral}{"#quit\(\backslash\)r"};
+1180         \textcolor{keywordflow}{else}
+1181             quitinput = \textcolor{stringliteral}{"#q\(\backslash\)r"};
+1182             
+1183         \textcolor{comment}{/* KMH -- Ugly kludge */}
+1184         \textcolor{keywordflow}{while} (*quitinput)
+1185             \hyperlink{macwin_8h_a17ddfab939ba7506bc266016a09ee419}{AddToKeyQueue}(*quitinput++, 1);
+1186         \textcolor{keywordflow}{if} (doYes) \{
+1187             \textcolor{keywordflow}{if} (winMac)
+1188                 quitinput = \textcolor{stringliteral}{"y\(\backslash\)rq\(\backslash\)r\(\backslash\)r\(\backslash\)r"};
+1189             \textcolor{keywordflow}{else}
+1190                 quitinput = \textcolor{stringliteral}{"yq\(\backslash\)r"};
+1191             \textcolor{keywordflow}{while} (*quitinput)
+1192                 \hyperlink{macwin_8h_a17ddfab939ba7506bc266016a09ee419}{AddToKeyQueue}(*quitinput++, 1);
+1193         \}
+1194     \}
+1195 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a03b74f797e76f7bd03f731d891fe0349}{\index{macmenu.\+c@{macmenu.\+c}!ask\+Save@{ask\+Save}}
+\index{ask\+Save@{ask\+Save}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{ask\+Save}]{\setlength{\rightskip}{0pt plus 5cm}static void ask\+Save (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a03b74f797e76f7bd03f731d891fe0349}
+
+
+Definition at line 1122 of file macmenu.\+c.
+
+
+
+References Add\+To\+Key\+Queue(), alrt\+Menu\+\_\+\+N\+Y, bttn\+Menu\+Alert\+Yes, mbar\+Regular, and the\+Menubar.
+
+
+
+Referenced by Do\+Menu\+Evt().
+
+
+\begin{DoxyCode}
+1123 \{
+1124     Boolean doSave = 1;
+1125     Boolean doYes = 0;
+1126 
+1127     \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{theMenubar} < \hyperlink{macmenu_8c_a6b7b47dd702d9e331586d485013fd1eaa7ea46b95baa87e0a3d4c692c7a0ea1b2}{mbarRegular}) \{
+1128     \textcolor{keywordtype}{short}   itemHit;
+1129 
+1130         ParamText(\textcolor{stringliteral}{"\(\backslash\)pReally Save?"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"});
+1131         itemHit = Alert(\hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409af1438a788640970c73d52be7bb063cb3}{alrtMenu\_NY}, (ModalFilterUPP) 0L);
+1132         ResetAlertStage();
+1133 
+1134         \textcolor{keywordflow}{if} (itemHit != \hyperlink{macmenu_8c_aae05225933a42f81e7c4a9fb286596f9ad6c6da24153945e0257457e89463b369}{bttnMenuAlertYes}) \{
+1135             doSave = 0;
+1136         \} \textcolor{keywordflow}{else} \{
+1137             doYes = 1;
+1138         \}
+1139     \}
+1140     \textcolor{keywordflow}{if} (doSave) \{
+1141         \hyperlink{macwin_8h_a17ddfab939ba7506bc266016a09ee419}{AddToKeyQueue} (\textcolor{charliteral}{'S'}, 1);
+1142         \textcolor{keywordflow}{if} (doYes) \{
+1143             \hyperlink{macwin_8h_a17ddfab939ba7506bc266016a09ee419}{AddToKeyQueue} (\textcolor{charliteral}{'y'}, 1);
+1144         \}
+1145     \}
+1146 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_ab20fdf682773e28872ce3fbdafa60bbd}{\index{macmenu.\+c@{macmenu.\+c}!Do\+Menu\+Evt@{Do\+Menu\+Evt}}
+\index{Do\+Menu\+Evt@{Do\+Menu\+Evt}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{Do\+Menu\+Evt}]{\setlength{\rightskip}{0pt plus 5cm}void Do\+Menu\+Evt (
+\begin{DoxyParamCaption}
+\item[{long}]{menu\+Entry}
+\end{DoxyParamCaption}
+)}}\label{macmenu_8c_ab20fdf682773e28872ce3fbdafa60bbd}
+
+
+Definition at line 1021 of file macmenu.\+c.
+
+
+
+References about\+Net\+Hack(), Add\+To\+Key\+Queue(), ask\+Quit(), ask\+Save(), I\+D1\+\_\+\+M\+B\+A\+R, menu\+Apple, menu\+Apple\+About\+Box, menu\+Edit, menu\+File, menu\+File\+Cleanup, menu\+File\+Enter\+Explore, menu\+File\+Prev\+Msg, menu\+File\+Quit, menu\+File\+Redraw, menu\+File\+Save, M\+H\+N\+D\+\_\+\+A\+P\+P\+L\+E, mstr\+End\+Char, Q\+U\+E\+U\+E\+\_\+\+L\+E\+N, and Sane\+Positions().
+
+
+
+Referenced by Handle\+Click(), and Handle\+Key().
+
+
+\begin{DoxyCode}
+1022 \{
+1023     \textcolor{keywordtype}{short} menuID = HiWord(menuEntry);
+1024     \textcolor{keywordtype}{short} \hyperlink{structmenuItem}{menuItem} = LoWord(menuEntry);
+1025 
+1026     \textcolor{keywordflow}{switch}(menuID - \hyperlink{macmenu_8c_abcb53b94a9d6b7bfbde94b49c5f0830d}{ID1\_MBAR})   \textcolor{comment}{/* all submenus are default case */}
+1027     \{
+1028     \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fceaf638c9135c08bbb4fd140c25587cadca}{menuApple}:
+1029         \textcolor{keywordflow}{if} (menuItem == \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa13398885933f7fb57a73604667e2a0e9}{menuAppleAboutBox})
+1030             \hyperlink{macmenu_8c_ab2740dd2cf8332d13a6e9001c65cac8b}{aboutNetHack}();
+1031 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+1032         \textcolor{keywordflow}{else}
+1033         \{
+1034             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} daName[32];
+1035 
+1036             GetMenuItemText(\hyperlink{macmenu_8c_a915ce6873ae137107924c6ea92e9cb46}{MHND\_APPLE}, menuItem, * (Str255 *) daName);
+1037             (void) OpenDeskAcc(daName);
+1038         \}
+1039 \textcolor{preprocessor}{#endif}
+1040         \textcolor{keywordflow}{break};
+1041 
+1042     \textcolor{comment}{/*}
+1043 \textcolor{comment}{     * Those direct calls are ugly: they should be installed into cmd.c .}
+1044 \textcolor{comment}{     * Those AddToKeyQueue() calls are also ugly: they should be put into}
+1045 \textcolor{comment}{     * the 'STR#' resource.}
+1046 \textcolor{comment}{     */}
+1047     \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea897d91548e60ea0a6d64aca07c8c61e5}{menuFile}:
+1048         \textcolor{keywordflow}{switch}(menuItem)
+1049         \{
+1050         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaade9208aa80f23e98c0baf8197a2687f5}{menuFileRedraw}:
+1051             \hyperlink{macwin_8h_a17ddfab939ba7506bc266016a09ee419}{AddToKeyQueue} (\textcolor{charliteral}{'R'} & 0x1f, 1);
+1052             \textcolor{keywordflow}{break};
+1053 
+1054         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaa1d817989838fc4b6ea51ea918c1869}{menuFilePrevMsg}:
+1055             \hyperlink{macwin_8h_a17ddfab939ba7506bc266016a09ee419}{AddToKeyQueue} (\textcolor{charliteral}{'P'} & 0x1f, 1);
+1056             \textcolor{keywordflow}{break};
+1057 
+1058         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa8714d8d7400f9294db88fdc23552f44b}{menuFileCleanup}:
+1059             (void) \hyperlink{macwin_8c_ae26faf77cc3fdb92b35d8f010f7679b7}{SanePositions}();
+1060             \textcolor{keywordflow}{break};
+1061 
+1062         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa151546b07086ac457d4760d7d1fff0f5}{menuFileEnterExplore}:
+1063             \hyperlink{macwin_8h_a17ddfab939ba7506bc266016a09ee419}{AddToKeyQueue} (\textcolor{charliteral}{'X'}, 1);
+1064             \textcolor{keywordflow}{break};
+1065 
+1066         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaa6361c24212165430afb64ffa5fe04a8d}{menuFileSave}:
+1067             \hyperlink{macmenu_8c_a03b74f797e76f7bd03f731d891fe0349}{askSave}();
+1068             \textcolor{keywordflow}{break};
+1069 
+1070         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a80155586fa275b28773c9b203f52cabaaaf14300476e224af39e290cbb1633675}{menuFileQuit}:
+1071             \hyperlink{macmenu_8c_a95e53f79513c2a360fb2d6ac549d40e4}{askQuit}();
+1072             \textcolor{keywordflow}{break};
+1073         \}
+1074         \textcolor{keywordflow}{break};
+1075 
+1076     \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fcea73a15e90b1f803bdab06a2b5ba2882f4}{menuEdit}:
+1077 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+1078         (void) SystemEdit(menuItem - 1);
+1079 \textcolor{preprocessor}{#endif}
+1080         \textcolor{keywordflow}{break};
+1081 
+1082     \textcolor{keywordflow}{default}:    \textcolor{comment}{/* get associated string and add to key queue */}
+1083         \{
+1084             Str255  mstr;
+1085             \textcolor{keywordtype}{short}   i;
+1086 
+1087             GetIndString(mstr, menuID, menuItem);
+1088             \textcolor{keywordflow}{if} (mstr[0] > \hyperlink{macwin_8h_a2f232bca0b7a953098d996b83b8bc2a9}{QUEUE\_LEN})
+1089                 mstr[0] = \hyperlink{macwin_8h_a2f232bca0b7a953098d996b83b8bc2a9}{QUEUE\_LEN};
+1090 
+1091             \textcolor{keywordflow}{for} (i = 1; ((i <= mstr[0]) && (mstr[i] != \hyperlink{macmenu_8c_ac83e183eb03be8981aedf7b5f25dc9d9}{mstrEndChar})); i++)
+1092                 \hyperlink{macwin_8h_a17ddfab939ba7506bc266016a09ee419}{AddToKeyQueue}(mstr[i], \textcolor{keyword}{false});
+1093         \}
+1094         \textcolor{keywordflow}{break};
+1095     \}
+1096 
+1097     HiliteMenu(0);
+1098 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a27bdfbf06613e0160a9b9201fe1424c3}{\index{macmenu.\+c@{macmenu.\+c}!Init\+Menu\+Res@{Init\+Menu\+Res}}
+\index{Init\+Menu\+Res@{Init\+Menu\+Res}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{Init\+Menu\+Res}]{\setlength{\rightskip}{0pt plus 5cm}void Init\+Menu\+Res (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{macmenu_8c_a27bdfbf06613e0160a9b9201fe1424c3}
+
+
+Definition at line 869 of file macmenu.\+c.
+
+
+
+References err\+Get\+Menu, err\+Get\+Menu\+List, list\+Menubar, list\+Submenu, menu\+Apple, menu\+Bar\+List\+I\+D, menu\+Error(), menu\+Ref\+Unn\+::mhnd, menu\+List\+Rec\+::mref, must\+Get\+Menu\+Alerts(), and menu\+List\+Rec\+::num\+Menus.
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), and mac\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+870 \{
+871     \textcolor{keyword}{static} Boolean was\_inited = 0;
+872     \textcolor{keywordtype}{short}           i, j;
+873     \hyperlink{structmenuListRec}{menuListHandle}    mlHnd;
+874     MenuHandle      \hyperlink{structmenu}{menu};
+875 
+876     \textcolor{keywordflow}{if} (was\_inited)
+877         \textcolor{keywordflow}{return};
+878     was\_inited = 1;
+879 
+880     \hyperlink{macmenu_8c_a6f48c547f43e13f1f4c2c26778419049}{mustGetMenuAlerts}();
+881 
+882     \textcolor{keywordflow}{for} (i = \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{listMenubar}; i <= \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}{listSubmenu}; i++) \{
+883         \textcolor{keywordflow}{if} (! (mlHnd = (\hyperlink{structmenuListRec}{menuListHandle}) GetResource(\textcolor{stringliteral}{'MNU#'}, (
+      \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25aab3c6542717c75ce2f43bd9b7166ef43}{menuBarListID} + i))))
+884             \hyperlink{macmenu_8c_a3cb189d5db496801c1f11ebd5321700f}{menuError}(\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a03c03198357f91b5341b3cf6c7a39a2e}{errGetMenuList});
+885 
+886         \hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{pMenuList}[i] = (\hyperlink{macmenu_8c_aedd6a029606a6b9d77b75af2f3be5bcc}{menuListPtr}) NewPtr(GetHandleSize((Handle) mlHnd));
+887         *\hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{pMenuList}[i] = **mlHnd;
+888 
+889         \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{pMenuList}[i]->\hyperlink{structmenuListRec_a07dadbc47242d6eb5434900010f256f1}{numMenus}; j++)
+890         \{
+891             \textcolor{keywordflow}{if} (! (menu = (MenuHandle) GetMenu((**mlHnd).mref[j].mresID))) \{
+892             Str31 d;
+893                 NumToString ((**mlHnd).mref[j].mresID, d);
+894                 \hyperlink{macmenu_8c_a3cb189d5db496801c1f11ebd5321700f}{menuError}(\hyperlink{macmenu_8c_af9bdc3014f3d54c426b6d2df10de4960a78d6c64d5e90f2b087bef12e40d3c85f}{errGetMenu});
+895             \}
+896 
+897             \hyperlink{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{pMenuList}[i]->\hyperlink{structmenuListRec_a03781c79a800cd280084b7153962fa73}{mref}[j].\hyperlink{unionmenuRefUnn_a3aca78ac67b7292a8a593d0fb2d9dccf}{mhnd} = menu;
+898             SetMenuID(menu, j + (**mlHnd).firstMenuID); \textcolor{comment}{/* consecutive IDs */}
+899 
+900             \textcolor{comment}{/* expand apple menu */}
+901             \textcolor{keywordflow}{if} ((i == \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25acecf6c977e7711c1cf71968f4f885927}{listMenubar}) && (j == \hyperlink{macmenu_8c_aaf105ae5beaca1dee30ae54530691fceaf638c9135c08bbb4fd140c25587cadca}{menuApple})) \{
+902                 AppendResMenu(menu, \textcolor{stringliteral}{'DRVR'});
+903             \}
+904 
+905             InsertMenu(menu, ((i == \hyperlink{macmenu_8c_aba01db17f4a2bfbc3db60dc172972a25ae097a92c72819d58390777e164dce0fc}{listSubmenu}) ? hierMenu : 0));
+906         \}
+907     \}
+908     DrawMenuBar();
+909     \textcolor{keywordflow}{return};
+910 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_ae59423e364b81ddf8228e5f593bc8b06}{\index{macmenu.\+c@{macmenu.\+c}!mac\+\_\+askname@{mac\+\_\+askname}}
+\index{mac\+\_\+askname@{mac\+\_\+askname}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{mac\+\_\+askname}]{\setlength{\rightskip}{0pt plus 5cm}void mac\+\_\+askname (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{macmenu_8c_ae59423e364b81ddf8228e5f593bc8b06}
+
+
+Definition at line 496 of file macmenu.\+c.
+
+
+
+References aligns, ask\+\_\+enable(), ask\+\_\+filter(), ask\+\_\+redraw(), ask\+\_\+restring(), askmenu, askselect, curralign, currgend, currmode, currrace, currrole, discover, Role\+Name\+::f, F\+A\+L\+S\+E, fatal, flag\+::female, flags, genders, flag\+::initalign, flag\+::initgend, flag\+::initrace, flag\+::initrole, Role\+Name\+::m, Role\+::name, name, noresource, Race\+::noun, N\+U\+L\+L, pl\+\_\+character, P\+L\+\_\+\+N\+S\+I\+Z, plname, races, randalign(), randgend(), randrace(), randrole(), rect, R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S, R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S, roles, R\+S\+R\+C\+\_\+\+A\+S\+K, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+A\+L\+I\+G\+N, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+D\+E\+F\+A\+U\+L\+T, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+G\+E\+N\+D, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+O\+D\+E, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+N\+A\+M\+E, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+P\+L\+A\+Y, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+Q\+U\+I\+T, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+A\+C\+E, R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+R\+O\+L\+E, str2role(), type, validalign(), validgend(), validrace(), wizard, and W\+I\+Z\+A\+R\+D.
+
+
+\begin{DoxyCode}
+497 \{
+498     GrafPtr oldport;
+499     DialogRef askdialog;
+500     \textcolor{keywordtype}{short} i, j, item, \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+501     Handle handle;
+502     Rect \hyperlink{rect_8c_a58a1301fcdb736034a47900ee20578ec}{rect};
+503     Str255 str;
+504     Point pt;
+505     UserItemUPP redraw = NewUserItemUPP(\hyperlink{macmenu_8c_a48d41ec2e29aa8367917e79d0322aedf}{ask\_redraw});
+506     ModalFilterUPP filter = NewModalFilterUPP(\hyperlink{macmenu_8c_aa5d592c78ac53770b4a495f38a2157bd}{ask\_filter});
+507 
+508 
+509     \textcolor{comment}{/* Create the dialog */}
+510     \textcolor{keywordflow}{if} (!(askdialog = GetNewDialog(\hyperlink{macmenu_8c_a304b7aa8615ac61411a852a2a98303af}{RSRC\_ASK}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, (WindowRef)-1)))
+511         \hyperlink{macmenu_8c_a6411b89db3229d7d625730084ef22db5}{noresource}(\textcolor{stringliteral}{'DLOG'}, \hyperlink{macmenu_8c_a304b7aa8615ac61411a852a2a98303af}{RSRC\_ASK});
+512     GetPort(&oldport);
+513     SetPortDialogPort(askdialog);
+514 
+515     \textcolor{comment}{/* Initialize the name text item */}
+516     \hyperlink{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}{ask\_restring}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, str);
+517     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}[0]) \{
+518         GetDialogItem(askdialog, \hyperlink{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{RSRC\_ASK\_NAME}, &type, &handle, &rect);
+519         SetDialogItemText(handle, str);
+520     \}
+521 \textcolor{preprocessor}{#if 0}
+522     \{
+523     Str32 pName;
+524         pName [0] = 0;
+525         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname} && \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname} [0]) \{
+526             strcpy ((\textcolor{keywordtype}{char} *) pName, \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+527             c2pstr ((\textcolor{keywordtype}{char} *) pName);
+528         \} \textcolor{keywordflow}{else} \{
+529             Handle h;
+530             h = GetResource (\textcolor{stringliteral}{'STR '}, -16096);
+531             \textcolor{keywordflow}{if} (((Handle) 0 != h) && (GetHandleSize (h) > 0)) \{
+532                 DetachResource (h);
+533                 HLock (h);
+534                 \textcolor{keywordflow}{if} (**h > 31) \{
+535                     **h = 31;
+536                 \}
+537                 BlockMove (*h, pName, **h + 1);
+538                 DisposeHandle (h);
+539             \}
+540         \}
+541         \textcolor{keywordflow}{if} (pName [0]) \{
+542             GetDialogItem(askdialog, \hyperlink{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{RSRC\_ASK\_NAME}, &type, &handle, &rect);
+543             SetDialogItemText(handle, pName);
+544             \textcolor{keywordflow}{if} (pName [0] > 2 && pName [pName [0] - 1] == \textcolor{charliteral}{'-'}) \{
+545                 \textcolor{keywordtype}{short} role = (*pANR).anMenu[anRole];
+546                 \textcolor{keywordtype}{char} suffix = (char) pName[pName[0]],
+547                 *sfxindx = strchr(pl\_classes, suffix);
+548 
+549                 \textcolor{keywordflow}{if} (sfxindx)
+550                 role = (short) (sfxindx - pl\_classes);
+551                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (suffix == \textcolor{charliteral}{'@'})
+552                 role = (short) rn2((\textcolor{keywordtype}{int}) strlen(pl\_classes));
+553                 (*pANR).anMenu[anRole] = role;
+554             \}
+555         \}
+556     \}
+557 \textcolor{preprocessor}{#endif}
+558     SelectDialogItemText(askdialog, \hyperlink{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{RSRC\_ASK\_NAME}, 0, 32767);
+559 
+560     \textcolor{comment}{/* Initialize the role popup menu */}
+561     \textcolor{keywordflow}{if} (!(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}] = NewMenu(\hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}, \textcolor{stringliteral}{"\(\backslash\)p"})))
+562         \hyperlink{macmenu_8c_aa59d720a30ef6a81ae3087206a0af226}{fatal}(\textcolor{stringliteral}{"\(\backslash\)pCannot create role menu"});
+563     \textcolor{keywordflow}{for} (i = 0; \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a264d1ed0d4715edaaad295e8ab4c1002}{m}; i++) \{
+564         \hyperlink{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}{ask\_restring}(\hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}.m, str);
+565         AppendMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}], str);
+566     \}
+567     InsertMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}], hierMenu);
+568     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} >= 0)
+569         \hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole} = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole};
+570     \textcolor{comment}{/* Check for backward compatibility */}
+571     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((\hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole} = \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(\hyperlink{decl_8h_a053ad248bf641e54a6f7bfb6a8fb9e05}{pl\_character})) < 0)
+572         \hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole} = \hyperlink{role_8c_a073a22ab9ffe8f39dc70d2b8be423e47}{randrole}();
+573 
+574     \textcolor{comment}{/* Initialize the race popup menu */}
+575     \textcolor{keywordflow}{if} (!(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}] = NewMenu(\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}, \textcolor{stringliteral}{"\(\backslash\)p"})))
+576         \hyperlink{macmenu_8c_aa59d720a30ef6a81ae3087206a0af226}{fatal}(\textcolor{stringliteral}{"\(\backslash\)pCannot create race menu"});
+577     \textcolor{keywordflow}{for} (i = 0; \hyperlink{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{races}[i].\hyperlink{structRace_a5a94ed91d36f9a470a6bb7c5b28dd8a2}{noun}; i++) \{
+578         \hyperlink{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}{ask\_restring}(\hyperlink{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{races}[i].noun, str);
+579         AppendMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}], str);
+580     \}
+581     InsertMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}], hierMenu);
+582     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} >= 0)
+583         \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace} = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace};
+584     \textcolor{keywordflow}{else}
+585         \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace} = \hyperlink{role_8c_a9add865e024d4a3d730b7b820e2ea2ef}{randrace}(\hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole});
+586 
+587     \textcolor{comment}{/* Initialize the gender popup menu */}
+588     \textcolor{keywordflow}{if} (!(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}] = NewMenu(\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}, \textcolor{stringliteral}{"\(\backslash\)p"})))
+589         \hyperlink{macmenu_8c_aa59d720a30ef6a81ae3087206a0af226}{fatal}(\textcolor{stringliteral}{"\(\backslash\)pCannot create gender menu"});
+590     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{you_8h_a8b377306ace79d33d0b4b74dbd88b819}{ROLE\_GENDERS}; i++) \{
+591         \hyperlink{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}{ask\_restring}(\hyperlink{you_8h_a054315bd2a7d5525da7f008b40c3a6bf}{genders}[i].adj, str);
+592         AppendMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}], str);
+593     \}
+594     InsertMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}], hierMenu);
+595     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} >= 0)
+596         \hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend};
+597     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female})
+598         \hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} = 1;
+599     \textcolor{keywordflow}{else}
+600         \hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} = \hyperlink{role_8c_aaebe91ffe175f0b637abb9f5eb06b61c}{randgend}(\hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole}, \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace});
+601 
+602     \textcolor{comment}{/* Initialize the alignment popup menu */}
+603     \textcolor{keywordflow}{if} (!(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}] = NewMenu(\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}, \textcolor{stringliteral}{"\(\backslash\)p"})))
+604         \hyperlink{macmenu_8c_aa59d720a30ef6a81ae3087206a0af226}{fatal}(\textcolor{stringliteral}{"\(\backslash\)pCannot create alignment menu"});
+605     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{you_8h_a06accde00ac7683fc3293968cbc5e17a}{ROLE\_ALIGNS}; i++) \{
+606         \hyperlink{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}{ask\_restring}(\hyperlink{you_8h_abbb6c9f0c6fc7aa532b2ed8dec7ffb29}{aligns}[i].adj, str);
+607         AppendMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}], str);
+608     \}
+609     InsertMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}], hierMenu);
+610     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} >= 0)
+611         \hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign} = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign};
+612     \textcolor{keywordflow}{else}
+613         \hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign} = \hyperlink{role_8c_a2dae87abbcfc7f0fea6b779bc3387c69}{randalign}(\hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole}, \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace});
+614 
+615     \textcolor{comment}{/* Initialize the mode popup menu */}
+616     \textcolor{keywordflow}{if} (!(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}] = NewMenu(\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}, \textcolor{stringliteral}{"\(\backslash\)p"})))
+617         \hyperlink{macmenu_8c_aa59d720a30ef6a81ae3087206a0af226}{fatal}(\textcolor{stringliteral}{"\(\backslash\)pCannot create mode menu"});
+618     AppendMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}], \textcolor{stringliteral}{"\(\backslash\)pNormal"});
+619     AppendMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}], \textcolor{stringliteral}{"\(\backslash\)pExplore"});
+620 \textcolor{preprocessor}{#ifdef WIZARD}
+621     AppendMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}], \textcolor{stringliteral}{"\(\backslash\)pDebug"});
+622 \textcolor{preprocessor}{#endif}
+623     InsertMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}], hierMenu);
+624     \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode} = 0;
+625 
+626     \textcolor{comment}{/* Set the redraw procedures */}
+627     \textcolor{keywordflow}{for} (item = \hyperlink{macmenu_8c_a4d50aacc97668b3960cb450dcfc69358}{RSRC\_ASK\_DEFAULT}; item <= \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}; item++) \{
+628         GetDialogItem(askdialog, item, &type, &handle, &rect);
+629         SetDialogItem(askdialog, item, type, (Handle)redraw, &rect);
+630     \}
+631 
+632     \textcolor{comment}{/* Handle dialog events */}
+633     \textcolor{keywordflow}{do} \{
+634         \textcolor{comment}{/* Adjust the Play button */}
+635         \hyperlink{macmenu_8c_a4b63d5c730eeafc67853dd0016e8561a}{ask\_enable}(askdialog, \hyperlink{macmenu_8c_a5a6131db1a398cfb5bdb68cba2010b10}{RSRC\_ASK\_PLAY},
+636                 GetDialogTextEditHandle(askdialog)[0]->teLength);
+637 
+638         \textcolor{comment}{/* Adjust the race popup menu */}
+639         i = j = \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace};
+640         \textcolor{keywordflow}{do} \{
+641             \textcolor{keywordflow}{if} (\hyperlink{role_8c_a648c22cd7c57851ea871247be474763b}{validrace}(\hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole}, j)) \{
+642                 EnableMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}], j+1);
+643                 CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}], j+1,
+644                         \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace} == j);
+645             \} \textcolor{keywordflow}{else} \{
+646                 DisableMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}], j+1);
+647                 CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}], j+1, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+648                 \textcolor{keywordflow}{if} ((\hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace} == j) && !\hyperlink{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{races}[++\hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace}].noun)
+649                     \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace} = 0;
+650             \}
+651             \textcolor{keywordflow}{if} (!\hyperlink{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{races}[++j].noun) j = 0;
+652         \} \textcolor{keywordflow}{while} (i != j);
+653         \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace} != i) \{
+654             GetDialogItem(askdialog, \hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}, &type, &handle, &rect);
+655             InvalWindowRect(GetDialogWindow(askdialog), &rect);
+656         \}
+657 
+658         \textcolor{comment}{/* Adjust the gender popup menu */}
+659         i = j = \hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend};
+660         \textcolor{keywordflow}{do} \{
+661             \textcolor{keywordflow}{if} (\hyperlink{role_8c_a2205e818d885f836907a6cf7ffa869de}{validgend}(\hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole}, \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace}, j)) \{
+662                 EnableMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}], j+1);
+663                 CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}], j+1,
+664                         \hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} == j);
+665             \} \textcolor{keywordflow}{else} \{
+666                 DisableMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}], j+1);
+667                 CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}], j+1, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+668                 \textcolor{keywordflow}{if} ((\hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} == j) && (++\hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} >= ROLE\_GENDERS))
+669                     \hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} = 0;
+670             \}
+671             \textcolor{keywordflow}{if} (++j >= ROLE\_GENDERS) j = 0;
+672         \} \textcolor{keywordflow}{while} (i != j);
+673         \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} != i) \{
+674             GetDialogItem(askdialog, \hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}, &type, &handle, &rect);
+675             InvalWindowRect(GetDialogWindow(askdialog), &rect);
+676         \}
+677 
+678         \textcolor{comment}{/* Adjust the alignment popup menu */}
+679         i = j = \hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign};
+680         \textcolor{keywordflow}{do} \{
+681             \textcolor{keywordflow}{if} (\hyperlink{role_8c_ab01f2c791fe250b69c15c02535bca8b0}{validalign}(\hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole}, \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace}, j)) \{
+682                 EnableMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}], j+1);
+683                 CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}], j+1,
+684                         \hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign} == j);
+685             \} \textcolor{keywordflow}{else} \{
+686                 DisableMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}], j+1);
+687                 CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}], j+1, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+688                 \textcolor{keywordflow}{if} ((\hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign} == j) && (++\hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign} >= ROLE\_ALIGNS))
+689                     \hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign} = 0;
+690             \}
+691             \textcolor{keywordflow}{if} (++j >= ROLE\_ALIGNS) j = 0;
+692         \} \textcolor{keywordflow}{while} (i != j);
+693         \textcolor{keywordflow}{if} (\hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign} != i) \{
+694             GetDialogItem(askdialog, \hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}, &type, &handle, &rect);
+695             InvalWindowRect(GetDialogWindow(askdialog), &rect);
+696         \}
+697 
+698         \textcolor{comment}{/* Adjust the role popup menu */}
+699         \textcolor{keywordflow}{for} (i = 0; \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a264d1ed0d4715edaaad295e8ab4c1002}{m}; i++) \{
+700             \hyperlink{macmenu_8c_a56b6c7fa7573aba11c0ed2d16a6cc7a0}{ask\_restring}((\hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend} && \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}.f) ?
+701                     \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a9d8f4b8c99abfbf5ca40901e5dcc581a}{f} : \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a264d1ed0d4715edaaad295e8ab4c1002}{m}, str);
+702             SetMenuItemText(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}], i+1, str);
+703             CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}], i+1, 
+      \hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole} == i);
+704         \}
+705 
+706         \textcolor{comment}{/* Adjust the mode popup menu */}
+707         CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}], 1, \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode} == 0);
+708         CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}], 2, \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode} == 1);
+709 \textcolor{preprocessor}{#ifdef WIZARD}
+710         CheckMenuItem(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[\hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}], 3, \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode} == 2);
+711 \textcolor{preprocessor}{#endif}
+712 
+713         \textcolor{comment}{/* Wait for an action on an item */}
+714         ModalDialog(filter, &item);
+715         \textcolor{keywordflow}{switch} (item) \{
+716         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a5a6131db1a398cfb5bdb68cba2010b10}{RSRC\_ASK\_PLAY}:
+717             \textcolor{keywordflow}{break};
+718         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a4a37bed439c88606e423b3e842791de8}{RSRC\_ASK\_QUIT}:
+719             \hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode} = -1;
+720             \textcolor{keywordflow}{break};
+721         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}:
+722         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a1507bb6f58d7ebdce403d0bc5adfc4f7}{RSRC\_ASK\_RACE}:
+723         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_ac4741548354affc91c823ec79f834d44}{RSRC\_ASK\_ALIGN}:
+724         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a99172608b2bebdfb915fd1e2a381eeed}{RSRC\_ASK\_GEND}:
+725         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}:
+726             GetDialogItem(askdialog, item, &type, &handle, &rect);
+727             pt = *(Point *)&rect;
+728             LocalToGlobal(&pt);
+729             \textcolor{keywordflow}{if} (!!(i = PopUpMenuSelect(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[item], pt.v, pt.h,
+730                     \hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}[item] + 1)))
+731                 \hyperlink{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{askselect}[item] = LoWord(i) - 1;
+732             InvalWindowRect(GetDialogWindow(askdialog), &rect);
+733             \textcolor{keywordflow}{break};
+734         \textcolor{keywordflow}{case} \hyperlink{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{RSRC\_ASK\_NAME}:
+735 \textcolor{preprocessor}{#if 0}
+736         \textcolor{comment}{/* limit the data here to 25 chars */}
+737         \{
+738             \textcolor{keywordtype}{short} beepTEDelete = 1;
+739 
+740             \textcolor{keywordflow}{while} ((**dRec.textH).teLength > 25)
+741             \{
+742                 \textcolor{keywordflow}{if} (beepTEDelete++ <= 3)
+743                     SysBeep(3);
+744                 TEKey(\textcolor{charliteral}{'\(\backslash\)b'}, dRec.textH);
+745             \}
+746         \}
+747 
+748         \textcolor{comment}{/* special case filter (that doesn't plug all the holes!) */}
+749         \textcolor{keywordflow}{if} (((**dRec.textH).teLength == 1) && (**((**dRec.textH).hText) < 32))
+750             TEKey(\textcolor{charliteral}{'\(\backslash\)b'}, dRec.textH);
+751 \textcolor{preprocessor}{#endif}
+752             \textcolor{keywordflow}{break};
+753         \}
+754     \} \textcolor{keywordflow}{while} ((item != \hyperlink{macmenu_8c_a5a6131db1a398cfb5bdb68cba2010b10}{RSRC\_ASK\_PLAY}) && (item != \hyperlink{macmenu_8c_a4a37bed439c88606e423b3e842791de8}{RSRC\_ASK\_QUIT}));
+755 
+756     \textcolor{comment}{/* Process the name */}
+757     GetDialogItem(askdialog, \hyperlink{macmenu_8c_ad7520130497cdd8d019a20bc6b411504}{RSRC\_ASK\_NAME}, &type, &handle, &rect);
+758     GetDialogItemText(handle, str);
+759     \textcolor{keywordflow}{if} (str[0] > \hyperlink{global_8h_a06d346f470496500184b39a3c9c4df9d}{PL\_NSIZ}-1) str[0] = \hyperlink{global_8h_a06d346f470496500184b39a3c9c4df9d}{PL\_NSIZ}-1;
+760     BlockMove(&str[1], \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, str[0]);
+761     \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}[str[0]] = \textcolor{charliteral}{'\(\backslash\)0'};
+762 
+763     \textcolor{comment}{/* Destroy the dialog */}
+764     \textcolor{keywordflow}{for} (i = \hyperlink{macmenu_8c_a089b1deb9d55d074239b34cad859bb5e}{RSRC\_ASK\_ROLE}; i <= \hyperlink{macmenu_8c_a377e40d99dbbbdc2e62fd3ec2f4eb8ae}{RSRC\_ASK\_MODE}; i++) \{
+765         DeleteMenu(i);
+766         DisposeMenu(\hyperlink{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{askmenu}[i]);
+767     \}
+768     SetPort(oldport);
+769     DisposeDialog(askdialog);
+770     DisposeRoutineDescriptor(filter);
+771     DisposeRoutineDescriptor(redraw);
+772 
+773     \textcolor{comment}{/* Process the mode */}
+774 \textcolor{preprocessor}{#ifdef WIZARD}
+775     \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} =
+776 \textcolor{preprocessor}{#endif}
+777     \hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover} = 0;
+778     \textcolor{keywordflow}{switch} (\hyperlink{macmenu_8c_ab00d02ffc7f640d7699b244344206a51}{currmode}) \{
+779     \textcolor{keywordflow}{case} 0:     \textcolor{comment}{/* Normal */}
+780         \textcolor{keywordflow}{break};
+781     \textcolor{keywordflow}{case} 1:     \textcolor{comment}{/* Explore */}
+782         \hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover} = 1;
+783         \textcolor{keywordflow}{break};
+784 \textcolor{preprocessor}{#ifdef WIZARD}
+785     \textcolor{keywordflow}{case} 2:     \textcolor{comment}{/* Debug */}
+786         \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} = 1;
+787         strcpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \hyperlink{config_8h_a7d25468f2993889250dd6664a4e6b011}{WIZARD});
+788         \textcolor{keywordflow}{break};
+789 \textcolor{preprocessor}{#endif}
+790     \textcolor{keywordflow}{default}:    \textcolor{comment}{/* Quit */}
+791         ExitToShell();
+792     \}
+793 
+794     \textcolor{comment}{/* Process the role */}
+795     strcpy(\hyperlink{decl_8h_a053ad248bf641e54a6f7bfb6a8fb9e05}{pl\_character}, \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[\hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}.m);
+796     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = \hyperlink{macmenu_8c_aa46ffaca1e297b72ef9ff35a2bcb6f6c}{currrole};
+797 
+798     \textcolor{comment}{/* Process the race */}
+799     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = \hyperlink{macmenu_8c_adbafc5db37ec4724b16102563549210a}{currrace};
+800 
+801     \textcolor{comment}{/* Process the gender */}
+802     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female} = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad3655bdc9c8984f4d3c4944a7a72795a}{initgend} = \hyperlink{macmenu_8c_a546aca430d52c88f9e7578b589b323df}{currgend};
+803 
+804     \textcolor{comment}{/* Process the alignment */}
+805     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a66f0ee2707e5a565a25f948658362ced}{initalign} = \hyperlink{macmenu_8c_abd29966c88c36c3c88fe5dd21957207b}{curralign};
+806 
+807     \textcolor{keywordflow}{return};
+808 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a3cb189d5db496801c1f11ebd5321700f}{\index{macmenu.\+c@{macmenu.\+c}!menu\+Error@{menu\+Error}}
+\index{menu\+Error@{menu\+Error}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{menu\+Error}]{\setlength{\rightskip}{0pt plus 5cm}static void menu\+Error (
+\begin{DoxyParamCaption}
+\item[{short}]{menu\+Err}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a3cb189d5db496801c1f11ebd5321700f}
+
+
+Definition at line 855 of file macmenu.\+c.
+
+
+
+References alrt\+Menu\+Note, beep\+Menu\+Alert\+Err, and menu\+Err\+Str.
+
+
+
+Referenced by Init\+Menu\+Res().
+
+
+\begin{DoxyCode}
+856 \{
+857     \textcolor{keywordtype}{short}   i;
+858 
+859     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{macmenu_8c_a841efbee4d95d466a04cbf13c6ae4221}{beepMenuAlertErr}; i++)
+860         SysBeep(3);
+861 
+862     ParamText(\hyperlink{macmenu_8c_a010710ff7f0f925d04e58532366e89fa}{menuErrStr}[menuErr], \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"}, \textcolor{stringliteral}{"\(\backslash\)p"});
+863     (void) Alert(\hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a538dd9c5a5c08f0ea11c10f12ded04d6}{alrtMenuNote}, (ModalFilterUPP) 0L);
+864 
+865     ExitToShell();
+866 \}
+\end{DoxyCode}
+\hypertarget{macmenu_8c_a6f48c547f43e13f1f4c2c26778419049}{\index{macmenu.\+c@{macmenu.\+c}!must\+Get\+Menu\+Alerts@{must\+Get\+Menu\+Alerts}}
+\index{must\+Get\+Menu\+Alerts@{must\+Get\+Menu\+Alerts}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{must\+Get\+Menu\+Alerts}]{\setlength{\rightskip}{0pt plus 5cm}static void must\+Get\+Menu\+Alerts (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a6f48c547f43e13f1f4c2c26778419049}
+
+
+Definition at line 834 of file macmenu.\+c.
+
+
+
+References align\+A\+D(), alrt\+\_\+\+Menu\+\_\+limit, alrt\+\_\+\+Menu\+\_\+start, and beep\+Menu\+Alert\+Err.
+
+
+
+Referenced by Init\+Menu\+Res().
+
+
+\begin{DoxyCode}
+835 \{
+836     \textcolor{keywordtype}{short}       i;
+837     Rect        **hRct;
+838 
+839     \textcolor{keywordflow}{for} (i = \hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409aa8cf4f71ac8c676c4e7ecf7e9ec5d4b5}{alrt\_Menu\_start}; i < \hyperlink{macmenu_8c_adb49720dc49f7d4e4cf9adbf2948e409a63882e0b47f9d41314e4a8653b5fcc96}{alrt\_Menu\_limit}; i++)
+840     \{
+841         \textcolor{keywordflow}{if} (! (hRct = (Rect **) GetResource(\textcolor{stringliteral}{'ALRT'}, i)))    \textcolor{comment}{/* AlertTHndl */}
+842         \{
+843             \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{macmenu_8c_a841efbee4d95d466a04cbf13c6ae4221}{beepMenuAlertErr}; i++)
+844                 SysBeep(3);
+845             ExitToShell();
+846         \}
+847 
+848 \textcolor{preprocessor}{#if !TARGET\_API\_MAC\_CARBON}
+849         \hyperlink{macmenu_8c_a42dff71141014121c2e7018135809a08}{alignAD}(*hRct, GetMBarHeight());
+850 \textcolor{preprocessor}{#endif}
+851     \}
+852 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{macmenu_8c_abfbaff06a50aea7b2035a3c443bb63ce}{\index{macmenu.\+c@{macmenu.\+c}!\+\_\+mt\+\_\+window@{\+\_\+mt\+\_\+window}}
+\index{\+\_\+mt\+\_\+window@{\+\_\+mt\+\_\+window}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{\+\_\+mt\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}Window\+Ptr \+\_\+mt\+\_\+window}}\label{macmenu_8c_abfbaff06a50aea7b2035a3c443bb63ce}
+
+
+Definition at line 188 of file mttymain.\+c.
+
+
+
+Referenced by Adjust\+Menus().
+
+\hypertarget{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}{\index{macmenu.\+c@{macmenu.\+c}!askmenu@{askmenu}}
+\index{askmenu@{askmenu}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{askmenu}]{\setlength{\rightskip}{0pt plus 5cm}Menu\+Handle askmenu\mbox{[}{\bf R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a9985d137dff0cd26a22b4c5748a3f3bc}
+
+
+Definition at line 253 of file macmenu.\+c.
+
+
+
+Referenced by mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}{\index{macmenu.\+c@{macmenu.\+c}!askselect@{askselect}}
+\index{askselect@{askselect}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{askselect}]{\setlength{\rightskip}{0pt plus 5cm}int askselect\mbox{[}{\bf R\+S\+R\+C\+\_\+\+A\+S\+K\+\_\+\+M\+A\+X}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_aa6a4172214524ebc14dd29d9ace97ca8}
+
+
+Definition at line 254 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), and mac\+\_\+askname().
+
+\hypertarget{macmenu_8c_aff0b9ccd92c88d9e3e0dd6e5cdaf82ea}{\index{macmenu.\+c@{macmenu.\+c}!backcolor@{backcolor}}
+\index{backcolor@{backcolor}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{backcolor}]{\setlength{\rightskip}{0pt plus 5cm}R\+G\+B\+Color backcolor = \{0xdddd, 0xdddd, 0xdddd\}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_aff0b9ccd92c88d9e3e0dd6e5cdaf82ea}
+
+
+Definition at line 265 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw().
+
+\hypertarget{macmenu_8c_ab40020a99f23e2b5cf53ed760540fdea}{\index{macmenu.\+c@{macmenu.\+c}!blackcolor@{blackcolor}}
+\index{blackcolor@{blackcolor}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{blackcolor}]{\setlength{\rightskip}{0pt plus 5cm}R\+G\+B\+Color blackcolor = \{0x0000, 0x0000, 0x0000\}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_ab40020a99f23e2b5cf53ed760540fdea}
+
+
+Definition at line 262 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw().
+
+\hypertarget{macmenu_8c_afd741c0f5142d7e55bc36004caf27b37}{\index{macmenu.\+c@{macmenu.\+c}!darkcolor@{darkcolor}}
+\index{darkcolor@{darkcolor}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{darkcolor}]{\setlength{\rightskip}{0pt plus 5cm}R\+G\+B\+Color darkcolor = \{0x8000, 0x8000, 0x8000\}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_afd741c0f5142d7e55bc36004caf27b37}
+
+
+Definition at line 264 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw().
+
+\hypertarget{macmenu_8c_aab720143bc129622492e4acbbc59255a}{\index{macmenu.\+c@{macmenu.\+c}!k\+Adjust\+Wizard\+Menu@{k\+Adjust\+Wizard\+Menu}}
+\index{k\+Adjust\+Wizard\+Menu@{k\+Adjust\+Wizard\+Menu}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{k\+Adjust\+Wizard\+Menu}]{\setlength{\rightskip}{0pt plus 5cm}short k\+Adjust\+Wizard\+Menu = 1\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_aab720143bc129622492e4acbbc59255a}
+
+
+Definition at line 209 of file macmenu.\+c.
+
+
+
+Referenced by Adjust\+Menus().
+
+\hypertarget{macmenu_8c_a176dfa03556fb872fb8a034cc56b7ec4}{\index{macmenu.\+c@{macmenu.\+c}!lightcolor@{lightcolor}}
+\index{lightcolor@{lightcolor}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{lightcolor}]{\setlength{\rightskip}{0pt plus 5cm}R\+G\+B\+Color lightcolor = \{0xffff, 0xffff, 0xffff\}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a176dfa03556fb872fb8a034cc56b7ec4}
+
+
+Definition at line 266 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw().
+
+\hypertarget{macmenu_8c_a010710ff7f0f925d04e58532366e89fa}{\index{macmenu.\+c@{macmenu.\+c}!menu\+Err\+Str@{menu\+Err\+Str}}
+\index{menu\+Err\+Str@{menu\+Err\+Str}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{menu\+Err\+Str}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ menu\+Err\+Str\mbox{[}{\bf err\+\_\+\+Menu\+\_\+total}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a010710ff7f0f925d04e58532366e89fa}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= 
+    \{
+        \textcolor{stringliteral}{"\(\backslash\)pAbort: Bad \(\backslash\)'MNU#\(\backslash\)' resource!"},      
+        \textcolor{stringliteral}{"\(\backslash\)pAbort: Bad \(\backslash\)'MENU\(\backslash\)' resource!"},      
+        \textcolor{stringliteral}{"\(\backslash\)pAbort: Bad \(\backslash\)'DLOG\(\backslash\)' resource!"},      
+        \textcolor{stringliteral}{"\(\backslash\)pAbort: Bad \(\backslash\)'DITL\(\backslash\)' resource!"},      
+        \textcolor{stringliteral}{"\(\backslash\)pAbort: Bad Dialog Allocation!"},      
+        \textcolor{stringliteral}{"\(\backslash\)pAbort: Bad Menu Allocation!"},        
+    \}
+\end{DoxyCode}
+
+
+Definition at line 198 of file macmenu.\+c.
+
+
+
+Referenced by menu\+Error().
+
+\hypertarget{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}{\index{macmenu.\+c@{macmenu.\+c}!p\+Menu\+List@{p\+Menu\+List}}
+\index{p\+Menu\+List@{p\+Menu\+List}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{p\+Menu\+List}]{\setlength{\rightskip}{0pt plus 5cm}{\bf menu\+List\+Ptr} p\+Menu\+List\mbox{[}2\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_ac71a16cb086276bcddd08a55032ab786}
+
+
+Definition at line 207 of file macmenu.\+c.
+
+\hypertarget{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}{\index{macmenu.\+c@{macmenu.\+c}!the\+Menubar@{the\+Menubar}}
+\index{the\+Menubar@{the\+Menubar}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{the\+Menubar}]{\setlength{\rightskip}{0pt plus 5cm}short the\+Menubar = {\bf mbar\+D\+A}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_ad6e4dbc6a28de9b8fb2e280fb841dc68}
+
+
+Definition at line 208 of file macmenu.\+c.
+
+
+
+Referenced by about\+Net\+Hack(), Adjust\+Menus(), ask\+Quit(), and ask\+Save().
+
+\hypertarget{macmenu_8c_a48ffc652b0cfae5450bee6c2e34afe73}{\index{macmenu.\+c@{macmenu.\+c}!whitecolor@{whitecolor}}
+\index{whitecolor@{whitecolor}!macmenu.\+c@{macmenu.\+c}}
+\subsubsection[{whitecolor}]{\setlength{\rightskip}{0pt plus 5cm}R\+G\+B\+Color whitecolor = \{0xffff, 0xffff, 0xffff\}\hspace{0.3cm}{\ttfamily [static]}}}\label{macmenu_8c_a48ffc652b0cfae5450bee6c2e34afe73}
+
+
+Definition at line 267 of file macmenu.\+c.
+
+
+
+Referenced by ask\+\_\+redraw().
+

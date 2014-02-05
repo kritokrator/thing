@@ -1,0 +1,230 @@
+\hypertarget{gnopts_8c}{\section{nethack/win/gnome/gnopts.c File Reference}
+\label{gnopts_8c}\index{nethack/win/gnome/gnopts.\+c@{nethack/win/gnome/gnopts.\+c}}
+}
+{\ttfamily \#include \char`\"{}gnopts.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gnglyph.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gnmain.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gnmap.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$gnome.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{gnopts_8c_a6fddc59e2aa749ee7566805d035866c9}{opt\+\_\+sel\+\_\+key\+\_\+hit} (Gtk\+Widget $\ast$widget, Gdk\+Event\+Key $\ast$event, gpointer data)
+\item 
+static void \hyperlink{gnopts_8c_a4b134ac79e8b6ad0ee60aa63fff11b89}{opt\+\_\+sel\+\_\+row\+\_\+selected} (Gtk\+C\+List $\ast$c\+List, int row, int col, Gdk\+Event $\ast$event)
+\item 
+void \hyperlink{gnopts_8c_a8cef9f3479db0e51c1fb7491dd277af4}{ghack\+\_\+settings\+\_\+dialog} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static gint \hyperlink{gnopts_8c_a287a05b89dfcb89132a5d11939aae101}{tileset}
+\item 
+static Gtk\+Widget $\ast$ \hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{gnopts_8c_a9686653754acbcd696dd30429500012b}{tilesets} \mbox{[}$\,$\mbox{]} = \{ \char`\"{}Traditional (16x16)\char`\"{}, \char`\"{}\+Big (32x32)\char`\"{}, 0 \}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gnopts_8c_a8cef9f3479db0e51c1fb7491dd277af4}{\index{gnopts.\+c@{gnopts.\+c}!ghack\+\_\+settings\+\_\+dialog@{ghack\+\_\+settings\+\_\+dialog}}
+\index{ghack\+\_\+settings\+\_\+dialog@{ghack\+\_\+settings\+\_\+dialog}!gnopts.\+c@{gnopts.\+c}}
+\subsubsection[{ghack\+\_\+settings\+\_\+dialog}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+settings\+\_\+dialog (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{gnopts_8c_a8cef9f3479db0e51c1fb7491dd277af4}
+
+
+Definition at line 36 of file gnopts.\+c.
+
+
+
+References B\+U\+F\+S\+Z, clist, F\+A\+L\+S\+E, ghack\+\_\+free\+\_\+glyphs(), ghack\+\_\+get\+\_\+main\+\_\+window(), ghack\+\_\+init\+\_\+glyphs(), ghack\+\_\+reinit\+\_\+map\+\_\+window(), H\+A\+C\+K\+D\+I\+R, N\+U\+L\+L, opt\+\_\+sel\+\_\+key\+\_\+hit(), opt\+\_\+sel\+\_\+row\+\_\+selected(), tileset, tilesets, and T\+R\+U\+E.
+
+
+
+Referenced by ghack\+\_\+settings\+\_\+cb().
+
+
+\begin{DoxyCode}
+37 \{
+38     \textcolor{keywordtype}{int} i;
+39     \textcolor{keyword}{static} GtkWidget* dialog;
+40     \textcolor{keyword}{static} GtkWidget* swin;
+41     \textcolor{keyword}{static} GtkWidget* frame1;
+42 
+43     dialog = gnome\_dialog\_new (\_(\textcolor{stringliteral}{"GnomeHack Settings"}),
+44                 GNOME\_STOCK\_BUTTON\_OK,
+45                 GNOME\_STOCK\_BUTTON\_CANCEL,
+46                 \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+47     gnome\_dialog\_close\_hides (GNOME\_DIALOG (dialog), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+48     gtk\_signal\_connect (GTK\_OBJECT (dialog), \textcolor{stringliteral}{"key\_press\_event"},
+49               GTK\_SIGNAL\_FUNC (\hyperlink{gnopts_8c_a6fddc59e2aa749ee7566805d035866c9}{opt\_sel\_key\_hit}), \hyperlink{gnopts_8c_a9686653754acbcd696dd30429500012b}{tilesets} );
+50 
+51     frame1 = gtk\_frame\_new (\_(\textcolor{stringliteral}{"Choose one of the following tilesets:"}));
+52     gtk\_object\_set\_data (GTK\_OBJECT (dialog), \textcolor{stringliteral}{"frame1"}, frame1);
+53     gtk\_widget\_show (frame1);
+54     gtk\_container\_border\_width (GTK\_CONTAINER (frame1), 3);
+55 
+56     swin = gtk\_scrolled\_window\_new (\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+57     \hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist} = gtk\_clist\_new (2);
+58     gtk\_clist\_column\_titles\_hide (GTK\_CLIST (\hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}));
+59     gtk\_widget\_set\_usize (GTK\_WIDGET (\hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), 100, 180);
+60     gtk\_container\_add (GTK\_CONTAINER (swin), \hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist});
+61     gtk\_scrolled\_window\_set\_policy (GTK\_SCROLLED\_WINDOW (swin),
+62         GTK\_POLICY\_AUTOMATIC, GTK\_POLICY\_AUTOMATIC);
+63 
+64     gtk\_signal\_connect (GTK\_OBJECT (\hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), \textcolor{stringliteral}{"select\_row"},
+65             GTK\_SIGNAL\_FUNC (\hyperlink{gnopts_8c_a4b134ac79e8b6ad0ee60aa63fff11b89}{opt\_sel\_row\_selected}), \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+66 
+67     gtk\_container\_add (GTK\_CONTAINER (frame1), swin);
+68     gtk\_box\_pack\_start\_defaults (GTK\_BOX (GNOME\_DIALOG (dialog)->vbox), frame1);
+69 
+70     \textcolor{comment}{/* Add the tilesets into the list here... */}
+71     \textcolor{keywordflow}{for} (i=0; \hyperlink{gnopts_8c_a9686653754acbcd696dd30429500012b}{tilesets}[i]; i++) \{
+72         gchar accelBuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+73         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *text[3]=\{accelBuf, \hyperlink{gnopts_8c_a9686653754acbcd696dd30429500012b}{tilesets}[i],\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}\};
+74         sprintf( accelBuf, \textcolor{stringliteral}{"%c "}, tolower(\hyperlink{gnopts_8c_a9686653754acbcd696dd30429500012b}{tilesets}[i][0]));
+75         gtk\_clist\_insert (GTK\_CLIST (\hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), i, (\textcolor{keywordtype}{char}**)text);
+76     \}
+77 
+78 
+79     gtk\_clist\_columns\_autosize (GTK\_CLIST (\hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}));
+80     gtk\_widget\_show\_all (swin);
+81 
+82     \textcolor{comment}{/* Center the dialog over over parent */}
+83     gnome\_dialog\_set\_default( GNOME\_DIALOG(dialog), 0);
+84     gtk\_window\_set\_modal( GTK\_WINDOW(dialog), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+85     gnome\_dialog\_set\_parent (GNOME\_DIALOG (dialog),
+86         GTK\_WINDOW (\hyperlink{gnmain_8c_a103200f2f57b9258dfa18159191ea650}{ghack\_get\_main\_window} ()) );
+87 
+88     \textcolor{comment}{/* Run the dialog -- returning whichever button was pressed */}
+89     i = gnome\_dialog\_run (GNOME\_DIALOG (dialog));
+90     gnome\_dialog\_close (GNOME\_DIALOG (dialog));
+91 
+92     \textcolor{comment}{/* They hit Quit or error */}
+93     \textcolor{keywordflow}{if} (i != 0 ) \{
+94     \textcolor{keywordflow}{return};
+95     \}
+96     \textcolor{keywordflow}{switch} (\hyperlink{gnopts_8c_a287a05b89dfcb89132a5d11939aae101}{tileset}) \{
+97     \textcolor{keywordflow}{case} 0:
+98         \textcolor{comment}{/* They selected traditional */}
+99         \hyperlink{gnglyph_8c_a5af300458c0faa9c451f8d62045a9eea}{ghack\_free\_glyphs}();
+100         \textcolor{keywordflow}{if} (\hyperlink{gnglyph_8c_a7f986168bd2f1eea0b0702914e484167}{ghack\_init\_glyphs}(\hyperlink{config_8h_a335c50fb5c054415296fb087f2291268}{HACKDIR} \textcolor{stringliteral}{"/x11tiles"}))
+101               g\_error (\textcolor{stringliteral}{"ERROR:  Could not initialize glyphs.\(\backslash\)n"});
+102         \hyperlink{gnmap_8c_a141a22a83a9a9dbb69f9f8145a0f7f62}{ghack\_reinit\_map\_window}();
+103         \textcolor{keywordflow}{break};
+104     \textcolor{keywordflow}{case} 1:
+105         \hyperlink{gnglyph_8c_a5af300458c0faa9c451f8d62045a9eea}{ghack\_free\_glyphs}();
+106         \textcolor{keywordflow}{if} (\hyperlink{gnglyph_8c_a7f986168bd2f1eea0b0702914e484167}{ghack\_init\_glyphs}(\hyperlink{config_8h_a335c50fb5c054415296fb087f2291268}{HACKDIR} \textcolor{stringliteral}{"/t32-1024.xpm"}))
+107               g\_error (\textcolor{stringliteral}{"ERROR:  Could not initialize glyphs.\(\backslash\)n"});
+108         \hyperlink{gnmap_8c_a141a22a83a9a9dbb69f9f8145a0f7f62}{ghack\_reinit\_map\_window}();
+109 
+110         \textcolor{comment}{/* They selected big */}
+111         \textcolor{keywordflow}{break};
+112     \textcolor{keywordflow}{default}:
+113         \textcolor{comment}{/* This shouldn't happen */}
+114         g\_warning(\textcolor{stringliteral}{"This shouldn't happen\(\backslash\)n"});
+115     \}
+116 \}
+\end{DoxyCode}
+\hypertarget{gnopts_8c_a6fddc59e2aa749ee7566805d035866c9}{\index{gnopts.\+c@{gnopts.\+c}!opt\+\_\+sel\+\_\+key\+\_\+hit@{opt\+\_\+sel\+\_\+key\+\_\+hit}}
+\index{opt\+\_\+sel\+\_\+key\+\_\+hit@{opt\+\_\+sel\+\_\+key\+\_\+hit}!gnopts.\+c@{gnopts.\+c}}
+\subsubsection[{opt\+\_\+sel\+\_\+key\+\_\+hit}]{\setlength{\rightskip}{0pt plus 5cm}static void opt\+\_\+sel\+\_\+key\+\_\+hit (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{widget, }
+\item[{Gdk\+Event\+Key $\ast$}]{event, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gnopts_8c_a6fddc59e2aa749ee7566805d035866c9}
+
+
+Definition at line 18 of file gnopts.\+c.
+
+
+
+References clist, tileset, and tilesets.
+
+
+
+Referenced by ghack\+\_\+settings\+\_\+dialog().
+
+
+\begin{DoxyCode}
+19 \{
+20       \textcolor{keywordtype}{int} i;
+21       \textcolor{keywordflow}{for} (i = 0; \hyperlink{gnopts_8c_a9686653754acbcd696dd30429500012b}{tilesets}[i] != 0; ++i) \{
+22           \textcolor{keywordflow}{if} (\hyperlink{gnopts_8c_a9686653754acbcd696dd30429500012b}{tilesets}[i][0] == toupper(event->keyval)) \{
+23               \hyperlink{gnopts_8c_a287a05b89dfcb89132a5d11939aae101}{tileset} = i;
+24               gtk\_clist\_select\_row( GTK\_CLIST (\hyperlink{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), i, 0);
+25           \}
+26       \}
+27 \}
+\end{DoxyCode}
+\hypertarget{gnopts_8c_a4b134ac79e8b6ad0ee60aa63fff11b89}{\index{gnopts.\+c@{gnopts.\+c}!opt\+\_\+sel\+\_\+row\+\_\+selected@{opt\+\_\+sel\+\_\+row\+\_\+selected}}
+\index{opt\+\_\+sel\+\_\+row\+\_\+selected@{opt\+\_\+sel\+\_\+row\+\_\+selected}!gnopts.\+c@{gnopts.\+c}}
+\subsubsection[{opt\+\_\+sel\+\_\+row\+\_\+selected}]{\setlength{\rightskip}{0pt plus 5cm}static void opt\+\_\+sel\+\_\+row\+\_\+selected (
+\begin{DoxyParamCaption}
+\item[{Gtk\+C\+List $\ast$}]{c\+List, }
+\item[{int}]{row, }
+\item[{int}]{col, }
+\item[{Gdk\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gnopts_8c_a4b134ac79e8b6ad0ee60aa63fff11b89}
+
+
+Definition at line 30 of file gnopts.\+c.
+
+
+
+References tileset.
+
+
+
+Referenced by ghack\+\_\+settings\+\_\+dialog().
+
+
+\begin{DoxyCode}
+31 \{
+32     \hyperlink{gnopts_8c_a287a05b89dfcb89132a5d11939aae101}{tileset} = row;
+33 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{\index{gnopts.\+c@{gnopts.\+c}!clist@{clist}}
+\index{clist@{clist}!gnopts.\+c@{gnopts.\+c}}
+\subsubsection[{clist}]{\setlength{\rightskip}{0pt plus 5cm}Gtk\+Widget$\ast$ clist\hspace{0.3cm}{\ttfamily [static]}}}\label{gnopts_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}
+
+
+Definition at line 14 of file gnopts.\+c.
+
+
+
+Referenced by ghack\+\_\+ext\+\_\+key\+\_\+hit(), ghack\+\_\+menu\+\_\+destroy(), ghack\+\_\+menu\+\_\+ext\+\_\+cmd(), ghack\+\_\+menu\+\_\+window\+\_\+add\+\_\+menu(), ghack\+\_\+menu\+\_\+window\+\_\+clear(), ghack\+\_\+menu\+\_\+window\+\_\+key(), ghack\+\_\+menu\+\_\+window\+\_\+select\+\_\+menu(), ghack\+\_\+menu\+\_\+window\+\_\+start\+\_\+menu(), ghack\+\_\+settings\+\_\+dialog(), and opt\+\_\+sel\+\_\+key\+\_\+hit().
+
+\hypertarget{gnopts_8c_a287a05b89dfcb89132a5d11939aae101}{\index{gnopts.\+c@{gnopts.\+c}!tileset@{tileset}}
+\index{tileset@{tileset}!gnopts.\+c@{gnopts.\+c}}
+\subsubsection[{tileset}]{\setlength{\rightskip}{0pt plus 5cm}gint tileset\hspace{0.3cm}{\ttfamily [static]}}}\label{gnopts_8c_a287a05b89dfcb89132a5d11939aae101}
+
+
+Definition at line 13 of file gnopts.\+c.
+
+
+
+Referenced by ghack\+\_\+settings\+\_\+dialog(), opt\+\_\+sel\+\_\+key\+\_\+hit(), and opt\+\_\+sel\+\_\+row\+\_\+selected().
+
+\hypertarget{gnopts_8c_a9686653754acbcd696dd30429500012b}{\index{gnopts.\+c@{gnopts.\+c}!tilesets@{tilesets}}
+\index{tilesets@{tilesets}!gnopts.\+c@{gnopts.\+c}}
+\subsubsection[{tilesets}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ tilesets\mbox{[}$\,$\mbox{]} = \{ \char`\"{}Traditional (16x16)\char`\"{}, \char`\"{}\+Big (32x32)\char`\"{}, 0 \}}}\label{gnopts_8c_a9686653754acbcd696dd30429500012b}
+
+
+Definition at line 15 of file gnopts.\+c.
+
+
+
+Referenced by ghack\+\_\+settings\+\_\+dialog(), and opt\+\_\+sel\+\_\+key\+\_\+hit().
+

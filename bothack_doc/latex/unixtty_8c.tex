@@ -1,0 +1,643 @@
+\hypertarget{unixtty_8c}{\section{nethack/sys/share/unixtty.c File Reference}
+\label{unixtty_8c}\index{nethack/sys/share/unixtty.\+c@{nethack/sys/share/unixtty.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$termio.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{unixtty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}
+\item 
+\#define \hyperlink{unixtty_8c_ad1bc0dd24bead91c0bba1ded526fc471}{U\+S\+G}
+\item 
+\#define \hyperlink{unixtty_8c_a0dbc8da9b38ca67eb41d112998fa8161}{termstruct}~\hyperlink{ioctl_8c_a340b99b9fd782a93ee4d7f319899a917}{termio}
+\item 
+\#define \hyperlink{unixtty_8c_a646188a2a901f33cd603047a30609a2f}{kill\+\_\+sym}~c\+\_\+cc\mbox{[}V\+K\+I\+L\+L\mbox{]}
+\item 
+\#define \hyperlink{unixtty_8c_aa0c9eaa687cf7fe5a320c0637ea4be79}{erase\+\_\+sym}~c\+\_\+cc\mbox{[}V\+E\+R\+A\+S\+E\mbox{]}
+\item 
+\#define \hyperlink{unixtty_8c_af9694ea87ee23da3fb3cbc1ac60d7101}{intr\+\_\+sym}~c\+\_\+cc\mbox{[}V\+I\+N\+T\+R\mbox{]}
+\item 
+\#define \hyperlink{unixtty_8c_aad05dcf6d57d178f84fded8e84032f53}{E\+X\+T\+A\+B\+S}~0
+\item 
+\#define \hyperlink{unixtty_8c_a42989f240d85499bf5de5fbef58a22f2}{tabflgs}~c\+\_\+oflag
+\item 
+\#define \hyperlink{unixtty_8c_a0af1e500c7bb8869e7f09f4db2984641}{echoflgs}~c\+\_\+lflag
+\item 
+\#define \hyperlink{unixtty_8c_a7fb480ace48fb9ec5a67f98d3a8d8d20}{cbrkflgs}~c\+\_\+lflag
+\item 
+\#define \hyperlink{unixtty_8c_ab1f7499410dd564dcd3a564582f1efbd}{C\+B\+R\+K\+M\+A\+S\+K}~I\+C\+A\+N\+O\+N
+\item 
+\#define \hyperlink{unixtty_8c_aa6ed3a6f04e706838dec5c008051a39d}{C\+B\+R\+K\+O\+N}~! /$\ast$ reverse condition $\ast$/
+\item 
+\#define \hyperlink{unixtty_8c_a585af9d7ad225ac342d84f16d69fe427}{C\+B\+A\+U\+D}~\+\_\+\+C\+B\+A\+U\+D /$\ast$ for P\+O\+S\+I\+X nitpickers (like R\+S/6000 cc) $\ast$/
+\item 
+\#define \hyperlink{unixtty_8c_a7178afc117ed7f8a87a7fa733fb80fe5}{O\+S\+P\+E\+E\+D}(x)~((x).c\+\_\+cflag \& \hyperlink{unixtty_8c_a585af9d7ad225ac342d84f16d69fe427}{C\+B\+A\+U\+D})
+\item 
+\#define \hyperlink{unixtty_8c_a93bb729268a2a98e9f828d75cefdfb41}{I\+S\+\_\+7\+B\+I\+T}(x)~((x).c\+\_\+cflag \& C\+S7)
+\item 
+\#define \hyperlink{unixtty_8c_adba3c26bbe7adeb7271f2cad885253a8}{inputflags}~c\+\_\+iflag
+\item 
+\#define \hyperlink{unixtty_8c_af203ea6e97315e5e32792dbb4a7e67d9}{S\+T\+R\+I\+P\+H\+I}~I\+S\+T\+R\+I\+P
+\item 
+\#define \hyperlink{unixtty_8c_ace6bb1dccb6d1eb9683051513cef6a9a}{G\+T\+T\+Y}(x)~(ioctl(0, T\+C\+G\+E\+T\+A, x))
+\item 
+\#define \hyperlink{unixtty_8c_ac9d5c6e5680c841ae354edfc507db872}{S\+T\+T\+Y}(x)~(ioctl(0, T\+C\+S\+E\+T\+A\+W, x))
+\item 
+\#define \hyperlink{unixtty_8c_ae900e85f9e770dea6c674536e43e5a7b}{G\+T\+T\+Y2}(x)~1
+\item 
+\#define \hyperlink{unixtty_8c_a3ed8555a94e79a1b3327a1db725f3697}{S\+T\+T\+Y2}(x)~1
+\item 
+\#define \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch}~0
+\item 
+\#define \hyperlink{unixtty_8c_add96097c998ffa95f763960198125623}{inittyb2}~inittyb
+\item 
+\#define \hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2}~\hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{unixtty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty} ()
+\item 
+void \hyperlink{unixtty_8c_a373d362cb59d42622763edf0206cc038}{gettty} ()
+\item 
+void \hyperlink{unixtty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}{settty} (char $\ast$s) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{unixtty_8c_aaa4a2930941423d431515f11436497b6}{setftty} ()
+\item 
+void \hyperlink{unixtty_8c_a801ec867d5c7166d2faa1afc552f7d0e}{intron} ()
+\item 
+void \hyperlink{unixtty_8c_a48af2a23abad925191f7ad766f1b6f44}{introff} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+short \hyperlink{unixtty_8c_ac95761f812b1cd22186a50db1ef8030b}{ospeed} = 0
+\item 
+char \hyperlink{unixtty_8c_a290d0adea4016784acb151e2620c902a}{erase\+\_\+char}
+\item 
+char \hyperlink{unixtty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\+\_\+char}
+\item 
+char \hyperlink{unixtty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{kill\+\_\+char}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{unixtty_8c_a889ea83f1c92b34d38debe95ae5ac89e}{settty\+\_\+needed} = \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\item 
+struct \hyperlink{unixtty_8c_a0dbc8da9b38ca67eb41d112998fa8161}{termstruct} inittyb \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{unixtty_8c_a585af9d7ad225ac342d84f16d69fe427}{\index{unixtty.\+c@{unixtty.\+c}!C\+B\+A\+U\+D@{C\+B\+A\+U\+D}}
+\index{C\+B\+A\+U\+D@{C\+B\+A\+U\+D}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{C\+B\+A\+U\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+B\+A\+U\+D~\+\_\+\+C\+B\+A\+U\+D /$\ast$ for P\+O\+S\+I\+X nitpickers (like R\+S/6000 cc) $\ast$/}}\label{unixtty_8c_a585af9d7ad225ac342d84f16d69fe427}
+
+
+Definition at line 60 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_a7fb480ace48fb9ec5a67f98d3a8d8d20}{\index{unixtty.\+c@{unixtty.\+c}!cbrkflgs@{cbrkflgs}}
+\index{cbrkflgs@{cbrkflgs}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{cbrkflgs}]{\setlength{\rightskip}{0pt plus 5cm}\#define cbrkflgs~c\+\_\+lflag}}\label{unixtty_8c_a7fb480ace48fb9ec5a67f98d3a8d8d20}
+
+
+Definition at line 53 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_ab1f7499410dd564dcd3a564582f1efbd}{\index{unixtty.\+c@{unixtty.\+c}!C\+B\+R\+K\+M\+A\+S\+K@{C\+B\+R\+K\+M\+A\+S\+K}}
+\index{C\+B\+R\+K\+M\+A\+S\+K@{C\+B\+R\+K\+M\+A\+S\+K}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{C\+B\+R\+K\+M\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+B\+R\+K\+M\+A\+S\+K~I\+C\+A\+N\+O\+N}}\label{unixtty_8c_ab1f7499410dd564dcd3a564582f1efbd}
+
+
+Definition at line 54 of file unixtty.\+c.
+
+
+
+Referenced by setftty(), and settty().
+
+\hypertarget{unixtty_8c_aa6ed3a6f04e706838dec5c008051a39d}{\index{unixtty.\+c@{unixtty.\+c}!C\+B\+R\+K\+O\+N@{C\+B\+R\+K\+O\+N}}
+\index{C\+B\+R\+K\+O\+N@{C\+B\+R\+K\+O\+N}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{C\+B\+R\+K\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+B\+R\+K\+O\+N~! /$\ast$ reverse condition $\ast$/}}\label{unixtty_8c_aa6ed3a6f04e706838dec5c008051a39d}
+
+
+Definition at line 55 of file unixtty.\+c.
+
+
+
+Referenced by setftty(), and settty().
+
+\hypertarget{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{\index{unixtty.\+c@{unixtty.\+c}!curttyb2@{curttyb2}}
+\index{curttyb2@{curttyb2}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{curttyb2}]{\setlength{\rightskip}{0pt plus 5cm}\#define curttyb2~{\bf curttyb}}}\label{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}
+
+
+Definition at line 91 of file unixtty.\+c.
+
+
+
+Referenced by gettty(), introff(), intron(), setctty(), and setftty().
+
+\hypertarget{unixtty_8c_a0af1e500c7bb8869e7f09f4db2984641}{\index{unixtty.\+c@{unixtty.\+c}!echoflgs@{echoflgs}}
+\index{echoflgs@{echoflgs}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{echoflgs}]{\setlength{\rightskip}{0pt plus 5cm}\#define echoflgs~c\+\_\+lflag}}\label{unixtty_8c_a0af1e500c7bb8869e7f09f4db2984641}
+
+
+Definition at line 52 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_aa0c9eaa687cf7fe5a320c0637ea4be79}{\index{unixtty.\+c@{unixtty.\+c}!erase\+\_\+sym@{erase\+\_\+sym}}
+\index{erase\+\_\+sym@{erase\+\_\+sym}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{erase\+\_\+sym}]{\setlength{\rightskip}{0pt plus 5cm}\#define erase\+\_\+sym~c\+\_\+cc\mbox{[}V\+E\+R\+A\+S\+E\mbox{]}}}\label{unixtty_8c_aa0c9eaa687cf7fe5a320c0637ea4be79}
+
+
+Definition at line 44 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_aad05dcf6d57d178f84fded8e84032f53}{\index{unixtty.\+c@{unixtty.\+c}!E\+X\+T\+A\+B\+S@{E\+X\+T\+A\+B\+S}}
+\index{E\+X\+T\+A\+B\+S@{E\+X\+T\+A\+B\+S}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{E\+X\+T\+A\+B\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+T\+A\+B\+S~0}}\label{unixtty_8c_aad05dcf6d57d178f84fded8e84032f53}
+
+
+Definition at line 49 of file unixtty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{unixtty_8c_ace6bb1dccb6d1eb9683051513cef6a9a}{\index{unixtty.\+c@{unixtty.\+c}!G\+T\+T\+Y@{G\+T\+T\+Y}}
+\index{G\+T\+T\+Y@{G\+T\+T\+Y}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{G\+T\+T\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+T\+T\+Y(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(ioctl(0, T\+C\+G\+E\+T\+A, x))}}\label{unixtty_8c_ace6bb1dccb6d1eb9683051513cef6a9a}
+
+
+Definition at line 75 of file unixtty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{unixtty_8c_ae900e85f9e770dea6c674536e43e5a7b}{\index{unixtty.\+c@{unixtty.\+c}!G\+T\+T\+Y2@{G\+T\+T\+Y2}}
+\index{G\+T\+T\+Y2@{G\+T\+T\+Y2}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{G\+T\+T\+Y2}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+T\+T\+Y2(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~1}}\label{unixtty_8c_ae900e85f9e770dea6c674536e43e5a7b}
+
+
+Definition at line 79 of file unixtty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{unixtty_8c_add96097c998ffa95f763960198125623}{\index{unixtty.\+c@{unixtty.\+c}!inittyb2@{inittyb2}}
+\index{inittyb2@{inittyb2}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{inittyb2}]{\setlength{\rightskip}{0pt plus 5cm}\#define inittyb2~inittyb}}\label{unixtty_8c_add96097c998ffa95f763960198125623}
+
+
+Definition at line 90 of file unixtty.\+c.
+
+
+
+Referenced by gettty(), and settty().
+
+\hypertarget{unixtty_8c_adba3c26bbe7adeb7271f2cad885253a8}{\index{unixtty.\+c@{unixtty.\+c}!inputflags@{inputflags}}
+\index{inputflags@{inputflags}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{inputflags}]{\setlength{\rightskip}{0pt plus 5cm}\#define inputflags~c\+\_\+iflag}}\label{unixtty_8c_adba3c26bbe7adeb7271f2cad885253a8}
+
+
+Definition at line 65 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_af9694ea87ee23da3fb3cbc1ac60d7101}{\index{unixtty.\+c@{unixtty.\+c}!intr\+\_\+sym@{intr\+\_\+sym}}
+\index{intr\+\_\+sym@{intr\+\_\+sym}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{intr\+\_\+sym}]{\setlength{\rightskip}{0pt plus 5cm}\#define intr\+\_\+sym~c\+\_\+cc\mbox{[}V\+I\+N\+T\+R\mbox{]}}}\label{unixtty_8c_af9694ea87ee23da3fb3cbc1ac60d7101}
+
+
+Definition at line 45 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_a93bb729268a2a98e9f828d75cefdfb41}{\index{unixtty.\+c@{unixtty.\+c}!I\+S\+\_\+7\+B\+I\+T@{I\+S\+\_\+7\+B\+I\+T}}
+\index{I\+S\+\_\+7\+B\+I\+T@{I\+S\+\_\+7\+B\+I\+T}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{I\+S\+\_\+7\+B\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+S\+\_\+7\+B\+I\+T(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~((x).c\+\_\+cflag \& C\+S7)}}\label{unixtty_8c_a93bb729268a2a98e9f828d75cefdfb41}
+
+
+Definition at line 64 of file unixtty.\+c.
+
+
+
+Referenced by setftty().
+
+\hypertarget{unixtty_8c_a646188a2a901f33cd603047a30609a2f}{\index{unixtty.\+c@{unixtty.\+c}!kill\+\_\+sym@{kill\+\_\+sym}}
+\index{kill\+\_\+sym@{kill\+\_\+sym}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{kill\+\_\+sym}]{\setlength{\rightskip}{0pt plus 5cm}\#define kill\+\_\+sym~c\+\_\+cc\mbox{[}V\+K\+I\+L\+L\mbox{]}}}\label{unixtty_8c_a646188a2a901f33cd603047a30609a2f}
+
+
+Definition at line 43 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}{\index{unixtty.\+c@{unixtty.\+c}!N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S@{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}}
+\index{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S@{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+E\+E\+D\+\_\+\+V\+A\+R\+A\+R\+G\+S}}\label{unixtty_8c_ae0cbc95d7e612f32d35c1fa270f7445e}
+
+
+Definition at line 11 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{\index{unixtty.\+c@{unixtty.\+c}!nonesuch@{nonesuch}}
+\index{nonesuch@{nonesuch}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{nonesuch}]{\setlength{\rightskip}{0pt plus 5cm}\#define nonesuch~0}}\label{unixtty_8c_a14373784a2f4ce406648b257b2daad94}
+
+
+Definition at line 88 of file unixtty.\+c.
+
+
+
+Referenced by introff(), intron(), and setftty().
+
+\hypertarget{unixtty_8c_a7178afc117ed7f8a87a7fa733fb80fe5}{\index{unixtty.\+c@{unixtty.\+c}!O\+S\+P\+E\+E\+D@{O\+S\+P\+E\+E\+D}}
+\index{O\+S\+P\+E\+E\+D@{O\+S\+P\+E\+E\+D}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{O\+S\+P\+E\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+S\+P\+E\+E\+D(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~((x).c\+\_\+cflag \& {\bf C\+B\+A\+U\+D})}}\label{unixtty_8c_a7178afc117ed7f8a87a7fa733fb80fe5}
+
+
+Definition at line 62 of file unixtty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{unixtty_8c_af203ea6e97315e5e32792dbb4a7e67d9}{\index{unixtty.\+c@{unixtty.\+c}!S\+T\+R\+I\+P\+H\+I@{S\+T\+R\+I\+P\+H\+I}}
+\index{S\+T\+R\+I\+P\+H\+I@{S\+T\+R\+I\+P\+H\+I}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{S\+T\+R\+I\+P\+H\+I}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+I\+P\+H\+I~I\+S\+T\+R\+I\+P}}\label{unixtty_8c_af203ea6e97315e5e32792dbb4a7e67d9}
+
+
+Definition at line 66 of file unixtty.\+c.
+
+
+
+Referenced by setftty(), and settty().
+
+\hypertarget{unixtty_8c_ac9d5c6e5680c841ae354edfc507db872}{\index{unixtty.\+c@{unixtty.\+c}!S\+T\+T\+Y@{S\+T\+T\+Y}}
+\index{S\+T\+T\+Y@{S\+T\+T\+Y}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{S\+T\+T\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+T\+Y(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(ioctl(0, T\+C\+S\+E\+T\+A\+W, x))}}\label{unixtty_8c_ac9d5c6e5680c841ae354edfc507db872}
+
+
+Definition at line 76 of file unixtty.\+c.
+
+
+
+Referenced by setctty(), and settty().
+
+\hypertarget{unixtty_8c_a3ed8555a94e79a1b3327a1db725f3697}{\index{unixtty.\+c@{unixtty.\+c}!S\+T\+T\+Y2@{S\+T\+T\+Y2}}
+\index{S\+T\+T\+Y2@{S\+T\+T\+Y2}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{S\+T\+T\+Y2}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+T\+Y2(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~1}}\label{unixtty_8c_a3ed8555a94e79a1b3327a1db725f3697}
+
+
+Definition at line 80 of file unixtty.\+c.
+
+
+
+Referenced by setctty(), and settty().
+
+\hypertarget{unixtty_8c_a42989f240d85499bf5de5fbef58a22f2}{\index{unixtty.\+c@{unixtty.\+c}!tabflgs@{tabflgs}}
+\index{tabflgs@{tabflgs}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{tabflgs}]{\setlength{\rightskip}{0pt plus 5cm}\#define tabflgs~c\+\_\+oflag}}\label{unixtty_8c_a42989f240d85499bf5de5fbef58a22f2}
+
+
+Definition at line 51 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_a0dbc8da9b38ca67eb41d112998fa8161}{\index{unixtty.\+c@{unixtty.\+c}!termstruct@{termstruct}}
+\index{termstruct@{termstruct}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{termstruct}]{\setlength{\rightskip}{0pt plus 5cm}\#define termstruct~{\bf termio}}}\label{unixtty_8c_a0dbc8da9b38ca67eb41d112998fa8161}
+
+
+Definition at line 35 of file unixtty.\+c.
+
+\hypertarget{unixtty_8c_ad1bc0dd24bead91c0bba1ded526fc471}{\index{unixtty.\+c@{unixtty.\+c}!U\+S\+G@{U\+S\+G}}
+\index{U\+S\+G@{U\+S\+G}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{U\+S\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+S\+G}}\label{unixtty_8c_ad1bc0dd24bead91c0bba1ded526fc471}
+
+
+Definition at line 21 of file unixtty.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{unixtty_8c_a373d362cb59d42622763edf0206cc038}{\index{unixtty.\+c@{unixtty.\+c}!gettty@{gettty}}
+\index{gettty@{gettty}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{gettty}]{\setlength{\rightskip}{0pt plus 5cm}void gettty (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{unixtty_8c_a373d362cb59d42622763edf0206cc038}
+
+
+Definition at line 181 of file unixtty.\+c.
+
+
+
+References curttyb, curttyb2, erase\+\_\+char, E\+X\+T\+A\+B\+S, getioctls(), G\+T\+T\+Y, G\+T\+T\+Y2, inittyb2, intr\+\_\+char, kill\+\_\+char, O\+S\+P\+E\+E\+D, ospeed, perror, setctty(), settty\+\_\+needed, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+182 \{
+183     \textcolor{keywordflow}{if}(\hyperlink{unixtty_8c_ace6bb1dccb6d1eb9683051513cef6a9a}{GTTY}(&inittyb) < 0 || \hyperlink{unixtty_8c_ae900e85f9e770dea6c674536e43e5a7b}{GTTY2}(&\hyperlink{unixtty_8c_add96097c998ffa95f763960198125623}{inittyb2}) < 0)
+184         \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(\textcolor{stringliteral}{"NetHack (gettty)"});
+185     \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb} = inittyb;
+186     \hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2} = \hyperlink{unixtty_8c_add96097c998ffa95f763960198125623}{inittyb2};
+187     \hyperlink{unixtty_8c_ac95761f812b1cd22186a50db1ef8030b}{ospeed} = \hyperlink{unixtty_8c_a7178afc117ed7f8a87a7fa733fb80fe5}{OSPEED}(inittyb);
+188     \hyperlink{unixtty_8c_a290d0adea4016784acb151e2620c902a}{erase\_char} = inittyb.erase\_sym;
+189     \hyperlink{unixtty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{kill\_char} = inittyb.kill\_sym;
+190     \hyperlink{unixtty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\_char} = \hyperlink{unixtty_8c_add96097c998ffa95f763960198125623}{inittyb2}.intr\_sym;
+191     \hyperlink{ioctl_8c_af57d766308873f346599e80954e0ae10}{getioctls}();
+192 
+193     \textcolor{comment}{/* do not expand tabs - they might be needed inside a cm sequence */}
+194     \textcolor{keywordflow}{if}(\hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.tabflgs & \hyperlink{unixtty_8c_aad05dcf6d57d178f84fded8e84032f53}{EXTABS}) \{
+195         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.tabflgs &= ~\hyperlink{unixtty_8c_aad05dcf6d57d178f84fded8e84032f53}{EXTABS};
+196         \hyperlink{unixtty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty}();
+197     \}
+198     \hyperlink{unixtty_8c_a889ea83f1c92b34d38debe95ae5ac89e}{settty\_needed} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+199 \}
+\end{DoxyCode}
+\hypertarget{unixtty_8c_a48af2a23abad925191f7ad766f1b6f44}{\index{unixtty.\+c@{unixtty.\+c}!introff@{introff}}
+\index{introff@{introff}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{introff}]{\setlength{\rightskip}{0pt plus 5cm}void introff (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{unixtty_8c_a48af2a23abad925191f7ad766f1b6f44}
+
+
+Definition at line 298 of file unixtty.\+c.
+
+
+
+References curttyb2, window\+\_\+procs\+::name, nonesuch, setctty(), and windowprocs.
+
+
+
+Referenced by dowhatdoes().
+
+
+\begin{DoxyCode}
+299 \{
+300 \textcolor{preprocessor}{#ifdef TTY\_GRAPHICS}
+301     \textcolor{comment}{/* Ugly hack to keep from changing tty modes for non-tty games -dlc */}
+302     \textcolor{keywordflow}{if} (!strcmp(\hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.\hyperlink{structwindow__procs_a3c3f9beba0ac50aabe7ce172f042e917}{name}, \textcolor{stringliteral}{"tty"}) &&
+303        \hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2}.intr\_sym != \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch}) \{
+304         \hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2}.intr\_sym = \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch};
+305         \hyperlink{unixtty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty}();
+306     \}
+307 \textcolor{preprocessor}{#endif}
+308 \}
+\end{DoxyCode}
+\hypertarget{unixtty_8c_a801ec867d5c7166d2faa1afc552f7d0e}{\index{unixtty.\+c@{unixtty.\+c}!intron@{intron}}
+\index{intron@{intron}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{intron}]{\setlength{\rightskip}{0pt plus 5cm}void intron (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{unixtty_8c_a801ec867d5c7166d2faa1afc552f7d0e}
+
+
+Definition at line 285 of file unixtty.\+c.
+
+
+
+References curttyb2, intr\+\_\+char, window\+\_\+procs\+::name, nonesuch, setctty(), and windowprocs.
+
+
+
+Referenced by dowhatdoes().
+
+
+\begin{DoxyCode}
+286 \{
+287 \textcolor{preprocessor}{#ifdef TTY\_GRAPHICS}
+288     \textcolor{comment}{/* Ugly hack to keep from changing tty modes for non-tty games -dlc */}
+289     \textcolor{keywordflow}{if} (!strcmp(\hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.\hyperlink{structwindow__procs_a3c3f9beba0ac50aabe7ce172f042e917}{name}, \textcolor{stringliteral}{"tty"}) &&
+290         \hyperlink{unixtty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\_char} != \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch} && \hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2}.intr\_sym != \textcolor{charliteral}{'\(\backslash\)003'}) \{
+291         \hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2}.intr\_sym = \textcolor{charliteral}{'\(\backslash\)003'};
+292         \hyperlink{unixtty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty}();
+293     \}
+294 \textcolor{preprocessor}{#endif}
+295 \}
+\end{DoxyCode}
+\hypertarget{unixtty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{\index{unixtty.\+c@{unixtty.\+c}!setctty@{setctty}}
+\index{setctty@{setctty}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{setctty}]{\setlength{\rightskip}{0pt plus 5cm}static void setctty (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixtty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}
+
+
+Definition at line 169 of file unixtty.\+c.
+
+
+
+References curttyb, curttyb2, perror, S\+T\+T\+Y, and S\+T\+T\+Y2.
+
+
+
+Referenced by gettty(), introff(), intron(), and setftty().
+
+
+\begin{DoxyCode}
+170 \{
+171     \textcolor{keywordflow}{if}(\hyperlink{unixtty_8c_ac9d5c6e5680c841ae354edfc507db872}{STTY}(&\hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}) < 0 || \hyperlink{unixtty_8c_a3ed8555a94e79a1b3327a1db725f3697}{STTY2}(&\hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2}) < 0)
+172         \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(\textcolor{stringliteral}{"NetHack (setctty)"});
+173 \}
+\end{DoxyCode}
+\hypertarget{unixtty_8c_aaa4a2930941423d431515f11436497b6}{\index{unixtty.\+c@{unixtty.\+c}!setftty@{setftty}}
+\index{setftty@{setftty}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{setftty}]{\setlength{\rightskip}{0pt plus 5cm}void setftty (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{unixtty_8c_aaa4a2930941423d431515f11436497b6}
+
+
+Definition at line 217 of file unixtty.\+c.
+
+
+
+References instance\+\_\+flags\+::cbreak, C\+B\+R\+K\+M\+A\+S\+K, C\+B\+R\+K\+O\+N, curttyb, curttyb2, instance\+\_\+flags\+::echo, E\+C\+H\+O, iflags, intr\+\_\+char, I\+S\+\_\+7\+B\+I\+T, nonesuch, O\+F\+F, O\+N, setctty(), start\+\_\+screen, and S\+T\+R\+I\+P\+H\+I.
+
+
+\begin{DoxyCode}
+218 \{
+219 \textcolor{keyword}{register} \textcolor{keywordtype}{int} ef = 0;            \textcolor{comment}{/* desired value of flags & ECHO */}
+220 \textcolor{preprocessor}{#ifdef LINT }\textcolor{comment}{/* cf = CBRKON(CBRKMASK); const expr to initialize is ok */}\textcolor{preprocessor}{}
+221 \textcolor{keyword}{register} \textcolor{keywordtype}{int} cf = 0;
+222 \textcolor{preprocessor}{#else}
+223 \textcolor{keyword}{register} \textcolor{keywordtype}{int} cf = \hyperlink{unixtty_8c_aa6ed3a6f04e706838dec5c008051a39d}{CBRKON}(\hyperlink{unixtty_8c_ab1f7499410dd564dcd3a564582f1efbd}{CBRKMASK});   \textcolor{comment}{/* desired value of flags & CBREAK */}
+224 \textcolor{preprocessor}{#endif}
+225 \textcolor{keyword}{register} \textcolor{keywordtype}{int} change = 0;
+226     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_acc12d1d0c33d63aee349eac10eec35a5}{cbreak} = \hyperlink{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{ON};
+227     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a4a064908e2a505018c11319cc53d7fe1}{echo} = \hyperlink{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{OFF};
+228     \textcolor{comment}{/* Should use (ECHO|CRMOD) here instead of ECHO */}
+229     \textcolor{keywordflow}{if}((\hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.echoflgs & \hyperlink{dgn__lex_8c_aad1dc60a04a1d8cfc8b3ded13601e361}{ECHO}) != ef)\{
+230         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.echoflgs &= ~\hyperlink{dgn__lex_8c_aad1dc60a04a1d8cfc8b3ded13601e361}{ECHO};
+231 \textcolor{comment}{/*      curttyb.echoflgs |= ef;                 */}
+232         change++;
+233     \}
+234     \textcolor{keywordflow}{if}((\hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.cbrkflgs & \hyperlink{unixtty_8c_ab1f7499410dd564dcd3a564582f1efbd}{CBRKMASK}) != cf)\{
+235         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.cbrkflgs &= ~\hyperlink{unixtty_8c_ab1f7499410dd564dcd3a564582f1efbd}{CBRKMASK};
+236         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.cbrkflgs |= cf;
+237 \textcolor{preprocessor}{#ifdef USG}
+238         \textcolor{comment}{/* be satisfied with one character; no timeout */}
+239         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VMIN] = 1;      \textcolor{comment}{/* was VEOF */}
+240         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VTIME] = 0; \textcolor{comment}{/* was VEOL */}
+241 \textcolor{preprocessor}{# ifdef POSIX\_JOB\_CONTROL}
+242         \textcolor{comment}{/* turn off system suspend character}
+243 \textcolor{comment}{         * due to differences in structure layout, this has to be}
+244 \textcolor{comment}{         * here instead of in ioctl.c:getioctls() with the BSD}
+245 \textcolor{comment}{         * equivalent}
+246 \textcolor{comment}{         */}
+247 \textcolor{preprocessor}{#  ifdef VSUSP  }\textcolor{comment}{/* real POSIX */}\textcolor{preprocessor}{}
+248         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VSUSP] = \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch};
+249 \textcolor{preprocessor}{#  else     }\textcolor{comment}{/* other later SYSV */}\textcolor{preprocessor}{}
+250         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VSWTCH] = \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch};
+251 \textcolor{preprocessor}{#  endif}
+252 \textcolor{preprocessor}{# endif}
+253 \textcolor{preprocessor}{# ifdef VDSUSP }\textcolor{comment}{/* SunOS Posix extensions */}\textcolor{preprocessor}{}
+254         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VDSUSP] = \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch};
+255 \textcolor{preprocessor}{# endif}
+256 \textcolor{preprocessor}{# ifdef VREPRINT}
+257         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VREPRINT] = \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch};
+258 \textcolor{preprocessor}{# endif}
+259 \textcolor{preprocessor}{# ifdef VDISCARD}
+260         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VDISCARD] = \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch};
+261 \textcolor{preprocessor}{# endif}
+262 \textcolor{preprocessor}{# ifdef VWERASE}
+263         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VWERASE] = \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch};
+264 \textcolor{preprocessor}{# endif}
+265 \textcolor{preprocessor}{# ifdef VLNEXT}
+266         \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.c\_cc[VLNEXT] = \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch};
+267 \textcolor{preprocessor}{# endif}
+268 \textcolor{preprocessor}{#endif}
+269         change++;
+270     \}
+271     \textcolor{keywordflow}{if}(!\hyperlink{unixtty_8c_a93bb729268a2a98e9f828d75cefdfb41}{IS\_7BIT}(inittyb)) \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.inputflags &=~\hyperlink{unixtty_8c_af203ea6e97315e5e32792dbb4a7e67d9}{ STRIPHI};
+272     \textcolor{comment}{/* If an interrupt character is used, it will be overriden and}
+273 \textcolor{comment}{     * set to ^C.}
+274 \textcolor{comment}{     */}
+275     \textcolor{keywordflow}{if}(\hyperlink{unixtty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{intr\_char} != \hyperlink{unixtty_8c_a14373784a2f4ce406648b257b2daad94}{nonesuch} && \hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2}.intr\_sym != \textcolor{charliteral}{'\(\backslash\)003'}) \{
+276         \hyperlink{unixtty_8c_a48c93bb3d1c5bd337b22a5bd710b1ca9}{curttyb2}.intr\_sym = \textcolor{charliteral}{'\(\backslash\)003'};
+277         change++;
+278     \}
+279 
+280     \textcolor{keywordflow}{if}(change) \hyperlink{unixtty_8c_ae32bafba0e9cb6b01bf6d129cfda9dca}{setctty}();
+281     \hyperlink{winprocs_8h_a3e68a74ac942b6042d4aadbdb33f9af5}{start\_screen}();
+282 \}
+\end{DoxyCode}
+\hypertarget{unixtty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}{\index{unixtty.\+c@{unixtty.\+c}!settty@{settty}}
+\index{settty@{settty}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{settty}]{\setlength{\rightskip}{0pt plus 5cm}void settty (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+) const}}\label{unixtty_8c_a34a416ab1d9bdbc5a0d42265aa5a1b4c}
+
+
+Definition at line 203 of file unixtty.\+c.
+
+
+
+References instance\+\_\+flags\+::cbreak, C\+B\+R\+K\+M\+A\+S\+K, C\+B\+R\+K\+O\+N, curttyb, instance\+\_\+flags\+::echo, E\+C\+H\+O, end\+\_\+screen, iflags, inittyb2, O\+F\+F, O\+N, perror, raw\+\_\+print, setioctls(), S\+T\+R\+I\+P\+H\+I, S\+T\+T\+Y, and S\+T\+T\+Y2.
+
+
+\begin{DoxyCode}
+205 \{
+206     \hyperlink{winprocs_8h_ad07041de3a8f09c2e440adba39093b6b}{end\_screen}();
+207     \textcolor{keywordflow}{if}(s) \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(s);
+208     \textcolor{keywordflow}{if}(\hyperlink{unixtty_8c_ac9d5c6e5680c841ae354edfc507db872}{STTY}(&inittyb) < 0 || \hyperlink{unixtty_8c_a3ed8555a94e79a1b3327a1db725f3697}{STTY2}(&\hyperlink{unixtty_8c_add96097c998ffa95f763960198125623}{inittyb2}) < 0)
+209         \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(\textcolor{stringliteral}{"NetHack (settty)"});
+210     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a4a064908e2a505018c11319cc53d7fe1}{echo} = (inittyb.echoflgs & \hyperlink{dgn__lex_8c_aad1dc60a04a1d8cfc8b3ded13601e361}{ECHO}) ? \hyperlink{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{ON} : \hyperlink{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{OFF};
+211     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_acc12d1d0c33d63aee349eac10eec35a5}{cbreak} = (\hyperlink{unixtty_8c_aa6ed3a6f04e706838dec5c008051a39d}{CBRKON}(inittyb.cbrkflgs & \hyperlink{unixtty_8c_ab1f7499410dd564dcd3a564582f1efbd}{CBRKMASK})) ? 
+      \hyperlink{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{ON} : \hyperlink{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{OFF};
+212     \hyperlink{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{curttyb}.inputflags |= \hyperlink{unixtty_8c_af203ea6e97315e5e32792dbb4a7e67d9}{STRIPHI};
+213     \hyperlink{ioctl_8c_a528566079e76dc74c70829057a0952c7}{setioctls}();
+214 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}{\index{unixtty.\+c@{unixtty.\+c}!curttyb@{curttyb}}
+\index{curttyb@{curttyb}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{curttyb}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf termstruct} inittyb curttyb}}\label{unixtty_8c_aede6fb03d6eb5e58ca32a78e667636e6}
+
+
+Definition at line 138 of file unixtty.\+c.
+
+
+
+Referenced by gettty(), setctty(), setftty(), and settty().
+
+\hypertarget{unixtty_8c_a290d0adea4016784acb151e2620c902a}{\index{unixtty.\+c@{unixtty.\+c}!erase\+\_\+char@{erase\+\_\+char}}
+\index{erase\+\_\+char@{erase\+\_\+char}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{erase\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char erase\+\_\+char}}\label{unixtty_8c_a290d0adea4016784acb151e2620c902a}
+
+
+Definition at line 136 of file unixtty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{unixtty_8c_a9a36ce0a8c96d97bd9d993e353072f21}{\index{unixtty.\+c@{unixtty.\+c}!intr\+\_\+char@{intr\+\_\+char}}
+\index{intr\+\_\+char@{intr\+\_\+char}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{intr\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char intr\+\_\+char}}\label{unixtty_8c_a9a36ce0a8c96d97bd9d993e353072f21}
+
+
+Definition at line 136 of file unixtty.\+c.
+
+
+
+Referenced by gettty(), intron(), and setftty().
+
+\hypertarget{unixtty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}{\index{unixtty.\+c@{unixtty.\+c}!kill\+\_\+char@{kill\+\_\+char}}
+\index{kill\+\_\+char@{kill\+\_\+char}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{kill\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char kill\+\_\+char}}\label{unixtty_8c_a2fa4f13efda2c65b86cf8b6a81e5d4c1}
+
+
+Definition at line 136 of file unixtty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{unixtty_8c_ac95761f812b1cd22186a50db1ef8030b}{\index{unixtty.\+c@{unixtty.\+c}!ospeed@{ospeed}}
+\index{ospeed@{ospeed}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{ospeed}]{\setlength{\rightskip}{0pt plus 5cm}short ospeed = 0}}\label{unixtty_8c_ac95761f812b1cd22186a50db1ef8030b}
+
+
+Definition at line 130 of file unixtty.\+c.
+
+
+
+Referenced by gettty().
+
+\hypertarget{unixtty_8c_a889ea83f1c92b34d38debe95ae5ac89e}{\index{unixtty.\+c@{unixtty.\+c}!settty\+\_\+needed@{settty\+\_\+needed}}
+\index{settty\+\_\+needed@{settty\+\_\+needed}!unixtty.\+c@{unixtty.\+c}}
+\subsubsection[{settty\+\_\+needed}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} settty\+\_\+needed = {\bf F\+A\+L\+S\+E}\hspace{0.3cm}{\ttfamily [static]}}}\label{unixtty_8c_a889ea83f1c92b34d38debe95ae5ac89e}
+
+
+Definition at line 137 of file unixtty.\+c.
+
+
+
+Referenced by gettty().
+

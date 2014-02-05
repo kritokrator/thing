@@ -1,0 +1,1784 @@
+\hypertarget{winstat_8c}{\section{nethack/win/\+X11/winstat.c File Reference}
+\label{winstat_8c}\index{nethack/win/\+X11/winstat.\+c@{nethack/win/\+X11/winstat.\+c}}
+}
+{\ttfamily \#include $<$X11/\+Intrinsic.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+String\+Defs.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Shell.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Ascii\+Text.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Cardinals.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Form.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Paned.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Label.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xatom.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}win\+X.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{winstat_8c_a871513d8c7abd319565c0f9393d28f9a}{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/
+\item 
+\#define \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{S\+V\+\_\+\+V\+A\+L\+U\+E}~0	/$\ast$ displays a label\+:value pair $\ast$/
+\item 
+\#define \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{S\+V\+\_\+\+L\+A\+B\+E\+L}~1	/$\ast$ displays a changable label $\ast$/
+\item 
+\#define \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{S\+V\+\_\+\+N\+A\+M\+E}~2	/$\ast$ displays an unchangeable \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} $\ast$/
+\item 
+\#define \hyperlink{winstat_8c_a18a54b37a84dca0c2faefc8a332917d7}{F\+\_\+\+S\+T\+R}~0
+\item 
+\#define \hyperlink{winstat_8c_ab12f67068a3f72d8f1fa6e011b7d663e}{F\+\_\+\+D\+E\+X}~1
+\item 
+\#define \hyperlink{winstat_8c_abc352cb092e2711d8a6a67f620f425d7}{F\+\_\+\+C\+O\+N}~2
+\item 
+\#define \hyperlink{winstat_8c_a1bdef8d868bfee334d271095f17a70a9}{F\+\_\+\+I\+N\+T}~3
+\item 
+\#define \hyperlink{winstat_8c_a827b048e05dac4cf865d6d2852935b63}{F\+\_\+\+W\+I\+S}~4
+\item 
+\#define \hyperlink{winstat_8c_ae80bca5f6710931b474b6a603b2a13a1}{F\+\_\+\+C\+H\+A}~5
+\item 
+\#define \hyperlink{winstat_8c_aed896104ed4a9b852e7819de5555e05a}{F\+\_\+\+N\+A\+M\+E}~6
+\item 
+\#define \hyperlink{winstat_8c_a5c770bf71a620eba870ab25c3be834cc}{F\+\_\+\+D\+L\+E\+V\+E\+L}~7
+\item 
+\#define \hyperlink{winstat_8c_a688170ed4f9c61690e8fec4a0de49ca8}{F\+\_\+\+G\+O\+L\+D}~8
+\item 
+\#define \hyperlink{winstat_8c_abe16c4d30b10e891851ca7d6772b82a3}{F\+\_\+\+H\+P}~9
+\item 
+\#define \hyperlink{winstat_8c_a94b69d005779ef761a553450aaa880d3}{F\+\_\+\+M\+A\+X\+H\+P}~10
+\item 
+\#define \hyperlink{winstat_8c_a423f637ab0d0a8e4e0264d8d15b899e6}{F\+\_\+\+P\+O\+W\+E\+R}~11
+\item 
+\#define \hyperlink{winstat_8c_af43491b1f2c27597bc7b1a6b3976c755}{F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R}~12
+\item 
+\#define \hyperlink{winstat_8c_af1ecd6cf0a2cb9ace2a1642115897581}{F\+\_\+\+A\+C}~13
+\item 
+\#define \hyperlink{winstat_8c_abe069da818f0b9557f8c6678da9c8dec}{F\+\_\+\+L\+E\+V\+E\+L}~14
+\item 
+\#define \hyperlink{winstat_8c_a6188f41eb199f07394a149275db5c7ef}{F\+\_\+\+E\+X\+P}~15
+\item 
+\#define \hyperlink{winstat_8c_a164ae27c705683657fd87196b194d579}{F\+\_\+\+A\+L\+I\+G\+N}~16
+\item 
+\#define \hyperlink{winstat_8c_a45cd22d9c9b41043c2ed872aed358309}{F\+\_\+\+T\+I\+M\+E}~17
+\item 
+\#define \hyperlink{winstat_8c_aa226644b3521893ecc0af1390082642b}{F\+\_\+\+S\+C\+O\+R\+E}~18
+\item 
+\#define \hyperlink{winstat_8c_aeb7428366b4590d3aa440581578157c5}{F\+\_\+\+H\+U\+N\+G\+E\+R}~19
+\item 
+\#define \hyperlink{winstat_8c_a2f96a161a475c5ccfacc6316902a3c78}{F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D}~20
+\item 
+\#define \hyperlink{winstat_8c_acc09d5028d25bb9d2f5b164361a9b065}{F\+\_\+\+S\+I\+C\+K}~21
+\item 
+\#define \hyperlink{winstat_8c_a413a55f0fb1002962498a529316c029f}{F\+\_\+\+B\+L\+I\+N\+D}~22
+\item 
+\#define \hyperlink{winstat_8c_a45ceb3f2dd7fbf91a19157bd1d4ab07d}{F\+\_\+\+S\+T\+U\+N\+N\+E\+D}~23
+\item 
+\#define \hyperlink{winstat_8c_ad726844208c0faf239b188cec98a2d68}{F\+\_\+\+H\+A\+L\+L\+U}~24
+\item 
+\#define \hyperlink{winstat_8c_afd8bbc05e6c8cc5cdff258712624e476}{F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}~25
+\item 
+\#define \hyperlink{winstat_8c_a8dd66bb045cef1046c504653db25ccde}{N\+U\+M\+\_\+\+S\+T\+A\+T\+S}~26
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{winstat_8c_a5df500fd25c5920e4c078ca55fe196b6}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_ab0e55acba3f800778e67d2cff94f1510}{update\+\_\+fancy\+\_\+status},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+static Widget \hyperlink{winstat_8c_afcc6eba5c5e4e200efe4b411bfc96082}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_aea323c1340372b82de7d4ff22ce5c901}{create\+\_\+fancy\+\_\+status},(Widget, Widget))
+\item 
+static void \hyperlink{winstat_8c_a2f11ee295f36db356b107c1412ce6234}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_adadb4fb18ece472d982a23789aaf436b}{destroy\+\_\+fancy\+\_\+status},(struct \hyperlink{structxwindow}{xwindow} $\ast$))
+\item 
+void \hyperlink{winstat_8c_a6c6c645429ab1cce40fb6759568c81a4}{create\+\_\+status\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} create\+\_\+popup, Widget parent)
+\item 
+void \hyperlink{winstat_8c_acf857fc8eaf5f2966fbae8b3170a3eec}{destroy\+\_\+status\+\_\+window} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{winstat_8c_a79f5b69779cf7392365b41bcba66f68f}{adjust\+\_\+status} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$str)
+\item 
+static void \hyperlink{winstat_8c_a217aa078854d2437d3d6baeba6103e64}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_a19a16da4baec860707337e4bd0497c3b}{hilight\+\_\+label},(Widget))
+\item 
+static void \hyperlink{winstat_8c_af5126279645450f60cbdc506f8574ec1}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_a2701ba5ce8622c172aeada6c207bff91}{update\+\_\+val},(struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} $\ast$, long))
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{winstat_8c_a829a92cbfec47cff7b7ad1c0f5fc53a9}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_a478cff1ccb3a2ded605452b28420ea02}{width\+\_\+string},(int))
+\item 
+static void \hyperlink{winstat_8c_a11916d6388838271919bb9e667d33536}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_a600d9c11e2730d047b0484573b2b80fa}{create\+\_\+widget},(Widget, struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} $\ast$, int))
+\item 
+static void \hyperlink{winstat_8c_afc73a0bb30a3ccff81447462307819a1}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_a54e86b2eba8bb408d2cb13323eb805a8}{get\+\_\+widths},(struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} $\ast$, int $\ast$, int $\ast$))
+\item 
+static void \hyperlink{winstat_8c_ac98527bcfd65e2412607824f527cc5b5}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_ac5b4f89426bb1e6763f50424dbd53772}{set\+\_\+widths},(struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} $\ast$, int, int))
+\item 
+static Widget \hyperlink{winstat_8c_a88dc6bef9b02719b8f851063288655e5}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_ae1744a381b7d00f0825585be2a9ab68d}{init\+\_\+column},(char $\ast$, Widget, Widget, Widget, int $\ast$))
+\item 
+static Widget \hyperlink{winstat_8c_aae9e80837d68c535e14d6b704da86bc0}{F\+D\+E\+C\+L} (\hyperlink{winstat_8c_a433641b0aee1ab8da39804c360953ab4}{init\+\_\+info\+\_\+form},(Widget, Widget, Widget))
+\item 
+void \hyperlink{winstat_8c_a3a7a97aae56721aa0155886271b3bf76}{null\+\_\+out\+\_\+status} ()
+\item 
+static void \hyperlink{winstat_8c_a19a16da4baec860707337e4bd0497c3b}{hilight\+\_\+label} (Widget w)
+\item 
+static void \hyperlink{winstat_8c_a2701ba5ce8622c172aeada6c207bff91}{update\+\_\+val} (struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} $\ast$attr\+\_\+rec, long new\+\_\+value)
+\item 
+static void \hyperlink{winstat_8c_ab0e55acba3f800778e67d2cff94f1510}{update\+\_\+fancy\+\_\+status} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\item 
+void \hyperlink{winstat_8c_a6073d2892589afa02d1b3bbcf7e2c78f}{check\+\_\+turn\+\_\+events} ()
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{winstat_8c_a478cff1ccb3a2ded605452b28420ea02}{width\+\_\+string} (int sv\+\_\+index)
+\item 
+static void \hyperlink{winstat_8c_a600d9c11e2730d047b0484573b2b80fa}{create\+\_\+widget} (Widget parent, struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} $\ast$sv, int sv\+\_\+index)
+\item 
+static void \hyperlink{winstat_8c_a54e86b2eba8bb408d2cb13323eb805a8}{get\+\_\+widths} (struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} $\ast$sv, int $\ast$width1p, int $\ast$width2p)
+\item 
+static void \hyperlink{winstat_8c_ac5b4f89426bb1e6763f50424dbd53772}{set\+\_\+widths} (struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} $\ast$sv, int width1, int width2)
+\item 
+static Widget \hyperlink{winstat_8c_ae1744a381b7d00f0825585be2a9ab68d}{init\+\_\+column} (char $\ast$\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, Widget parent, Widget top, Widget left, int $\ast$col\+\_\+indices)
+\item 
+static Widget \hyperlink{winstat_8c_a433641b0aee1ab8da39804c360953ab4}{init\+\_\+info\+\_\+form} (Widget parent, Widget top, Widget left)
+\item 
+static Widget \hyperlink{winstat_8c_aea323c1340372b82de7d4ff22ce5c901}{create\+\_\+fancy\+\_\+status} (Widget parent, Widget top)
+\item 
+static void \hyperlink{winstat_8c_adadb4fb18ece472d982a23789aaf436b}{destroy\+\_\+fancy\+\_\+status} (struct \hyperlink{structxwindow}{xwindow} $\ast$wp)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{winstat_8c_a3af488926df1efa13318d88448c2e7f5}{hu\+\_\+stat} \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{winstat_8c_af6b2dd1e0df263200389ab9e886cf2c6}{enc\+\_\+stat} \mbox{[}$\,$\mbox{]}
+\item 
+static int \hyperlink{winstat_8c_aa7307e971c406dddf3fe6d818582ccd3}{hilight\+\_\+time} = 1
+\item 
+static struct \hyperlink{structX__status__value}{X\+\_\+status\+\_\+value} \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\+\_\+stats} \mbox{[}\hyperlink{winstat_8c_a8dd66bb045cef1046c504653db25ccde}{N\+U\+M\+\_\+\+S\+T\+A\+T\+S}\mbox{]}
+\item 
+static int \hyperlink{winstat_8c_a0c343e4743b802a402b19823ec837620}{attrib\+\_\+indices} \mbox{[}$\,$\mbox{]} = \{ \hyperlink{winstat_8c_a18a54b37a84dca0c2faefc8a332917d7}{F\+\_\+\+S\+T\+R},\hyperlink{winstat_8c_ab12f67068a3f72d8f1fa6e011b7d663e}{F\+\_\+\+D\+E\+X},\hyperlink{winstat_8c_abc352cb092e2711d8a6a67f620f425d7}{F\+\_\+\+C\+O\+N},\hyperlink{winstat_8c_a1bdef8d868bfee334d271095f17a70a9}{F\+\_\+\+I\+N\+T},\hyperlink{winstat_8c_a827b048e05dac4cf865d6d2852935b63}{F\+\_\+\+W\+I\+S},\hyperlink{winstat_8c_ae80bca5f6710931b474b6a603b2a13a1}{F\+\_\+\+C\+H\+A}, -\/1,0,0 \}
+\item 
+static int \hyperlink{winstat_8c_ad29506c9739d5be37f887e4014bf2f69}{status\+\_\+indices} \mbox{[}$\,$\mbox{]}
+\item 
+static int \hyperlink{winstat_8c_a699a083daa1919b0d022fcf6c4436424}{col2\+\_\+indices} \mbox{[}$\,$\mbox{]}
+\item 
+static int \hyperlink{winstat_8c_af9b6ead107e55fc97d89d7fa5c22bf59}{col1\+\_\+indices} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{winstat_8c_af1ecd6cf0a2cb9ace2a1642115897581}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+A\+C@{F\+\_\+\+A\+C}}
+\index{F\+\_\+\+A\+C@{F\+\_\+\+A\+C}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+A\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+A\+C~13}}\label{winstat_8c_af1ecd6cf0a2cb9ace2a1642115897581}
+
+
+Definition at line 224 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a164ae27c705683657fd87196b194d579}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+A\+L\+I\+G\+N@{F\+\_\+\+A\+L\+I\+G\+N}}
+\index{F\+\_\+\+A\+L\+I\+G\+N@{F\+\_\+\+A\+L\+I\+G\+N}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+A\+L\+I\+G\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+A\+L\+I\+G\+N~16}}\label{winstat_8c_a164ae27c705683657fd87196b194d579}
+
+
+Definition at line 227 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a413a55f0fb1002962498a529316c029f}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+B\+L\+I\+N\+D@{F\+\_\+\+B\+L\+I\+N\+D}}
+\index{F\+\_\+\+B\+L\+I\+N\+D@{F\+\_\+\+B\+L\+I\+N\+D}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+B\+L\+I\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+B\+L\+I\+N\+D~22}}\label{winstat_8c_a413a55f0fb1002962498a529316c029f}
+
+
+Definition at line 234 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_ae80bca5f6710931b474b6a603b2a13a1}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+C\+H\+A@{F\+\_\+\+C\+H\+A}}
+\index{F\+\_\+\+C\+H\+A@{F\+\_\+\+C\+H\+A}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+C\+H\+A}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+C\+H\+A~5}}\label{winstat_8c_ae80bca5f6710931b474b6a603b2a13a1}
+
+
+Definition at line 215 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_abc352cb092e2711d8a6a67f620f425d7}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+C\+O\+N@{F\+\_\+\+C\+O\+N}}
+\index{F\+\_\+\+C\+O\+N@{F\+\_\+\+C\+O\+N}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+C\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+C\+O\+N~2}}\label{winstat_8c_abc352cb092e2711d8a6a67f620f425d7}
+
+
+Definition at line 212 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a2f96a161a475c5ccfacc6316902a3c78}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D@{F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D}}
+\index{F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D@{F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D~20}}\label{winstat_8c_a2f96a161a475c5ccfacc6316902a3c78}
+
+
+Definition at line 232 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_ab12f67068a3f72d8f1fa6e011b7d663e}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+D\+E\+X@{F\+\_\+\+D\+E\+X}}
+\index{F\+\_\+\+D\+E\+X@{F\+\_\+\+D\+E\+X}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+D\+E\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+D\+E\+X~1}}\label{winstat_8c_ab12f67068a3f72d8f1fa6e011b7d663e}
+
+
+Definition at line 211 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a5c770bf71a620eba870ab25c3be834cc}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+D\+L\+E\+V\+E\+L@{F\+\_\+\+D\+L\+E\+V\+E\+L}}
+\index{F\+\_\+\+D\+L\+E\+V\+E\+L@{F\+\_\+\+D\+L\+E\+V\+E\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+D\+L\+E\+V\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+D\+L\+E\+V\+E\+L~7}}\label{winstat_8c_a5c770bf71a620eba870ab25c3be834cc}
+
+
+Definition at line 218 of file winstat.\+c.
+
+
+
+Referenced by init\+\_\+info\+\_\+form(), update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_afd8bbc05e6c8cc5cdff258712624e476}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}}
+\index{F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R~25}}\label{winstat_8c_afd8bbc05e6c8cc5cdff258712624e476}
+
+
+Definition at line 237 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a6188f41eb199f07394a149275db5c7ef}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+E\+X\+P@{F\+\_\+\+E\+X\+P}}
+\index{F\+\_\+\+E\+X\+P@{F\+\_\+\+E\+X\+P}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+E\+X\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+E\+X\+P~15}}\label{winstat_8c_a6188f41eb199f07394a149275db5c7ef}
+
+
+Definition at line 226 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a688170ed4f9c61690e8fec4a0de49ca8}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+G\+O\+L\+D@{F\+\_\+\+G\+O\+L\+D}}
+\index{F\+\_\+\+G\+O\+L\+D@{F\+\_\+\+G\+O\+L\+D}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+G\+O\+L\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+G\+O\+L\+D~8}}\label{winstat_8c_a688170ed4f9c61690e8fec4a0de49ca8}
+
+
+Definition at line 219 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_ad726844208c0faf239b188cec98a2d68}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+H\+A\+L\+L\+U@{F\+\_\+\+H\+A\+L\+L\+U}}
+\index{F\+\_\+\+H\+A\+L\+L\+U@{F\+\_\+\+H\+A\+L\+L\+U}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+H\+A\+L\+L\+U}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+H\+A\+L\+L\+U~24}}\label{winstat_8c_ad726844208c0faf239b188cec98a2d68}
+
+
+Definition at line 236 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_abe16c4d30b10e891851ca7d6772b82a3}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+H\+P@{F\+\_\+\+H\+P}}
+\index{F\+\_\+\+H\+P@{F\+\_\+\+H\+P}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+H\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+H\+P~9}}\label{winstat_8c_abe16c4d30b10e891851ca7d6772b82a3}
+
+
+Definition at line 220 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_aeb7428366b4590d3aa440581578157c5}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+H\+U\+N\+G\+E\+R@{F\+\_\+\+H\+U\+N\+G\+E\+R}}
+\index{F\+\_\+\+H\+U\+N\+G\+E\+R@{F\+\_\+\+H\+U\+N\+G\+E\+R}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+H\+U\+N\+G\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+H\+U\+N\+G\+E\+R~19}}\label{winstat_8c_aeb7428366b4590d3aa440581578157c5}
+
+
+Definition at line 231 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a1bdef8d868bfee334d271095f17a70a9}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+I\+N\+T@{F\+\_\+\+I\+N\+T}}
+\index{F\+\_\+\+I\+N\+T@{F\+\_\+\+I\+N\+T}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+I\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+I\+N\+T~3}}\label{winstat_8c_a1bdef8d868bfee334d271095f17a70a9}
+
+
+Definition at line 213 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_abe069da818f0b9557f8c6678da9c8dec}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+L\+E\+V\+E\+L@{F\+\_\+\+L\+E\+V\+E\+L}}
+\index{F\+\_\+\+L\+E\+V\+E\+L@{F\+\_\+\+L\+E\+V\+E\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+L\+E\+V\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+L\+E\+V\+E\+L~14}}\label{winstat_8c_abe069da818f0b9557f8c6678da9c8dec}
+
+
+Definition at line 225 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a94b69d005779ef761a553450aaa880d3}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+M\+A\+X\+H\+P@{F\+\_\+\+M\+A\+X\+H\+P}}
+\index{F\+\_\+\+M\+A\+X\+H\+P@{F\+\_\+\+M\+A\+X\+H\+P}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+M\+A\+X\+H\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+M\+A\+X\+H\+P~10}}\label{winstat_8c_a94b69d005779ef761a553450aaa880d3}
+
+
+Definition at line 221 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_af43491b1f2c27597bc7b1a6b3976c755}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R@{F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R}}
+\index{F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R@{F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R~12}}\label{winstat_8c_af43491b1f2c27597bc7b1a6b3976c755}
+
+
+Definition at line 223 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_aed896104ed4a9b852e7819de5555e05a}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+N\+A\+M\+E@{F\+\_\+\+N\+A\+M\+E}}
+\index{F\+\_\+\+N\+A\+M\+E@{F\+\_\+\+N\+A\+M\+E}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+N\+A\+M\+E~6}}\label{winstat_8c_aed896104ed4a9b852e7819de5555e05a}
+
+
+Definition at line 217 of file winstat.\+c.
+
+
+
+Referenced by create\+\_\+widget(), init\+\_\+info\+\_\+form(), update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a423f637ab0d0a8e4e0264d8d15b899e6}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+P\+O\+W\+E\+R@{F\+\_\+\+P\+O\+W\+E\+R}}
+\index{F\+\_\+\+P\+O\+W\+E\+R@{F\+\_\+\+P\+O\+W\+E\+R}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+P\+O\+W\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+P\+O\+W\+E\+R~11}}\label{winstat_8c_a423f637ab0d0a8e4e0264d8d15b899e6}
+
+
+Definition at line 222 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_aa226644b3521893ecc0af1390082642b}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+S\+C\+O\+R\+E@{F\+\_\+\+S\+C\+O\+R\+E}}
+\index{F\+\_\+\+S\+C\+O\+R\+E@{F\+\_\+\+S\+C\+O\+R\+E}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+S\+C\+O\+R\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+S\+C\+O\+R\+E~18}}\label{winstat_8c_aa226644b3521893ecc0af1390082642b}
+
+
+Definition at line 229 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_acc09d5028d25bb9d2f5b164361a9b065}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+S\+I\+C\+K@{F\+\_\+\+S\+I\+C\+K}}
+\index{F\+\_\+\+S\+I\+C\+K@{F\+\_\+\+S\+I\+C\+K}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+S\+I\+C\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+S\+I\+C\+K~21}}\label{winstat_8c_acc09d5028d25bb9d2f5b164361a9b065}
+
+
+Definition at line 233 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a18a54b37a84dca0c2faefc8a332917d7}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+S\+T\+R@{F\+\_\+\+S\+T\+R}}
+\index{F\+\_\+\+S\+T\+R@{F\+\_\+\+S\+T\+R}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+S\+T\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+S\+T\+R~0}}\label{winstat_8c_a18a54b37a84dca0c2faefc8a332917d7}
+
+
+Definition at line 210 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a45ceb3f2dd7fbf91a19157bd1d4ab07d}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+S\+T\+U\+N\+N\+E\+D@{F\+\_\+\+S\+T\+U\+N\+N\+E\+D}}
+\index{F\+\_\+\+S\+T\+U\+N\+N\+E\+D@{F\+\_\+\+S\+T\+U\+N\+N\+E\+D}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+S\+T\+U\+N\+N\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+S\+T\+U\+N\+N\+E\+D~23}}\label{winstat_8c_a45ceb3f2dd7fbf91a19157bd1d4ab07d}
+
+
+Definition at line 235 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a45cd22d9c9b41043c2ed872aed358309}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+T\+I\+M\+E@{F\+\_\+\+T\+I\+M\+E}}
+\index{F\+\_\+\+T\+I\+M\+E@{F\+\_\+\+T\+I\+M\+E}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+T\+I\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+T\+I\+M\+E~17}}\label{winstat_8c_a45cd22d9c9b41043c2ed872aed358309}
+
+
+Definition at line 228 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), update\+\_\+val(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a827b048e05dac4cf865d6d2852935b63}{\index{winstat.\+c@{winstat.\+c}!F\+\_\+\+W\+I\+S@{F\+\_\+\+W\+I\+S}}
+\index{F\+\_\+\+W\+I\+S@{F\+\_\+\+W\+I\+S}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+\_\+\+W\+I\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+\_\+\+W\+I\+S~4}}\label{winstat_8c_a827b048e05dac4cf865d6d2852935b63}
+
+
+Definition at line 214 of file winstat.\+c.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status(), and width\+\_\+string().
+
+\hypertarget{winstat_8c_a8dd66bb045cef1046c504653db25ccde}{\index{winstat.\+c@{winstat.\+c}!N\+U\+M\+\_\+\+S\+T\+A\+T\+S@{N\+U\+M\+\_\+\+S\+T\+A\+T\+S}}
+\index{N\+U\+M\+\_\+\+S\+T\+A\+T\+S@{N\+U\+M\+\_\+\+S\+T\+A\+T\+S}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{N\+U\+M\+\_\+\+S\+T\+A\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+S\+T\+A\+T\+S~26}}\label{winstat_8c_a8dd66bb045cef1046c504653db25ccde}
+
+
+Definition at line 239 of file winstat.\+c.
+
+
+
+Referenced by check\+\_\+turn\+\_\+events(), destroy\+\_\+fancy\+\_\+status(), null\+\_\+out\+\_\+status(), and update\+\_\+fancy\+\_\+status().
+
+\hypertarget{winstat_8c_a871513d8c7abd319565c0f9393d28f9a}{\index{winstat.\+c@{winstat.\+c}!P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}}
+\index{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/}}\label{winstat_8c_a871513d8c7abd319565c0f9393d28f9a}
+
+
+Definition at line 14 of file winstat.\+c.
+
+\hypertarget{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{\index{winstat.\+c@{winstat.\+c}!S\+V\+\_\+\+L\+A\+B\+E\+L@{S\+V\+\_\+\+L\+A\+B\+E\+L}}
+\index{S\+V\+\_\+\+L\+A\+B\+E\+L@{S\+V\+\_\+\+L\+A\+B\+E\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{S\+V\+\_\+\+L\+A\+B\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+V\+\_\+\+L\+A\+B\+E\+L~1	/$\ast$ displays a changable label $\ast$/}}\label{winstat_8c_ae20c5941511243efeae20b0aa81abd57}
+
+
+Definition at line 195 of file winstat.\+c.
+
+
+
+Referenced by check\+\_\+turn\+\_\+events(), create\+\_\+widget(), destroy\+\_\+fancy\+\_\+status(), get\+\_\+widths(), null\+\_\+out\+\_\+status(), set\+\_\+widths(), and update\+\_\+val().
+
+\hypertarget{winstat_8c_a274654b7f5932cae6a71a113322481be}{\index{winstat.\+c@{winstat.\+c}!S\+V\+\_\+\+N\+A\+M\+E@{S\+V\+\_\+\+N\+A\+M\+E}}
+\index{S\+V\+\_\+\+N\+A\+M\+E@{S\+V\+\_\+\+N\+A\+M\+E}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{S\+V\+\_\+\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+V\+\_\+\+N\+A\+M\+E~2	/$\ast$ displays an unchangeable {\bf name} $\ast$/}}\label{winstat_8c_a274654b7f5932cae6a71a113322481be}
+
+
+Definition at line 196 of file winstat.\+c.
+
+
+
+Referenced by create\+\_\+widget(), get\+\_\+widths(), null\+\_\+out\+\_\+status(), set\+\_\+widths(), and update\+\_\+val().
+
+\hypertarget{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{\index{winstat.\+c@{winstat.\+c}!S\+V\+\_\+\+V\+A\+L\+U\+E@{S\+V\+\_\+\+V\+A\+L\+U\+E}}
+\index{S\+V\+\_\+\+V\+A\+L\+U\+E@{S\+V\+\_\+\+V\+A\+L\+U\+E}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{S\+V\+\_\+\+V\+A\+L\+U\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+V\+\_\+\+V\+A\+L\+U\+E~0	/$\ast$ displays a label\+:value pair $\ast$/}}\label{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}
+
+
+Definition at line 194 of file winstat.\+c.
+
+
+
+Referenced by create\+\_\+widget(), get\+\_\+widths(), null\+\_\+out\+\_\+status(), and set\+\_\+widths().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{winstat_8c_a79f5b69779cf7392365b41bcba66f68f}{\index{winstat.\+c@{winstat.\+c}!adjust\+\_\+status@{adjust\+\_\+status}}
+\index{adjust\+\_\+status@{adjust\+\_\+status}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{adjust\+\_\+status}]{\setlength{\rightskip}{0pt plus 5cm}void adjust\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{{\bf const} char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{winstat_8c_a79f5b69779cf7392365b41bcba66f68f}
+
+
+Definition at line 153 of file winstat.\+c.
+
+
+
+References append\+\_\+text\+\_\+buffer(), clear\+\_\+text\+\_\+buffer(), F\+A\+L\+S\+E, and update\+\_\+fancy\+\_\+status().
+
+
+
+Referenced by X11\+\_\+putstr().
+
+
+\begin{DoxyCode}
+156 \{
+157     Arg args[2];
+158     Cardinal num\_args;
+159 
+160     \textcolor{keywordflow}{if} (!wp->status\_information) \{
+161     \hyperlink{winstat_8c_ab0e55acba3f800778e67d2cff94f1510}{update\_fancy\_status}(wp);
+162     \textcolor{keywordflow}{return};
+163     \}
+164 
+165     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy} == 0) \{
+166     \hyperlink{wintext_8c_a51b1795736caae631e72f26ff9f8d029}{clear\_text\_buffer}(&wp->status\_information->text);
+167     \hyperlink{wintext_8c_af7e35ccc4e55ed329e4a9c1ab2b9b41f}{append\_text\_buffer}(&wp->status\_information->text, str, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+168     \textcolor{keywordflow}{return};
+169     \}
+170     \hyperlink{wintext_8c_af7e35ccc4e55ed329e4a9c1ab2b9b41f}{append\_text\_buffer}(&wp->status\_information->text, str, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+171 
+172     \textcolor{comment}{/* Set new buffer as text. */}
+173     num\_args = 0;
+174     XtSetArg(args[num\_args], XtNstring, wp->status\_information->text.text);
+175                                     num\_args++;
+176     XtSetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+177 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a6073d2892589afa02d1b3bbcf7e2c78f}{\index{winstat.\+c@{winstat.\+c}!check\+\_\+turn\+\_\+events@{check\+\_\+turn\+\_\+events}}
+\index{check\+\_\+turn\+\_\+events@{check\+\_\+turn\+\_\+events}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{check\+\_\+turn\+\_\+events}]{\setlength{\rightskip}{0pt plus 5cm}void check\+\_\+turn\+\_\+events (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winstat_8c_a6073d2892589afa02d1b3bbcf7e2c78f}
+
+
+Definition at line 657 of file winstat.\+c.
+
+
+
+References F\+A\+L\+S\+E, hilight\+\_\+label(), hilight\+\_\+value(), N\+U\+M\+\_\+\+S\+T\+A\+T\+S, X\+\_\+status\+\_\+value\+::set, S\+V\+\_\+\+L\+A\+B\+E\+L, X\+\_\+status\+\_\+value\+::turn\+\_\+count, X\+\_\+status\+\_\+value\+::type, and X\+\_\+status\+\_\+value\+::w.
+
+
+
+Referenced by input\+\_\+event().
+
+
+\begin{DoxyCode}
+658 \{
+659     \textcolor{keywordtype}{int} i;
+660     \textcolor{keyword}{struct }\hyperlink{structX__status__value}{X\_status\_value} *sv;
+661 
+662     \textcolor{keywordflow}{for} (sv = \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}, i = 0; i < \hyperlink{winstat_8c_a8dd66bb045cef1046c504653db25ccde}{NUM\_STATS}; i++, sv++) \{
+663     \textcolor{keywordflow}{if} (!sv->\hyperlink{structX__status__value_a08f69b079a814b7d8af52d3cf6f567ad}{set}) \textcolor{keywordflow}{continue};
+664 
+665     \textcolor{keywordflow}{if} (sv->\hyperlink{structX__status__value_ae9fd670e041aba9ba612cfea4adab322}{turn\_count}++ >= \hyperlink{winstat_8c_aa7307e971c406dddf3fe6d818582ccd3}{hilight\_time}) \{
+666         \textcolor{keywordflow}{if} (sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type} == \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL})
+667         \hyperlink{winstat_8c_a19a16da4baec860707337e4bd0497c3b}{hilight\_label}(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w});
+668         \textcolor{keywordflow}{else}
+669         \hyperlink{winval_8c_ae2db40f3894994af6d36ff188500065a}{hilight\_value}(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w});
+670         sv->\hyperlink{structX__status__value_a08f69b079a814b7d8af52d3cf6f567ad}{set} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+671     \}
+672     \}
+673 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_aea323c1340372b82de7d4ff22ce5c901}{\index{winstat.\+c@{winstat.\+c}!create\+\_\+fancy\+\_\+status@{create\+\_\+fancy\+\_\+status}}
+\index{create\+\_\+fancy\+\_\+status@{create\+\_\+fancy\+\_\+status}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{create\+\_\+fancy\+\_\+status}]{\setlength{\rightskip}{0pt plus 5cm}static Widget create\+\_\+fancy\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{Widget}]{parent, }
+\item[{Widget}]{top}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_aea323c1340372b82de7d4ff22ce5c901}
+
+
+Definition at line 948 of file winstat.\+c.
+
+
+
+References init\+\_\+column(), init\+\_\+info\+\_\+form(), status\+\_\+indices, and X\+\_\+status\+\_\+value\+::w.
+
+
+
+Referenced by create\+\_\+status\+\_\+window().
+
+
+\begin{DoxyCode}
+950 \{
+951     Widget form;    \textcolor{comment}{/* The form that surrounds everything. */}
+952     Widget \hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w};
+953     Arg args[8];
+954     Cardinal num\_args;
+955 
+956     num\_args = 0;
+957     \textcolor{keywordflow}{if} (top != (Widget) 0) \{
+958     XtSetArg(args[num\_args], XtNfromVert, top); num\_args++;
+959     \}
+960     XtSetArg(args[num\_args], XtNdefaultDistance, 0);    num\_args++;
+961     XtSetArg(args[num\_args], XtNborderWidth, 0);    num\_args++;
+962     XtSetArg(args[num\_args], XtNorientation, XtorientHorizontal); num\_args++;
+963     form = XtCreateManagedWidget(\textcolor{stringliteral}{"fancy\_status"},
+964                 panedWidgetClass,
+965                 parent,
+966                 args, num\_args);
+967 
+968     w = \hyperlink{winstat_8c_a433641b0aee1ab8da39804c360953ab4}{init\_info\_form}(form, (Widget) 0, (Widget) 0);
+969     w =    \hyperlink{winstat_8c_ae1744a381b7d00f0825585be2a9ab68d}{init\_column}(\textcolor{stringliteral}{"status\_attributes"},form, (Widget) 0, w, 
+      \hyperlink{winstat_8c_a0c343e4743b802a402b19823ec837620}{attrib\_indices});
+970     (void) \hyperlink{winstat_8c_ae1744a381b7d00f0825585be2a9ab68d}{init\_column}(\textcolor{stringliteral}{"status\_condition"}, form, (Widget) 0, \hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, 
+      \hyperlink{winstat_8c_ad29506c9739d5be37f887e4014bf2f69}{status\_indices});
+971     \textcolor{keywordflow}{return} form;
+972 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a6c6c645429ab1cce40fb6759568c81a4}{\index{winstat.\+c@{winstat.\+c}!create\+\_\+status\+\_\+window@{create\+\_\+status\+\_\+window}}
+\index{create\+\_\+status\+\_\+window@{create\+\_\+status\+\_\+window}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{create\+\_\+status\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void create\+\_\+status\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp, }
+\item[{{\bf boolean}}]{create\+\_\+popup, }
+\item[{Widget}]{parent}
+\end{DoxyParamCaption}
+)}}\label{winstat_8c_a6c6c645429ab1cce40fb6759568c81a4}
+
+
+Definition at line 45 of file winstat.\+c.
+
+
+
+References alloc(), C\+O\+L\+N\+O, create\+\_\+fancy\+\_\+status(), init\+\_\+text\+\_\+buffer(), nh\+Font\+Height(), N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, panic(), toplevel, and xwindow\+::type.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows(), and X11\+\_\+create\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+49 \{
+50     XFontStruct *fs;
+51     Arg args[8];
+52     Cardinal num\_args;
+53     Position top\_margin, bottom\_margin, left\_margin, right\_margin;
+54 
+55     wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS};
+56 
+57     \textcolor{keywordflow}{if} (!create\_popup) \{
+58     \textcolor{comment}{/*}
+59 \textcolor{comment}{     * If we are not creating a popup, then we must be the "main" status}
+60 \textcolor{comment}{     * window.}
+61 \textcolor{comment}{     */}
+62     \textcolor{keywordflow}{if} (!parent)
+63         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"create\_status\_window: no parent for fancy status"});
+64     wp->status\_information = 0;
+65     wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} = \hyperlink{winstat_8c_aea323c1340372b82de7d4ff22ce5c901}{create\_fancy\_status}(parent, (Widget) 0);
+66     \textcolor{keywordflow}{return};
+67     \}
+68 
+69     wp->status\_information =
+70         (\textcolor{keyword}{struct }\hyperlink{structstatus__info__t}{status\_info\_t} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structstatus__info__t}{status\_info\_t}));
+71 
+72     \hyperlink{wintext_8c_abbc4c07e653407050689ffa5a337cac4}{init\_text\_buffer}(&wp->status\_information->text);
+73 
+74     num\_args = 0;
+75     XtSetArg(args[num\_args], XtNallowShellResize, False); num\_args++;
+76     XtSetArg(args[num\_args], XtNinput, False);            num\_args++;
+77 
+78     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = parent = XtCreatePopupShell(\textcolor{stringliteral}{"status\_popup"},
+79                     topLevelShellWidgetClass,
+80                     \hyperlink{winX_8h_af9f3bbc581ee507b6e668507c0a53bbe}{toplevel}, args, num\_args);
+81     \textcolor{comment}{/*}
+82 \textcolor{comment}{     * If we're here, then this is an auxiliary status window.  If we're}
+83 \textcolor{comment}{     * cancelled via a delete window message, we should just pop down.}
+84 \textcolor{comment}{     */}
+85 
+86     num\_args = 0;
+87     XtSetArg(args[num\_args], XtNdisplayCaret, False); num\_args++;
+88     XtSetArg(args[num\_args], XtNscrollHorizontal,
+89                     XawtextScrollWhenNeeded);   num\_args++;
+90     XtSetArg(args[num\_args], XtNscrollVertical,
+91                     XawtextScrollWhenNeeded);   num\_args++;
+92 
+93     wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} = XtCreateManagedWidget(
+94         \textcolor{stringliteral}{"status"},       \textcolor{comment}{/* name */}
+95         asciiTextWidgetClass,
+96         parent,         \textcolor{comment}{/* parent widget */}
+97         args,           \textcolor{comment}{/* set some values */}
+98         num\_args);      \textcolor{comment}{/* number of values to set */}
+99 
+100     \textcolor{comment}{/*}
+101 \textcolor{comment}{     * Adjust the height and width of the message window so that it}
+102 \textcolor{comment}{     * is two lines high and COLNO of the widest characters wide.}
+103 \textcolor{comment}{     */}
+104 
+105     \textcolor{comment}{/* Get the font and margin information. */}
+106     num\_args = 0;
+107     XtSetArg(args[num\_args], XtNfont,         &fs);        num\_args++;
+108     XtSetArg(args[num\_args], XtNtopMargin,    &top\_margin);    num\_args++;
+109     XtSetArg(args[num\_args], XtNbottomMargin, &bottom\_margin); num\_args++;
+110     XtSetArg(args[num\_args], XtNleftMargin,   &left\_margin);   num\_args++;
+111     XtSetArg(args[num\_args], XtNrightMargin,  &right\_margin);  num\_args++;
+112     XtGetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+113 
+114     wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} = 2 * \hyperlink{winX_8c_ae3632fa17aaccf5e4d8465051d42c658}{nhFontHeight}(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}) + top\_margin + bottom\_margin;
+115     wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width}  = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} * fs->max\_bounds.width +
+116                         left\_margin + right\_margin;
+117 
+118     \textcolor{comment}{/* Set the new width and height. */}
+119     num\_args = 0;
+120     XtSetArg(args[num\_args], XtNwidth,  wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width});  num\_args++;
+121     XtSetArg(args[num\_args], XtNheight, wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height}); num\_args++;
+122     XtSetValues(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, num\_args);
+123 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a600d9c11e2730d047b0484573b2b80fa}{\index{winstat.\+c@{winstat.\+c}!create\+\_\+widget@{create\+\_\+widget}}
+\index{create\+\_\+widget@{create\+\_\+widget}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{create\+\_\+widget}]{\setlength{\rightskip}{0pt plus 5cm}static void create\+\_\+widget (
+\begin{DoxyParamCaption}
+\item[{Widget}]{parent, }
+\item[{struct {\bf X\+\_\+status\+\_\+value} $\ast$}]{sv, }
+\item[{int}]{sv\+\_\+index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a600d9c11e2730d047b0484573b2b80fa}
+
+
+Definition at line 717 of file winstat.\+c.
+
+
+
+References alloc(), B\+U\+F\+S\+Z, create\+\_\+value(), F\+\_\+\+N\+A\+M\+E, X\+\_\+status\+\_\+value\+::name, panic(), set\+\_\+value(), S\+V\+\_\+\+L\+A\+B\+E\+L, S\+V\+\_\+\+N\+A\+M\+E, S\+V\+\_\+\+V\+A\+L\+U\+E, X\+\_\+status\+\_\+value\+::type, X\+\_\+status\+\_\+value\+::w, and width\+\_\+string().
+
+
+
+Referenced by init\+\_\+column(), and init\+\_\+info\+\_\+form().
+
+
+\begin{DoxyCode}
+721 \{
+722     Arg args[4];
+723     Cardinal num\_args;
+724 
+725     \textcolor{keywordflow}{switch} (sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type}) \{
+726     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}:
+727         sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w} = \hyperlink{winval_8c_af5b51b4e2825cfccf2295210c02dba00}{create\_value}(parent, sv->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+728         \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \hyperlink{winstat_8c_a478cff1ccb3a2ded605452b28420ea02}{width\_string}(sv\_index));
+729         \textcolor{keywordflow}{break};
+730     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL}:
+731         \textcolor{comment}{/* Labels get their own buffer. */}
+732         sv->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name} = (\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ});
+733         sv->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name}[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+734 
+735         num\_args = 0;
+736         XtSetArg(args[num\_args], XtNborderWidth, 0);    num\_args++;
+737         XtSetArg(args[num\_args], XtNinternalHeight, 0); num\_args++;
+738         sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w} = XtCreateManagedWidget(
+739                 sv\_index == \hyperlink{winstat_8c_aed896104ed4a9b852e7819de5555e05a}{F\_NAME} ? \textcolor{stringliteral}{"name"} : \textcolor{stringliteral}{"dlevel"},
+740                 labelWidgetClass,
+741                 parent,
+742                 args, num\_args);
+743         \textcolor{keywordflow}{break};
+744     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME}:
+745         num\_args = 0;
+746         XtSetArg(args[num\_args], XtNborderWidth, 0);    num\_args++;
+747         XtSetArg(args[num\_args], XtNinternalHeight, 0); num\_args++;
+748         sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w} = XtCreateManagedWidget(sv->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name},
+749                     labelWidgetClass,
+750                     parent,
+751                     args, num\_args);
+752         \textcolor{keywordflow}{break};
+753     \textcolor{keywordflow}{default}:
+754         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"create\_widget: unknown type %d"}, sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type});
+755     \}
+756 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_adadb4fb18ece472d982a23789aaf436b}{\index{winstat.\+c@{winstat.\+c}!destroy\+\_\+fancy\+\_\+status@{destroy\+\_\+fancy\+\_\+status}}
+\index{destroy\+\_\+fancy\+\_\+status@{destroy\+\_\+fancy\+\_\+status}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{destroy\+\_\+fancy\+\_\+status}]{\setlength{\rightskip}{0pt plus 5cm}static void destroy\+\_\+fancy\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_adadb4fb18ece472d982a23789aaf436b}
+
+
+Definition at line 975 of file winstat.\+c.
+
+
+
+References free(), X\+\_\+status\+\_\+value\+::name, N\+U\+M\+\_\+\+S\+T\+A\+T\+S, S\+V\+\_\+\+L\+A\+B\+E\+L, X\+\_\+status\+\_\+value\+::type, and X\+\_\+status\+\_\+value\+::w.
+
+
+
+Referenced by destroy\+\_\+status\+\_\+window().
+
+
+\begin{DoxyCode}
+977 \{
+978     \textcolor{keywordtype}{int} i;
+979     \textcolor{keyword}{struct }\hyperlink{structX__status__value}{X\_status\_value} *sv;
+980 
+981     \textcolor{keywordflow}{if} (!wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window})
+982     XtDestroyWidget(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}),  wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} = (Widget)0;
+983 
+984     \textcolor{keywordflow}{for} (i = 0, sv = \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}; i < \hyperlink{winstat_8c_a8dd66bb045cef1046c504653db25ccde}{NUM\_STATS}; i++, sv++)
+985     \textcolor{keywordflow}{if} (sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type} == \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL}) \{
+986         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})sv->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+987         sv->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name} = 0;
+988     \}
+989 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_acf857fc8eaf5f2966fbae8b3170a3eec}{\index{winstat.\+c@{winstat.\+c}!destroy\+\_\+status\+\_\+window@{destroy\+\_\+status\+\_\+window}}
+\index{destroy\+\_\+status\+\_\+window@{destroy\+\_\+status\+\_\+window}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{destroy\+\_\+status\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void destroy\+\_\+status\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)}}\label{winstat_8c_acf857fc8eaf5f2966fbae8b3170a3eec}
+
+
+Definition at line 126 of file winstat.\+c.
+
+
+
+References destroy\+\_\+fancy\+\_\+status(), free(), nh\+\_\+\+Xt\+Popdown(), and N\+H\+W\+\_\+\+N\+O\+N\+E.
+
+
+
+Referenced by X11\+\_\+destroy\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+128 \{
+129     \textcolor{comment}{/* If status\_information is defined, then it a "text" status window. */}
+130     \textcolor{keywordflow}{if} (wp->status\_information) \{
+131     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}) \{
+132         \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup});
+133         \textcolor{keywordflow}{if} (!wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window})
+134         XtDestroyWidget(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}),  wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = (Widget)0;
+135     \}
+136     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})wp->status\_information);
+137     wp->status\_information = 0;
+138     \} \textcolor{keywordflow}{else} \{
+139     \hyperlink{winstat_8c_adadb4fb18ece472d982a23789aaf436b}{destroy\_fancy\_status}(wp);
+140     \}
+141     \textcolor{keywordflow}{if} (!wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window})
+142     wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{winX_8h_ad149374e5170c08d2036a33dbf0f7b23}{NHW\_NONE};
+143 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a5df500fd25c5920e4c078ca55fe196b6}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf update\+\_\+fancy\+\_\+status}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a5df500fd25c5920e4c078ca55fe196b6}
+\hypertarget{winstat_8c_afcc6eba5c5e4e200efe4b411bfc96082}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static Widget F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf create\+\_\+fancy\+\_\+status}}]{, }
+\item[{(Widget, Widget)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_afcc6eba5c5e4e200efe4b411bfc96082}
+\hypertarget{winstat_8c_a2f11ee295f36db356b107c1412ce6234}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf destroy\+\_\+fancy\+\_\+status}}]{, }
+\item[{(struct {\bf xwindow} $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a2f11ee295f36db356b107c1412ce6234}
+\hypertarget{winstat_8c_a217aa078854d2437d3d6baeba6103e64}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf hilight\+\_\+label}}]{, }
+\item[{(Widget)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a217aa078854d2437d3d6baeba6103e64}
+\hypertarget{winstat_8c_af5126279645450f60cbdc506f8574ec1}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf update\+\_\+val}}]{, }
+\item[{(struct {\bf X\+\_\+status\+\_\+value} $\ast$, long)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_af5126279645450f60cbdc506f8574ec1}
+\hypertarget{winstat_8c_a829a92cbfec47cff7b7ad1c0f5fc53a9}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf const} char$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf width\+\_\+string}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a829a92cbfec47cff7b7ad1c0f5fc53a9}
+\hypertarget{winstat_8c_a11916d6388838271919bb9e667d33536}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf create\+\_\+widget}}]{, }
+\item[{(Widget, struct {\bf X\+\_\+status\+\_\+value} $\ast$, int)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a11916d6388838271919bb9e667d33536}
+\hypertarget{winstat_8c_afc73a0bb30a3ccff81447462307819a1}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf get\+\_\+widths}}]{, }
+\item[{(struct {\bf X\+\_\+status\+\_\+value} $\ast$, int $\ast$, int $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_afc73a0bb30a3ccff81447462307819a1}
+\hypertarget{winstat_8c_ac98527bcfd65e2412607824f527cc5b5}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf set\+\_\+widths}}]{, }
+\item[{(struct {\bf X\+\_\+status\+\_\+value} $\ast$, int, int)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_ac98527bcfd65e2412607824f527cc5b5}
+\hypertarget{winstat_8c_a88dc6bef9b02719b8f851063288655e5}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static Widget F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+column}}]{, }
+\item[{(char $\ast$, Widget, Widget, Widget, int $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a88dc6bef9b02719b8f851063288655e5}
+\hypertarget{winstat_8c_aae9e80837d68c535e14d6b704da86bc0}{\index{winstat.\+c@{winstat.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static Widget F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+info\+\_\+form}}]{, }
+\item[{(Widget, Widget, Widget)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_aae9e80837d68c535e14d6b704da86bc0}
+\hypertarget{winstat_8c_a54e86b2eba8bb408d2cb13323eb805a8}{\index{winstat.\+c@{winstat.\+c}!get\+\_\+widths@{get\+\_\+widths}}
+\index{get\+\_\+widths@{get\+\_\+widths}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{get\+\_\+widths}]{\setlength{\rightskip}{0pt plus 5cm}static void get\+\_\+widths (
+\begin{DoxyParamCaption}
+\item[{struct {\bf X\+\_\+status\+\_\+value} $\ast$}]{sv, }
+\item[{int $\ast$}]{width1p, }
+\item[{int $\ast$}]{width2p}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a54e86b2eba8bb408d2cb13323eb805a8}
+
+
+Definition at line 762 of file winstat.\+c.
+
+
+
+References get\+\_\+name\+\_\+width(), get\+\_\+value\+\_\+width(), panic(), S\+V\+\_\+\+L\+A\+B\+E\+L, S\+V\+\_\+\+N\+A\+M\+E, S\+V\+\_\+\+V\+A\+L\+U\+E, and width.
+
+
+
+Referenced by init\+\_\+column().
+
+
+\begin{DoxyCode}
+765 \{
+766     Arg args[1];
+767     Dimension \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width};
+768 
+769     \textcolor{keywordflow}{switch} (sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type}) \{
+770     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}:
+771         *width1p = \hyperlink{winval_8c_ab5e9a6532b23e36405181d7a882b0df9}{get\_name\_width}(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w});
+772         *width2p = \hyperlink{winval_8c_a5e77796c38690146c893d45eeb913549}{get\_value\_width}(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w});
+773         \textcolor{keywordflow}{break};
+774     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL}:
+775     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME}:
+776         XtSetArg(args[0], XtNwidth, &width);
+777         XtGetValues(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, ONE);
+778         *width1p = \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width};
+779         *width2p = 0;
+780         \textcolor{keywordflow}{break};
+781     \textcolor{keywordflow}{default}:
+782         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"get\_widths: unknown type %d"}, sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type});
+783     \}
+784 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a19a16da4baec860707337e4bd0497c3b}{\index{winstat.\+c@{winstat.\+c}!hilight\+\_\+label@{hilight\+\_\+label}}
+\index{hilight\+\_\+label@{hilight\+\_\+label}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{hilight\+\_\+label}]{\setlength{\rightskip}{0pt plus 5cm}static void hilight\+\_\+label (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a19a16da4baec860707337e4bd0497c3b}
+
+
+Definition at line 312 of file winstat.\+c.
+
+
+
+Referenced by check\+\_\+turn\+\_\+events(), and update\+\_\+val().
+
+
+\begin{DoxyCode}
+314 \{
+315     Arg args[2];
+316     Pixel fg, bg;
+317 
+318     XtSetArg(args[0], XtNforeground, &fg);
+319     XtSetArg(args[1], XtNbackground, &bg);
+320     XtGetValues(\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, TWO);
+321 
+322     XtSetArg(args[0], XtNforeground, bg);
+323     XtSetArg(args[1], XtNbackground, fg);
+324     XtSetValues(\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, TWO);
+325 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_ae1744a381b7d00f0825585be2a9ab68d}{\index{winstat.\+c@{winstat.\+c}!init\+\_\+column@{init\+\_\+column}}
+\index{init\+\_\+column@{init\+\_\+column}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{init\+\_\+column}]{\setlength{\rightskip}{0pt plus 5cm}static Widget init\+\_\+column (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name, }
+\item[{Widget}]{parent, }
+\item[{Widget}]{top, }
+\item[{Widget}]{left, }
+\item[{int $\ast$}]{col\+\_\+indices}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_ae1744a381b7d00f0825585be2a9ab68d}
+
+
+Definition at line 809 of file winstat.\+c.
+
+
+
+References create\+\_\+widget(), get\+\_\+widths(), set\+\_\+widths(), and X\+\_\+status\+\_\+value\+::w.
+
+
+
+Referenced by create\+\_\+fancy\+\_\+status(), and init\+\_\+info\+\_\+form().
+
+
+\begin{DoxyCode}
+813 \{
+814     Widget form;
+815     Arg args[4];
+816     Cardinal num\_args;
+817     \textcolor{keywordtype}{int} max\_width1, width1, max\_width2, width2;
+818     \textcolor{keywordtype}{int} *ip;
+819     \textcolor{keyword}{struct }\hyperlink{structX__status__value}{X\_status\_value} *sv;
+820 
+821     num\_args = 0;
+822     \textcolor{keywordflow}{if} (top != (Widget) 0) \{
+823     XtSetArg(args[num\_args], XtNfromVert, top);     num\_args++;
+824     \}
+825     \textcolor{keywordflow}{if} (left != (Widget) 0) \{
+826     XtSetArg(args[num\_args], XtNfromHoriz, left);   num\_args++;
+827     \}
+828     XtSetArg(args[num\_args], XtNdefaultDistance, 0);    num\_args++;
+829     form = XtCreateManagedWidget(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},
+830                 formWidgetClass,
+831                 parent, args, num\_args);
+832 
+833     max\_width1 = max\_width2 = 0;
+834     \textcolor{keywordflow}{for} (ip = col\_indices; *ip >= 0; ip++) \{
+835     sv = &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[*ip];
+836     \hyperlink{winstat_8c_a600d9c11e2730d047b0484573b2b80fa}{create\_widget}(form, sv, *ip);  \textcolor{comment}{/* will set init width */}
+837     \textcolor{keywordflow}{if} (ip != col\_indices) \{    \textcolor{comment}{/* not first */}
+838         num\_args = 0;
+839         XtSetArg(args[num\_args], XtNfromVert, \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[*(ip-1)].\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w});
+840                                 num\_args++;
+841         XtSetValues(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, num\_args);
+842     \}
+843     \hyperlink{winstat_8c_a54e86b2eba8bb408d2cb13323eb805a8}{get\_widths}(sv, &width1, &width2);
+844     \textcolor{keywordflow}{if} (width1 > max\_width1) max\_width1 = width1;
+845     \textcolor{keywordflow}{if} (width2 > max\_width2) max\_width2 = width2;
+846     \}
+847     \textcolor{keywordflow}{for} (ip = col\_indices; *ip >= 0 ; ip++) \{
+848     \hyperlink{winstat_8c_ac5b4f89426bb1e6763f50424dbd53772}{set\_widths}(&\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[*ip], max\_width1, max\_width2);
+849     \}
+850 
+851     \textcolor{comment}{/* There is room behind the end marker for the two widths. */}
+852     *++ip = max\_width1;
+853     *++ip = max\_width2;
+854 
+855     \textcolor{keywordflow}{return} form;
+856 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a433641b0aee1ab8da39804c360953ab4}{\index{winstat.\+c@{winstat.\+c}!init\+\_\+info\+\_\+form@{init\+\_\+info\+\_\+form}}
+\index{init\+\_\+info\+\_\+form@{init\+\_\+info\+\_\+form}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{init\+\_\+info\+\_\+form}]{\setlength{\rightskip}{0pt plus 5cm}static Widget init\+\_\+info\+\_\+form (
+\begin{DoxyParamCaption}
+\item[{Widget}]{parent, }
+\item[{Widget}]{top, }
+\item[{Widget}]{left}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a433641b0aee1ab8da39804c360953ab4}
+
+
+Definition at line 885 of file winstat.\+c.
+
+
+
+References create\+\_\+widget(), F\+\_\+\+D\+L\+E\+V\+E\+L, F\+\_\+\+N\+A\+M\+E, init\+\_\+column(), and X\+\_\+status\+\_\+value\+::w.
+
+
+
+Referenced by create\+\_\+fancy\+\_\+status().
+
+
+\begin{DoxyCode}
+887 \{
+888     Widget form, col1;
+889     \textcolor{keyword}{struct }\hyperlink{structX__status__value}{X\_status\_value} *sv\_name, *sv\_dlevel;
+890     Arg args[6];
+891     Cardinal num\_args;
+892     \textcolor{keywordtype}{int} total\_width, *ip;
+893 
+894     num\_args = 0;
+895     \textcolor{keywordflow}{if} (top != (Widget) 0) \{
+896     XtSetArg(args[num\_args], XtNfromVert, top); num\_args++;
+897     \}
+898     \textcolor{keywordflow}{if} (left != (Widget) 0) \{
+899     XtSetArg(args[num\_args], XtNfromHoriz, left);   num\_args++;
+900     \}
+901     XtSetArg(args[num\_args], XtNdefaultDistance, 0);    num\_args++;
+902     form = XtCreateManagedWidget(\textcolor{stringliteral}{"status\_info"},
+903                 formWidgetClass,
+904                 parent,
+905                 args, num\_args);
+906 
+907     \textcolor{comment}{/* top of form */}
+908     sv\_name = &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_aed896104ed4a9b852e7819de5555e05a}{F\_NAME}];
+909     \hyperlink{winstat_8c_a600d9c11e2730d047b0484573b2b80fa}{create\_widget}(form, sv\_name, \hyperlink{winstat_8c_aed896104ed4a9b852e7819de5555e05a}{F\_NAME});
+910 
+911     \textcolor{comment}{/* second */}
+912     sv\_dlevel = &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a5c770bf71a620eba870ab25c3be834cc}{F\_DLEVEL}];
+913     \hyperlink{winstat_8c_a600d9c11e2730d047b0484573b2b80fa}{create\_widget}(form, sv\_dlevel, \hyperlink{winstat_8c_a5c770bf71a620eba870ab25c3be834cc}{F\_DLEVEL});
+914 
+915     num\_args = 0;
+916     XtSetArg(args[num\_args], XtNfromVert, sv\_name->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}); num\_args++;
+917     XtSetValues(sv\_dlevel->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, num\_args);
+918 
+919     \textcolor{comment}{/* two columns beneath */}
+920     col1 = \hyperlink{winstat_8c_ae1744a381b7d00f0825585be2a9ab68d}{init\_column}(\textcolor{stringliteral}{"name\_col1"}, form, sv\_dlevel->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w},
+921                         (Widget) 0, \hyperlink{winstat_8c_af9b6ead107e55fc97d89d7fa5c22bf59}{col1\_indices});
+922     (void) \hyperlink{winstat_8c_ae1744a381b7d00f0825585be2a9ab68d}{init\_column}(\textcolor{stringliteral}{"name\_col2"}, form, sv\_dlevel->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w},
+923                               col1, \hyperlink{winstat_8c_a699a083daa1919b0d022fcf6c4436424}{col2\_indices});
+924 
+925     \textcolor{comment}{/* Add calculated widths. */}
+926     \textcolor{keywordflow}{for} (ip = \hyperlink{winstat_8c_af9b6ead107e55fc97d89d7fa5c22bf59}{col1\_indices}; *ip >= 0; ip++)
+927     ;   \textcolor{comment}{/* skip to end */}
+928     total\_width = *++ip;
+929     total\_width += *++ip;
+930     \textcolor{keywordflow}{for} (ip = \hyperlink{winstat_8c_a699a083daa1919b0d022fcf6c4436424}{col2\_indices}; *ip >= 0; ip++)
+931     ;   \textcolor{comment}{/* skip to end */}
+932     total\_width += *++ip;
+933     total\_width += *++ip;
+934 
+935     XtSetArg(args[0], XtNwidth, total\_width);
+936     XtSetValues(sv\_name->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w},   args, ONE);
+937     XtSetArg(args[0], XtNwidth, total\_width);
+938     XtSetValues(sv\_dlevel->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, ONE);
+939 
+940     \textcolor{keywordflow}{return} form;
+941 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a3a7a97aae56721aa0155886271b3bf76}{\index{winstat.\+c@{winstat.\+c}!null\+\_\+out\+\_\+status@{null\+\_\+out\+\_\+status}}
+\index{null\+\_\+out\+\_\+status@{null\+\_\+out\+\_\+status}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{null\+\_\+out\+\_\+status}]{\setlength{\rightskip}{0pt plus 5cm}void null\+\_\+out\+\_\+status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winstat_8c_a3a7a97aae56721aa0155886271b3bf76}
+
+
+Definition at line 285 of file winstat.\+c.
+
+
+
+References N\+U\+M\+\_\+\+S\+T\+A\+T\+S, set\+\_\+value(), S\+V\+\_\+\+L\+A\+B\+E\+L, S\+V\+\_\+\+N\+A\+M\+E, S\+V\+\_\+\+V\+A\+L\+U\+E, X\+\_\+status\+\_\+value\+::type, and X\+\_\+status\+\_\+value\+::w.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows().
+
+
+\begin{DoxyCode}
+286 \{
+287     \textcolor{keywordtype}{int} i;
+288     \textcolor{keyword}{struct }\hyperlink{structX__status__value}{X\_status\_value} *sv;
+289     Arg args[1];
+290 
+291     \textcolor{keywordflow}{for} (i = 0, sv = \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}; i < \hyperlink{winstat_8c_a8dd66bb045cef1046c504653db25ccde}{NUM\_STATS}; i++, sv++) \{
+292     \textcolor{keywordflow}{switch} (sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type}) \{
+293         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}:
+294         \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+295         \textcolor{keywordflow}{break};
+296 
+297         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL}:
+298         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME}:
+299         XtSetArg(args[0], XtNlabel, \textcolor{stringliteral}{""});
+300         XtSetValues(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, ONE);
+301         \textcolor{keywordflow}{break};
+302 
+303         \textcolor{keywordflow}{default}:
+304         impossible(\textcolor{stringliteral}{"null\_out\_status: unknown type %d\(\backslash\)n"}, sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type});
+305         \textcolor{keywordflow}{break};
+306     \}
+307     \}
+308 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_ac5b4f89426bb1e6763f50424dbd53772}{\index{winstat.\+c@{winstat.\+c}!set\+\_\+widths@{set\+\_\+widths}}
+\index{set\+\_\+widths@{set\+\_\+widths}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{set\+\_\+widths}]{\setlength{\rightskip}{0pt plus 5cm}static void set\+\_\+widths (
+\begin{DoxyParamCaption}
+\item[{struct {\bf X\+\_\+status\+\_\+value} $\ast$}]{sv, }
+\item[{int}]{width1, }
+\item[{int}]{width2}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_ac5b4f89426bb1e6763f50424dbd53772}
+
+
+Definition at line 787 of file winstat.\+c.
+
+
+
+References panic(), set\+\_\+name\+\_\+width(), set\+\_\+value\+\_\+width(), S\+V\+\_\+\+L\+A\+B\+E\+L, S\+V\+\_\+\+N\+A\+M\+E, and S\+V\+\_\+\+V\+A\+L\+U\+E.
+
+
+
+Referenced by init\+\_\+column().
+
+
+\begin{DoxyCode}
+790 \{
+791     Arg args[1];
+792 
+793     \textcolor{keywordflow}{switch} (sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type}) \{
+794     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}:
+795         \hyperlink{winval_8c_a9f20f250d64ed1eee58bda492587b2b9}{set\_name\_width}(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, width1);
+796         \hyperlink{winval_8c_ac3c97e18c329ec0ae54eae9b796feb38}{set\_value\_width}(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, width2);
+797         \textcolor{keywordflow}{break};
+798     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL}:
+799     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME}:
+800         XtSetArg(args[0], XtNwidth, (width1+width2));
+801         XtSetValues(sv->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, ONE);
+802         \textcolor{keywordflow}{break};
+803     \textcolor{keywordflow}{default}:
+804         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"set\_widths: unknown type %d"}, sv->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type});
+805     \}
+806 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_ab0e55acba3f800778e67d2cff94f1510}{\index{winstat.\+c@{winstat.\+c}!update\+\_\+fancy\+\_\+status@{update\+\_\+fancy\+\_\+status}}
+\index{update\+\_\+fancy\+\_\+status@{update\+\_\+fancy\+\_\+status}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{update\+\_\+fancy\+\_\+status}]{\setlength{\rightskip}{0pt plus 5cm}static void update\+\_\+fancy\+\_\+status (
+\begin{DoxyParamCaption}
+\item[{struct {\bf xwindow} $\ast$}]{wp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_ab0e55acba3f800778e67d2cff94f1510}
+
+
+Definition at line 568 of file winstat.\+c.
+
+
+
+References A\+\_\+\+C\+H\+A, A\+\_\+\+C\+O\+N, A\+\_\+\+D\+E\+X, A\+\_\+\+I\+N\+T, A\+\_\+\+S\+T\+R, A\+\_\+\+W\+I\+S, A\+C\+U\+R\+R, Blind, Confusion, F\+\_\+\+A\+C, F\+\_\+\+A\+L\+I\+G\+N, F\+\_\+\+B\+L\+I\+N\+D, F\+\_\+\+C\+H\+A, F\+\_\+\+C\+O\+N, F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D, F\+\_\+\+D\+E\+X, F\+\_\+\+D\+L\+E\+V\+E\+L, F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R, F\+\_\+\+E\+X\+P, F\+\_\+\+G\+O\+L\+D, F\+\_\+\+H\+A\+L\+L\+U, F\+\_\+\+H\+P, F\+\_\+\+H\+U\+N\+G\+E\+R, F\+\_\+\+I\+N\+T, F\+\_\+\+L\+E\+V\+E\+L, F\+\_\+\+M\+A\+X\+H\+P, F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R, F\+\_\+\+N\+A\+M\+E, F\+\_\+\+P\+O\+W\+E\+R, F\+\_\+\+S\+C\+O\+R\+E, F\+\_\+\+S\+I\+C\+K, F\+\_\+\+S\+T\+R, F\+\_\+\+S\+T\+U\+N\+N\+E\+D, F\+\_\+\+T\+I\+M\+E, F\+\_\+\+W\+I\+S, F\+A\+L\+S\+E, flags, Hallucination, invent, you\+::mh, you\+::mhmax, permonst\+::mlevel, mons, moves, you\+::mtimedone, N\+U\+M\+\_\+\+S\+T\+A\+T\+S, Sick, Stunned, flag\+::time, T\+R\+U\+E, align\+::type, u, you\+::uac, you\+::ualign, you\+::uen, you\+::uenmax, you\+::uexp, you\+::ugold, you\+::uhp, you\+::uhpmax, you\+::uhs, you\+::ulevel, you\+::umonnum, and update\+\_\+val().
+
+
+
+Referenced by adjust\+\_\+status().
+
+
+\begin{DoxyCode}
+570 \{
+571     \textcolor{keyword}{struct }\hyperlink{structX__status__value}{X\_status\_value} *sv;
+572     \textcolor{keywordtype}{long} val;
+573     \textcolor{keywordtype}{int} i;
+574 
+575     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy} != 0) \textcolor{keywordflow}{return};    \textcolor{comment}{/* do a complete update when line 0 is done */}
+576 
+577     \textcolor{keywordflow}{for} (i = 0, sv = \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}; i < \hyperlink{winstat_8c_a8dd66bb045cef1046c504653db25ccde}{NUM\_STATS}; i++, sv++) \{
+578     \textcolor{keywordflow}{switch} (i) \{
+579         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a18a54b37a84dca0c2faefc8a332917d7}{F\_STR}:        val = (long) \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_ad53430e3d611a366ec4b5c457b4c67f7}{A\_STR}); \textcolor{keywordflow}{break};
+580         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ab12f67068a3f72d8f1fa6e011b7d663e}{F\_DEX}:        val = (long) \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_ad8117dfaac470310d7540a3e8dcc00e0}{A\_DEX}); \textcolor{keywordflow}{break};
+581         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_abc352cb092e2711d8a6a67f620f425d7}{F\_CON}:        val = (long) \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_a82a29f9d3d2390f61fc68b2a352b5da3}{A\_CON}); \textcolor{keywordflow}{break};
+582         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a1bdef8d868bfee334d271095f17a70a9}{F\_INT}:        val = (long) \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_a583ef0a9b22ce89bcf0df81228b424b5}{A\_INT}); \textcolor{keywordflow}{break};
+583         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a827b048e05dac4cf865d6d2852935b63}{F\_WIS}:        val = (long) \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}); \textcolor{keywordflow}{break};
+584         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ae80bca5f6710931b474b6a603b2a13a1}{F\_CHA}:        val = (long) \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_ae4773cfa1f5c2e5eeef1e23baa6e1c3f}{A\_CHA}); \textcolor{keywordflow}{break};
+585         \textcolor{comment}{/*}
+586 \textcolor{comment}{         * Label stats.  With the exceptions of hunger, encumbrance, sick}
+587 \textcolor{comment}{         * these are either on or off.  Pleae leave the ternary operators}
+588 \textcolor{comment}{         * the way they are.  I want to specify 0 or 1, not a boolean.}
+589 \textcolor{comment}{         */}
+590         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_aeb7428366b4590d3aa440581578157c5}{F\_HUNGER}:  val = (long) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a4ba11c494ae99f9d1ba9d65ad07c5097}{uhs};         \textcolor{keywordflow}{break};
+591         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a2f96a161a475c5ccfacc6316902a3c78}{F\_CONFUSED}:  val = (\textcolor{keywordtype}{long}) \hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion}     ? 1L : 0L;  \textcolor{keywordflow}{break};
+592         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_acc09d5028d25bb9d2f5b164361a9b065}{F\_SICK}:  val = (long) \hyperlink{youprop_8h_a43a7dcd441841e6703322b8a2ea3b6a5}{Sick} ? (\textcolor{keywordtype}{long})\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usick\_type
+593                                 : 0L;   \textcolor{keywordflow}{break};
+594         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a413a55f0fb1002962498a529316c029f}{F\_BLIND}:    val = (long) \hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}    ? 1L : 0L;   \textcolor{keywordflow}{break};
+595         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a45ceb3f2dd7fbf91a19157bd1d4ab07d}{F\_STUNNED}:    val = (long) \hyperlink{youprop_8h_afd7fdfec2109113244c347015bab4ad1}{Stunned}    ? 1L : 0L;   \textcolor{keywordflow}{break};
+596         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ad726844208c0faf239b188cec98a2d68}{F\_HALLU}:    val = (long) \hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination} ? 1L : 0L;  \textcolor{keywordflow}{break};
+597         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_afd8bbc05e6c8cc5cdff258712624e476}{F\_ENCUMBER}:  val = (long) near\_capacity();       \textcolor{keywordflow}{break};
+598 
+599         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_aed896104ed4a9b852e7819de5555e05a}{F\_NAME}:  val = (long) 0L; \textcolor{keywordflow}{break}; \textcolor{comment}{/* special */}
+600         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a5c770bf71a620eba870ab25c3be834cc}{F\_DLEVEL}:  val = (long) 0L; \textcolor{keywordflow}{break}; \textcolor{comment}{/* special */}
+601 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+602         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a688170ed4f9c61690e8fec4a0de49ca8}{F\_GOLD}:  val = (long) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold}; \textcolor{keywordflow}{break};
+603 #\textcolor{keywordflow}{else}
+604         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a688170ed4f9c61690e8fec4a0de49ca8}{F\_GOLD}:  val = money\_cnt(\hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}); \textcolor{keywordflow}{break};
+605 \textcolor{preprocessor}{#endif}
+606         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_abe16c4d30b10e891851ca7d6772b82a3}{F\_HP}:      val = (long) (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone} ?
+607                           (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2106fda1b357aa3395703a3abff426f8}{mh}  > 0 ? \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2106fda1b357aa3395703a3abff426f8}{mh}  : 0):
+608                           (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} > 0 ? \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} : 0)); \textcolor{keywordflow}{break};
+609         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a94b69d005779ef761a553450aaa880d3}{F\_MAXHP}:    val = (long) (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone} ? \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ad0eb213f6299ffa1529fc7864003a044}{mhmax} :
+610                                 \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax});  \textcolor{keywordflow}{break};
+611         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a423f637ab0d0a8e4e0264d8d15b899e6}{F\_POWER}:    val = (long) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen}; \textcolor{keywordflow}{break};
+612         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_af43491b1f2c27597bc7b1a6b3976c755}{F\_MAXPOWER}:  val = (\textcolor{keywordtype}{long}) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aed246159794c7c780aeea2aca5adabe8}{uenmax};   \textcolor{keywordflow}{break};
+613         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_af1ecd6cf0a2cb9ace2a1642115897581}{F\_AC}:      val = (long) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a4286c7d027f70b103209bb3406ea3d85}{uac}; \textcolor{keywordflow}{break};
+614         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_abe069da818f0b9557f8c6678da9c8dec}{F\_LEVEL}:    val = (\textcolor{keywordtype}{long}) (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone} ?
+615                         \hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae0b7ade89d09cd3b6d5e05eb8c859b35}{umonnum}].\hyperlink{structpermonst_aeed45d1ab54620bc7e5242b76f1c3c5f}{mlevel} :
+616                         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel});       \textcolor{keywordflow}{break};
+617 \textcolor{preprocessor}{#ifdef EXP\_ON\_BOTL}
+618         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a6188f41eb199f07394a149275db5c7ef}{F\_EXP}:        val = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showexp ? \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} : 0L; \textcolor{keywordflow}{break};
+619 \textcolor{preprocessor}{#else}
+620         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a6188f41eb199f07394a149275db5c7ef}{F\_EXP}:        val = 0L; \textcolor{keywordflow}{break};
+621 \textcolor{preprocessor}{#endif}
+622         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a164ae27c705683657fd87196b194d579}{F\_ALIGN}:    val = (long) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_a0dadfa91b9ff06447f91ea8a2b898827}{type}; \textcolor{keywordflow}{break};
+623         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a45cd22d9c9b41043c2ed872aed358309}{F\_TIME}:  val = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_adacd6190247689360201f34b2aa9148a}{time} ? (\textcolor{keywordtype}{long}) \hyperlink{decl_8h_a2ccad6e8fb93740ed50c6d9a8f72ce2f}{moves} : 0L; \textcolor{keywordflow}{break};
+624 \textcolor{preprocessor}{#ifdef SCORE\_ON\_BOTL}
+625         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_aa226644b3521893ecc0af1390082642b}{F\_SCORE}:    val = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showscore ? botl\_score():0L; \textcolor{keywordflow}{break};
+626 \textcolor{preprocessor}{#else}
+627         \textcolor{keywordflow}{case} \hyperlink{winstat_8c_aa226644b3521893ecc0af1390082642b}{F\_SCORE}:    val = 0L; \textcolor{keywordflow}{break};
+628 \textcolor{preprocessor}{#endif}
+629         \textcolor{keywordflow}{default}:
+630         \{
+631         \textcolor{comment}{/*}
+632 \textcolor{comment}{         * There is a possible infinite loop that occurs with:}
+633 \textcolor{comment}{         *}
+634 \textcolor{comment}{         *  impossible->pline->flush\_screen->bot->bot\{1,2\}->}
+635 \textcolor{comment}{         *  putstr->adjust\_status->update\_other->impossible}
+636 \textcolor{comment}{         *}
+637 \textcolor{comment}{         * Break out with this.}
+638 \textcolor{comment}{         */}
+639         \textcolor{keyword}{static} \textcolor{keywordtype}{boolean} active = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+640         \textcolor{keywordflow}{if} (!active) \{
+641             active = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+642             impossible(\textcolor{stringliteral}{"update\_other: unknown shown value"});
+643             active = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+644         \}
+645         val = 0;
+646         \textcolor{keywordflow}{break};
+647         \}
+648     \}
+649     \hyperlink{winstat_8c_a2701ba5ce8622c172aeada6c207bff91}{update\_val}(sv, val);
+650     \}
+651 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a2701ba5ce8622c172aeada6c207bff91}{\index{winstat.\+c@{winstat.\+c}!update\+\_\+val@{update\+\_\+val}}
+\index{update\+\_\+val@{update\+\_\+val}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{update\+\_\+val}]{\setlength{\rightskip}{0pt plus 5cm}static void update\+\_\+val (
+\begin{DoxyParamCaption}
+\item[{struct {\bf X\+\_\+status\+\_\+value} $\ast$}]{attr\+\_\+rec, }
+\item[{long}]{new\+\_\+value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a2701ba5ce8622c172aeada6c207bff91}
+
+
+Definition at line 329 of file winstat.\+c.
+
+
+
+References A\+\_\+\+C\+H\+A\+O\+T\+I\+C, A\+\_\+\+N\+E\+U\+T\+R\+A\+L, buf, B\+U\+F\+S\+Z, dungeon\+::dname, d\+\_\+level\+::dnum, dungeons, enc\+\_\+stat, eos(), F\+\_\+\+A\+L\+I\+G\+N, F\+\_\+\+D\+L\+E\+V\+E\+L, F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R, F\+\_\+\+E\+X\+P, F\+\_\+\+H\+U\+N\+G\+E\+R, F\+\_\+\+L\+E\+V\+E\+L, F\+\_\+\+N\+A\+M\+E, F\+\_\+\+S\+C\+O\+R\+E, F\+\_\+\+S\+I\+C\+K, F\+\_\+\+S\+T\+R, F\+\_\+\+T\+I\+M\+E, F\+A\+L\+S\+E, flag\+::female, flags, hilight\+\_\+label(), hilight\+\_\+value(), hu\+\_\+stat, permonst\+::mname, mons, you\+::mtimedone, X\+\_\+status\+\_\+value\+::name, pl\+\_\+character, plname, set\+\_\+name(), set\+\_\+value(), Sick, S\+I\+C\+K\+\_\+\+N\+O\+N\+V\+O\+M\+I\+T\+A\+B\+L\+E, S\+I\+C\+K\+\_\+\+V\+O\+M\+I\+T\+A\+B\+L\+E, Sprintf, Strcat, Strcpy, S\+V\+\_\+\+L\+A\+B\+E\+L, S\+V\+\_\+\+N\+A\+M\+E, flag\+::time, T\+R\+U\+E, u, you\+::ulevel, you\+::umonnum, and you\+::uz.
+
+
+
+Referenced by update\+\_\+fancy\+\_\+status().
+
+
+\begin{DoxyCode}
+332 \{
+333     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+334     Arg args[4];
+335 
+336     \textcolor{keywordflow}{if} (attr\_rec->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type} == \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL}) \{
+337 
+338     \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_aed896104ed4a9b852e7819de5555e05a}{F\_NAME}]) \{
+339 
+340         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(buf, \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+341         \textcolor{keywordflow}{if} (\textcolor{charliteral}{'a'} <= buf[0] && buf[0] <= \textcolor{charliteral}{'z'}) buf[0] += \textcolor{charliteral}{'A'}-\textcolor{charliteral}{'a'};
+342         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(buf, \textcolor{stringliteral}{" the "});
+343         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone}) \{
+344         \textcolor{keywordtype}{char} mname[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+345         \textcolor{keywordtype}{int} k = 0;
+346 
+347         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(mname, \hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae0b7ade89d09cd3b6d5e05eb8c859b35}{umonnum}].\hyperlink{structpermonst_ae92da7d141243d7e37d4a12340bb248f}{mname});
+348         \textcolor{keywordflow}{while}(mname[k] != 0) \{
+349             \textcolor{keywordflow}{if} ((k == 0 || (k > 0 && mname[k-1] == \textcolor{charliteral}{' '})) &&
+350                     \textcolor{charliteral}{'a'} <= mname[k] && mname[k] <= \textcolor{charliteral}{'z'})
+351                 mname[k] += \textcolor{charliteral}{'A'} - \textcolor{charliteral}{'a'};
+352             k++;
+353         \}
+354         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(buf, mname);
+355         \} \textcolor{keywordflow}{else}
+356         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(buf, rank\_of(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel}, \hyperlink{decl_8h_a053ad248bf641e54a6f7bfb6a8fb9e05}{pl\_character}[0], 
+      \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female}));
+357 
+358     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a5c770bf71a620eba870ab25c3be834cc}{F\_DLEVEL}]) \{
+359         \textcolor{keywordflow}{if} (!describe\_level(buf)) \{
+360         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(buf, \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_a802ae61c0d552cf15d77175a8d5b7c5c}{dname});
+361         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(buf), \textcolor{stringliteral}{", level %d"}, depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}));
+362         \}
+363     \} \textcolor{keywordflow}{else} \{
+364         impossible(\textcolor{stringliteral}{"update\_val: unknown label type \(\backslash\)"%s\(\backslash\)""},
+365                             attr\_rec->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+366         \textcolor{keywordflow}{return};
+367     \}
+368 
+369     \textcolor{keywordflow}{if} (strcmp(buf, attr\_rec->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name}) == 0) \textcolor{keywordflow}{return};   \textcolor{comment}{/* same */}
+370 
+371     \textcolor{comment}{/* Set the label. */}
+372     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(attr\_rec->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name}, buf);
+373     XtSetArg(args[0], XtNlabel, buf);
+374     XtSetValues(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, ONE);
+375 
+376     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type} == \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME}) \{
+377 
+378     \textcolor{keywordflow}{if} (attr\_rec->\hyperlink{structX__status__value_aface1691c8a57b2f7f7c59b464b3a344}{last\_value} == new\_value) \textcolor{keywordflow}{return};    \textcolor{comment}{/* no change */}
+379 
+380     attr\_rec->\hyperlink{structX__status__value_aface1691c8a57b2f7f7c59b464b3a344}{last\_value} = new\_value;
+381 
+382     \textcolor{comment}{/* special cases: hunger, encumbrance, sickness */}
+383     \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_aeb7428366b4590d3aa440581578157c5}{F\_HUNGER}]) \{
+384         XtSetArg(args[0], XtNlabel, \hyperlink{winstat_8c_a3af488926df1efa13318d88448c2e7f5}{hu\_stat}[new\_value]);
+385     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_afd8bbc05e6c8cc5cdff258712624e476}{F\_ENCUMBER}]) \{
+386         XtSetArg(args[0], XtNlabel, \hyperlink{winstat_8c_af6b2dd1e0df263200389ab9e886cf2c6}{enc\_stat}[new\_value]);
+387     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_acc09d5028d25bb9d2f5b164361a9b065}{F\_SICK}]) \{
+388         buf[0] = 0;
+389         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a43a7dcd441841e6703322b8a2ea3b6a5}{Sick}) \{
+390         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usick\_type & \hyperlink{you_8h_a08c3ee5d427967ad406c2706b3d7c929}{SICK\_VOMITABLE})
+391             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(buf, \textcolor{stringliteral}{"FoodPois"});
+392         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usick\_type & \hyperlink{you_8h_a17a4f65d7316d356ff7e6a292d2627bc}{SICK\_NONVOMITABLE}) \{
+393             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usick\_type & \hyperlink{you_8h_a08c3ee5d427967ad406c2706b3d7c929}{SICK\_VOMITABLE})
+394             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(buf, \textcolor{stringliteral}{" "});
+395             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(buf, \textcolor{stringliteral}{"Ill"});
+396         \}
+397         \}
+398         XtSetArg(args[0], XtNlabel, buf);
+399     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (new\_value) \{
+400         XtSetArg(args[0], XtNlabel, attr\_rec->\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+401     \} \textcolor{keywordflow}{else} \{
+402         XtSetArg(args[0], XtNlabel, \textcolor{stringliteral}{""});
+403     \}
+404     XtSetValues(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, args, ONE);
+405 
+406     \} \textcolor{keywordflow}{else} \{    \textcolor{comment}{/* a value pair */}
+407     \textcolor{keywordtype}{boolean} force\_update = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+408 
+409     \textcolor{comment}{/* special case: time can be enabled & disabled */}
+410     \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a45cd22d9c9b41043c2ed872aed358309}{F\_TIME}]) \{
+411         \textcolor{keyword}{static} \textcolor{keywordtype}{boolean} flagtime = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+412 
+413         \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_adacd6190247689360201f34b2aa9148a}{time} && !flagtime) \{
+414         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[F\_TIME].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+415         force\_update = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+416         flagtime = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_adacd6190247689360201f34b2aa9148a}{time};
+417         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_adacd6190247689360201f34b2aa9148a}{time} && flagtime) \{
+418         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+419         \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+420         flagtime = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_adacd6190247689360201f34b2aa9148a}{time};
+421         \}
+422         \textcolor{keywordflow}{if}(!flagtime) \textcolor{keywordflow}{return};
+423     \}
+424 
+425     \textcolor{comment}{/* special case: exp can be enabled & disabled */}
+426     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a6188f41eb199f07394a149275db5c7ef}{F\_EXP}]) \{
+427         \textcolor{keyword}{static} \textcolor{keywordtype}{boolean} flagexp = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+428 \textcolor{preprocessor}{#ifdef EXP\_ON\_BOTL}
+429 
+430         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showexp && !flagexp) \{
+431         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[F\_EXP].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+432         force\_update = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+433         flagexp = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showexp;
+434         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showexp && flagexp) \{
+435         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+436         \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+437         flagexp = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showexp;
+438         \}
+439         \textcolor{keywordflow}{if} (!flagexp) \textcolor{keywordflow}{return};
+440 \textcolor{preprocessor}{#else}
+441         \textcolor{keywordflow}{if} (flagexp) \{
+442         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+443         \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+444         flagexp = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+445         \}
+446         \textcolor{keywordflow}{return}; \textcolor{comment}{/* don't show it at all */}
+447 \textcolor{preprocessor}{#endif}
+448     \}
+449 
+450     \textcolor{comment}{/* special case: score can be enabled & disabled */}
+451     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_aa226644b3521893ecc0af1390082642b}{F\_SCORE}]) \{
+452         \textcolor{keyword}{static} \textcolor{keywordtype}{boolean} flagscore = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+453 \textcolor{preprocessor}{#ifdef SCORE\_ON\_BOTL}
+454 
+455         \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showscore && !flagscore) \{
+456         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[F\_SCORE].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+457         force\_update = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+458         flagscore = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showscore;
+459         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showscore && flagscore) \{
+460         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+461         \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+462         flagscore = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showscore;
+463         \}
+464         \textcolor{keywordflow}{if}(!flagscore) \textcolor{keywordflow}{return};
+465 \textcolor{preprocessor}{#else}
+466         \textcolor{keywordflow}{if} (flagscore) \{
+467         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+468         \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+469         flagscore = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+470         \}
+471         \textcolor{keywordflow}{return};
+472 \textcolor{preprocessor}{#endif}
+473     \}
+474 
+475     \textcolor{comment}{/* special case: when polymorphed, show "HD", disable exp */}
+476     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_abe069da818f0b9557f8c6678da9c8dec}{F\_LEVEL}]) \{
+477         \textcolor{keyword}{static} \textcolor{keywordtype}{boolean} lev\_was\_poly = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+478 
+479         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone} && !lev\_was\_poly) \{
+480         force\_update = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+481         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{"HD"});
+482         lev\_was\_poly = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+483         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone} && lev\_was\_poly) \{
+484         force\_update = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+485         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[F\_LEVEL].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+486         lev\_was\_poly = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+487         \}
+488     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[F\_EXP]) \{
+489         \textcolor{keyword}{static} \textcolor{keywordtype}{boolean} exp\_was\_poly = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+490 
+491         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone} && !exp\_was\_poly) \{
+492         force\_update = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+493         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+494         \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \textcolor{stringliteral}{""});
+495         exp\_was\_poly = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+496         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone} && exp\_was\_poly) \{
+497         force\_update = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+498         \hyperlink{winval_8c_ae7737819d7485cb3dabb92b10d749703}{set\_name}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[F\_EXP].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name});
+499         exp\_was\_poly = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+500         \}
+501         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac0c1bb634638e1b1771035bc45bd5cd7}{mtimedone}) \textcolor{keywordflow}{return};  \textcolor{comment}{/* no display for exp when poly */}
+502     \}
+503 
+504     \textcolor{keywordflow}{if} (attr\_rec->\hyperlink{structX__status__value_aface1691c8a57b2f7f7c59b464b3a344}{last\_value} == new\_value && !force\_update)   \textcolor{comment}{/* same */}
+505         \textcolor{keywordflow}{return};
+506 
+507     attr\_rec->\hyperlink{structX__status__value_aface1691c8a57b2f7f7c59b464b3a344}{last\_value} = new\_value;
+508 
+509     \textcolor{comment}{/* Special cases: strength, alignment and "clear". */}
+510     \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a18a54b37a84dca0c2faefc8a332917d7}{F\_STR}]) \{
+511         \textcolor{keywordflow}{if}(new\_value > 18) \{
+512         \textcolor{keywordflow}{if} (new\_value > 118)
+513             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf,\textcolor{stringliteral}{"%ld"}, new\_value-100);
+514         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(new\_value < 118)
+515             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"18/%02ld"}, new\_value-18);
+516         \textcolor{keywordflow}{else}
+517             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(buf, \textcolor{stringliteral}{"18/**"});
+518         \} \textcolor{keywordflow}{else} \{
+519         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"%ld"}, new\_value);
+520         \}
+521     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (attr\_rec == &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a164ae27c705683657fd87196b194d579}{F\_ALIGN}]) \{
+522 
+523         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(buf, (new\_value == \hyperlink{align_8h_a1d8f0bc268ba9729ef2e1cb0d3ea763b}{A\_CHAOTIC}) ? \textcolor{stringliteral}{"Chaotic"} :
+524             (new\_value == \hyperlink{align_8h_a58fee99b3a5a5db767e86d4c6705c9a1}{A\_NEUTRAL}) ? \textcolor{stringliteral}{"Neutral"} :
+525                            \textcolor{stringliteral}{"Lawful"}  );
+526     \} \textcolor{keywordflow}{else} \{
+527         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"%ld"}, new\_value);
+528     \}
+529     \hyperlink{winval_8c_aaadb952c83d8f0c9d38306cb0d8b4e44}{set\_value}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w}, buf);
+530     \}
+531 
+532     \textcolor{comment}{/*}
+533 \textcolor{comment}{     * Now hilight the changed information.  Names, time and score don't}
+534 \textcolor{comment}{     * hilight.  If first time, don't hilight.  If already lit, don't do}
+535 \textcolor{comment}{     * it again.}
+536 \textcolor{comment}{     */}
+537     \textcolor{keywordflow}{if} (attr\_rec->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type} != \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME} && attr\_rec != &\hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[F\_TIME]) \{
+538     \textcolor{keywordflow}{if} (attr\_rec->\hyperlink{structX__status__value_aed652819c84ca08930daf8358bea7905}{after\_init}) \{
+539         \textcolor{keywordflow}{if}(!attr\_rec->\hyperlink{structX__status__value_a08f69b079a814b7d8af52d3cf6f567ad}{set}) \{
+540         \textcolor{keywordflow}{if} (attr\_rec->\hyperlink{structX__status__value_a130c5921a3441f292f2e0ebd789c21fd}{type} == \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL})
+541             \hyperlink{winstat_8c_a19a16da4baec860707337e4bd0497c3b}{hilight\_label}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w});
+542         \textcolor{keywordflow}{else}
+543             \hyperlink{winval_8c_ae2db40f3894994af6d36ff188500065a}{hilight\_value}(attr\_rec->\hyperlink{structX__status__value_a2e5d8f91c202cec7f989cdad7245fdd0}{w});
+544         attr\_rec->\hyperlink{structX__status__value_a08f69b079a814b7d8af52d3cf6f567ad}{set} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+545         \}
+546         attr\_rec->\hyperlink{structX__status__value_ae9fd670e041aba9ba612cfea4adab322}{turn\_count} = 0;
+547     \} \textcolor{keywordflow}{else} \{
+548         attr\_rec->\hyperlink{structX__status__value_aed652819c84ca08930daf8358bea7905}{after\_init} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+549     \}
+550     \}
+551 \}
+\end{DoxyCode}
+\hypertarget{winstat_8c_a478cff1ccb3a2ded605452b28420ea02}{\index{winstat.\+c@{winstat.\+c}!width\+\_\+string@{width\+\_\+string}}
+\index{width\+\_\+string@{width\+\_\+string}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{width\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf const} char$\ast$ width\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{int}]{sv\+\_\+index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a478cff1ccb3a2ded605452b28420ea02}
+
+
+Definition at line 679 of file winstat.\+c.
+
+
+
+References F\+\_\+\+A\+C, F\+\_\+\+A\+L\+I\+G\+N, F\+\_\+\+B\+L\+I\+N\+D, F\+\_\+\+C\+H\+A, F\+\_\+\+C\+O\+N, F\+\_\+\+C\+O\+N\+F\+U\+S\+E\+D, F\+\_\+\+D\+E\+X, F\+\_\+\+D\+L\+E\+V\+E\+L, F\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R, F\+\_\+\+E\+X\+P, F\+\_\+\+G\+O\+L\+D, F\+\_\+\+H\+A\+L\+L\+U, F\+\_\+\+H\+P, F\+\_\+\+H\+U\+N\+G\+E\+R, F\+\_\+\+I\+N\+T, F\+\_\+\+L\+E\+V\+E\+L, F\+\_\+\+M\+A\+X\+H\+P, F\+\_\+\+M\+A\+X\+P\+O\+W\+E\+R, F\+\_\+\+N\+A\+M\+E, F\+\_\+\+P\+O\+W\+E\+R, F\+\_\+\+S\+C\+O\+R\+E, F\+\_\+\+S\+I\+C\+K, F\+\_\+\+S\+T\+R, F\+\_\+\+S\+T\+U\+N\+N\+E\+D, F\+\_\+\+T\+I\+M\+E, F\+\_\+\+W\+I\+S, and X\+\_\+status\+\_\+value\+::name.
+
+
+
+Referenced by create\+\_\+widget().
+
+
+\begin{DoxyCode}
+681 \{
+682     \textcolor{keywordflow}{switch} (sv\_index) \{
+683     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a18a54b37a84dca0c2faefc8a332917d7}{F\_STR}:    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"018/**"};
+684     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ab12f67068a3f72d8f1fa6e011b7d663e}{F\_DEX}:
+685     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_abc352cb092e2711d8a6a67f620f425d7}{F\_CON}:
+686     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a1bdef8d868bfee334d271095f17a70a9}{F\_INT}:
+687     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a827b048e05dac4cf865d6d2852935b63}{F\_WIS}:
+688     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ae80bca5f6710931b474b6a603b2a13a1}{F\_CHA}:    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"088"};   \textcolor{comment}{/* all but str never get bigger */}
+689 
+690     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_aeb7428366b4590d3aa440581578157c5}{F\_HUNGER}:  \textcolor{keywordflow}{return} \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_aeb7428366b4590d3aa440581578157c5}{F\_HUNGER}].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name};
+691     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a2f96a161a475c5ccfacc6316902a3c78}{F\_CONFUSED}:\textcolor{keywordflow}{return} \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a2f96a161a475c5ccfacc6316902a3c78}{F\_CONFUSED}].
+      \hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name};
+692     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_acc09d5028d25bb9d2f5b164361a9b065}{F\_SICK}:  \textcolor{keywordflow}{return} \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_acc09d5028d25bb9d2f5b164361a9b065}{F\_SICK}].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name};
+693     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a413a55f0fb1002962498a529316c029f}{F\_BLIND}:    \textcolor{keywordflow}{return} \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a413a55f0fb1002962498a529316c029f}{F\_BLIND}].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name};
+694     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a45ceb3f2dd7fbf91a19157bd1d4ab07d}{F\_STUNNED}: \textcolor{keywordflow}{return} \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_a45ceb3f2dd7fbf91a19157bd1d4ab07d}{F\_STUNNED}].
+      \hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name};
+695     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_ad726844208c0faf239b188cec98a2d68}{F\_HALLU}:    \textcolor{keywordflow}{return} \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_ad726844208c0faf239b188cec98a2d68}{F\_HALLU}].\hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name};
+696     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_afd8bbc05e6c8cc5cdff258712624e476}{F\_ENCUMBER}:\textcolor{keywordflow}{return} \hyperlink{winstat_8c_a8003688174444d9079e64edefb388cb6}{shown\_stats}[\hyperlink{winstat_8c_afd8bbc05e6c8cc5cdff258712624e476}{F\_ENCUMBER}].
+      \hyperlink{structX__status__value_ad24beb14f29271c622674dc81797cdf9}{name};
+697 
+698     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_aed896104ed4a9b852e7819de5555e05a}{F\_NAME}:
+699     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a5c770bf71a620eba870ab25c3be834cc}{F\_DLEVEL}:  \textcolor{keywordflow}{return} \textcolor{stringliteral}{""};
+700     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_abe16c4d30b10e891851ca7d6772b82a3}{F\_HP}:
+701     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a94b69d005779ef761a553450aaa880d3}{F\_MAXHP}:    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"9999"};
+702     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a423f637ab0d0a8e4e0264d8d15b899e6}{F\_POWER}:
+703     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_af43491b1f2c27597bc7b1a6b3976c755}{F\_MAXPOWER}:\textcolor{keywordflow}{return} \textcolor{stringliteral}{"999"};
+704     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_af1ecd6cf0a2cb9ace2a1642115897581}{F\_AC}:  \textcolor{keywordflow}{return} \textcolor{stringliteral}{"-99"};
+705     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_abe069da818f0b9557f8c6678da9c8dec}{F\_LEVEL}:    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"99"};
+706     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a688170ed4f9c61690e8fec4a0de49ca8}{F\_GOLD}:
+707     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a6188f41eb199f07394a149275db5c7ef}{F\_EXP}:    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"4294967295"};    \textcolor{comment}{/* max ulong */}
+708     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a164ae27c705683657fd87196b194d579}{F\_ALIGN}:    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Neutral"};
+709     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_a45cd22d9c9b41043c2ed872aed358309}{F\_TIME}:  \textcolor{keywordflow}{return} \textcolor{stringliteral}{"4294967295"};    \textcolor{comment}{/* max ulong */}
+710     \textcolor{keywordflow}{case} \hyperlink{winstat_8c_aa226644b3521893ecc0af1390082642b}{F\_SCORE}:    \textcolor{keywordflow}{return} \textcolor{stringliteral}{"4294967295"};    \textcolor{comment}{/* max ulong */}
+711     \}
+712     impossible(\textcolor{stringliteral}{"width\_string: unknown index %d\(\backslash\)n"}, sv\_index);
+713     \textcolor{keywordflow}{return} \textcolor{stringliteral}{""};
+714 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{winstat_8c_a0c343e4743b802a402b19823ec837620}{\index{winstat.\+c@{winstat.\+c}!attrib\+\_\+indices@{attrib\+\_\+indices}}
+\index{attrib\+\_\+indices@{attrib\+\_\+indices}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{attrib\+\_\+indices}]{\setlength{\rightskip}{0pt plus 5cm}int attrib\+\_\+indices\mbox{[}$\,$\mbox{]} = \{ {\bf F\+\_\+\+S\+T\+R},{\bf F\+\_\+\+D\+E\+X},{\bf F\+\_\+\+C\+O\+N},{\bf F\+\_\+\+I\+N\+T},{\bf F\+\_\+\+W\+I\+S},{\bf F\+\_\+\+C\+H\+A}, -\/1,0,0 \}\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a0c343e4743b802a402b19823ec837620}
+
+
+Definition at line 863 of file winstat.\+c.
+
+\hypertarget{winstat_8c_af9b6ead107e55fc97d89d7fa5c22bf59}{\index{winstat.\+c@{winstat.\+c}!col1\+\_\+indices@{col1\+\_\+indices}}
+\index{col1\+\_\+indices@{col1\+\_\+indices}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{col1\+\_\+indices}]{\setlength{\rightskip}{0pt plus 5cm}int col1\+\_\+indices\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_af9b6ead107e55fc97d89d7fa5c22bf59}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \hyperlink{winstat_8c_abe16c4d30b10e891851ca7d6772b82a3}{F\_HP},       \hyperlink{winstat_8c_af1ecd6cf0a2cb9ace2a1642115897581}{F\_AC},    \hyperlink{winstat_8c_a688170ed4f9c61690e8fec4a0de49ca8}{F\_GOLD}, \hyperlink{winstat_8c_abe069da818f0b9557f8c6678da9c8dec}{F\_LEVEL},
+                  \hyperlink{winstat_8c_a423f637ab0d0a8e4e0264d8d15b899e6}{F\_POWER},    \hyperlink{winstat_8c_aa226644b3521893ecc0af1390082642b}{F\_SCORE}, -1,0,0 \}
+\end{DoxyCode}
+
+
+Definition at line 869 of file winstat.\+c.
+
+\hypertarget{winstat_8c_a699a083daa1919b0d022fcf6c4436424}{\index{winstat.\+c@{winstat.\+c}!col2\+\_\+indices@{col2\+\_\+indices}}
+\index{col2\+\_\+indices@{col2\+\_\+indices}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{col2\+\_\+indices}]{\setlength{\rightskip}{0pt plus 5cm}int col2\+\_\+indices\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a699a083daa1919b0d022fcf6c4436424}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \hyperlink{winstat_8c_a94b69d005779ef761a553450aaa880d3}{F\_MAXHP},    \hyperlink{winstat_8c_a164ae27c705683657fd87196b194d579}{F\_ALIGN}, \hyperlink{winstat_8c_a45cd22d9c9b41043c2ed872aed358309}{F\_TIME}, \hyperlink{winstat_8c_a6188f41eb199f07394a149275db5c7ef}{F\_EXP},
+                  \hyperlink{winstat_8c_af43491b1f2c27597bc7b1a6b3976c755}{F\_MAXPOWER}, -1,0,0 \}
+\end{DoxyCode}
+
+
+Definition at line 867 of file winstat.\+c.
+
+\hypertarget{winstat_8c_af6b2dd1e0df263200389ab9e886cf2c6}{\index{winstat.\+c@{winstat.\+c}!enc\+\_\+stat@{enc\+\_\+stat}}
+\index{enc\+\_\+stat@{enc\+\_\+stat}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{enc\+\_\+stat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ enc\+\_\+stat\mbox{[}$\,$\mbox{]}}}\label{winstat_8c_af6b2dd1e0df263200389ab9e886cf2c6}
+
+
+Referenced by update\+\_\+val().
+
+\hypertarget{winstat_8c_aa7307e971c406dddf3fe6d818582ccd3}{\index{winstat.\+c@{winstat.\+c}!hilight\+\_\+time@{hilight\+\_\+time}}
+\index{hilight\+\_\+time@{hilight\+\_\+time}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{hilight\+\_\+time}]{\setlength{\rightskip}{0pt plus 5cm}int hilight\+\_\+time = 1\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_aa7307e971c406dddf3fe6d818582ccd3}
+
+
+Definition at line 181 of file winstat.\+c.
+
+\hypertarget{winstat_8c_a3af488926df1efa13318d88448c2e7f5}{\index{winstat.\+c@{winstat.\+c}!hu\+\_\+stat@{hu\+\_\+stat}}
+\index{hu\+\_\+stat@{hu\+\_\+stat}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{hu\+\_\+stat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ hu\+\_\+stat\mbox{[}$\,$\mbox{]}}}\label{winstat_8c_a3af488926df1efa13318d88448c2e7f5}
+
+
+Referenced by update\+\_\+val().
+
+\hypertarget{winstat_8c_a8003688174444d9079e64edefb388cb6}{\index{winstat.\+c@{winstat.\+c}!shown\+\_\+stats@{shown\+\_\+stats}}
+\index{shown\+\_\+stats@{shown\+\_\+stats}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{shown\+\_\+stats}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf X\+\_\+status\+\_\+value} shown\+\_\+stats\mbox{[}{\bf N\+U\+M\+\_\+\+S\+T\+A\+T\+S}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_a8003688174444d9079e64edefb388cb6}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{ \textcolor{stringliteral}{"Strength"},   \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},  
+    \{ \textcolor{stringliteral}{"Dexterity"},  \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Constitution"},   \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Intelligence"},   \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Wisdom"},     \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Charisma"},   \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},  
+
+    \{ \textcolor{stringliteral}{""},       \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \}, 
+    \{ \textcolor{stringliteral}{""},       \hyperlink{winstat_8c_ae20c5941511243efeae20b0aa81abd57}{SV\_LABEL}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \}, 
+    \{ \textcolor{stringliteral}{"Gold"},       \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Hit Points"}, \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Max HP"},     \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},  
+    \{ \textcolor{stringliteral}{"Power"},      \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Max Power"},  \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Armor Class"},    \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0,256, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Level"},      \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Experience"}, \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},  
+    \{ \textcolor{stringliteral}{"Alignment"},  \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -2, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Time"},       \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+    \{ \textcolor{stringliteral}{"Score"},      \hyperlink{winstat_8c_a2bd4cb36d4f1fd22b52b6d7a6e768a82}{SV\_VALUE}, (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} \},
+
+    \{ \textcolor{stringliteral}{""},       \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME},  (Widget) 0, -1, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} \}, 
+    \{ \textcolor{stringliteral}{"Confused"},   \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME},  (Widget) 0,  0, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} \}, 
+    \{ \textcolor{stringliteral}{""},           \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME},  (Widget) 0,  0, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} \}, 
+    \{ \textcolor{stringliteral}{"Blind"},      \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME},  (Widget) 0,  0, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} \},
+    \{ \textcolor{stringliteral}{"Stunned"},    \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME},  (Widget) 0,  0, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} \},
+    \{ \textcolor{stringliteral}{"Hallucinating"},  \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME},  (Widget) 0,  0, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} \},
+    \{ \textcolor{stringliteral}{""},       \hyperlink{winstat_8c_a274654b7f5932cae6a71a113322481be}{SV\_NAME},  (Widget) 0,  0, 0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} \}, 
+\}
+\end{DoxyCode}
+
+
+Definition at line 247 of file winstat.\+c.
+
+\hypertarget{winstat_8c_ad29506c9739d5be37f887e4014bf2f69}{\index{winstat.\+c@{winstat.\+c}!status\+\_\+indices@{status\+\_\+indices}}
+\index{status\+\_\+indices@{status\+\_\+indices}!winstat.\+c@{winstat.\+c}}
+\subsubsection[{status\+\_\+indices}]{\setlength{\rightskip}{0pt plus 5cm}int status\+\_\+indices\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winstat_8c_ad29506c9739d5be37f887e4014bf2f69}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \hyperlink{winstat_8c_aeb7428366b4590d3aa440581578157c5}{F\_HUNGER}, \hyperlink{winstat_8c_a2f96a161a475c5ccfacc6316902a3c78}{F\_CONFUSED}, \hyperlink{winstat_8c_acc09d5028d25bb9d2f5b164361a9b065}{F\_SICK}, \hyperlink{winstat_8c_a413a55f0fb1002962498a529316c029f}{F\_BLIND},
+                \hyperlink{winstat_8c_a45ceb3f2dd7fbf91a19157bd1d4ab07d}{F\_STUNNED}, \hyperlink{winstat_8c_ad726844208c0faf239b188cec98a2d68}{F\_HALLU}, \hyperlink{winstat_8c_afd8bbc05e6c8cc5cdff258712624e476}{F\_ENCUMBER}, -1,0,0 \}
+\end{DoxyCode}
+
+
+Definition at line 864 of file winstat.\+c.
+
+
+
+Referenced by create\+\_\+fancy\+\_\+status().
+

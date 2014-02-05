@@ -1,0 +1,241 @@
+\hypertarget{win_2win32_2mhinput_8c}{\section{nethack/win/win32/mhinput.c File Reference}
+\label{win_2win32_2mhinput_8c}\index{nethack/win/win32/mhinput.\+c@{nethack/win/win32/mhinput.\+c}}
+}
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhinput.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{win_2win32_2mhinput_8c_a3c7a9438fc899e1e20bfdb5a99e8c8c7}{N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}~64
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{win_2win32_2mhinput_8c_a06adff68ace291db423a777e1d174e69}{mswin\+\_\+nh\+\_\+input\+\_\+init} (void)
+\item 
+int \hyperlink{win_2win32_2mhinput_8c_ac3f8f3ca6bf373418ca678c94249d550}{mswin\+\_\+have\+\_\+input} ()
+\item 
+void \hyperlink{win_2win32_2mhinput_8c_a6451673461ccca559a98ec2897fa816f}{mswin\+\_\+input\+\_\+push} (\hyperlink{sys_2wince_2mhinput_8h_a2be931f11df9b15b3ea440814f59a90e}{P\+M\+S\+N\+H\+Event} event)
+\item 
+\hyperlink{sys_2wince_2mhinput_8h_a2be931f11df9b15b3ea440814f59a90e}{P\+M\+S\+N\+H\+Event} \hyperlink{win_2win32_2mhinput_8c_a956ca789dfd164267928c8d98e3ee13b}{mswin\+\_\+input\+\_\+pop} ()
+\item 
+\hyperlink{sys_2wince_2mhinput_8h_a2be931f11df9b15b3ea440814f59a90e}{P\+M\+S\+N\+H\+Event} \hyperlink{win_2win32_2mhinput_8c_a42004895384555ed9b5ab193dd45d7f6}{mswin\+\_\+input\+\_\+peek} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{sys_2wince_2mhinput_8h_ad05e332b757b5a550f8ee0712c312df0}{M\+S\+N\+H\+Event} \hyperlink{win_2win32_2mhinput_8c_ad151f90bc213f7e47b38b579c3339a9d}{nhi\+\_\+input\+\_\+buffer} \mbox{[}\hyperlink{win_2win32_2mhinput_8c_a3c7a9438fc899e1e20bfdb5a99e8c8c7}{N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}\mbox{]}
+\item 
+static int \hyperlink{win_2win32_2mhinput_8c_a40aae562b9b775768f3de2e84ee56c16}{nhi\+\_\+init\+\_\+input} = 0
+\item 
+static int \hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\+\_\+read\+\_\+pos} = 0
+\item 
+static int \hyperlink{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{nhi\+\_\+write\+\_\+pos} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{win_2win32_2mhinput_8c_a3c7a9438fc899e1e20bfdb5a99e8c8c7}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E@{N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}}
+\index{N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E@{N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E~64}}\label{win_2win32_2mhinput_8c_a3c7a9438fc899e1e20bfdb5a99e8c8c7}
+
+
+Definition at line 10 of file mhinput.\+c.
+
+
+
+Referenced by mswin\+\_\+input\+\_\+pop(), and mswin\+\_\+input\+\_\+push().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{win_2win32_2mhinput_8c_ac3f8f3ca6bf373418ca678c94249d550}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!mswin\+\_\+have\+\_\+input@{mswin\+\_\+have\+\_\+input}}
+\index{mswin\+\_\+have\+\_\+input@{mswin\+\_\+have\+\_\+input}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{mswin\+\_\+have\+\_\+input}]{\setlength{\rightskip}{0pt plus 5cm}int mswin\+\_\+have\+\_\+input (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhinput_8c_ac3f8f3ca6bf373418ca678c94249d550}
+
+
+Definition at line 34 of file mhinput.\+c.
+
+
+
+References nhi\+\_\+read\+\_\+pos, and nhi\+\_\+write\+\_\+pos.
+
+
+
+Referenced by mswin\+\_\+main\+\_\+loop(), and N\+H\+Menu\+List\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+35 \{
+36     \textcolor{keywordflow}{return} (\hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos}!=\hyperlink{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{nhi\_write\_pos});
+37 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhinput_8c_a42004895384555ed9b5ab193dd45d7f6}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!mswin\+\_\+input\+\_\+peek@{mswin\+\_\+input\+\_\+peek}}
+\index{mswin\+\_\+input\+\_\+peek@{mswin\+\_\+input\+\_\+peek}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{mswin\+\_\+input\+\_\+peek}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+M\+S\+N\+H\+Event} mswin\+\_\+input\+\_\+peek (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhinput_8c_a42004895384555ed9b5ab193dd45d7f6}
+
+
+Definition at line 73 of file mhinput.\+c.
+
+
+
+References mswin\+\_\+nh\+\_\+input\+\_\+init(), nhi\+\_\+init\+\_\+input, nhi\+\_\+read\+\_\+pos, nhi\+\_\+write\+\_\+pos, and N\+U\+L\+L.
+
+
+\begin{DoxyCode}
+74 \{
+75     \hyperlink{structmswin__event}{PMSNHEvent} retval;
+76 
+77     \textcolor{keywordflow}{if}( !\hyperlink{win_2win32_2mhinput_8c_a40aae562b9b775768f3de2e84ee56c16}{nhi\_init\_input} ) \hyperlink{sys_2wince_2mhinput_8c_abc3c9f12d2e8d7ca529bac1215f79672}{mswin\_nh\_input\_init}();
+78 
+79     \textcolor{keywordflow}{if}( \hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos}!=\hyperlink{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{nhi\_write\_pos} ) \{
+80         retval = &\hyperlink{win_2win32_2mhinput_8c_ad151f90bc213f7e47b38b579c3339a9d}{nhi\_input\_buffer}[\hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos}];
+81     \} \textcolor{keywordflow}{else} \{
+82         retval = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+83     \}
+84     \textcolor{keywordflow}{return} retval;
+85 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhinput_8c_a956ca789dfd164267928c8d98e3ee13b}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!mswin\+\_\+input\+\_\+pop@{mswin\+\_\+input\+\_\+pop}}
+\index{mswin\+\_\+input\+\_\+pop@{mswin\+\_\+input\+\_\+pop}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{mswin\+\_\+input\+\_\+pop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+M\+S\+N\+H\+Event} mswin\+\_\+input\+\_\+pop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhinput_8c_a956ca789dfd164267928c8d98e3ee13b}
+
+
+Definition at line 56 of file mhinput.\+c.
+
+
+
+References mswin\+\_\+nh\+\_\+input\+\_\+init(), N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E, nhi\+\_\+init\+\_\+input, nhi\+\_\+read\+\_\+pos, nhi\+\_\+write\+\_\+pos, and N\+U\+L\+L.
+
+
+\begin{DoxyCode}
+57 \{
+58     \hyperlink{structmswin__event}{PMSNHEvent} retval;
+59 
+60     \textcolor{keywordflow}{if}( !\hyperlink{win_2win32_2mhinput_8c_a40aae562b9b775768f3de2e84ee56c16}{nhi\_init\_input} ) \hyperlink{sys_2wince_2mhinput_8c_abc3c9f12d2e8d7ca529bac1215f79672}{mswin\_nh\_input\_init}();
+61 
+62     \textcolor{keywordflow}{if}( \hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos}!=\hyperlink{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{nhi\_write\_pos} ) \{
+63         retval = &\hyperlink{win_2win32_2mhinput_8c_ad151f90bc213f7e47b38b579c3339a9d}{nhi\_input\_buffer}[\hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos}];
+64         \hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos} = (\hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos}+1) % 
+      \hyperlink{win_2win32_2mhinput_8c_a3c7a9438fc899e1e20bfdb5a99e8c8c7}{NH\_INPUT\_BUFFER\_SIZE};
+65     \} \textcolor{keywordflow}{else} \{
+66         retval = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+67     \}
+68 
+69     \textcolor{keywordflow}{return} retval;
+70 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhinput_8c_a6451673461ccca559a98ec2897fa816f}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!mswin\+\_\+input\+\_\+push@{mswin\+\_\+input\+\_\+push}}
+\index{mswin\+\_\+input\+\_\+push@{mswin\+\_\+input\+\_\+push}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{mswin\+\_\+input\+\_\+push}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+input\+\_\+push (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+M\+S\+N\+H\+Event}}]{event}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhinput_8c_a6451673461ccca559a98ec2897fa816f}
+
+
+Definition at line 40 of file mhinput.\+c.
+
+
+
+References mswin\+\_\+nh\+\_\+input\+\_\+init(), N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E, nhi\+\_\+init\+\_\+input, nhi\+\_\+read\+\_\+pos, and nhi\+\_\+write\+\_\+pos.
+
+
+\begin{DoxyCode}
+41 \{
+42     \textcolor{keywordtype}{int} new\_write\_pos;
+43 
+44     \textcolor{keywordflow}{if}( !\hyperlink{win_2win32_2mhinput_8c_a40aae562b9b775768f3de2e84ee56c16}{nhi\_init\_input} ) \hyperlink{sys_2wince_2mhinput_8c_abc3c9f12d2e8d7ca529bac1215f79672}{mswin\_nh\_input\_init}();
+45 
+46     new\_write\_pos = (\hyperlink{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{nhi\_write\_pos}+1) % \hyperlink{win_2win32_2mhinput_8c_a3c7a9438fc899e1e20bfdb5a99e8c8c7}{NH\_INPUT\_BUFFER\_SIZE};
+47     
+48     \textcolor{keywordflow}{if}(new\_write\_pos!=\hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos}) \{
+49         memcpy(\hyperlink{win_2win32_2mhinput_8c_ad151f90bc213f7e47b38b579c3339a9d}{nhi\_input\_buffer}+\hyperlink{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{nhi\_write\_pos}, event, \textcolor{keyword}{sizeof}(*event));
+50         \hyperlink{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{nhi\_write\_pos} = new\_write\_pos;
+51     \}
+52 
+53 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhinput_8c_a06adff68ace291db423a777e1d174e69}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!mswin\+\_\+nh\+\_\+input\+\_\+init@{mswin\+\_\+nh\+\_\+input\+\_\+init}}
+\index{mswin\+\_\+nh\+\_\+input\+\_\+init@{mswin\+\_\+nh\+\_\+input\+\_\+init}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{mswin\+\_\+nh\+\_\+input\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+nh\+\_\+input\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhinput_8c_a06adff68ace291db423a777e1d174e69}
+
+
+Definition at line 22 of file mhinput.\+c.
+
+
+
+References nhi\+\_\+init\+\_\+input, nhi\+\_\+read\+\_\+pos, and nhi\+\_\+write\+\_\+pos.
+
+
+\begin{DoxyCode}
+23 \{
+24     \textcolor{keywordflow}{if}( !\hyperlink{win_2win32_2mhinput_8c_a40aae562b9b775768f3de2e84ee56c16}{nhi\_init\_input} ) \{
+25         \hyperlink{win_2win32_2mhinput_8c_a40aae562b9b775768f3de2e84ee56c16}{nhi\_init\_input} = 1;
+26 
+27         ZeroMemory( \hyperlink{win_2win32_2mhinput_8c_ad151f90bc213f7e47b38b579c3339a9d}{nhi\_input\_buffer}, \textcolor{keyword}{sizeof}(\hyperlink{win_2win32_2mhinput_8c_ad151f90bc213f7e47b38b579c3339a9d}{nhi\_input\_buffer}) );
+28         \hyperlink{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{nhi\_read\_pos} = 0;
+29         \hyperlink{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{nhi\_write\_pos} = 0;
+30     \}
+31 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{win_2win32_2mhinput_8c_a40aae562b9b775768f3de2e84ee56c16}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!nhi\+\_\+init\+\_\+input@{nhi\+\_\+init\+\_\+input}}
+\index{nhi\+\_\+init\+\_\+input@{nhi\+\_\+init\+\_\+input}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{nhi\+\_\+init\+\_\+input}]{\setlength{\rightskip}{0pt plus 5cm}int nhi\+\_\+init\+\_\+input = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhinput_8c_a40aae562b9b775768f3de2e84ee56c16}
+
+
+Definition at line 17 of file mhinput.\+c.
+
+
+
+Referenced by mswin\+\_\+input\+\_\+peek(), mswin\+\_\+input\+\_\+pop(), mswin\+\_\+input\+\_\+push(), and mswin\+\_\+nh\+\_\+input\+\_\+init().
+
+\hypertarget{win_2win32_2mhinput_8c_ad151f90bc213f7e47b38b579c3339a9d}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!nhi\+\_\+input\+\_\+buffer@{nhi\+\_\+input\+\_\+buffer}}
+\index{nhi\+\_\+input\+\_\+buffer@{nhi\+\_\+input\+\_\+buffer}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{nhi\+\_\+input\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}{\bf M\+S\+N\+H\+Event} nhi\+\_\+input\+\_\+buffer\mbox{[}{\bf N\+H\+\_\+\+I\+N\+P\+U\+T\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhinput_8c_ad151f90bc213f7e47b38b579c3339a9d}
+
+
+Definition at line 16 of file mhinput.\+c.
+
+\hypertarget{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!nhi\+\_\+read\+\_\+pos@{nhi\+\_\+read\+\_\+pos}}
+\index{nhi\+\_\+read\+\_\+pos@{nhi\+\_\+read\+\_\+pos}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{nhi\+\_\+read\+\_\+pos}]{\setlength{\rightskip}{0pt plus 5cm}int nhi\+\_\+read\+\_\+pos = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhinput_8c_a46fe5f4b7be1ee06d52dc6fe8d24fc3b}
+
+
+Definition at line 18 of file mhinput.\+c.
+
+
+
+Referenced by mswin\+\_\+have\+\_\+input(), mswin\+\_\+input\+\_\+peek(), mswin\+\_\+input\+\_\+pop(), mswin\+\_\+input\+\_\+push(), and mswin\+\_\+nh\+\_\+input\+\_\+init().
+
+\hypertarget{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}{\index{win/win32/mhinput.\+c@{win/win32/mhinput.\+c}!nhi\+\_\+write\+\_\+pos@{nhi\+\_\+write\+\_\+pos}}
+\index{nhi\+\_\+write\+\_\+pos@{nhi\+\_\+write\+\_\+pos}!win/win32/mhinput.\+c@{win/win32/mhinput.\+c}}
+\subsubsection[{nhi\+\_\+write\+\_\+pos}]{\setlength{\rightskip}{0pt plus 5cm}int nhi\+\_\+write\+\_\+pos = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{win_2win32_2mhinput_8c_a68923bc237dfa76e1e684e2fa424d44f}
+
+
+Definition at line 19 of file mhinput.\+c.
+
+
+
+Referenced by mswin\+\_\+have\+\_\+input(), mswin\+\_\+input\+\_\+peek(), mswin\+\_\+input\+\_\+pop(), mswin\+\_\+input\+\_\+push(), and mswin\+\_\+nh\+\_\+input\+\_\+init().
+

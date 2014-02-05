@@ -1,0 +1,669 @@
+\hypertarget{you_8h}{\section{nethack/include/you.h File Reference}
+\label{you_8h}\index{nethack/include/you.\+h@{nethack/include/you.\+h}}
+}
+{\ttfamily \#include \char`\"{}attrib.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}monst.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}prop.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}skills.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structRoleName}{Role\+Name}
+\item 
+struct \hyperlink{structRoleAdvance}{Role\+Advance}
+\item 
+struct \hyperlink{structu__have}{u\+\_\+have}
+\item 
+struct \hyperlink{structu__event}{u\+\_\+event}
+\item 
+struct \hyperlink{structu__conduct}{u\+\_\+conduct}
+\item 
+struct \hyperlink{structRole}{Role}
+\item 
+struct \hyperlink{structRace}{Race}
+\item 
+struct \hyperlink{structGender}{Gender}
+\item 
+struct \hyperlink{structAlign}{Align}
+\item 
+struct \hyperlink{structyou}{you}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{you_8h_a6f162119151f64f79ff2680bf5b2889f}{R\+O\+L\+E\+\_\+\+R\+A\+C\+E\+M\+A\+S\+K}~0x0ff8		/$\ast$ allowable races $\ast$/
+\item 
+\#define \hyperlink{you_8h_a8ae6a4686c2f6bf6d5cf51c59a8ef35d}{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+M\+A\+S\+K}~0xf000		/$\ast$ allowable genders $\ast$/
+\item 
+\#define \hyperlink{you_8h_ad91c2d5f3ef0e8fcbf6aaf7c01e43a0d}{R\+O\+L\+E\+\_\+\+M\+A\+L\+E}~0x1000
+\item 
+\#define \hyperlink{you_8h_a01c6422e9630bdfe514d53c134d7553b}{R\+O\+L\+E\+\_\+\+F\+E\+M\+A\+L\+E}~0x2000
+\item 
+\#define \hyperlink{you_8h_ad8e64efea10e2da1c55a47875b6a93d3}{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+E\+R}~0x4000
+\item 
+\#define \hyperlink{you_8h_a54b438ba8356b2c94b1d3ad5a134f2ea}{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+M\+A\+S\+K}~\hyperlink{align_8h_aefa78fd6b130faaca4e115602869b57c}{A\+M\+\_\+\+M\+A\+S\+K}		/$\ast$ allowable alignments $\ast$/
+\item 
+\#define \hyperlink{you_8h_a9c82b7f766cfa52d15c87be7aed75426}{R\+O\+L\+E\+\_\+\+L\+A\+W\+F\+U\+L}~\hyperlink{align_8h_ac5ed2af15492dbb6020886afd104f786}{A\+M\+\_\+\+L\+A\+W\+F\+U\+L}
+\item 
+\#define \hyperlink{you_8h_a5e76b20bfd503a51513110ad85a444be}{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+R\+A\+L}~\hyperlink{align_8h_a67c4a32b3d1375a95c4416935399e338}{A\+M\+\_\+\+N\+E\+U\+T\+R\+A\+L}
+\item 
+\#define \hyperlink{you_8h_a99330e0c098285aa885d972389dd45ce}{R\+O\+L\+E\+\_\+\+C\+H\+A\+O\+T\+I\+C}~\hyperlink{align_8h_a4bb126249b7cc0370b948950f11abe92}{A\+M\+\_\+\+C\+H\+A\+O\+T\+I\+C}
+\item 
+\#define \hyperlink{you_8h_a6087f5b8605964c19078b777da740258}{Role\+\_\+if}(X)~(urole.\+malenum == (X))
+\item 
+\#define \hyperlink{you_8h_a4e9c08c02937a7b0216c1ebdd3a3255d}{Role\+\_\+switch}~(urole.\+malenum)
+\item 
+\#define \hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{R\+O\+L\+E\+\_\+\+N\+O\+N\+E}~(-\/1)
+\item 
+\#define \hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M}~(-\/2)
+\item 
+\#define \hyperlink{you_8h_ac1b9b8d9c3387e3d3a36b9474945879c}{Race\+\_\+if}(X)~(urace.\+malenum == (X))
+\item 
+\#define \hyperlink{you_8h_af30d32ee6f4111371f7e53a91b52a40a}{Race\+\_\+switch}~(urace.\+malenum)
+\item 
+\#define \hyperlink{you_8h_a8b377306ace79d33d0b4b74dbd88b819}{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S}~2	/$\ast$ number of permitted player \hyperlink{role_8c_a054315bd2a7d5525da7f008b40c3a6bf}{genders} $\ast$/
+\item 
+\#define \hyperlink{you_8h_aec0552e7e00cebf000c97781343380fd}{uhe}()~(\hyperlink{role_8c_a054315bd2a7d5525da7f008b40c3a6bf}{genders}\mbox{[}flags.\+female ? 1 \+: 0\mbox{]}.he)
+\item 
+\#define \hyperlink{you_8h_a842295f0e58b1568b453630a0b7897c8}{uhim}()~(\hyperlink{role_8c_a054315bd2a7d5525da7f008b40c3a6bf}{genders}\mbox{[}flags.\+female ? 1 \+: 0\mbox{]}.him)
+\item 
+\#define \hyperlink{you_8h_af5e5db117ddbf49e1d89a0b69918412b}{uhis}()~(\hyperlink{role_8c_a054315bd2a7d5525da7f008b40c3a6bf}{genders}\mbox{[}flags.\+female ? 1 \+: 0\mbox{]}.his)
+\item 
+\#define \hyperlink{you_8h_a02ab05651821bbe8851d8459a27553e3}{mhe}(mtmp)~(\hyperlink{role_8c_a054315bd2a7d5525da7f008b40c3a6bf}{genders}\mbox{[}pronoun\+\_\+gender(mtmp)\mbox{]}.he)
+\item 
+\#define \hyperlink{you_8h_ad994e7a24679279ec24f0ef064a274d7}{mhim}(mtmp)~(\hyperlink{role_8c_a054315bd2a7d5525da7f008b40c3a6bf}{genders}\mbox{[}pronoun\+\_\+gender(mtmp)\mbox{]}.him)
+\item 
+\#define \hyperlink{you_8h_aa53b72a15dda33a02f28703fbc551090}{mhis}(mtmp)~(\hyperlink{role_8c_a054315bd2a7d5525da7f008b40c3a6bf}{genders}\mbox{[}pronoun\+\_\+gender(mtmp)\mbox{]}.his)
+\item 
+\#define \hyperlink{you_8h_a06accde00ac7683fc3293968cbc5e17a}{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S}~3	/$\ast$ number of permitted player alignments $\ast$/
+\item 
+\#define \hyperlink{you_8h_a414c1cda852975eb778f7c5b75613f32}{T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P}~0
+\item 
+\#define \hyperlink{you_8h_aea6a4ea47e82cae080755cd9c3ed8b9a}{T\+T\+\_\+\+P\+I\+T}~1
+\item 
+\#define \hyperlink{you_8h_a6f36535a424a78d6f283a71b2d953ac3}{T\+T\+\_\+\+W\+E\+B}~2
+\item 
+\#define \hyperlink{you_8h_a1d97aac071079ee345fc1a88536bf7d6}{T\+T\+\_\+\+L\+A\+V\+A}~3
+\item 
+\#define \hyperlink{you_8h_a4e2d887e8b74f3d5a794cb08f126f676}{T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R}~4
+\item 
+\#define \hyperlink{you_8h_a08c3ee5d427967ad406c2706b3d7c929}{S\+I\+C\+K\+\_\+\+V\+O\+M\+I\+T\+A\+B\+L\+E}~0x01
+\item 
+\#define \hyperlink{you_8h_a17a4f65d7316d356ff7e6a292d2627bc}{S\+I\+C\+K\+\_\+\+N\+O\+N\+V\+O\+M\+I\+T\+A\+B\+L\+E}~0x02
+\item 
+\#define \hyperlink{you_8h_a3e752cf2376b172f41c3c82df74c590c}{S\+I\+C\+K\+\_\+\+A\+L\+L}~0x03
+\item 
+\#define \hyperlink{you_8h_a6eb9e4ef3644799e6b7921c1a236a453}{B\+C\+\_\+\+B\+A\+L\+L}~0x01	/$\ast$ bit mask for ball  in 'bc\+\_\+felt' below $\ast$/
+\item 
+\#define \hyperlink{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{B\+C\+\_\+\+C\+H\+A\+I\+N}~0x02	/$\ast$ bit mask for chain in 'bc\+\_\+felt' below $\ast$/
+\item 
+\#define \hyperlink{you_8h_a1f7ee74ca1e8e147e9cd53302cfc443e}{C\+O\+N\+V\+E\+R\+T}~2
+\item 
+\#define \hyperlink{you_8h_aadbc53a20604f260f6f2b0db9fe19b1d}{A\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L}~1
+\item 
+\#define \hyperlink{you_8h_ae93bec331f5af339006b90ff1ec0c013}{A\+\_\+\+C\+U\+R\+R\+E\+N\+T}~0
+\item 
+\#define \hyperlink{you_8h_ae69937c86a71264fd0e91dab8a64cae4}{Luck}~(u.\+uluck + u.\+moreluck)
+\item 
+\#define \hyperlink{you_8h_abe2b349d57e36892062002591d8636ea}{L\+U\+C\+K\+A\+D\+D}~3	/$\ast$ added value when carrying luck stone $\ast$/
+\item 
+\#define \hyperlink{you_8h_a91aff8e04a88959aceb340a1b5657205}{L\+U\+C\+K\+M\+A\+X}~10	/$\ast$ on moonlit nights 11 $\ast$/
+\item 
+\#define \hyperlink{you_8h_a0a95b585a96b61ac66f0f588cbccdb77}{L\+U\+C\+K\+M\+I\+N}~(-\/10)
+\item 
+\#define \hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd}~(u.\+umonnum != u.\+umonster)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} struct \hyperlink{structRole}{Role} \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles} \mbox{[}$\,$\mbox{]}
+\item 
+struct \hyperlink{structRole}{Role} \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} struct \hyperlink{structRace}{Race} \hyperlink{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{races} \mbox{[}$\,$\mbox{]}
+\item 
+struct \hyperlink{structRace}{Race} \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} struct \hyperlink{structGender}{Gender} \hyperlink{you_8h_a054315bd2a7d5525da7f008b40c3a6bf}{genders} \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} struct \hyperlink{structAlign}{Align} \hyperlink{you_8h_abbb6c9f0c6fc7aa532b2ed8dec7ffb29}{aligns} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{you_8h_ae93bec331f5af339006b90ff1ec0c013}{\index{you.\+h@{you.\+h}!A\+\_\+\+C\+U\+R\+R\+E\+N\+T@{A\+\_\+\+C\+U\+R\+R\+E\+N\+T}}
+\index{A\+\_\+\+C\+U\+R\+R\+E\+N\+T@{A\+\_\+\+C\+U\+R\+R\+E\+N\+T}!you.\+h@{you.\+h}}
+\subsubsection[{A\+\_\+\+C\+U\+R\+R\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+\_\+\+C\+U\+R\+R\+E\+N\+T~0}}\label{you_8h_ae93bec331f5af339006b90ff1ec0c013}
+
+
+Definition at line 321 of file you.\+h.
+
+
+
+Referenced by dosacrifice(), is\+\_\+pure(), and u\+\_\+init().
+
+\hypertarget{you_8h_aadbc53a20604f260f6f2b0db9fe19b1d}{\index{you.\+h@{you.\+h}!A\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L@{A\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L}}
+\index{A\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L@{A\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L}!you.\+h@{you.\+h}}
+\subsubsection[{A\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L~1}}\label{you_8h_aadbc53a20604f260f6f2b0db9fe19b1d}
+
+
+Definition at line 320 of file you.\+h.
+
+
+
+Referenced by convert\+\_\+arg(), create\+\_\+altar(), create\+\_\+monster(), dosacrifice(), is\+\_\+pure(), and u\+\_\+init().
+
+\hypertarget{you_8h_a6eb9e4ef3644799e6b7921c1a236a453}{\index{you.\+h@{you.\+h}!B\+C\+\_\+\+B\+A\+L\+L@{B\+C\+\_\+\+B\+A\+L\+L}}
+\index{B\+C\+\_\+\+B\+A\+L\+L@{B\+C\+\_\+\+B\+A\+L\+L}!you.\+h@{you.\+h}}
+\subsubsection[{B\+C\+\_\+\+B\+A\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+C\+\_\+\+B\+A\+L\+L~0x01	/$\ast$ bit mask for ball  in 'bc\+\_\+felt' below $\ast$/}}\label{you_8h_a6eb9e4ef3644799e6b7921c1a236a453}
+
+
+Definition at line 280 of file you.\+h.
+
+
+
+Referenced by drag\+\_\+ball(), feel\+\_\+location(), move\+\_\+bc(), set\+\_\+bc(), and unplacebc().
+
+\hypertarget{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{\index{you.\+h@{you.\+h}!B\+C\+\_\+\+C\+H\+A\+I\+N@{B\+C\+\_\+\+C\+H\+A\+I\+N}}
+\index{B\+C\+\_\+\+C\+H\+A\+I\+N@{B\+C\+\_\+\+C\+H\+A\+I\+N}!you.\+h@{you.\+h}}
+\subsubsection[{B\+C\+\_\+\+C\+H\+A\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+C\+\_\+\+C\+H\+A\+I\+N~0x02	/$\ast$ bit mask for chain in 'bc\+\_\+felt' below $\ast$/}}\label{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}
+
+
+Definition at line 281 of file you.\+h.
+
+
+
+Referenced by drag\+\_\+ball(), drop\+\_\+ball(), feel\+\_\+location(), move\+\_\+bc(), set\+\_\+bc(), and unplacebc().
+
+\hypertarget{you_8h_a1f7ee74ca1e8e147e9cd53302cfc443e}{\index{you.\+h@{you.\+h}!C\+O\+N\+V\+E\+R\+T@{C\+O\+N\+V\+E\+R\+T}}
+\index{C\+O\+N\+V\+E\+R\+T@{C\+O\+N\+V\+E\+R\+T}!you.\+h@{you.\+h}}
+\subsubsection[{C\+O\+N\+V\+E\+R\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+N\+V\+E\+R\+T~2}}\label{you_8h_a1f7ee74ca1e8e147e9cd53302cfc443e}
+
+
+Definition at line 319 of file you.\+h.
+
+\hypertarget{you_8h_ae69937c86a71264fd0e91dab8a64cae4}{\index{you.\+h@{you.\+h}!Luck@{Luck}}
+\index{Luck@{Luck}!you.\+h@{you.\+h}}
+\subsubsection[{Luck}]{\setlength{\rightskip}{0pt plus 5cm}\#define Luck~(u.\+uluck + u.\+moreluck)}}\label{you_8h_ae69937c86a71264fd0e91dab8a64cae4}
+
+
+Definition at line 324 of file you.\+h.
+
+
+
+Referenced by angrygods(), can\+\_\+pray(), dokick(), dosit(), drag\+\_\+ball(), find\+\_\+roll\+\_\+to\+\_\+hit(), pleased(), and thitmonst().
+
+\hypertarget{you_8h_abe2b349d57e36892062002591d8636ea}{\index{you.\+h@{you.\+h}!L\+U\+C\+K\+A\+D\+D@{L\+U\+C\+K\+A\+D\+D}}
+\index{L\+U\+C\+K\+A\+D\+D@{L\+U\+C\+K\+A\+D\+D}!you.\+h@{you.\+h}}
+\subsubsection[{L\+U\+C\+K\+A\+D\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+U\+C\+K\+A\+D\+D~3	/$\ast$ added value when carrying luck stone $\ast$/}}\label{you_8h_abe2b349d57e36892062002591d8636ea}
+
+
+Definition at line 325 of file you.\+h.
+
+\hypertarget{you_8h_a91aff8e04a88959aceb340a1b5657205}{\index{you.\+h@{you.\+h}!L\+U\+C\+K\+M\+A\+X@{L\+U\+C\+K\+M\+A\+X}}
+\index{L\+U\+C\+K\+M\+A\+X@{L\+U\+C\+K\+M\+A\+X}!you.\+h@{you.\+h}}
+\subsubsection[{L\+U\+C\+K\+M\+A\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+U\+C\+K\+M\+A\+X~10	/$\ast$ on moonlit nights 11 $\ast$/}}\label{you_8h_a91aff8e04a88959aceb340a1b5657205}
+
+
+Definition at line 326 of file you.\+h.
+
+
+
+Referenced by dosacrifice().
+
+\hypertarget{you_8h_a0a95b585a96b61ac66f0f588cbccdb77}{\index{you.\+h@{you.\+h}!L\+U\+C\+K\+M\+I\+N@{L\+U\+C\+K\+M\+I\+N}}
+\index{L\+U\+C\+K\+M\+I\+N@{L\+U\+C\+K\+M\+I\+N}!you.\+h@{you.\+h}}
+\subsubsection[{L\+U\+C\+K\+M\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+U\+C\+K\+M\+I\+N~(-\/10)}}\label{you_8h_a0a95b585a96b61ac66f0f588cbccdb77}
+
+
+Definition at line 327 of file you.\+h.
+
+\hypertarget{you_8h_a02ab05651821bbe8851d8459a27553e3}{\index{you.\+h@{you.\+h}!mhe@{mhe}}
+\index{mhe@{mhe}!you.\+h@{you.\+h}}
+\subsubsection[{mhe}]{\setlength{\rightskip}{0pt plus 5cm}\#define mhe(
+\begin{DoxyParamCaption}
+\item[{}]{mtmp}
+\end{DoxyParamCaption}
+)~({\bf genders}\mbox{[}pronoun\+\_\+gender(mtmp)\mbox{]}.he)}}\label{you_8h_a02ab05651821bbe8851d8459a27553e3}
+
+
+Definition at line 213 of file you.\+h.
+
+
+
+Referenced by dowaterdemon(), mreadmsg(), and steal\+\_\+it().
+
+\hypertarget{you_8h_ad994e7a24679279ec24f0ef064a274d7}{\index{you.\+h@{you.\+h}!mhim@{mhim}}
+\index{mhim@{mhim}!you.\+h@{you.\+h}}
+\subsubsection[{mhim}]{\setlength{\rightskip}{0pt plus 5cm}\#define mhim(
+\begin{DoxyParamCaption}
+\item[{}]{mtmp}
+\end{DoxyParamCaption}
+)~({\bf genders}\mbox{[}pronoun\+\_\+gender(mtmp)\mbox{]}.him)}}\label{you_8h_ad994e7a24679279ec24f0ef064a274d7}
+
+
+Definition at line 214 of file you.\+h.
+
+
+
+Referenced by mon\+\_\+break\+\_\+armor(), mzapmsg(), use\+\_\+defensive(), and use\+\_\+offensive().
+
+\hypertarget{you_8h_aa53b72a15dda33a02f28703fbc551090}{\index{you.\+h@{you.\+h}!mhis@{mhis}}
+\index{mhis@{mhis}!you.\+h@{you.\+h}}
+\subsubsection[{mhis}]{\setlength{\rightskip}{0pt plus 5cm}\#define mhis(
+\begin{DoxyParamCaption}
+\item[{}]{mtmp}
+\end{DoxyParamCaption}
+)~({\bf genders}\mbox{[}pronoun\+\_\+gender(mtmp)\mbox{]}.his)}}\label{you_8h_aa53b72a15dda33a02f28703fbc551090}
+
+
+Definition at line 215 of file you.\+h.
+
+
+
+Referenced by damageum(), dowaterdemon(), ghitm(), mon\+\_\+break\+\_\+armor(), and steal\+\_\+it().
+
+\hypertarget{you_8h_ac1b9b8d9c3387e3d3a36b9474945879c}{\index{you.\+h@{you.\+h}!Race\+\_\+if@{Race\+\_\+if}}
+\index{Race\+\_\+if@{Race\+\_\+if}!you.\+h@{you.\+h}}
+\subsubsection[{Race\+\_\+if}]{\setlength{\rightskip}{0pt plus 5cm}\#define Race\+\_\+if(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~(urace.\+malenum == (X))}}\label{you_8h_ac1b9b8d9c3387e3d3a36b9474945879c}
+
+
+Definition at line 194 of file you.\+h.
+
+
+
+Referenced by create\+\_\+monster(), do\+\_\+look(), done\+\_\+in\+\_\+by(), find\+\_\+roll\+\_\+to\+\_\+hit(), hmon\+\_\+hitmon(), lookat(), ready\+\_\+weapon(), and thitmonst().
+
+\hypertarget{you_8h_af30d32ee6f4111371f7e53a91b52a40a}{\index{you.\+h@{you.\+h}!Race\+\_\+switch@{Race\+\_\+switch}}
+\index{Race\+\_\+switch@{Race\+\_\+switch}!you.\+h@{you.\+h}}
+\subsubsection[{Race\+\_\+switch}]{\setlength{\rightskip}{0pt plus 5cm}\#define Race\+\_\+switch~(urace.\+malenum)}}\label{you_8h_af30d32ee6f4111371f7e53a91b52a40a}
+
+
+Definition at line 195 of file you.\+h.
+
+
+
+Referenced by throw\+\_\+obj(), and u\+\_\+init().
+
+\hypertarget{you_8h_a54b438ba8356b2c94b1d3ad5a134f2ea}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+M\+A\+S\+K@{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+M\+A\+S\+K}}
+\index{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+M\+A\+S\+K@{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+M\+A\+S\+K}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+M\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+M\+A\+S\+K~{\bf A\+M\+\_\+\+M\+A\+S\+K}		/$\ast$ allowable alignments $\ast$/}}\label{you_8h_a54b438ba8356b2c94b1d3ad5a134f2ea}
+
+
+Definition at line 105 of file you.\+h.
+
+
+
+Referenced by ok\+\_\+align(), ok\+\_\+race(), ok\+\_\+role(), randalign(), and validalign().
+
+\hypertarget{you_8h_a06accde00ac7683fc3293968cbc5e17a}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S@{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S}}
+\index{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S@{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+A\+L\+I\+G\+N\+S~3	/$\ast$ number of permitted player alignments $\ast$/}}\label{you_8h_a06accde00ac7683fc3293968cbc5e17a}
+
+
+Definition at line 226 of file you.\+h.
+
+
+
+Referenced by gnome\+\_\+player\+\_\+selection(), mac\+\_\+askname(), ok\+\_\+align(), ok\+\_\+race(), ok\+\_\+role(), pick\+\_\+align(), plsel\+Adjust\+Lists(), prompt\+\_\+for\+\_\+player\+\_\+selection(), randalign(), str2align(), and validalign().
+
+\hypertarget{you_8h_a99330e0c098285aa885d972389dd45ce}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+C\+H\+A\+O\+T\+I\+C@{R\+O\+L\+E\+\_\+\+C\+H\+A\+O\+T\+I\+C}}
+\index{R\+O\+L\+E\+\_\+\+C\+H\+A\+O\+T\+I\+C@{R\+O\+L\+E\+\_\+\+C\+H\+A\+O\+T\+I\+C}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+C\+H\+A\+O\+T\+I\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+C\+H\+A\+O\+T\+I\+C~{\bf A\+M\+\_\+\+C\+H\+A\+O\+T\+I\+C}}}\label{you_8h_a99330e0c098285aa885d972389dd45ce}
+
+
+Definition at line 108 of file you.\+h.
+
+
+
+Referenced by race\+\_\+alignmentcount().
+
+\hypertarget{you_8h_a01c6422e9630bdfe514d53c134d7553b}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+F\+E\+M\+A\+L\+E@{R\+O\+L\+E\+\_\+\+F\+E\+M\+A\+L\+E}}
+\index{R\+O\+L\+E\+\_\+\+F\+E\+M\+A\+L\+E@{R\+O\+L\+E\+\_\+\+F\+E\+M\+A\+L\+E}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+F\+E\+M\+A\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+F\+E\+M\+A\+L\+E~0x2000}}\label{you_8h_a01c6422e9630bdfe514d53c134d7553b}
+
+
+Definition at line 103 of file you.\+h.
+
+
+
+Referenced by role\+\_\+gendercount().
+
+\hypertarget{you_8h_a8b377306ace79d33d0b4b74dbd88b819}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S@{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S}}
+\index{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S@{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+E\+R\+S~2	/$\ast$ number of permitted player {\bf genders} $\ast$/}}\label{you_8h_a8b377306ace79d33d0b4b74dbd88b819}
+
+
+Definition at line 206 of file you.\+h.
+
+
+
+Referenced by gnome\+\_\+player\+\_\+selection(), mac\+\_\+askname(), ok\+\_\+gend(), ok\+\_\+race(), ok\+\_\+role(), pick\+\_\+gend(), plsel\+Adjust\+Lists(), prompt\+\_\+for\+\_\+player\+\_\+selection(), randgend(), str2gend(), and validgend().
+
+\hypertarget{you_8h_a8ae6a4686c2f6bf6d5cf51c59a8ef35d}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+M\+A\+S\+K@{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+M\+A\+S\+K}}
+\index{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+M\+A\+S\+K@{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+M\+A\+S\+K}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+M\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+G\+E\+N\+D\+M\+A\+S\+K~0xf000		/$\ast$ allowable genders $\ast$/}}\label{you_8h_a8ae6a4686c2f6bf6d5cf51c59a8ef35d}
+
+
+Definition at line 101 of file you.\+h.
+
+
+
+Referenced by ok\+\_\+gend(), ok\+\_\+race(), ok\+\_\+role(), randgend(), and validgend().
+
+\hypertarget{you_8h_a6087f5b8605964c19078b777da740258}{\index{you.\+h@{you.\+h}!Role\+\_\+if@{Role\+\_\+if}}
+\index{Role\+\_\+if@{Role\+\_\+if}!you.\+h@{you.\+h}}
+\subsubsection[{Role\+\_\+if}]{\setlength{\rightskip}{0pt plus 5cm}\#define Role\+\_\+if(
+\begin{DoxyParamCaption}
+\item[{}]{X}
+\end{DoxyParamCaption}
+)~(urole.\+malenum == (X))}}\label{you_8h_a6087f5b8605964c19078b777da740258}
+
+
+Definition at line 142 of file you.\+h.
+
+
+
+Referenced by allow\+\_\+category(), attack(), check\+\_\+caitiff(), dotele(), doturn(), dowrite(), find\+\_\+roll\+\_\+to\+\_\+hit(), fixup\+\_\+special(), hmon\+\_\+hitmon(), ini\+\_\+inv(), lookat(), more\+\_\+experienced(), mreadmsg(), spelleffects(), study\+\_\+book(), thitmonst(), throwit(), and u\+\_\+init().
+
+\hypertarget{you_8h_a9c82b7f766cfa52d15c87be7aed75426}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+L\+A\+W\+F\+U\+L@{R\+O\+L\+E\+\_\+\+L\+A\+W\+F\+U\+L}}
+\index{R\+O\+L\+E\+\_\+\+L\+A\+W\+F\+U\+L@{R\+O\+L\+E\+\_\+\+L\+A\+W\+F\+U\+L}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+L\+A\+W\+F\+U\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+L\+A\+W\+F\+U\+L~{\bf A\+M\+\_\+\+L\+A\+W\+F\+U\+L}}}\label{you_8h_a9c82b7f766cfa52d15c87be7aed75426}
+
+
+Definition at line 106 of file you.\+h.
+
+
+
+Referenced by race\+\_\+alignmentcount().
+
+\hypertarget{you_8h_ad91c2d5f3ef0e8fcbf6aaf7c01e43a0d}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+M\+A\+L\+E@{R\+O\+L\+E\+\_\+\+M\+A\+L\+E}}
+\index{R\+O\+L\+E\+\_\+\+M\+A\+L\+E@{R\+O\+L\+E\+\_\+\+M\+A\+L\+E}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+M\+A\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+M\+A\+L\+E~0x1000}}\label{you_8h_ad91c2d5f3ef0e8fcbf6aaf7c01e43a0d}
+
+
+Definition at line 102 of file you.\+h.
+
+
+
+Referenced by role\+\_\+gendercount().
+
+\hypertarget{you_8h_ad8e64efea10e2da1c55a47875b6a93d3}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+E\+R@{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+E\+R}}
+\index{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+E\+R@{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+E\+R}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+E\+R~0x4000}}\label{you_8h_ad8e64efea10e2da1c55a47875b6a93d3}
+
+
+Definition at line 104 of file you.\+h.
+
+
+
+Referenced by role\+\_\+gendercount().
+
+\hypertarget{you_8h_a5e76b20bfd503a51513110ad85a444be}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+R\+A\+L@{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+R\+A\+L}}
+\index{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+R\+A\+L@{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+R\+A\+L}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+R\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+N\+E\+U\+T\+R\+A\+L~{\bf A\+M\+\_\+\+N\+E\+U\+T\+R\+A\+L}}}\label{you_8h_a5e76b20bfd503a51513110ad85a444be}
+
+
+Definition at line 107 of file you.\+h.
+
+
+
+Referenced by race\+\_\+alignmentcount().
+
+\hypertarget{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+N\+O\+N\+E@{R\+O\+L\+E\+\_\+\+N\+O\+N\+E}}
+\index{R\+O\+L\+E\+\_\+\+N\+O\+N\+E@{R\+O\+L\+E\+\_\+\+N\+O\+N\+E}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+N\+O\+N\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+N\+O\+N\+E~(-\/1)}}\label{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}
+
+
+Definition at line 147 of file you.\+h.
+
+
+
+Referenced by build\+\_\+plselection\+\_\+prompt(), ghack\+\_\+player\+\_\+sel\+\_\+dialog(), gnome\+\_\+player\+\_\+selection(), parseoptions(), pick\+\_\+align(), pick\+\_\+gend(), pick\+\_\+race(), pick\+\_\+role(), plnamesuffix(), plsel\+Adjust\+Lists(), plsel\+Init\+Dialog(), prompt\+\_\+for\+\_\+player\+\_\+selection(), race\+\_\+alignmentcount(), rigid\+\_\+role\+\_\+checks(), root\+\_\+plselection\+\_\+prompt(), str2align(), str2gend(), str2race(), and str2role().
+
+\hypertarget{you_8h_a6f162119151f64f79ff2680bf5b2889f}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+R\+A\+C\+E\+M\+A\+S\+K@{R\+O\+L\+E\+\_\+\+R\+A\+C\+E\+M\+A\+S\+K}}
+\index{R\+O\+L\+E\+\_\+\+R\+A\+C\+E\+M\+A\+S\+K@{R\+O\+L\+E\+\_\+\+R\+A\+C\+E\+M\+A\+S\+K}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+R\+A\+C\+E\+M\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+R\+A\+C\+E\+M\+A\+S\+K~0x0ff8		/$\ast$ allowable races $\ast$/}}\label{you_8h_a6f162119151f64f79ff2680bf5b2889f}
+
+
+Definition at line 100 of file you.\+h.
+
+
+
+Referenced by ok\+\_\+race(), ok\+\_\+role(), randrace(), and validrace().
+
+\hypertarget{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{\index{you.\+h@{you.\+h}!R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M@{R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M}}
+\index{R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M@{R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M}!you.\+h@{you.\+h}}
+\subsubsection[{R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M~(-\/2)}}\label{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}
+
+
+Definition at line 148 of file you.\+h.
+
+
+
+Referenced by ghack\+\_\+player\+\_\+sel\+\_\+dialog(), gnome\+\_\+player\+\_\+selection(), plsel\+Final\+Selection(), prompt\+\_\+for\+\_\+player\+\_\+selection(), race\+\_\+alignmentcount(), rigid\+\_\+role\+\_\+checks(), root\+\_\+plselection\+\_\+prompt(), str2align(), str2gend(), str2race(), str2role(), and X11\+\_\+player\+\_\+selection().
+
+\hypertarget{you_8h_a4e9c08c02937a7b0216c1ebdd3a3255d}{\index{you.\+h@{you.\+h}!Role\+\_\+switch@{Role\+\_\+switch}}
+\index{Role\+\_\+switch@{Role\+\_\+switch}!you.\+h@{you.\+h}}
+\subsubsection[{Role\+\_\+switch}]{\setlength{\rightskip}{0pt plus 5cm}\#define Role\+\_\+switch~(urole.\+malenum)}}\label{you_8h_a4e9c08c02937a7b0216c1ebdd3a3255d}
+
+
+Definition at line 143 of file you.\+h.
+
+
+
+Referenced by convert\+\_\+arg(), enermod(), Format\+Status\+String(), Goodbye(), Hello(), mreadmsg(), restricted\+\_\+spell\+\_\+discipline(), throw\+\_\+obj(), and u\+\_\+init().
+
+\hypertarget{you_8h_a3e752cf2376b172f41c3c82df74c590c}{\index{you.\+h@{you.\+h}!S\+I\+C\+K\+\_\+\+A\+L\+L@{S\+I\+C\+K\+\_\+\+A\+L\+L}}
+\index{S\+I\+C\+K\+\_\+\+A\+L\+L@{S\+I\+C\+K\+\_\+\+A\+L\+L}!you.\+h@{you.\+h}}
+\subsubsection[{S\+I\+C\+K\+\_\+\+A\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+C\+K\+\_\+\+A\+L\+L~0x03}}\label{you_8h_a3e752cf2376b172f41c3c82df74c590c}
+
+
+Definition at line 271 of file you.\+h.
+
+
+
+Referenced by dosit(), and fix\+\_\+worst\+\_\+trouble().
+
+\hypertarget{you_8h_a17a4f65d7316d356ff7e6a292d2627bc}{\index{you.\+h@{you.\+h}!S\+I\+C\+K\+\_\+\+N\+O\+N\+V\+O\+M\+I\+T\+A\+B\+L\+E@{S\+I\+C\+K\+\_\+\+N\+O\+N\+V\+O\+M\+I\+T\+A\+B\+L\+E}}
+\index{S\+I\+C\+K\+\_\+\+N\+O\+N\+V\+O\+M\+I\+T\+A\+B\+L\+E@{S\+I\+C\+K\+\_\+\+N\+O\+N\+V\+O\+M\+I\+T\+A\+B\+L\+E}!you.\+h@{you.\+h}}
+\subsubsection[{S\+I\+C\+K\+\_\+\+N\+O\+N\+V\+O\+M\+I\+T\+A\+B\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+C\+K\+\_\+\+N\+O\+N\+V\+O\+M\+I\+T\+A\+B\+L\+E~0x02}}\label{you_8h_a17a4f65d7316d356ff7e6a292d2627bc}
+
+
+Definition at line 270 of file you.\+h.
+
+
+
+Referenced by Format\+Status\+String(), ghack\+\_\+status\+\_\+window\+\_\+update\+\_\+stats(), and update\+\_\+val().
+
+\hypertarget{you_8h_a08c3ee5d427967ad406c2706b3d7c929}{\index{you.\+h@{you.\+h}!S\+I\+C\+K\+\_\+\+V\+O\+M\+I\+T\+A\+B\+L\+E@{S\+I\+C\+K\+\_\+\+V\+O\+M\+I\+T\+A\+B\+L\+E}}
+\index{S\+I\+C\+K\+\_\+\+V\+O\+M\+I\+T\+A\+B\+L\+E@{S\+I\+C\+K\+\_\+\+V\+O\+M\+I\+T\+A\+B\+L\+E}!you.\+h@{you.\+h}}
+\subsubsection[{S\+I\+C\+K\+\_\+\+V\+O\+M\+I\+T\+A\+B\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+C\+K\+\_\+\+V\+O\+M\+I\+T\+A\+B\+L\+E~0x01}}\label{you_8h_a08c3ee5d427967ad406c2706b3d7c929}
+
+
+Definition at line 269 of file you.\+h.
+
+
+
+Referenced by Format\+Status\+String(), ghack\+\_\+status\+\_\+window\+\_\+update\+\_\+stats(), and update\+\_\+val().
+
+\hypertarget{you_8h_a414c1cda852975eb778f7c5b75613f32}{\index{you.\+h@{you.\+h}!T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P@{T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P}}
+\index{T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P@{T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P}!you.\+h@{you.\+h}}
+\subsubsection[{T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P~0}}\label{you_8h_a414c1cda852975eb778f7c5b75613f32}
+
+
+Definition at line 248 of file you.\+h.
+
+
+
+Referenced by dokick(), dosit(), and drop\+\_\+ball().
+
+\hypertarget{you_8h_a4e2d887e8b74f3d5a794cb08f126f676}{\index{you.\+h@{you.\+h}!T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R@{T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R}}
+\index{T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R@{T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R}!you.\+h@{you.\+h}}
+\subsubsection[{T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R~4}}\label{you_8h_a4e2d887e8b74f3d5a794cb08f126f676}
+
+
+Definition at line 252 of file you.\+h.
+
+
+
+Referenced by dosit(), drop\+\_\+ball(), hurtle(), and throwit().
+
+\hypertarget{you_8h_a1d97aac071079ee345fc1a88536bf7d6}{\index{you.\+h@{you.\+h}!T\+T\+\_\+\+L\+A\+V\+A@{T\+T\+\_\+\+L\+A\+V\+A}}
+\index{T\+T\+\_\+\+L\+A\+V\+A@{T\+T\+\_\+\+L\+A\+V\+A}!you.\+h@{you.\+h}}
+\subsubsection[{T\+T\+\_\+\+L\+A\+V\+A}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+T\+\_\+\+L\+A\+V\+A~3}}\label{you_8h_a1d97aac071079ee345fc1a88536bf7d6}
+
+
+Definition at line 251 of file you.\+h.
+
+
+
+Referenced by dosit(), drop\+\_\+ball(), hurtle(), in\+\_\+trouble(), and savelife().
+
+\hypertarget{you_8h_aea6a4ea47e82cae080755cd9c3ed8b9a}{\index{you.\+h@{you.\+h}!T\+T\+\_\+\+P\+I\+T@{T\+T\+\_\+\+P\+I\+T}}
+\index{T\+T\+\_\+\+P\+I\+T@{T\+T\+\_\+\+P\+I\+T}!you.\+h@{you.\+h}}
+\subsubsection[{T\+T\+\_\+\+P\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+T\+\_\+\+P\+I\+T~1}}\label{you_8h_aea6a4ea47e82cae080755cd9c3ed8b9a}
+
+
+Definition at line 249 of file you.\+h.
+
+
+
+Referenced by do\+\_\+earthquake(), dokick(), dosit(), drop\+\_\+ball(), pickup(), and vision\+\_\+recalc().
+
+\hypertarget{you_8h_a6f36535a424a78d6f283a71b2d953ac3}{\index{you.\+h@{you.\+h}!T\+T\+\_\+\+W\+E\+B@{T\+T\+\_\+\+W\+E\+B}}
+\index{T\+T\+\_\+\+W\+E\+B@{T\+T\+\_\+\+W\+E\+B}!you.\+h@{you.\+h}}
+\subsubsection[{T\+T\+\_\+\+W\+E\+B}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+T\+\_\+\+W\+E\+B~2}}\label{you_8h_a6f36535a424a78d6f283a71b2d953ac3}
+
+
+Definition at line 250 of file you.\+h.
+
+
+
+Referenced by dokick(), dosit(), drop\+\_\+ball(), and hurtle().
+
+\hypertarget{you_8h_aec0552e7e00cebf000c97781343380fd}{\index{you.\+h@{you.\+h}!uhe@{uhe}}
+\index{uhe@{uhe}!you.\+h@{you.\+h}}
+\subsubsection[{uhe}]{\setlength{\rightskip}{0pt plus 5cm}\#define uhe(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~({\bf genders}\mbox{[}flags.\+female ? 1 \+: 0\mbox{]}.he)}}\label{you_8h_aec0552e7e00cebf000c97781343380fd}
+
+
+Definition at line 210 of file you.\+h.
+
+\hypertarget{you_8h_a842295f0e58b1568b453630a0b7897c8}{\index{you.\+h@{you.\+h}!uhim@{uhim}}
+\index{uhim@{uhim}!you.\+h@{you.\+h}}
+\subsubsection[{uhim}]{\setlength{\rightskip}{0pt plus 5cm}\#define uhim(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~({\bf genders}\mbox{[}flags.\+female ? 1 \+: 0\mbox{]}.him)}}\label{you_8h_a842295f0e58b1568b453630a0b7897c8}
+
+
+Definition at line 211 of file you.\+h.
+
+
+
+Referenced by do\+\_\+improvisation(), god\+\_\+zaps\+\_\+you(), and spelleffects().
+
+\hypertarget{you_8h_af5e5db117ddbf49e1d89a0b69918412b}{\index{you.\+h@{you.\+h}!uhis@{uhis}}
+\index{uhis@{uhis}!you.\+h@{you.\+h}}
+\subsubsection[{uhis}]{\setlength{\rightskip}{0pt plus 5cm}\#define uhis(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~({\bf genders}\mbox{[}flags.\+female ? 1 \+: 0\mbox{]}.his)}}\label{you_8h_af5e5db117ddbf49e1d89a0b69918412b}
+
+
+Definition at line 212 of file you.\+h.
+
+
+
+Referenced by level\+\_\+tele().
+
+\hypertarget{you_8h_ab869582031082f2c352b374dc0e0c3b3}{\index{you.\+h@{you.\+h}!Upolyd@{Upolyd}}
+\index{Upolyd@{Upolyd}!you.\+h@{you.\+h}}
+\subsubsection[{Upolyd}]{\setlength{\rightskip}{0pt plus 5cm}\#define Upolyd~(u.\+umonnum != u.\+umonster)}}\label{you_8h_ab869582031082f2c352b374dc0e0c3b3}
+
+
+Definition at line 366 of file you.\+h.
+
+
+
+Referenced by attack(), can\+\_\+twoweapon(), do\+\_\+look(), done(), dosit(), find\+\_\+roll\+\_\+to\+\_\+hit(), fix\+\_\+worst\+\_\+trouble(), Format\+Status\+String(), hmon\+\_\+hitmon(), hmonas(), in\+\_\+trouble(), kick\+\_\+monster(), lookat(), mapglyph(), pleased(), pluslvl(), restgamestate(), steal\+\_\+it(), thitmonst(), throwit(), and toss\+\_\+up().
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{you_8h_abbb6c9f0c6fc7aa532b2ed8dec7ffb29}{\index{you.\+h@{you.\+h}!aligns@{aligns}}
+\index{aligns@{aligns}!you.\+h@{you.\+h}}
+\subsubsection[{aligns}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} struct {\bf Align} aligns\mbox{[}$\,$\mbox{]}}}\label{you_8h_abbb6c9f0c6fc7aa532b2ed8dec7ffb29}
+
+
+Definition at line 498 of file role.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), get\+\_\+compopt\+\_\+value(), gnome\+\_\+player\+\_\+selection(), mac\+\_\+askname(), plsel\+Adjust\+Lists(), prompt\+\_\+for\+\_\+player\+\_\+selection(), topten(), u\+\_\+init(), and X11\+\_\+player\+\_\+selection().
+
+\hypertarget{you_8h_a054315bd2a7d5525da7f008b40c3a6bf}{\index{you.\+h@{you.\+h}!genders@{genders}}
+\index{genders@{genders}!you.\+h@{you.\+h}}
+\subsubsection[{genders}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} struct {\bf Gender} genders\mbox{[}$\,$\mbox{]}}}\label{you_8h_a054315bd2a7d5525da7f008b40c3a6bf}
+
+
+Definition at line 490 of file role.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), get\+\_\+compopt\+\_\+value(), gnome\+\_\+player\+\_\+selection(), mac\+\_\+askname(), plsel\+Adjust\+Lists(), prompt\+\_\+for\+\_\+player\+\_\+selection(), topten(), and X11\+\_\+player\+\_\+selection().
+
+\hypertarget{you_8h_a7ebf30ca392e4038a1d95c63f317d967}{\index{you.\+h@{you.\+h}!races@{races}}
+\index{races@{races}!you.\+h@{you.\+h}}
+\subsubsection[{races}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} struct {\bf Race} races\mbox{[}$\,$\mbox{]}}}\label{you_8h_a7ebf30ca392e4038a1d95c63f317d967}
+
+
+Definition at line 406 of file role.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), get\+\_\+compopt\+\_\+value(), gnome\+\_\+player\+\_\+selection(), mac\+\_\+askname(), plsel\+Adjust\+Lists(), prompt\+\_\+for\+\_\+player\+\_\+selection(), race\+\_\+key(), and X11\+\_\+player\+\_\+selection().
+
+\hypertarget{you_8h_ae6c97706d31bdeff4786e51b96747db0}{\index{you.\+h@{you.\+h}!roles@{roles}}
+\index{roles@{roles}!you.\+h@{you.\+h}}
+\subsubsection[{roles}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} struct {\bf Role} roles\mbox{[}$\,$\mbox{]}}}\label{you_8h_ae6c97706d31bdeff4786e51b96747db0}
+
+
+Definition at line 27 of file role.\+c.
+
+
+
+Referenced by ask\+\_\+redraw(), classmon(), get\+\_\+compopt\+\_\+value(), gnome\+\_\+player\+\_\+selection(), halu\+\_\+gname(), mac\+\_\+askname(), player\+\_\+sel\+\_\+key\+\_\+hit(), plsel\+Adjust\+Lists(), prompt\+\_\+for\+\_\+player\+\_\+selection(), ps\+\_\+key(), readentry(), and X11\+\_\+player\+\_\+selection().
+
+\hypertarget{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{\index{you.\+h@{you.\+h}!urace@{urace}}
+\index{urace@{urace}!you.\+h@{you.\+h}}
+\subsubsection[{urace}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Race} urace}}\label{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}
+
+
+Definition at line 475 of file role.\+c.
+
+
+
+Referenced by done(), done\+\_\+in\+\_\+by(), dosacrifice(), ini\+\_\+inv(), load\+\_\+qtlist(), lookat(), losexp(), pluslvl(), topten(), and u\+\_\+init().
+
+\hypertarget{you_8h_a5e8177648a9df85179098399b7ce2c66}{\index{you.\+h@{you.\+h}!urole@{urole}}
+\index{urole@{urole}!you.\+h@{you.\+h}}
+\subsubsection[{urole}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf Role} urole}}\label{you_8h_a5e8177648a9df85179098399b7ce2c66}
+
+
+Definition at line 388 of file role.\+c.
+
+
+
+Referenced by align\+\_\+gname(), align\+\_\+gtitle(), can\+\_\+twoweapon(), convert\+\_\+arg(), done(), find\+\_\+roll\+\_\+to\+\_\+hit(), guardname(), homebase(), intermed(), is\+\_\+quest\+\_\+artifact(), ldrname(), load\+\_\+qtlist(), losexp(), makelevel(), mplayer\+\_\+talk(), neminame(), percent\+\_\+success(), pluslvl(), qt\+\_\+montype(), quest\+\_\+info(), set\+\_\+bonesfile\+\_\+name(), topten(), and u\+\_\+init().
+

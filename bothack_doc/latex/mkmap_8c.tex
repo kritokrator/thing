@@ -1,0 +1,982 @@
+\hypertarget{mkmap_8c}{\section{nethack/src/mkmap.c File Reference}
+\label{mkmap_8c}\index{nethack/src/mkmap.\+c@{nethack/src/mkmap.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}sp\+\_\+lev.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{H\+E\+I\+G\+H\+T}~(\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O} -\/ 1)
+\item 
+\#define \hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{W\+I\+D\+T\+H}~(\hyperlink{gnmap_8c_a308dbfcc29f5a427c0315f3cbf03c3ed}{C\+O\+L\+N\+O} -\/ 2)
+\item 
+\#define \hyperlink{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}{new\+\_\+loc}(i, j)~$\ast$(\hyperlink{mkmap_8c_ae54fe7a9cfadbf81ee802ea57051ebff}{new\+\_\+locations}+ ((j)$\ast$(\hyperlink{windefs_8h_a241aeeb764887ae5e3de58b98f04b16d}{W\+I\+D\+T\+H}+1)) + (i))
+\item 
+\#define \hyperlink{mkmap_8c_a8fd7f5492e360a1943a3c471c3ff1f18}{N\+\_\+\+P1\+\_\+\+I\+T\+E\+R}~1	/$\ast$ \hyperlink{decl_8c_a70c58d414d3913755f62d24b0c23d110}{tune} \hyperlink{gnmap_8c_a76baf160a8e960d9716bd9125f044b28}{map} generation via this value $\ast$/
+\item 
+\#define \hyperlink{mkmap_8c_a3f53ca5cb336a7f91d054018d46730ef}{N\+\_\+\+P2\+\_\+\+I\+T\+E\+R}~1	/$\ast$ \hyperlink{decl_8c_a70c58d414d3913755f62d24b0c23d110}{tune} \hyperlink{gnmap_8c_a76baf160a8e960d9716bd9125f044b28}{map} generation via this value $\ast$/
+\item 
+\#define \hyperlink{mkmap_8c_a608921dc3e54b5d2e4de670572b5c0d4}{N\+\_\+\+P3\+\_\+\+I\+T\+E\+R}~2	/$\ast$ \hyperlink{decl_8c_a70c58d414d3913755f62d24b0c23d110}{tune} \hyperlink{gnmap_8c_a76baf160a8e960d9716bd9125f044b28}{map} smoothing via this value $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_a9c834bd1032583032b1289b13421928b}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_a617fb48dae4d808ed2bb3b330c8cc49f}{init\+\_\+map},(\hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_a5d39321b83ce5ae39ab6bdc3b757eae8}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_afa5950deb5395d16287cf7a1b8051b18}{init\+\_\+fill},(\hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} \hyperlink{mkmap_8c_aa1d63057c98be1bda556532d417f0b17}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}{get\+\_\+map},(int, int, \hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_a1fa9768b676b62ed80a1b940639d7f23}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_a8aef5be1fadb00370ee3e507fdbf4e72}{pass\+\_\+one},(\hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_a68f654a10bdc3de99b248301e3643d61}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_a46943fad13b6e41f2292c74de3cd2b50}{pass\+\_\+two},(\hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_a9fa2512eb946a096100b16faa8b0d625}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_a20ff58a870de05c0a8f6f2e8d77910bd}{pass\+\_\+three},(\hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_ace2e3d525ed2ec0f44213a0ca8d748ee}{N\+D\+E\+C\+L} (\hyperlink{lev__main_8c_a867876560d002075e73411a466e08118}{wallify\+\_\+map})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_a034f1aef352ebad209984c2edea2f7a1}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_acfb038fc42e0ec44dd1c0a0912b87abd}{join\+\_\+map},(\hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_a4858e95a8971f51f757338a0316930db}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_a5a2bd871280be5524157103a5daef3ca}{finish\+\_\+map},(\hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmap_8c_af695ca52051328da716b21f060e4740a}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_a2d135e8b059e101b4a8b736c83c6e2fd}{remove\+\_\+room},(unsigned))
+\item 
+void \hyperlink{mkmap_8c_a2d5b9784df809d6fc8a8140a5c75681d}{F\+D\+E\+C\+L} (\hyperlink{mkmap_8c_a76e9a8db64f065a236c615f278f5b98e}{mkmap},(\hyperlink{structlev__init}{lev\+\_\+init} $\ast$))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_a617fb48dae4d808ed2bb3b330c8cc49f}{init\+\_\+map} (\hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} bg\+\_\+typ)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_afa5950deb5395d16287cf7a1b8051b18}{init\+\_\+fill} (\hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} bg\+\_\+typ, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} fg\+\_\+typ)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} \hyperlink{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}{get\+\_\+map} (int col, int row, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} bg\+\_\+typ)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_a8aef5be1fadb00370ee3e507fdbf4e72}{pass\+\_\+one} (\hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} bg\+\_\+typ, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} fg\+\_\+typ)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_a46943fad13b6e41f2292c74de3cd2b50}{pass\+\_\+two} (\hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} bg\+\_\+typ, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} fg\+\_\+typ)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_a20ff58a870de05c0a8f6f2e8d77910bd}{pass\+\_\+three} (\hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} bg\+\_\+typ, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} fg\+\_\+typ)
+\item 
+void \hyperlink{mkmap_8c_a88f49707103159575309f6dd6b961199}{flood\+\_\+fill\+\_\+rm} (int sx, int sy, int rmno, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} lit, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} anyroom)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_af606e040a48512e57be3be5c1669b436}{wallify\+\_\+map} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_acfb038fc42e0ec44dd1c0a0912b87abd}{join\+\_\+map} (\hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} bg\+\_\+typ, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} fg\+\_\+typ)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_a5a2bd871280be5524157103a5daef3ca}{finish\+\_\+map} (\hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} fg\+\_\+typ, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} bg\+\_\+typ, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} lit, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} walled)
+\item 
+void \hyperlink{mkmap_8c_a915dcdbcbcc4653fd0f3c2311b4d7e85}{remove\+\_\+rooms} (int lx, int ly, int hx, int hy)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmap_8c_a2d135e8b059e101b4a8b736c83c6e2fd}{remove\+\_\+room} (unsigned roomno)
+\item 
+void \hyperlink{mkmap_8c_a76e9a8db64f065a236c615f278f5b98e}{mkmap} (\hyperlink{structlev__init}{lev\+\_\+init} $\ast$\hyperlink{lev__yacc_8c_ac2ea43aa4412d3297d8af7faf0b1c927}{init\+\_\+lev})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{mkmap_8c_ae54fe7a9cfadbf81ee802ea57051ebff}{new\+\_\+locations}
+\item 
+int \hyperlink{mkmap_8c_a894604b3687b9ef24fbd3860e4975fd3}{min\+\_\+rx}
+\item 
+int \hyperlink{mkmap_8c_abc15291b7b86b60e0c490c8e8cbe0e51}{max\+\_\+rx}
+\item 
+int \hyperlink{mkmap_8c_ad85187115f92107d269ef993f80036f0}{min\+\_\+ry}
+\item 
+int \hyperlink{mkmap_8c_aedc93067a733f3fa903cf92c7b0cff4e}{max\+\_\+ry}
+\item 
+static int \hyperlink{mkmap_8c_a73f82c422f64dd457e6a6962f76818e8}{n\+\_\+loc\+\_\+filled}
+\item 
+static int \hyperlink{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{dirs} \mbox{[}16\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{\index{mkmap.\+c@{mkmap.\+c}!H\+E\+I\+G\+H\+T@{H\+E\+I\+G\+H\+T}}
+\index{H\+E\+I\+G\+H\+T@{H\+E\+I\+G\+H\+T}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{H\+E\+I\+G\+H\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+E\+I\+G\+H\+T~({\bf R\+O\+W\+N\+O} -\/ 1)}}\label{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}
+
+
+Definition at line 8 of file mkmap.\+c.
+
+
+
+Referenced by get\+\_\+map(), init\+\_\+fill(), join\+\_\+map(), mkmap(), pass\+\_\+one(), pass\+\_\+three(), and pass\+\_\+two().
+
+\hypertarget{mkmap_8c_a8fd7f5492e360a1943a3c471c3ff1f18}{\index{mkmap.\+c@{mkmap.\+c}!N\+\_\+\+P1\+\_\+\+I\+T\+E\+R@{N\+\_\+\+P1\+\_\+\+I\+T\+E\+R}}
+\index{N\+\_\+\+P1\+\_\+\+I\+T\+E\+R@{N\+\_\+\+P1\+\_\+\+I\+T\+E\+R}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{N\+\_\+\+P1\+\_\+\+I\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+\_\+\+P1\+\_\+\+I\+T\+E\+R~1	/$\ast$ {\bf tune} {\bf map} generation via this value $\ast$/}}\label{mkmap_8c_a8fd7f5492e360a1943a3c471c3ff1f18}
+
+
+Definition at line 433 of file mkmap.\+c.
+
+
+
+Referenced by mkmap().
+
+\hypertarget{mkmap_8c_a3f53ca5cb336a7f91d054018d46730ef}{\index{mkmap.\+c@{mkmap.\+c}!N\+\_\+\+P2\+\_\+\+I\+T\+E\+R@{N\+\_\+\+P2\+\_\+\+I\+T\+E\+R}}
+\index{N\+\_\+\+P2\+\_\+\+I\+T\+E\+R@{N\+\_\+\+P2\+\_\+\+I\+T\+E\+R}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{N\+\_\+\+P2\+\_\+\+I\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+\_\+\+P2\+\_\+\+I\+T\+E\+R~1	/$\ast$ {\bf tune} {\bf map} generation via this value $\ast$/}}\label{mkmap_8c_a3f53ca5cb336a7f91d054018d46730ef}
+
+
+Definition at line 434 of file mkmap.\+c.
+
+
+
+Referenced by mkmap().
+
+\hypertarget{mkmap_8c_a608921dc3e54b5d2e4de670572b5c0d4}{\index{mkmap.\+c@{mkmap.\+c}!N\+\_\+\+P3\+\_\+\+I\+T\+E\+R@{N\+\_\+\+P3\+\_\+\+I\+T\+E\+R}}
+\index{N\+\_\+\+P3\+\_\+\+I\+T\+E\+R@{N\+\_\+\+P3\+\_\+\+I\+T\+E\+R}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{N\+\_\+\+P3\+\_\+\+I\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+\_\+\+P3\+\_\+\+I\+T\+E\+R~2	/$\ast$ {\bf tune} {\bf map} smoothing via this value $\ast$/}}\label{mkmap_8c_a608921dc3e54b5d2e4de670572b5c0d4}
+
+
+Definition at line 435 of file mkmap.\+c.
+
+
+
+Referenced by mkmap().
+
+\hypertarget{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}{\index{mkmap.\+c@{mkmap.\+c}!new\+\_\+loc@{new\+\_\+loc}}
+\index{new\+\_\+loc@{new\+\_\+loc}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{new\+\_\+loc}]{\setlength{\rightskip}{0pt plus 5cm}\#define new\+\_\+loc(
+\begin{DoxyParamCaption}
+\item[{}]{i, }
+\item[{}]{j}
+\end{DoxyParamCaption}
+)~$\ast$({\bf new\+\_\+locations}+ ((j)$\ast$({\bf W\+I\+D\+T\+H}+1)) + (i))}}\label{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}
+
+
+Definition at line 104 of file mkmap.\+c.
+
+
+
+Referenced by pass\+\_\+three(), and pass\+\_\+two().
+
+\hypertarget{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{\index{mkmap.\+c@{mkmap.\+c}!W\+I\+D\+T\+H@{W\+I\+D\+T\+H}}
+\index{W\+I\+D\+T\+H@{W\+I\+D\+T\+H}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{W\+I\+D\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+I\+D\+T\+H~({\bf C\+O\+L\+N\+O} -\/ 2)}}\label{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}
+
+
+Definition at line 9 of file mkmap.\+c.
+
+
+
+Referenced by amii\+\_\+init\+\_\+nhwindows(), flood\+\_\+fill\+\_\+rm(), get\+\_\+map(), init\+\_\+fill(), join\+\_\+map(), mkmap(), pass\+\_\+one(), pass\+\_\+three(), pass\+\_\+two(), and S\+M\+\_\+\+Filter().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{mkmap_8c_a9c834bd1032583032b1289b13421928b}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+map}}]{, }
+\item[{({\bf S\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a9c834bd1032583032b1289b13421928b}
+\hypertarget{mkmap_8c_a5d39321b83ce5ae39ab6bdc3b757eae8}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+fill}}]{, }
+\item[{({\bf S\+C\+H\+A\+R\+\_\+\+P}, {\bf S\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a5d39321b83ce5ae39ab6bdc3b757eae8}
+\hypertarget{mkmap_8c_aa1d63057c98be1bda556532d417f0b17}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf schar} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf get\+\_\+map}}]{, }
+\item[{(int, int, {\bf S\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_aa1d63057c98be1bda556532d417f0b17}
+\hypertarget{mkmap_8c_a1fa9768b676b62ed80a1b940639d7f23}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf pass\+\_\+one}}]{, }
+\item[{({\bf S\+C\+H\+A\+R\+\_\+\+P}, {\bf S\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a1fa9768b676b62ed80a1b940639d7f23}
+\hypertarget{mkmap_8c_a68f654a10bdc3de99b248301e3643d61}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf pass\+\_\+two}}]{, }
+\item[{({\bf S\+C\+H\+A\+R\+\_\+\+P}, {\bf S\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a68f654a10bdc3de99b248301e3643d61}
+\hypertarget{mkmap_8c_a9fa2512eb946a096100b16faa8b0d625}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf pass\+\_\+three}}]{, }
+\item[{({\bf S\+C\+H\+A\+R\+\_\+\+P}, {\bf S\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a9fa2512eb946a096100b16faa8b0d625}
+\hypertarget{mkmap_8c_a034f1aef352ebad209984c2edea2f7a1}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf join\+\_\+map}}]{, }
+\item[{({\bf S\+C\+H\+A\+R\+\_\+\+P}, {\bf S\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a034f1aef352ebad209984c2edea2f7a1}
+\hypertarget{mkmap_8c_a4858e95a8971f51f757338a0316930db}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf finish\+\_\+map}}]{, }
+\item[{({\bf S\+C\+H\+A\+R\+\_\+\+P}, {\bf S\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a4858e95a8971f51f757338a0316930db}
+\hypertarget{mkmap_8c_af695ca52051328da716b21f060e4740a}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf remove\+\_\+room}}]{, }
+\item[{(unsigned)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_af695ca52051328da716b21f060e4740a}
+\hypertarget{mkmap_8c_a2d5b9784df809d6fc8a8140a5c75681d}{\index{mkmap.\+c@{mkmap.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mkmap}}]{, }
+\item[{({\bf lev\+\_\+init} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a2d5b9784df809d6fc8a8140a5c75681d}
+\hypertarget{mkmap_8c_a5a2bd871280be5524157103a5daef3ca}{\index{mkmap.\+c@{mkmap.\+c}!finish\+\_\+map@{finish\+\_\+map}}
+\index{finish\+\_\+map@{finish\+\_\+map}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{finish\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void finish\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{{\bf schar}}]{fg\+\_\+typ, }
+\item[{{\bf schar}}]{bg\+\_\+typ, }
+\item[{{\bf boolean}}]{lit, }
+\item[{{\bf boolean}}]{walled}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a5a2bd871280be5524157103a5daef3ca}
+
+
+Definition at line 339 of file mkmap.\+c.
+
+
+
+References C\+O\+L\+N\+O, I\+S\+\_\+\+R\+O\+C\+K, I\+S\+\_\+\+W\+A\+L\+L, L\+A\+V\+A\+P\+O\+O\+L, levl, nroom, mkroom\+::rlit, rooms, R\+O\+W\+N\+O, T\+R\+E\+E, T\+R\+U\+E, and wallify\+\_\+map().
+
+
+
+Referenced by mkmap().
+
+
+\begin{DoxyCode}
+342 \{
+343     \textcolor{keywordtype}{int} i, j;
+344 
+345     \textcolor{keywordflow}{if}(walled) \hyperlink{mkmap_8c_af606e040a48512e57be3be5c1669b436}{wallify\_map}();
+346 
+347     \textcolor{keywordflow}{if}(lit) \{
+348         \textcolor{keywordflow}{for}(i=1; i<\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; i++)
+349         \textcolor{keywordflow}{for}(j=0; j<\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; j++)
+350             \textcolor{keywordflow}{if}((!\hyperlink{rm_8h_a041df081d95aacdcbf31a3bbfdd36e0e}{IS\_ROCK}(fg\_typ) && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ == fg\_typ) ||
+351                (!\hyperlink{rm_8h_a041df081d95aacdcbf31a3bbfdd36e0e}{IS\_ROCK}(bg\_typ) && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ == bg\_typ) ||
+352                (bg\_typ == \hyperlink{rm_8h_abf5b8fbbeb8255336e401a15a80214a8}{TREE} && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ == bg\_typ) ||
+353             (walled && \hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ)))
+354             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].lit = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+355         \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}; i++)
+356         \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[i].\hyperlink{structmkroom_a3c07fba081cb449add4c4cc858541b16}{rlit} = 1;
+357     \}
+358     \textcolor{comment}{/* light lava even if everything's otherwise unlit */}
+359     \textcolor{keywordflow}{for}(i=1; i<\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; i++)
+360         \textcolor{keywordflow}{for}(j=0; j<\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; j++)
+361         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ == \hyperlink{rm_8h_a610b535d9b5db82cd5617b7f2f1e06af}{LAVAPOOL})
+362             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].lit = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+363 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_a88f49707103159575309f6dd6b961199}{\index{mkmap.\+c@{mkmap.\+c}!flood\+\_\+fill\+\_\+rm@{flood\+\_\+fill\+\_\+rm}}
+\index{flood\+\_\+fill\+\_\+rm@{flood\+\_\+fill\+\_\+rm}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{flood\+\_\+fill\+\_\+rm}]{\setlength{\rightskip}{0pt plus 5cm}void flood\+\_\+fill\+\_\+rm (
+\begin{DoxyParamCaption}
+\item[{int}]{sx, }
+\item[{int}]{sy, }
+\item[{int}]{rmno, }
+\item[{{\bf boolean}}]{lit, }
+\item[{{\bf boolean}}]{anyroom}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a88f49707103159575309f6dd6b961199}
+
+
+Definition at line 161 of file mkmap.\+c.
+
+
+
+References I\+S\+\_\+\+D\+O\+O\+R, I\+S\+\_\+\+R\+O\+O\+M, I\+S\+\_\+\+W\+A\+L\+L, levl, S\+H\+A\+R\+E\+D, rm\+::typ, and W\+I\+D\+T\+H.
+
+
+
+Referenced by join\+\_\+map(), and load\+\_\+maze().
+
+
+\begin{DoxyCode}
+167 \{
+168     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+169     \textcolor{keywordtype}{int} nx;
+170     \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} fg\_typ = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[sx][sy].typ;
+171 
+172     \textcolor{comment}{/* back up to find leftmost uninitialized location */}
+173     \textcolor{keywordflow}{while} (sx > 0 &&
+174       (anyroom ? \hyperlink{rm_8h_af84b49fffdbf2780a5eb39f0203e4ffa}{IS\_ROOM}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[sx][sy].typ) : \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[sx][sy].typ == fg\_typ) &&
+175       (\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[sx][sy].roomno != rmno)
+176     sx--;
+177     sx++; \textcolor{comment}{/* compensate for extra decrement */}
+178 
+179     \textcolor{comment}{/* assume sx,sy is valid */}
+180     \textcolor{keywordflow}{if}(sx < \hyperlink{mkmap_8c_a894604b3687b9ef24fbd3860e4975fd3}{min\_rx}) \hyperlink{mkmap_8c_a894604b3687b9ef24fbd3860e4975fd3}{min\_rx} = sx;
+181     \textcolor{keywordflow}{if}(sy < \hyperlink{mkmap_8c_ad85187115f92107d269ef993f80036f0}{min\_ry}) \hyperlink{mkmap_8c_ad85187115f92107d269ef993f80036f0}{min\_ry} = sy;
+182 
+183     \textcolor{keywordflow}{for}(i=sx; i<=\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH} && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][sy].typ == fg\_typ; i++) \{
+184     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][sy].roomno = rmno;
+185     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][sy].lit = lit;
+186     \textcolor{keywordflow}{if}(anyroom) \{
+187         \textcolor{comment}{/* add walls to room as well */}
+188         \textcolor{keyword}{register} \textcolor{keywordtype}{int} ii,jj;
+189         \textcolor{keywordflow}{for}(ii= (i == sx ? i-1 : i); ii <= i+1; ii++)
+190         \textcolor{keywordflow}{for}(jj = sy-1; jj <= sy+1; jj++)
+191             \textcolor{keywordflow}{if}(isok(ii,jj) &&
+192                (\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[ii][jj].typ) ||
+193             \hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[ii][jj].typ))) \{
+194             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[ii][jj].edge = 1;
+195             \textcolor{keywordflow}{if}(lit) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[ii][jj].lit = lit;
+196             \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[ii][jj].roomno != rmno)
+197                 \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[ii][jj].roomno = \hyperlink{mkroom_8h_a884c794595c4aa480df9022648c29564}{SHARED};
+198             \}
+199     \}
+200     \hyperlink{mkmap_8c_a73f82c422f64dd457e6a6962f76818e8}{n\_loc\_filled}++;
+201     \}
+202     nx = i;
+203 
+204     \textcolor{keywordflow}{if}(isok(sx,sy-1)) \{
+205     \textcolor{keywordflow}{for}(i=sx; i<nx; i++)
+206         \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][sy-1].typ == fg\_typ) \{
+207         \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][sy-1].roomno != rmno)
+208             \hyperlink{mkmap_8c_a88f49707103159575309f6dd6b961199}{flood\_fill\_rm}(i,sy-1,rmno,lit,anyroom);
+209         \} \textcolor{keywordflow}{else} \{
+210         \textcolor{keywordflow}{if}((i>sx || isok(i-1,sy-1)) &&
+211               \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i-1][sy-1].typ == fg\_typ) \{
+212             \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i-1][sy-1].roomno != rmno)
+213             \hyperlink{mkmap_8c_a88f49707103159575309f6dd6b961199}{flood\_fill\_rm}(i-1,sy-1,rmno,lit,anyroom);
+214         \}
+215         \textcolor{keywordflow}{if}((i<nx-1 || isok(i+1,sy-1)) &&
+216               \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i+1][sy-1].typ == fg\_typ) \{
+217             \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i+1][sy-1].roomno != rmno)
+218             \hyperlink{mkmap_8c_a88f49707103159575309f6dd6b961199}{flood\_fill\_rm}(i+1,sy-1,rmno,lit,anyroom);
+219         \}
+220         \}
+221     \}
+222     \textcolor{keywordflow}{if}(isok(sx,sy+1)) \{
+223     \textcolor{keywordflow}{for}(i=sx; i<nx; i++)
+224         \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][sy+1].typ == fg\_typ) \{
+225         \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][sy+1].roomno != rmno)
+226             \hyperlink{mkmap_8c_a88f49707103159575309f6dd6b961199}{flood\_fill\_rm}(i,sy+1,rmno,lit,anyroom);
+227         \} \textcolor{keywordflow}{else} \{
+228         \textcolor{keywordflow}{if}((i>sx || isok(i-1,sy+1)) &&
+229               \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i-1][sy+1].typ == fg\_typ) \{
+230             \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i-1][sy+1].roomno != rmno)
+231             \hyperlink{mkmap_8c_a88f49707103159575309f6dd6b961199}{flood\_fill\_rm}(i-1,sy+1,rmno,lit,anyroom);
+232         \}
+233         \textcolor{keywordflow}{if}((i<nx-1 || isok(i+1,sy+1)) &&
+234               \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i+1][sy+1].typ == fg\_typ) \{
+235             \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i+1][sy+1].roomno != rmno)
+236             \hyperlink{mkmap_8c_a88f49707103159575309f6dd6b961199}{flood\_fill\_rm}(i+1,sy+1,rmno,lit,anyroom);
+237         \}
+238         \}
+239     \}
+240 
+241     \textcolor{keywordflow}{if}(nx > \hyperlink{mkmap_8c_abc15291b7b86b60e0c490c8e8cbe0e51}{max\_rx}) \hyperlink{mkmap_8c_abc15291b7b86b60e0c490c8e8cbe0e51}{max\_rx} = nx - 1; \textcolor{comment}{/* nx is just past valid region */}
+242     \textcolor{keywordflow}{if}(sy > \hyperlink{mkmap_8c_aedc93067a733f3fa903cf92c7b0cff4e}{max\_ry}) \hyperlink{mkmap_8c_aedc93067a733f3fa903cf92c7b0cff4e}{max\_ry} = sy;
+243 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}{\index{mkmap.\+c@{mkmap.\+c}!get\+\_\+map@{get\+\_\+map}}
+\index{get\+\_\+map@{get\+\_\+map}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{get\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf schar} get\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{int}]{col, }
+\item[{int}]{row, }
+\item[{{\bf schar}}]{bg\+\_\+typ}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}
+
+
+Definition at line 58 of file mkmap.\+c.
+
+
+
+References H\+E\+I\+G\+H\+T, levl, and W\+I\+D\+T\+H.
+
+
+
+Referenced by pass\+\_\+one(), pass\+\_\+three(), and pass\+\_\+two().
+
+
+\begin{DoxyCode}
+61 \{
+62     \textcolor{keywordflow}{if} (col <= 0 || row < 0 || col > \hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH} || row >= \hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT})
+63         \textcolor{keywordflow}{return} bg\_typ;
+64     \textcolor{keywordflow}{return} \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[col][row].typ;
+65 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_afa5950deb5395d16287cf7a1b8051b18}{\index{mkmap.\+c@{mkmap.\+c}!init\+\_\+fill@{init\+\_\+fill}}
+\index{init\+\_\+fill@{init\+\_\+fill}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{init\+\_\+fill}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void init\+\_\+fill (
+\begin{DoxyParamCaption}
+\item[{{\bf schar}}]{bg\+\_\+typ, }
+\item[{{\bf schar}}]{fg\+\_\+typ}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_afa5950deb5395d16287cf7a1b8051b18}
+
+
+Definition at line 39 of file mkmap.\+c.
+
+
+
+References count, H\+E\+I\+G\+H\+T, levl, limit(), rn1, rm\+::typ, and W\+I\+D\+T\+H.
+
+
+
+Referenced by mkmap().
+
+
+\begin{DoxyCode}
+41 \{
+42     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i,j;
+43     \textcolor{keywordtype}{long} \hyperlink{makedefs_8c_a4fcfcee04ab48e5f469e085e33669a4b}{limit}, \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+44 
+45     limit = (\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH} * \hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT} * 2) / 5;
+46     count = 0;
+47     \textcolor{keywordflow}{while}(count < limit) \{
+48         i = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH}-1, 2);
+49         j = rnd(\hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT}-1);
+50         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ == bg\_typ) \{
+51         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ = fg\_typ;
+52         count++;
+53         \}
+54     \}
+55 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_a617fb48dae4d808ed2bb3b330c8cc49f}{\index{mkmap.\+c@{mkmap.\+c}!init\+\_\+map@{init\+\_\+map}}
+\index{init\+\_\+map@{init\+\_\+map}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{init\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void init\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{{\bf schar}}]{bg\+\_\+typ}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a617fb48dae4d808ed2bb3b330c8cc49f}
+
+
+Definition at line 28 of file mkmap.\+c.
+
+
+
+References C\+O\+L\+N\+O, levl, R\+O\+W\+N\+O, and rm\+::typ.
+
+
+
+Referenced by mkmap().
+
+
+\begin{DoxyCode}
+30 \{
+31     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i,j;
+32 
+33     \textcolor{keywordflow}{for}(i=1; i<\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; i++)
+34         \textcolor{keywordflow}{for}(j=0; j<\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; j++)
+35         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ = bg\_typ;
+36 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_acfb038fc42e0ec44dd1c0a0912b87abd}{\index{mkmap.\+c@{mkmap.\+c}!join\+\_\+map@{join\+\_\+map}}
+\index{join\+\_\+map@{join\+\_\+map}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{join\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void join\+\_\+map (
+\begin{DoxyParamCaption}
+\item[{{\bf schar}}]{bg\+\_\+typ, }
+\item[{{\bf schar}}]{fg\+\_\+typ}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_acfb038fc42e0ec44dd1c0a0912b87abd}
+
+
+Definition at line 268 of file mkmap.\+c.
+
+
+
+References add\+\_\+room(), dig\+\_\+corridor(), F\+A\+L\+S\+E, flood\+\_\+fill\+\_\+rm(), H\+E\+I\+G\+H\+T, mkroom\+::hx, mkroom\+::hy, mkroom\+::irregular, levl, mkroom\+::lx, mkroom\+::ly, max\+\_\+rx, max\+\_\+ry, M\+A\+X\+N\+R\+O\+F\+R\+O\+O\+M\+S, N\+O\+\_\+\+R\+O\+O\+M, nroom, O\+R\+O\+O\+M, R\+O\+O\+M\+O\+F\+F\+S\+E\+T, rooms, sm, T\+R\+U\+E, W\+I\+D\+T\+H, coord\+::x, and coord\+::y.
+
+
+
+Referenced by mkmap().
+
+
+\begin{DoxyCode}
+270 \{
+271     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom, *croom2;
+272 
+273     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i, j;
+274     \textcolor{keywordtype}{int} sx, sy;
+275     \hyperlink{structcoord}{coord} \hyperlink{vmstty_8c_aa26ef43221f648102c8a042ac2b14261}{sm}, em;
+276 
+277     \textcolor{comment}{/* first, use flood filling to find all of the regions that need joining */}
+278     \textcolor{keywordflow}{for}(i=2; i<=\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH}; i++)
+279     \textcolor{keywordflow}{for}(j=1; j<\hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT}; j++) \{
+280         \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ == fg\_typ && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].roomno == \hyperlink{mkroom_8h_ab24ac2be24cb232a8d9ff2e5d32c84cb}{NO\_ROOM}) \{
+281         \hyperlink{mkmap_8c_a894604b3687b9ef24fbd3860e4975fd3}{min\_rx} = \hyperlink{mkmap_8c_abc15291b7b86b60e0c490c8e8cbe0e51}{max\_rx} = i;
+282         \hyperlink{mkmap_8c_ad85187115f92107d269ef993f80036f0}{min\_ry} = \hyperlink{mkmap_8c_aedc93067a733f3fa903cf92c7b0cff4e}{max\_ry} = j;
+283         \hyperlink{mkmap_8c_a73f82c422f64dd457e6a6962f76818e8}{n\_loc\_filled} = 0;
+284         \hyperlink{mkmap_8c_a88f49707103159575309f6dd6b961199}{flood\_fill\_rm}(i,j,\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}+\hyperlink{mkroom_8h_acc0f2416007c594c5d38f980dedc1b68}{ROOMOFFSET},\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+285         \textcolor{keywordflow}{if}(\hyperlink{mkmap_8c_a73f82c422f64dd457e6a6962f76818e8}{n\_loc\_filled} > 3) \{
+286             \hyperlink{mklev_8c_a5bfd1137aab85b0e7ee01c7c008e2cd6}{add\_room}(\hyperlink{mkmap_8c_a894604b3687b9ef24fbd3860e4975fd3}{min\_rx}, \hyperlink{mkmap_8c_ad85187115f92107d269ef993f80036f0}{min\_ry}, \hyperlink{mkmap_8c_abc15291b7b86b60e0c490c8e8cbe0e51}{max\_rx}, \hyperlink{mkmap_8c_aedc93067a733f3fa903cf92c7b0cff4e}{max\_ry},
+287                  \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+288             \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}-1].\hyperlink{structmkroom_a394c3dd48b7fc60e0098c41afde6d6e8}{irregular} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+289             \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} >= (\hyperlink{global_8h_ac93f3a160c2f2a9c3d201c505b0a5811}{MAXNROFROOMS}*2))
+290             \textcolor{keywordflow}{goto} joinm;
+291         \} \textcolor{keywordflow}{else} \{
+292             \textcolor{comment}{/*}
+293 \textcolor{comment}{             * it's a tiny hole; erase it from the map to avoid}
+294 \textcolor{comment}{             * having the player end up here with no way out.}
+295 \textcolor{comment}{             */}
+296             \textcolor{keywordflow}{for}(sx = \hyperlink{mkmap_8c_a894604b3687b9ef24fbd3860e4975fd3}{min\_rx}; sx<=\hyperlink{mkmap_8c_abc15291b7b86b60e0c490c8e8cbe0e51}{max\_rx}; sx++)
+297             \textcolor{keywordflow}{for}(sy = \hyperlink{mkmap_8c_ad85187115f92107d269ef993f80036f0}{min\_ry}; sy<=\hyperlink{mkmap_8c_aedc93067a733f3fa903cf92c7b0cff4e}{max\_ry}; sy++)
+298                 \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[sx][sy].roomno ==
+299                     \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} + \hyperlink{mkroom_8h_acc0f2416007c594c5d38f980dedc1b68}{ROOMOFFSET}) \{
+300                 \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[sx][sy].typ = bg\_typ;
+301                 \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[sx][sy].roomno = \hyperlink{mkroom_8h_ab24ac2be24cb232a8d9ff2e5d32c84cb}{NO\_ROOM};
+302                 \}
+303         \}
+304         \}
+305     \}
+306 
+307 joinm:
+308     \textcolor{comment}{/*}
+309 \textcolor{comment}{     * Ok, now we can actually join the regions with fg\_typ's.}
+310 \textcolor{comment}{     * The rooms are already sorted due to the previous loop,}
+311 \textcolor{comment}{     * so don't call sort\_rooms(), which can screw up the roomno's}
+312 \textcolor{comment}{     * validity in the levl structure.}
+313 \textcolor{comment}{     */}
+314     \textcolor{keywordflow}{for}(croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[0], croom2 = croom + 1; croom2 < &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}]; ) \{
+315     \textcolor{comment}{/* pick random starting and end locations for "corridor" */}
+316     \textcolor{keywordflow}{if}(!somexy(croom, &sm) || !somexy(croom2, &em)) \{
+317         \textcolor{comment}{/* ack! -- the level is going to be busted */}
+318         \textcolor{comment}{/* arbitrarily pick centers of both rooms and hope for the best */}
+319         impossible(\textcolor{stringliteral}{"No start/end room loc in join\_map."});
+320         sm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} + ((croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} - croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}) / 2);
+321         sm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly} + ((croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy} - croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}) / 2);
+322         em.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = croom2->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} + ((croom2->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} - croom2->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}) / 2);
+323         em.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = croom2->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly} + ((croom2->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy} - croom2->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}) / 2);
+324     \}
+325 
+326     (void) \hyperlink{sp__lev_8c_ad87ffe1562fb5ae4768446e053f08207}{dig\_corridor}(&sm, &em, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, fg\_typ, bg\_typ);
+327 
+328     \textcolor{comment}{/* choose next region to join */}
+329     \textcolor{comment}{/* only increment croom if croom and croom2 are non-overlapping */}
+330     \textcolor{keywordflow}{if}(croom2->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} > croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} ||
+331        ((croom2->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly} > croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy} || croom2->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy} < croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}) && rn2(3))) \{
+332         croom = croom2;
+333     \}
+334     croom2++; \textcolor{comment}{/* always increment the next room */}
+335     \}
+336 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_a76e9a8db64f065a236c615f278f5b98e}{\index{mkmap.\+c@{mkmap.\+c}!mkmap@{mkmap}}
+\index{mkmap@{mkmap}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{mkmap}]{\setlength{\rightskip}{0pt plus 5cm}void mkmap (
+\begin{DoxyParamCaption}
+\item[{{\bf lev\+\_\+init}	$\ast$}]{init\+\_\+lev}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a76e9a8db64f065a236c615f278f5b98e}
+
+
+Definition at line 438 of file mkmap.\+c.
+
+
+
+References abs(), alloc(), lev\+\_\+init\+::bg, F\+A\+L\+S\+E, finish\+\_\+map(), dlevel\+\_\+t\+::flags, free(), H\+E\+I\+G\+H\+T, init\+\_\+fill(), init\+\_\+map(), join(), join\+\_\+map(), level, N\+\_\+\+P1\+\_\+\+I\+T\+E\+R, N\+\_\+\+P2\+\_\+\+I\+T\+E\+R, N\+\_\+\+P3\+\_\+\+I\+T\+E\+R, pass\+\_\+one(), pass\+\_\+three(), pass\+\_\+two(), T\+R\+U\+E, u, you\+::uz, and W\+I\+D\+T\+H.
+
+
+
+Referenced by load\+\_\+common\+\_\+data().
+
+
+\begin{DoxyCode}
+440 \{
+441     \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar}  bg\_typ = init\_lev->\hyperlink{structlev__init_abbc5f70883616b1d6f75ef6aa1cbc3c4}{bg},
+442         fg\_typ = init\_lev->\hyperlink{structlev__init_af05a7a24000bcbe833283f9f64e4f96f}{fg};
+443     \textcolor{keywordtype}{boolean} smooth = init\_lev->\hyperlink{structlev__init_acc2766b536116ec0723576ca282449dd}{smoothed},
+444         \hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join} = init\_lev->\hyperlink{structlev__init_af7653a4a64cf753edc423d2ea2734a8d}{joined};
+445     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar}   lit = init\_lev->\hyperlink{structlev__init_a9b5482cd068d4e4c5c2a1277487cea9a}{lit},
+446         walled = init\_lev->\hyperlink{structlev__init_a97254371d5b19966ba23b3a65a085ef8}{walled};
+447     \textcolor{keywordtype}{int} i;
+448 
+449     \textcolor{keywordflow}{if}(lit < 0)
+450         lit = (rnd(1+\hyperlink{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}{abs}(depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))) < 11 && rn2(77)) ? 1 : 0;
+451 
+452     \hyperlink{mkmap_8c_ae54fe7a9cfadbf81ee802ea57051ebff}{new\_locations} = (\textcolor{keywordtype}{char} *)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH}+1) * \hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT});
+453 
+454     \hyperlink{mkmap_8c_a617fb48dae4d808ed2bb3b330c8cc49f}{init\_map}(bg\_typ);
+455     \hyperlink{mkmap_8c_afa5950deb5395d16287cf7a1b8051b18}{init\_fill}(bg\_typ, fg\_typ);
+456 
+457     \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{mkmap_8c_a8fd7f5492e360a1943a3c471c3ff1f18}{N\_P1\_ITER}; i++)
+458         \hyperlink{mkmap_8c_a8aef5be1fadb00370ee3e507fdbf4e72}{pass\_one}(bg\_typ, fg\_typ);
+459 
+460     \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{mkmap_8c_a3f53ca5cb336a7f91d054018d46730ef}{N\_P2\_ITER}; i++)
+461     \hyperlink{mkmap_8c_a46943fad13b6e41f2292c74de3cd2b50}{pass\_two}(bg\_typ, fg\_typ);
+462 
+463     \textcolor{keywordflow}{if}(smooth)
+464         \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{mkmap_8c_a608921dc3e54b5d2e4de670572b5c0d4}{N\_P3\_ITER}; i++)
+465         \hyperlink{mkmap_8c_a20ff58a870de05c0a8f6f2e8d77910bd}{pass\_three}(bg\_typ, fg\_typ);
+466 
+467     \textcolor{keywordflow}{if}(\hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join})
+468         \hyperlink{mkmap_8c_acfb038fc42e0ec44dd1c0a0912b87abd}{join\_map}(bg\_typ, fg\_typ);
+469 
+470     \hyperlink{mkmap_8c_a5a2bd871280be5524157103a5daef3ca}{finish\_map}(fg\_typ, bg\_typ, (\textcolor{keywordtype}{boolean})lit, (\textcolor{keywordtype}{boolean})walled);
+471     \textcolor{comment}{/* a walled, joined level is cavernous, not mazelike -dlc */}
+472     \textcolor{keywordflow}{if} (walled && \hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join}) \{
+473         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+474         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_cavernous\_lev = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+475     \}
+476     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\hyperlink{mkmap_8c_ae54fe7a9cfadbf81ee802ea57051ebff}{new\_locations});
+477 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_ace2e3d525ed2ec0f44213a0ca8d748ee}{\index{mkmap.\+c@{mkmap.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf wallify\+\_\+map}}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_ace2e3d525ed2ec0f44213a0ca8d748ee}
+\hypertarget{mkmap_8c_a8aef5be1fadb00370ee3e507fdbf4e72}{\index{mkmap.\+c@{mkmap.\+c}!pass\+\_\+one@{pass\+\_\+one}}
+\index{pass\+\_\+one@{pass\+\_\+one}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{pass\+\_\+one}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void pass\+\_\+one (
+\begin{DoxyParamCaption}
+\item[{{\bf schar}}]{bg\+\_\+typ, }
+\item[{{\bf schar}}]{fg\+\_\+typ}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a8aef5be1fadb00370ee3e507fdbf4e72}
+
+
+Definition at line 73 of file mkmap.\+c.
+
+
+
+References count, get\+\_\+map(), H\+E\+I\+G\+H\+T, levl, and W\+I\+D\+T\+H.
+
+
+
+Referenced by mkmap().
+
+
+\begin{DoxyCode}
+75 \{
+76     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i,j;
+77     \textcolor{keywordtype}{short} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count}, dr;
+78 
+79     \textcolor{keywordflow}{for}(i=2; i<=\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH}; i++)
+80         \textcolor{keywordflow}{for}(j=1; j<\hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT}; j++) \{
+81         \textcolor{keywordflow}{for}(count=0, dr=0; dr < 8; dr++)
+82             \textcolor{keywordflow}{if}(\hyperlink{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}{get\_map}(i+\hyperlink{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{dirs}[dr*2], j+\hyperlink{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{dirs}[(dr*2)+1], bg\_typ)
+83                                 == fg\_typ)
+84             count++;
+85 
+86         \textcolor{keywordflow}{switch}(count) \{
+87           \textcolor{keywordflow}{case} 0 : \textcolor{comment}{/* death */}
+88           \textcolor{keywordflow}{case} 1 :
+89           \textcolor{keywordflow}{case} 2:
+90               \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ = bg\_typ;
+91               \textcolor{keywordflow}{break};
+92           \textcolor{keywordflow}{case} 5:
+93           \textcolor{keywordflow}{case} 6:
+94           \textcolor{keywordflow}{case} 7:
+95           \textcolor{keywordflow}{case} 8:
+96               \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ = fg\_typ;
+97               \textcolor{keywordflow}{break};
+98           \textcolor{keywordflow}{default}:
+99               \textcolor{keywordflow}{break};
+100           \}
+101         \}
+102 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_a20ff58a870de05c0a8f6f2e8d77910bd}{\index{mkmap.\+c@{mkmap.\+c}!pass\+\_\+three@{pass\+\_\+three}}
+\index{pass\+\_\+three@{pass\+\_\+three}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{pass\+\_\+three}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void pass\+\_\+three (
+\begin{DoxyParamCaption}
+\item[{{\bf schar}}]{bg\+\_\+typ, }
+\item[{{\bf schar}}]{fg\+\_\+typ}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a20ff58a870de05c0a8f6f2e8d77910bd}
+
+
+Definition at line 131 of file mkmap.\+c.
+
+
+
+References count, get\+\_\+map(), H\+E\+I\+G\+H\+T, levl, new\+\_\+loc, rm\+::typ, and W\+I\+D\+T\+H.
+
+
+
+Referenced by mkmap().
+
+
+\begin{DoxyCode}
+133 \{
+134     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i,j;
+135     \textcolor{keywordtype}{short} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count}, dr;
+136 
+137     \textcolor{keywordflow}{for}(i=2; i<=\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH}; i++)
+138         \textcolor{keywordflow}{for}(j=1; j<\hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT}; j++) \{
+139         \textcolor{keywordflow}{for}(count=0, dr=0; dr < 8; dr++)
+140             \textcolor{keywordflow}{if}(\hyperlink{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}{get\_map}(i+\hyperlink{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{dirs}[dr*2], j+\hyperlink{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{dirs}[(dr*2)+1], bg\_typ)
+141                                 == fg\_typ)
+142             count++;
+143         \textcolor{keywordflow}{if} (count < 3)
+144             \hyperlink{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}{new\_loc}(i,j) = bg\_typ;
+145         \textcolor{keywordflow}{else}
+146             \hyperlink{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}{new\_loc}(i,j) = \hyperlink{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}{get\_map}(i,j, bg\_typ);
+147         \}
+148 
+149     \textcolor{keywordflow}{for}(i=2; i<=\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH}; i++)
+150         \textcolor{keywordflow}{for}(j=1; j<\hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT}; j++)
+151         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ = \hyperlink{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}{new\_loc}(i,j);
+152 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_a46943fad13b6e41f2292c74de3cd2b50}{\index{mkmap.\+c@{mkmap.\+c}!pass\+\_\+two@{pass\+\_\+two}}
+\index{pass\+\_\+two@{pass\+\_\+two}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{pass\+\_\+two}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void pass\+\_\+two (
+\begin{DoxyParamCaption}
+\item[{{\bf schar}}]{bg\+\_\+typ, }
+\item[{{\bf schar}}]{fg\+\_\+typ}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a46943fad13b6e41f2292c74de3cd2b50}
+
+
+Definition at line 107 of file mkmap.\+c.
+
+
+
+References count, get\+\_\+map(), H\+E\+I\+G\+H\+T, levl, new\+\_\+loc, rm\+::typ, and W\+I\+D\+T\+H.
+
+
+
+Referenced by mkmap().
+
+
+\begin{DoxyCode}
+109 \{
+110     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i,j;
+111     \textcolor{keywordtype}{short} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count}, dr;
+112 
+113     \textcolor{keywordflow}{for}(i=2; i<=\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH}; i++)
+114         \textcolor{keywordflow}{for}(j=1; j<\hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT}; j++) \{
+115         \textcolor{keywordflow}{for}(count=0, dr=0; dr < 8; dr++)
+116             \textcolor{keywordflow}{if}(\hyperlink{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}{get\_map}(i+\hyperlink{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{dirs}[dr*2], j+\hyperlink{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{dirs}[(dr*2)+1], bg\_typ)
+117                                 == fg\_typ)
+118             count++;
+119             \textcolor{keywordflow}{if} (count == 5)
+120             \hyperlink{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}{new\_loc}(i,j) = bg\_typ;
+121             \textcolor{keywordflow}{else}
+122             \hyperlink{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}{new\_loc}(i,j) = \hyperlink{mkmap_8c_aa775203e2b3a4172044c8db1539a8104}{get\_map}(i,j, bg\_typ);
+123         \}
+124 
+125     \textcolor{keywordflow}{for}(i=2; i<=\hyperlink{mkmap_8c_a241aeeb764887ae5e3de58b98f04b16d}{WIDTH}; i++)
+126         \textcolor{keywordflow}{for}(j=1; j<\hyperlink{mkmap_8c_aed89bd71aee8be823e8a20ec4e093c1e}{HEIGHT}; j++)
+127         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].typ = \hyperlink{mkmap_8c_a16e65c2039e82749b039408c1df44c0a}{new\_loc}(i,j);
+128 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_a2d135e8b059e101b4a8b736c83c6e2fd}{\index{mkmap.\+c@{mkmap.\+c}!remove\+\_\+room@{remove\+\_\+room}}
+\index{remove\+\_\+room@{remove\+\_\+room}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{remove\+\_\+room}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void remove\+\_\+room (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{roomno}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a2d135e8b059e101b4a8b736c83c6e2fd}
+
+
+Definition at line 405 of file mkmap.\+c.
+
+
+
+References mkroom\+::hx, mkroom\+::hy, levl, mkroom\+::lx, mkroom\+::ly, nroom, R\+O\+O\+M\+O\+F\+F\+S\+E\+T, and rooms.
+
+
+
+Referenced by remove\+\_\+rooms().
+
+
+\begin{DoxyCode}
+407 \{
+408     \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[roomno];
+409     \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *maxroom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[--\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}];
+410     \textcolor{keywordtype}{int} i, j;
+411     \textcolor{keywordtype}{unsigned} oroomno;
+412 
+413     \textcolor{keywordflow}{if} (croom != maxroom) \{
+414     \textcolor{comment}{/* since the order in the array only matters for making corridors,}
+415 \textcolor{comment}{     * copy the last room over the one being removed on the assumption}
+416 \textcolor{comment}{     * that corridors have already been dug. */}
+417     (void) memcpy((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})croom, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})maxroom,
+418               \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structmkroom}{mkroom}));
+419 
+420     \textcolor{comment}{/* since maxroom moved, update affected level roomno values */}
+421     oroomno = \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} + \hyperlink{mkroom_8h_acc0f2416007c594c5d38f980dedc1b68}{ROOMOFFSET};
+422     roomno += \hyperlink{mkroom_8h_acc0f2416007c594c5d38f980dedc1b68}{ROOMOFFSET};
+423     \textcolor{keywordflow}{for} (i = croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}; i <= croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}; ++i)
+424         \textcolor{keywordflow}{for} (j = croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}; j <= croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy}; ++j) \{
+425         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].roomno == oroomno)
+426             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[i][j].roomno = roomno;
+427         \}
+428     \}
+429 
+430     maxroom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} = -1;         \textcolor{comment}{/* just like add\_room */}
+431 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_a915dcdbcbcc4653fd0f3c2311b4d7e85}{\index{mkmap.\+c@{mkmap.\+c}!remove\+\_\+rooms@{remove\+\_\+rooms}}
+\index{remove\+\_\+rooms@{remove\+\_\+rooms}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{remove\+\_\+rooms}]{\setlength{\rightskip}{0pt plus 5cm}void remove\+\_\+rooms (
+\begin{DoxyParamCaption}
+\item[{int}]{lx, }
+\item[{int}]{ly, }
+\item[{int}]{hx, }
+\item[{int}]{hy}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_a915dcdbcbcc4653fd0f3c2311b4d7e85}
+
+
+Definition at line 375 of file mkmap.\+c.
+
+
+
+References mkroom\+::hx, mkroom\+::hy, mkroom\+::irregular, mkroom\+::lx, mkroom\+::ly, nroom, remove\+\_\+room(), and rooms.
+
+
+
+Referenced by load\+\_\+maze().
+
+
+\begin{DoxyCode}
+377 \{
+378     \textcolor{keywordtype}{int} i;
+379     \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom;
+380 
+381     \textcolor{keywordflow}{for} (i = \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} - 1; i >= 0; --i) \{
+382     croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[i];
+383     \textcolor{keywordflow}{if} (croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} < \hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} || croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} >= \hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} ||
+384         croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy} < \hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly} || croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly} >= \hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy}) \textcolor{keywordflow}{continue}; \textcolor{comment}{/* no overlap */}
+385 
+386     \textcolor{keywordflow}{if} (croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} < \hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} || croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} >= \hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} ||
+387         croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly} < \hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly} || croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy} >= \hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy}) \{ \textcolor{comment}{/* partial overlap */}
+388         \textcolor{comment}{/* TODO: ensure remaining parts of room are still joined */}
+389 
+390         \textcolor{keywordflow}{if} (!croom->\hyperlink{structmkroom_a394c3dd48b7fc60e0098c41afde6d6e8}{irregular}) impossible(\textcolor{stringliteral}{"regular room in joined map"});
+391     \} \textcolor{keywordflow}{else} \{
+392         \textcolor{comment}{/* total overlap, remove the room */}
+393         \hyperlink{mkmap_8c_a2d135e8b059e101b4a8b736c83c6e2fd}{remove\_room}((\textcolor{keywordtype}{unsigned})i);
+394     \}
+395     \}
+396 \}
+\end{DoxyCode}
+\hypertarget{mkmap_8c_af606e040a48512e57be3be5c1669b436}{\index{mkmap.\+c@{mkmap.\+c}!wallify\+\_\+map@{wallify\+\_\+map}}
+\index{wallify\+\_\+map@{wallify\+\_\+map}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{wallify\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void wallify\+\_\+map (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mkmap_8c_af606e040a48512e57be3be5c1669b436}
+
+
+Definition at line 250 of file mkmap.\+c.
+
+
+
+References C\+O\+L\+N\+O, H\+W\+A\+L\+L, levl, R\+O\+O\+M, R\+O\+W\+N\+O, S\+T\+O\+N\+E, rm\+::typ, and V\+W\+A\+L\+L.
+
+
+
+Referenced by finish\+\_\+map(), and yyparse().
+
+
+\begin{DoxyCode}
+251 \{
+252 
+253     \textcolor{keywordtype}{int} x, y, xx, yy;
+254 
+255     \textcolor{keywordflow}{for}(x = 1; x < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; x++)
+256     \textcolor{keywordflow}{for}(y = 0; y < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; y++)
+257         \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}) \{
+258         \textcolor{keywordflow}{for}(yy = y - 1; yy <= y+1; yy++)
+259             \textcolor{keywordflow}{for}(xx = x - 1; xx <= x+1; xx++)
+260             \textcolor{keywordflow}{if}(isok(xx,yy) && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[xx][yy].typ == \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM}) \{
+261                 \textcolor{keywordflow}{if}(yy != y) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = \hyperlink{rm_8h_a3fcd4705d7b0ac05a88302170fcc58f5}{HWALL};
+262                 \textcolor{keywordflow}{else}    \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = \hyperlink{rm_8h_a9a3afc2fb445bb43a1776de4ebe9852e}{VWALL};
+263             \}
+264         \}
+265 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{\index{mkmap.\+c@{mkmap.\+c}!dirs@{dirs}}
+\index{dirs@{dirs}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{dirs}]{\setlength{\rightskip}{0pt plus 5cm}int dirs\mbox{[}16\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    -1, -1 , -1, 0 , -1, 1 ,
+     0, -1 ,              0, 1 ,
+     1, -1 ,  1, 0 ,  1, 1\}
+\end{DoxyCode}
+
+
+Definition at line 67 of file mkmap.\+c.
+
+\hypertarget{mkmap_8c_abc15291b7b86b60e0c490c8e8cbe0e51}{\index{mkmap.\+c@{mkmap.\+c}!max\+\_\+rx@{max\+\_\+rx}}
+\index{max\+\_\+rx@{max\+\_\+rx}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{max\+\_\+rx}]{\setlength{\rightskip}{0pt plus 5cm}int max\+\_\+rx}}\label{mkmap_8c_abc15291b7b86b60e0c490c8e8cbe0e51}
+
+
+Definition at line 24 of file mkmap.\+c.
+
+
+
+Referenced by join\+\_\+map().
+
+\hypertarget{mkmap_8c_aedc93067a733f3fa903cf92c7b0cff4e}{\index{mkmap.\+c@{mkmap.\+c}!max\+\_\+ry@{max\+\_\+ry}}
+\index{max\+\_\+ry@{max\+\_\+ry}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{max\+\_\+ry}]{\setlength{\rightskip}{0pt plus 5cm}int max\+\_\+ry}}\label{mkmap_8c_aedc93067a733f3fa903cf92c7b0cff4e}
+
+
+Definition at line 24 of file mkmap.\+c.
+
+
+
+Referenced by join\+\_\+map().
+
+\hypertarget{mkmap_8c_a894604b3687b9ef24fbd3860e4975fd3}{\index{mkmap.\+c@{mkmap.\+c}!min\+\_\+rx@{min\+\_\+rx}}
+\index{min\+\_\+rx@{min\+\_\+rx}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{min\+\_\+rx}]{\setlength{\rightskip}{0pt plus 5cm}int min\+\_\+rx}}\label{mkmap_8c_a894604b3687b9ef24fbd3860e4975fd3}
+
+
+Definition at line 24 of file mkmap.\+c.
+
+\hypertarget{mkmap_8c_ad85187115f92107d269ef993f80036f0}{\index{mkmap.\+c@{mkmap.\+c}!min\+\_\+ry@{min\+\_\+ry}}
+\index{min\+\_\+ry@{min\+\_\+ry}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{min\+\_\+ry}]{\setlength{\rightskip}{0pt plus 5cm}int min\+\_\+ry}}\label{mkmap_8c_ad85187115f92107d269ef993f80036f0}
+
+
+Definition at line 24 of file mkmap.\+c.
+
+\hypertarget{mkmap_8c_a73f82c422f64dd457e6a6962f76818e8}{\index{mkmap.\+c@{mkmap.\+c}!n\+\_\+loc\+\_\+filled@{n\+\_\+loc\+\_\+filled}}
+\index{n\+\_\+loc\+\_\+filled@{n\+\_\+loc\+\_\+filled}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{n\+\_\+loc\+\_\+filled}]{\setlength{\rightskip}{0pt plus 5cm}int n\+\_\+loc\+\_\+filled\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmap_8c_a73f82c422f64dd457e6a6962f76818e8}
+
+
+Definition at line 25 of file mkmap.\+c.
+
+\hypertarget{mkmap_8c_ae54fe7a9cfadbf81ee802ea57051ebff}{\index{mkmap.\+c@{mkmap.\+c}!new\+\_\+locations@{new\+\_\+locations}}
+\index{new\+\_\+locations@{new\+\_\+locations}!mkmap.\+c@{mkmap.\+c}}
+\subsubsection[{new\+\_\+locations}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ new\+\_\+locations}}\label{mkmap_8c_ae54fe7a9cfadbf81ee802ea57051ebff}
+
+
+Definition at line 23 of file mkmap.\+c.
+

@@ -1,0 +1,185 @@
+\hypertarget{mhsplash_8h}{\section{nethack/win/win32/mhsplash.h File Reference}
+\label{mhsplash_8h}\index{nethack/win/win32/mhsplash.\+h@{nethack/win/win32/mhsplash.\+h}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mhsplash_8h_aa8dac0e3fd8f58d00bd35922c3a8e22f}{mswin\+\_\+display\+\_\+splash\+\_\+window} (B\+O\+O\+L)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{mhsplash_8h_aa8dac0e3fd8f58d00bd35922c3a8e22f}{\index{mhsplash.\+h@{mhsplash.\+h}!mswin\+\_\+display\+\_\+splash\+\_\+window@{mswin\+\_\+display\+\_\+splash\+\_\+window}}
+\index{mswin\+\_\+display\+\_\+splash\+\_\+window@{mswin\+\_\+display\+\_\+splash\+\_\+window}!mhsplash.\+h@{mhsplash.\+h}}
+\subsubsection[{mswin\+\_\+display\+\_\+splash\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+display\+\_\+splash\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{B\+O\+O\+L}]{}
+\end{DoxyParamCaption}
+)}}\label{mhsplash_8h_aa8dac0e3fd8f58d00bd35922c3a8e22f}
+
+
+Definition at line 27 of file mhsplash.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, C\+O\+P\+Y\+R\+I\+G\+H\+T\+\_\+\+B\+A\+N\+N\+E\+R\+\_\+\+A, C\+O\+P\+Y\+R\+I\+G\+H\+T\+\_\+\+B\+A\+N\+N\+E\+R\+\_\+\+B, C\+O\+P\+Y\+R\+I\+G\+H\+T\+\_\+\+B\+A\+N\+N\+E\+R\+\_\+\+C, Create\+Dialog(), dlb, dlb\+\_\+fclose, dlb\+\_\+fgets, dlb\+\_\+fopen, free(), Get\+N\+H\+App(), getversionstring(), mswin\+\_\+nhwindow\+\_\+app\+::h\+Main\+Wnd, mswin\+\_\+nhwindow\+\_\+app\+::h\+Popup\+Wnd, I\+D\+C\+\_\+\+E\+X\+T\+R\+A\+I\+N\+F\+O, I\+D\+D\+\_\+\+S\+P\+L\+A\+S\+H, iflags, L\+L\+E\+N, malloc(), mswin\+\_\+destroy\+\_\+splashfonts(), mswin\+\_\+hwnd\+\_\+from\+\_\+winid(), mswin\+\_\+init\+\_\+splashfonts(), N\+E\+W\+S, instance\+\_\+flags\+::news, N\+H\+Splash\+Wnd\+Proc(), N\+U\+L\+L, O\+P\+T\+I\+O\+N\+S\+\_\+\+U\+S\+E\+D, panic(), R\+D\+T\+M\+O\+D\+E, S\+P\+L\+A\+S\+H\+\_\+\+H\+E\+I\+G\+H\+T, S\+P\+L\+A\+S\+H\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+X, S\+P\+L\+A\+S\+H\+\_\+\+O\+F\+F\+S\+E\+T\+\_\+\+Y, S\+P\+L\+A\+S\+H\+\_\+\+W\+I\+D\+T\+H, Sprintf, T\+R\+U\+E, and W\+I\+N\+\_\+\+M\+A\+P.
+
+
+\begin{DoxyCode}
+28 \{
+29     MSG msg;
+30     HWND mapWnd;
+31     \textcolor{keywordtype}{int} left, top;
+32     RECT splashrt;
+33     RECT clientrt;
+34     RECT controlrt;
+35     HWND hWnd;
+36     \textcolor{keywordtype}{int} buttop;
+37     \textcolor{keywordtype}{int} strsize = 0;
+38     \textcolor{keywordtype}{int} bufsize = \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ};
+39 
+40     \textcolor{keywordtype}{char} *\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf} = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(bufsize);
+41     \textcolor{keywordflow}{if} (buf == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+42         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"out of memory"});
+43     buf[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+44 
+45     hWnd = \hyperlink{dialogs_8c_aaf356545a4c5797e317091864c988de0}{CreateDialog}(\hyperlink{mhsplash_8c_afa11eb8c832e838349416cf3bbdd29fe}{GetNHApp}()->hApp, MAKEINTRESOURCE(
+      \hyperlink{win_2win32_2resource_8h_ab710128630d3f574b291ea98049e5d64}{IDD\_SPLASH}),
+46         \hyperlink{mhsplash_8c_afa11eb8c832e838349416cf3bbdd29fe}{GetNHApp}()->hMainWnd, \hyperlink{mhsplash_8c_a0372fe93797522215d9094c2b5bef07a}{NHSplashWndProc});
+47     \textcolor{keywordflow}{if}( !hWnd ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create Splash window"});
+48     \hyperlink{win_2win32_2mhfont_8c_af183ec81747c907c779d089ba1556ad2}{mswin\_init\_splashfonts}(hWnd);
+49     \hyperlink{mhsplash_8c_afa11eb8c832e838349416cf3bbdd29fe}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_a92e7b581dd0fad9d1af8364e5bcfe395}{hPopupWnd} = hWnd;
+50     mapWnd = \hyperlink{sys_2wince_2mswproc_8c_a0890d6b16657f7ad53aebadc8818f147}{mswin\_hwnd\_from\_winid}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP});
+51     \textcolor{keywordflow}{if}( !IsWindow(mapWnd) ) mapWnd = \hyperlink{mhsplash_8c_afa11eb8c832e838349416cf3bbdd29fe}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_ada318d77e9dd51678af5d9a3ce6ef03a}{hMainWnd};
+52     \textcolor{comment}{/* Get control size */}
+53     GetWindowRect (GetDlgItem(hWnd, IDOK), &controlrt);
+54     controlrt.right -= controlrt.left;
+55     controlrt.bottom -= controlrt.top;
+56     \textcolor{comment}{/* Get current client area */}
+57     GetClientRect (hWnd, &clientrt);
+58     \textcolor{comment}{/* Get window size */}
+59     GetWindowRect(hWnd, &splashrt);
+60     splashrt.right -= splashrt.left;
+61     splashrt.bottom -= splashrt.top;
+62     \textcolor{comment}{/* Get difference between requested client area and current value */}
+63     splashrt.right += \hyperlink{mhsplash_8c_a300803638e66cb9428c1ab04712c70a6}{SPLASH\_WIDTH} + \hyperlink{mhsplash_8c_a624203c05ab9c5f804b76ce242e263f6}{SPLASH\_OFFSET\_X} * 2 - clientrt.right;
+64     splashrt.bottom += \hyperlink{mhsplash_8c_a0751a8420b717eb073eab7b05a9954dd}{SPLASH\_HEIGHT} + controlrt.bottom + 
+      \hyperlink{mhsplash_8c_a1355d767efd48c02587f8da09eaac59b}{SPLASH\_OFFSET\_Y} * 3 - clientrt.bottom;
+65     \textcolor{comment}{/* Place the window centered */}
+66     \textcolor{comment}{/* On the screen, not on the parent window */}
+67     left = (GetSystemMetrics(SM\_CXSCREEN) - splashrt.right) / 2;
+68     top = (GetSystemMetrics(SM\_CYSCREEN) - splashrt.bottom) / 2;
+69     MoveWindow(hWnd, left, top, splashrt.right, splashrt.bottom, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+70     \textcolor{comment}{/* Place the OK control */}
+71     GetClientRect (hWnd, &clientrt);
+72     MoveWindow (GetDlgItem(hWnd, IDOK),
+73         (clientrt.right - clientrt.left - controlrt.right) / 2,
+74         clientrt.bottom - controlrt.bottom - \hyperlink{mhsplash_8c_a1355d767efd48c02587f8da09eaac59b}{SPLASH\_OFFSET\_Y},
+75         controlrt.right, controlrt.bottom, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+76     buttop = clientrt.bottom - controlrt.bottom - \hyperlink{mhsplash_8c_a1355d767efd48c02587f8da09eaac59b}{SPLASH\_OFFSET\_Y};
+77     \textcolor{comment}{/* Place the text control */}
+78     GetWindowRect (GetDlgItem(hWnd, \hyperlink{win_2win32_2resource_8h_a98b8cea2ce7bcdbe2f2bcd52288843a3}{IDC\_EXTRAINFO}), &controlrt);
+79     controlrt.right -= controlrt.left;
+80     controlrt.bottom -= controlrt.top;
+81     GetClientRect (hWnd, &clientrt);
+82     MoveWindow (GetDlgItem(hWnd, \hyperlink{win_2win32_2resource_8h_a98b8cea2ce7bcdbe2f2bcd52288843a3}{IDC\_EXTRAINFO}),
+83         clientrt.left + \hyperlink{mhsplash_8c_a624203c05ab9c5f804b76ce242e263f6}{SPLASH\_OFFSET\_X},
+84         buttop - controlrt.bottom - \hyperlink{mhsplash_8c_a1355d767efd48c02587f8da09eaac59b}{SPLASH\_OFFSET\_Y},
+85         clientrt.right - 2 * \hyperlink{mhsplash_8c_a624203c05ab9c5f804b76ce242e263f6}{SPLASH\_OFFSET\_X}, controlrt.bottom, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+86     \textcolor{comment}{/* Fill the text control */}
+87     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"%s\(\backslash\)r\(\backslash\)n%s\(\backslash\)r\(\backslash\)n%s\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"}, \hyperlink{patchlevel_8h_a31bf6260dfee590f28735d5a27134912}{COPYRIGHT\_BANNER\_A}, 
+      \hyperlink{patchlevel_8h_a991809ab96e6f409bbf21d0d6e81d633}{COPYRIGHT\_BANNER\_B},
+88         \hyperlink{patchlevel_8h_a4eb1b20c11643715355dbf210025037f}{COPYRIGHT\_BANNER\_C});
+89     strsize = strlen(buf);
+90     
+91     \textcolor{keywordflow}{if} (show\_ver) \{
+92         \textcolor{comment}{/* Show complete version information */}
+93         \hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} *f;
+94 
+95         \hyperlink{version_8c_a431d9e78249b81eccfcaf792ebe5ff9b}{getversionstring}(buf + strsize);
+96         strcat(buf, \textcolor{stringliteral}{"\(\backslash\)r\(\backslash\)n\(\backslash\)r\(\backslash\)n"});
+97         strsize = strlen(buf);
+98 
+99         \textcolor{comment}{/* Add compile options */}
+100         f = \hyperlink{dlb_8h_a46a9ab27d1ae601750baeacc2c0a8d44}{dlb\_fopen}(\hyperlink{global_8h_a5c59035788bda63bfeb375f55b31b733}{OPTIONS\_USED}, \hyperlink{dlb_8h_a52b55e796a44079bc56afab59e8c0c89}{RDTMODE});
+101         \textcolor{keywordflow}{if} (f) \{
+102         \textcolor{keywordtype}{char} line[\hyperlink{mhsplash_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{LLEN} + 1];
+103         
+104         \textcolor{keywordflow}{while} (\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \hyperlink{mhsplash_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{LLEN}, f)) \{
+105             \textcolor{keywordtype}{size\_t} len;
+106             len = strlen(line);
+107             \textcolor{keywordflow}{if} (len > 0 && line[len - 1] == \textcolor{charliteral}{'\(\backslash\)n'}) \{
+108             line[len - 1] = \textcolor{charliteral}{'\(\backslash\)r'};
+109             line[len] = \textcolor{charliteral}{'\(\backslash\)n'};
+110             line[len + 1] = \textcolor{charliteral}{'\(\backslash\)0'};
+111             len++;
+112             \}
+113             \textcolor{keywordflow}{if} (strsize + (\textcolor{keywordtype}{int})len + 1 > bufsize)
+114             \{
+115             bufsize += \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ};
+116             buf = realloc(buf, bufsize);
+117             \textcolor{keywordflow}{if} (buf == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+118                 \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"out of memory"});
+119             \}
+120             strcat(buf, line);
+121             strsize += len;
+122         \}
+123         (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(f);
+124         \}
+125     \} \textcolor{keywordflow}{else} \{
+126         \textcolor{comment}{/* Show news, if any */}
+127         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news}) \{        
+128         FILE *nf;
+129         
+130         \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news} = 0; \textcolor{comment}{/* prevent newgame() from re-displaying news */}
+131         nf = fopen(\hyperlink{config_8h_adfcdf96482b20ff90defa8fd75b84a7c}{NEWS}, \textcolor{stringliteral}{"r"});
+132         \textcolor{keywordflow}{if} (nf != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+133             \textcolor{keywordtype}{char} line[\hyperlink{mhsplash_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{LLEN} + 1];
+134             
+135             \textcolor{keywordflow}{while} (fgets(line, \hyperlink{mhsplash_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{LLEN}, nf)) \{
+136             \textcolor{keywordtype}{size\_t} len;
+137             len = strlen(line);
+138             \textcolor{keywordflow}{if} (len > 0 && line[len - 1] == \textcolor{charliteral}{'\(\backslash\)n'}) \{
+139                 line[len - 1] = \textcolor{charliteral}{'\(\backslash\)r'};
+140                 line[len] = \textcolor{charliteral}{'\(\backslash\)n'};
+141                 line[len + 1] = \textcolor{charliteral}{'\(\backslash\)0'};
+142                 len++;
+143             \}
+144             \textcolor{keywordflow}{if} (strsize + (\textcolor{keywordtype}{int})len + 1 > bufsize)
+145             \{
+146                 bufsize += \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ};
+147                 buf = realloc(buf, bufsize);
+148                 \textcolor{keywordflow}{if} (buf == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+149                 \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"out of memory"});
+150             \}
+151             strcat(buf, line);
+152             strsize += len;
+153             \}
+154             (void) fclose(nf);
+155         \} 
+156         \textcolor{keywordflow}{else}
+157         \{
+158             strcat(buf, \textcolor{stringliteral}{"No news."});
+159         \}
+160         \}
+161     \}
+162     SetWindowText(GetDlgItem(hWnd, \hyperlink{win_2win32_2resource_8h_a98b8cea2ce7bcdbe2f2bcd52288843a3}{IDC\_EXTRAINFO}), buf);
+163     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(buf);
+164     ShowWindow(hWnd, SW\_SHOW);
+165     
+166     \textcolor{keywordflow}{while}( IsWindow(hWnd) &&
+167         GetMessage(&msg, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, 0, 0)!=0 ) \{
+168         \textcolor{keywordflow}{if}( !IsDialogMessage(hWnd, &msg) ) \{
+169         TranslateMessage(&msg);
+170         DispatchMessage(&msg);
+171         \}
+172     \}
+173     
+174     \hyperlink{mhsplash_8c_afa11eb8c832e838349416cf3bbdd29fe}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_a92e7b581dd0fad9d1af8364e5bcfe395}{hPopupWnd} = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+175     \hyperlink{win_2win32_2mhfont_8c_aedda99a174cadffcb558af5d5c29c0cd}{mswin\_destroy\_splashfonts}();
+176 \}
+\end{DoxyCode}

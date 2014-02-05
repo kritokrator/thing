@@ -1,0 +1,3275 @@
+\hypertarget{winX_8c}{\section{nethack/win/\+X11/win\+X.c File Reference}
+\label{winX_8c}\index{nethack/win/\+X11/win\+X.\+c@{nethack/win/\+X11/win\+X.\+c}}
+}
+{\ttfamily \#include $<$X11/\+Intrinsic.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+String\+Defs.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Shell.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Ascii\+Text.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Label.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Form.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Scrollbar.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Paned.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xaw/\+Cardinals.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xatom.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Xos.\+h$>$}\\*
+{\ttfamily \#include $<$X11/\+Intrinsic\+P.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}win\+X.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}patchlevel.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../win/\+X11/nh72icon\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../win/\+X11/nh56icon\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}../win/\+X11/nh32icon\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structicon__info}{icon\+\_\+info}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{winX_8c_a871513d8c7abd319565c0f9393d28f9a}{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/
+\item 
+\#define \hyperlink{winX_8c_a65af386e2921b37edb5733a301f81891}{Xt\+Specification\+Release}~0
+\item 
+\#define \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}, value)
+\item 
+\#define \hyperlink{winX_8c_a2d7c68dadf6550dc989a583d2aac3e52}{C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R}~\char`\"{}\textbackslash{}033\char`\"{}
+\item 
+\#define \hyperlink{winX_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{L\+L\+E\+N}~128
+\item 
+\#define \hyperlink{winX_8c_a34a11399ac43cb20389bb06303b874bb}{T\+I\+T\+L\+E\+B\+A\+R\+\_\+\+S\+P\+A\+C\+E}~18 /$\ast$ Leave S\+O\+M\+E screen for window decorations $\ast$/
+\item 
+\#define \hyperlink{winX_8c_ac306dc70903a927a8be3921213906b7c}{H\+\_\+\+D\+E\+L\+T\+A}~0.\+25		/$\ast$ distance of horiz shift $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{winX_8c_a5df19850c63bdaed895f482f08dc0891}{F\+D\+E\+C\+L} (($\ast$\hyperlink{winX_8h_a71168197df994d22165ba05dadb4892a}{input\+\_\+func}),(Widget, X\+Event $\ast$, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$, Cardinal $\ast$))
+\item 
+static void \hyperlink{winX_8c_a83315f912fc5404dd4a61eb66f9716b4}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_a760efe41f92c09311471d9b2cad6eae8}{dismiss\+\_\+file},(Widget, X\+Event $\ast$, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$, Cardinal $\ast$))
+\item 
+static void \hyperlink{winX_8c_a7e5da18eb71baf3168ab2b571ac74121}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_a8b5e8f72fa6614f417f6ac74e25afb51}{delete\+\_\+file},(Widget, X\+Event $\ast$, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$, Cardinal $\ast$))
+\item 
+static void \hyperlink{winX_8c_a601fe655680c9749e7a23a78a1b90074}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_ad2168e52aad2c9240c169233cf746dee}{yn\+\_\+key},(Widget, X\+Event $\ast$, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$, Cardinal $\ast$))
+\item 
+static void \hyperlink{winX_8c_a1e710cc0ba9e425eba2ed26d3de6edca}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_a7dd305c71ba1d17823e54832311ed38b}{yn\+\_\+delete},(Widget, X\+Event $\ast$, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$, Cardinal $\ast$))
+\item 
+static void \hyperlink{winX_8c_abd7b071cd41d065050c2795583fe3df9}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_a37bd1e2df6bd4e40136e1eb9f0f5bae5}{askname\+\_\+delete},(Widget, X\+Event $\ast$, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$, Cardinal $\ast$))
+\item 
+static void \hyperlink{winX_8c_a7dd2187aa485ff029ddfdfede3686021}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_aad5c96661e33f532d56ed893acccf521}{getline\+\_\+delete},(Widget, X\+Event $\ast$, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$, Cardinal $\ast$))
+\item 
+static void \hyperlink{winX_8c_a4b8483e3fd5d6483d7cf3b546f0a4256}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_ac8f45ec374359adc682de32ab9d0522d}{X11\+\_\+hangup},(Widget, X\+Event $\ast$, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$, Cardinal $\ast$))
+\item 
+static int \hyperlink{winX_8c_abb252748641134cc6f224fca85c8b7de}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_a8da0c4cc062913b69b9137c0c75be7ca}{input\+\_\+event},(int))
+\item 
+static void \hyperlink{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}{F\+D\+E\+C\+L} (\hyperlink{winX_8c_a74518d5f109e7c2f8fbad7e36024021a}{win\+\_\+visible},(Widget, Xt\+Pointer, X\+Event $\ast$, Boolean $\ast$))
+\item 
+static void \hyperlink{winX_8c_aef6b46a1c8f2267b73c0330308d89d73}{N\+D\+E\+C\+L} (\hyperlink{winX_8c_a23041680f2f91606b339a0cfdda56c74}{init\+\_\+standard\+\_\+windows})
+\item 
+struct \hyperlink{structxwindow}{xwindow} $\ast$ \hyperlink{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{find\+\_\+widget} (Widget w)
+\item 
+static \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{winX_8c_a65331b9041bcd80211ac78dc78ed82b3}{find\+\_\+free\+\_\+window} ()
+\item 
+Boolean \hyperlink{winX_8c_a19ba03dc489f783e4184ddd73158b4ed}{nh\+Approx\+Color} (Screen $\ast$screen, Colormap colormap, char $\ast$str, X\+Color $\ast$color)
+\item 
+Boolean \hyperlink{winX_8c_acdf408079578a80bb1cd91da74c99178}{nh\+Cvt\+String\+To\+Pixel} (Display $\ast$dpy, Xrm\+Value\+Ptr args, Cardinal $\ast$num\+\_\+args, Xrm\+Value\+Ptr from\+Val, Xrm\+Value\+Ptr to\+Val, Xt\+Pointer $\ast$closure\+\_\+ret)
+\item 
+static void \hyperlink{winX_8c_a50c189b2e415c6c93335fa7ddbfbc2d9}{nh\+Free\+Pixel} (Xt\+App\+Context app, Xrm\+Value\+Ptr to\+Val, Xt\+Pointer closure, Xrm\+Value\+Ptr args, Cardinal $\ast$num\+\_\+args)
+\item 
+Dimension \hyperlink{winX_8c_ae3632fa17aaccf5e4d8465051d42c658}{nh\+Font\+Height} (Widget w)
+\item 
+void \hyperlink{winX_8c_a642fbfc36d3c04989f892c751d973da4}{X11\+\_\+raw\+\_\+print} (char $\ast$str) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{winX_8c_aceef7b03e650d9dc6c08c59ba2c46e50}{X11\+\_\+raw\+\_\+print\+\_\+bold} (char $\ast$str) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{winX_8c_a4c780317ec5250491afb3734b0b406f4}{X11\+\_\+curs} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window, int x, int y)
+\item 
+void \hyperlink{winX_8c_aaee9812ba8f8c3b4ae478837bd904350}{X11\+\_\+putstr} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window, int attr, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$str)
+\item 
+void \hyperlink{winX_8c_a130a01ca8c8cb6a9935d743681b1ff50}{X11\+\_\+get\+\_\+nh\+\_\+event} ()
+\item 
+int \hyperlink{winX_8c_ac1b60e9f9016dcf754bde2c22ec75537}{X11\+\_\+nhgetch} ()
+\item 
+int \hyperlink{winX_8c_a4b01cd563856eae9407287018001d042}{X11\+\_\+nh\+\_\+poskey} (int $\ast$x, int $\ast$y, int $\ast$mod)
+\item 
+\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{winX_8c_ae804740eba46236013bff6d3d78a29b1}{X11\+\_\+create\+\_\+nhwindow} (int \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type})
+\item 
+void \hyperlink{winX_8c_a3b154c742aea2a7bd843531fface43c1}{X11\+\_\+clear\+\_\+nhwindow} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window)
+\item 
+void \hyperlink{winX_8c_aeb3001d92d1888a875ca2f549049d6b7}{X11\+\_\+display\+\_\+nhwindow} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} blocking)
+\item 
+void \hyperlink{winX_8c_a80f2dd28d7527810c3fda39f9ec1c487}{X11\+\_\+destroy\+\_\+nhwindow} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window)
+\item 
+void \hyperlink{winX_8c_a66575a5507a52d088586b32a660e62d8}{X11\+\_\+update\+\_\+inventory} ()
+\item 
+int \hyperlink{winX_8c_abc4220577c59a08c1c7312147822a3cf}{X11\+\_\+doprev\+\_\+message} ()
+\item 
+void \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\+\_\+nhbell} ()
+\item 
+void \hyperlink{winX_8c_a2a63fbfb50bedb44e0dd966c44f0b838}{X11\+\_\+mark\+\_\+synch} ()
+\item 
+void \hyperlink{winX_8c_a7a787d92bd790c7ba9907411cc9281d4}{X11\+\_\+wait\+\_\+synch} ()
+\item 
+void \hyperlink{winX_8c_ad11e83e1f3c3a50cd4de2f847d790d83}{X11\+\_\+resume\+\_\+nhwindows} ()
+\item 
+void \hyperlink{winX_8c_a975b8b035fac0464fb9220a56e43aa26}{X11\+\_\+suspend\+\_\+nhwindows} (char $\ast$str) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{winX_8c_a592181ba6438f52197d8282e07fe28e3}{X11\+\_\+number\+\_\+pad} (int \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state})
+\item 
+void \hyperlink{winX_8c_a8195dde8202024918b618f5dd9ad6e44}{X11\+\_\+start\+\_\+screen} ()
+\item 
+void \hyperlink{winX_8c_ab12a80c48bce4ca50a1317c4f750fefa}{X11\+\_\+end\+\_\+screen} ()
+\item 
+void \hyperlink{winX_8c_ade8f3d89e28afb33a0e20c0cefe97384}{X11\+\_\+init\+\_\+nhwindows} (int $\ast$argcp, char $\ast$$\ast$argv)
+\item 
+void \hyperlink{winX_8c_ace739b0f500bd15b4d1de1ecdc9e3f80}{X11\+\_\+exit\+\_\+nhwindows} (char $\ast$dummy) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+static void \hyperlink{winX_8c_aa22bb1cab344ce24076d1c67aeded29a}{d\+\_\+timeout} (Xt\+Pointer client\+\_\+data, Xt\+Interval\+Id $\ast$id)
+\item 
+void \hyperlink{winX_8c_a44c7a74cd948ca3101a3dd6f038f710b}{X11\+\_\+delay\+\_\+output} ()
+\item 
+static void \hyperlink{winX_8c_ac8f45ec374359adc682de32ab9d0522d}{X11\+\_\+hangup} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+static void \hyperlink{winX_8c_a37bd1e2df6bd4e40136e1eb9f0f5bae5}{askname\+\_\+delete} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+static void \hyperlink{winX_8c_aa6cd1b9e96ba2c42105c0a2007d000ba}{askname\+\_\+done} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+void \hyperlink{winX_8c_aac28677e94e0513e09a8d79b1adae926}{X11\+\_\+askname} ()
+\item 
+static void \hyperlink{winX_8c_a8763a554d0bc8190cb20f835cb27706a}{done\+\_\+button} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+static void \hyperlink{winX_8c_aad5c96661e33f532d56ed893acccf521}{getline\+\_\+delete} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+static void \hyperlink{winX_8c_a2dc6a9fccdda2e198f12611525da9ed7}{abort\+\_\+button} (Widget w, Xt\+Pointer client\+\_\+data, Xt\+Pointer call\+\_\+data)
+\item 
+void \hyperlink{winX_8c_a3d030eb77c8ebdf4aa29ce498d3ba0c6}{X11\+\_\+getlin} (char $\ast$question, char $\ast$\hyperlink{lev__lex_8c_ab77a69608c1c09f3f14d24fce44e09ca}{input}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+static void \hyperlink{winX_8c_a8b5e8f72fa6614f417f6ac74e25afb51}{delete\+\_\+file} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+static void \hyperlink{winX_8c_a760efe41f92c09311471d9b2cad6eae8}{dismiss\+\_\+file} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+void \hyperlink{winX_8c_a1ea661c4c6a5f5f2e76fc3d418525bdd}{X11\+\_\+display\+\_\+file} (char $\ast$str, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} complain) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+char \hyperlink{winX_8c_af3b290f389630afad6dbf7b302f20606}{key\+\_\+event\+\_\+to\+\_\+char} (X\+Key\+Event $\ast$key)
+\item 
+static void \hyperlink{winX_8c_a7dd305c71ba1d17823e54832311ed38b}{yn\+\_\+delete} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+static void \hyperlink{winX_8c_ad2168e52aad2c9240c169233cf746dee}{yn\+\_\+key} (Widget w, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\item 
+char \hyperlink{winX_8c_ad050f2245bb1ec6994c8a66d0ba18f2b}{X11\+\_\+yn\+\_\+function} (char $\ast$ques, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$choices, char def) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+static int \hyperlink{winX_8c_a8da0c4cc062913b69b9137c0c75be7ca}{input\+\_\+event} (int exit\+\_\+condition)
+\item 
+void \hyperlink{winX_8c_a5f09d0c56de4de4ddd393d2692829cae}{msgkey} (Widget w, Xt\+Pointer data, X\+Event $\ast$event)
+\item 
+static void \hyperlink{winX_8c_a74518d5f109e7c2f8fbad7e36024021a}{win\+\_\+visible} (Widget w, Xt\+Pointer data, X\+Event $\ast$event, Boolean $\ast$\hyperlink{structflag}{flag})
+\item 
+static void \hyperlink{winX_8c_a23041680f2f91606b339a0cfdda56c74}{init\+\_\+standard\+\_\+windows} ()
+\item 
+void \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\+\_\+\+Xt\+Popup} (Widget w, int g, Widget childwid)
+\item 
+void \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\+\_\+\+Xt\+Popdown} (Widget w)
+\item 
+void \hyperlink{winX_8c_a198566f621760809580af0230c7f4500}{win\+\_\+\+X11\+\_\+init} ()
+\item 
+void \hyperlink{winX_8c_a1ef34b4749eba5c8dcb8505046e8788b}{nh\+\_\+keyscroll} (Widget viewport, X\+Event $\ast$event, \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} $\ast$params, Cardinal $\ast$num\+\_\+params)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static struct \hyperlink{structicon__info}{icon\+\_\+info} \hyperlink{winX_8c_a3f382f475a83305ace6a48b3efcd28e8}{icon\+\_\+data} \mbox{[}$\,$\mbox{]}
+\item 
+struct \hyperlink{structxwindow}{xwindow} \hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\+\_\+list} \mbox{[}\hyperlink{winX_8h_a96f609b2a30e2dc3cc404945cdb2d55e}{M\+A\+X\+\_\+\+W\+I\+N\+D\+O\+W\+S}\mbox{]}
+\item 
+\hyperlink{structAppResources}{App\+Resources} \hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{app\+Resources}
+\item 
+int \hyperlink{winX_8c_a89aa1c1525f82269298a01d552e60037}{click\+\_\+x}
+\item 
+int \hyperlink{winX_8c_aba43294be5cc34c20fa3d3a58af45f0d}{click\+\_\+y}
+\item 
+int \hyperlink{winX_8c_a79e3d6b50909c2df96bbb32505510740}{click\+\_\+button}
+\item 
+int \hyperlink{winX_8c_a6ca4de3c8234e8e4b93e46c294e7c3d3}{updated\+\_\+inventory}
+\item 
+struct \hyperlink{structwindow__procs}{window\+\_\+procs} \hyperlink{winX_8c_ab46e2872a6da3913de336c9fec860f96}{X11\+\_\+procs}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{x\+\_\+inited} = \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\item 
+static \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}{message\+\_\+win} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{W\+I\+N\+\_\+\+E\+R\+R}
+\item 
+static \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{winX_8c_a83f370a31bf4e070af369271fbd4a764}{map\+\_\+win} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{W\+I\+N\+\_\+\+E\+R\+R}
+\item 
+static \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{winX_8c_a87ce9896c8fcc91bcc47d66c02f377a0}{status\+\_\+win} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{W\+I\+N\+\_\+\+E\+R\+R}
+\item 
+static Pixmap \hyperlink{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}{icon\+\_\+pixmap} = None
+\item 
+Xt\+Convert\+Arg\+Rec \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{winX_8c_abb2e0a016f4529f84611eee1335d697f}{nhcolor\+Convert\+Args} \mbox{[}$\,$\mbox{]}
+\item 
+Xt\+App\+Context \hyperlink{winX_8c_ad3ba0e65b22f83236faa4df3e5225428}{app\+\_\+context}
+\item 
+Widget \hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel} = (Widget) 0
+\item 
+Atom \hyperlink{winX_8c_a3ef9c9cc4661ff9293b92d17be2b7b27}{wm\+\_\+delete\+\_\+window}
+\item 
+static Xt\+Actions\+Rec \hyperlink{winX_8c_abfdced56ad6e268381b1d7e45aba9b9b}{actions} \mbox{[}$\,$\mbox{]}
+\item 
+static Xt\+Resource \hyperlink{winX_8c_ad1aef8009121e3bfbb45c34daa7863bb}{resources} \mbox{[}$\,$\mbox{]}
+\item 
+static Widget \hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\+\_\+popup}
+\item 
+static Widget \hyperlink{winX_8c_a564b71214a0fe3dc9df74a831ee7c58e}{getline\+\_\+dialog}
+\item 
+static char $\ast$ \hyperlink{winX_8c_a3b04f41f1f1bdcda0f8ba5e5028b3d50}{getline\+\_\+input}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{winX_8c_ad742c5cacc20c924783ce561dd95d23a}{display\+\_\+translations} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{winX_8c_ae048248779167ec4301f5d283cd24fe1}{yn\+\_\+quitchars} = \char`\"{} \textbackslash{}n\textbackslash{}r\char`\"{}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{winX_8c_a6e95461f61d9c9f27180d2a0f3775b41}{yn\+\_\+choices}
+\item 
+static char \hyperlink{winX_8c_a78c2dee335493c7108bb769c9d959870}{yn\+\_\+def}
+\item 
+static char \hyperlink{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{yn\+\_\+return}
+\item 
+static char \hyperlink{winX_8c_a7dd015f980e8d798c219b645465751c6}{yn\+\_\+esc\+\_\+map}
+\item 
+static Widget \hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\+\_\+popup}
+\item 
+static Widget \hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\+\_\+label}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\+\_\+getting\+\_\+num}
+\item 
+static int \hyperlink{winX_8c_a7ee805d9db5303cdb2c528e8522852ce}{yn\+\_\+ndigits}
+\item 
+static long \hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\+\_\+val}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{winX_8c_af6ca75633bd100c211f135297db6886c}{yn\+\_\+translations} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{winX_8c_a2d7c68dadf6550dc989a583d2aac3e52}{\index{win\+X.\+c@{win\+X.\+c}!C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R@{C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R}}
+\index{C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R@{C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R~\char`\"{}\textbackslash{}033\char`\"{}}}\label{winX_8c_a2d7c68dadf6550dc989a583d2aac3e52}
+
+
+Definition at line 1204 of file win\+X.\+c.
+
+
+
+Referenced by abort\+\_\+button(), and getline\+\_\+delete().
+
+\hypertarget{winX_8c_a032589f4f70300762622fd253db008d0}{\index{win\+X.\+c@{win\+X.\+c}!done@{done}}
+\index{done@{done}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{done}]{\setlength{\rightskip}{0pt plus 5cm}\#define done(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf type}, }
+\item[{}]{value}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a032589f4f70300762622fd253db008d0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{                           \(\backslash\)
+        if (toVal->addr != 0) \{             \(\backslash\)
+        if (toVal->size < \textcolor{keyword}{sizeof}(\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type})) \{       \(\backslash\)
+            toVal->size = \textcolor{keyword}{sizeof}(\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type});         \(\backslash\)
+            return False;               \(\backslash\)
+        \}                       \(\backslash\)
+        *(\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}*)(toVal->addr) = (value);        \(\backslash\)
+        \}                           \(\backslash\)
+        else \{                      \(\backslash\)
+        static \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} static\_val;             \(\backslash\)
+        static\_val = (value);               \(\backslash\)
+        toVal->addr = (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&static\_val;    \(\backslash\)
+        \}                           \(\backslash\)
+        toVal->size = \textcolor{keyword}{sizeof}(\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type});             \(\backslash\)
+        return True;                    \(\backslash\)
+    \}
+\end{DoxyCode}
+
+
+Definition at line 230 of file win\+X.\+c.
+
+
+
+Referenced by dosacrifice(), dosave0(), Edit\+Clipping(), Edit\+Color(), fry\+\_\+by\+\_\+god(), Get\+Code(), gulpum(), kick\+\_\+object(), level\+\_\+tele(), losexp(), Main\+Wnd\+Proc(), mswin\+\_\+getlin(), nh\+Cvt\+String\+To\+Pixel(), on\+M\+S\+N\+H\+Command(), toss\+\_\+up(), and trickery().
+
+\hypertarget{winX_8c_ac306dc70903a927a8be3921213906b7c}{\index{win\+X.\+c@{win\+X.\+c}!H\+\_\+\+D\+E\+L\+T\+A@{H\+\_\+\+D\+E\+L\+T\+A}}
+\index{H\+\_\+\+D\+E\+L\+T\+A@{H\+\_\+\+D\+E\+L\+T\+A}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{H\+\_\+\+D\+E\+L\+T\+A}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+\_\+\+D\+E\+L\+T\+A~0.\+25		/$\ast$ distance of horiz shift $\ast$/}}\label{winX_8c_ac306dc70903a927a8be3921213906b7c}
+
+
+Referenced by nh\+\_\+keyscroll().
+
+\hypertarget{winX_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{\index{win\+X.\+c@{win\+X.\+c}!L\+L\+E\+N@{L\+L\+E\+N}}
+\index{L\+L\+E\+N@{L\+L\+E\+N}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{L\+L\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+L\+E\+N~128}}\label{winX_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}
+
+
+Referenced by X11\+\_\+display\+\_\+file().
+
+\hypertarget{winX_8c_a871513d8c7abd319565c0f9393d28f9a}{\index{win\+X.\+c@{win\+X.\+c}!P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}}
+\index{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V@{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+E\+S\+E\+R\+V\+E\+\_\+\+N\+O\+\_\+\+S\+Y\+S\+V~/$\ast$ X11 include files may define S\+Y\+S\+V $\ast$/}}\label{winX_8c_a871513d8c7abd319565c0f9393d28f9a}
+
+
+Definition at line 12 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a34a11399ac43cb20389bb06303b874bb}{\index{win\+X.\+c@{win\+X.\+c}!T\+I\+T\+L\+E\+B\+A\+R\+\_\+\+S\+P\+A\+C\+E@{T\+I\+T\+L\+E\+B\+A\+R\+\_\+\+S\+P\+A\+C\+E}}
+\index{T\+I\+T\+L\+E\+B\+A\+R\+\_\+\+S\+P\+A\+C\+E@{T\+I\+T\+L\+E\+B\+A\+R\+\_\+\+S\+P\+A\+C\+E}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{T\+I\+T\+L\+E\+B\+A\+R\+\_\+\+S\+P\+A\+C\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+I\+T\+L\+E\+B\+A\+R\+\_\+\+S\+P\+A\+C\+E~18 /$\ast$ Leave S\+O\+M\+E screen for window decorations $\ast$/}}\label{winX_8c_a34a11399ac43cb20389bb06303b874bb}
+
+
+Referenced by init\+\_\+standard\+\_\+windows().
+
+\hypertarget{winX_8c_a65af386e2921b37edb5733a301f81891}{\index{win\+X.\+c@{win\+X.\+c}!Xt\+Specification\+Release@{Xt\+Specification\+Release}}
+\index{Xt\+Specification\+Release@{Xt\+Specification\+Release}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{Xt\+Specification\+Release}]{\setlength{\rightskip}{0pt plus 5cm}\#define Xt\+Specification\+Release~0}}\label{winX_8c_a65af386e2921b37edb5733a301f81891}
+
+
+Definition at line 60 of file win\+X.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{winX_8c_a2dc6a9fccdda2e198f12611525da9ed7}{\index{win\+X.\+c@{win\+X.\+c}!abort\+\_\+button@{abort\+\_\+button}}
+\index{abort\+\_\+button@{abort\+\_\+button}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{abort\+\_\+button}]{\setlength{\rightskip}{0pt plus 5cm}static void abort\+\_\+button (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a2dc6a9fccdda2e198f12611525da9ed7}
+
+
+Definition at line 1250 of file win\+X.\+c.
+
+
+
+References C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R, exit\+\_\+x\+\_\+event, nh\+\_\+\+Xt\+Popdown(), Strcpy, and T\+R\+U\+E.
+
+
+
+Referenced by X11\+\_\+getlin().
+
+
+\begin{DoxyCode}
+1254 \{
+1255     Widget dialog = (Widget) client\_data;
+1256 
+1257     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{winX_8c_a3b04f41f1f1bdcda0f8ba5e5028b3d50}{getline\_input}, \hyperlink{winX_8c_a2d7c68dadf6550dc989a583d2aac3e52}{CANCEL\_STR});
+1258     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(XtParent(dialog));
+1259     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1260 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a37bd1e2df6bd4e40136e1eb9f0f5bae5}{\index{win\+X.\+c@{win\+X.\+c}!askname\+\_\+delete@{askname\+\_\+delete}}
+\index{askname\+\_\+delete@{askname\+\_\+delete}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{askname\+\_\+delete}]{\setlength{\rightskip}{0pt plus 5cm}static void askname\+\_\+delete (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a37bd1e2df6bd4e40136e1eb9f0f5bae5}
+
+
+Definition at line 1127 of file win\+X.\+c.
+
+
+
+References exit\+\_\+x\+\_\+event, nh\+\_\+\+Xt\+Popdown(), plname, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+1132 \{
+1133     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(w);
+1134     (void) strcpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"Mumbles"}); \textcolor{comment}{/* give them a name... ;-) */}
+1135     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1136 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_aa6cd1b9e96ba2c42105c0a2007d000ba}{\index{win\+X.\+c@{win\+X.\+c}!askname\+\_\+done@{askname\+\_\+done}}
+\index{askname\+\_\+done@{askname\+\_\+done}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{askname\+\_\+done}]{\setlength{\rightskip}{0pt plus 5cm}static void askname\+\_\+done (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_aa6cd1b9e96ba2c42105c0a2007d000ba}
+
+
+Definition at line 1141 of file win\+X.\+c.
+
+
+
+References exit\+\_\+x\+\_\+event, Get\+Dialog\+Response(), nh\+\_\+\+Xt\+Popdown(), plname, T\+R\+U\+E, and X11\+\_\+nhbell().
+
+
+
+Referenced by X11\+\_\+askname().
+
+
+\begin{DoxyCode}
+1145 \{
+1146     \textcolor{keywordtype}{int} len;
+1147     \textcolor{keywordtype}{char} *s;
+1148     Widget dialog = (Widget) client\_data;
+1149 
+1150     s = (\textcolor{keywordtype}{char} *) \hyperlink{dialogs_8c_a7764e35a0effec87a8477a2ec6a8dbc1}{GetDialogResponse}(dialog);
+1151 
+1152     len = strlen(s);
+1153     \textcolor{keywordflow}{if} (len == 0) \{
+1154     \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+1155     \textcolor{keywordflow}{return};
+1156     \}
+1157 
+1158     \textcolor{comment}{/* Truncate name if necessary */}
+1159     \textcolor{keywordflow}{if} (len >= \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1)
+1160     len = \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1;
+1161 
+1162     (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, s, len);
+1163     \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}[len] = \textcolor{charliteral}{'\(\backslash\)0'};
+1164     XtFree(s);
+1165 
+1166     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(XtParent(dialog));
+1167     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1168 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_aa22bb1cab344ce24076d1c67aeded29a}{\index{win\+X.\+c@{win\+X.\+c}!d\+\_\+timeout@{d\+\_\+timeout}}
+\index{d\+\_\+timeout@{d\+\_\+timeout}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{d\+\_\+timeout}]{\setlength{\rightskip}{0pt plus 5cm}static void d\+\_\+timeout (
+\begin{DoxyParamCaption}
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Interval\+Id $\ast$}]{id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_aa22bb1cab344ce24076d1c67aeded29a}
+
+
+Definition at line 1076 of file win\+X.\+c.
+
+
+
+References W\+I\+N\+\_\+\+M\+A\+P, and window\+\_\+list.
+
+
+
+Referenced by X11\+\_\+delay\+\_\+output().
+
+
+\begin{DoxyCode}
+1079 \{
+1080     XEvent event;
+1081     XClientMessageEvent *mesg;
+1082 
+1083     \textcolor{comment}{/* Set up a fake message to the event handler. */}
+1084     mesg = (XClientMessageEvent *) &event;
+1085     mesg->type = ClientMessage;
+1086     mesg->message\_type = XA\_STRING;
+1087     mesg->format = 8;
+1088     XSendEvent(XtDisplay(\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}].w),
+1089         XtWindow(\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}].w),
+1090         False,
+1091         NoEventMask,
+1092         (XEvent*) mesg);
+1093 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a8b5e8f72fa6614f417f6ac74e25afb51}{\index{win\+X.\+c@{win\+X.\+c}!delete\+\_\+file@{delete\+\_\+file}}
+\index{delete\+\_\+file@{delete\+\_\+file}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{delete\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}static void delete\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a8b5e8f72fa6614f417f6ac74e25afb51}
+
+
+Definition at line 1314 of file win\+X.\+c.
+
+
+
+References nh\+\_\+\+Xt\+Popdown().
+
+
+\begin{DoxyCode}
+1319 \{
+1320     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(w);
+1321     XtDestroyWidget(w);
+1322 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a760efe41f92c09311471d9b2cad6eae8}{\index{win\+X.\+c@{win\+X.\+c}!dismiss\+\_\+file@{dismiss\+\_\+file}}
+\index{dismiss\+\_\+file@{dismiss\+\_\+file}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{dismiss\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}static void dismiss\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a760efe41f92c09311471d9b2cad6eae8}
+
+
+Definition at line 1327 of file win\+X.\+c.
+
+
+
+References nh\+\_\+\+Xt\+Popdown().
+
+
+\begin{DoxyCode}
+1332 \{
+1333     Widget popup = XtParent(w);
+1334     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(popup);
+1335     XtDestroyWidget(popup);
+1336 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a8763a554d0bc8190cb20f835cb27706a}{\index{win\+X.\+c@{win\+X.\+c}!done\+\_\+button@{done\+\_\+button}}
+\index{done\+\_\+button@{done\+\_\+button}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{done\+\_\+button}]{\setlength{\rightskip}{0pt plus 5cm}static void done\+\_\+button (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{client\+\_\+data, }
+\item[{Xt\+Pointer}]{call\+\_\+data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a8763a554d0bc8190cb20f835cb27706a}
+
+
+Definition at line 1211 of file win\+X.\+c.
+
+
+
+References B\+U\+F\+S\+Z, exit\+\_\+x\+\_\+event, Get\+Dialog\+Response(), nh\+\_\+\+Xt\+Popdown(), and T\+R\+U\+E.
+
+
+
+Referenced by X11\+\_\+getlin().
+
+
+\begin{DoxyCode}
+1215 \{
+1216     \textcolor{keywordtype}{int} len;
+1217     \textcolor{keywordtype}{char} *s;
+1218     Widget dialog = (Widget) client\_data;
+1219 
+1220     s = (\textcolor{keywordtype}{char} *) \hyperlink{dialogs_8c_a7764e35a0effec87a8477a2ec6a8dbc1}{GetDialogResponse}(dialog);
+1221     len = strlen(s);
+1222 
+1223     \textcolor{comment}{/* Truncate input if necessary */}
+1224     \textcolor{keywordflow}{if} (len >= \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}) len = \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ} - 1;
+1225 
+1226     (void) strncpy(\hyperlink{winX_8c_a3b04f41f1f1bdcda0f8ba5e5028b3d50}{getline\_input}, s, len);
+1227     \hyperlink{winX_8c_a3b04f41f1f1bdcda0f8ba5e5028b3d50}{getline\_input}[len] = \textcolor{charliteral}{'\(\backslash\)0'};
+1228     XtFree(s);
+1229 
+1230     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(XtParent(dialog));
+1231     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1232 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a5df19850c63bdaed895f482f08dc0891}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{$\ast$}]{input\+\_\+func, }
+\item[{(Widget, X\+Event $\ast$, {\bf String} $\ast$, Cardinal $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a5df19850c63bdaed895f482f08dc0891}
+\hypertarget{winX_8c_a83315f912fc5404dd4a61eb66f9716b4}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf dismiss\+\_\+file}}]{, }
+\item[{(Widget, X\+Event $\ast$, {\bf String} $\ast$, Cardinal $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a83315f912fc5404dd4a61eb66f9716b4}
+\hypertarget{winX_8c_a7e5da18eb71baf3168ab2b571ac74121}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf delete\+\_\+file}}]{, }
+\item[{(Widget, X\+Event $\ast$, {\bf String} $\ast$, Cardinal $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a7e5da18eb71baf3168ab2b571ac74121}
+\hypertarget{winX_8c_a601fe655680c9749e7a23a78a1b90074}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf yn\+\_\+key}}]{, }
+\item[{(Widget, X\+Event $\ast$, {\bf String} $\ast$, Cardinal $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a601fe655680c9749e7a23a78a1b90074}
+\hypertarget{winX_8c_a1e710cc0ba9e425eba2ed26d3de6edca}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf yn\+\_\+delete}}]{, }
+\item[{(Widget, X\+Event $\ast$, {\bf String} $\ast$, Cardinal $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a1e710cc0ba9e425eba2ed26d3de6edca}
+\hypertarget{winX_8c_abd7b071cd41d065050c2795583fe3df9}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf askname\+\_\+delete}}]{, }
+\item[{(Widget, X\+Event $\ast$, {\bf String} $\ast$, Cardinal $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_abd7b071cd41d065050c2795583fe3df9}
+\hypertarget{winX_8c_a7dd2187aa485ff029ddfdfede3686021}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf getline\+\_\+delete}}]{, }
+\item[{(Widget, X\+Event $\ast$, {\bf String} $\ast$, Cardinal $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a7dd2187aa485ff029ddfdfede3686021}
+\hypertarget{winX_8c_a4b8483e3fd5d6483d7cf3b546f0a4256}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf X11\+\_\+hangup}}]{, }
+\item[{(Widget, X\+Event $\ast$, {\bf String} $\ast$, Cardinal $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a4b8483e3fd5d6483d7cf3b546f0a4256}
+\hypertarget{winX_8c_abb252748641134cc6f224fca85c8b7de}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf input\+\_\+event}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_abb252748641134cc6f224fca85c8b7de}
+\hypertarget{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}{\index{win\+X.\+c@{win\+X.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf win\+\_\+visible}}]{, }
+\item[{(Widget, Xt\+Pointer, X\+Event $\ast$, Boolean $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}
+\hypertarget{winX_8c_a65331b9041bcd80211ac78dc78ed82b3}{\index{win\+X.\+c@{win\+X.\+c}!find\+\_\+free\+\_\+window@{find\+\_\+free\+\_\+window}}
+\index{find\+\_\+free\+\_\+window@{find\+\_\+free\+\_\+window}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{find\+\_\+free\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf winid} find\+\_\+free\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a65331b9041bcd80211ac78dc78ed82b3}
+
+
+Definition at line 204 of file win\+X.\+c.
+
+
+
+References M\+A\+X\+\_\+\+W\+I\+N\+D\+O\+W\+S, N\+H\+W\+\_\+\+N\+O\+N\+E, panic(), xwindow\+::type, and window\+\_\+list.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows(), and X11\+\_\+create\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+205 \{
+206     \textcolor{keywordtype}{int} windex;
+207     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+208 
+209     \textcolor{keywordflow}{for} (windex = 0, wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[0]; windex < \hyperlink{winX_8h_a96f609b2a30e2dc3cc404945cdb2d55e}{MAX\_WINDOWS}; windex++, wp++)
+210     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} == \hyperlink{winX_8h_ad149374e5170c08d2036a33dbf0f7b23}{NHW\_NONE}) \textcolor{keywordflow}{break};
+211 
+212     \textcolor{keywordflow}{if} (windex == MAX\_WINDOWS)
+213     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"find\_free\_window: no free windows!"});
+214     \textcolor{keywordflow}{return} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid}) windex;
+215 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a98c7f578b252486cfb7d3a91987a4291}{\index{win\+X.\+c@{win\+X.\+c}!find\+\_\+widget@{find\+\_\+widget}}
+\index{find\+\_\+widget@{find\+\_\+widget}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{find\+\_\+widget}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xwindow}$\ast$ find\+\_\+widget (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a98c7f578b252486cfb7d3a91987a4291}
+
+
+Definition at line 182 of file win\+X.\+c.
+
+
+
+References M\+A\+X\+\_\+\+W\+I\+N\+D\+O\+W\+S, N\+H\+W\+\_\+\+N\+O\+N\+E, panic(), xwindow\+::popup, xwindow\+::type, xwindow\+::w, and window\+\_\+list.
+
+
+
+Referenced by delete\+\_\+text(), dismiss\+\_\+text(), map\+\_\+exposed(), menu\+\_\+delete(), menu\+\_\+key(), menu\+\_\+select(), mesg\+\_\+exposed(), mesg\+\_\+resized(), and set\+\_\+button\+\_\+values().
+
+
+\begin{DoxyCode}
+184 \{
+185     \textcolor{keywordtype}{int} windex;
+186     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+187 
+188     \textcolor{comment}{/* Search to find the corresponding window.  Look at the main widget, */}
+189     \textcolor{comment}{/* popup, the parent of the main widget, then parent of the widget. */}
+190     \textcolor{keywordflow}{for} (windex = 0, wp = \hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}; windex < \hyperlink{winX_8h_a96f609b2a30e2dc3cc404945cdb2d55e}{MAX\_WINDOWS}; windex++, wp++)
+191     \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} != \hyperlink{winX_8h_ad149374e5170c08d2036a33dbf0f7b23}{NHW\_NONE} &&
+192         (wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} == \hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} || wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} == \hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} || (wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w} && (XtParent(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})) == 
+      \hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})
+193         || (wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} == XtParent(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}))))
+194         \textcolor{keywordflow}{break};
+195 
+196     \textcolor{keywordflow}{if} (windex == MAX\_WINDOWS) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"find\_widget:  can't match widget"});
+197     \textcolor{keywordflow}{return} wp;
+198 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_aad5c96661e33f532d56ed893acccf521}{\index{win\+X.\+c@{win\+X.\+c}!getline\+\_\+delete@{getline\+\_\+delete}}
+\index{getline\+\_\+delete@{getline\+\_\+delete}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{getline\+\_\+delete}]{\setlength{\rightskip}{0pt plus 5cm}static void getline\+\_\+delete (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_aad5c96661e33f532d56ed893acccf521}
+
+
+Definition at line 1236 of file win\+X.\+c.
+
+
+
+References C\+A\+N\+C\+E\+L\+\_\+\+S\+T\+R, exit\+\_\+x\+\_\+event, nh\+\_\+\+Xt\+Popdown(), Strcpy, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+1241 \{
+1242     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{winX_8c_a3b04f41f1f1bdcda0f8ba5e5028b3d50}{getline\_input}, \hyperlink{winX_8c_a2d7c68dadf6550dc989a583d2aac3e52}{CANCEL\_STR});
+1243     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+1244     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1245 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a23041680f2f91606b339a0cfdda56c74}{\index{win\+X.\+c@{win\+X.\+c}!init\+\_\+standard\+\_\+windows@{init\+\_\+standard\+\_\+windows}}
+\index{init\+\_\+standard\+\_\+windows@{init\+\_\+standard\+\_\+windows}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{init\+\_\+standard\+\_\+windows}]{\setlength{\rightskip}{0pt plus 5cm}static void init\+\_\+standard\+\_\+windows (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a23041680f2f91606b339a0cfdda56c74}
+
+
+Definition at line 1741 of file win\+X.\+c.
+
+
+
+References App\+Resources\+::autofocus, C\+O\+L\+N\+O, create\+\_\+map\+\_\+window(), create\+\_\+message\+\_\+window(), create\+\_\+status\+\_\+window(), xwindow\+::cursx, xwindow\+::cursy, F\+A\+L\+S\+E, find\+\_\+free\+\_\+window(), iflags, map\+\_\+win, message\+\_\+win, min, msgkey(), null\+\_\+out\+\_\+status(), xwindow\+::pixel\+\_\+height, xwindow\+::pixel\+\_\+width, xwindow\+::popup, post\+\_\+process\+\_\+tiles(), R\+O\+W\+N\+O, set\+\_\+map\+\_\+size(), set\+\_\+message\+\_\+slider(), App\+Resources\+::slow, status\+\_\+win, T\+I\+T\+L\+E\+B\+A\+R\+\_\+\+S\+P\+A\+C\+E, xwindow\+::w, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, win\+\_\+visible(), instance\+\_\+flags\+::window\+\_\+inited, and window\+\_\+list.
+
+
+
+Referenced by X11\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+1742 \{
+1743     Widget form, message\_viewport, map\_viewport, status;
+1744     Arg args[8];
+1745     Cardinal num\_args;
+1746     Dimension message\_vp\_width, map\_vp\_width, status\_width, max\_width;
+1747     \textcolor{keywordtype}{int} map\_vp\_hd, status\_hd;
+1748     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+1749 
+1750 
+1751     num\_args = 0;
+1752     XtSetArg(args[num\_args], XtNallowShellResize, True);    num\_args++;
+1753     form = XtCreateManagedWidget(\textcolor{stringliteral}{"nethack"},
+1754                 panedWidgetClass,
+1755                 \hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, args, num\_args);
+1756 
+1757     XtAddEventHandler(form, KeyPressMask, False,
+1758               (XtEventHandler) \hyperlink{winX_8c_a5f09d0c56de4de4ddd393d2692829cae}{msgkey}, (XtPointer) 0);
+1759 
+1760     \textcolor{keywordflow}{if} (\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_acd1ad738ab69d0538dee41f849b3df00}{autofocus})
+1761     XtAddEventHandler(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, VisibilityChangeMask, False,
+1762               \hyperlink{winX_8c_a74518d5f109e7c2f8fbad7e36024021a}{win\_visible}, (XtPointer) 0);
+1763 
+1764     \textcolor{comment}{/*}
+1765 \textcolor{comment}{     * Create message window.}
+1766 \textcolor{comment}{     */}
+1767     \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} = \hyperlink{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}{message\_win} = \hyperlink{winX_8c_a65331b9041bcd80211ac78dc78ed82b3}{find\_free\_window}();
+1768     wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}{message\_win}];
+1769     wp->\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx} = wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy} = wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width} = wp->
+      \hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} = 0;
+1770     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = (Widget) 0;
+1771     \hyperlink{winmesg_8c_a9b472a60fff40069ef06ff7dfe87bb4d}{create\_message\_window}(wp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, form);
+1772     message\_viewport = XtParent(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+1773 
+1774 
+1775     \textcolor{comment}{/* Tell the form that contains it that resizes are OK. */}
+1776     num\_args = 0;
+1777     XtSetArg(args[num\_args], XtNresizable, True);       num\_args++;
+1778     XtSetArg(args[num\_args], XtNleft,      XtChainLeft);    num\_args++;
+1779     XtSetArg(args[num\_args], XtNtop,       XtChainTop);     num\_args++;
+1780     XtSetValues(message\_viewport, args, num\_args);
+1781 
+1782     \textcolor{keywordflow}{if}(\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_a1c7a8208dca6dbf4d9907629bc1e8f7f}{slow}) \{
+1783     num\_args = 0;
+1784     XtSetArg(args[num\_args], XtNtranslations,
+1785          XtParseTranslationTable(\hyperlink{winX_8c_af6ca75633bd100c211f135297db6886c}{yn\_translations})); num\_args++;
+1786     \hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\_label} = XtCreateManagedWidget(\textcolor{stringliteral}{"yn\_label"},
+1787                      labelWidgetClass,
+1788                      form,
+1789                      args, num\_args);
+1790     num\_args = 0;
+1791     XtSetArg(args[num\_args], XtNfromVert, message\_viewport); num\_args++;
+1792     XtSetArg(args[num\_args], XtNjustify, XtJustifyLeft);    num\_args++;
+1793     XtSetArg(args[num\_args], XtNresizable, True);   num\_args++;
+1794     XtSetArg(args[num\_args], XtNlabel, \textcolor{stringliteral}{" "});    num\_args++;
+1795     XtSetValues(\hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\_label}, args, num\_args);
+1796     \}
+1797 
+1798     \textcolor{comment}{/*}
+1799 \textcolor{comment}{     * Create the map window & viewport and chain the viewport beneath the}
+1800 \textcolor{comment}{     * message\_viewport.}
+1801 \textcolor{comment}{     */}
+1802     \hyperlink{winX_8c_a83f370a31bf4e070af369271fbd4a764}{map\_win} = \hyperlink{winX_8c_a65331b9041bcd80211ac78dc78ed82b3}{find\_free\_window}();
+1803     wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{winX_8c_a83f370a31bf4e070af369271fbd4a764}{map\_win}];
+1804     wp->\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx} = wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy} = wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width} = wp->
+      \hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} = 0;
+1805     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = (Widget) 0;
+1806     \hyperlink{winmap_8c_a31703da034dd70eb3a40553e02f4cfad}{create\_map\_window}(wp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, form);
+1807     map\_viewport = XtParent(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+1808 
+1809     \textcolor{comment}{/* Chain beneath message\_viewport or yn window. */}
+1810     num\_args = 0;
+1811     \textcolor{keywordflow}{if}(\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_a1c7a8208dca6dbf4d9907629bc1e8f7f}{slow}) \{
+1812     XtSetArg(args[num\_args], XtNfromVert, \hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\_label});    num\_args++;
+1813     \} \textcolor{keywordflow}{else} \{
+1814     XtSetArg(args[num\_args], XtNfromVert, message\_viewport);num\_args++;
+1815     \}
+1816     XtSetArg(args[num\_args], XtNbottom, XtChainBottom);     num\_args++;
+1817     XtSetValues(map\_viewport, args, num\_args);
+1818 
+1819     \textcolor{comment}{/* Create the status window, with the form as it's parent. */}
+1820     \hyperlink{winX_8c_a87ce9896c8fcc91bcc47d66c02f377a0}{status\_win} = \hyperlink{winX_8c_a65331b9041bcd80211ac78dc78ed82b3}{find\_free\_window}();
+1821     wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{winX_8c_a87ce9896c8fcc91bcc47d66c02f377a0}{status\_win}];
+1822     wp->\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx} = wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy} = wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width} = wp->
+      \hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} = 0;
+1823     wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup} = (Widget) 0;
+1824     \hyperlink{winstat_8c_a6c6c645429ab1cce40fb6759568c81a4}{create\_status\_window}(wp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, form);
+1825     status = wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w};
+1826 
+1827     \textcolor{comment}{/*}
+1828 \textcolor{comment}{     * Chain the status window beneath the viewport.  Mark the left and right}
+1829 \textcolor{comment}{     * edges so that they stay a fixed distance from the left edge of the}
+1830 \textcolor{comment}{     * parent, as well as the top and bottom edges so that they stay a fixed}
+1831 \textcolor{comment}{     * distance from the bottom of the parent.  We do this so that the status}
+1832 \textcolor{comment}{     * will never expand or contract.}
+1833 \textcolor{comment}{     */}
+1834     num\_args = 0;
+1835     XtSetArg(args[num\_args], XtNfromVert, map\_viewport);    num\_args++;
+1836     XtSetArg(args[num\_args], XtNleft,     XtChainLeft);     num\_args++;
+1837     XtSetArg(args[num\_args], XtNright,    XtChainLeft);     num\_args++;
+1838     XtSetArg(args[num\_args], XtNtop,      XtChainBottom);   num\_args++;
+1839     XtSetArg(args[num\_args], XtNbottom,   XtChainBottom);   num\_args++;
+1840     XtSetValues(status, args, num\_args);
+1841 
+1842 
+1843     \textcolor{comment}{/*}
+1844 \textcolor{comment}{     * Realize the popup so that the status widget knows it's size.}
+1845 \textcolor{comment}{     *}
+1846 \textcolor{comment}{     * If we unset MappedWhenManaged then the DECwindow driver doesn't}
+1847 \textcolor{comment}{     * attach the nethack toplevel to the highest virtual root window.}
+1848 \textcolor{comment}{     * So don't do it.}
+1849 \textcolor{comment}{     */}
+1850     \textcolor{comment}{/* XtSetMappedWhenManaged(toplevel, False); */}
+1851     XtRealizeWidget(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel});
+1852     \hyperlink{winX_8c_a3ef9c9cc4661ff9293b92d17be2b7b27}{wm\_delete\_window} = XInternAtom(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}),
+1853                    \textcolor{stringliteral}{"WM\_DELETE\_WINDOW"}, False);
+1854     XSetWMProtocols(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}), XtWindow(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}),
+1855             &\hyperlink{winX_8c_a3ef9c9cc4661ff9293b92d17be2b7b27}{wm\_delete\_window}, 1);
+1856 
+1857     \textcolor{comment}{/*}
+1858 \textcolor{comment}{     * Resize to at most full-screen.}
+1859 \textcolor{comment}{     */}
+1860     \{
+1861 \textcolor{preprocessor}{#define TITLEBAR\_SPACE 18 }\textcolor{comment}{/* Leave SOME screen for window decorations */}\textcolor{preprocessor}{}
+1862 
+1863     \textcolor{keywordtype}{int} screen\_width  = WidthOfScreen(XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}));
+1864     \textcolor{keywordtype}{int} screen\_height = HeightOfScreen(XtScreen(wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w})) - \hyperlink{winX_8c_a34a11399ac43cb20389bb06303b874bb}{TITLEBAR\_SPACE};
+1865     Dimension form\_width, form\_height;
+1866 
+1867     XtSetArg(args[0], XtNwidth, &form\_width);
+1868     XtSetArg(args[1], XtNheight, &form\_height);
+1869     XtGetValues(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, args, TWO);
+1870     
+1871     \textcolor{keywordflow}{if} (form\_width > screen\_width || form\_height > screen\_height) \{
+1872         XtSetArg(args[0], XtNwidth, \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(form\_width,screen\_width));
+1873         XtSetArg(args[1], XtNheight, \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(form\_height,screen\_height));
+1874         XtSetValues(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, args, TWO);
+1875         XMoveWindow(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}),XtWindow(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}),
+1876         0, \hyperlink{winX_8c_a34a11399ac43cb20389bb06303b874bb}{TITLEBAR\_SPACE});
+1877     \}
+1878 \textcolor{preprocessor}{#undef TITLEBAR\_SPACE}
+1879     \}
+1880 
+1881     \hyperlink{winmap_8c_a485e7ef14f0713eb988fe6068352f42a}{post\_process\_tiles}(); \textcolor{comment}{/* after toplevel is realized */}
+1882 
+1883     \textcolor{comment}{/*}
+1884 \textcolor{comment}{     * Now get the default widths of the windows.}
+1885 \textcolor{comment}{     */}
+1886     XtSetArg(args[0], XtNwidth, &message\_vp\_width);
+1887     XtGetValues(message\_viewport, args, ONE);
+1888     XtSetArg(args[0], XtNwidth, &map\_vp\_width);
+1889     XtSetArg(args[1], XtNhorizDistance, &map\_vp\_hd);
+1890     XtGetValues(map\_viewport, args, TWO);
+1891     XtSetArg(args[0], XtNwidth, &status\_width);
+1892     XtSetArg(args[1], XtNhorizDistance, &status\_hd);
+1893     XtGetValues(status, args, TWO);
+1894 
+1895     \textcolor{comment}{/*}
+1896 \textcolor{comment}{     * Adjust positions and sizes.  The message viewport widens out to the}
+1897 \textcolor{comment}{     * widest width.  Both the map and status are centered by adjusting}
+1898 \textcolor{comment}{     * their horizDistance.}
+1899 \textcolor{comment}{     */}
+1900     \textcolor{keywordflow}{if} (map\_vp\_width < status\_width || map\_vp\_width < message\_vp\_width) \{
+1901     \textcolor{keywordflow}{if} (status\_width > message\_vp\_width) \{
+1902         XtSetArg(args[0], XtNwidth, status\_width);
+1903         XtSetValues(message\_viewport, args, ONE);
+1904         max\_width = status\_width;
+1905     \} \textcolor{keywordflow}{else} \{
+1906 \textcolor{comment}{/***** The status display looks better when left justified.}
+1907 \textcolor{comment}{        XtSetArg(args[0], XtNhorizDistance,}
+1908 \textcolor{comment}{                status\_hd+((message\_vp\_width-status\_width)/2));}
+1909 \textcolor{comment}{        XtSetValues(status, args, ONE);}
+1910 \textcolor{comment}{*****/}
+1911         max\_width = message\_vp\_width;
+1912     \}
+1913     XtSetArg(args[0], XtNhorizDistance, map\_vp\_hd+((\textcolor{keywordtype}{int})(max\_width-map\_vp\_width)/2));
+1914     XtSetValues(map\_viewport, args, ONE);
+1915 
+1916     \} \textcolor{keywordflow}{else} \{    \textcolor{comment}{/* map is widest */}
+1917     XtSetArg(args[0], XtNwidth, map\_vp\_width);
+1918     XtSetValues(message\_viewport, args, ONE);
+1919 
+1920 \textcolor{comment}{/***** The status display looks better when left justified.}
+1921 \textcolor{comment}{    XtSetArg(args[0], XtNhorizDistance,}
+1922 \textcolor{comment}{                status\_hd+((map\_vp\_width-status\_width)/2));}
+1923 \textcolor{comment}{}
+1924 \textcolor{comment}{    XtSetValues(status, args, ONE);}
+1925 \textcolor{comment}{*****/}
+1926     \}
+1927     \textcolor{comment}{/*}
+1928 \textcolor{comment}{     * Clear all data values on the fancy status widget so that the values}
+1929 \textcolor{comment}{     * used for spacing don't appear.  This needs to be called some time}
+1930 \textcolor{comment}{     * after the fancy status widget is realized (above, with the game popup),}
+1931 \textcolor{comment}{     * but before it is popped up.}
+1932 \textcolor{comment}{     */}
+1933     \hyperlink{winstat_8c_a3a7a97aae56721aa0155886271b3bf76}{null\_out\_status}();
+1934     \textcolor{comment}{/*}
+1935 \textcolor{comment}{     * Set the map size to its standard size.  As with the message window}
+1936 \textcolor{comment}{     * above, the map window needs to be set to its constrained size until}
+1937 \textcolor{comment}{     * its parent (the viewport widget) was realized.}
+1938 \textcolor{comment}{     *}
+1939 \textcolor{comment}{     * Move the message window's slider to the bottom.}
+1940 \textcolor{comment}{     */}
+1941     \hyperlink{winmap_8c_ad9fe51faff55646a7523d3aca4bb3fdb}{set\_map\_size}(&\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{winX_8c_a83f370a31bf4e070af369271fbd4a764}{map\_win}], \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}, 
+      \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO});
+1942     \hyperlink{winmesg_8c_ad7d285ef036dcbb192b821ac4828a1ef}{set\_message\_slider}(&\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}{message\_win}]);
+1943 
+1944     \textcolor{comment}{/* attempt to catch fatal X11 errors before the program quits */}
+1945     (void) XtAppSetErrorHandler(\hyperlink{winX_8c_ad3ba0e65b22f83236faa4df3e5225428}{app\_context}, (XtErrorHandler) hangup);
+1946 
+1947     \textcolor{comment}{/* We can now print to the message window. */}
+1948     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2fc6c78c4c5f6e1d0027ac575135426f}{window\_inited} = 1;
+1949 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a8da0c4cc062913b69b9137c0c75be7ca}{\index{win\+X.\+c@{win\+X.\+c}!input\+\_\+event@{input\+\_\+event}}
+\index{input\+\_\+event@{input\+\_\+event}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{input\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}static int input\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{int}]{exit\+\_\+condition}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a8da0c4cc062913b69b9137c0c75be7ca}
+
+
+Definition at line 1692 of file win\+X.\+c.
+
+
+
+References check\+\_\+cursor\+\_\+visibility(), check\+\_\+turn\+\_\+events(), set\+\_\+last\+\_\+pause(), W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+A\+P, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, W\+I\+N\+\_\+\+S\+T\+A\+T\+U\+S, window\+\_\+list, and x\+\_\+event().
+
+
+
+Referenced by X11\+\_\+nh\+\_\+poskey(), and X11\+\_\+nhgetch().
+
+
+\begin{DoxyCode}
+1694 \{
+1695     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ae0690a38fd295760409995ce03b88329}{WIN\_STATUS} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR}) \textcolor{comment}{/* hilighting on the fancy status window */}
+1696     \hyperlink{winstat_8c_a6073d2892589afa02d1b3bbcf7e2c78f}{check\_turn\_events}();
+1697     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})   \textcolor{comment}{/* make sure cursor is not clipped */}
+1698     \hyperlink{winmap_8c_ae2f397aa82a775c888b716c9dc9dbd9a}{check\_cursor\_visibility}(&\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[
+      \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}]);
+1699     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})   \textcolor{comment}{/* reset pause line */}
+1700     \hyperlink{winmesg_8c_a031c4f45a4142522189f32dcdb5df12f}{set\_last\_pause}(&\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}]);
+1701 
+1702     \textcolor{keywordflow}{return} \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\_event}(exit\_condition);
+1703 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_af3b290f389630afad6dbf7b302f20606}{\index{win\+X.\+c@{win\+X.\+c}!key\+\_\+event\+\_\+to\+\_\+char@{key\+\_\+event\+\_\+to\+\_\+char}}
+\index{key\+\_\+event\+\_\+to\+\_\+char@{key\+\_\+event\+\_\+to\+\_\+char}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{key\+\_\+event\+\_\+to\+\_\+char}]{\setlength{\rightskip}{0pt plus 5cm}char key\+\_\+event\+\_\+to\+\_\+char (
+\begin{DoxyParamCaption}
+\item[{X\+Key\+Event $\ast$}]{key}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_af3b290f389630afad6dbf7b302f20606}
+
+
+Definition at line 1477 of file win\+X.\+c.
+
+
+
+References M\+A\+X\+\_\+\+K\+E\+Y\+\_\+\+S\+T\+R\+I\+N\+G.
+
+
+
+Referenced by algn\+\_\+key(), ec\+\_\+key(), gend\+\_\+key(), key\+\_\+dismiss\+\_\+text(), menu\+\_\+key(), ps\+\_\+key(), race\+\_\+key(), and yn\+\_\+key().
+
+
+\begin{DoxyCode}
+1479 \{
+1480     \textcolor{keywordtype}{char} keystring[\hyperlink{winX_8h_a43522ef8ffe4c41d70f34c0e4ddf2336}{MAX\_KEY\_STRING}];
+1481     \textcolor{keywordtype}{int} nbytes;
+1482     \textcolor{keywordtype}{boolean} meta = !!(key->state & Mod1Mask);
+1483 
+1484     nbytes = XLookupString(key, keystring, \hyperlink{winX_8h_a43522ef8ffe4c41d70f34c0e4ddf2336}{MAX\_KEY\_STRING},
+1485                (KeySym *)0, (XComposeStatus *)0);
+1486 
+1487     \textcolor{comment}{/* Modifier keys return a zero lengh string when pressed. */}
+1488     \textcolor{keywordflow}{if} (nbytes == 0) \textcolor{keywordflow}{return} \textcolor{charliteral}{'\(\backslash\)0'};
+1489 
+1490     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{char}) (((int) keystring[0]) + (meta ? 0x80 : 0));
+1491 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a5f09d0c56de4de4ddd393d2692829cae}{\index{win\+X.\+c@{win\+X.\+c}!msgkey@{msgkey}}
+\index{msgkey@{msgkey}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{msgkey}]{\setlength{\rightskip}{0pt plus 5cm}void msgkey (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{data, }
+\item[{X\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a5f09d0c56de4de4ddd393d2692829cae}
+
+
+Definition at line 1708 of file win\+X.\+c.
+
+
+
+References map\+\_\+input(), String, W\+I\+N\+\_\+\+M\+A\+P, and window\+\_\+list.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows().
+
+
+\begin{DoxyCode}
+1712 \{
+1713     Cardinal num = 0;
+1714     \hyperlink{winmap_8c_ae4a947fe0b04a246c222a8d904f60dc6}{map\_input}(\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}].\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, event, (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String}*) 0, &num);
+1715 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_aef6b46a1c8f2267b73c0330308d89d73}{\index{win\+X.\+c@{win\+X.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+standard\+\_\+windows}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_aef6b46a1c8f2267b73c0330308d89d73}
+\hypertarget{winX_8c_a1ef34b4749eba5c8dcb8505046e8788b}{\index{win\+X.\+c@{win\+X.\+c}!nh\+\_\+keyscroll@{nh\+\_\+keyscroll}}
+\index{nh\+\_\+keyscroll@{nh\+\_\+keyscroll}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{nh\+\_\+keyscroll}]{\setlength{\rightskip}{0pt plus 5cm}void nh\+\_\+keyscroll (
+\begin{DoxyParamCaption}
+\item[{Widget}]{viewport, }
+\item[{X\+Event   $\ast$}]{event, }
+\item[{{\bf String}   $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a1ef34b4749eba5c8dcb8505046e8788b}
+
+
+Definition at line 1996 of file win\+X.\+c.
+
+
+
+References H\+\_\+\+D\+E\+L\+T\+A.
+
+
+\begin{DoxyCode}
+2001 \{
+2002     Arg arg[2];
+2003     Widget horiz\_sb, vert\_sb;
+2004     \textcolor{keywordtype}{float} top, shown;
+2005     Boolean do\_call;
+2006     \textcolor{keywordtype}{int} direction;
+2007     Cardinal in\_nparams = (num\_params ? *num\_params : 0);
+2008 
+2009     \textcolor{keywordflow}{if} (in\_nparams != 1) \textcolor{keywordflow}{return}; \textcolor{comment}{/* bad translation */}
+2010 
+2011     direction=atoi(params[0]);
+2012 
+2013     horiz\_sb = XtNameToWidget(viewport, \textcolor{stringliteral}{"*horizontal"});
+2014     vert\_sb  = XtNameToWidget(viewport, \textcolor{stringliteral}{"*vertical"});
+2015 
+2016     \textcolor{keywordflow}{if} (!horiz\_sb && !vert\_sb) \{
+2017     \textcolor{comment}{/* Perhaps the widget enclosing this has scrollbars (could use while) */}
+2018     Widget parent=XtParent(viewport);
+2019     \textcolor{keywordflow}{if} (parent) \{
+2020         horiz\_sb = XtNameToWidget(parent, \textcolor{stringliteral}{"horizontal"});
+2021         vert\_sb  = XtNameToWidget(parent, \textcolor{stringliteral}{"vertical"});
+2022     \}
+2023     \}
+2024 
+2025 \textcolor{preprocessor}{#define H\_DELTA 0.25        }\textcolor{comment}{/* distance of horiz shift */}\textcolor{preprocessor}{}
+2026                 \textcolor{comment}{/* vert shift is half of curr distance */}
+2027 \textcolor{comment}{/* The V\_DELTA is 1/2 the value of shown. */}
+2028 
+2029     \textcolor{keywordflow}{if} (horiz\_sb) \{
+2030     XtSetArg(arg[0], XtNshown,  &shown);
+2031     XtSetArg(arg[1], XtNtopOfThumb, &top);
+2032     XtGetValues(horiz\_sb, arg, TWO);
+2033 
+2034     do\_call = True;
+2035 
+2036     \textcolor{keywordflow}{switch} (direction) \{
+2037       \textcolor{keywordflow}{case} 1: \textcolor{keywordflow}{case} 4: \textcolor{keywordflow}{case} 7:
+2038         top -= \hyperlink{winX_8c_ac306dc70903a927a8be3921213906b7c}{H\_DELTA};
+2039         \textcolor{keywordflow}{if} (top < 0.0) top = 0.0;
+2040     \textcolor{keywordflow}{break}; \textcolor{keywordflow}{case} 3: \textcolor{keywordflow}{case} 6: \textcolor{keywordflow}{case} 9:
+2041         top += \hyperlink{winX_8c_ac306dc70903a927a8be3921213906b7c}{H\_DELTA};
+2042         \textcolor{keywordflow}{if} (top + shown > 1.0) top = 1.0 - shown;
+2043     \textcolor{keywordflow}{break}; \textcolor{keywordflow}{default}:
+2044         do\_call = False;
+2045     \}
+2046 
+2047     \textcolor{keywordflow}{if} (do\_call) \{
+2048         XtCallCallbacks(horiz\_sb, XtNjumpProc, &top);
+2049     \}
+2050     \}
+2051 
+2052     \textcolor{keywordflow}{if} (vert\_sb) \{
+2053     XtSetArg(arg[0], XtNshown,      &shown);
+2054     XtSetArg(arg[1], XtNtopOfThumb, &top);
+2055     XtGetValues(vert\_sb, arg, TWO);
+2056 
+2057     do\_call = True;
+2058 
+2059     \textcolor{keywordflow}{switch} (direction) \{
+2060       \textcolor{keywordflow}{case} 7: \textcolor{keywordflow}{case} 8: \textcolor{keywordflow}{case} 9:
+2061         top -= shown / 2.0;
+2062         \textcolor{keywordflow}{if} (top < 0.0) top = 0;
+2063     \textcolor{keywordflow}{break}; \textcolor{keywordflow}{case} 1: \textcolor{keywordflow}{case} 2: \textcolor{keywordflow}{case} 3:
+2064         top += shown / 2.0;
+2065         \textcolor{keywordflow}{if} (top + shown > 1.0) top = 1.0 - shown;
+2066     \textcolor{keywordflow}{break}; \textcolor{keywordflow}{default}:
+2067         do\_call = False;
+2068     \}
+2069 
+2070     \textcolor{keywordflow}{if} (do\_call) \{
+2071         XtCallCallbacks(vert\_sb, XtNjumpProc, &top);
+2072     \}
+2073     \}
+2074 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{\index{win\+X.\+c@{win\+X.\+c}!nh\+\_\+\+Xt\+Popdown@{nh\+\_\+\+Xt\+Popdown}}
+\index{nh\+\_\+\+Xt\+Popdown@{nh\+\_\+\+Xt\+Popdown}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{nh\+\_\+\+Xt\+Popdown}]{\setlength{\rightskip}{0pt plus 5cm}void nh\+\_\+\+Xt\+Popdown (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}
+
+
+Definition at line 1964 of file win\+X.\+c.
+
+
+
+References App\+Resources\+::autofocus.
+
+
+
+Referenced by abort\+\_\+button(), askname\+\_\+delete(), askname\+\_\+done(), clear\+\_\+old\+\_\+menu(), delete\+\_\+file(), delete\+\_\+text(), destroy\+\_\+map\+\_\+window(), destroy\+\_\+message\+\_\+window(), destroy\+\_\+status\+\_\+window(), dismiss\+\_\+file(), dismiss\+\_\+text(), display\+\_\+text\+\_\+window(), done\+\_\+button(), ec\+\_\+dismiss(), ec\+\_\+key(), extend\+\_\+select(), getline\+\_\+delete(), menu\+\_\+popdown(), popup\+\_\+delete(), X11\+\_\+player\+\_\+selection(), and X11\+\_\+yn\+\_\+function().
+
+
+\begin{DoxyCode}
+1966 \{
+1967     XtPopdown(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+1968     \textcolor{keywordflow}{if} (\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_acd1ad738ab69d0538dee41f849b3df00}{autofocus}) XtSetKeyboardFocus(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, None);
+1969 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_abccd5838d0a01837876f4eca8a208958}{\index{win\+X.\+c@{win\+X.\+c}!nh\+\_\+\+Xt\+Popup@{nh\+\_\+\+Xt\+Popup}}
+\index{nh\+\_\+\+Xt\+Popup@{nh\+\_\+\+Xt\+Popup}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{nh\+\_\+\+Xt\+Popup}]{\setlength{\rightskip}{0pt plus 5cm}void nh\+\_\+\+Xt\+Popup (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{int}]{g, }
+\item[{Widget}]{childwid}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_abccd5838d0a01837876f4eca8a208958}
+
+
+Definition at line 1953 of file win\+X.\+c.
+
+
+
+References App\+Resources\+::autofocus.
+
+
+
+Referenced by display\+\_\+text\+\_\+window(), X11\+\_\+askname(), X11\+\_\+display\+\_\+file(), X11\+\_\+display\+\_\+nhwindow(), X11\+\_\+get\+\_\+ext\+\_\+cmd(), X11\+\_\+getlin(), X11\+\_\+player\+\_\+selection(), X11\+\_\+select\+\_\+menu(), and X11\+\_\+yn\+\_\+function().
+
+
+\begin{DoxyCode}
+1957 \{
+1958     XtPopup(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, (XtGrabKind)g);
+1959     XSetWMProtocols(XtDisplay(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}), XtWindow(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}), &\hyperlink{winX_8c_a3ef9c9cc4661ff9293b92d17be2b7b27}{wm\_delete\_window}, 1);
+1960     \textcolor{keywordflow}{if} (\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_acd1ad738ab69d0538dee41f849b3df00}{autofocus}) XtSetKeyboardFocus(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, childwid);
+1961 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a19ba03dc489f783e4184ddd73158b4ed}{\index{win\+X.\+c@{win\+X.\+c}!nh\+Approx\+Color@{nh\+Approx\+Color}}
+\index{nh\+Approx\+Color@{nh\+Approx\+Color}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{nh\+Approx\+Color}]{\setlength{\rightskip}{0pt plus 5cm}Boolean nh\+Approx\+Color (
+\begin{DoxyParamCaption}
+\item[{Screen	 $\ast$}]{screen, }
+\item[{Colormap}]{colormap, }
+\item[{char     $\ast$}]{str, }
+\item[{X\+Color   $\ast$}]{color}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a19ba03dc489f783e4184ddd73158b4ed}
+
+
+Definition at line 261 of file win\+X.\+c.
+
+
+
+References flags.
+
+
+
+Referenced by init\+\_\+tiles(), and nh\+Cvt\+String\+To\+Pixel().
+
+
+\begin{DoxyCode}
+266 \{
+267     \textcolor{keywordtype}{int}     ncells;
+268     \textcolor{keywordtype}{long}    cdiff = 16777216; \textcolor{comment}{/* 2^24; hopefully our map is smaller */}
+269     XColor  tmp;
+270     \textcolor{keyword}{static}  XColor *table = 0;
+271     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i, j;
+272     \textcolor{keyword}{register} \textcolor{keywordtype}{long} tdiff;
+273 
+274     \textcolor{comment}{/* if the screen doesn't have a big colormap, don't waste our time */}
+275     \textcolor{comment}{/* or if it's huge, and \_some\_ match should have been possible */}
+276     \textcolor{keywordflow}{if}((ncells = CellsOfScreen(screen)) < 256 || ncells > 4096)
+277     \textcolor{keywordflow}{return} False;
+278 
+279     \textcolor{keywordflow}{if} (str != (\textcolor{keywordtype}{char} *)0) \{
+280     \textcolor{keywordflow}{if} (!XParseColor(DisplayOfScreen(screen), colormap, str, &tmp))
+281         \textcolor{keywordflow}{return} False;
+282     \} \textcolor{keywordflow}{else} \{
+283     tmp = *color;
+284     tmp.flags = 7;  \textcolor{comment}{/* force to use all 3 of RGB */}
+285     \}
+286 
+287     \textcolor{keywordflow}{if} (!table) \{
+288     table = (XColor *) XtCalloc(ncells, \textcolor{keyword}{sizeof}(XColor));
+289     \textcolor{keywordflow}{for}(i=0; i<ncells; i++)
+290         table[i].\hyperlink{structpixel}{pixel} = i;
+291     XQueryColors(DisplayOfScreen(screen), colormap, table, ncells);
+292     \}
+293 
+294     \textcolor{comment}{/* go thru cells and look for the one with smallest diff */}
+295     \textcolor{comment}{/* diff is calculated abs(reddiff)+abs(greendiff)+abs(bluediff) */}
+296     \textcolor{comment}{/* a more knowledgeable color person might improve this -dlc */}
+297 try\_again:
+298     \textcolor{keywordflow}{for}(i=0; i<ncells; i++) \{
+299     \textcolor{keywordflow}{if}(table[i].\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags} == tmp.flags) \{
+300         j = (int)table[i].red - (\textcolor{keywordtype}{int})tmp.red;
+301         \textcolor{keywordflow}{if}(j < 0) j = -j;
+302         tdiff = j;
+303         j = (int)table[i].green - (\textcolor{keywordtype}{int})tmp.green;
+304         \textcolor{keywordflow}{if}(j < 0) j = -j;
+305         tdiff += j;
+306         j = (int)table[i].blue - (\textcolor{keywordtype}{int})tmp.blue;
+307         \textcolor{keywordflow}{if}(j < 0) j = -j;
+308         tdiff += j;
+309         \textcolor{keywordflow}{if}(tdiff < cdiff) \{
+310         cdiff = tdiff;
+311         tmp.pixel = i; \textcolor{comment}{/* table[i].pixel == i */}
+312         \}
+313     \}
+314     \}
+315 
+316     \textcolor{keywordflow}{if}(cdiff == 16777216) \textcolor{keywordflow}{return} False; \textcolor{comment}{/* nothing found?! */}
+317 
+318     \textcolor{comment}{/*}
+319 \textcolor{comment}{     * Found something.  Return it and mark this color as used to avoid}
+320 \textcolor{comment}{     * reuse.  Reuse causes major contrast problems :-)}
+321 \textcolor{comment}{     */}
+322     *color = table[tmp.pixel];
+323     table[tmp.pixel].flags = 0;
+324     \textcolor{comment}{/* try to alloc the color, so no one else can change it */}
+325     \textcolor{keywordflow}{if}(!XAllocColor(DisplayOfScreen(screen), colormap, color)) \{
+326     cdiff = 16777216;
+327     \textcolor{keywordflow}{goto} try\_again;
+328     \}
+329     \textcolor{keywordflow}{return} True;
+330 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_acdf408079578a80bb1cd91da74c99178}{\index{win\+X.\+c@{win\+X.\+c}!nh\+Cvt\+String\+To\+Pixel@{nh\+Cvt\+String\+To\+Pixel}}
+\index{nh\+Cvt\+String\+To\+Pixel@{nh\+Cvt\+String\+To\+Pixel}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{nh\+Cvt\+String\+To\+Pixel}]{\setlength{\rightskip}{0pt plus 5cm}Boolean nh\+Cvt\+String\+To\+Pixel (
+\begin{DoxyParamCaption}
+\item[{Display$\ast$}]{dpy, }
+\item[{Xrm\+Value\+Ptr}]{args, }
+\item[{Cardinal	$\ast$}]{num\+\_\+args, }
+\item[{Xrm\+Value\+Ptr}]{from\+Val, }
+\item[{Xrm\+Value\+Ptr}]{to\+Val, }
+\item[{Xt\+Pointer	$\ast$}]{closure\+\_\+ret}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_acdf408079578a80bb1cd91da74c99178}
+
+
+Definition at line 333 of file win\+X.\+c.
+
+
+
+References done, nh\+Approx\+Color(), strcmpi, String, and type.
+
+
+
+Referenced by X11\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+340 \{
+341     \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String}        str = (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String})fromVal->addr;
+342     XColor      screenColor;
+343     XColor      exactColor;
+344     Screen      *screen;
+345     XtAppContext    app = XtDisplayToApplicationContext(dpy);
+346     Colormap        colormap;
+347     Status      status;
+348     \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String}          params[1];
+349     Cardinal        num\_params=1;
+350 
+351     \textcolor{keywordflow}{if} (*num\_args != 2) \{
+352      XtAppWarningMsg(app, \textcolor{stringliteral}{"wrongParameters"}, \textcolor{stringliteral}{"cvtStringToPixel"},
+353     \textcolor{stringliteral}{"XtToolkitError"},
+354     \textcolor{stringliteral}{"String to pixel conversion needs screen and colormap arguments"},
+355     (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} *)0, (Cardinal *)0);
+356      \textcolor{keywordflow}{return} False;
+357     \}
+358 
+359     screen = *((Screen **) args[0].addr);
+360     colormap = *((Colormap *) args[1].addr);
+361 
+362     \textcolor{comment}{/* If Xt colors, use the Xt routine and hope for the best */}
+363 \textcolor{preprocessor}{#if (XtSpecificationRelease >= 5)}
+364     \textcolor{keywordflow}{if} ((\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(str, XtDefaultBackground) == 0) ||
+365     (\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(str, XtDefaultForeground) == 0)) \{
+366     \textcolor{keywordflow}{return}
+367       XtCvtStringToPixel(dpy, args, num\_args, fromVal, toVal, closure\_ret);
+368     \}
+369 \textcolor{preprocessor}{#else}
+370     \textcolor{keywordflow}{if} (\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(str, XtDefaultBackground) == 0) \{
+371     *closure\_ret = (\textcolor{keywordtype}{char}*)False;
+372     \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(Pixel, WhitePixelOfScreen(screen));
+373     \}
+374     \textcolor{keywordflow}{if} (\hyperlink{global_8h_a22452a37cca2c671ad3a973f776e2e42}{strcmpi}(str, XtDefaultForeground) == 0) \{
+375     *closure\_ret = (\textcolor{keywordtype}{char}*)False;
+376     \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(Pixel, BlackPixelOfScreen(screen));
+377     \}
+378 \textcolor{preprocessor}{#endif}
+379 
+380     status = XAllocNamedColor(DisplayOfScreen(screen), colormap,
+381                   (\textcolor{keywordtype}{char}*)str, &screenColor, &exactColor);
+382     \textcolor{keywordflow}{if} (status == 0) \{
+383     \hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} msg, \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+384 
+385     \textcolor{comment}{/* some versions of XAllocNamedColor don't allow #xxyyzz names */}
+386     \textcolor{keywordflow}{if} (str[0] == \textcolor{charliteral}{'#'} &&
+387         XParseColor(DisplayOfScreen(screen), colormap, str, &exactColor) &&
+388         XAllocColor(DisplayOfScreen(screen), colormap, &exactColor)) \{
+389         *closure\_ret = (\textcolor{keywordtype}{char}*)True;
+390         \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(Pixel, exactColor.pixel);
+391     \}
+392 
+393     params[0] = str;
+394     \textcolor{comment}{/* Server returns a specific error code but Xlib discards it.  Ugh */}
+395     \textcolor{keywordflow}{if} (XLookupColor(DisplayOfScreen(screen), colormap, (\textcolor{keywordtype}{char}*)str,
+396              &exactColor, &screenColor)) \{
+397         \textcolor{comment}{/* try to find another color that will do */}
+398         \textcolor{keywordflow}{if} (\hyperlink{winX_8c_a19ba03dc489f783e4184ddd73158b4ed}{nhApproxColor}(screen, colormap, (\textcolor{keywordtype}{char}*) str, &screenColor)) \{
+399         *closure\_ret = (\textcolor{keywordtype}{char}*)True;
+400         \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(Pixel, screenColor.pixel);
+401         \}
+402         type = \textcolor{stringliteral}{"noColormap"};
+403         msg = \textcolor{stringliteral}{"Cannot allocate colormap entry for \(\backslash\)"%s\(\backslash\)""};
+404     \}
+405     \textcolor{keywordflow}{else} \{
+406         \textcolor{comment}{/* some versions of XLookupColor also don't allow #xxyyzz names */}
+407         \textcolor{keywordflow}{if}(str[0] == \textcolor{charliteral}{'#'} &&
+408            (\hyperlink{winX_8c_a19ba03dc489f783e4184ddd73158b4ed}{nhApproxColor}(screen, colormap, (\textcolor{keywordtype}{char}*) str, &screenColor))) \{
+409         *closure\_ret = (\textcolor{keywordtype}{char}*)True;
+410         \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(Pixel, screenColor.pixel);
+411         \}
+412         type = \textcolor{stringliteral}{"badValue"};
+413         msg = \textcolor{stringliteral}{"Color name \(\backslash\)"%s\(\backslash\)" is not defined"};
+414     \}
+415 
+416     XtAppWarningMsg(app, type, \textcolor{stringliteral}{"cvtStringToPixel"},
+417             \textcolor{stringliteral}{"XtToolkitError"}, msg, params, &num\_params);
+418     *closure\_ret = False;
+419     \textcolor{keywordflow}{return} False;
+420     \} \textcolor{keywordflow}{else} \{
+421     *closure\_ret = (\textcolor{keywordtype}{char}*)True;
+422     \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(Pixel, screenColor.pixel);
+423     \}
+424 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ae3632fa17aaccf5e4d8465051d42c658}{\index{win\+X.\+c@{win\+X.\+c}!nh\+Font\+Height@{nh\+Font\+Height}}
+\index{nh\+Font\+Height@{nh\+Font\+Height}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{nh\+Font\+Height}]{\setlength{\rightskip}{0pt plus 5cm}Dimension nh\+Font\+Height (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_ae3632fa17aaccf5e4d8465051d42c658}
+
+
+Definition at line 460 of file win\+X.\+c.
+
+
+
+Referenced by create\+\_\+status\+\_\+window(), display\+\_\+text\+\_\+window(), and X11\+\_\+display\+\_\+file().
+
+
+\begin{DoxyCode}
+463 \{
+464     Widget \hyperlink{structsink}{sink};
+465     XawTextPosition pos = 0;
+466     \textcolor{keywordtype}{int} resWidth, resHeight;
+467     Arg args[1];
+468 
+469     XtSetArg(args[0], XtNtextSink, &sink);
+470     XtGetValues(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, 1);
+471 
+472     XawTextSinkFindPosition(sink, pos, 0, 0, 0, &pos, &resWidth, &resHeight);
+473     \textcolor{keywordflow}{return} resHeight;
+474 \}
+475 \textcolor{preprocessor}{#else}
+476 \{
+477     XFontStruct *fs;
+478     Arg args[1];
+479 
+480     XtSetArg(args[0], XtNfont, &fs);
+481     XtGetValues(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, args, 1);
+482 
+483     \textcolor{comment}{/* Assume font height is ascent + descent. */}
+484     \textcolor{keywordflow}{return} = fs->ascent + fs->descent;
+485 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a50c189b2e415c6c93335fa7ddbfbc2d9}{\index{win\+X.\+c@{win\+X.\+c}!nh\+Free\+Pixel@{nh\+Free\+Pixel}}
+\index{nh\+Free\+Pixel@{nh\+Free\+Pixel}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{nh\+Free\+Pixel}]{\setlength{\rightskip}{0pt plus 5cm}static void nh\+Free\+Pixel (
+\begin{DoxyParamCaption}
+\item[{Xt\+App\+Context}]{app, }
+\item[{Xrm\+Value\+Ptr}]{to\+Val, }
+\item[{Xt\+Pointer}]{closure, }
+\item[{Xrm\+Value\+Ptr}]{args, }
+\item[{Cardinal	$\ast$}]{num\+\_\+args}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a50c189b2e415c6c93335fa7ddbfbc2d9}
+
+
+Definition at line 428 of file win\+X.\+c.
+
+
+
+References String.
+
+
+
+Referenced by X11\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+434 \{
+435     Screen      *screen;
+436     Colormap        colormap;
+437 
+438     \textcolor{keywordflow}{if} (*num\_args != 2) \{
+439      XtAppWarningMsg(app, \textcolor{stringliteral}{"wrongParameters"},
+440              \textcolor{stringliteral}{"freePixel"}, \textcolor{stringliteral}{"XtToolkitError"},
+441              \textcolor{stringliteral}{"Freeing a pixel requires screen and colormap arguments"},
+442              (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} *)0, (Cardinal *)0);
+443      \textcolor{keywordflow}{return};
+444     \}
+445 
+446     screen = *((Screen **) args[0].addr);
+447     colormap = *((Colormap *) args[1].addr);
+448 
+449     \textcolor{keywordflow}{if} (closure) \{
+450     XFreeColors( DisplayOfScreen(screen), colormap,
+451              (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long}*)toVal->addr, 1, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long})0
+452             );
+453     \}
+454 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a74518d5f109e7c2f8fbad7e36024021a}{\index{win\+X.\+c@{win\+X.\+c}!win\+\_\+visible@{win\+\_\+visible}}
+\index{win\+\_\+visible@{win\+\_\+visible}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{win\+\_\+visible}]{\setlength{\rightskip}{0pt plus 5cm}static void win\+\_\+visible (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{Xt\+Pointer}]{data, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{Boolean $\ast$}]{flag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a74518d5f109e7c2f8fbad7e36024021a}
+
+
+Definition at line 1719 of file win\+X.\+c.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows().
+
+
+\begin{DoxyCode}
+1724 \{
+1725     XVisibilityEvent *vis\_event = (XVisibilityEvent *)event;
+1726 
+1727     \textcolor{keywordflow}{if} (vis\_event->state != VisibilityFullyObscured) \{
+1728     \textcolor{comment}{/* one-time operation; cancel ourself */}
+1729     XtRemoveEventHandler(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, VisibilityChangeMask, False,
+1730                  \hyperlink{winX_8c_a74518d5f109e7c2f8fbad7e36024021a}{win\_visible}, (XtPointer) 0);
+1731     \textcolor{comment}{/* grab initial input focus */}
+1732     XSetInputFocus(XtDisplay(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}), XtWindow(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}), RevertToNone, CurrentTime);
+1733     \}
+1734 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a198566f621760809580af0230c7f4500}{\index{win\+X.\+c@{win\+X.\+c}!win\+\_\+\+X11\+\_\+init@{win\+\_\+\+X11\+\_\+init}}
+\index{win\+\_\+\+X11\+\_\+init@{win\+\_\+\+X11\+\_\+init}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{win\+\_\+\+X11\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void win\+\_\+\+X11\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a198566f621760809580af0230c7f4500}
+
+
+Definition at line 1972 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+1973 \{
+1974 \textcolor{preprocessor}{#ifdef OPENWINBUG}
+1975     \textcolor{comment}{/* With the OpenWindows 3.0 libraries and the SunOS 4.1.2 ld, these}
+1976 \textcolor{comment}{     * two routines will not be found when linking.  An apparently correct}
+1977 \textcolor{comment}{     * executable is produced, along with nasty messages and a failure code}
+1978 \textcolor{comment}{     * returned to make.  The routines are in the static libXmu.a and}
+1979 \textcolor{comment}{     * libXmu.sa.4.0, but not in libXmu.so.4.0.  Rather than fiddle with}
+1980 \textcolor{comment}{     * static linking, we do this.}
+1981 \textcolor{comment}{     */}
+1982     \textcolor{keywordflow}{if} (rn2(2) > 2) \{
+1983     \textcolor{comment}{/* i.e., FALSE that an optimizer probably can't find */}
+1984     get\_wmShellWidgetClass();
+1985     get\_applicationShellWidgetClass();
+1986     \}
+1987 \textcolor{preprocessor}{#endif}
+1988     \textcolor{keywordflow}{return};
+1989 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_aac28677e94e0513e09a8d79b1adae926}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+askname@{X11\+\_\+askname}}
+\index{X11\+\_\+askname@{X11\+\_\+askname}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+askname}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+askname (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_aac28677e94e0513e09a8d79b1adae926}
+
+
+Definition at line 1171 of file win\+X.\+c.
+
+
+
+References askname\+\_\+done(), Create\+Dialog(), E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+E\+X\+I\+T, nh\+\_\+\+Xt\+Popup(), positionpopup(), Set\+Dialog\+Prompt(), Set\+Dialog\+Response(), T\+R\+U\+E, and x\+\_\+event().
+
+
+\begin{DoxyCode}
+1172 \{
+1173     Widget \hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, dialog;
+1174     Arg args[1];
+1175 
+1176     XtSetArg(args[0], XtNallowShellResize, True);
+1177 
+1178     popup = XtCreatePopupShell(\textcolor{stringliteral}{"askname"}, transientShellWidgetClass,
+1179                    \hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, args, ONE);
+1180     XtOverrideTranslations(popup,
+1181     XtParseTranslationTable(\textcolor{stringliteral}{"<Message>WM\_PROTOCOLS: askname\_delete()"}));
+1182 
+1183     dialog = \hyperlink{dialogs_8c_aaf356545a4c5797e317091864c988de0}{CreateDialog}(popup, \textcolor{stringliteral}{"dialog"},
+1184                     \hyperlink{winX_8c_aa6cd1b9e96ba2c42105c0a2007d000ba}{askname\_done}, (XtCallbackProc) 0);
+1185 
+1186     \hyperlink{dialogs_8c_abb865386e8600a55b2cda49630286e8c}{SetDialogPrompt}(dialog, \textcolor{stringliteral}{"What is your name?"});   \textcolor{comment}{/* set prompt */}
+1187     \hyperlink{dialogs_8c_a7b1a25788c7b0dab888df1e32d990123}{SetDialogResponse}(dialog, \textcolor{stringliteral}{""});     \textcolor{comment}{/* set default answer */}
+1188 
+1189     XtRealizeWidget(popup);
+1190     \hyperlink{dialogs_8c_a710147c680e59c5715d771d7b709a8b1}{positionpopup}(popup, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});        \textcolor{comment}{/* center,bottom */}
+1191 
+1192     \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(popup, (\textcolor{keywordtype}{int})XtGrabExclusive, dialog);
+1193 
+1194     \textcolor{comment}{/* The callback will enable the event loop exit. */}
+1195     (void) \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\_event}(\hyperlink{winX_8h_a819d0a7d125d95a69564c36141d32159}{EXIT\_ON\_EXIT});
+1196 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a3b154c742aea2a7bd843531fface43c1}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+clear\+\_\+nhwindow@{X11\+\_\+clear\+\_\+nhwindow}}
+\index{X11\+\_\+clear\+\_\+nhwindow@{X11\+\_\+clear\+\_\+nhwindow}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+clear\+\_\+nhwindow}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+clear\+\_\+nhwindow (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a3b154c742aea2a7bd843531fface43c1}
+
+
+Definition at line 663 of file win\+X.\+c.
+
+
+
+References check\+\_\+winid, clear\+\_\+map\+\_\+window(), clear\+\_\+text\+\_\+window(), N\+H\+W\+\_\+\+M\+A\+P, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, panic(), xwindow\+::type, and window\+\_\+list.
+
+
+\begin{DoxyCode}
+665 \{
+666     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+667 
+668     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+669     wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[window];
+670 
+671     \textcolor{keywordflow}{switch} (wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type}) \{
+672     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}:    \hyperlink{winmap_8c_aeb371f1d7d59024d89c2e2d848123c56}{clear\_map\_window}(wp); \textcolor{keywordflow}{break};
+673     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}:  \hyperlink{wintext_8c_a887ee8692ef33e2070d97375261eb9bd}{clear\_text\_window}(wp); \textcolor{keywordflow}{break};
+674     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}:
+675     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}:
+676     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}:
+677         \textcolor{comment}{/* do nothing for these window types */}
+678         \textcolor{keywordflow}{break};
+679     \textcolor{keywordflow}{default}:
+680         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"clear\_nhwindow: unknown window type [%d]"}, wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type});
+681         \textcolor{keywordflow}{break};
+682     \}
+683 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ae804740eba46236013bff6d3d78a29b1}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+create\+\_\+nhwindow@{X11\+\_\+create\+\_\+nhwindow}}
+\index{X11\+\_\+create\+\_\+nhwindow@{X11\+\_\+create\+\_\+nhwindow}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+create\+\_\+nhwindow}]{\setlength{\rightskip}{0pt plus 5cm}{\bf winid} X11\+\_\+create\+\_\+nhwindow (
+\begin{DoxyParamCaption}
+\item[{int}]{type}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_ae804740eba46236013bff6d3d78a29b1}
+
+
+Definition at line 598 of file win\+X.\+c.
+
+
+
+References create\+\_\+map\+\_\+window(), create\+\_\+menu\+\_\+window(), create\+\_\+message\+\_\+window(), create\+\_\+status\+\_\+window(), create\+\_\+text\+\_\+window(), xwindow\+::cursx, xwindow\+::cursy, F\+A\+L\+S\+E, find\+\_\+free\+\_\+window(), xwindow\+::keep\+\_\+window, map\+\_\+win, message\+\_\+win, N\+H\+W\+\_\+\+M\+A\+P, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, panic(), xwindow\+::pixel\+\_\+height, xwindow\+::pixel\+\_\+width, xwindow\+::prevx, xwindow\+::prevy, status\+\_\+win, T\+R\+U\+E, W\+I\+N\+\_\+\+E\+R\+R, and window\+\_\+list.
+
+
+
+Referenced by X11\+\_\+putstr().
+
+
+\begin{DoxyCode}
+600 \{
+601     \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} window;
+602     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+603 
+604     \textcolor{keywordflow}{if} (!\hyperlink{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{x\_inited})
+605     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"create\_nhwindow:  windows not initialized"});
+606 
+607     \textcolor{comment}{/*}
+608 \textcolor{comment}{     * We have already created the standard message, map, and status}
+609 \textcolor{comment}{     * windows in the window init routine.  The first window of that}
+610 \textcolor{comment}{     * type to be created becomes the standard.}
+611 \textcolor{comment}{     *}
+612 \textcolor{comment}{     * A better way to do this would be to say that init\_nhwindows()}
+613 \textcolor{comment}{     * has already defined these three windows.}
+614 \textcolor{comment}{     */}
+615     \textcolor{keywordflow}{if} (\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} == \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP} && \hyperlink{winX_8c_a83f370a31bf4e070af369271fbd4a764}{map\_win} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR}) \{
+616     window = \hyperlink{winX_8c_a83f370a31bf4e070af369271fbd4a764}{map\_win};
+617     \hyperlink{winX_8c_a83f370a31bf4e070af369271fbd4a764}{map\_win} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+618     \textcolor{keywordflow}{return} window;
+619     \}
+620     \textcolor{keywordflow}{if} (\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} == \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE} && \hyperlink{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}{message\_win} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR}) \{
+621     window = \hyperlink{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}{message\_win};
+622     \hyperlink{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}{message\_win} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+623     \textcolor{keywordflow}{return} window;
+624     \}
+625     \textcolor{keywordflow}{if} (\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} == \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS} && \hyperlink{winX_8c_a87ce9896c8fcc91bcc47d66c02f377a0}{status\_win} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR}) \{
+626     window = \hyperlink{winX_8c_a87ce9896c8fcc91bcc47d66c02f377a0}{status\_win};
+627     \hyperlink{winX_8c_a87ce9896c8fcc91bcc47d66c02f377a0}{status\_win} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+628     \textcolor{keywordflow}{return} window;
+629     \}
+630 
+631     window = \hyperlink{winX_8c_a65331b9041bcd80211ac78dc78ed82b3}{find\_free\_window}();
+632     wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[window];
+633 
+634     \textcolor{comment}{/* The create routines will set type, popup, w, and Win\_info. */}
+635     wp->\hyperlink{structxwindow_ab8c3e2d2d6643622d57d1110837780fe}{prevx} = wp->\hyperlink{structxwindow_a493627beb90e722882da46ed2227a30e}{prevy} = wp->\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx} = wp->\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy} =
+636                 wp->\hyperlink{structxwindow_a8f270ead0a1ab2847febd35c4da5afe6}{pixel\_width} = wp->\hyperlink{structxwindow_aab5493256f7f6baa33fe878ab6c403f5}{pixel\_height} = 0;
+637     wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+638 
+639     \textcolor{keywordflow}{switch} (\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}) \{
+640     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}:
+641         \hyperlink{winmap_8c_a31703da034dd70eb3a40553e02f4cfad}{create\_map\_window}(wp, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, (Widget) 0);
+642         \textcolor{keywordflow}{break};
+643     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}:
+644         \hyperlink{winmesg_8c_a9b472a60fff40069ef06ff7dfe87bb4d}{create\_message\_window}(wp, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, (Widget) 0);
+645         \textcolor{keywordflow}{break};
+646     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}:
+647         \hyperlink{winstat_8c_a6c6c645429ab1cce40fb6759568c81a4}{create\_status\_window}(wp, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, (Widget) 0);
+648         \textcolor{keywordflow}{break};
+649     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}:
+650         \hyperlink{win_2X11_2winmenu_8c_aad1e859925ecabc131a53ad25d56ba72}{create\_menu\_window}(wp);
+651         \textcolor{keywordflow}{break};
+652     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}:
+653         \hyperlink{wintext_8c_a0dccc5015017bceaf1a83415011a3510}{create\_text\_window}(wp);
+654         \textcolor{keywordflow}{break};
+655     \textcolor{keywordflow}{default}:
+656         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"create\_nhwindow: unknown type [%d]"}, \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type});
+657         \textcolor{keywordflow}{break};
+658     \}
+659     \textcolor{keywordflow}{return} window;
+660 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a4c780317ec5250491afb3734b0b406f4}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+curs@{X11\+\_\+curs}}
+\index{X11\+\_\+curs@{X11\+\_\+curs}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+curs}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+curs (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a4c780317ec5250491afb3734b0b406f4}
+
+
+Definition at line 504 of file win\+X.\+c.
+
+
+
+References check\+\_\+winid, C\+O\+L\+N\+O, xwindow\+::cursx, xwindow\+::cursy, R\+O\+W\+N\+O, and window\+\_\+list.
+
+
+\begin{DoxyCode}
+507 \{
+508     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+509 
+510     \textcolor{keywordflow}{if} (x < 0 || x >= \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) \{
+511     impossible(\textcolor{stringliteral}{"curs:  bad x value [%d]"}, x);
+512     x = 0;
+513     \}
+514     \textcolor{keywordflow}{if} (y < 0 || y >= \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) \{
+515     impossible(\textcolor{stringliteral}{"curs:  bad y value [%d]"}, y);
+516     y = 0;
+517     \}
+518 
+519     \hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[window].\hyperlink{structxwindow_a065050011feaee6a1bcacbf1bf52ae68}{cursx} = x;
+520     \hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[window].\hyperlink{structxwindow_a3a83f758525fbb15e87bd9e850b41ca5}{cursy} = y;
+521 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a44c7a74cd948ca3101a3dd6f038f710b}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+delay\+\_\+output@{X11\+\_\+delay\+\_\+output}}
+\index{X11\+\_\+delay\+\_\+output@{X11\+\_\+delay\+\_\+output}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+delay\+\_\+output}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+delay\+\_\+output (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a44c7a74cd948ca3101a3dd6f038f710b}
+
+
+Definition at line 1102 of file win\+X.\+c.
+
+
+
+References d\+\_\+timeout(), E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+S\+E\+N\+T\+\_\+\+E\+V\+E\+N\+T, and x\+\_\+event().
+
+
+\begin{DoxyCode}
+1103 \{
+1104     \textcolor{keywordflow}{if} (!\hyperlink{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{x\_inited}) \textcolor{keywordflow}{return};
+1105 
+1106     (void) XtAppAddTimeOut(\hyperlink{winX_8c_ad3ba0e65b22f83236faa4df3e5225428}{app\_context}, 30L, \hyperlink{winX_8c_aa22bb1cab344ce24076d1c67aeded29a}{d\_timeout}, (XtPointer) 0);
+1107 
+1108     \textcolor{comment}{/* The timeout function will enable the event loop exit. */}
+1109     (void) \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\_event}(\hyperlink{winX_8h_a66f59fd12b8c74fae9382a25381a797a}{EXIT\_ON\_SENT\_EVENT});
+1110 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a80f2dd28d7527810c3fda39f9ec1c487}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+destroy\+\_\+nhwindow@{X11\+\_\+destroy\+\_\+nhwindow}}
+\index{X11\+\_\+destroy\+\_\+nhwindow@{X11\+\_\+destroy\+\_\+nhwindow}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+destroy\+\_\+nhwindow}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+destroy\+\_\+nhwindow (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a80f2dd28d7527810c3fda39f9ec1c487}
+
+
+Definition at line 749 of file win\+X.\+c.
+
+
+
+References check\+\_\+winid, destroy\+\_\+map\+\_\+window(), destroy\+\_\+menu\+\_\+window(), destroy\+\_\+message\+\_\+window(), destroy\+\_\+status\+\_\+window(), destroy\+\_\+text\+\_\+window(), iflags, xwindow\+::keep\+\_\+window, N\+H\+W\+\_\+\+M\+A\+P, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, panic(), T\+R\+U\+E, xwindow\+::type, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+I\+N\+V\+E\+N, W\+I\+N\+\_\+\+M\+A\+P, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, W\+I\+N\+\_\+\+S\+T\+A\+T\+U\+S, instance\+\_\+flags\+::window\+\_\+inited, and window\+\_\+list.
+
+
+
+Referenced by X11\+\_\+exit\+\_\+nhwindows(), and X11\+\_\+putstr().
+
+
+\begin{DoxyCode}
+751 \{
+752     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+753 
+754     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+755     wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[window];
+756     \textcolor{comment}{/*}
+757 \textcolor{comment}{     * "Zap" known windows, but don't destroy them.  We need to keep the}
+758 \textcolor{comment}{     * toplevel widget popped up so that later windows (e.g. tombstone)}
+759 \textcolor{comment}{     * are visible on DECWindow systems.  This is due to the virtual}
+760 \textcolor{comment}{     * roots that the DECWindow wm creates.}
+761 \textcolor{comment}{     */}
+762     \textcolor{keywordflow}{if} (window == \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}) \{
+763     wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+764     \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+765     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2fc6c78c4c5f6e1d0027ac575135426f}{window\_inited} = 0;
+766     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (window == \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}) \{
+767     wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+768     \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+769     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (window == \hyperlink{decl_8h_ae0690a38fd295760409995ce03b88329}{WIN\_STATUS}) \{
+770     wp->\hyperlink{structxwindow_aa386fb9cd6e2a29ee3df76aa4307c401}{keep\_window} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+771     \hyperlink{decl_8h_ae0690a38fd295760409995ce03b88329}{WIN\_STATUS} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+772     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (window == \hyperlink{decl_8h_aabd3637304d093f7077c788661a0a5fd}{WIN\_INVEN}) \{
+773     \textcolor{comment}{/* don't need to keep this one */}
+774     \hyperlink{decl_8h_aabd3637304d093f7077c788661a0a5fd}{WIN\_INVEN} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+775     \}
+776 
+777     \textcolor{keywordflow}{switch} (wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type}) \{
+778     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}:
+779         \hyperlink{winmap_8c_a8dceaea4cbbd44d029f975a12fe2d7fe}{destroy\_map\_window}(wp);
+780         \textcolor{keywordflow}{break};
+781     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}:
+782         \hyperlink{win_2X11_2winmenu_8c_a984351be8e971e30ca44352125e3c59a}{destroy\_menu\_window}(wp);
+783         \textcolor{keywordflow}{break};
+784     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}:
+785         \hyperlink{wintext_8c_a46548d5d68947c0fcfcc9114e082dac8}{destroy\_text\_window}(wp);
+786         \textcolor{keywordflow}{break};
+787     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}:
+788         \hyperlink{winstat_8c_acf857fc8eaf5f2966fbae8b3170a3eec}{destroy\_status\_window}(wp);
+789         \textcolor{keywordflow}{break};
+790     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}:
+791         \hyperlink{winmesg_8c_a391dd241d24df76d9ff329b2288fad2d}{destroy\_message\_window}(wp);
+792         \textcolor{keywordflow}{break};
+793     \textcolor{keywordflow}{default}:
+794         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"destroy\_nhwindow: unknown window type [%d]"}, wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type});
+795         \textcolor{keywordflow}{break};
+796     \}
+797 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a1ea661c4c6a5f5f2e76fc3d418525bdd}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+display\+\_\+file@{X11\+\_\+display\+\_\+file}}
+\index{X11\+\_\+display\+\_\+file@{X11\+\_\+display\+\_\+file}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+display\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+display\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str, }
+\item[{{\bf boolean}}]{complain}
+\end{DoxyParamCaption}
+) const}}\label{winX_8c_a1ea661c4c6a5f5f2e76fc3d418525bdd}
+
+
+Definition at line 1339 of file win\+X.\+c.
+
+
+
+References alloc(), D\+I\+S\+P\+L\+A\+Y\+\_\+\+F\+I\+L\+E\+\_\+\+S\+I\+Z\+E, dlb, dlb\+\_\+fclose, dlb\+\_\+fgets, dlb\+\_\+fopen, fp, free(), L\+L\+E\+N, nh\+\_\+\+Xt\+Popup(), nh\+Font\+Height(), and R\+D\+T\+M\+O\+D\+E.
+
+
+\begin{DoxyCode}
+1342 \{
+1343     \hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+1344     Arg args[12];
+1345     Cardinal num\_args;
+1346     Widget \hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, dispfile;
+1347     Position top\_margin, bottom\_margin, left\_margin, right\_margin;
+1348     XFontStruct *fs;
+1349     \textcolor{keywordtype}{int} new\_width, new\_height;
+1350 \textcolor{preprocessor}{#define LLEN 128}
+1351     \textcolor{keywordtype}{char} line[\hyperlink{winX_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{LLEN}];
+1352     \textcolor{keywordtype}{int} num\_lines;
+1353     \textcolor{keywordtype}{char} *textlines;
+1354     \textcolor{keywordtype}{int} charcount;
+1355 
+1356     \textcolor{comment}{/* Use the port-independent file opener to see if the file exists. */}
+1357     fp = \hyperlink{dlb_8h_a46a9ab27d1ae601750baeacc2c0a8d44}{dlb\_fopen}(str, \hyperlink{dlb_8h_a52b55e796a44079bc56afab59e8c0c89}{RDTMODE});
+1358 
+1359     \textcolor{keywordflow}{if} (!fp) \{
+1360     \textcolor{keywordflow}{if}(complain) pline(\textcolor{stringliteral}{"Cannot open %s.  Sorry."}, str);
+1361 
+1362     \textcolor{keywordflow}{return}; \textcolor{comment}{/* it doesn't exist, ignore */}
+1363     \}
+1364 
+1365     \textcolor{comment}{/*}
+1366 \textcolor{comment}{     * Count the number of lines and characters in the file.}
+1367 \textcolor{comment}{     */}
+1368     num\_lines = 0;
+1369     charcount = 1;
+1370     \textcolor{keywordflow}{while} (\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \hyperlink{winX_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{LLEN}, fp)) \{
+1371     num\_lines++;
+1372     charcount += strlen(line);
+1373     \}
+1374 
+1375     (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(fp);
+1376 
+1377     \textcolor{comment}{/* Ignore empty files */}
+1378     \textcolor{keywordflow}{if} (num\_lines == 0) \textcolor{keywordflow}{return};
+1379 
+1380     \textcolor{comment}{/* If over the max window size, truncate the window size to the max */}
+1381     \textcolor{keywordflow}{if} (num\_lines >= \hyperlink{winX_8h_aa107252558d64e2dadcba4bf0c4fe9cd}{DISPLAY\_FILE\_SIZE})
+1382     num\_lines = \hyperlink{winX_8h_aa107252558d64e2dadcba4bf0c4fe9cd}{DISPLAY\_FILE\_SIZE};
+1383 
+1384     \textcolor{comment}{/*}
+1385 \textcolor{comment}{     * Re-open the file and read the data into a buffer.  Cannot use}
+1386 \textcolor{comment}{     * the XawAsciiFile type of widget, because that is not DLB-aware.}
+1387 \textcolor{comment}{     */}
+1388     textlines = (\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) charcount);
+1389     textlines[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+1390 
+1391     fp = \hyperlink{dlb_8h_a46a9ab27d1ae601750baeacc2c0a8d44}{dlb\_fopen}(str, \hyperlink{dlb_8h_a52b55e796a44079bc56afab59e8c0c89}{RDTMODE});
+1392 
+1393     \textcolor{keywordflow}{while} (\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \hyperlink{winX_8c_a4dbdeec6f3fa43f11b22a95cd6fe2172}{LLEN}, fp)) \{
+1394     (void) strcat(textlines, line);
+1395     \}
+1396 
+1397     (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(fp);
+1398 
+1399     num\_args = 0;
+1400     XtSetArg(args[num\_args], XtNtitle, str);    num\_args++;
+1401 
+1402     popup = XtCreatePopupShell(\textcolor{stringliteral}{"display\_file"}, topLevelShellWidgetClass,
+1403                            \hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, args, num\_args);
+1404     XtOverrideTranslations(popup,
+1405     XtParseTranslationTable(\textcolor{stringliteral}{"<Message>WM\_PROTOCOLS: delete\_file()"}));
+1406 
+1407     num\_args = 0;
+1408     XtSetArg(args[num\_args], XtNscrollHorizontal,
+1409                 XawtextScrollWhenNeeded);   num\_args++;
+1410     XtSetArg(args[num\_args], XtNscrollVertical,
+1411                 XawtextScrollWhenNeeded);   num\_args++;
+1412     XtSetArg(args[num\_args], XtNtype, XawAsciiString);      num\_args++;
+1413     XtSetArg(args[num\_args], XtNstring, textlines);     num\_args++;
+1414     XtSetArg(args[num\_args], XtNdisplayCaret, False);       num\_args++;
+1415     XtSetArg(args[num\_args], XtNtranslations,
+1416     XtParseTranslationTable(\hyperlink{winX_8c_ad742c5cacc20c924783ce561dd95d23a}{display\_translations}));     num\_args++;
+1417 
+1418     dispfile = XtCreateManagedWidget(
+1419             \textcolor{stringliteral}{"text"},         \textcolor{comment}{/* name */}
+1420             asciiTextWidgetClass,
+1421             popup,          \textcolor{comment}{/* parent widget */}
+1422             args,           \textcolor{comment}{/* set some values */}
+1423             num\_args);      \textcolor{comment}{/* number of values to set */}
+1424 
+1425     \textcolor{comment}{/* Get font and border information. */}
+1426     num\_args = 0;
+1427     XtSetArg(args[num\_args], XtNfont,         &fs);        num\_args++;
+1428     XtSetArg(args[num\_args], XtNtopMargin,    &top\_margin);    num\_args++;
+1429     XtSetArg(args[num\_args], XtNbottomMargin, &bottom\_margin); num\_args++;
+1430     XtSetArg(args[num\_args], XtNleftMargin,   &left\_margin);   num\_args++;
+1431     XtSetArg(args[num\_args], XtNrightMargin,  &right\_margin);  num\_args++;
+1432     XtGetValues(dispfile, args, num\_args);
+1433 
+1434     \textcolor{comment}{/*}
+1435 \textcolor{comment}{     * The data files are currently set up assuming an 80 char wide window}
+1436 \textcolor{comment}{     * and a fixed width font.  Soo..}
+1437 \textcolor{comment}{     */}
+1438     new\_height = num\_lines * \hyperlink{winX_8c_ae3632fa17aaccf5e4d8465051d42c658}{nhFontHeight}(dispfile) +
+1439                         top\_margin + bottom\_margin;
+1440     new\_width  = 80 * fs->max\_bounds.width + left\_margin + right\_margin;
+1441 
+1442     \textcolor{comment}{/* Set the new width and height. */}
+1443     num\_args = 0;
+1444     XtSetArg(args[num\_args], XtNwidth,  new\_width);  num\_args++;
+1445     XtSetArg(args[num\_args], XtNheight, new\_height); num\_args++;
+1446     XtSetValues(dispfile, args, num\_args);
+1447 
+1448     \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(popup, (\textcolor{keywordtype}{int})XtGrabNone, (Widget)0);
+1449     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(textlines);
+1450 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_aeb3001d92d1888a875ca2f549049d6b7}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+display\+\_\+nhwindow@{X11\+\_\+display\+\_\+nhwindow}}
+\index{X11\+\_\+display\+\_\+nhwindow@{X11\+\_\+display\+\_\+nhwindow}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+display\+\_\+nhwindow}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+display\+\_\+nhwindow (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{{\bf boolean}}]{blocking}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_aeb3001d92d1888a875ca2f549049d6b7}
+
+
+Definition at line 686 of file win\+X.\+c.
+
+
+
+References check\+\_\+winid, display\+\_\+map\+\_\+window(), display\+\_\+message\+\_\+window(), display\+\_\+text\+\_\+window(), E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+O\+R\+\_\+\+B\+U\+T\+T\+O\+N\+\_\+\+P\+R\+E\+S\+S, free(), nh\+\_\+\+Xt\+Popup(), N\+H\+W\+\_\+\+M\+A\+P, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, panic(), P\+I\+C\+K\+\_\+\+N\+O\+N\+E, xwindow\+::popup, xwindow\+::type, xwindow\+::w, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, window\+\_\+list, X11\+\_\+select\+\_\+menu(), and x\+\_\+event().
+
+
+\begin{DoxyCode}
+689 \{
+690     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+691 
+692     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+693     wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[window];
+694 
+695     \textcolor{keywordflow}{switch} (wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type}) \{
+696     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}:
+697         \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup})
+698         \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, (\textcolor{keywordtype}{int})XtGrabNone, wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+699         \hyperlink{winmap_8c_ad3df570a0708227ec369dbc1ad724a8b}{display\_map\_window}(wp);   \textcolor{comment}{/* flush map */}
+700         \textcolor{comment}{/*}
+701 \textcolor{comment}{         * We need to flush the message window here due to the way the tty}
+702 \textcolor{comment}{         * port is set up.  To flush a window, you need to call this}
+703 \textcolor{comment}{         * routine.  However, the tty port \_pauses\_ with a --more-- if we}
+704 \textcolor{comment}{         * do a display\_nhwindow(WIN\_MESSAGE, FALSE).  Thus, we can't call}
+705 \textcolor{comment}{         * display\_nhwindow(WIN\_MESSAGE,FALSE) in parse() because then we}
+706 \textcolor{comment}{         * get a --more-- after every line.}
+707 \textcolor{comment}{         *}
+708 \textcolor{comment}{         * Perhaps the window document should mention that when the map}
+709 \textcolor{comment}{         * is flushed, everything on the three main windows should be}
+710 \textcolor{comment}{         * flushed.  Note: we don't need to flush the status window}
+711 \textcolor{comment}{         * because we don't buffer changes.}
+712 \textcolor{comment}{         */}
+713         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+714         \hyperlink{winmesg_8c_aaece8138d8b0526926b8f0e913b4132b}{display\_message\_window}(&\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[
+      \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}]);
+715         \textcolor{keywordflow}{if} (blocking)
+716         (void) \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\_event}(\hyperlink{winX_8h_a294c5c7b1a72b1a6e813df15ed869178}{EXIT\_ON\_KEY\_OR\_BUTTON\_PRESS});
+717         \textcolor{keywordflow}{break};
+718     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}:
+719         \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup})
+720          \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, (\textcolor{keywordtype}{int})XtGrabNone, wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+721         \hyperlink{winmesg_8c_aaece8138d8b0526926b8f0e913b4132b}{display\_message\_window}(wp);   \textcolor{comment}{/* flush messages */}
+722         \textcolor{keywordflow}{break};
+723     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}:
+724         \textcolor{keywordflow}{if} (wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup})
+725         \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(wp->\hyperlink{structxwindow_a87808ea4214ca268f6aa2df79301713e}{popup}, (\textcolor{keywordtype}{int})XtGrabNone, wp->\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w});
+726         \textcolor{keywordflow}{break};          \textcolor{comment}{/* no flushing necessary */}
+727     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}: \{
+728         \textcolor{keywordtype}{int} n;
+729         \hyperlink{structmi}{menu\_item} *selected;
+730 
+731         \textcolor{comment}{/* pop up menu */}
+732         n = \hyperlink{win_2X11_2winmenu_8c_a7e3cced2b7609c42eb98a654b54a8751}{X11\_select\_menu}(window, \hyperlink{wintype_8h_a9e3d317126c3eacb6311e15fedaf717c}{PICK\_NONE}, &selected);
+733         \textcolor{keywordflow}{if} (n) \{
+734         impossible(\textcolor{stringliteral}{"perminvent: %d selected??"}, n);
+735         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})selected);
+736         \}
+737         \textcolor{keywordflow}{break};
+738     \}
+739     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}:
+740         \hyperlink{wintext_8c_a92de4ec81ceb189ccbbe173f2d95a5c2}{display\_text\_window}(wp, blocking);   \textcolor{comment}{/* pop up text window */}
+741         \textcolor{keywordflow}{break};
+742     \textcolor{keywordflow}{default}:
+743         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"display\_nhwindow: unknown window type [%d]"}, wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type});
+744         \textcolor{keywordflow}{break};
+745     \}
+746 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_abc4220577c59a08c1c7312147822a3cf}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+doprev\+\_\+message@{X11\+\_\+doprev\+\_\+message}}
+\index{X11\+\_\+doprev\+\_\+message@{X11\+\_\+doprev\+\_\+message}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+doprev\+\_\+message}]{\setlength{\rightskip}{0pt plus 5cm}int X11\+\_\+doprev\+\_\+message (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_abc4220577c59a08c1c7312147822a3cf}
+
+
+Definition at line 810 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+810 \{ \textcolor{keywordflow}{return} 0; \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ab12a80c48bce4ca50a1317c4f750fefa}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+end\+\_\+screen@{X11\+\_\+end\+\_\+screen}}
+\index{X11\+\_\+end\+\_\+screen@{X11\+\_\+end\+\_\+screen}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+end\+\_\+screen}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+end\+\_\+screen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_ab12a80c48bce4ca50a1317c4f750fefa}
+
+
+Definition at line 852 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+852 \{ \textcolor{keywordflow}{return}; \}   \textcolor{comment}{/* called from settty() in unixtty.c */}
+\end{DoxyCode}
+\hypertarget{winX_8c_ace739b0f500bd15b4d1de1ecdc9e3f80}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+exit\+\_\+nhwindows@{X11\+\_\+exit\+\_\+nhwindows}}
+\index{X11\+\_\+exit\+\_\+nhwindows@{X11\+\_\+exit\+\_\+nhwindows}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+exit\+\_\+nhwindows}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+exit\+\_\+nhwindows (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{dummy}
+\end{DoxyParamCaption}
+) const}}\label{winX_8c_ace739b0f500bd15b4d1de1ecdc9e3f80}
+
+
+Definition at line 1043 of file win\+X.\+c.
+
+
+
+References tile\+\_\+pixmap, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+I\+N\+V\+E\+N, W\+I\+N\+\_\+\+M\+A\+P, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, W\+I\+N\+\_\+\+S\+T\+A\+T\+U\+S, and X11\+\_\+destroy\+\_\+nhwindow().
+
+
+
+Referenced by X11\+\_\+player\+\_\+selection().
+
+
+\begin{DoxyCode}
+1045 \{
+1046     \textcolor{keyword}{extern} Pixmap \hyperlink{winmap_8c_a2c291722f764515415f084ffce557615}{tile\_pixmap};   \textcolor{comment}{/* from winmap.c */}
+1047 
+1048     \textcolor{comment}{/* explicitly free the icon and tile pixmaps */}
+1049     \textcolor{keywordflow}{if} (\hyperlink{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}{icon\_pixmap} != None) \{
+1050     XFreePixmap(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}), \hyperlink{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}{icon\_pixmap});
+1051     \hyperlink{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}{icon\_pixmap} = None;
+1052     \}
+1053     \textcolor{keywordflow}{if} (tile\_pixmap != None) \{
+1054     XFreePixmap(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}), tile\_pixmap);
+1055     tile\_pixmap = None;
+1056     \}
+1057     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_aabd3637304d093f7077c788661a0a5fd}{WIN\_INVEN} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+1058     \hyperlink{winX_8c_a80f2dd28d7527810c3fda39f9ec1c487}{X11\_destroy\_nhwindow}(\hyperlink{decl_8h_aabd3637304d093f7077c788661a0a5fd}{WIN\_INVEN});
+1059     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ae0690a38fd295760409995ce03b88329}{WIN\_STATUS} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+1060     \hyperlink{winX_8c_a80f2dd28d7527810c3fda39f9ec1c487}{X11\_destroy\_nhwindow}(\hyperlink{decl_8h_ae0690a38fd295760409995ce03b88329}{WIN\_STATUS});
+1061     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+1062     \hyperlink{winX_8c_a80f2dd28d7527810c3fda39f9ec1c487}{X11\_destroy\_nhwindow}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP});
+1063     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+1064     \hyperlink{winX_8c_a80f2dd28d7527810c3fda39f9ec1c487}{X11\_destroy\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+1065 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a130a01ca8c8cb6a9935d743681b1ff50}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+get\+\_\+nh\+\_\+event@{X11\+\_\+get\+\_\+nh\+\_\+event}}
+\index{X11\+\_\+get\+\_\+nh\+\_\+event@{X11\+\_\+get\+\_\+nh\+\_\+event}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+get\+\_\+nh\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+get\+\_\+nh\+\_\+event (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a130a01ca8c8cb6a9935d743681b1ff50}
+
+
+Definition at line 573 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+573 \{ \textcolor{keywordflow}{return}; \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a3d030eb77c8ebdf4aa29ce498d3ba0c6}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+getlin@{X11\+\_\+getlin}}
+\index{X11\+\_\+getlin@{X11\+\_\+getlin}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+getlin}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+getlin (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{question, }
+\item[{char $\ast$}]{input}
+\end{DoxyParamCaption}
+) const}}\label{winX_8c_a3d030eb77c8ebdf4aa29ce498d3ba0c6}
+
+
+Definition at line 1264 of file win\+X.\+c.
+
+
+
+References abort\+\_\+button(), Create\+Dialog(), done\+\_\+button(), E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+E\+X\+I\+T, flush\+\_\+screen(), input(), nh\+\_\+\+Xt\+Popup(), positionpopup(), Set\+Dialog\+Prompt(), Set\+Dialog\+Response(), String, T\+R\+U\+E, and x\+\_\+event().
+
+
+
+Referenced by menu\+\_\+key(), and menu\+\_\+search().
+
+
+\begin{DoxyCode}
+1267 \{
+1268     \textcolor{keyword}{static} \textcolor{keywordtype}{boolean} need\_to\_init = True;
+1269 
+1270     \hyperlink{winX_8c_a3b04f41f1f1bdcda0f8ba5e5028b3d50}{getline\_input} = \hyperlink{dgn__lex_8c_ab77a69608c1c09f3f14d24fce44e09ca}{input};
+1271 
+1272     \hyperlink{display_8c_a47cdbc8092c02ed856defd22a0952aeb}{flush\_screen}(1);
+1273     \textcolor{keywordflow}{if} (need\_to\_init) \{
+1274     Arg args[1];
+1275 
+1276     need\_to\_init = False;
+1277 
+1278     XtSetArg(args[0], XtNallowShellResize, True);
+1279 
+1280     \hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\_popup} = XtCreatePopupShell(\textcolor{stringliteral}{"getline"},transientShellWidgetClass,
+1281                    \hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, args, ONE);
+1282     XtOverrideTranslations(\hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\_popup},
+1283         XtParseTranslationTable(\textcolor{stringliteral}{"<Message>WM\_PROTOCOLS: getline\_delete()"}));
+1284 
+1285     \hyperlink{winX_8c_a564b71214a0fe3dc9df74a831ee7c58e}{getline\_dialog} = \hyperlink{dialogs_8c_aaf356545a4c5797e317091864c988de0}{CreateDialog}(\hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\_popup}, \textcolor{stringliteral}{"dialog"},
+1286                     \hyperlink{winX_8c_a8763a554d0bc8190cb20f835cb27706a}{done\_button}, \hyperlink{winX_8c_a2dc6a9fccdda2e198f12611525da9ed7}{abort\_button});
+1287 
+1288     XtRealizeWidget(\hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\_popup});
+1289     XSetWMProtocols(XtDisplay(\hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\_popup}), XtWindow(
+      \hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\_popup}),
+1290             &\hyperlink{winX_8c_a3ef9c9cc4661ff9293b92d17be2b7b27}{wm\_delete\_window}, 1);
+1291     \}
+1292     \hyperlink{dialogs_8c_abb865386e8600a55b2cda49630286e8c}{SetDialogPrompt}(\hyperlink{winX_8c_a564b71214a0fe3dc9df74a831ee7c58e}{getline\_dialog}, (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String})question);   \textcolor{comment}{/* set prompt 
+      */}
+1293     \hyperlink{dialogs_8c_a7b1a25788c7b0dab888df1e32d990123}{SetDialogResponse}(\hyperlink{winX_8c_a564b71214a0fe3dc9df74a831ee7c58e}{getline\_dialog}, \textcolor{stringliteral}{""});   \textcolor{comment}{/* set default answer */}
+1294     \hyperlink{dialogs_8c_a710147c680e59c5715d771d7b709a8b1}{positionpopup}(\hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\_popup}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});       \textcolor{comment}{/* center,bottom */}
+1295 
+1296     \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(\hyperlink{winX_8c_a7bd145e058646fce0cadbbe27041054c}{getline\_popup}, (\textcolor{keywordtype}{int})XtGrabExclusive, 
+      \hyperlink{winX_8c_a564b71214a0fe3dc9df74a831ee7c58e}{getline\_dialog});
+1297 
+1298     \textcolor{comment}{/* The callback will enable the event loop exit. */}
+1299     (void) \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\_event}(\hyperlink{winX_8h_a819d0a7d125d95a69564c36141d32159}{EXIT\_ON\_EXIT});
+1300 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ac8f45ec374359adc682de32ab9d0522d}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+hangup@{X11\+\_\+hangup}}
+\index{X11\+\_\+hangup@{X11\+\_\+hangup}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+hangup}]{\setlength{\rightskip}{0pt plus 5cm}static void X11\+\_\+hangup (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_ac8f45ec374359adc682de32ab9d0522d}
+
+
+Definition at line 1115 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+1120 \{
+1121     hangup(1);      \textcolor{comment}{/* 1 is commonly SIGHUP, but ignored anyway */}
+1122 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ade8f3d89e28afb33a0e20c0cefe97384}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+init\+\_\+nhwindows@{X11\+\_\+init\+\_\+nhwindows}}
+\index{X11\+\_\+init\+\_\+nhwindows@{X11\+\_\+init\+\_\+nhwindows}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+init\+\_\+nhwindows}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+init\+\_\+nhwindows (
+\begin{DoxyParamCaption}
+\item[{int$\ast$}]{argcp, }
+\item[{char$\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_ade8f3d89e28afb33a0e20c0cefe97384}
+
+
+Definition at line 940 of file win\+X.\+c.
+
+
+
+References icon\+\_\+info\+::bits, C\+O\+P\+Y\+R\+I\+G\+H\+T\+\_\+\+B\+A\+N\+N\+E\+R\+\_\+\+A, C\+O\+P\+Y\+R\+I\+G\+H\+T\+\_\+\+B\+A\+N\+N\+E\+R\+\_\+\+B, C\+O\+P\+Y\+R\+I\+G\+H\+T\+\_\+\+B\+A\+N\+N\+E\+R\+\_\+\+C, getuid(), icon\+\_\+info\+::height, icon\+\_\+data, icon\+\_\+pixmap, init\+\_\+standard\+\_\+windows(), M\+A\+X\+\_\+\+W\+I\+N\+D\+O\+W\+S, icon\+\_\+info\+::name, nh\+Cvt\+String\+To\+Pixel(), nh\+Free\+Pixel(), N\+H\+W\+\_\+\+N\+O\+N\+E, String, T\+R\+U\+E, type, icon\+\_\+info\+::width, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, window\+\_\+list, and X11\+\_\+putstr().
+
+
+\begin{DoxyCode}
+943 \{
+944     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *banner\_text[] = \{
+945     \hyperlink{patchlevel_8h_a31bf6260dfee590f28735d5a27134912}{COPYRIGHT\_BANNER\_A},
+946     \hyperlink{patchlevel_8h_a991809ab96e6f409bbf21d0d6e81d633}{COPYRIGHT\_BANNER\_B},
+947     \hyperlink{patchlevel_8h_a4eb1b20c11643715355dbf210025037f}{COPYRIGHT\_BANNER\_C},
+948     \textcolor{stringliteral}{""},
+949     \textcolor{stringliteral}{""},
+950     0
+951     \};
+952     \textcolor{keyword}{register} \textcolor{keyword}{const} \textcolor{keywordtype}{char} **pp;
+953     \textcolor{keywordtype}{int} i;
+954     Cardinal num\_args;
+955     Arg args[4];
+956     uid\_t savuid;
+957 
+958     \textcolor{comment}{/* Init windows to nothing. */}
+959     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{winX_8h_a96f609b2a30e2dc3cc404945cdb2d55e}{MAX\_WINDOWS}; i++)
+960     \hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[i].\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} = \hyperlink{winX_8h_ad149374e5170c08d2036a33dbf0f7b23}{NHW\_NONE};
+961 
+962     \textcolor{comment}{/*}
+963 \textcolor{comment}{     * setuid hack: make sure that if nethack is setuid, to use real uid}
+964 \textcolor{comment}{     * when opening X11 connections, in case the user is using xauth, since}
+965 \textcolor{comment}{     * the "games" or whatever user probably doesn't have permission to open}
+966 \textcolor{comment}{     * a window on the user's display.  This code is harmless if the binary}
+967 \textcolor{comment}{     * is not installed setuid.  See include/system.h on compilation failures.}
+968 \textcolor{comment}{     */}
+969     savuid = geteuid();
+970     (void) seteuid(\hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}());
+971 
+972     XSetIOErrorHandler((XIOErrorHandler) hangup);
+973 
+974     num\_args = 0;
+975     XtSetArg(args[num\_args], XtNallowShellResize, True);    num\_args++;
+976     \hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel} = XtAppInitialize(
+977             &\hyperlink{winX_8c_ad3ba0e65b22f83236faa4df3e5225428}{app\_context},
+978             \textcolor{stringliteral}{"NetHack"},          \textcolor{comment}{/* application class */}
+979             (XrmOptionDescList)0, 0,    \textcolor{comment}{/* options list */}
+980             argcp, (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} *)argv,    \textcolor{comment}{/* command line args */}
+981             (\hyperlink{winreq_8c_a390a5f3d86203009670d84592ac44102}{String} *)0,      \textcolor{comment}{/* fallback resources */}
+982             (ArgList)args, num\_args);
+983     XtOverrideTranslations(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel},
+984     XtParseTranslationTable(\textcolor{stringliteral}{"<Message>WM\_PROTOCOLS: X11\_hangup()"}));
+985 
+986     \textcolor{comment}{/* We don't need to realize the top level widget. */}
+987 
+988 \textcolor{preprocessor}{#ifdef TEXTCOLOR}
+989     \textcolor{comment}{/* add new color converter to deal with overused colormaps */}
+990     XtSetTypeConverter(XtRString, XtRPixel, \hyperlink{winX_8c_acdf408079578a80bb1cd91da74c99178}{nhCvtStringToPixel},
+991                (XtConvertArgList)\hyperlink{winX_8c_abb2e0a016f4529f84611eee1335d697f}{nhcolorConvertArgs},
+992                XtNumber(nhcolorConvertArgs),
+993                XtCacheByDisplay, \hyperlink{winX_8c_a50c189b2e415c6c93335fa7ddbfbc2d9}{nhFreePixel});
+994 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TEXTCOLOR */}\textcolor{preprocessor}{}
+995 
+996     \textcolor{comment}{/* Register the actions mentioned in "actions". */}
+997     XtAppAddActions(\hyperlink{winX_8c_ad3ba0e65b22f83236faa4df3e5225428}{app\_context}, \hyperlink{winX_8c_abfdced56ad6e268381b1d7e45aba9b9b}{actions}, XtNumber(\hyperlink{winX_8c_abfdced56ad6e268381b1d7e45aba9b9b}{actions}));
+998 
+999     \textcolor{comment}{/* Get application-wide resources */}
+1000     XtGetApplicationResources(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, (XtPointer)&\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources},
+1001                   \hyperlink{winX_8c_ad1aef8009121e3bfbb45c34daa7863bb}{resources}, XtNumber(\hyperlink{winX_8c_ad1aef8009121e3bfbb45c34daa7863bb}{resources}),
+1002                   (ArgList)0, ZERO);
+1003 
+1004     \textcolor{comment}{/* Initialize other things. */}
+1005     \hyperlink{winX_8c_a23041680f2f91606b339a0cfdda56c74}{init\_standard\_windows}();
+1006 
+1007     \textcolor{comment}{/* Give the window manager an icon to use;  toplevel must be realized. */}
+1008     \textcolor{keywordflow}{if} (appResources.icon && *appResources.icon) \{
+1009     \textcolor{keyword}{struct }\hyperlink{structicon__info}{icon\_info} *ip;
+1010 
+1011     \textcolor{keywordflow}{for} (ip = \hyperlink{winX_8c_a3f382f475a83305ace6a48b3efcd28e8}{icon\_data}; ip->\hyperlink{structicon__info_a04df7988c8ff4df7c9eea4be5e73f063}{name}; ip++)
+1012         \textcolor{keywordflow}{if} (!strcmp(appResources.icon, ip->\hyperlink{structicon__info_a04df7988c8ff4df7c9eea4be5e73f063}{name})) \{
+1013         \hyperlink{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}{icon\_pixmap} = XCreateBitmapFromData(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}),
+1014                 XtWindow(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}),
+1015                 (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})ip->\hyperlink{structicon__info_a7a96cca6153684b42b422966158aa5d5}{bits}, ip->\hyperlink{structicon__info_ad71603c600fd9734bcf1b5ee7a695c87}{width}, ip->
+      \hyperlink{structicon__info_a554d29a56ed3400902ba5aae9dcbc9e2}{height});
+1016         \textcolor{keywordflow}{if} (\hyperlink{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}{icon\_pixmap} != None) \{
+1017             XWMHints hints;
+1018 
+1019             (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&hints, 0, \textcolor{keyword}{sizeof}(XWMHints));
+1020             hints.flags = IconPixmapHint;
+1021             hints.icon\_pixmap = \hyperlink{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}{icon\_pixmap};
+1022             XSetWMHints(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}),
+1023                 XtWindow(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}), &hints);
+1024         \}
+1025         \textcolor{keywordflow}{break};
+1026         \}
+1027     \}
+1028 
+1029     \textcolor{comment}{/* end of setuid hack: reset uid back to the "games" uid */}
+1030     (void) seteuid(savuid);
+1031 
+1032     \hyperlink{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{x\_inited} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};    \textcolor{comment}{/* X is now initialized */}
+1033 
+1034     \textcolor{comment}{/* Display the startup banner in the message window. */}
+1035     \textcolor{keywordflow}{for} (pp = banner\_text; *pp; pp++)
+1036     \hyperlink{winX_8c_aaee9812ba8f8c3b4ae478837bd904350}{X11\_putstr}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, 0, *pp);
+1037 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a2a63fbfb50bedb44e0dd966c44f0b838}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+mark\+\_\+synch@{X11\+\_\+mark\+\_\+synch}}
+\index{X11\+\_\+mark\+\_\+synch@{X11\+\_\+mark\+\_\+synch}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+mark\+\_\+synch}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+mark\+\_\+synch (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a2a63fbfb50bedb44e0dd966c44f0b838}
+
+
+Definition at line 821 of file win\+X.\+c.
+
+
+
+References display\+\_\+message\+\_\+window(), toplevel, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, and window\+\_\+list.
+
+
+\begin{DoxyCode}
+822 \{
+823     \textcolor{keywordflow}{if} (\hyperlink{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{x\_inited}) \{
+824     \textcolor{comment}{/*}
+825 \textcolor{comment}{     * The window document is unclear about the status of text}
+826 \textcolor{comment}{     * that has been pline()d but not displayed w/display\_nhwindow().}
+827 \textcolor{comment}{     * Both the main and tty code assume that a pline() followed}
+828 \textcolor{comment}{     * by mark\_synch() results in the text being seen, even if}
+829 \textcolor{comment}{     * display\_nhwindow() wasn't called.  Duplicate this behavior.}
+830 \textcolor{comment}{     */}
+831     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+832         \hyperlink{winmesg_8c_aaece8138d8b0526926b8f0e913b4132b}{display\_message\_window}(&\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[
+      \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}]);
+833     XSync(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}), False);
+834     \}
+835 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a4b01cd563856eae9407287018001d042}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+nh\+\_\+poskey@{X11\+\_\+nh\+\_\+poskey}}
+\index{X11\+\_\+nh\+\_\+poskey@{X11\+\_\+nh\+\_\+poskey}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+nh\+\_\+poskey}]{\setlength{\rightskip}{0pt plus 5cm}int X11\+\_\+nh\+\_\+poskey (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{int $\ast$}]{mod}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a4b01cd563856eae9407287018001d042}
+
+
+Definition at line 583 of file win\+X.\+c.
+
+
+
+References click\+\_\+button, click\+\_\+x, click\+\_\+y, E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+O\+R\+\_\+\+B\+U\+T\+T\+O\+N\+\_\+\+P\+R\+E\+S\+S, and input\+\_\+event().
+
+
+\begin{DoxyCode}
+585 \{
+586     \textcolor{keywordtype}{int} val = \hyperlink{winX_8c_a8da0c4cc062913b69b9137c0c75be7ca}{input\_event}(\hyperlink{winX_8h_a294c5c7b1a72b1a6e813df15ed869178}{EXIT\_ON\_KEY\_OR\_BUTTON\_PRESS});
+587 
+588     \textcolor{keywordflow}{if} (val == 0) \{ \textcolor{comment}{/* user clicked on a map window */}
+589     *x   = \hyperlink{winX_8c_a89aa1c1525f82269298a01d552e60037}{click\_x};
+590     *y   = \hyperlink{winX_8c_aba43294be5cc34c20fa3d3a58af45f0d}{click\_y};
+591     *mod = \hyperlink{winX_8c_a79e3d6b50909c2df96bbb32505510740}{click\_button};
+592     \}
+593     \textcolor{keywordflow}{return} val;
+594 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+nhbell@{X11\+\_\+nhbell}}
+\index{X11\+\_\+nhbell@{X11\+\_\+nhbell}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+nhbell}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+nhbell (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a522fd643407668a307d742b1ac4d5b3a}
+
+
+Definition at line 813 of file win\+X.\+c.
+
+
+
+References toplevel.
+
+
+
+Referenced by algn\+\_\+key(), askname\+\_\+done(), gend\+\_\+key(), map\+\_\+input(), menu\+\_\+key(), menu\+\_\+select(), ps\+\_\+key(), race\+\_\+key(), select\+\_\+match(), and yn\+\_\+key().
+
+
+\begin{DoxyCode}
+814 \{
+815     \textcolor{comment}{/* We can't use XBell until toplevel has been initialized. */}
+816     \textcolor{keywordflow}{if} (\hyperlink{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{x\_inited})
+817     XBell(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}), 0);
+818     \textcolor{comment}{/* else print ^G ?? */}
+819 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ac1b60e9f9016dcf754bde2c22ec75537}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+nhgetch@{X11\+\_\+nhgetch}}
+\index{X11\+\_\+nhgetch@{X11\+\_\+nhgetch}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+nhgetch}]{\setlength{\rightskip}{0pt plus 5cm}int X11\+\_\+nhgetch (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_ac1b60e9f9016dcf754bde2c22ec75537}
+
+
+Definition at line 576 of file win\+X.\+c.
+
+
+
+References E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+K\+E\+Y\+\_\+\+P\+R\+E\+S\+S, and input\+\_\+event().
+
+
+\begin{DoxyCode}
+577 \{
+578     \textcolor{keywordflow}{return} \hyperlink{winX_8c_a8da0c4cc062913b69b9137c0c75be7ca}{input\_event}(\hyperlink{winX_8h_ac326aec2aab61c19424f64072ed1a724}{EXIT\_ON\_KEY\_PRESS});
+579 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a592181ba6438f52197d8282e07fe28e3}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+number\+\_\+pad@{X11\+\_\+number\+\_\+pad}}
+\index{X11\+\_\+number\+\_\+pad@{X11\+\_\+number\+\_\+pad}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+number\+\_\+pad}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+number\+\_\+pad (
+\begin{DoxyParamCaption}
+\item[{int}]{state}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a592181ba6438f52197d8282e07fe28e3}
+
+
+Definition at line 848 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+848 \{ \textcolor{keywordflow}{return}; \} \textcolor{comment}{/* called from options.c */}
+\end{DoxyCode}
+\hypertarget{winX_8c_aaee9812ba8f8c3b4ae478837bd904350}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+putstr@{X11\+\_\+putstr}}
+\index{X11\+\_\+putstr@{X11\+\_\+putstr}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+putstr}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+putstr (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{int}]{attr, }
+\item[{{\bf const} char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_aaee9812ba8f8c3b4ae478837bd904350}
+
+
+Definition at line 524 of file win\+X.\+c.
+
+
+
+References add\+\_\+to\+\_\+text\+\_\+window(), adjust\+\_\+status(), append\+\_\+message(), check\+\_\+winid, N\+H\+W\+\_\+\+M\+A\+P, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+N\+O\+N\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, T\+B\+U\+F\+S\+Z, toplines, xwindow\+::type, window\+\_\+list, X11\+\_\+create\+\_\+nhwindow(), and X11\+\_\+destroy\+\_\+nhwindow().
+
+
+
+Referenced by X11\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+528 \{
+529     \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} new\_win;
+530     \textcolor{keyword}{struct }\hyperlink{structxwindow}{xwindow} *wp;
+531 
+532     \hyperlink{winX_8h_ac11ceb8f21d74b63564a3176cd2cf41f}{check\_winid}(window);
+533     wp = &\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[window];
+534 
+535     \textcolor{keywordflow}{switch} (wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type}) \{
+536     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}:
+537         (void) strncpy(\hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines}, str, \hyperlink{global_8h_aa18046886c403e831e620d0bfb76bdc7}{TBUFSZ});    \textcolor{comment}{/* for Norep(). */}
+538         \hyperlink{decl_8h_a7d07429fa6ffa68fab837a5c9a0a3528}{toplines}[\hyperlink{global_8h_aa18046886c403e831e620d0bfb76bdc7}{TBUFSZ} - 1] = 0;
+539         \hyperlink{winmesg_8c_aba2df503c2427cf659537de83b7fb436}{append\_message}(wp, str);
+540         \textcolor{keywordflow}{break};
+541     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}:
+542         \hyperlink{winstat_8c_a79f5b69779cf7392365b41bcba66f68f}{adjust\_status}(wp, str);
+543         \textcolor{keywordflow}{break};
+544     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}:
+545         impossible(\textcolor{stringliteral}{"putstr: called on map window \(\backslash\)"%s\(\backslash\)""}, str);
+546         \textcolor{keywordflow}{break};
+547     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}:
+548         \textcolor{keywordflow}{if} (wp->menu\_information->is\_menu) \{
+549         impossible(
+550             \textcolor{stringliteral}{"putstr:  called on a menu window, \(\backslash\)"%s\(\backslash\)" discarded"},
+551             str);
+552         \textcolor{keywordflow}{break};
+553         \}
+554         \textcolor{comment}{/*}
+555 \textcolor{comment}{         * Change this menu window into a text window by creating a}
+556 \textcolor{comment}{         * new text window, then copying it to this winid.}
+557 \textcolor{comment}{         */}
+558         new\_win = \hyperlink{winX_8c_ae804740eba46236013bff6d3d78a29b1}{X11\_create\_nhwindow}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT});
+559         \hyperlink{winX_8c_a80f2dd28d7527810c3fda39f9ec1c487}{X11\_destroy\_nhwindow}(window);
+560         *wp = \hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[new\_win];
+561         \hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[new\_win].\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type} = \hyperlink{winX_8h_ad149374e5170c08d2036a33dbf0f7b23}{NHW\_NONE};    \textcolor{comment}{/* allow re-use */}
+562         \textcolor{comment}{/* fall though to add text */}
+563     \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}:
+564         \hyperlink{wintext_8c_a4e72b90d28521f6ddf527f853da4da19}{add\_to\_text\_window}(wp, attr, str);
+565         \textcolor{keywordflow}{break};
+566     \textcolor{keywordflow}{default}:
+567         impossible(\textcolor{stringliteral}{"putstr: unknown window type [%d] \(\backslash\)"%s\(\backslash\)""},
+568                                 wp->\hyperlink{structxwindow_ae5bcb513f6ce2c64b180514ee0287c23}{type}, str);
+569     \}
+570 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a642fbfc36d3c04989f892c751d973da4}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+raw\+\_\+print@{X11\+\_\+raw\+\_\+print}}
+\index{X11\+\_\+raw\+\_\+print@{X11\+\_\+raw\+\_\+print}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+raw\+\_\+print}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+raw\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+) const}}\label{winX_8c_a642fbfc36d3c04989f892c751d973da4}
+
+
+Definition at line 490 of file win\+X.\+c.
+
+
+
+Referenced by get\+\_\+char\+\_\+info(), init\+\_\+annotation(), and init\+\_\+tiles().
+
+
+\begin{DoxyCode}
+492 \{
+493     (void) puts(str);
+494 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_aceef7b03e650d9dc6c08c59ba2c46e50}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+raw\+\_\+print\+\_\+bold@{X11\+\_\+raw\+\_\+print\+\_\+bold}}
+\index{X11\+\_\+raw\+\_\+print\+\_\+bold@{X11\+\_\+raw\+\_\+print\+\_\+bold}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+raw\+\_\+print\+\_\+bold}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+raw\+\_\+print\+\_\+bold (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+) const}}\label{winX_8c_aceef7b03e650d9dc6c08c59ba2c46e50}
+
+
+Definition at line 497 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+499 \{
+500     (void) puts(str);
+501 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ad11e83e1f3c3a50cd4de2f847d790d83}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+resume\+\_\+nhwindows@{X11\+\_\+resume\+\_\+nhwindows}}
+\index{X11\+\_\+resume\+\_\+nhwindows@{X11\+\_\+resume\+\_\+nhwindows}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+resume\+\_\+nhwindows}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+resume\+\_\+nhwindows (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_ad11e83e1f3c3a50cd4de2f847d790d83}
+
+
+Definition at line 841 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+841 \{ \textcolor{keywordflow}{return}; \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a8195dde8202024918b618f5dd9ad6e44}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+start\+\_\+screen@{X11\+\_\+start\+\_\+screen}}
+\index{X11\+\_\+start\+\_\+screen@{X11\+\_\+start\+\_\+screen}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+start\+\_\+screen}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+start\+\_\+screen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a8195dde8202024918b618f5dd9ad6e44}
+
+
+Definition at line 851 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+851 \{ \textcolor{keywordflow}{return}; \} \textcolor{comment}{/* called from setftty() in unixtty.c */}
+\end{DoxyCode}
+\hypertarget{winX_8c_a975b8b035fac0464fb9220a56e43aa26}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+suspend\+\_\+nhwindows@{X11\+\_\+suspend\+\_\+nhwindows}}
+\index{X11\+\_\+suspend\+\_\+nhwindows@{X11\+\_\+suspend\+\_\+nhwindows}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+suspend\+\_\+nhwindows}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+suspend\+\_\+nhwindows (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+) const}}\label{winX_8c_a975b8b035fac0464fb9220a56e43aa26}
+
+
+Definition at line 844 of file win\+X.\+c.
+
+
+\begin{DoxyCode}
+844 \{ \textcolor{keywordflow}{return}; \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a66575a5507a52d088586b32a660e62d8}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+update\+\_\+inventory@{X11\+\_\+update\+\_\+inventory}}
+\index{X11\+\_\+update\+\_\+inventory@{X11\+\_\+update\+\_\+inventory}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+update\+\_\+inventory}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+update\+\_\+inventory (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a66575a5507a52d088586b32a660e62d8}
+
+
+Definition at line 800 of file win\+X.\+c.
+
+
+
+References F\+A\+L\+S\+E, menu\+\_\+information, W\+I\+N\+\_\+\+I\+N\+V\+E\+N, and window\+\_\+list.
+
+
+\begin{DoxyCode}
+801 \{
+802     \textcolor{keywordflow}{if} (\hyperlink{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{x\_inited} && \hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[\hyperlink{decl_8h_aabd3637304d093f7077c788661a0a5fd}{WIN\_INVEN}].
+      \hyperlink{winX_8h_acd981eaee163401874712444abc65c1e}{menu\_information}->is\_up) \{
+803     \hyperlink{winX_8c_a6ca4de3c8234e8e4b93e46c294e7c3d3}{updated\_inventory} = 1; \textcolor{comment}{/* hack to avoid mapping&raising window */}
+804     (void) display\_inventory((\textcolor{keywordtype}{char} *)0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+805     \hyperlink{winX_8c_a6ca4de3c8234e8e4b93e46c294e7c3d3}{updated\_inventory} = 0;
+806     \}
+807 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a7a787d92bd790c7ba9907411cc9281d4}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+wait\+\_\+synch@{X11\+\_\+wait\+\_\+synch}}
+\index{X11\+\_\+wait\+\_\+synch@{X11\+\_\+wait\+\_\+synch}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+wait\+\_\+synch}]{\setlength{\rightskip}{0pt plus 5cm}void X11\+\_\+wait\+\_\+synch (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winX_8c_a7a787d92bd790c7ba9907411cc9281d4}
+
+
+Definition at line 837 of file win\+X.\+c.
+
+
+
+References toplevel.
+
+
+\begin{DoxyCode}
+837 \{ \textcolor{keywordflow}{if} (\hyperlink{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{x\_inited}) XFlush(XtDisplay(\hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel})); \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ad050f2245bb1ec6994c8a66d0ba18f2b}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+yn\+\_\+function@{X11\+\_\+yn\+\_\+function}}
+\index{X11\+\_\+yn\+\_\+function@{X11\+\_\+yn\+\_\+function}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+yn\+\_\+function}]{\setlength{\rightskip}{0pt plus 5cm}char X11\+\_\+yn\+\_\+function (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{ques, }
+\item[{{\bf const} char $\ast$}]{choices, }
+\item[{char}]{def}
+\end{DoxyParamCaption}
+) const}}\label{winX_8c_ad050f2245bb1ec6994c8a66d0ba18f2b}
+
+
+Definition at line 1584 of file win\+X.\+c.
+
+
+
+References buf, display\+\_\+message\+\_\+window(), eos(), E\+X\+I\+T\+\_\+\+O\+N\+\_\+\+E\+X\+I\+T, F\+A\+L\+S\+E, index(), input\+\_\+func, nh\+\_\+\+Xt\+Popdown(), nh\+\_\+\+Xt\+Popup(), panic(), positionpopup(), Q\+B\+U\+F\+S\+Z, App\+Resources\+::slow, Sprintf, Strcpy, T\+R\+U\+E, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, window\+\_\+list, x\+\_\+event(), yn\+\_\+key(), and yn\+\_\+return.
+
+
+\begin{DoxyCode}
+1588 \{
+1589     \textcolor{keyword}{static} Boolean need\_to\_init = True;
+1590     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+1591     Arg args[4];
+1592     Cardinal num\_args;
+1593 
+1594     \hyperlink{winX_8c_a6e95461f61d9c9f27180d2a0f3775b41}{yn\_choices} = choices; \textcolor{comment}{/* set up globals for callback to use */}
+1595     \hyperlink{winX_8c_a78c2dee335493c7108bb769c9d959870}{yn\_def}     = def;
+1596 
+1597     \textcolor{comment}{/*}
+1598 \textcolor{comment}{     * This is sort of a kludge.  There are quite a few places in the main}
+1599 \textcolor{comment}{     * nethack code where a pline containing information is followed by a}
+1600 \textcolor{comment}{     * call to yn\_function().  There is no flush of the message window}
+1601 \textcolor{comment}{     * (it is implicit in the tty window port), so the line never shows}
+1602 \textcolor{comment}{     * up for us!  Solution: do our own flush.}
+1603 \textcolor{comment}{     */}
+1604     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+1605     \hyperlink{winmesg_8c_aaece8138d8b0526926b8f0e913b4132b}{display\_message\_window}(&\hyperlink{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{window\_list}[
+      \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}]);
+1606 
+1607     \textcolor{keywordflow}{if} (choices) \{
+1608     \textcolor{keywordtype}{char} *cb, choicebuf[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+1609 
+1610     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(choicebuf, choices);   \textcolor{comment}{/* anything beyond <esc> is hidden */}
+1611     \textcolor{keywordflow}{if} ((cb = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(choicebuf, \textcolor{charliteral}{'\(\backslash\)033'})) != 0) *cb = \textcolor{charliteral}{'\(\backslash\)0'};
+1612     \textcolor{comment}{/* ques [choices] (def) */}
+1613     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int})(1 + strlen(ques) + 2 + strlen(choicebuf) + 4) >= \hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ})
+1614         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"yn\_function:  question too long"});
+1615     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"%s [%s] "}, ques, choicebuf);
+1616     \textcolor{keywordflow}{if} (def) \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(buf), \textcolor{stringliteral}{"(%c) "}, def);
+1617 
+1618     \textcolor{comment}{/* escape maps to 'q' or 'n' or default, in that order */}
+1619     \hyperlink{winX_8c_a7dd015f980e8d798c219b645465751c6}{yn\_esc\_map} = (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(choices, \textcolor{charliteral}{'q'}) ? \textcolor{charliteral}{'q'} :
+1620              (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(choices, \textcolor{charliteral}{'n'}) ? \textcolor{charliteral}{'n'} :
+1621                         def));
+1622     \} \textcolor{keywordflow}{else} \{
+1623     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int})(1 + strlen(ques)) >= \hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ})
+1624         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"yn\_function:  question too long"});
+1625     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(buf, ques);
+1626     \}
+1627 
+1628     \textcolor{keywordflow}{if} (!\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_a1c7a8208dca6dbf4d9907629bc1e8f7f}{slow} && need\_to\_init) \{
+1629     need\_to\_init = False;
+1630 
+1631     XtSetArg(args[0], XtNallowShellResize, True);
+1632     \hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup} = XtCreatePopupShell(\textcolor{stringliteral}{"query"}, transientShellWidgetClass,
+1633                     \hyperlink{winX_8c_ae185f83e9787d782cea453426cddd2e7}{toplevel}, args, ONE);
+1634     XtOverrideTranslations(\hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup},
+1635         XtParseTranslationTable(\textcolor{stringliteral}{"<Message>WM\_PROTOCOLS: yn\_delete()"}));
+1636 
+1637     num\_args = 0;
+1638     XtSetArg(args[num\_args], XtNtranslations,
+1639         XtParseTranslationTable(\hyperlink{winX_8c_af6ca75633bd100c211f135297db6886c}{yn\_translations}));   num\_args++;
+1640     \hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\_label} = XtCreateManagedWidget(\textcolor{stringliteral}{"yn\_label"},
+1641                 labelWidgetClass,
+1642                 \hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup},
+1643                 args, num\_args);
+1644 
+1645     XtRealizeWidget(\hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup});
+1646     XSetWMProtocols(XtDisplay(\hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup}), XtWindow(\hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup}),
+1647             &\hyperlink{winX_8c_a3ef9c9cc4661ff9293b92d17be2b7b27}{wm\_delete\_window}, 1);
+1648     \}
+1649 
+1650     \textcolor{keywordflow}{if}(\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_a1c7a8208dca6dbf4d9907629bc1e8f7f}{slow})
+1651     \hyperlink{winX_8h_a71168197df994d22165ba05dadb4892a}{input\_func} = \hyperlink{winX_8c_ad2168e52aad2c9240c169233cf746dee}{yn\_key};
+1652 
+1653     num\_args = 0;
+1654     XtSetArg(args[num\_args], XtNlabel, buf);    num\_args++;
+1655     XtSetValues(\hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\_label}, args, num\_args);
+1656 
+1657     \textcolor{keywordflow}{if}(!\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_a1c7a8208dca6dbf4d9907629bc1e8f7f}{slow}) \{
+1658     \textcolor{comment}{/*}
+1659 \textcolor{comment}{     * Due to some kind of weird bug in the X11R4 and X11R5 shell, we}
+1660 \textcolor{comment}{     * need to set the label twice to get the size to change.}
+1661 \textcolor{comment}{     */}
+1662     num\_args = 0;
+1663     XtSetArg(args[num\_args], XtNlabel, buf); num\_args++;
+1664     XtSetValues(\hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\_label}, args, num\_args);
+1665 
+1666     \hyperlink{dialogs_8c_a710147c680e59c5715d771d7b709a8b1}{positionpopup}(\hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1667     \hyperlink{winX_8c_abccd5838d0a01837876f4eca8a208958}{nh\_XtPopup}(\hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup}, (\textcolor{keywordtype}{int})XtGrabExclusive, \hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\_label});
+1668     \}
+1669 
+1670     \hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\_getting\_num} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1671     (void) \hyperlink{winmap_8c_aef8c70617ee08e5f598db802a6ded66d}{x\_event}(\hyperlink{winX_8h_a819d0a7d125d95a69564c36141d32159}{EXIT\_ON\_EXIT});
+1672 
+1673     \textcolor{keywordflow}{if}(\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_a1c7a8208dca6dbf4d9907629bc1e8f7f}{slow}) \{
+1674     \hyperlink{winX_8h_a71168197df994d22165ba05dadb4892a}{input\_func} = 0;
+1675     num\_args = 0;
+1676     XtSetArg(args[num\_args], XtNlabel, \textcolor{stringliteral}{" "});    num\_args++;
+1677     XtSetValues(\hyperlink{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{yn\_label}, args, num\_args);
+1678     \} \textcolor{keywordflow}{else} \{
+1679     \hyperlink{winX_8c_ab9193a5900f3ec10f906ceda8baa2bc9}{nh\_XtPopdown}(\hyperlink{winX_8c_a1231ab5edd655a3b104cf146f628a975}{yn\_popup}); \textcolor{comment}{/* this removes the event grab */}
+1680     \}
+1681 
+1682     \textcolor{keywordflow}{return} \hyperlink{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{yn\_return};
+1683 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_a7dd305c71ba1d17823e54832311ed38b}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+delete@{yn\+\_\+delete}}
+\index{yn\+\_\+delete@{yn\+\_\+delete}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+delete}]{\setlength{\rightskip}{0pt plus 5cm}static void yn\+\_\+delete (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a7dd305c71ba1d17823e54832311ed38b}
+
+
+Definition at line 1498 of file win\+X.\+c.
+
+
+
+References exit\+\_\+x\+\_\+event, F\+A\+L\+S\+E, and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+1503 \{
+1504     \hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\_getting\_num} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1505     \textcolor{comment}{/* Only use yn\_esc\_map if we have choices.  Otherwise, return ESC. */}
+1506     \hyperlink{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{yn\_return} = \hyperlink{winX_8c_a6e95461f61d9c9f27180d2a0f3775b41}{yn\_choices} ? \hyperlink{winX_8c_a7dd015f980e8d798c219b645465751c6}{yn\_esc\_map} : \textcolor{charliteral}{'\(\backslash\)033'};
+1507     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};    \textcolor{comment}{/* exit our event handler */}
+1508 \}
+\end{DoxyCode}
+\hypertarget{winX_8c_ad2168e52aad2c9240c169233cf746dee}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+key@{yn\+\_\+key}}
+\index{yn\+\_\+key@{yn\+\_\+key}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+key}]{\setlength{\rightskip}{0pt plus 5cm}static void yn\+\_\+key (
+\begin{DoxyParamCaption}
+\item[{Widget}]{w, }
+\item[{X\+Event $\ast$}]{event, }
+\item[{{\bf String} $\ast$}]{params, }
+\item[{Cardinal $\ast$}]{num\+\_\+params}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_ad2168e52aad2c9240c169233cf746dee}
+
+
+Definition at line 1515 of file win\+X.\+c.
+
+
+
+References exit\+\_\+x\+\_\+event, F\+A\+L\+S\+E, index(), input\+\_\+func, key\+\_\+event\+\_\+to\+\_\+char(), lowc(), map\+\_\+input(), App\+Resources\+::slow, T\+R\+U\+E, X11\+\_\+nhbell(), yn\+\_\+def, yn\+\_\+esc\+\_\+map, yn\+\_\+number, and yn\+\_\+val.
+
+
+
+Referenced by X11\+\_\+yn\+\_\+function().
+
+
+\begin{DoxyCode}
+1520 \{
+1521     \textcolor{keywordtype}{char} ch;
+1522 
+1523     \textcolor{keywordflow}{if}(\hyperlink{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{appResources}.\hyperlink{structAppResources_a1c7a8208dca6dbf4d9907629bc1e8f7f}{slow} && !\hyperlink{winX_8h_a71168197df994d22165ba05dadb4892a}{input\_func})
+1524     \hyperlink{winmap_8c_ae4a947fe0b04a246c222a8d904f60dc6}{map\_input}(\hyperlink{structxwindow_a02c943a987ff220921a86f40fc5fdfda}{w}, event, params, num\_params);
+1525 
+1526     ch = \hyperlink{winX_8c_af3b290f389630afad6dbf7b302f20606}{key\_event\_to\_char}((XKeyEvent *) event);
+1527 
+1528     \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'\(\backslash\)0'}) \{   \textcolor{comment}{/* don't accept nul char or modifier event */}
+1529     \textcolor{comment}{/* no bell */}
+1530     \textcolor{keywordflow}{return};
+1531     \}
+1532 
+1533     \textcolor{keywordflow}{if} (!\hyperlink{winX_8c_a6e95461f61d9c9f27180d2a0f3775b41}{yn\_choices}) \{            \textcolor{comment}{/* accept any input */}
+1534     \hyperlink{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{yn\_return} = ch;
+1535     \} \textcolor{keywordflow}{else} \{
+1536     ch = \hyperlink{winmain_8c_aa30998af60fa0de85b3457cb346c88e6}{lowc}(ch);          \textcolor{comment}{/* move to lower case */}
+1537 
+1538     \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'\(\backslash\)033'}) \{
+1539         \hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\_getting\_num} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1540         \hyperlink{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{yn\_return} = \hyperlink{winX_8c_a7dd015f980e8d798c219b645465751c6}{yn\_esc\_map};
+1541     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\hyperlink{winX_8c_ae048248779167ec4301f5d283cd24fe1}{yn\_quitchars}, ch)) \{
+1542         \hyperlink{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{yn\_return} = \hyperlink{winX_8c_a78c2dee335493c7108bb769c9d959870}{yn\_def};
+1543     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\hyperlink{winX_8c_a6e95461f61d9c9f27180d2a0f3775b41}{yn\_choices}, ch)) \{
+1544         \textcolor{keywordflow}{if} (ch == \textcolor{charliteral}{'#'}) \{
+1545         \textcolor{keywordflow}{if} (\hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\_getting\_num}) \{ \textcolor{comment}{/* don't select again */}
+1546             \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();
+1547             \textcolor{keywordflow}{return};
+1548         \}
+1549         \hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\_getting\_num} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1550         \hyperlink{winX_8c_a7ee805d9db5303cdb2c528e8522852ce}{yn\_ndigits} = 0;
+1551         \hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\_val} = 0;
+1552         \textcolor{keywordflow}{return};         \textcolor{comment}{/* wait for more input */}
+1553         \}
+1554         \hyperlink{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{yn\_return} = ch;
+1555         \textcolor{keywordflow}{if} (ch != \textcolor{charliteral}{'y'}) \hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\_getting\_num} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1556     \} \textcolor{keywordflow}{else} \{
+1557         \textcolor{keywordflow}{if} (\hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\_getting\_num}) \{
+1558         \textcolor{keywordflow}{if} (digit(ch)) \{
+1559             \hyperlink{winX_8c_a7ee805d9db5303cdb2c528e8522852ce}{yn\_ndigits}++;
+1560             \hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\_val} = (\hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\_val} * 10) + (\textcolor{keywordtype}{long}) (ch - \textcolor{charliteral}{'0'});
+1561             \textcolor{keywordflow}{return};         \textcolor{comment}{/* wait for more input */}
+1562         \}
+1563         \textcolor{keywordflow}{if} (\hyperlink{winX_8c_a7ee805d9db5303cdb2c528e8522852ce}{yn\_ndigits} && (ch == \textcolor{charliteral}{'\(\backslash\)b'} || ch == 127\textcolor{comment}{/*DEL*/})) \{
+1564             \hyperlink{winX_8c_a7ee805d9db5303cdb2c528e8522852ce}{yn\_ndigits}--;
+1565             \hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\_val} = \hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\_val}/ 10;
+1566             \textcolor{keywordflow}{return};         \textcolor{comment}{/* wait for more input */}
+1567         \}
+1568         \}
+1569         \hyperlink{winX_8c_a522fd643407668a307d742b1ac4d5b3a}{X11\_nhbell}();     \textcolor{comment}{/* no match */}
+1570         \textcolor{keywordflow}{return};
+1571     \}
+1572 
+1573     \textcolor{keywordflow}{if} (\hyperlink{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{yn\_getting\_num}) \{
+1574         \hyperlink{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{yn\_return} = \textcolor{charliteral}{'#'};
+1575         \textcolor{keywordflow}{if} (\hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\_val} < 0) \hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\_val} = 0;
+1576         \hyperlink{decl_8h_a8d0d181363445ec14b97df39150532e9}{yn\_number} = \hyperlink{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{yn\_val};  \textcolor{comment}{/* assign global */}
+1577     \}
+1578     \}
+1579     \hyperlink{winX_8h_a6fb3800c85b3ce22d62964c79b509135}{exit\_x\_event} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};    \textcolor{comment}{/* exit our event handler */}
+1580 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{winX_8c_abfdced56ad6e268381b1d7e45aba9b9b}{\index{win\+X.\+c@{win\+X.\+c}!actions@{actions}}
+\index{actions@{actions}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{actions}]{\setlength{\rightskip}{0pt plus 5cm}Xt\+Actions\+Rec actions\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_abfdced56ad6e268381b1d7e45aba9b9b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{\textcolor{stringliteral}{"dismiss\_file"},    \hyperlink{winX_8c_a760efe41f92c09311471d9b2cad6eae8}{dismiss\_file}\},  
+    \{\textcolor{stringliteral}{"delete\_file"}, \hyperlink{winX_8c_a8b5e8f72fa6614f417f6ac74e25afb51}{delete\_file}\},    
+    \{\textcolor{stringliteral}{"dismiss\_text"},    \hyperlink{wintext_8c_af1fa5b88e785f168ad98639ec04b8362}{dismiss\_text}\},  
+    \{\textcolor{stringliteral}{"delete\_text"}, \hyperlink{wintext_8c_afa24874d5a7ab8b1be0dc5b6a0a0363a}{delete\_text}\},    
+    \{\textcolor{stringliteral}{"key\_dismiss\_text"},\hyperlink{wintext_8c_acc615165f2e6ae928071f55b3dde4f82}{key\_dismiss\_text}\},
+
+
+
+    \{\textcolor{stringliteral}{"menu\_key"},    \hyperlink{win_2X11_2winmenu_8c_a41563bf9c3c1809af466e5a0f51d9280}{menu\_key}\},  
+    \{\textcolor{stringliteral}{"yn\_key"},      \hyperlink{winX_8c_ad2168e52aad2c9240c169233cf746dee}{yn\_key}\},  
+    \{\textcolor{stringliteral}{"yn\_delete"},   \hyperlink{winX_8c_a7dd305c71ba1d17823e54832311ed38b}{yn\_delete}\},    
+    \{\textcolor{stringliteral}{"askname\_delete"},  \hyperlink{winX_8c_a37bd1e2df6bd4e40136e1eb9f0f5bae5}{askname\_delete}\},
+    \{\textcolor{stringliteral}{"getline\_delete"},  \hyperlink{winX_8c_aad5c96661e33f532d56ed893acccf521}{getline\_delete}\},
+    \{\textcolor{stringliteral}{"menu\_delete"}, \hyperlink{win_2X11_2winmenu_8c_a28584ef5645cfd0193caf26a870882a7}{menu\_delete}\},    
+    \{\textcolor{stringliteral}{"ec\_key"},      \hyperlink{winmisc_8c_a316fcb71b8f6e241217c945e6b546d77}{ec\_key}\},  
+    \{\textcolor{stringliteral}{"ec\_delete"},   \hyperlink{winmisc_8c_ad8bae6fb02c7ec96acacb66092ceb07a}{ec\_delete}\},    
+    \{\textcolor{stringliteral}{"ps\_key"},      \hyperlink{winmisc_8c_a47122371a25d5f8b445eeea0f1f5e055}{ps\_key}\},  
+    \{\textcolor{stringliteral}{"race\_key"},    \hyperlink{winmisc_8c_a44822bd9911823efac02402dea3fdc97}{race\_key}\},  
+    \{\textcolor{stringliteral}{"gend\_key"},    \hyperlink{winmisc_8c_ab54f7bf8dd9dc39dcb26e19eb3a35634}{gend\_key}\},  
+    \{\textcolor{stringliteral}{"algn\_key"},    \hyperlink{winmisc_8c_a1dbd2eeaf51721fabb4c555a14634a75}{algn\_key}\},  
+    \{\textcolor{stringliteral}{"X11\_hangup"},  \hyperlink{winX_8c_ac8f45ec374359adc682de32ab9d0522d}{X11\_hangup}\},  
+    \{\textcolor{stringliteral}{"input"},       \hyperlink{winmap_8c_ae4a947fe0b04a246c222a8d904f60dc6}{map\_input}\},    
+    \{\textcolor{stringliteral}{"scroll"},      \hyperlink{winX_8c_a1ef34b4749eba5c8dcb8505046e8788b}{nh\_keyscroll}\},  
+\}
+\end{DoxyCode}
+
+
+Definition at line 880 of file win\+X.\+c.
+
+\hypertarget{winX_8c_ad3ba0e65b22f83236faa4df3e5225428}{\index{win\+X.\+c@{win\+X.\+c}!app\+\_\+context@{app\+\_\+context}}
+\index{app\+\_\+context@{app\+\_\+context}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{app\+\_\+context}]{\setlength{\rightskip}{0pt plus 5cm}Xt\+App\+Context app\+\_\+context}}\label{winX_8c_ad3ba0e65b22f83236faa4df3e5225428}
+
+
+Definition at line 876 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}{\index{win\+X.\+c@{win\+X.\+c}!app\+Resources@{app\+Resources}}
+\index{app\+Resources@{app\+Resources}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{app\+Resources}]{\setlength{\rightskip}{0pt plus 5cm}{\bf App\+Resources} app\+Resources}}\label{winX_8c_a721ebbf10e5b81e442c2d2d4096e12a6}
+
+
+Definition at line 85 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a79e3d6b50909c2df96bbb32505510740}{\index{win\+X.\+c@{win\+X.\+c}!click\+\_\+button@{click\+\_\+button}}
+\index{click\+\_\+button@{click\+\_\+button}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{click\+\_\+button}]{\setlength{\rightskip}{0pt plus 5cm}int click\+\_\+button}}\label{winX_8c_a79e3d6b50909c2df96bbb32505510740}
+
+
+Definition at line 87 of file win\+X.\+c.
+
+
+
+Referenced by X11\+\_\+nh\+\_\+poskey().
+
+\hypertarget{winX_8c_a89aa1c1525f82269298a01d552e60037}{\index{win\+X.\+c@{win\+X.\+c}!click\+\_\+x@{click\+\_\+x}}
+\index{click\+\_\+x@{click\+\_\+x}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{click\+\_\+x}]{\setlength{\rightskip}{0pt plus 5cm}int click\+\_\+x}}\label{winX_8c_a89aa1c1525f82269298a01d552e60037}
+
+
+Definition at line 87 of file win\+X.\+c.
+
+
+
+Referenced by X11\+\_\+nh\+\_\+poskey().
+
+\hypertarget{winX_8c_aba43294be5cc34c20fa3d3a58af45f0d}{\index{win\+X.\+c@{win\+X.\+c}!click\+\_\+y@{click\+\_\+y}}
+\index{click\+\_\+y@{click\+\_\+y}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{click\+\_\+y}]{\setlength{\rightskip}{0pt plus 5cm}int click\+\_\+y}}\label{winX_8c_aba43294be5cc34c20fa3d3a58af45f0d}
+
+
+Definition at line 87 of file win\+X.\+c.
+
+
+
+Referenced by X11\+\_\+nh\+\_\+poskey().
+
+\hypertarget{winX_8c_ad742c5cacc20c924783ce561dd95d23a}{\index{win\+X.\+c@{win\+X.\+c}!display\+\_\+translations@{display\+\_\+translations}}
+\index{display\+\_\+translations@{display\+\_\+translations}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{display\+\_\+translations}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char display\+\_\+translations\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_ad742c5cacc20c924783ce561dd95d23a}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"#override\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>q: dismiss\_file()\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>Escape: dismiss\_file()\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <BtnDown>: dismiss\_file()"}
+\end{DoxyCode}
+
+
+Definition at line 1304 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a564b71214a0fe3dc9df74a831ee7c58e}{\index{win\+X.\+c@{win\+X.\+c}!getline\+\_\+dialog@{getline\+\_\+dialog}}
+\index{getline\+\_\+dialog@{getline\+\_\+dialog}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{getline\+\_\+dialog}]{\setlength{\rightskip}{0pt plus 5cm}Widget getline\+\_\+dialog\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a564b71214a0fe3dc9df74a831ee7c58e}
+
+
+Definition at line 1202 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a3b04f41f1f1bdcda0f8ba5e5028b3d50}{\index{win\+X.\+c@{win\+X.\+c}!getline\+\_\+input@{getline\+\_\+input}}
+\index{getline\+\_\+input@{getline\+\_\+input}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{getline\+\_\+input}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ getline\+\_\+input\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a3b04f41f1f1bdcda0f8ba5e5028b3d50}
+
+
+Definition at line 1205 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a7bd145e058646fce0cadbbe27041054c}{\index{win\+X.\+c@{win\+X.\+c}!getline\+\_\+popup@{getline\+\_\+popup}}
+\index{getline\+\_\+popup@{getline\+\_\+popup}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{getline\+\_\+popup}]{\setlength{\rightskip}{0pt plus 5cm}Widget getline\+\_\+popup\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a7bd145e058646fce0cadbbe27041054c}
+
+
+Definition at line 1202 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a3f382f475a83305ace6a48b3efcd28e8}{\index{win\+X.\+c@{win\+X.\+c}!icon\+\_\+data@{icon\+\_\+data}}
+\index{icon\+\_\+data@{icon\+\_\+data}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{icon\+\_\+data}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf icon\+\_\+info}  icon\+\_\+data\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a3f382f475a83305ace6a48b3efcd28e8}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{ \textcolor{stringliteral}{"nh72"}, nh72icon\_bits, nh72icon\_width, nh72icon\_height \},
+    \{ \textcolor{stringliteral}{"nh56"}, nh56icon\_bits, nh56icon\_width, nh56icon\_height \},
+    \{ \textcolor{stringliteral}{"nh32"}, nh32icon\_bits, nh32icon\_width, nh32icon\_height \},
+    \{ (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *)0, 0, 0 \}
+\}
+\end{DoxyCode}
+
+
+Referenced by X11\+\_\+init\+\_\+nhwindows().
+
+\hypertarget{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}{\index{win\+X.\+c@{win\+X.\+c}!icon\+\_\+pixmap@{icon\+\_\+pixmap}}
+\index{icon\+\_\+pixmap@{icon\+\_\+pixmap}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{icon\+\_\+pixmap}]{\setlength{\rightskip}{0pt plus 5cm}Pixmap icon\+\_\+pixmap = None\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_aa23abdb74748311c46bc0f3cd6ab23f9}
+
+
+Definition at line 175 of file win\+X.\+c.
+
+
+
+Referenced by X11\+\_\+init\+\_\+nhwindows().
+
+\hypertarget{winX_8c_a83f370a31bf4e070af369271fbd4a764}{\index{win\+X.\+c@{win\+X.\+c}!map\+\_\+win@{map\+\_\+win}}
+\index{map\+\_\+win@{map\+\_\+win}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{map\+\_\+win}]{\setlength{\rightskip}{0pt plus 5cm}{\bf winid} map\+\_\+win = {\bf W\+I\+N\+\_\+\+E\+R\+R}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a83f370a31bf4e070af369271fbd4a764}
+
+
+Definition at line 172 of file win\+X.\+c.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows(), and X11\+\_\+create\+\_\+nhwindow().
+
+\hypertarget{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}{\index{win\+X.\+c@{win\+X.\+c}!message\+\_\+win@{message\+\_\+win}}
+\index{message\+\_\+win@{message\+\_\+win}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{message\+\_\+win}]{\setlength{\rightskip}{0pt plus 5cm}{\bf winid} message\+\_\+win = {\bf W\+I\+N\+\_\+\+E\+R\+R}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a57f970f7a92b9ed402a185a6fd6bf913}
+
+
+Definition at line 171 of file win\+X.\+c.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows(), and X11\+\_\+create\+\_\+nhwindow().
+
+\hypertarget{winX_8c_abb2e0a016f4529f84611eee1335d697f}{\index{win\+X.\+c@{win\+X.\+c}!nhcolor\+Convert\+Args@{nhcolor\+Convert\+Args}}
+\index{nhcolor\+Convert\+Args@{nhcolor\+Convert\+Args}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{nhcolor\+Convert\+Args}]{\setlength{\rightskip}{0pt plus 5cm}Xt\+Convert\+Arg\+Rec {\bf const} nhcolor\+Convert\+Args\mbox{[}$\,$\mbox{]}}}\label{winX_8c_abb2e0a016f4529f84611eee1335d697f}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{XtWidgetBaseOffset, (XtPointer)XtOffset(Widget, core.screen),
+     \textcolor{keyword}{sizeof}(Screen *)\},
+    \{XtWidgetBaseOffset, (XtPointer)XtOffset(Widget, core.colormap),
+     \textcolor{keyword}{sizeof}(Colormap)\}
+\}
+\end{DoxyCode}
+
+
+Definition at line 223 of file win\+X.\+c.
+
+\hypertarget{winX_8c_ad1aef8009121e3bfbb45c34daa7863bb}{\index{win\+X.\+c@{win\+X.\+c}!resources@{resources}}
+\index{resources@{resources}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{resources}]{\setlength{\rightskip}{0pt plus 5cm}Xt\+Resource resources\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_ad1aef8009121e3bfbb45c34daa7863bb}
+
+
+Definition at line 906 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a87ce9896c8fcc91bcc47d66c02f377a0}{\index{win\+X.\+c@{win\+X.\+c}!status\+\_\+win@{status\+\_\+win}}
+\index{status\+\_\+win@{status\+\_\+win}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{status\+\_\+win}]{\setlength{\rightskip}{0pt plus 5cm}{\bf winid} status\+\_\+win = {\bf W\+I\+N\+\_\+\+E\+R\+R}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a87ce9896c8fcc91bcc47d66c02f377a0}
+
+
+Definition at line 173 of file win\+X.\+c.
+
+
+
+Referenced by init\+\_\+standard\+\_\+windows(), and X11\+\_\+create\+\_\+nhwindow().
+
+\hypertarget{winX_8c_ae185f83e9787d782cea453426cddd2e7}{\index{win\+X.\+c@{win\+X.\+c}!toplevel@{toplevel}}
+\index{toplevel@{toplevel}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{toplevel}]{\setlength{\rightskip}{0pt plus 5cm}Widget toplevel = (Widget) 0}}\label{winX_8c_ae185f83e9787d782cea453426cddd2e7}
+
+
+Definition at line 877 of file win\+X.\+c.
+
+
+
+Referenced by X11\+\_\+mark\+\_\+synch(), X11\+\_\+nhbell(), and X11\+\_\+wait\+\_\+synch().
+
+\hypertarget{winX_8c_a6ca4de3c8234e8e4b93e46c294e7c3d3}{\index{win\+X.\+c@{win\+X.\+c}!updated\+\_\+inventory@{updated\+\_\+inventory}}
+\index{updated\+\_\+inventory@{updated\+\_\+inventory}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{updated\+\_\+inventory}]{\setlength{\rightskip}{0pt plus 5cm}int updated\+\_\+inventory}}\label{winX_8c_a6ca4de3c8234e8e4b93e46c294e7c3d3}
+
+
+Definition at line 89 of file win\+X.\+c.
+
+\hypertarget{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}{\index{win\+X.\+c@{win\+X.\+c}!window\+\_\+list@{window\+\_\+list}}
+\index{window\+\_\+list@{window\+\_\+list}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{window\+\_\+list}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf xwindow} window\+\_\+list\mbox{[}{\bf M\+A\+X\+\_\+\+W\+I\+N\+D\+O\+W\+S}\mbox{]}}}\label{winX_8c_afe8d9d70d27f2169db8cf5d22abf1d21}
+
+
+Definition at line 84 of file win\+X.\+c.
+
+
+
+Referenced by d\+\_\+timeout(), find\+\_\+free\+\_\+window(), find\+\_\+widget(), init\+\_\+standard\+\_\+windows(), input\+\_\+event(), msgkey(), X11\+\_\+clear\+\_\+nhwindow(), X11\+\_\+create\+\_\+nhwindow(), X11\+\_\+curs(), X11\+\_\+destroy\+\_\+nhwindow(), X11\+\_\+display\+\_\+nhwindow(), X11\+\_\+init\+\_\+nhwindows(), X11\+\_\+mark\+\_\+synch(), X11\+\_\+putstr(), X11\+\_\+update\+\_\+inventory(), and X11\+\_\+yn\+\_\+function().
+
+\hypertarget{winX_8c_a3ef9c9cc4661ff9293b92d17be2b7b27}{\index{win\+X.\+c@{win\+X.\+c}!wm\+\_\+delete\+\_\+window@{wm\+\_\+delete\+\_\+window}}
+\index{wm\+\_\+delete\+\_\+window@{wm\+\_\+delete\+\_\+window}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{wm\+\_\+delete\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}Atom wm\+\_\+delete\+\_\+window}}\label{winX_8c_a3ef9c9cc4661ff9293b92d17be2b7b27}
+
+
+Definition at line 878 of file win\+X.\+c.
+
+\hypertarget{winX_8c_ab46e2872a6da3913de336c9fec860f96}{\index{win\+X.\+c@{win\+X.\+c}!X11\+\_\+procs@{X11\+\_\+procs}}
+\index{X11\+\_\+procs@{X11\+\_\+procs}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{X11\+\_\+procs}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf window\+\_\+procs} X11\+\_\+procs}}\label{winX_8c_ab46e2872a6da3913de336c9fec860f96}
+
+
+Definition at line 93 of file win\+X.\+c.
+
+\hypertarget{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}{\index{win\+X.\+c@{win\+X.\+c}!x\+\_\+inited@{x\+\_\+inited}}
+\index{x\+\_\+inited@{x\+\_\+inited}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{x\+\_\+inited}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} x\+\_\+inited = {\bf F\+A\+L\+S\+E}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_afe7d10b9632eed999d5f66f75b16d4b2}
+
+
+Definition at line 170 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a6e95461f61d9c9f27180d2a0f3775b41}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+choices@{yn\+\_\+choices}}
+\index{yn\+\_\+choices@{yn\+\_\+choices}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+choices}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ yn\+\_\+choices\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a6e95461f61d9c9f27180d2a0f3775b41}
+
+
+Definition at line 1457 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a78c2dee335493c7108bb769c9d959870}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+def@{yn\+\_\+def}}
+\index{yn\+\_\+def@{yn\+\_\+def}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+def}]{\setlength{\rightskip}{0pt plus 5cm}char yn\+\_\+def\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a78c2dee335493c7108bb769c9d959870}
+
+
+Definition at line 1458 of file win\+X.\+c.
+
+
+
+Referenced by yn\+\_\+key().
+
+\hypertarget{winX_8c_a7dd015f980e8d798c219b645465751c6}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+esc\+\_\+map@{yn\+\_\+esc\+\_\+map}}
+\index{yn\+\_\+esc\+\_\+map@{yn\+\_\+esc\+\_\+map}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+esc\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}char yn\+\_\+esc\+\_\+map\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a7dd015f980e8d798c219b645465751c6}
+
+
+Definition at line 1460 of file win\+X.\+c.
+
+
+
+Referenced by gnome\+\_\+yn\+\_\+function(), mswin\+\_\+yn\+\_\+function(), and yn\+\_\+key().
+
+\hypertarget{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+getting\+\_\+num@{yn\+\_\+getting\+\_\+num}}
+\index{yn\+\_\+getting\+\_\+num@{yn\+\_\+getting\+\_\+num}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+getting\+\_\+num}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} yn\+\_\+getting\+\_\+num\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a5d3ce1a3f355fcb79de26a84ea228bb7}
+
+
+Definition at line 1463 of file win\+X.\+c.
+
+\hypertarget{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+label@{yn\+\_\+label}}
+\index{yn\+\_\+label@{yn\+\_\+label}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+label}]{\setlength{\rightskip}{0pt plus 5cm}Widget yn\+\_\+label\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_aa5202ad0e2e5fd3162e3abf86e223d6f}
+
+
+Definition at line 1462 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a7ee805d9db5303cdb2c528e8522852ce}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+ndigits@{yn\+\_\+ndigits}}
+\index{yn\+\_\+ndigits@{yn\+\_\+ndigits}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+ndigits}]{\setlength{\rightskip}{0pt plus 5cm}int yn\+\_\+ndigits\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a7ee805d9db5303cdb2c528e8522852ce}
+
+
+Definition at line 1464 of file win\+X.\+c.
+
+\hypertarget{winX_8c_a1231ab5edd655a3b104cf146f628a975}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+popup@{yn\+\_\+popup}}
+\index{yn\+\_\+popup@{yn\+\_\+popup}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+popup}]{\setlength{\rightskip}{0pt plus 5cm}Widget yn\+\_\+popup\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_a1231ab5edd655a3b104cf146f628a975}
+
+
+Definition at line 1461 of file win\+X.\+c.
+
+\hypertarget{winX_8c_ae048248779167ec4301f5d283cd24fe1}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+quitchars@{yn\+\_\+quitchars}}
+\index{yn\+\_\+quitchars@{yn\+\_\+quitchars}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+quitchars}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ yn\+\_\+quitchars = \char`\"{} \textbackslash{}n\textbackslash{}r\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_ae048248779167ec4301f5d283cd24fe1}
+
+
+Definition at line 1456 of file win\+X.\+c.
+
+\hypertarget{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+return@{yn\+\_\+return}}
+\index{yn\+\_\+return@{yn\+\_\+return}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+return}]{\setlength{\rightskip}{0pt plus 5cm}char yn\+\_\+return\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_ad3ef8ba013268dbb23aa761430a212ad}
+
+
+Definition at line 1459 of file win\+X.\+c.
+
+
+
+Referenced by X11\+\_\+yn\+\_\+function().
+
+\hypertarget{winX_8c_af6ca75633bd100c211f135297db6886c}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+translations@{yn\+\_\+translations}}
+\index{yn\+\_\+translations@{yn\+\_\+translations}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+translations}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char yn\+\_\+translations\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_af6ca75633bd100c211f135297db6886c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+    \textcolor{stringliteral}{"#override\(\backslash\)n\(\backslash\)}
+\textcolor{stringliteral}{     <Key>: yn\_key()"}
+\end{DoxyCode}
+
+
+Definition at line 1467 of file win\+X.\+c.
+
+\hypertarget{winX_8c_ac08edd0155ecfd472dc6856bee6283db}{\index{win\+X.\+c@{win\+X.\+c}!yn\+\_\+val@{yn\+\_\+val}}
+\index{yn\+\_\+val@{yn\+\_\+val}!win\+X.\+c@{win\+X.\+c}}
+\subsubsection[{yn\+\_\+val}]{\setlength{\rightskip}{0pt plus 5cm}long yn\+\_\+val\hspace{0.3cm}{\ttfamily [static]}}}\label{winX_8c_ac08edd0155ecfd472dc6856bee6283db}
+
+
+Definition at line 1465 of file win\+X.\+c.
+
+
+
+Referenced by yn\+\_\+key().
+

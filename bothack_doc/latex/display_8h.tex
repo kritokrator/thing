@@ -1,0 +1,1339 @@
+\hypertarget{display_8h}{\section{nethack/include/display.h File Reference}
+\label{display_8h}\index{nethack/include/display.\+h@{nethack/include/display.\+h}}
+}
+{\ttfamily \#include \char`\"{}vision.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mondata.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{display_8h_acb0b91fd762d501452bc8436c5160ecc}{vobj\+\_\+at}(x, y)~(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{level.\+objects}\mbox{[}x\mbox{]}\mbox{[}y\mbox{]})
+\item 
+\#define \hyperlink{display_8h_aba621a9a510ebdf4069498e6715444d1}{tp\+\_\+sensemon}(mon)
+\item 
+\#define \hyperlink{display_8h_a13881a5dc42ea2076abd050773eee913}{sensemon}(mon)~(\hyperlink{display_8h_aba621a9a510ebdf4069498e6715444d1}{tp\+\_\+sensemon}(mon) $\vert$$\vert$ \hyperlink{youprop_8h_a6837901e3b3c547cdea44d8504dda753}{Detect\+\_\+monsters} $\vert$$\vert$ \hyperlink{hack_8h_a06971ec894f970d371a9cc7afc83e72c}{M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N}(mon))
+\item 
+\#define \hyperlink{display_8h_a0039b777fa34c7612336965a77e6bc30}{mon\+\_\+warning}(mon)
+\item 
+\#define \hyperlink{display_8h_ad69b6021d6de1f0a37fdbda54bc38bbf}{mon\+\_\+visible}(mon)
+\item 
+\#define \hyperlink{display_8h_aca54af1de4d5a3dafa947f481eea6a6a}{see\+\_\+with\+\_\+infrared}(mon)~(!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} \&\& \hyperlink{youprop_8h_ab70149bbc94c8ce9e8404f0f458eefe0}{Infravision} \&\& \hyperlink{mondata_8h_a975de1d293eb2dd0ca70c74b529d4421}{infravisible}(mon-\/$>$data) \&\& \hyperlink{vision_8h_abe44ac4ddfdaed9498f4b1a9afc10ebd}{couldsee}(mon-\/$>$mx, mon-\/$>$my))
+\item 
+\#define \hyperlink{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}{canseemon}(mon)
+\item 
+\#define \hyperlink{display_8h_a13f0a7cac1ceb73885a59b8598de1648}{canspotmon}(mon)~(\hyperlink{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}{canseemon}(mon) $\vert$$\vert$ \hyperlink{display_8h_a13881a5dc42ea2076abd050773eee913}{sensemon}(mon))
+\item 
+\#define \hyperlink{display_8h_af41555817db1643e7ff21abd26775dde}{knowninvisible}(mon)
+\item 
+\#define \hyperlink{display_8h_a017f4307c07f0f4e272bfa82602bab99}{is\+\_\+safepet}(mon)
+\item 
+\#define \hyperlink{display_8h_af9c96c78d1e081444e7538b21072826a}{canseeself}()~(\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} $\vert$$\vert$ u.\+uswallow $\vert$$\vert$ (!\hyperlink{youprop_8h_a3a091215989ce11abb81f94308b01b6d}{Invisible} \&\& !u.\+uundetected))
+\item 
+\#define \hyperlink{display_8h_a52034fbad768549b2bfc598e6358019d}{senseself}()~(\hyperlink{display_8h_af9c96c78d1e081444e7538b21072826a}{canseeself}() $\vert$$\vert$ \hyperlink{youprop_8h_acf607f2a23654b7517d294a3401122f7}{Unblind\+\_\+telepat} $\vert$$\vert$ \hyperlink{youprop_8h_a6837901e3b3c547cdea44d8504dda753}{Detect\+\_\+monsters})
+\item 
+\#define \hyperlink{display_8h_a7bee8693ffbd11a818f0fadcb2e1568a}{random\+\_\+monster}()~rn2(N\+U\+M\+M\+O\+N\+S)
+\item 
+\#define \hyperlink{display_8h_a067a2f1e90703cc439d97778aee356d7}{random\+\_\+object}()~\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(N\+U\+M\+\_\+\+O\+B\+J\+E\+C\+T\+S-\/1,1)
+\item 
+\#define \hyperlink{display_8h_a9885ad5d0e359c0f54cd21378cda7013}{random\+\_\+trap}()~\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(\hyperlink{trap_8h_a6ecfd62de48aada48010c4fc52beb908}{T\+R\+A\+P\+N\+U\+M}-\/1,1)
+\item 
+\#define \hyperlink{display_8h_a5c769d0e860d86a1f6f941f4713974e2}{what\+\_\+obj}(\hyperlink{structobj}{obj})~(\hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination} ? \hyperlink{display_8h_a067a2f1e90703cc439d97778aee356d7}{random\+\_\+object}()  \+: \hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{display_8h_acff82933acc349b5ecf19a850d2e3005}{what\+\_\+mon}(mon)~(\hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination} ? \hyperlink{display_8h_a7bee8693ffbd11a818f0fadcb2e1568a}{random\+\_\+monster}() \+: mon)
+\item 
+\#define \hyperlink{display_8h_a0d1e25ef13d9e895603597e3f02b4ffe}{what\+\_\+trap}(trp)~(\hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination} ? \hyperlink{display_8h_a9885ad5d0e359c0f54cd21378cda7013}{random\+\_\+trap}()	  \+: trp)
+\item 
+\#define \hyperlink{display_8h_a7d08146240a091927e86396207b9f3dd}{covers\+\_\+objects}(xx, yy)~((is\+\_\+pool(xx,yy) \&\& !\hyperlink{youprop_8h_a2eb59bdcba2c368fefd253bfcdaa3673}{Underwater}) $\vert$$\vert$ (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}\mbox{[}xx\mbox{]}\mbox{[}yy\mbox{]}.typ == \hyperlink{rm_8h_a610b535d9b5db82cd5617b7f2f1e06af}{L\+A\+V\+A\+P\+O\+O\+L}))
+\item 
+\#define \hyperlink{display_8h_a2d2c214a096fc0768048597220e79339}{covers\+\_\+traps}(xx, yy)~\hyperlink{display_8h_a7d08146240a091927e86396207b9f3dd}{covers\+\_\+objects}(xx,yy)
+\item 
+\#define \hyperlink{display_8h_a9c17fd88e339ed28053bba97fbbff6cb}{D\+I\+S\+P\+\_\+\+B\+E\+A\+M}~(-\/1)  /$\ast$ Keep all glyphs showing \& clean up at end. $\ast$/
+\item 
+\#define \hyperlink{display_8h_a34b949cb0446b7600233da12c14f5e52}{D\+I\+S\+P\+\_\+\+F\+L\+A\+S\+H}~(-\/2)  /$\ast$ Clean up each glyph before displaying new one. $\ast$/
+\item 
+\#define \hyperlink{display_8h_a649697258eb2dc5242572b7722f93ac6}{D\+I\+S\+P\+\_\+\+A\+L\+W\+A\+Y\+S}~(-\/3)  /$\ast$ Like flash, but still displayed if not visible. $\ast$/
+\item 
+\#define \hyperlink{display_8h_a05acd9491c79b4b507e670f3956f993b}{D\+I\+S\+P\+\_\+\+C\+H\+A\+N\+G\+E}~(-\/4)  /$\ast$ Change glyph. $\ast$/
+\item 
+\#define \hyperlink{display_8h_a6b799a763b3dbf2977bfe7c90951ab53}{D\+I\+S\+P\+\_\+\+E\+N\+D}~(-\/5)  /$\ast$ Clean up. $\ast$/
+\item 
+\#define \hyperlink{display_8h_a04bf882074111f4d4ceabd3696f789c4}{D\+I\+S\+P\+\_\+\+F\+R\+E\+E\+M\+E\+M}~(-\/6)  /$\ast$ \hyperlink{lev__main_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free} all memory during \hyperlink{sys_2wince_2winhack_8c_a26248234a12f5d74cede4c5c9968454b}{exit} only. $\ast$/
+\item 
+\#define \hyperlink{display_8h_ae66dd4051608b66893e66a32b513fc8d}{S\+H\+I\+E\+L\+D\+\_\+\+C\+O\+U\+N\+T}~21
+\item 
+\#define \hyperlink{display_8h_a567b688379b32b3e180872e921bae800}{maybe\+\_\+display\+\_\+usteed}~/$\ast$ empty $\ast$/
+\item 
+\#define \hyperlink{display_8h_aa4ec7eb1f23db38f5e6bcbab8cb0c5e4}{display\+\_\+self}()
+\item 
+\#define \hyperlink{display_8h_a6e466b4787e73d717f84861437530e9e}{N\+U\+M\+\_\+\+Z\+A\+P}~8	/$\ast$ number of zap beam types $\ast$/
+\item 
+\#define \hyperlink{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F}~0
+\item 
+\#define \hyperlink{display_8h_a6419de72cae8e55fc00371ae9a7abec1}{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F}~(N\+U\+M\+M\+O\+N\+S	+ \hyperlink{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_acee15075719911ed96b44eb1850c1759}{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F}~(N\+U\+M\+M\+O\+N\+S	+ \hyperlink{display_8h_a6419de72cae8e55fc00371ae9a7abec1}{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a592a5d63676e9bd8ad0983cf5145934b}{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F}~(1		+ \hyperlink{display_8h_acee15075719911ed96b44eb1850c1759}{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a5b5531a8309865f07de98109cb3e0307}{G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F}~(N\+U\+M\+M\+O\+N\+S	+ \hyperlink{display_8h_a592a5d63676e9bd8ad0983cf5145934b}{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F}~(N\+U\+M\+M\+O\+N\+S	+ \hyperlink{display_8h_a5b5531a8309865f07de98109cb3e0307}{G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F}~(N\+U\+M\+M\+O\+N\+S	+ \hyperlink{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F}~(N\+U\+M\+\_\+\+O\+B\+J\+E\+C\+T\+S	+ \hyperlink{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a117d3d8a6719732c252bac7f968a8028}{G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F}~((\hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{M\+A\+X\+P\+C\+H\+A\+R\+S} -\/ \hyperlink{rm_8h_a4e1804efd3f2af28c5ace4afca6d9011}{M\+A\+X\+E\+X\+P\+C\+H\+A\+R\+S}) + \hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a51ca2fc1986619ae2d009cfdc555a7e4}{G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F}~((\hyperlink{rm_8h_a4e1804efd3f2af28c5ace4afca6d9011}{M\+A\+X\+E\+X\+P\+C\+H\+A\+R\+S} $\ast$ \hyperlink{hack_8h_a5c212647e8739b7c703539f4a6749347}{E\+X\+P\+L\+\_\+\+M\+A\+X}) + \hyperlink{display_8h_a117d3d8a6719732c252bac7f968a8028}{G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a12c3dedb11601c5df592451fca014723}{G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F}~((\hyperlink{display_8h_a6e466b4787e73d717f84861437530e9e}{N\+U\+M\+\_\+\+Z\+A\+P} $<$$<$ 2) + \hyperlink{display_8h_a51ca2fc1986619ae2d009cfdc555a7e4}{G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a576bb53ad5713142683ac37a22ae0f94}{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F}~((N\+U\+M\+M\+O\+N\+S $<$$<$ 3) + \hyperlink{display_8h_a12c3dedb11601c5df592451fca014723}{G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a4195fd83b99331da1a956454b7346c01}{M\+A\+X\+\_\+\+G\+L\+Y\+P\+H}~(\hyperlink{decl_8h_aeee8b486e8dc54c672bc3af9eb3ef68d}{W\+A\+R\+N\+C\+O\+U\+N\+T}      + \hyperlink{display_8h_a576bb53ad5713142683ac37a22ae0f94}{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{N\+O\+\_\+\+G\+L\+Y\+P\+H}~\hyperlink{display_8h_a4195fd83b99331da1a956454b7346c01}{M\+A\+X\+\_\+\+G\+L\+Y\+P\+H}
+\item 
+\#define \hyperlink{display_8h_a6a5526c0553046a9df8a3cc7e1c862b8}{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E}~\hyperlink{display_8h_acee15075719911ed96b44eb1850c1759}{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F}
+\item 
+\#define \hyperlink{display_8h_aea5a2cc2ac8dec477c98bf16a847e5c9}{warning\+\_\+to\+\_\+glyph}(mwarnlev)~((mwarnlev)+\hyperlink{display_8h_a576bb53ad5713142683ac37a22ae0f94}{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a1fa83f592d6dcf87df43743338ece721}{mon\+\_\+to\+\_\+glyph}(mon)~((int) \hyperlink{display_8h_acff82933acc349b5ecf19a850d2e3005}{what\+\_\+mon}(monsndx((mon)-\/$>$data))+\hyperlink{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_ae2717e9b2518a649e2ff62f810b67dda}{detected\+\_\+mon\+\_\+to\+\_\+glyph}(mon)~((int) \hyperlink{display_8h_acff82933acc349b5ecf19a850d2e3005}{what\+\_\+mon}(monsndx((mon)-\/$>$data))+\hyperlink{display_8h_a592a5d63676e9bd8ad0983cf5145934b}{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_ad76f78503f2cb7e0347c8ac8d32491ac}{ridden\+\_\+mon\+\_\+to\+\_\+glyph}(mon)~((int) \hyperlink{display_8h_acff82933acc349b5ecf19a850d2e3005}{what\+\_\+mon}(monsndx((mon)-\/$>$data))+\hyperlink{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a25bf02e3f0c5c97787395f922a6c2346}{pet\+\_\+to\+\_\+glyph}(mon)~((int) \hyperlink{display_8h_acff82933acc349b5ecf19a850d2e3005}{what\+\_\+mon}(monsndx((mon)-\/$>$data))+\hyperlink{display_8h_a6419de72cae8e55fc00371ae9a7abec1}{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a14ef77de0b1bfde06713088d7d9f53e8}{obj\+\_\+to\+\_\+glyph}(\hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\+\_\+to\+\_\+glyph}(cmap\+\_\+idx)~((int) (cmap\+\_\+idx)   + \hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_aebd383743e7c70cf214dabfd00200331}{explosion\+\_\+to\+\_\+glyph}(expltype, idx)~((((expltype) $\ast$ \hyperlink{rm_8h_a4e1804efd3f2af28c5ace4afca6d9011}{M\+A\+X\+E\+X\+P\+C\+H\+A\+R\+S}) + ((idx) -\/ \hyperlink{rm_8h_a0a65d30eb88de4be481544d3a0629250}{S\+\_\+explode1})) + \hyperlink{display_8h_a117d3d8a6719732c252bac7f968a8028}{G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a29a24762d8eb2c98d7b90c0e7d294c7f}{trap\+\_\+to\+\_\+glyph}(\hyperlink{structtrap}{trap})~\hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\+\_\+to\+\_\+glyph}(\hyperlink{rm_8h_a8b3155eb0b52e1c13981b4dca943722c}{trap\+\_\+to\+\_\+defsym}(\hyperlink{display_8h_a0d1e25ef13d9e895603597e3f02b4ffe}{what\+\_\+trap}((\hyperlink{structtrap}{trap})-\/$>$ttyp)))
+\item 
+\#define \hyperlink{display_8h_af59a105c9b05e9d0531be67f59726b88}{objnum\+\_\+to\+\_\+glyph}(onum)~((int) (onum) + \hyperlink{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a560cc4daa0badc1538b75ff73d71a995}{monnum\+\_\+to\+\_\+glyph}(mnum)~((int) (mnum) + \hyperlink{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_abb2c79319464d32507f14995191ab9c8}{detected\+\_\+monnum\+\_\+to\+\_\+glyph}(mnum)~((int) (mnum) + \hyperlink{display_8h_a592a5d63676e9bd8ad0983cf5145934b}{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_ab5007fcb93856eae5b4aa4fc049a17a9}{ridden\+\_\+monnum\+\_\+to\+\_\+glyph}(mnum)~((int) (mnum) + \hyperlink{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a42379ae0ce2a104ea12a2ffa1db0ba6a}{petnum\+\_\+to\+\_\+glyph}(mnum)~((int) (mnum) + \hyperlink{display_8h_a6419de72cae8e55fc00371ae9a7abec1}{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F})
+\item 
+\#define \hyperlink{display_8h_a50be5310db612c15c7427e12a5affa83}{hero\+\_\+glyph}
+\item 
+\#define \hyperlink{display_8h_aa7e1035d20c9b95dfe017e44b0a72cc5}{glyph\+\_\+to\+\_\+mon}(glyph)
+\item 
+\#define \hyperlink{display_8h_afea03e8d4cb058f7ac029417c0f4d73f}{glyph\+\_\+to\+\_\+obj}(glyph)
+\item 
+\#define \hyperlink{display_8h_a4aa1865459d2a37059fcdce8e224c366}{glyph\+\_\+to\+\_\+trap}(glyph)
+\item 
+\#define \hyperlink{display_8h_a7bbc740e05e67c80b7b7dd81f2dd825d}{glyph\+\_\+to\+\_\+cmap}(glyph)
+\item 
+\#define \hyperlink{display_8h_aed11dccb64c2c9aa9c3ef7a716df430e}{glyph\+\_\+to\+\_\+swallow}(glyph)
+\item 
+\#define \hyperlink{display_8h_a251870e80f640049610e5154e14509c6}{glyph\+\_\+to\+\_\+warning}(glyph)
+\item 
+\#define \hyperlink{display_8h_a8bbad1d40abdd46999b48e54a35955e6}{glyph\+\_\+is\+\_\+monster}(glyph)
+\item 
+\#define \hyperlink{display_8h_ac99cd0faf3547fc108da7742ca80c6fa}{glyph\+\_\+is\+\_\+normal\+\_\+monster}(glyph)~((glyph) $>$= \hyperlink{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))
+\item 
+\#define \hyperlink{display_8h_acc01c7be93d6e9a59ebe375de8879ca8}{glyph\+\_\+is\+\_\+pet}(glyph)~((glyph) $>$= \hyperlink{display_8h_a6419de72cae8e55fc00371ae9a7abec1}{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_a6419de72cae8e55fc00371ae9a7abec1}{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))
+\item 
+\#define \hyperlink{display_8h_ada434392f85151bf1dea62c5b105bece}{glyph\+\_\+is\+\_\+body}(glyph)~((glyph) $>$= \hyperlink{display_8h_a5b5531a8309865f07de98109cb3e0307}{G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_a5b5531a8309865f07de98109cb3e0307}{G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))
+\item 
+\#define \hyperlink{display_8h_aea375594be3554b0c838ac5ca823cb2f}{glyph\+\_\+is\+\_\+ridden\+\_\+monster}(glyph)~((glyph) $>$= \hyperlink{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))
+\item 
+\#define \hyperlink{display_8h_a4be03b1a98289f43dbd1b5eb2d171f81}{glyph\+\_\+is\+\_\+detected\+\_\+monster}(glyph)~((glyph) $>$= \hyperlink{display_8h_a592a5d63676e9bd8ad0983cf5145934b}{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_a592a5d63676e9bd8ad0983cf5145934b}{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))
+\item 
+\#define \hyperlink{display_8h_aab760a0bc2c5bad8dbfe7102628dafc6}{glyph\+\_\+is\+\_\+invisible}(glyph)~((glyph) == \hyperlink{display_8h_a6a5526c0553046a9df8a3cc7e1c862b8}{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E})
+\item 
+\#define \hyperlink{display_8h_a0afb759e98b17835cf34a4aaa06ae6ae}{glyph\+\_\+is\+\_\+normal\+\_\+object}(glyph)~((glyph) $>$= \hyperlink{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F}+N\+U\+M\+\_\+\+O\+B\+J\+E\+C\+T\+S))
+\item 
+\#define \hyperlink{display_8h_a5a3c3067dbac4b44ad002fbe980a90dd}{glyph\+\_\+is\+\_\+object}(glyph)
+\item 
+\#define \hyperlink{display_8h_a495f25bc3868092a11dfa723c138b93b}{glyph\+\_\+is\+\_\+trap}(glyph)
+\item 
+\#define \hyperlink{display_8h_ae849bd5a5de7fbf41783c5af0d81aecd}{glyph\+\_\+is\+\_\+cmap}(glyph)~((glyph) $>$= \hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F}+\hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{M\+A\+X\+P\+C\+H\+A\+R\+S}))
+\item 
+\#define \hyperlink{display_8h_a6ed1ea9b96eda9814b7b30a9cc4e057f}{glyph\+\_\+is\+\_\+swallow}(glyph)~((glyph) $>$= \hyperlink{display_8h_a12c3dedb11601c5df592451fca014723}{G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_a12c3dedb11601c5df592451fca014723}{G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F}+(N\+U\+M\+M\+O\+N\+S $<$$<$ 3)))
+\item 
+\#define \hyperlink{display_8h_aafdda3303535decc30d7a329028376f4}{glyph\+\_\+is\+\_\+warning}(glyph)~((glyph) $>$= \hyperlink{display_8h_a576bb53ad5713142683ac37a22ae0f94}{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F} \&\& (glyph) $<$ (\hyperlink{display_8h_a576bb53ad5713142683ac37a22ae0f94}{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F} + \hyperlink{decl_8h_aeee8b486e8dc54c672bc3af9eb3ef68d}{W\+A\+R\+N\+C\+O\+U\+N\+T}))
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}{\index{display.\+h@{display.\+h}!canseemon@{canseemon}}
+\index{canseemon@{canseemon}!display.\+h@{display.\+h}}
+\subsubsection[{canseemon}]{\setlength{\rightskip}{0pt plus 5cm}\#define canseemon(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)}}\label{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((mon->wormno ? \hyperlink{worm_8c_ae38026b558faadc9a10015ca2376e996}{worm\_known}(mon) : \(\backslash\)
+        (\hyperlink{vision_8h_a857efc720262bc13a9e4b4bcbb079b5c}{cansee}(mon->mx, mon->my) || \hyperlink{display_8h_aca54af1de4d5a3dafa947f481eea6a6a}{see\_with\_infrared}(mon))) \(\backslash\)
+    && \hyperlink{display_8h_ad69b6021d6de1f0a37fdbda54bc38bbf}{mon\_visible}(mon))
+\end{DoxyCode}
+
+
+Definition at line 80 of file display.\+h.
+
+
+
+Referenced by attack\+\_\+checks(), awaken\+\_\+soldiers(), calm\+\_\+nymphs(), charm\+\_\+snakes(), damageum(), erode\+\_\+obj(), flash\+\_\+hits\+\_\+mon(), ghitm(), hmon\+\_\+hitmon(), lookat(), m\+\_\+dowear\+\_\+type(), mon\+\_\+adjust\+\_\+speed(), mon\+\_\+consume\+\_\+unstone(), mquaffmsg(), mreadmsg(), mtele\+\_\+trap(), mzapmsg(), passive(), prisoner\+\_\+speaks(), tele\+\_\+restrict(), tmiss(), update\+\_\+mon\+\_\+intrinsics(), use\+\_\+defensive(), use\+\_\+misc(), and use\+\_\+offensive().
+
+\hypertarget{display_8h_af9c96c78d1e081444e7538b21072826a}{\index{display.\+h@{display.\+h}!canseeself@{canseeself}}
+\index{canseeself@{canseeself}!display.\+h@{display.\+h}}
+\subsubsection[{canseeself}]{\setlength{\rightskip}{0pt plus 5cm}\#define canseeself(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~({\bf Blind} $\vert$$\vert$ u.\+uswallow $\vert$$\vert$ (!{\bf Invisible} \&\& !u.\+uundetected))}}\label{display_8h_af9c96c78d1e081444e7538b21072826a}
+
+
+Definition at line 135 of file display.\+h.
+
+\hypertarget{display_8h_a13f0a7cac1ceb73885a59b8598de1648}{\index{display.\+h@{display.\+h}!canspotmon@{canspotmon}}
+\index{canspotmon@{canspotmon}!display.\+h@{display.\+h}}
+\subsubsection[{canspotmon}]{\setlength{\rightskip}{0pt plus 5cm}\#define canspotmon(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~({\bf canseemon}(mon) $\vert$$\vert$ {\bf sensemon}(mon))}}\label{display_8h_a13f0a7cac1ceb73885a59b8598de1648}
+
+
+Definition at line 92 of file display.\+h.
+
+
+
+Referenced by attack(), attack\+\_\+checks(), dokick(), done\+\_\+in\+\_\+by(), dosearch0(), findone(), flash\+\_\+hits\+\_\+mon(), hmon\+\_\+hitmon(), mbhit(), mbhitm(), missum(), observe\+\_\+quantum\+\_\+cat(), use\+\_\+defensive(), use\+\_\+offensive(), and you\+\_\+aggravate().
+
+\hypertarget{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{\index{display.\+h@{display.\+h}!cmap\+\_\+to\+\_\+glyph@{cmap\+\_\+to\+\_\+glyph}}
+\index{cmap\+\_\+to\+\_\+glyph@{cmap\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{cmap\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define cmap\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{cmap\+\_\+idx}
+\end{DoxyParamCaption}
+)~((int) (cmap\+\_\+idx)   + {\bf G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F})}}\label{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}
+
+
+Definition at line 298 of file display.\+h.
+
+
+
+Referenced by back\+\_\+to\+\_\+glyph(), clear\+\_\+level\+\_\+structures(), create\+\_\+gas\+\_\+cloud(), display\+\_\+monster(), docrt(), feel\+\_\+location(), glyph\+\_\+at(), image\+\_\+of\+\_\+worn\+\_\+object(), init\+\_\+tiles(), magic\+\_\+map\+\_\+background(), map\+\_\+all\+\_\+stone(), map\+\_\+update(), movebubbles(), newsym(), row\+\_\+refresh(), savebones(), setup\+\_\+waterlevel(), shieldeff(), swallowed(), under\+\_\+water(), and unmap\+\_\+object().
+
+\hypertarget{display_8h_a7d08146240a091927e86396207b9f3dd}{\index{display.\+h@{display.\+h}!covers\+\_\+objects@{covers\+\_\+objects}}
+\index{covers\+\_\+objects@{covers\+\_\+objects}!display.\+h@{display.\+h}}
+\subsubsection[{covers\+\_\+objects}]{\setlength{\rightskip}{0pt plus 5cm}\#define covers\+\_\+objects(
+\begin{DoxyParamCaption}
+\item[{}]{xx, }
+\item[{}]{yy}
+\end{DoxyParamCaption}
+)~((is\+\_\+pool(xx,yy) \&\& !{\bf Underwater}) $\vert$$\vert$ ({\bf levl}\mbox{[}xx\mbox{]}\mbox{[}yy\mbox{]}.typ == {\bf L\+A\+V\+A\+P\+O\+O\+L}))}}\label{display_8h_a7d08146240a091927e86396207b9f3dd}
+
+
+Definition at line 168 of file display.\+h.
+
+\hypertarget{display_8h_a2d2c214a096fc0768048597220e79339}{\index{display.\+h@{display.\+h}!covers\+\_\+traps@{covers\+\_\+traps}}
+\index{covers\+\_\+traps@{covers\+\_\+traps}!display.\+h@{display.\+h}}
+\subsubsection[{covers\+\_\+traps}]{\setlength{\rightskip}{0pt plus 5cm}\#define covers\+\_\+traps(
+\begin{DoxyParamCaption}
+\item[{}]{xx, }
+\item[{}]{yy}
+\end{DoxyParamCaption}
+)~{\bf covers\+\_\+objects}(xx,yy)}}\label{display_8h_a2d2c214a096fc0768048597220e79339}
+
+
+Definition at line 171 of file display.\+h.
+
+
+
+Referenced by unmap\+\_\+object().
+
+\hypertarget{display_8h_ae2717e9b2518a649e2ff62f810b67dda}{\index{display.\+h@{display.\+h}!detected\+\_\+mon\+\_\+to\+\_\+glyph@{detected\+\_\+mon\+\_\+to\+\_\+glyph}}
+\index{detected\+\_\+mon\+\_\+to\+\_\+glyph@{detected\+\_\+mon\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{detected\+\_\+mon\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define detected\+\_\+mon\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~((int) {\bf what\+\_\+mon}(monsndx((mon)-\/$>$data))+{\bf G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F})}}\label{display_8h_ae2717e9b2518a649e2ff62f810b67dda}
+
+
+Definition at line 283 of file display.\+h.
+
+
+
+Referenced by display\+\_\+monster(), and monster\+\_\+detect().
+
+\hypertarget{display_8h_abb2c79319464d32507f14995191ab9c8}{\index{display.\+h@{display.\+h}!detected\+\_\+monnum\+\_\+to\+\_\+glyph@{detected\+\_\+monnum\+\_\+to\+\_\+glyph}}
+\index{detected\+\_\+monnum\+\_\+to\+\_\+glyph@{detected\+\_\+monnum\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{detected\+\_\+monnum\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define detected\+\_\+monnum\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mnum}
+\end{DoxyParamCaption}
+)~((int) (mnum) + {\bf G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F})}}\label{display_8h_abb2c79319464d32507f14995191ab9c8}
+
+
+Definition at line 308 of file display.\+h.
+
+
+
+Referenced by detect\+\_\+wsegs(), and display\+\_\+monster().
+
+\hypertarget{display_8h_a649697258eb2dc5242572b7722f93ac6}{\index{display.\+h@{display.\+h}!D\+I\+S\+P\+\_\+\+A\+L\+W\+A\+Y\+S@{D\+I\+S\+P\+\_\+\+A\+L\+W\+A\+Y\+S}}
+\index{D\+I\+S\+P\+\_\+\+A\+L\+W\+A\+Y\+S@{D\+I\+S\+P\+\_\+\+A\+L\+W\+A\+Y\+S}!display.\+h@{display.\+h}}
+\subsubsection[{D\+I\+S\+P\+\_\+\+A\+L\+W\+A\+Y\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+P\+\_\+\+A\+L\+W\+A\+Y\+S~(-\/3)  /$\ast$ Like flash, but still displayed if not visible. $\ast$/}}\label{display_8h_a649697258eb2dc5242572b7722f93ac6}
+
+
+Definition at line 179 of file display.\+h.
+
+
+
+Referenced by start\+\_\+engulf(), and tmp\+\_\+at().
+
+\hypertarget{display_8h_a9c17fd88e339ed28053bba97fbbff6cb}{\index{display.\+h@{display.\+h}!D\+I\+S\+P\+\_\+\+B\+E\+A\+M@{D\+I\+S\+P\+\_\+\+B\+E\+A\+M}}
+\index{D\+I\+S\+P\+\_\+\+B\+E\+A\+M@{D\+I\+S\+P\+\_\+\+B\+E\+A\+M}!display.\+h@{display.\+h}}
+\subsubsection[{D\+I\+S\+P\+\_\+\+B\+E\+A\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+P\+\_\+\+B\+E\+A\+M~(-\/1)  /$\ast$ Keep all glyphs showing \& clean up at end. $\ast$/}}\label{display_8h_a9c17fd88e339ed28053bba97fbbff6cb}
+
+
+Definition at line 177 of file display.\+h.
+
+
+
+Referenced by tmp\+\_\+at().
+
+\hypertarget{display_8h_a05acd9491c79b4b507e670f3956f993b}{\index{display.\+h@{display.\+h}!D\+I\+S\+P\+\_\+\+C\+H\+A\+N\+G\+E@{D\+I\+S\+P\+\_\+\+C\+H\+A\+N\+G\+E}}
+\index{D\+I\+S\+P\+\_\+\+C\+H\+A\+N\+G\+E@{D\+I\+S\+P\+\_\+\+C\+H\+A\+N\+G\+E}!display.\+h@{display.\+h}}
+\subsubsection[{D\+I\+S\+P\+\_\+\+C\+H\+A\+N\+G\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+P\+\_\+\+C\+H\+A\+N\+G\+E~(-\/4)  /$\ast$ Change glyph. $\ast$/}}\label{display_8h_a05acd9491c79b4b507e670f3956f993b}
+
+
+Definition at line 180 of file display.\+h.
+
+
+
+Referenced by tmp\+\_\+at().
+
+\hypertarget{display_8h_a6b799a763b3dbf2977bfe7c90951ab53}{\index{display.\+h@{display.\+h}!D\+I\+S\+P\+\_\+\+E\+N\+D@{D\+I\+S\+P\+\_\+\+E\+N\+D}}
+\index{D\+I\+S\+P\+\_\+\+E\+N\+D@{D\+I\+S\+P\+\_\+\+E\+N\+D}!display.\+h@{display.\+h}}
+\subsubsection[{D\+I\+S\+P\+\_\+\+E\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+P\+\_\+\+E\+N\+D~(-\/5)  /$\ast$ Clean up. $\ast$/}}\label{display_8h_a6b799a763b3dbf2977bfe7c90951ab53}
+
+
+Definition at line 181 of file display.\+h.
+
+
+
+Referenced by end\+\_\+engulf(), sho\+\_\+obj\+\_\+return\+\_\+to\+\_\+u(), throwit(), and tmp\+\_\+at().
+
+\hypertarget{display_8h_a34b949cb0446b7600233da12c14f5e52}{\index{display.\+h@{display.\+h}!D\+I\+S\+P\+\_\+\+F\+L\+A\+S\+H@{D\+I\+S\+P\+\_\+\+F\+L\+A\+S\+H}}
+\index{D\+I\+S\+P\+\_\+\+F\+L\+A\+S\+H@{D\+I\+S\+P\+\_\+\+F\+L\+A\+S\+H}!display.\+h@{display.\+h}}
+\subsubsection[{D\+I\+S\+P\+\_\+\+F\+L\+A\+S\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+P\+\_\+\+F\+L\+A\+S\+H~(-\/2)  /$\ast$ Clean up each glyph before displaying new one. $\ast$/}}\label{display_8h_a34b949cb0446b7600233da12c14f5e52}
+
+
+Definition at line 178 of file display.\+h.
+
+
+
+Referenced by sho\+\_\+obj\+\_\+return\+\_\+to\+\_\+u(), throwit(), and tmp\+\_\+at().
+
+\hypertarget{display_8h_a04bf882074111f4d4ceabd3696f789c4}{\index{display.\+h@{display.\+h}!D\+I\+S\+P\+\_\+\+F\+R\+E\+E\+M\+E\+M@{D\+I\+S\+P\+\_\+\+F\+R\+E\+E\+M\+E\+M}}
+\index{D\+I\+S\+P\+\_\+\+F\+R\+E\+E\+M\+E\+M@{D\+I\+S\+P\+\_\+\+F\+R\+E\+E\+M\+E\+M}!display.\+h@{display.\+h}}
+\subsubsection[{D\+I\+S\+P\+\_\+\+F\+R\+E\+E\+M\+E\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+P\+\_\+\+F\+R\+E\+E\+M\+E\+M~(-\/6)  /$\ast$ {\bf Free} all memory during {\bf exit} only. $\ast$/}}\label{display_8h_a04bf882074111f4d4ceabd3696f789c4}
+
+
+Definition at line 182 of file display.\+h.
+
+
+
+Referenced by freedynamicdata(), and tmp\+\_\+at().
+
+\hypertarget{display_8h_aa4ec7eb1f23db38f5e6bcbab8cb0c5e4}{\index{display.\+h@{display.\+h}!display\+\_\+self@{display\+\_\+self}}
+\index{display\+\_\+self@{display\+\_\+self}!display.\+h@{display.\+h}}
+\subsubsection[{display\+\_\+self}]{\setlength{\rightskip}{0pt plus 5cm}\#define display\+\_\+self(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{display_8h_aa4ec7eb1f23db38f5e6bcbab8cb0c5e4}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{display_8c_a60d3cfb0df75b80c36125ce154da217f}{show\_glyph}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy},                      \(\backslash\)
+    \hyperlink{display_8h_a567b688379b32b3e180872e921bae800}{maybe\_display\_usteed}            \textcolor{comment}{/* else */}      \(\backslash\)
+    \hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_aab8fc9a0be90b4db8333b09487e2620c}{m\_ap\_type} == \hyperlink{monst_8h_a58db2fb11cfd7427581d698582b9a386}{M\_AP\_NOTHING} ?               \(\backslash\)
+                \hyperlink{display_8h_a50be5310db612c15c7427e12a5affa83}{hero\_glyph} :              \(\backslash\)
+    \hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_aab8fc9a0be90b4db8333b09487e2620c}{m\_ap\_type} == \hyperlink{monst_8h_a3470d5a82b5711ec2b38fb153c3eab2f}{M\_AP\_FURNITURE} ?               \(\backslash\)
+                \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\_to\_glyph}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a60ba74caeb4e779b7ccdb99150823bb9}{mappearance}) :   \(\backslash\)
+    \hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_aab8fc9a0be90b4db8333b09487e2620c}{m\_ap\_type} == \hyperlink{monst_8h_a398e3dada51d63d91d8d9a6fb3f90c62}{M\_AP\_OBJECT} ?             \(\backslash\)
+                \hyperlink{display_8h_af59a105c9b05e9d0531be67f59726b88}{objnum\_to\_glyph}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a60ba74caeb4e779b7ccdb99150823bb9}{mappearance}) : \(\backslash\)
+    \textcolor{comment}{/* else M\_AP\_MONSTER */} \hyperlink{display_8h_a560cc4daa0badc1538b75ff73d71a995}{monnum\_to\_glyph}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.
+      \hyperlink{structmonst_a60ba74caeb4e779b7ccdb99150823bb9}{mappearance}))
+\end{DoxyCode}
+
+
+Definition at line 202 of file display.\+h.
+
+
+
+Referenced by find\+\_\+trap(), monster\+\_\+detect(), newsym(), swallowed(), and you\+\_\+aggravate().
+
+\hypertarget{display_8h_aebd383743e7c70cf214dabfd00200331}{\index{display.\+h@{display.\+h}!explosion\+\_\+to\+\_\+glyph@{explosion\+\_\+to\+\_\+glyph}}
+\index{explosion\+\_\+to\+\_\+glyph@{explosion\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{explosion\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define explosion\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{expltype, }
+\item[{}]{idx}
+\end{DoxyParamCaption}
+)~((((expltype) $\ast$ {\bf M\+A\+X\+E\+X\+P\+C\+H\+A\+R\+S}) + ((idx) -\/ {\bf S\+\_\+explode1})) + {\bf G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F})}}\label{display_8h_aebd383743e7c70cf214dabfd00200331}
+
+
+Definition at line 299 of file display.\+h.
+
+\hypertarget{display_8h_a5b5531a8309865f07de98109cb3e0307}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F~(N\+U\+M\+M\+O\+N\+S	+ {\bf G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F})}}\label{display_8h_a5b5531a8309865f07de98109cb3e0307}
+
+
+Definition at line 267 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), nhglyph2charcolor(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a80bd11da4029e7e4a70a1eb525121458}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F~(N\+U\+M\+\_\+\+O\+B\+J\+E\+C\+T\+S	+ {\bf G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F})}}\label{display_8h_a80bd11da4029e7e4a70a1eb525121458}
+
+
+Definition at line 270 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), nhglyph2charcolor(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a592a5d63676e9bd8ad0983cf5145934b}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F~(1		+ {\bf G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F})}}\label{display_8h_a592a5d63676e9bd8ad0983cf5145934b}
+
+
+Definition at line 266 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a117d3d8a6719732c252bac7f968a8028}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F~(({\bf M\+A\+X\+P\+C\+H\+A\+R\+S} -\/ {\bf M\+A\+X\+E\+X\+P\+C\+H\+A\+R\+S}) + {\bf G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F})}}\label{display_8h_a117d3d8a6719732c252bac7f968a8028}
+
+
+Definition at line 271 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_acee15075719911ed96b44eb1850c1759}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F~(N\+U\+M\+M\+O\+N\+S	+ {\bf G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F})}}\label{display_8h_acee15075719911ed96b44eb1850c1759}
+
+
+Definition at line 265 of file display.\+h.
+
+
+
+Referenced by mapglyph(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a6a5526c0553046a9df8a3cc7e1c862b8}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E@{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E}}
+\index{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E@{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E~{\bf G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+\_\+\+O\+F\+F}}}\label{display_8h_a6a5526c0553046a9df8a3cc7e1c862b8}
+
+
+Definition at line 279 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), and map\+\_\+invisible().
+
+\hypertarget{display_8h_ada434392f85151bf1dea62c5b105bece}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+body@{glyph\+\_\+is\+\_\+body}}
+\index{glyph\+\_\+is\+\_\+body@{glyph\+\_\+is\+\_\+body}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+body}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+body(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))}}\label{display_8h_ada434392f85151bf1dea62c5b105bece}
+
+
+Definition at line 369 of file display.\+h.
+
+\hypertarget{display_8h_ae849bd5a5de7fbf41783c5af0d81aecd}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+cmap@{glyph\+\_\+is\+\_\+cmap}}
+\index{glyph\+\_\+is\+\_\+cmap@{glyph\+\_\+is\+\_\+cmap}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+cmap}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+cmap(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+C\+M\+A\+P\+\_\+\+O\+F\+F}+{\bf M\+A\+X\+P\+C\+H\+A\+R\+S}))}}\label{display_8h_ae849bd5a5de7fbf41783c5af0d81aecd}
+
+
+Definition at line 384 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look(), lookat(), show\+\_\+map\+\_\+spot(), and stumble\+\_\+onto\+\_\+mimic().
+
+\hypertarget{display_8h_a4be03b1a98289f43dbd1b5eb2d171f81}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+detected\+\_\+monster@{glyph\+\_\+is\+\_\+detected\+\_\+monster}}
+\index{glyph\+\_\+is\+\_\+detected\+\_\+monster@{glyph\+\_\+is\+\_\+detected\+\_\+monster}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+detected\+\_\+monster}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+detected\+\_\+monster(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+D\+E\+T\+E\+C\+T\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))}}\label{display_8h_a4be03b1a98289f43dbd1b5eb2d171f81}
+
+
+Definition at line 373 of file display.\+h.
+
+\hypertarget{display_8h_aab760a0bc2c5bad8dbfe7102628dafc6}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+invisible@{glyph\+\_\+is\+\_\+invisible}}
+\index{glyph\+\_\+is\+\_\+invisible@{glyph\+\_\+is\+\_\+invisible}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+invisible}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+invisible(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) == {\bf G\+L\+Y\+P\+H\+\_\+\+I\+N\+V\+I\+S\+I\+B\+L\+E})}}\label{display_8h_aab760a0bc2c5bad8dbfe7102628dafc6}
+
+
+Definition at line 375 of file display.\+h.
+
+
+
+Referenced by attack(), attack\+\_\+checks(), do\+\_\+look(), dokick(), dosearch0(), feel\+\_\+location(), findone(), kick\+\_\+monster(), and newsym().
+
+\hypertarget{display_8h_a8bbad1d40abdd46999b48e54a35955e6}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+monster@{glyph\+\_\+is\+\_\+monster}}
+\index{glyph\+\_\+is\+\_\+monster@{glyph\+\_\+is\+\_\+monster}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+monster}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+monster(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a8bbad1d40abdd46999b48e54a35955e6}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{display_8h_ac99cd0faf3547fc108da7742ca80c6fa}{glyph\_is\_normal\_monster}(glyph)              \(\backslash\)
+        || \hyperlink{display_8h_acc01c7be93d6e9a59ebe375de8879ca8}{glyph\_is\_pet}(glyph)                  \(\backslash\)
+        || \hyperlink{display_8h_aea375594be3554b0c838ac5ca823cb2f}{glyph\_is\_ridden\_monster}(glyph)            \(\backslash\)
+        || \hyperlink{display_8h_a4be03b1a98289f43dbd1b5eb2d171f81}{glyph\_is\_detected\_monster}(glyph))
+\end{DoxyCode}
+
+
+Definition at line 360 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look(), and lookat().
+
+\hypertarget{display_8h_ac99cd0faf3547fc108da7742ca80c6fa}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+normal\+\_\+monster@{glyph\+\_\+is\+\_\+normal\+\_\+monster}}
+\index{glyph\+\_\+is\+\_\+normal\+\_\+monster@{glyph\+\_\+is\+\_\+normal\+\_\+monster}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+normal\+\_\+monster}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+normal\+\_\+monster(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))}}\label{display_8h_ac99cd0faf3547fc108da7742ca80c6fa}
+
+
+Definition at line 365 of file display.\+h.
+
+\hypertarget{display_8h_a0afb759e98b17835cf34a4aaa06ae6ae}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+normal\+\_\+object@{glyph\+\_\+is\+\_\+normal\+\_\+object}}
+\index{glyph\+\_\+is\+\_\+normal\+\_\+object@{glyph\+\_\+is\+\_\+normal\+\_\+object}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+normal\+\_\+object}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+normal\+\_\+object(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F}+N\+U\+M\+\_\+\+O\+B\+J\+E\+C\+T\+S))}}\label{display_8h_a0afb759e98b17835cf34a4aaa06ae6ae}
+
+
+Definition at line 376 of file display.\+h.
+
+\hypertarget{display_8h_a5a3c3067dbac4b44ad002fbe980a90dd}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+object@{glyph\+\_\+is\+\_\+object}}
+\index{glyph\+\_\+is\+\_\+object@{glyph\+\_\+is\+\_\+object}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+object}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+object(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a5a3c3067dbac4b44ad002fbe980a90dd}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{display_8h_a0afb759e98b17835cf34a4aaa06ae6ae}{glyph\_is\_normal\_object}(glyph)                \(\backslash\)
+        || \hyperlink{display_8h_ada434392f85151bf1dea62c5b105bece}{glyph\_is\_body}(glyph))
+\end{DoxyCode}
+
+
+Definition at line 378 of file display.\+h.
+
+
+
+Referenced by check\+\_\+map\+\_\+spot(), do\+\_\+look(), lookat(), show\+\_\+map\+\_\+spot(), and stumble\+\_\+onto\+\_\+mimic().
+
+\hypertarget{display_8h_acc01c7be93d6e9a59ebe375de8879ca8}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+pet@{glyph\+\_\+is\+\_\+pet}}
+\index{glyph\+\_\+is\+\_\+pet@{glyph\+\_\+is\+\_\+pet}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+pet}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+pet(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))}}\label{display_8h_acc01c7be93d6e9a59ebe375de8879ca8}
+
+
+Definition at line 367 of file display.\+h.
+
+
+
+Referenced by ghack\+\_\+map\+\_\+print\+\_\+glyph(), map\+\_\+update(), and on\+Paint().
+
+\hypertarget{display_8h_aea375594be3554b0c838ac5ca823cb2f}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+ridden\+\_\+monster@{glyph\+\_\+is\+\_\+ridden\+\_\+monster}}
+\index{glyph\+\_\+is\+\_\+ridden\+\_\+monster@{glyph\+\_\+is\+\_\+ridden\+\_\+monster}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+ridden\+\_\+monster}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+ridden\+\_\+monster(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F}+N\+U\+M\+M\+O\+N\+S))}}\label{display_8h_aea375594be3554b0c838ac5ca823cb2f}
+
+
+Definition at line 371 of file display.\+h.
+
+\hypertarget{display_8h_a6ed1ea9b96eda9814b7b30a9cc4e057f}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+swallow@{glyph\+\_\+is\+\_\+swallow}}
+\index{glyph\+\_\+is\+\_\+swallow@{glyph\+\_\+is\+\_\+swallow}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+swallow}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+swallow(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F}+(N\+U\+M\+M\+O\+N\+S $<$$<$ 3)))}}\label{display_8h_a6ed1ea9b96eda9814b7b30a9cc4e057f}
+
+
+Definition at line 386 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{display_8h_a495f25bc3868092a11dfa723c138b93b}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+trap@{glyph\+\_\+is\+\_\+trap}}
+\index{glyph\+\_\+is\+\_\+trap@{glyph\+\_\+is\+\_\+trap}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+trap(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a495f25bc3868092a11dfa723c138b93b}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((glyph) >= (\hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{GLYPH\_CMAP\_OFF}+\hyperlink{rm_8h_a8b3155eb0b52e1c13981b4dca943722c}{trap\_to\_defsym}(1)) &&           \(\backslash\)
+     (glyph) <  (\hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{GLYPH\_CMAP\_OFF}+\hyperlink{rm_8h_a8b3155eb0b52e1c13981b4dca943722c}{trap\_to\_defsym}(1)+
+      \hyperlink{trap_8h_a6ecfd62de48aada48010c4fc52beb908}{TRAPNUM}))
+\end{DoxyCode}
+
+
+Definition at line 381 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look(), lookat(), see\+\_\+traps(), and show\+\_\+map\+\_\+spot().
+
+\hypertarget{display_8h_aafdda3303535decc30d7a329028376f4}{\index{display.\+h@{display.\+h}!glyph\+\_\+is\+\_\+warning@{glyph\+\_\+is\+\_\+warning}}
+\index{glyph\+\_\+is\+\_\+warning@{glyph\+\_\+is\+\_\+warning}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+is\+\_\+warning}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+is\+\_\+warning(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)~((glyph) $>$= {\bf G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F} \&\& (glyph) $<$ ({\bf G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F} + {\bf W\+A\+R\+N\+C\+O\+U\+N\+T}))}}\label{display_8h_aafdda3303535decc30d7a329028376f4}
+
+
+Definition at line 388 of file display.\+h.
+
+
+
+Referenced by attack\+\_\+checks(), and do\+\_\+look().
+
+\hypertarget{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F~0}}\label{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}
+
+
+Definition at line 263 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap().
+
+\hypertarget{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F~(N\+U\+M\+M\+O\+N\+S	+ {\bf G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F})}}\label{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}
+
+
+Definition at line 269 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), nhglyph2charcolor(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a6419de72cae8e55fc00371ae9a7abec1}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F~(N\+U\+M\+M\+O\+N\+S	+ {\bf G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F})}}\label{display_8h_a6419de72cae8e55fc00371ae9a7abec1}
+
+
+Definition at line 264 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), nhglyph2charcolor(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F~(N\+U\+M\+M\+O\+N\+S	+ {\bf G\+L\+Y\+P\+H\+\_\+\+B\+O\+D\+Y\+\_\+\+O\+F\+F})}}\label{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}
+
+
+Definition at line 268 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a12c3dedb11601c5df592451fca014723}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F~(({\bf N\+U\+M\+\_\+\+Z\+A\+P} $<$$<$ 2) + {\bf G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F})}}\label{display_8h_a12c3dedb11601c5df592451fca014723}
+
+
+Definition at line 273 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), nhglyph2charcolor(), show\+\_\+glyph(), and swallow\+\_\+to\+\_\+glyph().
+
+\hypertarget{display_8h_a7bbc740e05e67c80b7b7dd81f2dd825d}{\index{display.\+h@{display.\+h}!glyph\+\_\+to\+\_\+cmap@{glyph\+\_\+to\+\_\+cmap}}
+\index{glyph\+\_\+to\+\_\+cmap@{glyph\+\_\+to\+\_\+cmap}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+to\+\_\+cmap}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+to\+\_\+cmap(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a7bbc740e05e67c80b7b7dd81f2dd825d}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{display_8h_ae849bd5a5de7fbf41783c5af0d81aecd}{glyph\_is\_cmap}(glyph) ? ((glyph) - \hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{GLYPH\_CMAP\_OFF}) :     
+      \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{\(\backslash\)}
+\hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{    NO\_GLYPH})
+\end{DoxyCode}
+
+
+Definition at line 346 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look(), lookat(), show\+\_\+map\+\_\+spot(), and stumble\+\_\+onto\+\_\+mimic().
+
+\hypertarget{display_8h_aa7e1035d20c9b95dfe017e44b0a72cc5}{\index{display.\+h@{display.\+h}!glyph\+\_\+to\+\_\+mon@{glyph\+\_\+to\+\_\+mon}}
+\index{glyph\+\_\+to\+\_\+mon@{glyph\+\_\+to\+\_\+mon}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+to\+\_\+mon}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+to\+\_\+mon(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_aa7e1035d20c9b95dfe017e44b0a72cc5}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{display_8h_ac99cd0faf3547fc108da7742ca80c6fa}{glyph\_is\_normal\_monster}(glyph) ? ((glyph)-\hyperlink{display_8h_a70cbc97b116aa56ed4a2e1aa6d4fc038}{GLYPH\_MON\_OFF}) : 
+      \hyperlink{display_8h_acc01c7be93d6e9a59ebe375de8879ca8}{\(\backslash\)}
+\hyperlink{display_8h_acc01c7be93d6e9a59ebe375de8879ca8}{    glyph\_is\_pet}(glyph) ? ((glyph)-\hyperlink{display_8h_a6419de72cae8e55fc00371ae9a7abec1}{GLYPH\_PET\_OFF}) :           
+      \hyperlink{display_8h_a4be03b1a98289f43dbd1b5eb2d171f81}{\(\backslash\)}
+\hyperlink{display_8h_a4be03b1a98289f43dbd1b5eb2d171f81}{    glyph\_is\_detected\_monster}(glyph) ? ((glyph)-
+      \hyperlink{display_8h_a592a5d63676e9bd8ad0983cf5145934b}{GLYPH\_DETECT\_OFF}) : \hyperlink{display_8h_aea375594be3554b0c838ac5ca823cb2f}{\(\backslash\)}
+\hyperlink{display_8h_aea375594be3554b0c838ac5ca823cb2f}{    glyph\_is\_ridden\_monster}(glyph) ? ((glyph)-
+      \hyperlink{display_8h_a0b14de6e22bd8913fd0034c34a4a26c2}{GLYPH\_RIDDEN\_OFF}) : \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{\(\backslash\)}
+\hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{    NO\_GLYPH})
+\end{DoxyCode}
+
+
+Definition at line 332 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{display_8h_afea03e8d4cb058f7ac029417c0f4d73f}{\index{display.\+h@{display.\+h}!glyph\+\_\+to\+\_\+obj@{glyph\+\_\+to\+\_\+obj}}
+\index{glyph\+\_\+to\+\_\+obj@{glyph\+\_\+to\+\_\+obj}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+to\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+to\+\_\+obj(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_afea03e8d4cb058f7ac029417c0f4d73f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{display_8h_ada434392f85151bf1dea62c5b105bece}{glyph\_is\_body}(glyph) ? CORPSE :               \hyperlink{display_8h_a0afb759e98b17835cf34a4aaa06ae6ae}{\(\backslash\)}
+\hyperlink{display_8h_a0afb759e98b17835cf34a4aaa06ae6ae}{    glyph\_is\_normal\_object}(glyph) ? ((glyph)-
+      \hyperlink{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{GLYPH\_OBJ\_OFF}) :   \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{\(\backslash\)}
+\hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{    NO\_GLYPH})
+\end{DoxyCode}
+
+
+Definition at line 338 of file display.\+h.
+
+
+
+Referenced by check\+\_\+map\+\_\+spot(), do\+\_\+look(), lookat(), and stumble\+\_\+onto\+\_\+mimic().
+
+\hypertarget{display_8h_aed11dccb64c2c9aa9c3ef7a716df430e}{\index{display.\+h@{display.\+h}!glyph\+\_\+to\+\_\+swallow@{glyph\+\_\+to\+\_\+swallow}}
+\index{glyph\+\_\+to\+\_\+swallow@{glyph\+\_\+to\+\_\+swallow}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+to\+\_\+swallow}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+to\+\_\+swallow(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_aed11dccb64c2c9aa9c3ef7a716df430e}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{display_8h_a6ed1ea9b96eda9814b7b30a9cc4e057f}{glyph\_is\_swallow}(glyph) ? (((glyph) - \hyperlink{display_8h_a12c3dedb11601c5df592451fca014723}{GLYPH\_SWALLOW\_OFF}) & 0x7) : \(\backslash\)
+    0)
+\end{DoxyCode}
+
+
+Definition at line 349 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{display_8h_a4aa1865459d2a37059fcdce8e224c366}{\index{display.\+h@{display.\+h}!glyph\+\_\+to\+\_\+trap@{glyph\+\_\+to\+\_\+trap}}
+\index{glyph\+\_\+to\+\_\+trap@{glyph\+\_\+to\+\_\+trap}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+to\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+to\+\_\+trap(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a4aa1865459d2a37059fcdce8e224c366}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{display_8h_a495f25bc3868092a11dfa723c138b93b}{glyph\_is\_trap}(glyph) ?                        \(\backslash\)
+        ((int) \hyperlink{rm_8h_a95d5011d7730911e96e80bbeda61dc7c}{defsym\_to\_trap}((glyph) - \hyperlink{display_8h_a80bd11da4029e7e4a70a1eb525121458}{GLYPH\_CMAP\_OFF})) :  
+      \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{\(\backslash\)}
+\hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{    NO\_GLYPH})
+\end{DoxyCode}
+
+
+Definition at line 342 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look(), and lookat().
+
+\hypertarget{display_8h_a251870e80f640049610e5154e14509c6}{\index{display.\+h@{display.\+h}!glyph\+\_\+to\+\_\+warning@{glyph\+\_\+to\+\_\+warning}}
+\index{glyph\+\_\+to\+\_\+warning@{glyph\+\_\+to\+\_\+warning}!display.\+h@{display.\+h}}
+\subsubsection[{glyph\+\_\+to\+\_\+warning}]{\setlength{\rightskip}{0pt plus 5cm}\#define glyph\+\_\+to\+\_\+warning(
+\begin{DoxyParamCaption}
+\item[{}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a251870e80f640049610e5154e14509c6}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{display_8h_aafdda3303535decc30d7a329028376f4}{glyph\_is\_warning}(glyph) ? ((glyph) - \hyperlink{display_8h_a576bb53ad5713142683ac37a22ae0f94}{GLYPH\_WARNING\_OFF}) : 
+      \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{\(\backslash\)}
+\hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{    NO\_GLYPH});
+\end{DoxyCode}
+
+
+Definition at line 352 of file display.\+h.
+
+
+
+Referenced by do\+\_\+look().
+
+\hypertarget{display_8h_a576bb53ad5713142683ac37a22ae0f94}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F~((N\+U\+M\+M\+O\+N\+S $<$$<$ 3) + {\bf G\+L\+Y\+P\+H\+\_\+\+S\+W\+A\+L\+L\+O\+W\+\_\+\+O\+F\+F})}}\label{display_8h_a576bb53ad5713142683ac37a22ae0f94}
+
+
+Definition at line 274 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), nhglyph2charcolor(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a51ca2fc1986619ae2d009cfdc555a7e4}{\index{display.\+h@{display.\+h}!G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F}}
+\index{G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F@{G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F}!display.\+h@{display.\+h}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+Z\+A\+P\+\_\+\+O\+F\+F~(({\bf M\+A\+X\+E\+X\+P\+C\+H\+A\+R\+S} $\ast$ {\bf E\+X\+P\+L\+\_\+\+M\+A\+X}) + {\bf G\+L\+Y\+P\+H\+\_\+\+E\+X\+P\+L\+O\+D\+E\+\_\+\+O\+F\+F})}}\label{display_8h_a51ca2fc1986619ae2d009cfdc555a7e4}
+
+
+Definition at line 272 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), mapglyph(), nhglyph2charcolor(), show\+\_\+glyph(), and zapdir\+\_\+to\+\_\+glyph().
+
+\hypertarget{display_8h_a50be5310db612c15c7427e12a5affa83}{\index{display.\+h@{display.\+h}!hero\+\_\+glyph@{hero\+\_\+glyph}}
+\index{hero\+\_\+glyph@{hero\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{hero\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define hero\+\_\+glyph}}\label{display_8h_a50be5310db612c15c7427e12a5affa83}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{display_8h_a560cc4daa0badc1538b75ff73d71a995}{monnum\_to\_glyph}((\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd} || !\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_ab12d17fe0bcca460f333ef2b29f1d249}{showrace}) ? 
+      \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae0b7ade89d09cd3b6d5e05eb8c859b35}{umonnum} : \(\backslash\)
+                    (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female} && \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_aa3c74c68c2bc4f8d1e63d76d5c3b217d}{femalenum} != 
+      \hyperlink{permonst_8h_a6485376b5cfc1627d2c68fcb98432cb0}{NON\_PM}) ? \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_aa3c74c68c2bc4f8d1e63d76d5c3b217d}{femalenum} : \(\backslash\)
+                    \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_a6dc454d6faae86cdc46c9a4f53f3f132}{malenum})
+\end{DoxyCode}
+
+
+Definition at line 314 of file display.\+h.
+
+\hypertarget{display_8h_a017f4307c07f0f4e272bfa82602bab99}{\index{display.\+h@{display.\+h}!is\+\_\+safepet@{is\+\_\+safepet}}
+\index{is\+\_\+safepet@{is\+\_\+safepet}!display.\+h@{display.\+h}}
+\subsubsection[{is\+\_\+safepet}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+safepet(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a017f4307c07f0f4e272bfa82602bab99}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(mon && mon->mtame && \hyperlink{display_8h_a13f0a7cac1ceb73885a59b8598de1648}{canspotmon}(mon) && \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a86aaf588ab0112761cc48687e7052142}{safe\_dog} \(\backslash\)
+        && !\hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion} && !\hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination} && !\hyperlink{youprop_8h_afd7fdfec2109113244c347015bab4ad1}{Stunned})
+\end{DoxyCode}
+
+
+Definition at line 121 of file display.\+h.
+
+
+
+Referenced by attack().
+
+\hypertarget{display_8h_af41555817db1643e7ff21abd26775dde}{\index{display.\+h@{display.\+h}!knowninvisible@{knowninvisible}}
+\index{knowninvisible@{knowninvisible}!display.\+h@{display.\+h}}
+\subsubsection[{knowninvisible}]{\setlength{\rightskip}{0pt plus 5cm}\#define knowninvisible(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)}}\label{display_8h_af41555817db1643e7ff21abd26775dde}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(mtmp->minvis && \(\backslash\)
+        ((\hyperlink{vision_8h_a857efc720262bc13a9e4b4bcbb079b5c}{cansee}(mon->mx, mon->my) && (\hyperlink{youprop_8h_ae00ea7702fa1870643d604364b0640c7}{See\_invisible} || 
+      \hyperlink{youprop_8h_a6837901e3b3c547cdea44d8504dda753}{Detect\_monsters})) || \(\backslash\)
+        (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} && (\hyperlink{youprop_8h_a2dcf930b78fcb4c697ebd7b7b3ebd46f}{HTelepat} & ~\hyperlink{prop_8h_ac3411a25b5109e75c9398108391b89f7}{INTRINSIC}) && \(\backslash\)
+            \hyperlink{hack_8h_a1f84afcae19c5b60124bc509ed647f84}{distu}(mon->mx, mon->my) <= (\hyperlink{hack_8h_a26ee0a18384e9ca14b97a4f877791284}{BOLT\_LIM} * \hyperlink{hack_8h_a26ee0a18384e9ca14b97a4f877791284}{BOLT\_LIM}) \(\backslash\)
+        ) \(\backslash\)
+        ) \(\backslash\)
+    )
+\end{DoxyCode}
+
+
+Definition at line 106 of file display.\+h.
+
+\hypertarget{display_8h_a4195fd83b99331da1a956454b7346c01}{\index{display.\+h@{display.\+h}!M\+A\+X\+\_\+\+G\+L\+Y\+P\+H@{M\+A\+X\+\_\+\+G\+L\+Y\+P\+H}}
+\index{M\+A\+X\+\_\+\+G\+L\+Y\+P\+H@{M\+A\+X\+\_\+\+G\+L\+Y\+P\+H}!display.\+h@{display.\+h}}
+\subsubsection[{M\+A\+X\+\_\+\+G\+L\+Y\+P\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+G\+L\+Y\+P\+H~({\bf W\+A\+R\+N\+C\+O\+U\+N\+T}      + {\bf G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F})}}\label{display_8h_a4195fd83b99331da1a956454b7346c01}
+
+
+Definition at line 275 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), main(), and show\+\_\+glyph().
+
+\hypertarget{display_8h_a567b688379b32b3e180872e921bae800}{\index{display.\+h@{display.\+h}!maybe\+\_\+display\+\_\+usteed@{maybe\+\_\+display\+\_\+usteed}}
+\index{maybe\+\_\+display\+\_\+usteed@{maybe\+\_\+display\+\_\+usteed}!display.\+h@{display.\+h}}
+\subsubsection[{maybe\+\_\+display\+\_\+usteed}]{\setlength{\rightskip}{0pt plus 5cm}\#define maybe\+\_\+display\+\_\+usteed~/$\ast$ empty $\ast$/}}\label{display_8h_a567b688379b32b3e180872e921bae800}
+
+
+Definition at line 199 of file display.\+h.
+
+\hypertarget{display_8h_a1fa83f592d6dcf87df43743338ece721}{\index{display.\+h@{display.\+h}!mon\+\_\+to\+\_\+glyph@{mon\+\_\+to\+\_\+glyph}}
+\index{mon\+\_\+to\+\_\+glyph@{mon\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{mon\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define mon\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~((int) {\bf what\+\_\+mon}(monsndx((mon)-\/$>$data))+{\bf G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F})}}\label{display_8h_a1fa83f592d6dcf87df43743338ece721}
+
+
+Definition at line 282 of file display.\+h.
+
+
+
+Referenced by display\+\_\+monster(), display\+\_\+warning(), monster\+\_\+detect(), start\+\_\+engulf(), and you\+\_\+aggravate().
+
+\hypertarget{display_8h_ad69b6021d6de1f0a37fdbda54bc38bbf}{\index{display.\+h@{display.\+h}!mon\+\_\+visible@{mon\+\_\+visible}}
+\index{mon\+\_\+visible@{mon\+\_\+visible}!display.\+h@{display.\+h}}
+\subsubsection[{mon\+\_\+visible}]{\setlength{\rightskip}{0pt plus 5cm}\#define mon\+\_\+visible(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)}}\label{display_8h_ad69b6021d6de1f0a37fdbda54bc38bbf}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(       \textcolor{comment}{/* The hero can see the monster     */}\(\backslash\)
+                    \textcolor{comment}{/* IF the monster           */}\(\backslash\)
+    (!mon->minvis || \hyperlink{youprop_8h_ae00ea7702fa1870643d604364b0640c7}{See\_invisible}) && \textcolor{comment}{/* 1. is not invisible AND      */}\(\backslash\)
+    (!mon->mundetected) &&      \textcolor{comment}{/* 2. not an undetected hider       */}\(\backslash\)
+    (!(mon->mburied || \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uburied)) \textcolor{comment}{/* 3. neither you or it is buried   */}\(\backslash\)
+)
+\end{DoxyCode}
+
+
+Definition at line 55 of file display.\+h.
+
+
+
+Referenced by lookat(), and newsym().
+
+\hypertarget{display_8h_a0039b777fa34c7612336965a77e6bc30}{\index{display.\+h@{display.\+h}!mon\+\_\+warning@{mon\+\_\+warning}}
+\index{mon\+\_\+warning@{mon\+\_\+warning}!display.\+h@{display.\+h}}
+\subsubsection[{mon\+\_\+warning}]{\setlength{\rightskip}{0pt plus 5cm}\#define mon\+\_\+warning(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a0039b777fa34c7612336965a77e6bc30}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{youprop_8h_a427eabf284cd2abcea54dcee3e7470dd}{Warning} && !(mon)->mpeaceful &&                 \(\backslash\)
+             (\hyperlink{hack_8h_a1f84afcae19c5b60124bc509ed647f84}{distu}((mon)->mx, (mon)->my) < 100) &&                \(\backslash\)
+             (((\textcolor{keywordtype}{int}) ((mon)->m\_lev / 4)) >= \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ac1920376d9c18e4f6a1ab4441a5835f8}{warnlevel}))
+\end{DoxyCode}
+
+
+Definition at line 43 of file display.\+h.
+
+
+
+Referenced by display\+\_\+warning(), and newsym().
+
+\hypertarget{display_8h_a560cc4daa0badc1538b75ff73d71a995}{\index{display.\+h@{display.\+h}!monnum\+\_\+to\+\_\+glyph@{monnum\+\_\+to\+\_\+glyph}}
+\index{monnum\+\_\+to\+\_\+glyph@{monnum\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{monnum\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define monnum\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mnum}
+\end{DoxyParamCaption}
+)~((int) (mnum) + {\bf G\+L\+Y\+P\+H\+\_\+\+M\+O\+N\+\_\+\+O\+F\+F})}}\label{display_8h_a560cc4daa0badc1538b75ff73d71a995}
+
+
+Definition at line 307 of file display.\+h.
+
+
+
+Referenced by detect\+\_\+wsegs(), and display\+\_\+monster().
+
+\hypertarget{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{\index{display.\+h@{display.\+h}!N\+O\+\_\+\+G\+L\+Y\+P\+H@{N\+O\+\_\+\+G\+L\+Y\+P\+H}}
+\index{N\+O\+\_\+\+G\+L\+Y\+P\+H@{N\+O\+\_\+\+G\+L\+Y\+P\+H}!display.\+h@{display.\+h}}
+\subsubsection[{N\+O\+\_\+\+G\+L\+Y\+P\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+\_\+\+G\+L\+Y\+P\+H~{\bf M\+A\+X\+\_\+\+G\+L\+Y\+P\+H}}}\label{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}
+
+
+Definition at line 277 of file display.\+h.
+
+
+
+Referenced by Activate\+Cell(), amii\+\_\+add\+\_\+menu(), amii\+\_\+end\+\_\+menu(), amiv\+\_\+lprint\+\_\+glyph(), choose\+\_\+classes\+\_\+menu(), Display\+Data(), doset(), doset\+\_\+add\+\_\+menu(), dospellmenu(), ghack\+\_\+menu\+\_\+window\+\_\+add\+\_\+menu(), help\+\_\+menu(), in\+\_\+or\+\_\+out\+\_\+menu(), on\+Draw\+Item(), prompt\+\_\+for\+\_\+player\+\_\+selection(), query\+\_\+category(), query\+\_\+objlist(), and special\+\_\+handling().
+
+\hypertarget{display_8h_a6e466b4787e73d717f84861437530e9e}{\index{display.\+h@{display.\+h}!N\+U\+M\+\_\+\+Z\+A\+P@{N\+U\+M\+\_\+\+Z\+A\+P}}
+\index{N\+U\+M\+\_\+\+Z\+A\+P@{N\+U\+M\+\_\+\+Z\+A\+P}!display.\+h@{display.\+h}}
+\subsubsection[{N\+U\+M\+\_\+\+Z\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+\_\+\+Z\+A\+P~8	/$\ast$ number of zap beam types $\ast$/}}\label{display_8h_a6e466b4787e73d717f84861437530e9e}
+
+
+Definition at line 261 of file display.\+h.
+
+
+
+Referenced by init\+\_\+tilemap(), and zapdir\+\_\+to\+\_\+glyph().
+
+\hypertarget{display_8h_a14ef77de0b1bfde06713088d7d9f53e8}{\index{display.\+h@{display.\+h}!obj\+\_\+to\+\_\+glyph@{obj\+\_\+to\+\_\+glyph}}
+\index{obj\+\_\+to\+\_\+glyph@{obj\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{obj\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define obj\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{display_8h_a14ef77de0b1bfde06713088d7d9f53e8}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{youprop_8h_aa873f7ea0a3d096ef94ff651907f7a76}{Hallucination} ?                                 \(\backslash\)
+    ((\hyperlink{decl_8h_ac72f37c752da9d785e258d3239b48588}{otg\_temp} = \hyperlink{display_8h_a067a2f1e90703cc439d97778aee356d7}{random\_object}()) == CORPSE ?                \(\backslash\)
+        \hyperlink{display_8h_a7bee8693ffbd11a818f0fadcb2e1568a}{random\_monster}() + \hyperlink{display_8h_a5b5531a8309865f07de98109cb3e0307}{GLYPH\_BODY\_OFF} :                   
+      \hyperlink{decl_8h_ac72f37c752da9d785e258d3239b48588}{\(\backslash\)}
+\hyperlink{decl_8h_ac72f37c752da9d785e258d3239b48588}{        otg\_temp} + \hyperlink{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{GLYPH\_OBJ\_OFF}) :                     \(\backslash\)
+    ((\hyperlink{structobj}{obj})->otyp == CORPSE ?                       \(\backslash\)
+        (int) (\hyperlink{structobj}{obj})->corpsenm + \hyperlink{display_8h_a5b5531a8309865f07de98109cb3e0307}{GLYPH\_BODY\_OFF} :                 \(\backslash\)
+        (int) (\hyperlink{structobj}{obj})->otyp + \hyperlink{display_8h_afdd6729aca80c4ecb3cc89f77e70968c}{GLYPH\_OBJ\_OFF}))
+\end{DoxyCode}
+
+
+Definition at line 289 of file display.\+h.
+
+
+
+Referenced by image\+\_\+of\+\_\+worn\+\_\+object(), map\+\_\+object(), query\+\_\+objlist(), sho\+\_\+obj\+\_\+return\+\_\+to\+\_\+u(), and throwit().
+
+\hypertarget{display_8h_af59a105c9b05e9d0531be67f59726b88}{\index{display.\+h@{display.\+h}!objnum\+\_\+to\+\_\+glyph@{objnum\+\_\+to\+\_\+glyph}}
+\index{objnum\+\_\+to\+\_\+glyph@{objnum\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{objnum\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define objnum\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{onum}
+\end{DoxyParamCaption}
+)~((int) (onum) + {\bf G\+L\+Y\+P\+H\+\_\+\+O\+B\+J\+\_\+\+O\+F\+F})}}\label{display_8h_af59a105c9b05e9d0531be67f59726b88}
+
+
+Definition at line 306 of file display.\+h.
+
+
+
+Referenced by feel\+\_\+location().
+
+\hypertarget{display_8h_a25bf02e3f0c5c97787395f922a6c2346}{\index{display.\+h@{display.\+h}!pet\+\_\+to\+\_\+glyph@{pet\+\_\+to\+\_\+glyph}}
+\index{pet\+\_\+to\+\_\+glyph@{pet\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{pet\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define pet\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~((int) {\bf what\+\_\+mon}(monsndx((mon)-\/$>$data))+{\bf G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F})}}\label{display_8h_a25bf02e3f0c5c97787395f922a6c2346}
+
+
+Definition at line 285 of file display.\+h.
+
+
+
+Referenced by display\+\_\+monster().
+
+\hypertarget{display_8h_a42379ae0ce2a104ea12a2ffa1db0ba6a}{\index{display.\+h@{display.\+h}!petnum\+\_\+to\+\_\+glyph@{petnum\+\_\+to\+\_\+glyph}}
+\index{petnum\+\_\+to\+\_\+glyph@{petnum\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{petnum\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define petnum\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mnum}
+\end{DoxyParamCaption}
+)~((int) (mnum) + {\bf G\+L\+Y\+P\+H\+\_\+\+P\+E\+T\+\_\+\+O\+F\+F})}}\label{display_8h_a42379ae0ce2a104ea12a2ffa1db0ba6a}
+
+
+Definition at line 310 of file display.\+h.
+
+
+
+Referenced by display\+\_\+monster().
+
+\hypertarget{display_8h_a7bee8693ffbd11a818f0fadcb2e1568a}{\index{display.\+h@{display.\+h}!random\+\_\+monster@{random\+\_\+monster}}
+\index{random\+\_\+monster@{random\+\_\+monster}!display.\+h@{display.\+h}}
+\subsubsection[{random\+\_\+monster}]{\setlength{\rightskip}{0pt plus 5cm}\#define random\+\_\+monster(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~rn2(N\+U\+M\+M\+O\+N\+S)}}\label{display_8h_a7bee8693ffbd11a818f0fadcb2e1568a}
+
+
+Definition at line 145 of file display.\+h.
+
+
+
+Referenced by sense\+\_\+trap().
+
+\hypertarget{display_8h_a067a2f1e90703cc439d97778aee356d7}{\index{display.\+h@{display.\+h}!random\+\_\+object@{random\+\_\+object}}
+\index{random\+\_\+object@{random\+\_\+object}!display.\+h@{display.\+h}}
+\subsubsection[{random\+\_\+object}]{\setlength{\rightskip}{0pt plus 5cm}\#define random\+\_\+object(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf rn1}(N\+U\+M\+\_\+\+O\+B\+J\+E\+C\+T\+S-\/1,1)}}\label{display_8h_a067a2f1e90703cc439d97778aee356d7}
+
+
+Definition at line 146 of file display.\+h.
+
+
+
+Referenced by sense\+\_\+trap().
+
+\hypertarget{display_8h_a9885ad5d0e359c0f54cd21378cda7013}{\index{display.\+h@{display.\+h}!random\+\_\+trap@{random\+\_\+trap}}
+\index{random\+\_\+trap@{random\+\_\+trap}!display.\+h@{display.\+h}}
+\subsubsection[{random\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}\#define random\+\_\+trap(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf rn1}({\bf T\+R\+A\+P\+N\+U\+M}-\/1,1)}}\label{display_8h_a9885ad5d0e359c0f54cd21378cda7013}
+
+
+Definition at line 147 of file display.\+h.
+
+\hypertarget{display_8h_ad76f78503f2cb7e0347c8ac8d32491ac}{\index{display.\+h@{display.\+h}!ridden\+\_\+mon\+\_\+to\+\_\+glyph@{ridden\+\_\+mon\+\_\+to\+\_\+glyph}}
+\index{ridden\+\_\+mon\+\_\+to\+\_\+glyph@{ridden\+\_\+mon\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{ridden\+\_\+mon\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define ridden\+\_\+mon\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~((int) {\bf what\+\_\+mon}(monsndx((mon)-\/$>$data))+{\bf G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F})}}\label{display_8h_ad76f78503f2cb7e0347c8ac8d32491ac}
+
+
+Definition at line 284 of file display.\+h.
+
+\hypertarget{display_8h_ab5007fcb93856eae5b4aa4fc049a17a9}{\index{display.\+h@{display.\+h}!ridden\+\_\+monnum\+\_\+to\+\_\+glyph@{ridden\+\_\+monnum\+\_\+to\+\_\+glyph}}
+\index{ridden\+\_\+monnum\+\_\+to\+\_\+glyph@{ridden\+\_\+monnum\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{ridden\+\_\+monnum\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define ridden\+\_\+monnum\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mnum}
+\end{DoxyParamCaption}
+)~((int) (mnum) + {\bf G\+L\+Y\+P\+H\+\_\+\+R\+I\+D\+D\+E\+N\+\_\+\+O\+F\+F})}}\label{display_8h_ab5007fcb93856eae5b4aa4fc049a17a9}
+
+
+Definition at line 309 of file display.\+h.
+
+\hypertarget{display_8h_aca54af1de4d5a3dafa947f481eea6a6a}{\index{display.\+h@{display.\+h}!see\+\_\+with\+\_\+infrared@{see\+\_\+with\+\_\+infrared}}
+\index{see\+\_\+with\+\_\+infrared@{see\+\_\+with\+\_\+infrared}!display.\+h@{display.\+h}}
+\subsubsection[{see\+\_\+with\+\_\+infrared}]{\setlength{\rightskip}{0pt plus 5cm}\#define see\+\_\+with\+\_\+infrared(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~(!{\bf Blind} \&\& {\bf Infravision} \&\& {\bf infravisible}(mon-\/$>$data) \&\& {\bf couldsee}(mon-\/$>$mx, mon-\/$>$my))}}\label{display_8h_aca54af1de4d5a3dafa947f481eea6a6a}
+
+
+Definition at line 70 of file display.\+h.
+
+
+
+Referenced by lookat(), and newsym().
+
+\hypertarget{display_8h_a13881a5dc42ea2076abd050773eee913}{\index{display.\+h@{display.\+h}!sensemon@{sensemon}}
+\index{sensemon@{sensemon}!display.\+h@{display.\+h}}
+\subsubsection[{sensemon}]{\setlength{\rightskip}{0pt plus 5cm}\#define sensemon(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~({\bf tp\+\_\+sensemon}(mon) $\vert$$\vert$ {\bf Detect\+\_\+monsters} $\vert$$\vert$ {\bf M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N}(mon))}}\label{display_8h_a13881a5dc42ea2076abd050773eee913}
+
+
+Definition at line 36 of file display.\+h.
+
+
+
+Referenced by attack\+\_\+checks(), display\+\_\+monster(), dosearch0(), and feel\+\_\+location().
+
+\hypertarget{display_8h_a52034fbad768549b2bfc598e6358019d}{\index{display.\+h@{display.\+h}!senseself@{senseself}}
+\index{senseself@{senseself}!display.\+h@{display.\+h}}
+\subsubsection[{senseself}]{\setlength{\rightskip}{0pt plus 5cm}\#define senseself(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~({\bf canseeself}() $\vert$$\vert$ {\bf Unblind\+\_\+telepat} $\vert$$\vert$ {\bf Detect\+\_\+monsters})}}\label{display_8h_a52034fbad768549b2bfc598e6358019d}
+
+
+Definition at line 136 of file display.\+h.
+
+
+
+Referenced by lookat(), and newsym().
+
+\hypertarget{display_8h_ae66dd4051608b66893e66a32b513fc8d}{\index{display.\+h@{display.\+h}!S\+H\+I\+E\+L\+D\+\_\+\+C\+O\+U\+N\+T@{S\+H\+I\+E\+L\+D\+\_\+\+C\+O\+U\+N\+T}}
+\index{S\+H\+I\+E\+L\+D\+\_\+\+C\+O\+U\+N\+T@{S\+H\+I\+E\+L\+D\+\_\+\+C\+O\+U\+N\+T}!display.\+h@{display.\+h}}
+\subsubsection[{S\+H\+I\+E\+L\+D\+\_\+\+C\+O\+U\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+E\+L\+D\+\_\+\+C\+O\+U\+N\+T~21}}\label{display_8h_ae66dd4051608b66893e66a32b513fc8d}
+
+
+Definition at line 186 of file display.\+h.
+
+
+
+Referenced by shieldeff().
+
+\hypertarget{display_8h_aba621a9a510ebdf4069498e6715444d1}{\index{display.\+h@{display.\+h}!tp\+\_\+sensemon@{tp\+\_\+sensemon}}
+\index{tp\+\_\+sensemon@{tp\+\_\+sensemon}!display.\+h@{display.\+h}}
+\subsubsection[{tp\+\_\+sensemon}]{\setlength{\rightskip}{0pt plus 5cm}\#define tp\+\_\+sensemon(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)}}\label{display_8h_aba621a9a510ebdf4069498e6715444d1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(   \textcolor{comment}{/* The hero can always sense a monster IF:  */}\(\backslash\)
+    (!\hyperlink{mondata_8h_a9b2e225376aeed6f19559b2c2dced2d0}{mindless}(mon->data)) &&   \textcolor{comment}{/* 1. the monster has a brain to sense AND  */}\(\backslash\)
+      ((\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} && \hyperlink{youprop_8h_a27cbd2bb7c71d4627d48c2715be37423}{Blind\_telepat}) ||    \textcolor{comment}{/* 2a. hero is blind and telepathic OR      */}\(\backslash\)
+                \textcolor{comment}{/* 2b. hero is using a telepathy inducing   */}\(\backslash\)
+                \textcolor{comment}{/*   object and in range            */}\(\backslash\)
+      (\hyperlink{youprop_8h_acf607f2a23654b7517d294a3401122f7}{Unblind\_telepat} &&                          \(\backslash\)
+    (\hyperlink{hack_8h_a1f84afcae19c5b60124bc509ed647f84}{distu}(mon->mx, mon->my) <= (\hyperlink{hack_8h_a26ee0a18384e9ca14b97a4f877791284}{BOLT\_LIM} * \hyperlink{hack_8h_a26ee0a18384e9ca14b97a4f877791284}{BOLT\_LIM}))))             \(\backslash\)
+)
+\end{DoxyCode}
+
+
+Definition at line 27 of file display.\+h.
+
+
+
+Referenced by feel\+\_\+location(), lookat(), and newsym().
+
+\hypertarget{display_8h_a29a24762d8eb2c98d7b90c0e7d294c7f}{\index{display.\+h@{display.\+h}!trap\+\_\+to\+\_\+glyph@{trap\+\_\+to\+\_\+glyph}}
+\index{trap\+\_\+to\+\_\+glyph@{trap\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{trap\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define trap\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf trap}}
+\end{DoxyParamCaption}
+)~{\bf cmap\+\_\+to\+\_\+glyph}({\bf trap\+\_\+to\+\_\+defsym}({\bf what\+\_\+trap}(({\bf trap})-\/$>$ttyp)))}}\label{display_8h_a29a24762d8eb2c98d7b90c0e7d294c7f}
+
+
+Definition at line 302 of file display.\+h.
+
+
+
+Referenced by find\+\_\+trap(), and map\+\_\+trap().
+
+\hypertarget{display_8h_acb0b91fd762d501452bc8436c5160ecc}{\index{display.\+h@{display.\+h}!vobj\+\_\+at@{vobj\+\_\+at}}
+\index{vobj\+\_\+at@{vobj\+\_\+at}!display.\+h@{display.\+h}}
+\subsubsection[{vobj\+\_\+at}]{\setlength{\rightskip}{0pt plus 5cm}\#define vobj\+\_\+at(
+\begin{DoxyParamCaption}
+\item[{}]{x, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)~({\bf level.\+objects}\mbox{[}x\mbox{]}\mbox{[}y\mbox{]})}}\label{display_8h_acb0b91fd762d501452bc8436c5160ecc}
+
+
+Definition at line 18 of file display.\+h.
+
+
+
+Referenced by lookat(), and see\+\_\+objects().
+
+\hypertarget{display_8h_aea5a2cc2ac8dec477c98bf16a847e5c9}{\index{display.\+h@{display.\+h}!warning\+\_\+to\+\_\+glyph@{warning\+\_\+to\+\_\+glyph}}
+\index{warning\+\_\+to\+\_\+glyph@{warning\+\_\+to\+\_\+glyph}!display.\+h@{display.\+h}}
+\subsubsection[{warning\+\_\+to\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}\#define warning\+\_\+to\+\_\+glyph(
+\begin{DoxyParamCaption}
+\item[{}]{mwarnlev}
+\end{DoxyParamCaption}
+)~((mwarnlev)+{\bf G\+L\+Y\+P\+H\+\_\+\+W\+A\+R\+N\+I\+N\+G\+\_\+\+O\+F\+F})}}\label{display_8h_aea5a2cc2ac8dec477c98bf16a847e5c9}
+
+
+Definition at line 281 of file display.\+h.
+
+
+
+Referenced by display\+\_\+warning().
+
+\hypertarget{display_8h_acff82933acc349b5ecf19a850d2e3005}{\index{display.\+h@{display.\+h}!what\+\_\+mon@{what\+\_\+mon}}
+\index{what\+\_\+mon@{what\+\_\+mon}!display.\+h@{display.\+h}}
+\subsubsection[{what\+\_\+mon}]{\setlength{\rightskip}{0pt plus 5cm}\#define what\+\_\+mon(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)~({\bf Hallucination} ? {\bf random\+\_\+monster}() \+: mon)}}\label{display_8h_acff82933acc349b5ecf19a850d2e3005}
+
+
+Definition at line 158 of file display.\+h.
+
+
+
+Referenced by detect\+\_\+wsegs(), display\+\_\+monster(), and swallow\+\_\+to\+\_\+glyph().
+
+\hypertarget{display_8h_a5c769d0e860d86a1f6f941f4713974e2}{\index{display.\+h@{display.\+h}!what\+\_\+obj@{what\+\_\+obj}}
+\index{what\+\_\+obj@{what\+\_\+obj}!display.\+h@{display.\+h}}
+\subsubsection[{what\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}\#define what\+\_\+obj(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)~({\bf Hallucination} ? {\bf random\+\_\+object}()  \+: {\bf obj})}}\label{display_8h_a5c769d0e860d86a1f6f941f4713974e2}
+
+
+Definition at line 157 of file display.\+h.
+
+\hypertarget{display_8h_a0d1e25ef13d9e895603597e3f02b4ffe}{\index{display.\+h@{display.\+h}!what\+\_\+trap@{what\+\_\+trap}}
+\index{what\+\_\+trap@{what\+\_\+trap}!display.\+h@{display.\+h}}
+\subsubsection[{what\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}\#define what\+\_\+trap(
+\begin{DoxyParamCaption}
+\item[{}]{trp}
+\end{DoxyParamCaption}
+)~({\bf Hallucination} ? {\bf random\+\_\+trap}()	  \+: trp)}}\label{display_8h_a0d1e25ef13d9e895603597e3f02b4ffe}
+
+
+Definition at line 159 of file display.\+h.
+
+
+
+Referenced by doidtrap(), find\+\_\+trap(), and lookat().
+

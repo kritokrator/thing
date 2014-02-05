@@ -1,0 +1,87 @@
+\hypertarget{sound_8c}{\section{nethack/sys/msdos/sound.c File Reference}
+\label{sound_8c}\index{nethack/sys/msdos/sound.\+c@{nethack/sys/msdos/sound.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}portio.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$dos.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}~pline
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{sound_8c_a5d6afeac0b2ad894383cd237711a82e4}{assign\+\_\+soundcard} (char $\ast$sopt)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{\index{sound.\+c@{sound.\+c}!printf@{printf}}
+\index{printf@{printf}!sound.\+c@{sound.\+c}}
+\subsubsection[{printf}]{\setlength{\rightskip}{0pt plus 5cm}\#define printf~pline}}\label{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}
+
+
+Definition at line 24 of file sound.\+c.
+
+
+
+Referenced by Abort(), amii\+\_\+curs(), amii\+\_\+raw\+\_\+print\+\_\+bold(), append\+\_\+text\+\_\+buffer(), Best\+Match(), check\+\_\+cursor\+\_\+visibility(), decode(), get\+\_\+char\+\_\+info(), getlock(), main(), map\+\_\+colors(), map\+\_\+exposed(), map\+\_\+input(), map\+\_\+update(), mar\+\_\+gem\+\_\+init(), merge\+\_\+text\+\_\+colormap(), mesg\+\_\+resized(), and yyparse().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{sound_8c_a5d6afeac0b2ad894383cd237711a82e4}{\index{sound.\+c@{sound.\+c}!assign\+\_\+soundcard@{assign\+\_\+soundcard}}
+\index{assign\+\_\+soundcard@{assign\+\_\+soundcard}!sound.\+c@{sound.\+c}}
+\subsubsection[{assign\+\_\+soundcard}]{\setlength{\rightskip}{0pt plus 5cm}int assign\+\_\+soundcard (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{sopt}
+\end{DoxyParamCaption}
+)}}\label{sound_8c_a5d6afeac0b2ad894383cd237711a82e4}
+
+
+Definition at line 27 of file sound.\+c.
+
+
+
+References iflags, and strncmpi().
+
+
+
+Referenced by parseoptions().
+
+
+\begin{DoxyCode}
+29 \{
+30 
+31     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.hassound = 0;
+32 \textcolor{preprocessor}{#  ifdef PCMUSIC}
+33     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.usepcspeaker = 0;
+34 \textcolor{preprocessor}{#  endif}
+35 
+36     \textcolor{keywordflow}{if} (\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(sopt,\textcolor{stringliteral}{"def"},3) == 0) \{              \textcolor{comment}{/* default */}
+37         \textcolor{comment}{/* do nothing - default */}
+38     \}
+39 \textcolor{preprocessor}{#  ifdef PCMUSIC}
+40     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(sopt,\textcolor{stringliteral}{"speaker"},7) == 0) \{ \textcolor{comment}{/* pc speaker */}
+41         \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.usepcspeaker = 1;
+42     \}
+43 \textcolor{preprocessor}{#  endif}
+44     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(sopt,\textcolor{stringliteral}{"auto"},4) == 0) \{    \textcolor{comment}{/* autodetect */}
+45     \textcolor{comment}{/*}
+46 \textcolor{comment}{     * Auto-detect Priorities (arbitrary for now):}
+47 \textcolor{comment}{     *  Just pcspeaker}
+48 \textcolor{comment}{     */}
+49         \textcolor{keywordflow}{if} (0) ;
+50 \textcolor{preprocessor}{#  ifdef PCMUSIC}
+51         \textcolor{keywordflow}{else} \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.usepcspeaker = 1;
+52 \textcolor{preprocessor}{#  endif}
+53     \} \textcolor{keywordflow}{else} \{
+54         \textcolor{keywordflow}{return} 0;
+55     \}
+56     \textcolor{keywordflow}{return} 1;
+57 
+58 \}
+\end{DoxyCode}

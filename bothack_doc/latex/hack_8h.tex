@@ -1,0 +1,2143 @@
+\hypertarget{hack_8h}{\section{nethack/include/hack.h File Reference}
+\label{hack_8h}\index{nethack/include/hack.\+h@{nethack/include/hack.\+h}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}align.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dungeon.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}monsym.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mkroom.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}objclass.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}youprop.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}wintype.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}decl.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}timeout.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}trap.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}flag.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}rm.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}vision.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}display.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}engrave.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}rect.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}region.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}extern.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}winprocs.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{hack_8h_a23ed40f09222fe825a4666c3f8a68143}{T\+E\+L\+L}~1
+\item 
+\#define \hyperlink{hack_8h_a7450be636c853f464d4b5c77a6b19844}{N\+O\+T\+E\+L\+L}~0
+\item 
+\#define \hyperlink{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{O\+N}~1
+\item 
+\#define \hyperlink{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{O\+F\+F}~0
+\item 
+\#define \hyperlink{hack_8h_a26ee0a18384e9ca14b97a4f877791284}{B\+O\+L\+T\+\_\+\+L\+I\+M}~8 /$\ast$ from this distance ranged attacks will be made $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a9d651de44834b5b3b6407185a289b08a}{M\+A\+X\+\_\+\+C\+A\+R\+R\+\_\+\+C\+A\+P}~1000	/$\ast$ so that boulders can be heavier $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a35beee7b0f2f3e294c4a4a69a5f02df4}{D\+U\+M\+M\+Y}~\{ 0 \}
+\item 
+\#define \hyperlink{hack_8h_a10ca5b6266edcafafcefcbe4b08182cd}{U\+N\+E\+N\+C\+U\+M\+B\+E\+R\+E\+D}~0
+\item 
+\#define \hyperlink{hack_8h_ade4c50a25545e7ca7eba7d45383be984}{S\+L\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}~1	/$\ast$ Burdened $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a3c3899e355380d08f5d23828908c3679}{M\+O\+D\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}~2	/$\ast$ Stressed $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a3c8f959355dee01b09fa53cc6caf3651}{H\+V\+Y\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}~3	/$\ast$ Strained $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a44ae2ad44acfc1fd34d71006ed00fd26}{E\+X\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}~4	/$\ast$ Overtaxed $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a03c39cc05df7a5086caeebee3813f107}{O\+V\+E\+R\+L\+O\+A\+D\+E\+D}~5	/$\ast$ Overloaded $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a1210847248024338cff17538c89deb80}{B\+Y\+\_\+\+O\+R\+A\+C\+L\+E}~0
+\item 
+\#define \hyperlink{hack_8h_ae0c542434221e805ea881a5b6f19d013}{B\+Y\+\_\+\+C\+O\+O\+K\+I\+E}~1
+\item 
+\#define \hyperlink{hack_8h_aafda439b1d3c1d505189dde3a60a6431}{B\+Y\+\_\+\+P\+A\+P\+E\+R}~2
+\item 
+\#define \hyperlink{hack_8h_a74ed896a1b263da78453d752cd1daae6}{B\+Y\+\_\+\+O\+T\+H\+E\+R}~9
+\item 
+\#define \hyperlink{hack_8h_a95f786f948c6e3a046a7dffd94b8dac7}{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+G\+E\+N\+E\+R\+I\+C}~0
+\item 
+\#define \hyperlink{hack_8h_a90c6def474309a3671856e184151b13a}{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+F\+E\+L\+L}~1
+\item 
+\#define \hyperlink{hack_8h_abf9d65d3fe505806ac2ca606ddf41e9f}{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+T\+H\+R\+O\+W\+N}~2
+\item 
+\#define \hyperlink{hack_8h_a2de4d3c9f06df86d11b43ee74f02a84f}{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+P\+O\+L\+Y}~3
+\item 
+\#define \hyperlink{hack_8h_a2fba09a4a2b32d01329ae442fc1477c7}{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+E\+N\+G\+U\+L\+F\+E\+D}~4
+\item 
+\#define \hyperlink{hack_8h_aca0be8c9dd2ebf9c91a959c11ae5d132}{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+O\+N\+E\+S}~5
+\item 
+\#define \hyperlink{hack_8h_a980a15239b5bb31b73978a8e37b4cbf9}{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+Y\+C\+H\+O\+I\+C\+E}~6
+\item 
+\#define \hyperlink{hack_8h_a1729412ac5eb71a3b857691b53c40ebc}{M\+G\+\_\+\+C\+O\+R\+P\+S\+E}~0x01
+\item 
+\#define \hyperlink{hack_8h_a42bdc3c62728695f1096f15d684afbf2}{M\+G\+\_\+\+I\+N\+V\+I\+S}~0x02
+\item 
+\#define \hyperlink{hack_8h_a79a8c30f938b77ed9cc08dcec5c6f08c}{M\+G\+\_\+\+D\+E\+T\+E\+C\+T}~0x04
+\item 
+\#define \hyperlink{hack_8h_a12128ae3dc4b1934065104f4bb945ca5}{M\+G\+\_\+\+P\+E\+T}~0x08
+\item 
+\#define \hyperlink{hack_8h_a6151d6d18ff62537dfd2615a3b2761a9}{M\+G\+\_\+\+R\+I\+D\+D\+E\+N}~0x10
+\item 
+\#define \hyperlink{hack_8h_a3f1fa6b635439b52479ed0c4fb09cd98}{S\+E\+L\+L\+\_\+\+N\+O\+R\+M\+A\+L}~(0)
+\item 
+\#define \hyperlink{hack_8h_adad95ebfac63f6d0f5de05d085dad5d0}{S\+E\+L\+L\+\_\+\+D\+E\+L\+I\+B\+E\+R\+A\+T\+E}~(1)
+\item 
+\#define \hyperlink{hack_8h_ab099c88186feaccf1c37e0fb4619d01c}{S\+E\+L\+L\+\_\+\+D\+O\+N\+T\+S\+E\+L\+L}~(2)
+\item 
+\#define \hyperlink{hack_8h_a945602f8a7d9cde22e2502ffb5c51f58}{D\+I\+E\+D}~0
+\item 
+\#define \hyperlink{hack_8h_a5500aa08941fd3a5fa31f7a5edfd588b}{C\+H\+O\+K\+I\+N\+G}~1
+\item 
+\#define \hyperlink{hack_8h_a7316cf0b08df754c7512af106bb18570}{P\+O\+I\+S\+O\+N\+I\+N\+G}~2
+\item 
+\#define \hyperlink{hack_8h_adfe010d7d0f3fcf9afb009932d31157c}{S\+T\+A\+R\+V\+I\+N\+G}~3
+\item 
+\#define \hyperlink{hack_8h_a199026c8e55e979e961545516a4ab082}{D\+R\+O\+W\+N\+I\+N\+G}~4
+\item 
+\#define \hyperlink{hack_8h_ae8902ecbf1e862b213423dd36c568e2f}{B\+U\+R\+N\+I\+N\+G}~5
+\item 
+\#define \hyperlink{hack_8h_aec7153228ae4063182c36edcad8d37eb}{D\+I\+S\+S\+O\+L\+V\+E\+D}~6
+\item 
+\#define \hyperlink{hack_8h_a2047a43401ba390bad0e7a19b2efb534}{C\+R\+U\+S\+H\+I\+N\+G}~7
+\item 
+\#define \hyperlink{hack_8h_aac5555456695094b0171cb7f67e0b5f7}{S\+T\+O\+N\+I\+N\+G}~8
+\item 
+\#define \hyperlink{hack_8h_a227ac76d02839af08220c6632e9062c8}{T\+U\+R\+N\+E\+D\+\_\+\+S\+L\+I\+M\+E}~9
+\item 
+\#define \hyperlink{hack_8h_a1f501eb9d26f8c52fd5d91a0f86dc924}{G\+E\+N\+O\+C\+I\+D\+E\+D}~10
+\item 
+\#define \hyperlink{hack_8h_a42112655d0a453f721ba58c5510dae55}{P\+A\+N\+I\+C\+K\+E\+D}~11
+\item 
+\#define \hyperlink{hack_8h_a2d6235975513e9630a8895cd64a67905}{T\+R\+I\+C\+K\+E\+D}~12
+\item 
+\#define \hyperlink{hack_8h_ad24e2b54375e12474e65ebf7175988fb}{Q\+U\+I\+T}~13
+\item 
+\#define \hyperlink{hack_8h_ac2357bf7093fe80a7c8465c3392b6f12}{E\+S\+C\+A\+P\+E\+D}~14
+\item 
+\#define \hyperlink{hack_8h_a2e7ab555dd9c2d74ce5c0b04e13fffcf}{A\+S\+C\+E\+N\+D\+E\+D}~15
+\item 
+\#define \hyperlink{hack_8h_a448fa95dd1ee6dbc9b19bbf05d25e160}{Z\+A\+P\+P\+E\+D\+\_\+\+W\+A\+N\+D}~0
+\item 
+\#define \hyperlink{hack_8h_ab6f59807b4ebabad63374c2c91ccb4fa}{T\+H\+R\+O\+W\+N\+\_\+\+W\+E\+A\+P\+O\+N}~1
+\item 
+\#define \hyperlink{hack_8h_af16c9be4349d141645b152e14078cce8}{K\+I\+C\+K\+E\+D\+\_\+\+W\+E\+A\+P\+O\+N}~2
+\item 
+\#define \hyperlink{hack_8h_a8993f14ab8dde1ff6cdc20553d200c68}{F\+L\+A\+S\+H\+E\+D\+\_\+\+L\+I\+G\+H\+T}~3
+\item 
+\#define \hyperlink{hack_8h_a754009df64c714c09f7f59da0a124426}{I\+N\+V\+I\+S\+\_\+\+B\+E\+A\+M}~4
+\item 
+\#define \hyperlink{hack_8h_a06971ec894f970d371a9cc7afc83e72c}{M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N}(mon)
+\item 
+\#define \hyperlink{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{N\+O\+\_\+\+S\+P\+E\+L\+L}~0
+\item 
+\#define \hyperlink{hack_8h_ae449582f467baa0da531a6ea116a18f2}{N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S}~0x00	/$\ast$ use this rather than plain 0 $\ast$/
+\item 
+\#define \hyperlink{hack_8h_ab9abb3d58903e1c125446f40f6984095}{N\+O\+\_\+\+M\+I\+N\+V\+E\+N\+T}~0x01	/$\ast$ suppress minvent when creating mon $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a1a6292933fe0a0d5fc9473a27701d413}{M\+M\+\_\+\+N\+O\+W\+A\+I\+T}~0x02	/$\ast$ don't set S\+T\+R\+A\+T\+\_\+\+W\+A\+I\+T\+M\+A\+S\+K flags $\ast$/
+\item 
+\#define \hyperlink{hack_8h_aa30b82d0d8c1e7c65e58f27bcde29ae1}{M\+M\+\_\+\+E\+D\+O\+G}~0x04	/$\ast$ add edog structure $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a748ce8be8371670ccbbc5e5debfc2e18}{M\+M\+\_\+\+E\+M\+I\+N}~0x08	/$\ast$ add emin structure $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a8c49bf9ef4423d8f1c3f2998d81277c2}{M\+M\+\_\+\+A\+N\+G\+R\+Y}~0x10  /$\ast$ monster is created angry $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a5d5a01be741383c3f65cf13efc3b1b3d}{M\+M\+\_\+\+N\+O\+N\+A\+M\+E}~0x20  /$\ast$ monster is not christened $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a521db2c6d2f512da8384c71f01cc1c77}{M\+M\+\_\+\+N\+O\+C\+O\+U\+N\+T\+B\+I\+R\+T\+H}~0x40  /$\ast$ don't increment born counter (for revival) $\ast$/
+\item 
+\#define \hyperlink{hack_8h_ac5c62ebe8a21263fc51903b33c6b186f}{M\+M\+\_\+\+I\+G\+N\+O\+R\+E\+W\+A\+T\+E\+R}~0x80	/$\ast$ ignore water when positioning $\ast$/
+\item 
+\#define \hyperlink{hack_8h_acfedaecac4bd4f842331f8631e5649e8}{M\+M\+\_\+\+A\+D\+J\+A\+C\+E\+N\+T\+O\+K}~0x100 /$\ast$ it is acceptable to use adjacent coordinates $\ast$/
+\item 
+\#define \hyperlink{hack_8h_aba651309065b8f0d3d8c9c2d146e83e3}{D\+E\+F\+U\+N\+C\+T\+\_\+\+M\+O\+N\+S\+T\+E\+R}~(-\/100)
+\item 
+\#define \hyperlink{hack_8h_a390266280cd7e662b57b8b62fca0fdca}{A\+L\+L\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D}~0x01  /$\ast$ called routine already finished the job $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a399a7fd555c25420d580a1a05df5d082}{B\+Y\+\_\+\+N\+E\+X\+T\+H\+E\+R\+E}~0x1	/$\ast$ follow objlist by nexthere field $\ast$/
+\item 
+\#define \hyperlink{hack_8h_ab96b626ee7ebe8d40ee77f2c093fca67}{A\+U\+T\+O\+S\+E\+L\+E\+C\+T\+\_\+\+S\+I\+N\+G\+L\+E}~0x2	/$\ast$ if only 1 object, don't ask $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a5c4787c4b2479514f4f204ab8eeda6f5}{U\+S\+E\+\_\+\+I\+N\+V\+L\+E\+T}~0x4	/$\ast$ use object's invlet $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a12e95bdc93dbdbfed5b2a6070f194a0a}{I\+N\+V\+O\+R\+D\+E\+R\+\_\+\+S\+O\+R\+T}~0x8	/$\ast$ sort objects by packorder $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a55ac4a24a290aa856a2f2544cf26aab7}{S\+I\+G\+N\+A\+L\+\_\+\+N\+O\+M\+E\+N\+U}~0x10	/$\ast$ return -\/1 rather than 0 if none allowed $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a7b6ddd41983a53e638638f0e7bb115cd}{F\+E\+E\+L\+\_\+\+C\+O\+C\+K\+A\+T\+R\+I\+C\+E}~0x20  /$\ast$ engage cockatrice checks and react $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a874b4164e2fec0110f08b877fffc4678}{U\+N\+P\+A\+I\+D\+\_\+\+T\+Y\+P\+E\+S}~0x02
+\item 
+\#define \hyperlink{hack_8h_a67e01a02a7d954a19faa9b2616ff2835}{G\+O\+L\+D\+\_\+\+T\+Y\+P\+E\+S}~0x04
+\item 
+\#define \hyperlink{hack_8h_adfd4db58219bfc2b13b62daac9e14ee3}{W\+O\+R\+N\+\_\+\+T\+Y\+P\+E\+S}~0x08
+\item 
+\#define \hyperlink{hack_8h_affe70acbccd9ee8ce30b7699adfc3070}{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S}~0x10
+\item 
+\#define \hyperlink{hack_8h_a40ae5c01cefa8ee0a353726a168a649f}{B\+I\+L\+L\+E\+D\+\_\+\+T\+Y\+P\+E\+S}~0x20
+\item 
+\#define \hyperlink{hack_8h_a486d7929be45b366cf2c8c15f27e39b6}{C\+H\+O\+O\+S\+E\+\_\+\+A\+L\+L}~0x40
+\item 
+\#define \hyperlink{hack_8h_a28cfc0465126c3957df3f0756e237bf8}{B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D}~0x80
+\item 
+\#define \hyperlink{hack_8h_a948c469209e20c15df98beee48514a64}{B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D}~0x100
+\item 
+\#define \hyperlink{hack_8h_ace47c6b9fd9594fc2885792f9041529f}{B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D}~0x200
+\item 
+\#define \hyperlink{hack_8h_a2cd13c4a158f4955dc658f4badb3c138}{B\+U\+C\+\_\+\+U\+N\+K\+N\+O\+W\+N}~0x400
+\item 
+\#define \hyperlink{hack_8h_ae59a156fb69de53502f1f975f98c6767}{B\+U\+C\+\_\+\+A\+L\+L\+B\+K\+N\+O\+W\+N}~(\hyperlink{hack_8h_a28cfc0465126c3957df3f0756e237bf8}{B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D}$\vert$\hyperlink{hack_8h_a948c469209e20c15df98beee48514a64}{B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D}$\vert$\hyperlink{hack_8h_ace47c6b9fd9594fc2885792f9041529f}{B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D})
+\item 
+\#define \hyperlink{hack_8h_a0dd263622e82f8ca92192bda0b95e72d}{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}~-\/2
+\item 
+\#define \hyperlink{hack_8h_a1239fc371ebb320562bbc6fd639d7270}{F\+M\+\_\+\+F\+M\+O\+N}~0x01	/$\ast$ search the fmon chain $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a0671f2b332fdb7b1ddbe4db940e5d112}{F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E}~0x02	/$\ast$ search the migrating monster chain $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a3e01af3d4b36e6244a4195878cdbf7e4}{F\+M\+\_\+\+M\+Y\+D\+O\+G\+S}~0x04	/$\ast$ search mydogs $\ast$/
+\item 
+\#define \hyperlink{hack_8h_aa56fe69eb44bb3d452006c762fa8f07d}{F\+M\+\_\+\+E\+V\+E\+R\+Y\+W\+H\+E\+R\+E}~(\hyperlink{hack_8h_a1239fc371ebb320562bbc6fd639d7270}{F\+M\+\_\+\+F\+M\+O\+N} $\vert$ \hyperlink{hack_8h_a0671f2b332fdb7b1ddbe4db940e5d112}{F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E} $\vert$ \hyperlink{hack_8h_a3e01af3d4b36e6244a4195878cdbf7e4}{F\+M\+\_\+\+M\+Y\+D\+O\+G\+S})
+\item 
+\#define \hyperlink{hack_8h_ad866a8283b1279be18b8066faa764467}{P\+I\+C\+K\+\_\+\+R\+A\+N\+D\+O\+M}~0
+\item 
+\#define \hyperlink{hack_8h_a66385b290d758c1a081eceae8f821900}{P\+I\+C\+K\+\_\+\+R\+I\+G\+I\+D}~1
+\item 
+\#define \hyperlink{hack_8h_a0aade8646a2621e6554db312084455e5}{N\+O\+W\+E\+B\+M\+S\+G}~0x01	/$\ast$ suppress stumble into web message $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a7cbef159d3968bf75349d0eb3a9f2a69}{F\+O\+R\+C\+E\+B\+U\+N\+G\+L\+E}~0x02	/$\ast$ adjustments appropriate for bungling $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a0883fec73d70d4950974125f508c03a8}{R\+E\+C\+U\+R\+S\+I\+V\+E\+T\+R\+A\+P}~0x04	/$\ast$ trap changed into another type this same turn $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a796359afbfd67e158c92013c141daf2e}{D\+O\+\_\+\+M\+O\+V\+E}~0	/$\ast$ really doing the \hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move} $\ast$/
+\item 
+\#define \hyperlink{hack_8h_acbb208e3a14a9d3054ae3ee0384aabf0}{T\+E\+S\+T\+\_\+\+M\+O\+V\+E}~1	/$\ast$ test a normal \hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move} (\hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move} there next) $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a341462dbde0db0f6163f4a9fddf5847d}{T\+E\+S\+T\+\_\+\+T\+R\+A\+V}~2	/$\ast$ test a future travel location $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(query)~yn\+\_\+function(query,\hyperlink{decl_8c_a016c46951e44279d8ea3d946cadc7fdf}{ynchars}, 'n')
+\item 
+\#define \hyperlink{hack_8h_a104792d619a60e73407115c00499745e}{ynq}(query)~yn\+\_\+function(query,\hyperlink{decl_8c_a4d75c608bde6d69ca10a25b44dfa3340}{ynqchars}, 'q')
+\item 
+\#define \hyperlink{hack_8h_a898ef54f58a1789bb39562562591d543}{ynaq}(query)~yn\+\_\+function(query,\hyperlink{decl_8c_a8fb26f3f8f26dea50f78d4c318c6a58a}{ynaqchars}, 'y')
+\item 
+\#define \hyperlink{hack_8h_abc646cb3c3678a1f7d1372b60788bb3d}{nyaq}(query)~yn\+\_\+function(query,\hyperlink{decl_8c_a8fb26f3f8f26dea50f78d4c318c6a58a}{ynaqchars}, 'n')
+\item 
+\#define \hyperlink{hack_8h_a47153df68b72cf38a0ee5bea45790938}{ny\+Naq}(query)~yn\+\_\+function(query,\hyperlink{decl_8c_a32ed62e755bf3da13d93d50e39cef302}{yn\+Naqchars}, 'n')
+\item 
+\#define \hyperlink{hack_8h_a658824c8a4f800fdf424f8b4a56e2641}{yn\+Naq}(query)~yn\+\_\+function(query,\hyperlink{decl_8c_a32ed62e755bf3da13d93d50e39cef302}{yn\+Naqchars}, 'y')
+\item 
+\#define \hyperlink{hack_8h_a2dd2cdb4192a66a8bf2ee29617384060}{V\+I\+S\+\_\+\+E\+F\+F\+E\+C\+T\+S}~0x01	/$\ast$ display visual effects $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a7e10551bbcc777eb4dc6c6f92b20fe2e}{M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N}~0x02	/$\ast$ objects may hit monsters $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a374ee1d4bd7f2376d30f30349ed19e48}{M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U}~0x04	/$\ast$ objects may hit you $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a71f5d3511dfec4148e7c6e47a763bb3d}{M\+A\+Y\+\_\+\+H\+I\+T}~(\hyperlink{hack_8h_a7e10551bbcc777eb4dc6c6f92b20fe2e}{M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N}$\vert$\hyperlink{hack_8h_a374ee1d4bd7f2376d30f30349ed19e48}{M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U})
+\item 
+\#define \hyperlink{hack_8h_a8d68ddaa52ecd0df00961f3216a24bc6}{M\+A\+Y\+\_\+\+D\+E\+S\+T\+R\+O\+Y}~0x08	/$\ast$ objects may be destroyed at random $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a7d3539b1eca009b9ef5106e322024bbf}{M\+A\+Y\+\_\+\+F\+R\+A\+C\+T\+U\+R\+E}~0x10	/$\ast$ boulders \& statues may fracture $\ast$/
+\item 
+\#define \hyperlink{hack_8h_af902416f65138704a180dbae2dc9d8f2}{R\+O\+L\+L}~0x01	/$\ast$ the object is rolling $\ast$/
+\item 
+\#define \hyperlink{hack_8h_aeeac77b723370636c4870b6fbe413494}{F\+L\+I\+N\+G}~0x02	/$\ast$ the object is flying thru the air $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a24dae1f1bec9af93b6354d487e98c38f}{L\+A\+U\+N\+C\+H\+\_\+\+U\+N\+S\+E\+E\+N}~0x40	/$\ast$ hero neither caused nor saw it $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a5200709a764ec462e4cd2c54c6609cdc}{L\+A\+U\+N\+C\+H\+\_\+\+K\+N\+O\+W\+N}~0x80	/$\ast$ the hero caused this by explicit action $\ast$/
+\item 
+\#define \hyperlink{hack_8h_affd2237747c38f43e3ffb93f4e549d97}{E\+X\+P\+L\+\_\+\+D\+A\+R\+K}~0
+\item 
+\#define \hyperlink{hack_8h_aa976efabdcfdf3f5e6ee42f9d847e0ff}{E\+X\+P\+L\+\_\+\+N\+O\+X\+I\+O\+U\+S}~1
+\item 
+\#define \hyperlink{hack_8h_acfd23b75894ca2367a460bd280464c9f}{E\+X\+P\+L\+\_\+\+M\+U\+D\+D\+Y}~2
+\item 
+\#define \hyperlink{hack_8h_a261983a43c7765cb13296222b155130c}{E\+X\+P\+L\+\_\+\+W\+E\+T}~3
+\item 
+\#define \hyperlink{hack_8h_a4cffa0f3b610347d73bf7a3c1c1cd0c7}{E\+X\+P\+L\+\_\+\+M\+A\+G\+I\+C\+A\+L}~4
+\item 
+\#define \hyperlink{hack_8h_aa1254e4e65f2c8d0cf9026f8a01b749b}{E\+X\+P\+L\+\_\+\+F\+I\+E\+R\+Y}~5
+\item 
+\#define \hyperlink{hack_8h_ac52d145a17a30b3c224ac85b26300997}{E\+X\+P\+L\+\_\+\+F\+R\+O\+S\+T\+Y}~6
+\item 
+\#define \hyperlink{hack_8h_a5c212647e8739b7c703539f4a6749347}{E\+X\+P\+L\+\_\+\+M\+A\+X}~7
+\item 
+\#define \hyperlink{hack_8h_ac3b52e3cce0aee40e79cc75cdf46019d}{A\+R\+M}~0
+\item 
+\#define \hyperlink{hack_8h_a9dcbae66f1fdfd85d1c36b37ae0e62cb}{E\+Y\+E}~1
+\item 
+\#define \hyperlink{hack_8h_a8cec063149d793579c0e9d0b992b9fd0}{F\+A\+C\+E}~2
+\item 
+\#define \hyperlink{hack_8h_a08ca2d5c1d54f87b137e95b8abf5561d}{F\+I\+N\+G\+E\+R}~3
+\item 
+\#define \hyperlink{hack_8h_add6b587ac6f434919c272963abe84ca5}{F\+I\+N\+G\+E\+R\+T\+I\+P}~4
+\item 
+\#define \hyperlink{hack_8h_a9b1eabef4c7711550544eaeaa8f41fa1}{F\+O\+O\+T}~5
+\item 
+\#define \hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{H\+A\+N\+D}~6
+\item 
+\#define \hyperlink{hack_8h_aa04c527bae27e412fb7c19b8a936bf39}{H\+A\+N\+D\+E\+D}~7
+\item 
+\#define \hyperlink{hack_8h_a110f3b6cdacd45daee818b3e5965f6da}{H\+E\+A\+D}~8
+\item 
+\#define \hyperlink{hack_8h_a18e0de6fde17def36a938036ab8166f5}{L\+E\+G}~9
+\item 
+\#define \hyperlink{hack_8h_a0bed8496a70f769a16be3636024f58c1}{L\+I\+G\+H\+T\+\_\+\+H\+E\+A\+D\+E\+D}~10
+\item 
+\#define \hyperlink{hack_8h_af76981f1fe695cc18342889e04ea7563}{N\+E\+C\+K}~11
+\item 
+\#define \hyperlink{hack_8h_ab40628a0c911b138b20a33432e98c80e}{S\+P\+I\+N\+E}~12
+\item 
+\#define \hyperlink{hack_8h_a6e3739d1e68346bd22d8c862b70c5444}{T\+O\+E}~13
+\item 
+\#define \hyperlink{hack_8h_a1f252e3e090858871f7646e215776430}{H\+A\+I\+R}~14
+\item 
+\#define \hyperlink{hack_8h_aafe5a47d60d8b7a6324d5d4dc6466ad9}{B\+L\+O\+O\+D}~15
+\item 
+\#define \hyperlink{hack_8h_aa018501b30530649b3f0c2fe383a507a}{L\+U\+N\+G}~16
+\item 
+\#define \hyperlink{hack_8h_ab2a6cf3c1f59ac96cfa6160f5dfff10a}{N\+O\+S\+E}~17
+\item 
+\#define \hyperlink{hack_8h_afe6da63d3b68440a889df103056403c5}{S\+T\+O\+M\+A\+C\+H}~18
+\item 
+\#define \hyperlink{hack_8h_aac98aa4fe3e35ed57b2bef9cbb8d6732}{M\+E\+N\+U\+T\+Y\+P\+E\+L\+E\+N}~sizeof(\char`\"{}traditional \char`\"{})
+\item 
+\#define \hyperlink{hack_8h_a3722a16e7d256c5426734217dd050099}{M\+E\+N\+U\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L}~0
+\item 
+\#define \hyperlink{hack_8h_a0a2c738325c03584c18059a00bc1d1a3}{M\+E\+N\+U\+\_\+\+C\+O\+M\+B\+I\+N\+A\+T\+I\+O\+N}~1
+\item 
+\#define \hyperlink{hack_8h_adce05cf54be11ae2105ac94b335806cd}{M\+E\+N\+U\+\_\+\+P\+A\+R\+T\+I\+A\+L}~2
+\item 
+\#define \hyperlink{hack_8h_a38cbdbdd38a533335c4fd24f3550a395}{M\+E\+N\+U\+\_\+\+F\+U\+L\+L}~3
+\item 
+\#define \hyperlink{hack_8h_aac81acdb9065d3be281db6cdbcbf2d4a}{M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}~\hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+U\+E}
+\item 
+\#define \hyperlink{hack_8h_a1b4cfefbc89386fb8977794f02b0a13c}{M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D}~\hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\item 
+\#define \hyperlink{hack_8h_a499becbf729463cf6d3a25e31077522a}{S\+E\+T\+\_\+\+I\+N\+\_\+\+F\+I\+L\+E}~0 /$\ast$ config file option \hyperlink{display_8c_a75d2d8101c02fbe9b2ee7742a07a9f19}{only} $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a160545360189875403e219ec662b906e}{S\+E\+T\+\_\+\+V\+I\+A\+\_\+\+P\+R\+O\+G}~1 /$\ast$ may be set via extern program, not seen \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} game $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a85bddc27e495e22cc80a321be0446fb0}{D\+I\+S\+P\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E}~2 /$\ast$ may be set via extern program, displayed \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} game $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a85493f074ab0108e0fef9369e11d58ea}{S\+E\+T\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E}~3 /$\ast$ may be set via extern program or set \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} the game $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a59736f3202b417b907e43dc52bb63922}{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R}(major, minor, patch)
+\item 
+\#define \hyperlink{hack_8h_a1c0a0a730eb43fedd66eb7341baea120}{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+A\+J}~(flags.\+suppress\+\_\+alert $>$$>$ 24)
+\item 
+\#define \hyperlink{hack_8h_a4e5f611aa6a303410513f9415fa76d81}{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+I\+N}~(((unsigned long)(0x0000000000\+F\+F0000\+L \& flags.\+suppress\+\_\+alert)) $>$$>$ 16)
+\item 
+\#define \hyperlink{hack_8h_ac6932a248baa31e2e0adc5da05ac783c}{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+P\+A\+T\+C\+H}~(((unsigned long)(0x000000000000\+F\+F00\+L \& flags.\+suppress\+\_\+alert)) $>$$>$  8)
+\item 
+\#define \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(a, b)~((a) $>$ (b) ? (a) \+: (b))
+\item 
+\#define \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(x, y)~((x) $<$ (y) ? (x) \+: (y))
+\item 
+\#define \hyperlink{hack_8h_a6ed0ab51b12ebf31e060e3dd26394db0}{plur}(x)~(((x) == 1) ? \char`\"{}\char`\"{} \+: \char`\"{}s\char`\"{})
+\item 
+\#define \hyperlink{hack_8h_a6f8b3c40024cf8afd2f563673fb0efc6}{A\+R\+M\+\_\+\+B\+O\+N\+U\+S}(\hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{hack_8h_afbd3607e7cef2f888f4190d40d058011}{makeknown}(x)~\hyperlink{o__init_8c_a0f0f34a74cad20535d58823ed431b447}{discover\+\_\+object}((x),\hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+U\+E},\hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+U\+E})
+\item 
+\#define \hyperlink{hack_8h_a1f84afcae19c5b60124bc509ed647f84}{distu}(xx, yy)~dist2((int)(xx),(int)(yy),(int)u.\+ux,(int)u.\+uy)
+\item 
+\#define \hyperlink{hack_8h_a9a05f2b42918bc4368fce9b39058fcff}{onlineu}(xx, yy)~online2((int)(xx),(int)(yy),(int)u.\+ux,(int)u.\+uy)
+\item 
+\#define \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(x, y)~(rn2(x)+(y))
+\item 
+\#define \hyperlink{hack_8h_a9e586e2a0fb14a7bb713ffded199cc2a}{A\+C\+\_\+\+V\+A\+L\+U\+E}(A\+C)~((A\+C) $>$= 0 ? (A\+C) \+: -\/rnd(-\/(A\+C)))
+\item 
+\#define \hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L}~static
+\item 
+\#define \hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L}~static
+\item 
+\#define \hyperlink{hack_8h_a01b21691d813ceb087b72a5f9db412c6}{S\+T\+A\+T\+I\+C\+\_\+\+V\+A\+R}~static
+\item 
+\#define \hyperlink{hack_8h_acc1caaf7692e1dc4de5db754fd2849e0}{O\+V\+L0}~/$\ast$ highest priority $\ast$/
+\item 
+\#define \hyperlink{hack_8h_ad87a3cbec2ecdc0201589355ed0842c1}{O\+V\+L1}
+\item 
+\#define \hyperlink{hack_8h_a3878dd16f972cc975449f3d19a8bb804}{O\+V\+L2}
+\item 
+\#define \hyperlink{hack_8h_a76e2da6b8cdfee945a13a684d4ffc1a4}{O\+V\+L3}~/$\ast$ lowest specified priority $\ast$/
+\item 
+\#define \hyperlink{hack_8h_a3f7176764e2eef77a0490e2f03ad2f78}{O\+V\+L\+B}~/$\ast$ the base \hyperlink{gnmap_8c_ae3643601525ad113c168f966b8a5f1f6}{overlay} segment $\ast$/
+\item 
+\#define \hyperlink{hack_8h_ac0f6cfba4138e5e6a773d15a80ea82ff}{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R}~static
+\item 
+\#define \hyperlink{hack_8h_ad75e8899353ffe8067a181faee54fac7}{C\+F\+D\+E\+C\+L\+S\+P\+E\+C}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} \hyperlink{structcoord}{coord} \hyperlink{hack_8h_a4c9226f2a1ebd72a254bb15c96d75440}{bhitpos}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{hack_8h_a9e586e2a0fb14a7bb713ffded199cc2a}{\index{hack.\+h@{hack.\+h}!A\+C\+\_\+\+V\+A\+L\+U\+E@{A\+C\+\_\+\+V\+A\+L\+U\+E}}
+\index{A\+C\+\_\+\+V\+A\+L\+U\+E@{A\+C\+\_\+\+V\+A\+L\+U\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{A\+C\+\_\+\+V\+A\+L\+U\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+C\+\_\+\+V\+A\+L\+U\+E(
+\begin{DoxyParamCaption}
+\item[{}]{A\+C}
+\end{DoxyParamCaption}
+)~((A\+C) $>$= 0 ? (A\+C) \+: -\/rnd(-\/(A\+C)))}}\label{hack_8h_a9e586e2a0fb14a7bb713ffded199cc2a}
+
+
+Definition at line 294 of file hack.\+h.
+
+\hypertarget{hack_8h_a390266280cd7e662b57b8b62fca0fdca}{\index{hack.\+h@{hack.\+h}!A\+L\+L\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D@{A\+L\+L\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D}}
+\index{A\+L\+L\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D@{A\+L\+L\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{A\+L\+L\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+L\+L\+\_\+\+F\+I\+N\+I\+S\+H\+E\+D~0x01  /$\ast$ called routine already finished the job $\ast$/}}\label{hack_8h_a390266280cd7e662b57b8b62fca0fdca}
+
+
+Definition at line 149 of file hack.\+h.
+
+\hypertarget{hack_8h_affe70acbccd9ee8ce30b7699adfc3070}{\index{hack.\+h@{hack.\+h}!A\+L\+L\+\_\+\+T\+Y\+P\+E\+S@{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S}}
+\index{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S@{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+L\+L\+\_\+\+T\+Y\+P\+E\+S~0x10}}\label{hack_8h_affe70acbccd9ee8ce30b7699adfc3070}
+
+
+Definition at line 164 of file hack.\+h.
+
+
+
+Referenced by menu\+\_\+loot(), and query\+\_\+category().
+
+\hypertarget{hack_8h_a0dd263622e82f8ca92192bda0b95e72d}{\index{hack.\+h@{hack.\+h}!A\+L\+L\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D@{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}}
+\index{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D@{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{A\+L\+L\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+L\+L\+\_\+\+T\+Y\+P\+E\+S\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D~-\/2}}\label{hack_8h_a0dd263622e82f8ca92192bda0b95e72d}
+
+
+Definition at line 172 of file hack.\+h.
+
+
+
+Referenced by menu\+\_\+loot(), and query\+\_\+category().
+
+\hypertarget{hack_8h_ac3b52e3cce0aee40e79cc75cdf46019d}{\index{hack.\+h@{hack.\+h}!A\+R\+M@{A\+R\+M}}
+\index{A\+R\+M@{A\+R\+M}!hack.\+h@{hack.\+h}}
+\subsubsection[{A\+R\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+R\+M~0}}\label{hack_8h_ac3b52e3cce0aee40e79cc75cdf46019d}
+
+
+Definition at line 227 of file hack.\+h.
+
+
+
+Referenced by dipfountain(), and throwit().
+
+\hypertarget{hack_8h_a6f8b3c40024cf8afd2f563673fb0efc6}{\index{hack.\+h@{hack.\+h}!A\+R\+M\+\_\+\+B\+O\+N\+U\+S@{A\+R\+M\+\_\+\+B\+O\+N\+U\+S}}
+\index{A\+R\+M\+\_\+\+B\+O\+N\+U\+S@{A\+R\+M\+\_\+\+B\+O\+N\+U\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{A\+R\+M\+\_\+\+B\+O\+N\+U\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+R\+M\+\_\+\+B\+O\+N\+U\+S(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{hack_8h_a6f8b3c40024cf8afd2f563673fb0efc6}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[(\hyperlink{structobj}{obj})->otyp].\hyperlink{objclass_8h_a364daa6cc5c8d3c2a9c4b94d05c79c5c}{a\_ac} + (\hyperlink{structobj}{obj})->spe \(\backslash\)
+             - \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}((\textcolor{keywordtype}{int})\hyperlink{obj_8h_ac240beb25ae6ec398ee270cdf4c79155}{greatest\_erosion}(\hyperlink{structobj}{obj}),\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[(
+      \hyperlink{structobj}{obj})->otyp].\hyperlink{objclass_8h_a364daa6cc5c8d3c2a9c4b94d05c79c5c}{a\_ac}))
+\end{DoxyCode}
+
+
+Definition at line 284 of file hack.\+h.
+
+
+
+Referenced by find\+\_\+mac(), and m\+\_\+dowear\+\_\+type().
+
+\hypertarget{hack_8h_a2e7ab555dd9c2d74ce5c0b04e13fffcf}{\index{hack.\+h@{hack.\+h}!A\+S\+C\+E\+N\+D\+E\+D@{A\+S\+C\+E\+N\+D\+E\+D}}
+\index{A\+S\+C\+E\+N\+D\+E\+D@{A\+S\+C\+E\+N\+D\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{A\+S\+C\+E\+N\+D\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+S\+C\+E\+N\+D\+E\+D~15}}\label{hack_8h_a2e7ab555dd9c2d74ce5c0b04e13fffcf}
+
+
+Definition at line 82 of file hack.\+h.
+
+
+
+Referenced by done(), and dosacrifice().
+
+\hypertarget{hack_8h_ab96b626ee7ebe8d40ee77f2c093fca67}{\index{hack.\+h@{hack.\+h}!A\+U\+T\+O\+S\+E\+L\+E\+C\+T\+\_\+\+S\+I\+N\+G\+L\+E@{A\+U\+T\+O\+S\+E\+L\+E\+C\+T\+\_\+\+S\+I\+N\+G\+L\+E}}
+\index{A\+U\+T\+O\+S\+E\+L\+E\+C\+T\+\_\+\+S\+I\+N\+G\+L\+E@{A\+U\+T\+O\+S\+E\+L\+E\+C\+T\+\_\+\+S\+I\+N\+G\+L\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{A\+U\+T\+O\+S\+E\+L\+E\+C\+T\+\_\+\+S\+I\+N\+G\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+U\+T\+O\+S\+E\+L\+E\+C\+T\+\_\+\+S\+I\+N\+G\+L\+E~0x2	/$\ast$ if only 1 object, don't ask $\ast$/}}\label{hack_8h_ab96b626ee7ebe8d40ee77f2c093fca67}
+
+
+Definition at line 153 of file hack.\+h.
+
+
+
+Referenced by pickup(), and query\+\_\+objlist().
+
+\hypertarget{hack_8h_a40ae5c01cefa8ee0a353726a168a649f}{\index{hack.\+h@{hack.\+h}!B\+I\+L\+L\+E\+D\+\_\+\+T\+Y\+P\+E\+S@{B\+I\+L\+L\+E\+D\+\_\+\+T\+Y\+P\+E\+S}}
+\index{B\+I\+L\+L\+E\+D\+\_\+\+T\+Y\+P\+E\+S@{B\+I\+L\+L\+E\+D\+\_\+\+T\+Y\+P\+E\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+I\+L\+L\+E\+D\+\_\+\+T\+Y\+P\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+I\+L\+L\+E\+D\+\_\+\+T\+Y\+P\+E\+S~0x20}}\label{hack_8h_a40ae5c01cefa8ee0a353726a168a649f}
+
+
+Definition at line 165 of file hack.\+h.
+
+
+
+Referenced by query\+\_\+category().
+
+\hypertarget{hack_8h_aafe5a47d60d8b7a6324d5d4dc6466ad9}{\index{hack.\+h@{hack.\+h}!B\+L\+O\+O\+D@{B\+L\+O\+O\+D}}
+\index{B\+L\+O\+O\+D@{B\+L\+O\+O\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+L\+O\+O\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+L\+O\+O\+D~15}}\label{hack_8h_aafe5a47d60d8b7a6324d5d4dc6466ad9}
+
+
+Definition at line 242 of file hack.\+h.
+
+\hypertarget{hack_8h_a26ee0a18384e9ca14b97a4f877791284}{\index{hack.\+h@{hack.\+h}!B\+O\+L\+T\+\_\+\+L\+I\+M@{B\+O\+L\+T\+\_\+\+L\+I\+M}}
+\index{B\+O\+L\+T\+\_\+\+L\+I\+M@{B\+O\+L\+T\+\_\+\+L\+I\+M}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+O\+L\+T\+\_\+\+L\+I\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+O\+L\+T\+\_\+\+L\+I\+M~8 /$\ast$ from this distance ranged attacks will be made $\ast$/}}\label{hack_8h_a26ee0a18384e9ca14b97a4f877791284}
+
+
+Definition at line 21 of file hack.\+h.
+
+
+
+Referenced by doturn(), findit(), mzapmsg(), and openit().
+
+\hypertarget{hack_8h_ae59a156fb69de53502f1f975f98c6767}{\index{hack.\+h@{hack.\+h}!B\+U\+C\+\_\+\+A\+L\+L\+B\+K\+N\+O\+W\+N@{B\+U\+C\+\_\+\+A\+L\+L\+B\+K\+N\+O\+W\+N}}
+\index{B\+U\+C\+\_\+\+A\+L\+L\+B\+K\+N\+O\+W\+N@{B\+U\+C\+\_\+\+A\+L\+L\+B\+K\+N\+O\+W\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+U\+C\+\_\+\+A\+L\+L\+B\+K\+N\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+C\+\_\+\+A\+L\+L\+B\+K\+N\+O\+W\+N~({\bf B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D}$\vert${\bf B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D}$\vert${\bf B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D})}}\label{hack_8h_ae59a156fb69de53502f1f975f98c6767}
+
+
+Definition at line 171 of file hack.\+h.
+
+
+
+Referenced by menu\+\_\+loot().
+
+\hypertarget{hack_8h_a28cfc0465126c3957df3f0756e237bf8}{\index{hack.\+h@{hack.\+h}!B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D@{B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D}}
+\index{B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D@{B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+C\+\_\+\+B\+L\+E\+S\+S\+E\+D~0x80}}\label{hack_8h_a28cfc0465126c3957df3f0756e237bf8}
+
+
+Definition at line 167 of file hack.\+h.
+
+
+
+Referenced by query\+\_\+category().
+
+\hypertarget{hack_8h_a948c469209e20c15df98beee48514a64}{\index{hack.\+h@{hack.\+h}!B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D@{B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D}}
+\index{B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D@{B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+C\+\_\+\+C\+U\+R\+S\+E\+D~0x100}}\label{hack_8h_a948c469209e20c15df98beee48514a64}
+
+
+Definition at line 168 of file hack.\+h.
+
+
+
+Referenced by query\+\_\+category().
+
+\hypertarget{hack_8h_ace47c6b9fd9594fc2885792f9041529f}{\index{hack.\+h@{hack.\+h}!B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D@{B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D}}
+\index{B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D@{B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+C\+\_\+\+U\+N\+C\+U\+R\+S\+E\+D~0x200}}\label{hack_8h_ace47c6b9fd9594fc2885792f9041529f}
+
+
+Definition at line 169 of file hack.\+h.
+
+
+
+Referenced by query\+\_\+category().
+
+\hypertarget{hack_8h_a2cd13c4a158f4955dc658f4badb3c138}{\index{hack.\+h@{hack.\+h}!B\+U\+C\+\_\+\+U\+N\+K\+N\+O\+W\+N@{B\+U\+C\+\_\+\+U\+N\+K\+N\+O\+W\+N}}
+\index{B\+U\+C\+\_\+\+U\+N\+K\+N\+O\+W\+N@{B\+U\+C\+\_\+\+U\+N\+K\+N\+O\+W\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+U\+C\+\_\+\+U\+N\+K\+N\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+C\+\_\+\+U\+N\+K\+N\+O\+W\+N~0x400}}\label{hack_8h_a2cd13c4a158f4955dc658f4badb3c138}
+
+
+Definition at line 170 of file hack.\+h.
+
+
+
+Referenced by menu\+\_\+loot(), and query\+\_\+category().
+
+\hypertarget{hack_8h_ae8902ecbf1e862b213423dd36c568e2f}{\index{hack.\+h@{hack.\+h}!B\+U\+R\+N\+I\+N\+G@{B\+U\+R\+N\+I\+N\+G}}
+\index{B\+U\+R\+N\+I\+N\+G@{B\+U\+R\+N\+I\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+U\+R\+N\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+R\+N\+I\+N\+G~5}}\label{hack_8h_ae8902ecbf1e862b213423dd36c568e2f}
+
+
+Definition at line 72 of file hack.\+h.
+
+
+
+Referenced by done().
+
+\hypertarget{hack_8h_ae0c542434221e805ea881a5b6f19d013}{\index{hack.\+h@{hack.\+h}!B\+Y\+\_\+\+C\+O\+O\+K\+I\+E@{B\+Y\+\_\+\+C\+O\+O\+K\+I\+E}}
+\index{B\+Y\+\_\+\+C\+O\+O\+K\+I\+E@{B\+Y\+\_\+\+C\+O\+O\+K\+I\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+Y\+\_\+\+C\+O\+O\+K\+I\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+Y\+\_\+\+C\+O\+O\+K\+I\+E~1}}\label{hack_8h_ae0c542434221e805ea881a5b6f19d013}
+
+
+Definition at line 35 of file hack.\+h.
+
+
+
+Referenced by outrumor().
+
+\hypertarget{hack_8h_a399a7fd555c25420d580a1a05df5d082}{\index{hack.\+h@{hack.\+h}!B\+Y\+\_\+\+N\+E\+X\+T\+H\+E\+R\+E@{B\+Y\+\_\+\+N\+E\+X\+T\+H\+E\+R\+E}}
+\index{B\+Y\+\_\+\+N\+E\+X\+T\+H\+E\+R\+E@{B\+Y\+\_\+\+N\+E\+X\+T\+H\+E\+R\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+Y\+\_\+\+N\+E\+X\+T\+H\+E\+R\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+Y\+\_\+\+N\+E\+X\+T\+H\+E\+R\+E~0x1	/$\ast$ follow objlist by nexthere field $\ast$/}}\label{hack_8h_a399a7fd555c25420d580a1a05df5d082}
+
+
+Definition at line 152 of file hack.\+h.
+
+
+
+Referenced by pickup().
+
+\hypertarget{hack_8h_a1210847248024338cff17538c89deb80}{\index{hack.\+h@{hack.\+h}!B\+Y\+\_\+\+O\+R\+A\+C\+L\+E@{B\+Y\+\_\+\+O\+R\+A\+C\+L\+E}}
+\index{B\+Y\+\_\+\+O\+R\+A\+C\+L\+E@{B\+Y\+\_\+\+O\+R\+A\+C\+L\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+Y\+\_\+\+O\+R\+A\+C\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+Y\+\_\+\+O\+R\+A\+C\+L\+E~0}}\label{hack_8h_a1210847248024338cff17538c89deb80}
+
+
+Definition at line 34 of file hack.\+h.
+
+
+
+Referenced by doconsult(), and outrumor().
+
+\hypertarget{hack_8h_a74ed896a1b263da78453d752cd1daae6}{\index{hack.\+h@{hack.\+h}!B\+Y\+\_\+\+O\+T\+H\+E\+R@{B\+Y\+\_\+\+O\+T\+H\+E\+R}}
+\index{B\+Y\+\_\+\+O\+T\+H\+E\+R@{B\+Y\+\_\+\+O\+T\+H\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+Y\+\_\+\+O\+T\+H\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+Y\+\_\+\+O\+T\+H\+E\+R~9}}\label{hack_8h_a74ed896a1b263da78453d752cd1daae6}
+
+
+Definition at line 37 of file hack.\+h.
+
+\hypertarget{hack_8h_aafda439b1d3c1d505189dde3a60a6431}{\index{hack.\+h@{hack.\+h}!B\+Y\+\_\+\+P\+A\+P\+E\+R@{B\+Y\+\_\+\+P\+A\+P\+E\+R}}
+\index{B\+Y\+\_\+\+P\+A\+P\+E\+R@{B\+Y\+\_\+\+P\+A\+P\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{B\+Y\+\_\+\+P\+A\+P\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+Y\+\_\+\+P\+A\+P\+E\+R~2}}\label{hack_8h_aafda439b1d3c1d505189dde3a60a6431}
+
+
+Definition at line 36 of file hack.\+h.
+
+
+
+Referenced by outrumor().
+
+\hypertarget{hack_8h_ad75e8899353ffe8067a181faee54fac7}{\index{hack.\+h@{hack.\+h}!C\+F\+D\+E\+C\+L\+S\+P\+E\+C@{C\+F\+D\+E\+C\+L\+S\+P\+E\+C}}
+\index{C\+F\+D\+E\+C\+L\+S\+P\+E\+C@{C\+F\+D\+E\+C\+L\+S\+P\+E\+C}!hack.\+h@{hack.\+h}}
+\subsubsection[{C\+F\+D\+E\+C\+L\+S\+P\+E\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+F\+D\+E\+C\+L\+S\+P\+E\+C}}\label{hack_8h_ad75e8899353ffe8067a181faee54fac7}
+
+
+Definition at line 338 of file hack.\+h.
+
+\hypertarget{hack_8h_a5500aa08941fd3a5fa31f7a5edfd588b}{\index{hack.\+h@{hack.\+h}!C\+H\+O\+K\+I\+N\+G@{C\+H\+O\+K\+I\+N\+G}}
+\index{C\+H\+O\+K\+I\+N\+G@{C\+H\+O\+K\+I\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{C\+H\+O\+K\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+O\+K\+I\+N\+G~1}}\label{hack_8h_a5500aa08941fd3a5fa31f7a5edfd588b}
+
+
+Definition at line 68 of file hack.\+h.
+
+
+
+Referenced by done(), and savelife().
+
+\hypertarget{hack_8h_a486d7929be45b366cf2c8c15f27e39b6}{\index{hack.\+h@{hack.\+h}!C\+H\+O\+O\+S\+E\+\_\+\+A\+L\+L@{C\+H\+O\+O\+S\+E\+\_\+\+A\+L\+L}}
+\index{C\+H\+O\+O\+S\+E\+\_\+\+A\+L\+L@{C\+H\+O\+O\+S\+E\+\_\+\+A\+L\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{C\+H\+O\+O\+S\+E\+\_\+\+A\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+O\+O\+S\+E\+\_\+\+A\+L\+L~0x40}}\label{hack_8h_a486d7929be45b366cf2c8c15f27e39b6}
+
+
+Definition at line 166 of file hack.\+h.
+
+
+
+Referenced by menu\+\_\+loot(), and query\+\_\+category().
+
+\hypertarget{hack_8h_a2047a43401ba390bad0e7a19b2efb534}{\index{hack.\+h@{hack.\+h}!C\+R\+U\+S\+H\+I\+N\+G@{C\+R\+U\+S\+H\+I\+N\+G}}
+\index{C\+R\+U\+S\+H\+I\+N\+G@{C\+R\+U\+S\+H\+I\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{C\+R\+U\+S\+H\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+R\+U\+S\+H\+I\+N\+G~7}}\label{hack_8h_a2047a43401ba390bad0e7a19b2efb534}
+
+
+Definition at line 74 of file hack.\+h.
+
+\hypertarget{hack_8h_aba651309065b8f0d3d8c9c2d146e83e3}{\index{hack.\+h@{hack.\+h}!D\+E\+F\+U\+N\+C\+T\+\_\+\+M\+O\+N\+S\+T\+E\+R@{D\+E\+F\+U\+N\+C\+T\+\_\+\+M\+O\+N\+S\+T\+E\+R}}
+\index{D\+E\+F\+U\+N\+C\+T\+\_\+\+M\+O\+N\+S\+T\+E\+R@{D\+E\+F\+U\+N\+C\+T\+\_\+\+M\+O\+N\+S\+T\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+E\+F\+U\+N\+C\+T\+\_\+\+M\+O\+N\+S\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+F\+U\+N\+C\+T\+\_\+\+M\+O\+N\+S\+T\+E\+R~(-\/100)}}\label{hack_8h_aba651309065b8f0d3d8c9c2d146e83e3}
+
+
+Definition at line 146 of file hack.\+h.
+
+
+
+Referenced by getbones(), and restmonchn().
+
+\hypertarget{hack_8h_a945602f8a7d9cde22e2502ffb5c51f58}{\index{hack.\+h@{hack.\+h}!D\+I\+E\+D@{D\+I\+E\+D}}
+\index{D\+I\+E\+D@{D\+I\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+E\+D~0}}\label{hack_8h_a945602f8a7d9cde22e2502ffb5c51f58}
+
+
+Definition at line 67 of file hack.\+h.
+
+
+
+Referenced by done(), done\+\_\+in\+\_\+by(), fry\+\_\+by\+\_\+god(), gulpum(), level\+\_\+tele(), and losexp().
+
+\hypertarget{hack_8h_aca0be8c9dd2ebf9c91a959c11ae5d132}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+O\+N\+E\+S@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+O\+N\+E\+S}}
+\index{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+O\+N\+E\+S@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+O\+N\+E\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+O\+N\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+O\+N\+E\+S~5}}\label{hack_8h_aca0be8c9dd2ebf9c91a959c11ae5d132}
+
+
+Definition at line 46 of file hack.\+h.
+
+
+
+Referenced by savebones().
+
+\hypertarget{hack_8h_a980a15239b5bb31b73978a8e37b4cbf9}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+Y\+C\+H\+O\+I\+C\+E@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+Y\+C\+H\+O\+I\+C\+E}}
+\index{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+Y\+C\+H\+O\+I\+C\+E@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+Y\+C\+H\+O\+I\+C\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+Y\+C\+H\+O\+I\+C\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+B\+Y\+C\+H\+O\+I\+C\+E~6}}\label{hack_8h_a980a15239b5bb31b73978a8e37b4cbf9}
+
+
+Definition at line 47 of file hack.\+h.
+
+\hypertarget{hack_8h_a2fba09a4a2b32d01329ae442fc1477c7}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+E\+N\+G\+U\+L\+F\+E\+D@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+E\+N\+G\+U\+L\+F\+E\+D}}
+\index{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+E\+N\+G\+U\+L\+F\+E\+D@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+E\+N\+G\+U\+L\+F\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+E\+N\+G\+U\+L\+F\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+E\+N\+G\+U\+L\+F\+E\+D~4}}\label{hack_8h_a2fba09a4a2b32d01329ae442fc1477c7}
+
+
+Definition at line 45 of file hack.\+h.
+
+\hypertarget{hack_8h_a90c6def474309a3671856e184151b13a}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+F\+E\+L\+L@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+F\+E\+L\+L}}
+\index{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+F\+E\+L\+L@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+F\+E\+L\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+F\+E\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+F\+E\+L\+L~1}}\label{hack_8h_a90c6def474309a3671856e184151b13a}
+
+
+Definition at line 42 of file hack.\+h.
+
+
+
+Referenced by mon\+\_\+break\+\_\+armor(), and update\+\_\+mon\+\_\+intrinsics().
+
+\hypertarget{hack_8h_a95f786f948c6e3a046a7dffd94b8dac7}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+G\+E\+N\+E\+R\+I\+C@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+G\+E\+N\+E\+R\+I\+C}}
+\index{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+G\+E\+N\+E\+R\+I\+C@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+G\+E\+N\+E\+R\+I\+C}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+G\+E\+N\+E\+R\+I\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+G\+E\+N\+E\+R\+I\+C~0}}\label{hack_8h_a95f786f948c6e3a046a7dffd94b8dac7}
+
+
+Definition at line 41 of file hack.\+h.
+
+\hypertarget{hack_8h_a2de4d3c9f06df86d11b43ee74f02a84f}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+P\+O\+L\+Y@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+P\+O\+L\+Y}}
+\index{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+P\+O\+L\+Y@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+P\+O\+L\+Y}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+P\+O\+L\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+P\+O\+L\+Y~3}}\label{hack_8h_a2de4d3c9f06df86d11b43ee74f02a84f}
+
+
+Definition at line 44 of file hack.\+h.
+
+\hypertarget{hack_8h_abf9d65d3fe505806ac2ca606ddf41e9f}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+T\+H\+R\+O\+W\+N@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+T\+H\+R\+O\+W\+N}}
+\index{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+T\+H\+R\+O\+W\+N@{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+T\+H\+R\+O\+W\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+T\+H\+R\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+M\+O\+U\+N\+T\+\_\+\+T\+H\+R\+O\+W\+N~2}}\label{hack_8h_abf9d65d3fe505806ac2ca606ddf41e9f}
+
+
+Definition at line 43 of file hack.\+h.
+
+\hypertarget{hack_8h_a85bddc27e495e22cc80a321be0446fb0}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+P\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E@{D\+I\+S\+P\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E}}
+\index{D\+I\+S\+P\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E@{D\+I\+S\+P\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+P\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+P\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E~2 /$\ast$ may be set via extern program, displayed {\bf in} game $\ast$/}}\label{hack_8h_a85bddc27e495e22cc80a321be0446fb0}
+
+
+Definition at line 264 of file hack.\+h.
+
+
+
+Referenced by doset(), gnome\+\_\+init\+\_\+nhwindows(), and mswin\+\_\+init\+\_\+nhwindows().
+
+\hypertarget{hack_8h_aec7153228ae4063182c36edcad8d37eb}{\index{hack.\+h@{hack.\+h}!D\+I\+S\+S\+O\+L\+V\+E\+D@{D\+I\+S\+S\+O\+L\+V\+E\+D}}
+\index{D\+I\+S\+S\+O\+L\+V\+E\+D@{D\+I\+S\+S\+O\+L\+V\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+I\+S\+S\+O\+L\+V\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+S\+O\+L\+V\+E\+D~6}}\label{hack_8h_aec7153228ae4063182c36edcad8d37eb}
+
+
+Definition at line 73 of file hack.\+h.
+
+\hypertarget{hack_8h_a1f84afcae19c5b60124bc509ed647f84}{\index{hack.\+h@{hack.\+h}!distu@{distu}}
+\index{distu@{distu}!hack.\+h@{hack.\+h}}
+\subsubsection[{distu}]{\setlength{\rightskip}{0pt plus 5cm}\#define distu(
+\begin{DoxyParamCaption}
+\item[{}]{xx, }
+\item[{}]{yy}
+\end{DoxyParamCaption}
+)~dist2((int)(xx),(int)(yy),(int)u.\+ux,(int)u.\+uy)}}\label{hack_8h_a1f84afcae19c5b60124bc509ed647f84}
+
+
+Definition at line 288 of file hack.\+h.
+
+
+
+Referenced by awaken\+\_\+monsters(), breakobj(), calm\+\_\+nymphs(), charm\+\_\+monsters(), charm\+\_\+snakes(), deadbook(), doturn(), find\+\_\+misc(), lookat(), mzapmsg(), openone(), put\+\_\+monsters\+\_\+to\+\_\+sleep(), and wormhitu().
+
+\hypertarget{hack_8h_a796359afbfd67e158c92013c141daf2e}{\index{hack.\+h@{hack.\+h}!D\+O\+\_\+\+M\+O\+V\+E@{D\+O\+\_\+\+M\+O\+V\+E}}
+\index{D\+O\+\_\+\+M\+O\+V\+E@{D\+O\+\_\+\+M\+O\+V\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+O\+\_\+\+M\+O\+V\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+O\+\_\+\+M\+O\+V\+E~0	/$\ast$ really doing the {\bf move} $\ast$/}}\label{hack_8h_a796359afbfd67e158c92013c141daf2e}
+
+
+Definition at line 190 of file hack.\+h.
+
+\hypertarget{hack_8h_a199026c8e55e979e961545516a4ab082}{\index{hack.\+h@{hack.\+h}!D\+R\+O\+W\+N\+I\+N\+G@{D\+R\+O\+W\+N\+I\+N\+G}}
+\index{D\+R\+O\+W\+N\+I\+N\+G@{D\+R\+O\+W\+N\+I\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+R\+O\+W\+N\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+R\+O\+W\+N\+I\+N\+G~4}}\label{hack_8h_a199026c8e55e979e961545516a4ab082}
+
+
+Definition at line 71 of file hack.\+h.
+
+\hypertarget{hack_8h_a35beee7b0f2f3e294c4a4a69a5f02df4}{\index{hack.\+h@{hack.\+h}!D\+U\+M\+M\+Y@{D\+U\+M\+M\+Y}}
+\index{D\+U\+M\+M\+Y@{D\+U\+M\+M\+Y}!hack.\+h@{hack.\+h}}
+\subsubsection[{D\+U\+M\+M\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+U\+M\+M\+Y~\{ 0 \}}}\label{hack_8h_a35beee7b0f2f3e294c4a4a69a5f02df4}
+
+
+Definition at line 23 of file hack.\+h.
+
+\hypertarget{hack_8h_ac2357bf7093fe80a7c8465c3392b6f12}{\index{hack.\+h@{hack.\+h}!E\+S\+C\+A\+P\+E\+D@{E\+S\+C\+A\+P\+E\+D}}
+\index{E\+S\+C\+A\+P\+E\+D@{E\+S\+C\+A\+P\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+S\+C\+A\+P\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+S\+C\+A\+P\+E\+D~14}}\label{hack_8h_ac2357bf7093fe80a7c8465c3392b6f12}
+
+
+Definition at line 81 of file hack.\+h.
+
+
+
+Referenced by done(), and dosacrifice().
+
+\hypertarget{hack_8h_affd2237747c38f43e3ffb93f4e549d97}{\index{hack.\+h@{hack.\+h}!E\+X\+P\+L\+\_\+\+D\+A\+R\+K@{E\+X\+P\+L\+\_\+\+D\+A\+R\+K}}
+\index{E\+X\+P\+L\+\_\+\+D\+A\+R\+K@{E\+X\+P\+L\+\_\+\+D\+A\+R\+K}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+P\+L\+\_\+\+D\+A\+R\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+P\+L\+\_\+\+D\+A\+R\+K~0}}\label{hack_8h_affd2237747c38f43e3ffb93f4e549d97}
+
+
+Definition at line 217 of file hack.\+h.
+
+\hypertarget{hack_8h_aa1254e4e65f2c8d0cf9026f8a01b749b}{\index{hack.\+h@{hack.\+h}!E\+X\+P\+L\+\_\+\+F\+I\+E\+R\+Y@{E\+X\+P\+L\+\_\+\+F\+I\+E\+R\+Y}}
+\index{E\+X\+P\+L\+\_\+\+F\+I\+E\+R\+Y@{E\+X\+P\+L\+\_\+\+F\+I\+E\+R\+Y}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+P\+L\+\_\+\+F\+I\+E\+R\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+P\+L\+\_\+\+F\+I\+E\+R\+Y~5}}\label{hack_8h_aa1254e4e65f2c8d0cf9026f8a01b749b}
+
+
+Definition at line 222 of file hack.\+h.
+
+
+
+Referenced by spelleffects().
+
+\hypertarget{hack_8h_ac52d145a17a30b3c224ac85b26300997}{\index{hack.\+h@{hack.\+h}!E\+X\+P\+L\+\_\+\+F\+R\+O\+S\+T\+Y@{E\+X\+P\+L\+\_\+\+F\+R\+O\+S\+T\+Y}}
+\index{E\+X\+P\+L\+\_\+\+F\+R\+O\+S\+T\+Y@{E\+X\+P\+L\+\_\+\+F\+R\+O\+S\+T\+Y}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+P\+L\+\_\+\+F\+R\+O\+S\+T\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+P\+L\+\_\+\+F\+R\+O\+S\+T\+Y~6}}\label{hack_8h_ac52d145a17a30b3c224ac85b26300997}
+
+
+Definition at line 223 of file hack.\+h.
+
+
+
+Referenced by spelleffects().
+
+\hypertarget{hack_8h_a4cffa0f3b610347d73bf7a3c1c1cd0c7}{\index{hack.\+h@{hack.\+h}!E\+X\+P\+L\+\_\+\+M\+A\+G\+I\+C\+A\+L@{E\+X\+P\+L\+\_\+\+M\+A\+G\+I\+C\+A\+L}}
+\index{E\+X\+P\+L\+\_\+\+M\+A\+G\+I\+C\+A\+L@{E\+X\+P\+L\+\_\+\+M\+A\+G\+I\+C\+A\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+P\+L\+\_\+\+M\+A\+G\+I\+C\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+P\+L\+\_\+\+M\+A\+G\+I\+C\+A\+L~4}}\label{hack_8h_a4cffa0f3b610347d73bf7a3c1c1cd0c7}
+
+
+Definition at line 221 of file hack.\+h.
+
+\hypertarget{hack_8h_a5c212647e8739b7c703539f4a6749347}{\index{hack.\+h@{hack.\+h}!E\+X\+P\+L\+\_\+\+M\+A\+X@{E\+X\+P\+L\+\_\+\+M\+A\+X}}
+\index{E\+X\+P\+L\+\_\+\+M\+A\+X@{E\+X\+P\+L\+\_\+\+M\+A\+X}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+P\+L\+\_\+\+M\+A\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+P\+L\+\_\+\+M\+A\+X~7}}\label{hack_8h_a5c212647e8739b7c703539f4a6749347}
+
+
+Definition at line 224 of file hack.\+h.
+
+
+
+Referenced by init\+\_\+tilemap().
+
+\hypertarget{hack_8h_acfd23b75894ca2367a460bd280464c9f}{\index{hack.\+h@{hack.\+h}!E\+X\+P\+L\+\_\+\+M\+U\+D\+D\+Y@{E\+X\+P\+L\+\_\+\+M\+U\+D\+D\+Y}}
+\index{E\+X\+P\+L\+\_\+\+M\+U\+D\+D\+Y@{E\+X\+P\+L\+\_\+\+M\+U\+D\+D\+Y}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+P\+L\+\_\+\+M\+U\+D\+D\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+P\+L\+\_\+\+M\+U\+D\+D\+Y~2}}\label{hack_8h_acfd23b75894ca2367a460bd280464c9f}
+
+
+Definition at line 219 of file hack.\+h.
+
+\hypertarget{hack_8h_aa976efabdcfdf3f5e6ee42f9d847e0ff}{\index{hack.\+h@{hack.\+h}!E\+X\+P\+L\+\_\+\+N\+O\+X\+I\+O\+U\+S@{E\+X\+P\+L\+\_\+\+N\+O\+X\+I\+O\+U\+S}}
+\index{E\+X\+P\+L\+\_\+\+N\+O\+X\+I\+O\+U\+S@{E\+X\+P\+L\+\_\+\+N\+O\+X\+I\+O\+U\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+P\+L\+\_\+\+N\+O\+X\+I\+O\+U\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+P\+L\+\_\+\+N\+O\+X\+I\+O\+U\+S~1}}\label{hack_8h_aa976efabdcfdf3f5e6ee42f9d847e0ff}
+
+
+Definition at line 218 of file hack.\+h.
+
+\hypertarget{hack_8h_a261983a43c7765cb13296222b155130c}{\index{hack.\+h@{hack.\+h}!E\+X\+P\+L\+\_\+\+W\+E\+T@{E\+X\+P\+L\+\_\+\+W\+E\+T}}
+\index{E\+X\+P\+L\+\_\+\+W\+E\+T@{E\+X\+P\+L\+\_\+\+W\+E\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+P\+L\+\_\+\+W\+E\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+P\+L\+\_\+\+W\+E\+T~3}}\label{hack_8h_a261983a43c7765cb13296222b155130c}
+
+
+Definition at line 220 of file hack.\+h.
+
+\hypertarget{hack_8h_a44ae2ad44acfc1fd34d71006ed00fd26}{\index{hack.\+h@{hack.\+h}!E\+X\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{E\+X\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}}
+\index{E\+X\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{E\+X\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+X\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+X\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R~4	/$\ast$ Overtaxed $\ast$/}}\label{hack_8h_a44ae2ad44acfc1fd34d71006ed00fd26}
+
+
+Definition at line 30 of file hack.\+h.
+
+
+
+Referenced by in\+\_\+trouble(), and parseoptions().
+
+\hypertarget{hack_8h_a9dcbae66f1fdfd85d1c36b37ae0e62cb}{\index{hack.\+h@{hack.\+h}!E\+Y\+E@{E\+Y\+E}}
+\index{E\+Y\+E@{E\+Y\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{E\+Y\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+Y\+E~1}}\label{hack_8h_a9dcbae66f1fdfd85d1c36b37ae0e62cb}
+
+
+Definition at line 228 of file hack.\+h.
+
+
+
+Referenced by breakobj(), and fix\+\_\+worst\+\_\+trouble().
+
+\hypertarget{hack_8h_a8cec063149d793579c0e9d0b992b9fd0}{\index{hack.\+h@{hack.\+h}!F\+A\+C\+E@{F\+A\+C\+E}}
+\index{F\+A\+C\+E@{F\+A\+C\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+A\+C\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+A\+C\+E~2}}\label{hack_8h_a8cec063149d793579c0e9d0b992b9fd0}
+
+
+Definition at line 229 of file hack.\+h.
+
+
+
+Referenced by cursed\+\_\+book(), hmon\+\_\+hitmon(), and toss\+\_\+up().
+
+\hypertarget{hack_8h_a59736f3202b417b907e43dc52bb63922}{\index{hack.\+h@{hack.\+h}!F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R@{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R}}
+\index{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R@{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R(
+\begin{DoxyParamCaption}
+\item[{}]{major, }
+\item[{}]{minor, }
+\item[{}]{patch}
+\end{DoxyParamCaption}
+)}}\label{hack_8h_a59736f3202b417b907e43dc52bb63922}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(((\textcolor{keywordtype}{unsigned} long)major << 24) | \(\backslash\)
+    ((\textcolor{keywordtype}{unsigned} long)minor << 16) | \(\backslash\)
+    ((\textcolor{keywordtype}{unsigned} long)patch << 8) | \(\backslash\)
+    ((\textcolor{keywordtype}{unsigned} long)0))
+\end{DoxyCode}
+
+
+Definition at line 267 of file hack.\+h.
+
+
+
+Referenced by dowieldquiver(), get\+\_\+current\+\_\+feature\+\_\+ver(), and get\+\_\+feature\+\_\+notice\+\_\+ver().
+
+\hypertarget{hack_8h_a1c0a0a730eb43fedd66eb7341baea120}{\index{hack.\+h@{hack.\+h}!F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+A\+J@{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+A\+J}}
+\index{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+A\+J@{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+A\+J}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+A\+J}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+A\+J~(flags.\+suppress\+\_\+alert $>$$>$ 24)}}\label{hack_8h_a1c0a0a730eb43fedd66eb7341baea120}
+
+
+Definition at line 272 of file hack.\+h.
+
+
+
+Referenced by feature\+\_\+alert\+\_\+opts(), and get\+\_\+compopt\+\_\+value().
+
+\hypertarget{hack_8h_a4e5f611aa6a303410513f9415fa76d81}{\index{hack.\+h@{hack.\+h}!F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+I\+N@{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+I\+N}}
+\index{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+I\+N@{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+I\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+M\+I\+N~(((unsigned long)(0x0000000000\+F\+F0000\+L \& flags.\+suppress\+\_\+alert)) $>$$>$ 16)}}\label{hack_8h_a4e5f611aa6a303410513f9415fa76d81}
+
+
+Definition at line 273 of file hack.\+h.
+
+
+
+Referenced by feature\+\_\+alert\+\_\+opts(), and get\+\_\+compopt\+\_\+value().
+
+\hypertarget{hack_8h_ac6932a248baa31e2e0adc5da05ac783c}{\index{hack.\+h@{hack.\+h}!F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+P\+A\+T\+C\+H@{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+P\+A\+T\+C\+H}}
+\index{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+P\+A\+T\+C\+H@{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+P\+A\+T\+C\+H}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+P\+A\+T\+C\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R\+\_\+\+P\+A\+T\+C\+H~(((unsigned long)(0x000000000000\+F\+F00\+L \& flags.\+suppress\+\_\+alert)) $>$$>$  8)}}\label{hack_8h_ac6932a248baa31e2e0adc5da05ac783c}
+
+
+Definition at line 274 of file hack.\+h.
+
+
+
+Referenced by feature\+\_\+alert\+\_\+opts(), and get\+\_\+compopt\+\_\+value().
+
+\hypertarget{hack_8h_a7b6ddd41983a53e638638f0e7bb115cd}{\index{hack.\+h@{hack.\+h}!F\+E\+E\+L\+\_\+\+C\+O\+C\+K\+A\+T\+R\+I\+C\+E@{F\+E\+E\+L\+\_\+\+C\+O\+C\+K\+A\+T\+R\+I\+C\+E}}
+\index{F\+E\+E\+L\+\_\+\+C\+O\+C\+K\+A\+T\+R\+I\+C\+E@{F\+E\+E\+L\+\_\+\+C\+O\+C\+K\+A\+T\+R\+I\+C\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+E\+E\+L\+\_\+\+C\+O\+C\+K\+A\+T\+R\+I\+C\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+E\+E\+L\+\_\+\+C\+O\+C\+K\+A\+T\+R\+I\+C\+E~0x20  /$\ast$ engage cockatrice checks and react $\ast$/}}\label{hack_8h_a7b6ddd41983a53e638638f0e7bb115cd}
+
+
+Definition at line 157 of file hack.\+h.
+
+
+
+Referenced by pickup(), and query\+\_\+objlist().
+
+\hypertarget{hack_8h_a08ca2d5c1d54f87b137e95b8abf5561d}{\index{hack.\+h@{hack.\+h}!F\+I\+N\+G\+E\+R@{F\+I\+N\+G\+E\+R}}
+\index{F\+I\+N\+G\+E\+R@{F\+I\+N\+G\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+I\+N\+G\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+I\+N\+G\+E\+R~3}}\label{hack_8h_a08ca2d5c1d54f87b137e95b8abf5561d}
+
+
+Definition at line 230 of file hack.\+h.
+
+
+
+Referenced by dowrite().
+
+\hypertarget{hack_8h_add6b587ac6f434919c272963abe84ca5}{\index{hack.\+h@{hack.\+h}!F\+I\+N\+G\+E\+R\+T\+I\+P@{F\+I\+N\+G\+E\+R\+T\+I\+P}}
+\index{F\+I\+N\+G\+E\+R\+T\+I\+P@{F\+I\+N\+G\+E\+R\+T\+I\+P}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+I\+N\+G\+E\+R\+T\+I\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+I\+N\+G\+E\+R\+T\+I\+P~4}}\label{hack_8h_add6b587ac6f434919c272963abe84ca5}
+
+
+Definition at line 231 of file hack.\+h.
+
+\hypertarget{hack_8h_a8993f14ab8dde1ff6cdc20553d200c68}{\index{hack.\+h@{hack.\+h}!F\+L\+A\+S\+H\+E\+D\+\_\+\+L\+I\+G\+H\+T@{F\+L\+A\+S\+H\+E\+D\+\_\+\+L\+I\+G\+H\+T}}
+\index{F\+L\+A\+S\+H\+E\+D\+\_\+\+L\+I\+G\+H\+T@{F\+L\+A\+S\+H\+E\+D\+\_\+\+L\+I\+G\+H\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+L\+A\+S\+H\+E\+D\+\_\+\+L\+I\+G\+H\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+L\+A\+S\+H\+E\+D\+\_\+\+L\+I\+G\+H\+T~3}}\label{hack_8h_a8993f14ab8dde1ff6cdc20553d200c68}
+
+
+Definition at line 100 of file hack.\+h.
+
+\hypertarget{hack_8h_aeeac77b723370636c4870b6fbe413494}{\index{hack.\+h@{hack.\+h}!F\+L\+I\+N\+G@{F\+L\+I\+N\+G}}
+\index{F\+L\+I\+N\+G@{F\+L\+I\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+L\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+L\+I\+N\+G~0x02	/$\ast$ the object is flying thru the air $\ast$/}}\label{hack_8h_aeeac77b723370636c4870b6fbe413494}
+
+
+Definition at line 212 of file hack.\+h.
+
+\hypertarget{hack_8h_aa56fe69eb44bb3d452006c762fa8f07d}{\index{hack.\+h@{hack.\+h}!F\+M\+\_\+\+E\+V\+E\+R\+Y\+W\+H\+E\+R\+E@{F\+M\+\_\+\+E\+V\+E\+R\+Y\+W\+H\+E\+R\+E}}
+\index{F\+M\+\_\+\+E\+V\+E\+R\+Y\+W\+H\+E\+R\+E@{F\+M\+\_\+\+E\+V\+E\+R\+Y\+W\+H\+E\+R\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+M\+\_\+\+E\+V\+E\+R\+Y\+W\+H\+E\+R\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+M\+\_\+\+E\+V\+E\+R\+Y\+W\+H\+E\+R\+E~({\bf F\+M\+\_\+\+F\+M\+O\+N} $\vert$ {\bf F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E} $\vert$ {\bf F\+M\+\_\+\+M\+Y\+D\+O\+G\+S})}}\label{hack_8h_aa56fe69eb44bb3d452006c762fa8f07d}
+
+
+Definition at line 178 of file hack.\+h.
+
+\hypertarget{hack_8h_a1239fc371ebb320562bbc6fd639d7270}{\index{hack.\+h@{hack.\+h}!F\+M\+\_\+\+F\+M\+O\+N@{F\+M\+\_\+\+F\+M\+O\+N}}
+\index{F\+M\+\_\+\+F\+M\+O\+N@{F\+M\+\_\+\+F\+M\+O\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+M\+\_\+\+F\+M\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+M\+\_\+\+F\+M\+O\+N~0x01	/$\ast$ search the fmon chain $\ast$/}}\label{hack_8h_a1239fc371ebb320562bbc6fd639d7270}
+
+
+Definition at line 175 of file hack.\+h.
+
+
+
+Referenced by run\+\_\+regions().
+
+\hypertarget{hack_8h_a0671f2b332fdb7b1ddbe4db940e5d112}{\index{hack.\+h@{hack.\+h}!F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E@{F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E}}
+\index{F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E@{F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+M\+\_\+\+M\+I\+G\+R\+A\+T\+E~0x02	/$\ast$ search the migrating monster chain $\ast$/}}\label{hack_8h_a0671f2b332fdb7b1ddbe4db940e5d112}
+
+
+Definition at line 176 of file hack.\+h.
+
+\hypertarget{hack_8h_a3e01af3d4b36e6244a4195878cdbf7e4}{\index{hack.\+h@{hack.\+h}!F\+M\+\_\+\+M\+Y\+D\+O\+G\+S@{F\+M\+\_\+\+M\+Y\+D\+O\+G\+S}}
+\index{F\+M\+\_\+\+M\+Y\+D\+O\+G\+S@{F\+M\+\_\+\+M\+Y\+D\+O\+G\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+M\+\_\+\+M\+Y\+D\+O\+G\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+M\+\_\+\+M\+Y\+D\+O\+G\+S~0x04	/$\ast$ search mydogs $\ast$/}}\label{hack_8h_a3e01af3d4b36e6244a4195878cdbf7e4}
+
+
+Definition at line 177 of file hack.\+h.
+
+\hypertarget{hack_8h_a9b1eabef4c7711550544eaeaa8f41fa1}{\index{hack.\+h@{hack.\+h}!F\+O\+O\+T@{F\+O\+O\+T}}
+\index{F\+O\+O\+T@{F\+O\+O\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+O\+O\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+O\+O\+T~5}}\label{hack_8h_a9b1eabef4c7711550544eaeaa8f41fa1}
+
+
+Definition at line 232 of file hack.\+h.
+
+
+
+Referenced by at\+\_\+your\+\_\+feet(), dokick(), dosacrifice(), dosit(), gold\+\_\+detect(), kick\+\_\+object(), observe\+\_\+quantum\+\_\+cat(), and throwit().
+
+\hypertarget{hack_8h_a7cbef159d3968bf75349d0eb3a9f2a69}{\index{hack.\+h@{hack.\+h}!F\+O\+R\+C\+E\+B\+U\+N\+G\+L\+E@{F\+O\+R\+C\+E\+B\+U\+N\+G\+L\+E}}
+\index{F\+O\+R\+C\+E\+B\+U\+N\+G\+L\+E@{F\+O\+R\+C\+E\+B\+U\+N\+G\+L\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{F\+O\+R\+C\+E\+B\+U\+N\+G\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+O\+R\+C\+E\+B\+U\+N\+G\+L\+E~0x02	/$\ast$ adjustments appropriate for bungling $\ast$/}}\label{hack_8h_a7cbef159d3968bf75349d0eb3a9f2a69}
+
+
+Definition at line 186 of file hack.\+h.
+
+\hypertarget{hack_8h_a1f501eb9d26f8c52fd5d91a0f86dc924}{\index{hack.\+h@{hack.\+h}!G\+E\+N\+O\+C\+I\+D\+E\+D@{G\+E\+N\+O\+C\+I\+D\+E\+D}}
+\index{G\+E\+N\+O\+C\+I\+D\+E\+D@{G\+E\+N\+O\+C\+I\+D\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{G\+E\+N\+O\+C\+I\+D\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+E\+N\+O\+C\+I\+D\+E\+D~10}}\label{hack_8h_a1f501eb9d26f8c52fd5d91a0f86dc924}
+
+
+Definition at line 77 of file hack.\+h.
+
+
+
+Referenced by done().
+
+\hypertarget{hack_8h_a67e01a02a7d954a19faa9b2616ff2835}{\index{hack.\+h@{hack.\+h}!G\+O\+L\+D\+\_\+\+T\+Y\+P\+E\+S@{G\+O\+L\+D\+\_\+\+T\+Y\+P\+E\+S}}
+\index{G\+O\+L\+D\+\_\+\+T\+Y\+P\+E\+S@{G\+O\+L\+D\+\_\+\+T\+Y\+P\+E\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{G\+O\+L\+D\+\_\+\+T\+Y\+P\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+O\+L\+D\+\_\+\+T\+Y\+P\+E\+S~0x04}}\label{hack_8h_a67e01a02a7d954a19faa9b2616ff2835}
+
+
+Definition at line 162 of file hack.\+h.
+
+\hypertarget{hack_8h_a1f252e3e090858871f7646e215776430}{\index{hack.\+h@{hack.\+h}!H\+A\+I\+R@{H\+A\+I\+R}}
+\index{H\+A\+I\+R@{H\+A\+I\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{H\+A\+I\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+I\+R~14}}\label{hack_8h_a1f252e3e090858871f7646e215776430}
+
+
+Definition at line 241 of file hack.\+h.
+
+\hypertarget{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{\index{hack.\+h@{hack.\+h}!H\+A\+N\+D@{H\+A\+N\+D}}
+\index{H\+A\+N\+D@{H\+A\+N\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{H\+A\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+N\+D~6}}\label{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}
+
+
+Definition at line 233 of file hack.\+h.
+
+
+
+Referenced by able\+\_\+to\+\_\+loot(), attack(), can\+\_\+twoweapon(), chwepon(), drop\+\_\+uswapwep(), lift\+\_\+object(), nohandglow(), ready\+\_\+weapon(), throw\+\_\+obj(), use\+\_\+container(), use\+\_\+misc(), weldmsg(), and wield\+\_\+tool().
+
+\hypertarget{hack_8h_aa04c527bae27e412fb7c19b8a936bf39}{\index{hack.\+h@{hack.\+h}!H\+A\+N\+D\+E\+D@{H\+A\+N\+D\+E\+D}}
+\index{H\+A\+N\+D\+E\+D@{H\+A\+N\+D\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{H\+A\+N\+D\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+A\+N\+D\+E\+D~7}}\label{hack_8h_aa04c527bae27e412fb7c19b8a936bf39}
+
+
+Definition at line 234 of file hack.\+h.
+
+
+
+Referenced by ready\+\_\+weapon().
+
+\hypertarget{hack_8h_a110f3b6cdacd45daee818b3e5965f6da}{\index{hack.\+h@{hack.\+h}!H\+E\+A\+D@{H\+E\+A\+D}}
+\index{H\+E\+A\+D@{H\+E\+A\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{H\+E\+A\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+E\+A\+D~8}}\label{hack_8h_a110f3b6cdacd45daee818b3e5965f6da}
+
+
+Definition at line 235 of file hack.\+h.
+
+
+
+Referenced by ballfall(), spelleffects(), throw\+\_\+gold(), and toss\+\_\+up().
+
+\hypertarget{hack_8h_a3c8f959355dee01b09fa53cc6caf3651}{\index{hack.\+h@{hack.\+h}!H\+V\+Y\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{H\+V\+Y\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}}
+\index{H\+V\+Y\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{H\+V\+Y\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{H\+V\+Y\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+V\+Y\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R~3	/$\ast$ Strained $\ast$/}}\label{hack_8h_a3c8f959355dee01b09fa53cc6caf3651}
+
+
+Definition at line 29 of file hack.\+h.
+
+
+
+Referenced by lift\+\_\+object(), parseoptions(), and worst\+\_\+cursed\+\_\+item().
+
+\hypertarget{hack_8h_a754009df64c714c09f7f59da0a124426}{\index{hack.\+h@{hack.\+h}!I\+N\+V\+I\+S\+\_\+\+B\+E\+A\+M@{I\+N\+V\+I\+S\+\_\+\+B\+E\+A\+M}}
+\index{I\+N\+V\+I\+S\+\_\+\+B\+E\+A\+M@{I\+N\+V\+I\+S\+\_\+\+B\+E\+A\+M}!hack.\+h@{hack.\+h}}
+\subsubsection[{I\+N\+V\+I\+S\+\_\+\+B\+E\+A\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+V\+I\+S\+\_\+\+B\+E\+A\+M~4}}\label{hack_8h_a754009df64c714c09f7f59da0a124426}
+
+
+Definition at line 101 of file hack.\+h.
+
+\hypertarget{hack_8h_a12e95bdc93dbdbfed5b2a6070f194a0a}{\index{hack.\+h@{hack.\+h}!I\+N\+V\+O\+R\+D\+E\+R\+\_\+\+S\+O\+R\+T@{I\+N\+V\+O\+R\+D\+E\+R\+\_\+\+S\+O\+R\+T}}
+\index{I\+N\+V\+O\+R\+D\+E\+R\+\_\+\+S\+O\+R\+T@{I\+N\+V\+O\+R\+D\+E\+R\+\_\+\+S\+O\+R\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{I\+N\+V\+O\+R\+D\+E\+R\+\_\+\+S\+O\+R\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+V\+O\+R\+D\+E\+R\+\_\+\+S\+O\+R\+T~0x8	/$\ast$ sort objects by packorder $\ast$/}}\label{hack_8h_a12e95bdc93dbdbfed5b2a6070f194a0a}
+
+
+Definition at line 155 of file hack.\+h.
+
+
+
+Referenced by menu\+\_\+loot(), pickup(), and query\+\_\+objlist().
+
+\hypertarget{hack_8h_af16c9be4349d141645b152e14078cce8}{\index{hack.\+h@{hack.\+h}!K\+I\+C\+K\+E\+D\+\_\+\+W\+E\+A\+P\+O\+N@{K\+I\+C\+K\+E\+D\+\_\+\+W\+E\+A\+P\+O\+N}}
+\index{K\+I\+C\+K\+E\+D\+\_\+\+W\+E\+A\+P\+O\+N@{K\+I\+C\+K\+E\+D\+\_\+\+W\+E\+A\+P\+O\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{K\+I\+C\+K\+E\+D\+\_\+\+W\+E\+A\+P\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+I\+C\+K\+E\+D\+\_\+\+W\+E\+A\+P\+O\+N~2}}\label{hack_8h_af16c9be4349d141645b152e14078cce8}
+
+
+Definition at line 99 of file hack.\+h.
+
+
+
+Referenced by kick\+\_\+object().
+
+\hypertarget{hack_8h_a5200709a764ec462e4cd2c54c6609cdc}{\index{hack.\+h@{hack.\+h}!L\+A\+U\+N\+C\+H\+\_\+\+K\+N\+O\+W\+N@{L\+A\+U\+N\+C\+H\+\_\+\+K\+N\+O\+W\+N}}
+\index{L\+A\+U\+N\+C\+H\+\_\+\+K\+N\+O\+W\+N@{L\+A\+U\+N\+C\+H\+\_\+\+K\+N\+O\+W\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{L\+A\+U\+N\+C\+H\+\_\+\+K\+N\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+A\+U\+N\+C\+H\+\_\+\+K\+N\+O\+W\+N~0x80	/$\ast$ the hero caused this by explicit action $\ast$/}}\label{hack_8h_a5200709a764ec462e4cd2c54c6609cdc}
+
+
+Definition at line 214 of file hack.\+h.
+
+\hypertarget{hack_8h_a24dae1f1bec9af93b6354d487e98c38f}{\index{hack.\+h@{hack.\+h}!L\+A\+U\+N\+C\+H\+\_\+\+U\+N\+S\+E\+E\+N@{L\+A\+U\+N\+C\+H\+\_\+\+U\+N\+S\+E\+E\+N}}
+\index{L\+A\+U\+N\+C\+H\+\_\+\+U\+N\+S\+E\+E\+N@{L\+A\+U\+N\+C\+H\+\_\+\+U\+N\+S\+E\+E\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{L\+A\+U\+N\+C\+H\+\_\+\+U\+N\+S\+E\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+A\+U\+N\+C\+H\+\_\+\+U\+N\+S\+E\+E\+N~0x40	/$\ast$ hero neither caused nor saw it $\ast$/}}\label{hack_8h_a24dae1f1bec9af93b6354d487e98c38f}
+
+
+Definition at line 213 of file hack.\+h.
+
+\hypertarget{hack_8h_a18e0de6fde17def36a938036ab8166f5}{\index{hack.\+h@{hack.\+h}!L\+E\+G@{L\+E\+G}}
+\index{L\+E\+G@{L\+E\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{L\+E\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+E\+G~9}}\label{hack_8h_a18e0de6fde17def36a938036ab8166f5}
+
+
+Definition at line 236 of file hack.\+h.
+
+
+
+Referenced by damageum(), dokick(), drop\+\_\+ball(), and kick\+\_\+object().
+
+\hypertarget{hack_8h_a0bed8496a70f769a16be3636024f58c1}{\index{hack.\+h@{hack.\+h}!L\+I\+G\+H\+T\+\_\+\+H\+E\+A\+D\+E\+D@{L\+I\+G\+H\+T\+\_\+\+H\+E\+A\+D\+E\+D}}
+\index{L\+I\+G\+H\+T\+\_\+\+H\+E\+A\+D\+E\+D@{L\+I\+G\+H\+T\+\_\+\+H\+E\+A\+D\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{L\+I\+G\+H\+T\+\_\+\+H\+E\+A\+D\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+I\+G\+H\+T\+\_\+\+H\+E\+A\+D\+E\+D~10}}\label{hack_8h_a0bed8496a70f769a16be3636024f58c1}
+
+
+Definition at line 237 of file hack.\+h.
+
+\hypertarget{hack_8h_aa018501b30530649b3f0c2fe383a507a}{\index{hack.\+h@{hack.\+h}!L\+U\+N\+G@{L\+U\+N\+G}}
+\index{L\+U\+N\+G@{L\+U\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{L\+U\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+U\+N\+G~16}}\label{hack_8h_aa018501b30530649b3f0c2fe383a507a}
+
+
+Definition at line 243 of file hack.\+h.
+
+
+
+Referenced by inside\+\_\+gas\+\_\+cloud().
+
+\hypertarget{hack_8h_afbd3607e7cef2f888f4190d40d058011}{\index{hack.\+h@{hack.\+h}!makeknown@{makeknown}}
+\index{makeknown@{makeknown}!hack.\+h@{hack.\+h}}
+\subsubsection[{makeknown}]{\setlength{\rightskip}{0pt plus 5cm}\#define makeknown(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~{\bf discover\+\_\+object}((x),{\bf T\+R\+U\+E},{\bf T\+R\+U\+E})}}\label{hack_8h_afbd3607e7cef2f888f4190d40d058011}
+
+
+Definition at line 287 of file hack.\+h.
+
+
+
+Referenced by artifact\+\_\+score(), chwepon(), container\+\_\+contents(), deadbook(), disclose(), do\+\_\+improvisation(), doloot(), done(), learn(), m\+\_\+dowear\+\_\+type(), mbhit(), mbhitm(), mon\+\_\+adjust\+\_\+speed(), mon\+\_\+reflects(), study\+\_\+book(), ureflects(), use\+\_\+crystal\+\_\+ball(), use\+\_\+defensive(), use\+\_\+misc(), and use\+\_\+offensive().
+
+\hypertarget{hack_8h_a06971ec894f970d371a9cc7afc83e72c}{\index{hack.\+h@{hack.\+h}!M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N@{M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N}}
+\index{M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N@{M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+T\+C\+H\+\_\+\+W\+A\+R\+N\+\_\+\+O\+F\+\_\+\+M\+O\+N(
+\begin{DoxyParamCaption}
+\item[{}]{mon}
+\end{DoxyParamCaption}
+)}}\label{hack_8h_a06971ec894f970d371a9cc7afc83e72c}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{youprop_8h_a9980354d374eeaaf86e23c6d6611e534}{Warn\_of\_mon} && \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a8dd0a7f691a4ce435bdce865db7a120c}{warntype} && \(\backslash\)
+                 (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a8dd0a7f691a4ce435bdce865db7a120c}{warntype} & (mon)->data->mflags2))
+\end{DoxyCode}
+
+
+Definition at line 103 of file hack.\+h.
+
+
+
+Referenced by display\+\_\+warning(), feel\+\_\+location(), lookat(), and newsym().
+
+\hypertarget{hack_8h_affe776513b24d84b39af8ab0930fef7f}{\index{hack.\+h@{hack.\+h}!max@{max}}
+\index{max@{max}!hack.\+h@{hack.\+h}}
+\subsubsection[{max}]{\setlength{\rightskip}{0pt plus 5cm}\#define max(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)~((a) $>$ (b) ? (a) \+: (b))}}\label{hack_8h_affe776513b24d84b39af8ab0930fef7f}
+
+
+Definition at line 277 of file hack.\+h.
+
+
+
+Referenced by amii\+\_\+cliparound(), amii\+\_\+curs(), amii\+\_\+doprev\+\_\+message(), amii\+\_\+init\+\_\+nhwindows(), amii\+\_\+putstr(), cutworm(), delete\+\_\+dirty\+\_\+rect(), Display\+Data(), do\+\_\+room\+\_\+or\+\_\+subroom(), Do\+Menu\+Scroll(), enexto\+\_\+core(), Gem\+\_\+yn\+\_\+function(), Getlin\+Dlg\+Proc(), light\+\_\+region(), Map\+Wnd\+Proc(), mar\+\_\+cliparound(), mar\+\_\+nh\+\_\+poskey(), mswin\+\_\+command\+\_\+window\+\_\+size(), mswin\+\_\+layout\+\_\+main\+\_\+window(), mswin\+\_\+map\+\_\+stretch(), mswin\+\_\+menu\+\_\+window\+\_\+size(), nh\+\_\+append(), N\+H\+Message\+Wnd\+Proc(), on\+Draw\+Item(), on\+List\+Char(), on\+Measure\+Item(), on\+M\+S\+N\+H\+\_\+\+H\+Scroll(), on\+M\+S\+N\+H\+\_\+\+V\+Scroll(), on\+M\+S\+N\+H\+Command(), on\+Paint(), percent\+\_\+success(), Re\+Display\+Data(), Set\+Menu\+List\+Type(), Set\+Prop\+Info(), spelleffects(), union\+\_\+rect(), and vision\+\_\+recalc().
+
+\hypertarget{hack_8h_a9d651de44834b5b3b6407185a289b08a}{\index{hack.\+h@{hack.\+h}!M\+A\+X\+\_\+\+C\+A\+R\+R\+\_\+\+C\+A\+P@{M\+A\+X\+\_\+\+C\+A\+R\+R\+\_\+\+C\+A\+P}}
+\index{M\+A\+X\+\_\+\+C\+A\+R\+R\+\_\+\+C\+A\+P@{M\+A\+X\+\_\+\+C\+A\+R\+R\+\_\+\+C\+A\+P}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+A\+X\+\_\+\+C\+A\+R\+R\+\_\+\+C\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+C\+A\+R\+R\+\_\+\+C\+A\+P~1000	/$\ast$ so that boulders can be heavier $\ast$/}}\label{hack_8h_a9d651de44834b5b3b6407185a289b08a}
+
+
+Definition at line 22 of file hack.\+h.
+
+\hypertarget{hack_8h_a8d68ddaa52ecd0df00961f3216a24bc6}{\index{hack.\+h@{hack.\+h}!M\+A\+Y\+\_\+\+D\+E\+S\+T\+R\+O\+Y@{M\+A\+Y\+\_\+\+D\+E\+S\+T\+R\+O\+Y}}
+\index{M\+A\+Y\+\_\+\+D\+E\+S\+T\+R\+O\+Y@{M\+A\+Y\+\_\+\+D\+E\+S\+T\+R\+O\+Y}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+A\+Y\+\_\+\+D\+E\+S\+T\+R\+O\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+Y\+\_\+\+D\+E\+S\+T\+R\+O\+Y~0x08	/$\ast$ objects may be destroyed at random $\ast$/}}\label{hack_8h_a8d68ddaa52ecd0df00961f3216a24bc6}
+
+
+Definition at line 207 of file hack.\+h.
+
+\hypertarget{hack_8h_a7d3539b1eca009b9ef5106e322024bbf}{\index{hack.\+h@{hack.\+h}!M\+A\+Y\+\_\+\+F\+R\+A\+C\+T\+U\+R\+E@{M\+A\+Y\+\_\+\+F\+R\+A\+C\+T\+U\+R\+E}}
+\index{M\+A\+Y\+\_\+\+F\+R\+A\+C\+T\+U\+R\+E@{M\+A\+Y\+\_\+\+F\+R\+A\+C\+T\+U\+R\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+A\+Y\+\_\+\+F\+R\+A\+C\+T\+U\+R\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+Y\+\_\+\+F\+R\+A\+C\+T\+U\+R\+E~0x10	/$\ast$ boulders \& statues may fracture $\ast$/}}\label{hack_8h_a7d3539b1eca009b9ef5106e322024bbf}
+
+
+Definition at line 208 of file hack.\+h.
+
+\hypertarget{hack_8h_a71f5d3511dfec4148e7c6e47a763bb3d}{\index{hack.\+h@{hack.\+h}!M\+A\+Y\+\_\+\+H\+I\+T@{M\+A\+Y\+\_\+\+H\+I\+T}}
+\index{M\+A\+Y\+\_\+\+H\+I\+T@{M\+A\+Y\+\_\+\+H\+I\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+A\+Y\+\_\+\+H\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+Y\+\_\+\+H\+I\+T~({\bf M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N}$\vert${\bf M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U})}}\label{hack_8h_a71f5d3511dfec4148e7c6e47a763bb3d}
+
+
+Definition at line 206 of file hack.\+h.
+
+
+
+Referenced by dokick().
+
+\hypertarget{hack_8h_a7e10551bbcc777eb4dc6c6f92b20fe2e}{\index{hack.\+h@{hack.\+h}!M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N@{M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N}}
+\index{M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N@{M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+Y\+\_\+\+H\+I\+T\+M\+O\+N~0x02	/$\ast$ objects may hit monsters $\ast$/}}\label{hack_8h_a7e10551bbcc777eb4dc6c6f92b20fe2e}
+
+
+Definition at line 204 of file hack.\+h.
+
+\hypertarget{hack_8h_a374ee1d4bd7f2376d30f30349ed19e48}{\index{hack.\+h@{hack.\+h}!M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U@{M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U}}
+\index{M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U@{M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+Y\+\_\+\+H\+I\+T\+Y\+O\+U~0x04	/$\ast$ objects may hit you $\ast$/}}\label{hack_8h_a374ee1d4bd7f2376d30f30349ed19e48}
+
+
+Definition at line 205 of file hack.\+h.
+
+\hypertarget{hack_8h_a0a2c738325c03584c18059a00bc1d1a3}{\index{hack.\+h@{hack.\+h}!M\+E\+N\+U\+\_\+\+C\+O\+M\+B\+I\+N\+A\+T\+I\+O\+N@{M\+E\+N\+U\+\_\+\+C\+O\+M\+B\+I\+N\+A\+T\+I\+O\+N}}
+\index{M\+E\+N\+U\+\_\+\+C\+O\+M\+B\+I\+N\+A\+T\+I\+O\+N@{M\+E\+N\+U\+\_\+\+C\+O\+M\+B\+I\+N\+A\+T\+I\+O\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+E\+N\+U\+\_\+\+C\+O\+M\+B\+I\+N\+A\+T\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+N\+U\+\_\+\+C\+O\+M\+B\+I\+N\+A\+T\+I\+O\+N~1}}\label{hack_8h_a0a2c738325c03584c18059a00bc1d1a3}
+
+
+Definition at line 250 of file hack.\+h.
+
+
+
+Referenced by parseoptions().
+
+\hypertarget{hack_8h_a38cbdbdd38a533335c4fd24f3550a395}{\index{hack.\+h@{hack.\+h}!M\+E\+N\+U\+\_\+\+F\+U\+L\+L@{M\+E\+N\+U\+\_\+\+F\+U\+L\+L}}
+\index{M\+E\+N\+U\+\_\+\+F\+U\+L\+L@{M\+E\+N\+U\+\_\+\+F\+U\+L\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+E\+N\+U\+\_\+\+F\+U\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+N\+U\+\_\+\+F\+U\+L\+L~3}}\label{hack_8h_a38cbdbdd38a533335c4fd24f3550a395}
+
+
+Definition at line 252 of file hack.\+h.
+
+
+
+Referenced by initoptions(), menu\+\_\+loot(), parseoptions(), and use\+\_\+container().
+
+\hypertarget{hack_8h_adce05cf54be11ae2105ac94b335806cd}{\index{hack.\+h@{hack.\+h}!M\+E\+N\+U\+\_\+\+P\+A\+R\+T\+I\+A\+L@{M\+E\+N\+U\+\_\+\+P\+A\+R\+T\+I\+A\+L}}
+\index{M\+E\+N\+U\+\_\+\+P\+A\+R\+T\+I\+A\+L@{M\+E\+N\+U\+\_\+\+P\+A\+R\+T\+I\+A\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+E\+N\+U\+\_\+\+P\+A\+R\+T\+I\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+N\+U\+\_\+\+P\+A\+R\+T\+I\+A\+L~2}}\label{hack_8h_adce05cf54be11ae2105ac94b335806cd}
+
+
+Definition at line 251 of file hack.\+h.
+
+
+
+Referenced by parseoptions().
+
+\hypertarget{hack_8h_aac81acdb9065d3be281db6cdbcbf2d4a}{\index{hack.\+h@{hack.\+h}!M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D@{M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}}
+\index{M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D@{M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+E\+D~{\bf T\+R\+U\+E}}}\label{hack_8h_aac81acdb9065d3be281db6cdbcbf2d4a}
+
+
+Definition at line 254 of file hack.\+h.
+
+
+
+Referenced by dospellmenu().
+
+\hypertarget{hack_8h_a3722a16e7d256c5426734217dd050099}{\index{hack.\+h@{hack.\+h}!M\+E\+N\+U\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L@{M\+E\+N\+U\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L}}
+\index{M\+E\+N\+U\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L@{M\+E\+N\+U\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+E\+N\+U\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+N\+U\+\_\+\+T\+R\+A\+D\+I\+T\+I\+O\+N\+A\+L~0}}\label{hack_8h_a3722a16e7d256c5426734217dd050099}
+
+
+Definition at line 249 of file hack.\+h.
+
+
+
+Referenced by getspell(), parseoptions(), pickup(), and use\+\_\+container().
+
+\hypertarget{hack_8h_a1b4cfefbc89386fb8977794f02b0a13c}{\index{hack.\+h@{hack.\+h}!M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D@{M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D}}
+\index{M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D@{M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+N\+U\+\_\+\+U\+N\+S\+E\+L\+E\+C\+T\+E\+D~{\bf F\+A\+L\+S\+E}}}\label{hack_8h_a1b4cfefbc89386fb8977794f02b0a13c}
+
+
+Definition at line 255 of file hack.\+h.
+
+
+
+Referenced by amii\+\_\+end\+\_\+menu(), doset(), doset\+\_\+add\+\_\+menu(), dospellmenu(), help\+\_\+menu(), in\+\_\+or\+\_\+out\+\_\+menu(), prompt\+\_\+for\+\_\+player\+\_\+selection(), query\+\_\+category(), query\+\_\+objlist(), and special\+\_\+handling().
+
+\hypertarget{hack_8h_aac98aa4fe3e35ed57b2bef9cbb8d6732}{\index{hack.\+h@{hack.\+h}!M\+E\+N\+U\+T\+Y\+P\+E\+L\+E\+N@{M\+E\+N\+U\+T\+Y\+P\+E\+L\+E\+N}}
+\index{M\+E\+N\+U\+T\+Y\+P\+E\+L\+E\+N@{M\+E\+N\+U\+T\+Y\+P\+E\+L\+E\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+E\+N\+U\+T\+Y\+P\+E\+L\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+E\+N\+U\+T\+Y\+P\+E\+L\+E\+N~sizeof(\char`\"{}traditional \char`\"{})}}\label{hack_8h_aac98aa4fe3e35ed57b2bef9cbb8d6732}
+
+
+Definition at line 248 of file hack.\+h.
+
+\hypertarget{hack_8h_a1729412ac5eb71a3b857691b53c40ebc}{\index{hack.\+h@{hack.\+h}!M\+G\+\_\+\+C\+O\+R\+P\+S\+E@{M\+G\+\_\+\+C\+O\+R\+P\+S\+E}}
+\index{M\+G\+\_\+\+C\+O\+R\+P\+S\+E@{M\+G\+\_\+\+C\+O\+R\+P\+S\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+G\+\_\+\+C\+O\+R\+P\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+G\+\_\+\+C\+O\+R\+P\+S\+E~0x01}}\label{hack_8h_a1729412ac5eb71a3b857691b53c40ebc}
+
+
+Definition at line 51 of file hack.\+h.
+
+
+
+Referenced by mapglyph().
+
+\hypertarget{hack_8h_a79a8c30f938b77ed9cc08dcec5c6f08c}{\index{hack.\+h@{hack.\+h}!M\+G\+\_\+\+D\+E\+T\+E\+C\+T@{M\+G\+\_\+\+D\+E\+T\+E\+C\+T}}
+\index{M\+G\+\_\+\+D\+E\+T\+E\+C\+T@{M\+G\+\_\+\+D\+E\+T\+E\+C\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+G\+\_\+\+D\+E\+T\+E\+C\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+G\+\_\+\+D\+E\+T\+E\+C\+T~0x04}}\label{hack_8h_a79a8c30f938b77ed9cc08dcec5c6f08c}
+
+
+Definition at line 53 of file hack.\+h.
+
+
+
+Referenced by mapglyph(), and on\+Paint().
+
+\hypertarget{hack_8h_a42bdc3c62728695f1096f15d684afbf2}{\index{hack.\+h@{hack.\+h}!M\+G\+\_\+\+I\+N\+V\+I\+S@{M\+G\+\_\+\+I\+N\+V\+I\+S}}
+\index{M\+G\+\_\+\+I\+N\+V\+I\+S@{M\+G\+\_\+\+I\+N\+V\+I\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+G\+\_\+\+I\+N\+V\+I\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+G\+\_\+\+I\+N\+V\+I\+S~0x02}}\label{hack_8h_a42bdc3c62728695f1096f15d684afbf2}
+
+
+Definition at line 52 of file hack.\+h.
+
+
+
+Referenced by mapglyph().
+
+\hypertarget{hack_8h_a12128ae3dc4b1934065104f4bb945ca5}{\index{hack.\+h@{hack.\+h}!M\+G\+\_\+\+P\+E\+T@{M\+G\+\_\+\+P\+E\+T}}
+\index{M\+G\+\_\+\+P\+E\+T@{M\+G\+\_\+\+P\+E\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+G\+\_\+\+P\+E\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+G\+\_\+\+P\+E\+T~0x08}}\label{hack_8h_a12128ae3dc4b1934065104f4bb945ca5}
+
+
+Definition at line 54 of file hack.\+h.
+
+
+
+Referenced by mapglyph(), and on\+Paint().
+
+\hypertarget{hack_8h_a6151d6d18ff62537dfd2615a3b2761a9}{\index{hack.\+h@{hack.\+h}!M\+G\+\_\+\+R\+I\+D\+D\+E\+N@{M\+G\+\_\+\+R\+I\+D\+D\+E\+N}}
+\index{M\+G\+\_\+\+R\+I\+D\+D\+E\+N@{M\+G\+\_\+\+R\+I\+D\+D\+E\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+G\+\_\+\+R\+I\+D\+D\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+G\+\_\+\+R\+I\+D\+D\+E\+N~0x10}}\label{hack_8h_a6151d6d18ff62537dfd2615a3b2761a9}
+
+
+Definition at line 55 of file hack.\+h.
+
+
+
+Referenced by mapglyph().
+
+\hypertarget{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{\index{hack.\+h@{hack.\+h}!min@{min}}
+\index{min@{min}!hack.\+h@{hack.\+h}}
+\subsubsection[{min}]{\setlength{\rightskip}{0pt plus 5cm}\#define min(
+\begin{DoxyParamCaption}
+\item[{}]{x, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)~((x) $<$ (y) ? (x) \+: (y))}}\label{hack_8h_abb702d8b501669a23aa0ab3b281b9384}
+
+
+Definition at line 280 of file hack.\+h.
+
+
+
+Referenced by amii\+\_\+cliparound(), amiv\+\_\+lprint\+\_\+glyph(), breakobj(), Calculate\+Cell\+Size(), cast\+\_\+protection(), convert(), dipfountain(), doloot(), Do\+Menu\+Scroll(), draw\+\_\+inventory(), draw\+\_\+lines(), draw\+\_\+msgline(), draw\+\_\+rip(), draw\+\_\+status(), enexto\+\_\+core(), explum(), flash\+\_\+hits\+\_\+mon(), Gem\+\_\+yn\+\_\+function(), get\+\_\+valuables(), Getlin\+Dlg\+Proc(), img\+\_\+set\+\_\+colors(), init\+\_\+standard\+\_\+windows(), Layout\+Menu(), light\+\_\+region(), mac\+\_\+putstr(), Map\+Wnd\+Proc(), mar\+\_\+gem\+\_\+init(), mar\+\_\+nh\+\_\+poskey(), mar\+\_\+set\+\_\+fontbyid(), mar\+\_\+set\+\_\+margin(), mar\+\_\+set\+\_\+msg\+\_\+visible(), mswin\+\_\+layout\+\_\+main\+\_\+window(), mswin\+\_\+map\+\_\+stretch(), N\+H\+Message\+Wnd\+Proc(), on\+Draw\+Item(), on\+List\+Char(), on\+M\+S\+N\+H\+\_\+\+H\+Scroll(), on\+M\+S\+N\+H\+\_\+\+V\+Scroll(), on\+M\+S\+N\+H\+Command(), on\+Paint(), parse\+\_\+config\+\_\+line(), pickup(), pleased(), ship\+\_\+object(), union\+\_\+rect(), vision\+\_\+recalc(), and win\+\_\+draw\+\_\+map().
+
+\hypertarget{hack_8h_acfedaecac4bd4f842331f8631e5649e8}{\index{hack.\+h@{hack.\+h}!M\+M\+\_\+\+A\+D\+J\+A\+C\+E\+N\+T\+O\+K@{M\+M\+\_\+\+A\+D\+J\+A\+C\+E\+N\+T\+O\+K}}
+\index{M\+M\+\_\+\+A\+D\+J\+A\+C\+E\+N\+T\+O\+K@{M\+M\+\_\+\+A\+D\+J\+A\+C\+E\+N\+T\+O\+K}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+M\+\_\+\+A\+D\+J\+A\+C\+E\+N\+T\+O\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+M\+\_\+\+A\+D\+J\+A\+C\+E\+N\+T\+O\+K~0x100 /$\ast$ it is acceptable to use adjacent coordinates $\ast$/}}\label{hack_8h_acfedaecac4bd4f842331f8631e5649e8}
+
+
+Definition at line 143 of file hack.\+h.
+
+\hypertarget{hack_8h_a8c49bf9ef4423d8f1c3f2998d81277c2}{\index{hack.\+h@{hack.\+h}!M\+M\+\_\+\+A\+N\+G\+R\+Y@{M\+M\+\_\+\+A\+N\+G\+R\+Y}}
+\index{M\+M\+\_\+\+A\+N\+G\+R\+Y@{M\+M\+\_\+\+A\+N\+G\+R\+Y}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+M\+\_\+\+A\+N\+G\+R\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+M\+\_\+\+A\+N\+G\+R\+Y~0x10  /$\ast$ monster is created angry $\ast$/}}\label{hack_8h_a8c49bf9ef4423d8f1c3f2998d81277c2}
+
+
+Definition at line 139 of file hack.\+h.
+
+
+
+Referenced by dokick().
+
+\hypertarget{hack_8h_aa30b82d0d8c1e7c65e58f27bcde29ae1}{\index{hack.\+h@{hack.\+h}!M\+M\+\_\+\+E\+D\+O\+G@{M\+M\+\_\+\+E\+D\+O\+G}}
+\index{M\+M\+\_\+\+E\+D\+O\+G@{M\+M\+\_\+\+E\+D\+O\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+M\+\_\+\+E\+D\+O\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+M\+\_\+\+E\+D\+O\+G~0x04	/$\ast$ add edog structure $\ast$/}}\label{hack_8h_aa30b82d0d8c1e7c65e58f27bcde29ae1}
+
+
+Definition at line 137 of file hack.\+h.
+
+\hypertarget{hack_8h_a748ce8be8371670ccbbc5e5debfc2e18}{\index{hack.\+h@{hack.\+h}!M\+M\+\_\+\+E\+M\+I\+N@{M\+M\+\_\+\+E\+M\+I\+N}}
+\index{M\+M\+\_\+\+E\+M\+I\+N@{M\+M\+\_\+\+E\+M\+I\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+M\+\_\+\+E\+M\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+M\+\_\+\+E\+M\+I\+N~0x08	/$\ast$ add emin structure $\ast$/}}\label{hack_8h_a748ce8be8371670ccbbc5e5debfc2e18}
+
+
+Definition at line 138 of file hack.\+h.
+
+
+
+Referenced by summon\+\_\+minion().
+
+\hypertarget{hack_8h_ac5c62ebe8a21263fc51903b33c6b186f}{\index{hack.\+h@{hack.\+h}!M\+M\+\_\+\+I\+G\+N\+O\+R\+E\+W\+A\+T\+E\+R@{M\+M\+\_\+\+I\+G\+N\+O\+R\+E\+W\+A\+T\+E\+R}}
+\index{M\+M\+\_\+\+I\+G\+N\+O\+R\+E\+W\+A\+T\+E\+R@{M\+M\+\_\+\+I\+G\+N\+O\+R\+E\+W\+A\+T\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+M\+\_\+\+I\+G\+N\+O\+R\+E\+W\+A\+T\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+M\+\_\+\+I\+G\+N\+O\+R\+E\+W\+A\+T\+E\+R~0x80	/$\ast$ ignore water when positioning $\ast$/}}\label{hack_8h_ac5c62ebe8a21263fc51903b33c6b186f}
+
+
+Definition at line 142 of file hack.\+h.
+
+
+
+Referenced by goodpos().
+
+\hypertarget{hack_8h_a521db2c6d2f512da8384c71f01cc1c77}{\index{hack.\+h@{hack.\+h}!M\+M\+\_\+\+N\+O\+C\+O\+U\+N\+T\+B\+I\+R\+T\+H@{M\+M\+\_\+\+N\+O\+C\+O\+U\+N\+T\+B\+I\+R\+T\+H}}
+\index{M\+M\+\_\+\+N\+O\+C\+O\+U\+N\+T\+B\+I\+R\+T\+H@{M\+M\+\_\+\+N\+O\+C\+O\+U\+N\+T\+B\+I\+R\+T\+H}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+M\+\_\+\+N\+O\+C\+O\+U\+N\+T\+B\+I\+R\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+M\+\_\+\+N\+O\+C\+O\+U\+N\+T\+B\+I\+R\+T\+H~0x40  /$\ast$ don't increment born counter (for revival) $\ast$/}}\label{hack_8h_a521db2c6d2f512da8384c71f01cc1c77}
+
+
+Definition at line 141 of file hack.\+h.
+
+\hypertarget{hack_8h_a5d5a01be741383c3f65cf13efc3b1b3d}{\index{hack.\+h@{hack.\+h}!M\+M\+\_\+\+N\+O\+N\+A\+M\+E@{M\+M\+\_\+\+N\+O\+N\+A\+M\+E}}
+\index{M\+M\+\_\+\+N\+O\+N\+A\+M\+E@{M\+M\+\_\+\+N\+O\+N\+A\+M\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+M\+\_\+\+N\+O\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+M\+\_\+\+N\+O\+N\+A\+M\+E~0x20  /$\ast$ monster is not christened $\ast$/}}\label{hack_8h_a5d5a01be741383c3f65cf13efc3b1b3d}
+
+
+Definition at line 140 of file hack.\+h.
+
+
+
+Referenced by savebones().
+
+\hypertarget{hack_8h_a1a6292933fe0a0d5fc9473a27701d413}{\index{hack.\+h@{hack.\+h}!M\+M\+\_\+\+N\+O\+W\+A\+I\+T@{M\+M\+\_\+\+N\+O\+W\+A\+I\+T}}
+\index{M\+M\+\_\+\+N\+O\+W\+A\+I\+T@{M\+M\+\_\+\+N\+O\+W\+A\+I\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+M\+\_\+\+N\+O\+W\+A\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+M\+\_\+\+N\+O\+W\+A\+I\+T~0x02	/$\ast$ don't set S\+T\+R\+A\+T\+\_\+\+W\+A\+I\+T\+M\+A\+S\+K flags $\ast$/}}\label{hack_8h_a1a6292933fe0a0d5fc9473a27701d413}
+
+
+Definition at line 136 of file hack.\+h.
+
+\hypertarget{hack_8h_a3c3899e355380d08f5d23828908c3679}{\index{hack.\+h@{hack.\+h}!M\+O\+D\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{M\+O\+D\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}}
+\index{M\+O\+D\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{M\+O\+D\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{M\+O\+D\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+O\+D\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R~2	/$\ast$ Stressed $\ast$/}}\label{hack_8h_a3c3899e355380d08f5d23828908c3679}
+
+
+Definition at line 28 of file hack.\+h.
+
+
+
+Referenced by initoptions(), lift\+\_\+object(), out\+\_\+container(), parseoptions(), and pickup\+\_\+object().
+
+\hypertarget{hack_8h_af76981f1fe695cc18342889e04ea7563}{\index{hack.\+h@{hack.\+h}!N\+E\+C\+K@{N\+E\+C\+K}}
+\index{N\+E\+C\+K@{N\+E\+C\+K}!hack.\+h@{hack.\+h}}
+\subsubsection[{N\+E\+C\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+E\+C\+K~11}}\label{hack_8h_af76981f1fe695cc18342889e04ea7563}
+
+
+Definition at line 238 of file hack.\+h.
+
+\hypertarget{hack_8h_ab9abb3d58903e1c125446f40f6984095}{\index{hack.\+h@{hack.\+h}!N\+O\+\_\+\+M\+I\+N\+V\+E\+N\+T@{N\+O\+\_\+\+M\+I\+N\+V\+E\+N\+T}}
+\index{N\+O\+\_\+\+M\+I\+N\+V\+E\+N\+T@{N\+O\+\_\+\+M\+I\+N\+V\+E\+N\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{N\+O\+\_\+\+M\+I\+N\+V\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+\_\+\+M\+I\+N\+V\+E\+N\+T~0x01	/$\ast$ suppress minvent when creating mon $\ast$/}}\label{hack_8h_ab9abb3d58903e1c125446f40f6984095}
+
+
+Definition at line 135 of file hack.\+h.
+
+
+
+Referenced by deadbook(), and observe\+\_\+quantum\+\_\+cat().
+
+\hypertarget{hack_8h_ae449582f467baa0da531a6ea116a18f2}{\index{hack.\+h@{hack.\+h}!N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S@{N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S}}
+\index{N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S@{N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S~0x00	/$\ast$ use this rather than plain 0 $\ast$/}}\label{hack_8h_ae449582f467baa0da531a6ea116a18f2}
+
+
+Definition at line 134 of file hack.\+h.
+
+
+
+Referenced by create\+\_\+monster(), create\+\_\+object(), demonpet(), dokick(), doloot(), dosacrifice(), dosdoor(), dosit(), dowaterdemon(), dowaternymph(), dowatersnakes(), load\+\_\+maze(), makelevel(), makemaz(), mk\+\_\+mplayer(), mktrap(), msummon(), precheck(), savebones(), summon\+\_\+minion(), and use\+\_\+defensive().
+
+\hypertarget{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}{\index{hack.\+h@{hack.\+h}!N\+O\+\_\+\+S\+P\+E\+L\+L@{N\+O\+\_\+\+S\+P\+E\+L\+L}}
+\index{N\+O\+\_\+\+S\+P\+E\+L\+L@{N\+O\+\_\+\+S\+P\+E\+L\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{N\+O\+\_\+\+S\+P\+E\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+\_\+\+S\+P\+E\+L\+L~0}}\label{hack_8h_a4f5d0dbc51a46806c332c2874e61de5a}
+
+
+Definition at line 131 of file hack.\+h.
+
+
+
+Referenced by age\+\_\+spells(), dospellmenu(), doturn(), dovspell(), getspell(), initialspell(), learn(), losespells(), and u\+\_\+init().
+
+\hypertarget{hack_8h_ab2a6cf3c1f59ac96cfa6160f5dfff10a}{\index{hack.\+h@{hack.\+h}!N\+O\+S\+E@{N\+O\+S\+E}}
+\index{N\+O\+S\+E@{N\+O\+S\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{N\+O\+S\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+S\+E~17}}\label{hack_8h_ab2a6cf3c1f59ac96cfa6160f5dfff10a}
+
+
+Definition at line 244 of file hack.\+h.
+
+
+
+Referenced by food\+\_\+detect().
+
+\hypertarget{hack_8h_a7450be636c853f464d4b5c77a6b19844}{\index{hack.\+h@{hack.\+h}!N\+O\+T\+E\+L\+L@{N\+O\+T\+E\+L\+L}}
+\index{N\+O\+T\+E\+L\+L@{N\+O\+T\+E\+L\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{N\+O\+T\+E\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+T\+E\+L\+L~0}}\label{hack_8h_a7450be636c853f464d4b5c77a6b19844}
+
+
+Definition at line 18 of file hack.\+h.
+
+
+
+Referenced by awaken\+\_\+monsters(), charm\+\_\+monsters(), doturn(), and hmon\+\_\+hitmon().
+
+\hypertarget{hack_8h_a0aade8646a2621e6554db312084455e5}{\index{hack.\+h@{hack.\+h}!N\+O\+W\+E\+B\+M\+S\+G@{N\+O\+W\+E\+B\+M\+S\+G}}
+\index{N\+O\+W\+E\+B\+M\+S\+G@{N\+O\+W\+E\+B\+M\+S\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{N\+O\+W\+E\+B\+M\+S\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+W\+E\+B\+M\+S\+G~0x01	/$\ast$ suppress stumble into web message $\ast$/}}\label{hack_8h_a0aade8646a2621e6554db312084455e5}
+
+
+Definition at line 185 of file hack.\+h.
+
+\hypertarget{hack_8h_abc646cb3c3678a1f7d1372b60788bb3d}{\index{hack.\+h@{hack.\+h}!nyaq@{nyaq}}
+\index{nyaq@{nyaq}!hack.\+h@{hack.\+h}}
+\subsubsection[{nyaq}]{\setlength{\rightskip}{0pt plus 5cm}\#define nyaq(
+\begin{DoxyParamCaption}
+\item[{}]{query}
+\end{DoxyParamCaption}
+)~yn\+\_\+function(query,{\bf ynaqchars}, 'n')}}\label{hack_8h_abc646cb3c3678a1f7d1372b60788bb3d}
+
+
+Definition at line 198 of file hack.\+h.
+
+\hypertarget{hack_8h_a47153df68b72cf38a0ee5bea45790938}{\index{hack.\+h@{hack.\+h}!ny\+Naq@{ny\+Naq}}
+\index{ny\+Naq@{ny\+Naq}!hack.\+h@{hack.\+h}}
+\subsubsection[{ny\+Naq}]{\setlength{\rightskip}{0pt plus 5cm}\#define ny\+Naq(
+\begin{DoxyParamCaption}
+\item[{}]{query}
+\end{DoxyParamCaption}
+)~yn\+\_\+function(query,{\bf yn\+Naqchars}, 'n')}}\label{hack_8h_a47153df68b72cf38a0ee5bea45790938}
+
+
+Definition at line 199 of file hack.\+h.
+
+\hypertarget{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}{\index{hack.\+h@{hack.\+h}!O\+F\+F@{O\+F\+F}}
+\index{O\+F\+F@{O\+F\+F}!hack.\+h@{hack.\+h}}
+\subsubsection[{O\+F\+F}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+F\+F~0}}\label{hack_8h_a29e413f6725b2ba32d165ffaa35b01e5}
+
+
+Definition at line 20 of file hack.\+h.
+
+
+
+Referenced by gettty(), setftty(), and settty().
+
+\hypertarget{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}{\index{hack.\+h@{hack.\+h}!O\+N@{O\+N}}
+\index{O\+N@{O\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+N~1}}\label{hack_8h_ad76d1750a6cdeebd506bfcd6752554d2}
+
+
+Definition at line 19 of file hack.\+h.
+
+
+
+Referenced by gettty(), setftty(), and settty().
+
+\hypertarget{hack_8h_a9a05f2b42918bc4368fce9b39058fcff}{\index{hack.\+h@{hack.\+h}!onlineu@{onlineu}}
+\index{onlineu@{onlineu}!hack.\+h@{hack.\+h}}
+\subsubsection[{onlineu}]{\setlength{\rightskip}{0pt plus 5cm}\#define onlineu(
+\begin{DoxyParamCaption}
+\item[{}]{xx, }
+\item[{}]{yy}
+\end{DoxyParamCaption}
+)~online2((int)(xx),(int)(yy),(int)u.\+ux,(int)u.\+uy)}}\label{hack_8h_a9a05f2b42918bc4368fce9b39058fcff}
+
+
+Definition at line 289 of file hack.\+h.
+
+\hypertarget{hack_8h_a03c39cc05df7a5086caeebee3813f107}{\index{hack.\+h@{hack.\+h}!O\+V\+E\+R\+L\+O\+A\+D\+E\+D@{O\+V\+E\+R\+L\+O\+A\+D\+E\+D}}
+\index{O\+V\+E\+R\+L\+O\+A\+D\+E\+D@{O\+V\+E\+R\+L\+O\+A\+D\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{O\+V\+E\+R\+L\+O\+A\+D\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+V\+E\+R\+L\+O\+A\+D\+E\+D~5	/$\ast$ Overloaded $\ast$/}}\label{hack_8h_a03c39cc05df7a5086caeebee3813f107}
+
+
+Definition at line 31 of file hack.\+h.
+
+
+
+Referenced by parseoptions().
+
+\hypertarget{hack_8h_acc1caaf7692e1dc4de5db754fd2849e0}{\index{hack.\+h@{hack.\+h}!O\+V\+L0@{O\+V\+L0}}
+\index{O\+V\+L0@{O\+V\+L0}!hack.\+h@{hack.\+h}}
+\subsubsection[{O\+V\+L0}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+V\+L0~/$\ast$ highest priority $\ast$/}}\label{hack_8h_acc1caaf7692e1dc4de5db754fd2849e0}
+
+
+Definition at line 317 of file hack.\+h.
+
+\hypertarget{hack_8h_ad87a3cbec2ecdc0201589355ed0842c1}{\index{hack.\+h@{hack.\+h}!O\+V\+L1@{O\+V\+L1}}
+\index{O\+V\+L1@{O\+V\+L1}!hack.\+h@{hack.\+h}}
+\subsubsection[{O\+V\+L1}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+V\+L1}}\label{hack_8h_ad87a3cbec2ecdc0201589355ed0842c1}
+
+
+Definition at line 318 of file hack.\+h.
+
+\hypertarget{hack_8h_a3878dd16f972cc975449f3d19a8bb804}{\index{hack.\+h@{hack.\+h}!O\+V\+L2@{O\+V\+L2}}
+\index{O\+V\+L2@{O\+V\+L2}!hack.\+h@{hack.\+h}}
+\subsubsection[{O\+V\+L2}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+V\+L2}}\label{hack_8h_a3878dd16f972cc975449f3d19a8bb804}
+
+
+Definition at line 319 of file hack.\+h.
+
+\hypertarget{hack_8h_a76e2da6b8cdfee945a13a684d4ffc1a4}{\index{hack.\+h@{hack.\+h}!O\+V\+L3@{O\+V\+L3}}
+\index{O\+V\+L3@{O\+V\+L3}!hack.\+h@{hack.\+h}}
+\subsubsection[{O\+V\+L3}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+V\+L3~/$\ast$ lowest specified priority $\ast$/}}\label{hack_8h_a76e2da6b8cdfee945a13a684d4ffc1a4}
+
+
+Definition at line 320 of file hack.\+h.
+
+\hypertarget{hack_8h_a3f7176764e2eef77a0490e2f03ad2f78}{\index{hack.\+h@{hack.\+h}!O\+V\+L\+B@{O\+V\+L\+B}}
+\index{O\+V\+L\+B@{O\+V\+L\+B}!hack.\+h@{hack.\+h}}
+\subsubsection[{O\+V\+L\+B}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+V\+L\+B~/$\ast$ the base {\bf overlay} segment $\ast$/}}\label{hack_8h_a3f7176764e2eef77a0490e2f03ad2f78}
+
+
+Definition at line 321 of file hack.\+h.
+
+\hypertarget{hack_8h_a42112655d0a453f721ba58c5510dae55}{\index{hack.\+h@{hack.\+h}!P\+A\+N\+I\+C\+K\+E\+D@{P\+A\+N\+I\+C\+K\+E\+D}}
+\index{P\+A\+N\+I\+C\+K\+E\+D@{P\+A\+N\+I\+C\+K\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{P\+A\+N\+I\+C\+K\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+N\+I\+C\+K\+E\+D~11}}\label{hack_8h_a42112655d0a453f721ba58c5510dae55}
+
+
+Definition at line 78 of file hack.\+h.
+
+
+
+Referenced by disclose(), done(), and topten().
+
+\hypertarget{hack_8h_ad866a8283b1279be18b8066faa764467}{\index{hack.\+h@{hack.\+h}!P\+I\+C\+K\+\_\+\+R\+A\+N\+D\+O\+M@{P\+I\+C\+K\+\_\+\+R\+A\+N\+D\+O\+M}}
+\index{P\+I\+C\+K\+\_\+\+R\+A\+N\+D\+O\+M@{P\+I\+C\+K\+\_\+\+R\+A\+N\+D\+O\+M}!hack.\+h@{hack.\+h}}
+\subsubsection[{P\+I\+C\+K\+\_\+\+R\+A\+N\+D\+O\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+I\+C\+K\+\_\+\+R\+A\+N\+D\+O\+M~0}}\label{hack_8h_ad866a8283b1279be18b8066faa764467}
+
+
+Definition at line 181 of file hack.\+h.
+
+
+
+Referenced by gnome\+\_\+player\+\_\+selection(), mswin\+\_\+player\+\_\+selection(), plsel\+Final\+Selection(), prompt\+\_\+for\+\_\+player\+\_\+selection(), rigid\+\_\+role\+\_\+checks(), and X11\+\_\+player\+\_\+selection().
+
+\hypertarget{hack_8h_a66385b290d758c1a081eceae8f821900}{\index{hack.\+h@{hack.\+h}!P\+I\+C\+K\+\_\+\+R\+I\+G\+I\+D@{P\+I\+C\+K\+\_\+\+R\+I\+G\+I\+D}}
+\index{P\+I\+C\+K\+\_\+\+R\+I\+G\+I\+D@{P\+I\+C\+K\+\_\+\+R\+I\+G\+I\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{P\+I\+C\+K\+\_\+\+R\+I\+G\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+I\+C\+K\+\_\+\+R\+I\+G\+I\+D~1}}\label{hack_8h_a66385b290d758c1a081eceae8f821900}
+
+
+Definition at line 182 of file hack.\+h.
+
+
+
+Referenced by pick\+\_\+align(), pick\+\_\+gend(), pick\+\_\+race(), pick\+\_\+role(), and rigid\+\_\+role\+\_\+checks().
+
+\hypertarget{hack_8h_a6ed0ab51b12ebf31e060e3dd26394db0}{\index{hack.\+h@{hack.\+h}!plur@{plur}}
+\index{plur@{plur}!hack.\+h@{hack.\+h}}
+\subsubsection[{plur}]{\setlength{\rightskip}{0pt plus 5cm}\#define plur(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(((x) == 1) ? \char`\"{}\char`\"{} \+: \char`\"{}s\char`\"{})}}\label{hack_8h_a6ed0ab51b12ebf31e060e3dd26394db0}
+
+
+Definition at line 282 of file hack.\+h.
+
+
+
+Referenced by do\+\_\+play\+\_\+instrument(), done(), hmon\+\_\+hitmon(), in\+\_\+container(), list\+\_\+vanquished(), and pickup\+\_\+object().
+
+\hypertarget{hack_8h_a7316cf0b08df754c7512af106bb18570}{\index{hack.\+h@{hack.\+h}!P\+O\+I\+S\+O\+N\+I\+N\+G@{P\+O\+I\+S\+O\+N\+I\+N\+G}}
+\index{P\+O\+I\+S\+O\+N\+I\+N\+G@{P\+O\+I\+S\+O\+N\+I\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{P\+O\+I\+S\+O\+N\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+O\+I\+S\+O\+N\+I\+N\+G~2}}\label{hack_8h_a7316cf0b08df754c7512af106bb18570}
+
+
+Definition at line 69 of file hack.\+h.
+
+\hypertarget{hack_8h_ad24e2b54375e12474e65ebf7175988fb}{\index{hack.\+h@{hack.\+h}!Q\+U\+I\+T@{Q\+U\+I\+T}}
+\index{Q\+U\+I\+T@{Q\+U\+I\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{Q\+U\+I\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define Q\+U\+I\+T~13}}\label{hack_8h_ad24e2b54375e12474e65ebf7175988fb}
+
+
+Definition at line 80 of file hack.\+h.
+
+
+
+Referenced by disclose(), done(), done2(), and Main\+Wnd\+Proc().
+
+\hypertarget{hack_8h_a0883fec73d70d4950974125f508c03a8}{\index{hack.\+h@{hack.\+h}!R\+E\+C\+U\+R\+S\+I\+V\+E\+T\+R\+A\+P@{R\+E\+C\+U\+R\+S\+I\+V\+E\+T\+R\+A\+P}}
+\index{R\+E\+C\+U\+R\+S\+I\+V\+E\+T\+R\+A\+P@{R\+E\+C\+U\+R\+S\+I\+V\+E\+T\+R\+A\+P}!hack.\+h@{hack.\+h}}
+\subsubsection[{R\+E\+C\+U\+R\+S\+I\+V\+E\+T\+R\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+E\+C\+U\+R\+S\+I\+V\+E\+T\+R\+A\+P~0x04	/$\ast$ trap changed into another type this same turn $\ast$/}}\label{hack_8h_a0883fec73d70d4950974125f508c03a8}
+
+
+Definition at line 187 of file hack.\+h.
+
+\hypertarget{hack_8h_af107ca092682647f298989038020f9c8}{\index{hack.\+h@{hack.\+h}!rn1@{rn1}}
+\index{rn1@{rn1}!hack.\+h@{hack.\+h}}
+\subsubsection[{rn1}]{\setlength{\rightskip}{0pt plus 5cm}\#define rn1(
+\begin{DoxyParamCaption}
+\item[{}]{x, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)~(rn2(x)+(y))}}\label{hack_8h_af107ca092682647f298989038020f9c8}
+
+
+Definition at line 291 of file hack.\+h.
+
+
+
+Referenced by ballfall(), chat\+\_\+with\+\_\+guardian(), chat\+\_\+with\+\_\+leader(), chat\+\_\+with\+\_\+nemesis(), create\+\_\+gas\+\_\+cloud(), create\+\_\+mplayers(), create\+\_\+room(), create\+\_\+secret\+\_\+door(), cursed\+\_\+book(), damageum(), demon\+\_\+talk(), display\+\_\+warning(), dlord(), do\+\_\+earthquake(), do\+\_\+improvisation(), dokick(), dosit(), dowatersnakes(), dowrite(), dprince(), drinkfountain(), drop\+\_\+ball(), fill\+\_\+room(), fixup\+\_\+special(), hmon\+\_\+hitmon(), init\+\_\+fill(), losexp(), makemaz(), maze1xy(), mk\+\_\+mplayer(), mk\+\_\+mplayer\+\_\+armor(), nemesis\+\_\+speaks(), place\+\_\+lregion(), pleased(), pluslvl(), rloc(), rloco(), toss\+\_\+up(), u\+\_\+init(), use\+\_\+defensive(), use\+\_\+offensive(), and worm\+\_\+move().
+
+\hypertarget{hack_8h_af902416f65138704a180dbae2dc9d8f2}{\index{hack.\+h@{hack.\+h}!R\+O\+L\+L@{R\+O\+L\+L}}
+\index{R\+O\+L\+L@{R\+O\+L\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{R\+O\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+L~0x01	/$\ast$ the object is rolling $\ast$/}}\label{hack_8h_af902416f65138704a180dbae2dc9d8f2}
+
+
+Definition at line 211 of file hack.\+h.
+
+\hypertarget{hack_8h_adad95ebfac63f6d0f5de05d085dad5d0}{\index{hack.\+h@{hack.\+h}!S\+E\+L\+L\+\_\+\+D\+E\+L\+I\+B\+E\+R\+A\+T\+E@{S\+E\+L\+L\+\_\+\+D\+E\+L\+I\+B\+E\+R\+A\+T\+E}}
+\index{S\+E\+L\+L\+\_\+\+D\+E\+L\+I\+B\+E\+R\+A\+T\+E@{S\+E\+L\+L\+\_\+\+D\+E\+L\+I\+B\+E\+R\+A\+T\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+E\+L\+L\+\_\+\+D\+E\+L\+I\+B\+E\+R\+A\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+L\+L\+\_\+\+D\+E\+L\+I\+B\+E\+R\+A\+T\+E~(1)}}\label{hack_8h_adad95ebfac63f6d0f5de05d085dad5d0}
+
+
+Definition at line 59 of file hack.\+h.
+
+
+
+Referenced by in\+\_\+container().
+
+\hypertarget{hack_8h_ab099c88186feaccf1c37e0fb4619d01c}{\index{hack.\+h@{hack.\+h}!S\+E\+L\+L\+\_\+\+D\+O\+N\+T\+S\+E\+L\+L@{S\+E\+L\+L\+\_\+\+D\+O\+N\+T\+S\+E\+L\+L}}
+\index{S\+E\+L\+L\+\_\+\+D\+O\+N\+T\+S\+E\+L\+L@{S\+E\+L\+L\+\_\+\+D\+O\+N\+T\+S\+E\+L\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+E\+L\+L\+\_\+\+D\+O\+N\+T\+S\+E\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+L\+L\+\_\+\+D\+O\+N\+T\+S\+E\+L\+L~(2)}}\label{hack_8h_ab099c88186feaccf1c37e0fb4619d01c}
+
+
+Definition at line 60 of file hack.\+h.
+
+\hypertarget{hack_8h_a3f1fa6b635439b52479ed0c4fb09cd98}{\index{hack.\+h@{hack.\+h}!S\+E\+L\+L\+\_\+\+N\+O\+R\+M\+A\+L@{S\+E\+L\+L\+\_\+\+N\+O\+R\+M\+A\+L}}
+\index{S\+E\+L\+L\+\_\+\+N\+O\+R\+M\+A\+L@{S\+E\+L\+L\+\_\+\+N\+O\+R\+M\+A\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+E\+L\+L\+\_\+\+N\+O\+R\+M\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+L\+L\+\_\+\+N\+O\+R\+M\+A\+L~(0)}}\label{hack_8h_a3f1fa6b635439b52479ed0c4fb09cd98}
+
+
+Definition at line 58 of file hack.\+h.
+
+
+
+Referenced by in\+\_\+container().
+
+\hypertarget{hack_8h_a499becbf729463cf6d3a25e31077522a}{\index{hack.\+h@{hack.\+h}!S\+E\+T\+\_\+\+I\+N\+\_\+\+F\+I\+L\+E@{S\+E\+T\+\_\+\+I\+N\+\_\+\+F\+I\+L\+E}}
+\index{S\+E\+T\+\_\+\+I\+N\+\_\+\+F\+I\+L\+E@{S\+E\+T\+\_\+\+I\+N\+\_\+\+F\+I\+L\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+E\+T\+\_\+\+I\+N\+\_\+\+F\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+T\+\_\+\+I\+N\+\_\+\+F\+I\+L\+E~0 /$\ast$ config file option {\bf only} $\ast$/}}\label{hack_8h_a499becbf729463cf6d3a25e31077522a}
+
+
+Definition at line 262 of file hack.\+h.
+
+
+
+Referenced by mswin\+\_\+init\+\_\+nhwindows(), and parseoptions().
+
+\hypertarget{hack_8h_a85493f074ab0108e0fef9369e11d58ea}{\index{hack.\+h@{hack.\+h}!S\+E\+T\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E@{S\+E\+T\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E}}
+\index{S\+E\+T\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E@{S\+E\+T\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+E\+T\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+T\+\_\+\+I\+N\+\_\+\+G\+A\+M\+E~3 /$\ast$ may be set via extern program or set {\bf in} the game $\ast$/}}\label{hack_8h_a85493f074ab0108e0fef9369e11d58ea}
+
+
+Definition at line 265 of file hack.\+h.
+
+
+
+Referenced by doset(), mswin\+\_\+init\+\_\+nhwindows(), set\+\_\+option\+\_\+mod\+\_\+status(), set\+\_\+wc2\+\_\+option\+\_\+mod\+\_\+status(), and set\+\_\+wc\+\_\+option\+\_\+mod\+\_\+status().
+
+\hypertarget{hack_8h_a160545360189875403e219ec662b906e}{\index{hack.\+h@{hack.\+h}!S\+E\+T\+\_\+\+V\+I\+A\+\_\+\+P\+R\+O\+G@{S\+E\+T\+\_\+\+V\+I\+A\+\_\+\+P\+R\+O\+G}}
+\index{S\+E\+T\+\_\+\+V\+I\+A\+\_\+\+P\+R\+O\+G@{S\+E\+T\+\_\+\+V\+I\+A\+\_\+\+P\+R\+O\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+E\+T\+\_\+\+V\+I\+A\+\_\+\+P\+R\+O\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+T\+\_\+\+V\+I\+A\+\_\+\+P\+R\+O\+G~1 /$\ast$ may be set via extern program, not seen {\bf in} game $\ast$/}}\label{hack_8h_a160545360189875403e219ec662b906e}
+
+
+Definition at line 263 of file hack.\+h.
+
+\hypertarget{hack_8h_a55ac4a24a290aa856a2f2544cf26aab7}{\index{hack.\+h@{hack.\+h}!S\+I\+G\+N\+A\+L\+\_\+\+N\+O\+M\+E\+N\+U@{S\+I\+G\+N\+A\+L\+\_\+\+N\+O\+M\+E\+N\+U}}
+\index{S\+I\+G\+N\+A\+L\+\_\+\+N\+O\+M\+E\+N\+U@{S\+I\+G\+N\+A\+L\+\_\+\+N\+O\+M\+E\+N\+U}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+I\+G\+N\+A\+L\+\_\+\+N\+O\+M\+E\+N\+U}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+I\+G\+N\+A\+L\+\_\+\+N\+O\+M\+E\+N\+U~0x10	/$\ast$ return -\/1 rather than 0 if none allowed $\ast$/}}\label{hack_8h_a55ac4a24a290aa856a2f2544cf26aab7}
+
+
+Definition at line 156 of file hack.\+h.
+
+
+
+Referenced by query\+\_\+objlist().
+
+\hypertarget{hack_8h_ade4c50a25545e7ca7eba7d45383be984}{\index{hack.\+h@{hack.\+h}!S\+L\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{S\+L\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}}
+\index{S\+L\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R@{S\+L\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+L\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+L\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R~1	/$\ast$ Burdened $\ast$/}}\label{hack_8h_ade4c50a25545e7ca7eba7d45383be984}
+
+
+Definition at line 27 of file hack.\+h.
+
+
+
+Referenced by dokick(), drag\+\_\+ball(), parseoptions(), pickup\+\_\+object(), and throwit().
+
+\hypertarget{hack_8h_ab40628a0c911b138b20a33432e98c80e}{\index{hack.\+h@{hack.\+h}!S\+P\+I\+N\+E@{S\+P\+I\+N\+E}}
+\index{S\+P\+I\+N\+E@{S\+P\+I\+N\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+P\+I\+N\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+P\+I\+N\+E~12}}\label{hack_8h_ab40628a0c911b138b20a33432e98c80e}
+
+
+Definition at line 239 of file hack.\+h.
+
+
+
+Referenced by deadbook().
+
+\hypertarget{hack_8h_adfe010d7d0f3fcf9afb009932d31157c}{\index{hack.\+h@{hack.\+h}!S\+T\+A\+R\+V\+I\+N\+G@{S\+T\+A\+R\+V\+I\+N\+G}}
+\index{S\+T\+A\+R\+V\+I\+N\+G@{S\+T\+A\+R\+V\+I\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+T\+A\+R\+V\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+R\+V\+I\+N\+G~3}}\label{hack_8h_adfe010d7d0f3fcf9afb009932d31157c}
+
+
+Definition at line 70 of file hack.\+h.
+
+
+
+Referenced by done().
+
+\hypertarget{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{\index{hack.\+h@{hack.\+h}!S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L@{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L}}
+\index{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L@{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L~static}}\label{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}
+
+
+Definition at line 312 of file hack.\+h.
+
+\hypertarget{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{\index{hack.\+h@{hack.\+h}!S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L@{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L}}
+\index{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L@{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L~static}}\label{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}
+
+
+Definition at line 313 of file hack.\+h.
+
+
+
+Referenced by carry\+\_\+count(), and use\+\_\+container().
+
+\hypertarget{hack_8h_ac0f6cfba4138e5e6a773d15a80ea82ff}{\index{hack.\+h@{hack.\+h}!S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R@{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R}}
+\index{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R@{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R~static}}\label{hack_8h_ac0f6cfba4138e5e6a773d15a80ea82ff}
+
+
+Definition at line 328 of file hack.\+h.
+
+\hypertarget{hack_8h_a01b21691d813ceb087b72a5f9db412c6}{\index{hack.\+h@{hack.\+h}!S\+T\+A\+T\+I\+C\+\_\+\+V\+A\+R@{S\+T\+A\+T\+I\+C\+\_\+\+V\+A\+R}}
+\index{S\+T\+A\+T\+I\+C\+\_\+\+V\+A\+R@{S\+T\+A\+T\+I\+C\+\_\+\+V\+A\+R}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+T\+A\+T\+I\+C\+\_\+\+V\+A\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+I\+C\+\_\+\+V\+A\+R~static}}\label{hack_8h_a01b21691d813ceb087b72a5f9db412c6}
+
+
+Definition at line 314 of file hack.\+h.
+
+\hypertarget{hack_8h_afe6da63d3b68440a889df103056403c5}{\index{hack.\+h@{hack.\+h}!S\+T\+O\+M\+A\+C\+H@{S\+T\+O\+M\+A\+C\+H}}
+\index{S\+T\+O\+M\+A\+C\+H@{S\+T\+O\+M\+A\+C\+H}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+T\+O\+M\+A\+C\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+O\+M\+A\+C\+H~18}}\label{hack_8h_afe6da63d3b68440a889df103056403c5}
+
+
+Definition at line 245 of file hack.\+h.
+
+
+
+Referenced by at\+\_\+your\+\_\+feet(), fix\+\_\+worst\+\_\+trouble(), and gulpum().
+
+\hypertarget{hack_8h_aac5555456695094b0171cb7f67e0b5f7}{\index{hack.\+h@{hack.\+h}!S\+T\+O\+N\+I\+N\+G@{S\+T\+O\+N\+I\+N\+G}}
+\index{S\+T\+O\+N\+I\+N\+G@{S\+T\+O\+N\+I\+N\+G}!hack.\+h@{hack.\+h}}
+\subsubsection[{S\+T\+O\+N\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+O\+N\+I\+N\+G~8}}\label{hack_8h_aac5555456695094b0171cb7f67e0b5f7}
+
+
+Definition at line 75 of file hack.\+h.
+
+
+
+Referenced by done(), done\+\_\+in\+\_\+by(), kick\+\_\+object(), and toss\+\_\+up().
+
+\hypertarget{hack_8h_a23ed40f09222fe825a4666c3f8a68143}{\index{hack.\+h@{hack.\+h}!T\+E\+L\+L@{T\+E\+L\+L}}
+\index{T\+E\+L\+L@{T\+E\+L\+L}!hack.\+h@{hack.\+h}}
+\subsubsection[{T\+E\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+E\+L\+L~1}}\label{hack_8h_a23ed40f09222fe825a4666c3f8a68143}
+
+
+Definition at line 17 of file hack.\+h.
+
+
+
+Referenced by doturn(), and mbhitm().
+
+\hypertarget{hack_8h_acbb208e3a14a9d3054ae3ee0384aabf0}{\index{hack.\+h@{hack.\+h}!T\+E\+S\+T\+\_\+\+M\+O\+V\+E@{T\+E\+S\+T\+\_\+\+M\+O\+V\+E}}
+\index{T\+E\+S\+T\+\_\+\+M\+O\+V\+E@{T\+E\+S\+T\+\_\+\+M\+O\+V\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{T\+E\+S\+T\+\_\+\+M\+O\+V\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+E\+S\+T\+\_\+\+M\+O\+V\+E~1	/$\ast$ test a normal {\bf move} ({\bf move} there next) $\ast$/}}\label{hack_8h_acbb208e3a14a9d3054ae3ee0384aabf0}
+
+
+Definition at line 191 of file hack.\+h.
+
+\hypertarget{hack_8h_a341462dbde0db0f6163f4a9fddf5847d}{\index{hack.\+h@{hack.\+h}!T\+E\+S\+T\+\_\+\+T\+R\+A\+V@{T\+E\+S\+T\+\_\+\+T\+R\+A\+V}}
+\index{T\+E\+S\+T\+\_\+\+T\+R\+A\+V@{T\+E\+S\+T\+\_\+\+T\+R\+A\+V}!hack.\+h@{hack.\+h}}
+\subsubsection[{T\+E\+S\+T\+\_\+\+T\+R\+A\+V}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+E\+S\+T\+\_\+\+T\+R\+A\+V~2	/$\ast$ test a future travel location $\ast$/}}\label{hack_8h_a341462dbde0db0f6163f4a9fddf5847d}
+
+
+Definition at line 192 of file hack.\+h.
+
+\hypertarget{hack_8h_ab6f59807b4ebabad63374c2c91ccb4fa}{\index{hack.\+h@{hack.\+h}!T\+H\+R\+O\+W\+N\+\_\+\+W\+E\+A\+P\+O\+N@{T\+H\+R\+O\+W\+N\+\_\+\+W\+E\+A\+P\+O\+N}}
+\index{T\+H\+R\+O\+W\+N\+\_\+\+W\+E\+A\+P\+O\+N@{T\+H\+R\+O\+W\+N\+\_\+\+W\+E\+A\+P\+O\+N}!hack.\+h@{hack.\+h}}
+\subsubsection[{T\+H\+R\+O\+W\+N\+\_\+\+W\+E\+A\+P\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+H\+R\+O\+W\+N\+\_\+\+W\+E\+A\+P\+O\+N~1}}\label{hack_8h_ab6f59807b4ebabad63374c2c91ccb4fa}
+
+
+Definition at line 98 of file hack.\+h.
+
+
+
+Referenced by throw\+\_\+gold(), and throwit().
+
+\hypertarget{hack_8h_a6e3739d1e68346bd22d8c862b70c5444}{\index{hack.\+h@{hack.\+h}!T\+O\+E@{T\+O\+E}}
+\index{T\+O\+E@{T\+O\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{T\+O\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+O\+E~13}}\label{hack_8h_a6e3739d1e68346bd22d8c862b70c5444}
+
+
+Definition at line 240 of file hack.\+h.
+
+
+
+Referenced by trap\+\_\+detect().
+
+\hypertarget{hack_8h_a2d6235975513e9630a8895cd64a67905}{\index{hack.\+h@{hack.\+h}!T\+R\+I\+C\+K\+E\+D@{T\+R\+I\+C\+K\+E\+D}}
+\index{T\+R\+I\+C\+K\+E\+D@{T\+R\+I\+C\+K\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{T\+R\+I\+C\+K\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+R\+I\+C\+K\+E\+D~12}}\label{hack_8h_a2d6235975513e9630a8895cd64a67905}
+
+
+Definition at line 79 of file hack.\+h.
+
+
+
+Referenced by done(), dosave0(), and trickery().
+
+\hypertarget{hack_8h_a227ac76d02839af08220c6632e9062c8}{\index{hack.\+h@{hack.\+h}!T\+U\+R\+N\+E\+D\+\_\+\+S\+L\+I\+M\+E@{T\+U\+R\+N\+E\+D\+\_\+\+S\+L\+I\+M\+E}}
+\index{T\+U\+R\+N\+E\+D\+\_\+\+S\+L\+I\+M\+E@{T\+U\+R\+N\+E\+D\+\_\+\+S\+L\+I\+M\+E}!hack.\+h@{hack.\+h}}
+\subsubsection[{T\+U\+R\+N\+E\+D\+\_\+\+S\+L\+I\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+U\+R\+N\+E\+D\+\_\+\+S\+L\+I\+M\+E~9}}\label{hack_8h_a227ac76d02839af08220c6632e9062c8}
+
+
+Definition at line 76 of file hack.\+h.
+
+
+
+Referenced by done().
+
+\hypertarget{hack_8h_a10ca5b6266edcafafcefcbe4b08182cd}{\index{hack.\+h@{hack.\+h}!U\+N\+E\+N\+C\+U\+M\+B\+E\+R\+E\+D@{U\+N\+E\+N\+C\+U\+M\+B\+E\+R\+E\+D}}
+\index{U\+N\+E\+N\+C\+U\+M\+B\+E\+R\+E\+D@{U\+N\+E\+N\+C\+U\+M\+B\+E\+R\+E\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{U\+N\+E\+N\+C\+U\+M\+B\+E\+R\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+N\+E\+N\+C\+U\+M\+B\+E\+R\+E\+D~0}}\label{hack_8h_a10ca5b6266edcafafcefcbe4b08182cd}
+
+
+Definition at line 26 of file hack.\+h.
+
+
+
+Referenced by encumber\+\_\+msg(), Format\+Status\+String(), and parseoptions().
+
+\hypertarget{hack_8h_a874b4164e2fec0110f08b877fffc4678}{\index{hack.\+h@{hack.\+h}!U\+N\+P\+A\+I\+D\+\_\+\+T\+Y\+P\+E\+S@{U\+N\+P\+A\+I\+D\+\_\+\+T\+Y\+P\+E\+S}}
+\index{U\+N\+P\+A\+I\+D\+\_\+\+T\+Y\+P\+E\+S@{U\+N\+P\+A\+I\+D\+\_\+\+T\+Y\+P\+E\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{U\+N\+P\+A\+I\+D\+\_\+\+T\+Y\+P\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+N\+P\+A\+I\+D\+\_\+\+T\+Y\+P\+E\+S~0x02}}\label{hack_8h_a874b4164e2fec0110f08b877fffc4678}
+
+
+Definition at line 161 of file hack.\+h.
+
+
+
+Referenced by query\+\_\+category().
+
+\hypertarget{hack_8h_a5c4787c4b2479514f4f204ab8eeda6f5}{\index{hack.\+h@{hack.\+h}!U\+S\+E\+\_\+\+I\+N\+V\+L\+E\+T@{U\+S\+E\+\_\+\+I\+N\+V\+L\+E\+T}}
+\index{U\+S\+E\+\_\+\+I\+N\+V\+L\+E\+T@{U\+S\+E\+\_\+\+I\+N\+V\+L\+E\+T}!hack.\+h@{hack.\+h}}
+\subsubsection[{U\+S\+E\+\_\+\+I\+N\+V\+L\+E\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+S\+E\+\_\+\+I\+N\+V\+L\+E\+T~0x4	/$\ast$ use object's invlet $\ast$/}}\label{hack_8h_a5c4787c4b2479514f4f204ab8eeda6f5}
+
+
+Definition at line 154 of file hack.\+h.
+
+
+
+Referenced by menu\+\_\+loot(), and query\+\_\+objlist().
+
+\hypertarget{hack_8h_a2dd2cdb4192a66a8bf2ee29617384060}{\index{hack.\+h@{hack.\+h}!V\+I\+S\+\_\+\+E\+F\+F\+E\+C\+T\+S@{V\+I\+S\+\_\+\+E\+F\+F\+E\+C\+T\+S}}
+\index{V\+I\+S\+\_\+\+E\+F\+F\+E\+C\+T\+S@{V\+I\+S\+\_\+\+E\+F\+F\+E\+C\+T\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{V\+I\+S\+\_\+\+E\+F\+F\+E\+C\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+I\+S\+\_\+\+E\+F\+F\+E\+C\+T\+S~0x01	/$\ast$ display visual effects $\ast$/}}\label{hack_8h_a2dd2cdb4192a66a8bf2ee29617384060}
+
+
+Definition at line 203 of file hack.\+h.
+
+\hypertarget{hack_8h_adfd4db58219bfc2b13b62daac9e14ee3}{\index{hack.\+h@{hack.\+h}!W\+O\+R\+N\+\_\+\+T\+Y\+P\+E\+S@{W\+O\+R\+N\+\_\+\+T\+Y\+P\+E\+S}}
+\index{W\+O\+R\+N\+\_\+\+T\+Y\+P\+E\+S@{W\+O\+R\+N\+\_\+\+T\+Y\+P\+E\+S}!hack.\+h@{hack.\+h}}
+\subsubsection[{W\+O\+R\+N\+\_\+\+T\+Y\+P\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+O\+R\+N\+\_\+\+T\+Y\+P\+E\+S~0x08}}\label{hack_8h_adfd4db58219bfc2b13b62daac9e14ee3}
+
+
+Definition at line 163 of file hack.\+h.
+
+
+
+Referenced by count\+\_\+categories(), and query\+\_\+category().
+
+\hypertarget{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{\index{hack.\+h@{hack.\+h}!yn@{yn}}
+\index{yn@{yn}!hack.\+h@{hack.\+h}}
+\subsubsection[{yn}]{\setlength{\rightskip}{0pt plus 5cm}\#define yn(
+\begin{DoxyParamCaption}
+\item[{}]{query}
+\end{DoxyParamCaption}
+)~yn\+\_\+function(query,{\bf ynchars}, 'n')}}\label{hack_8h_a22ffd7fa35549db318337a497c38a1ae}
+
+
+Definition at line 195 of file hack.\+h.
+
+
+
+Referenced by attack\+\_\+checks(), checkfile(), do\+\_\+play\+\_\+instrument(), doconsult(), done(), done2(), dopray(), dosave(), dosave0(), dotele(), dryup(), getbones(), getlock(), M\+A\+I\+N(), main(), savebones(), and study\+\_\+book().
+
+\hypertarget{hack_8h_a898ef54f58a1789bb39562562591d543}{\index{hack.\+h@{hack.\+h}!ynaq@{ynaq}}
+\index{ynaq@{ynaq}!hack.\+h@{hack.\+h}}
+\subsubsection[{ynaq}]{\setlength{\rightskip}{0pt plus 5cm}\#define ynaq(
+\begin{DoxyParamCaption}
+\item[{}]{query}
+\end{DoxyParamCaption}
+)~yn\+\_\+function(query,{\bf ynaqchars}, 'y')}}\label{hack_8h_a898ef54f58a1789bb39562562591d543}
+
+
+Definition at line 197 of file hack.\+h.
+
+
+
+Referenced by pickup().
+
+\hypertarget{hack_8h_a658824c8a4f800fdf424f8b4a56e2641}{\index{hack.\+h@{hack.\+h}!yn\+Naq@{yn\+Naq}}
+\index{yn\+Naq@{yn\+Naq}!hack.\+h@{hack.\+h}}
+\subsubsection[{yn\+Naq}]{\setlength{\rightskip}{0pt plus 5cm}\#define yn\+Naq(
+\begin{DoxyParamCaption}
+\item[{}]{query}
+\end{DoxyParamCaption}
+)~yn\+\_\+function(query,{\bf yn\+Naqchars}, 'y')}}\label{hack_8h_a658824c8a4f800fdf424f8b4a56e2641}
+
+
+Definition at line 200 of file hack.\+h.
+
+
+
+Referenced by pickup().
+
+\hypertarget{hack_8h_a104792d619a60e73407115c00499745e}{\index{hack.\+h@{hack.\+h}!ynq@{ynq}}
+\index{ynq@{ynq}!hack.\+h@{hack.\+h}}
+\subsubsection[{ynq}]{\setlength{\rightskip}{0pt plus 5cm}\#define ynq(
+\begin{DoxyParamCaption}
+\item[{}]{query}
+\end{DoxyParamCaption}
+)~yn\+\_\+function(query,{\bf ynqchars}, 'q')}}\label{hack_8h_a104792d619a60e73407115c00499745e}
+
+
+Definition at line 196 of file hack.\+h.
+
+
+
+Referenced by do\+\_\+look(), doconsult(), doloot(), done2(), level\+\_\+tele(), and lift\+\_\+object().
+
+\hypertarget{hack_8h_a448fa95dd1ee6dbc9b19bbf05d25e160}{\index{hack.\+h@{hack.\+h}!Z\+A\+P\+P\+E\+D\+\_\+\+W\+A\+N\+D@{Z\+A\+P\+P\+E\+D\+\_\+\+W\+A\+N\+D}}
+\index{Z\+A\+P\+P\+E\+D\+\_\+\+W\+A\+N\+D@{Z\+A\+P\+P\+E\+D\+\_\+\+W\+A\+N\+D}!hack.\+h@{hack.\+h}}
+\subsubsection[{Z\+A\+P\+P\+E\+D\+\_\+\+W\+A\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define Z\+A\+P\+P\+E\+D\+\_\+\+W\+A\+N\+D~0}}\label{hack_8h_a448fa95dd1ee6dbc9b19bbf05d25e160}
+
+
+Definition at line 97 of file hack.\+h.
+
+
+
+\subsection{Variable Documentation}
+\hypertarget{hack_8h_a4c9226f2a1ebd72a254bb15c96d75440}{\index{hack.\+h@{hack.\+h}!bhitpos@{bhitpos}}
+\index{bhitpos@{bhitpos}!hack.\+h@{hack.\+h}}
+\subsubsection[{bhitpos}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} {\bf coord} bhitpos}}\label{hack_8h_a4c9226f2a1ebd72a254bb15c96d75440}
+
+
+Definition at line 133 of file decl.\+c.
+
+
+
+Referenced by erode\+\_\+obj(), kick\+\_\+monster(), kick\+\_\+object(), lookat(), mbhit(), mbhitm(), sho\+\_\+obj\+\_\+return\+\_\+to\+\_\+u(), thitmonst(), throw\+\_\+gold(), and throwit().
+

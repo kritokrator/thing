@@ -1,0 +1,378 @@
+\hypertarget{amisnd_8c}{\section{nethack/sys/amiga/amisnd.c File Reference}
+\label{amisnd_8c}\index{nethack/sys/amiga/amisnd.\+c@{nethack/sys/amiga/amisnd.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$exec/types.\+h$>$}\\*
+{\ttfamily \#include $<$exec/memory.\+h$>$}\\*
+{\ttfamily \#include $<$exec/io.\+h$>$}\\*
+{\ttfamily \#include $<$devices/audio.\+h$>$}\\*
+{\ttfamily \#include $<$dos/dos.\+h$>$}\\*
+{\ttfamily \#include $<$dos/dosextens.\+h$>$}\\*
+{\ttfamily \#include $<$graphics/gfxbase.\+h$>$}\\*
+{\ttfamily \#include $<$proto/exec.\+h$>$}\\*
+{\ttfamily \#include $<$clib/alib\+\_\+protos.\+h$>$}\\*
+{\ttfamily \#include $<$proto/dos.\+h$>$}\\*
+{\ttfamily \#include $<$proto/graphics.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structVHDR}{V\+H\+D\+R}
+\item 
+struct \hyperlink{structIFFHEAD}{I\+F\+F\+H\+E\+A\+D}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{amisnd_8c_a1be13b6835a38a6e44159a30cad6653b}{A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E}~60
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structVHDR}{V\+H\+D\+R} \hyperlink{amisnd_8c_a4eea291636642b7c76f1e56a88880026}{V\+H\+D\+R}
+\item 
+typedef struct \hyperlink{structIFFHEAD}{I\+F\+F\+H\+E\+A\+D} \hyperlink{amisnd_8c_a3e02715e3a4452dfec9a28e6bbdc8bd2}{I\+F\+F\+H\+E\+A\+D}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{amisnd_8c_a4f69109189acac706b635a9eb8c39e98}{makesound} (char $\ast$, char $\ast$, int vol)
+\item 
+void \hyperlink{amisnd_8c_afa5675136ed62c49302acca9efba289a}{amii\+\_\+speaker} (struct \hyperlink{structobj}{obj} $\ast$instr, char $\ast$melody, int vol)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{amisnd_8c_ae96cc7860c6aae15421383f90db6798f}{amii\+\_\+volume} = \hyperlink{amisnd_8c_a1be13b6835a38a6e44159a30cad6653b}{A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E}
+\item 
+struct Gfx\+Base $\ast$ \hyperlink{amisnd_8c_a27b8182e2ba664f425ed01cbb790f0ad}{Gfx\+Base}
+\item 
+\hyperlink{bitmfile_8h_aa068c7f96c3fdd66282567bcb068db80}{U\+B\+Y\+T\+E} \hyperlink{amisnd_8c_a35e47618d20cb4a3f9865b1145ccb29e}{whichannel} \mbox{[}$\,$\mbox{]} = \{ 1, 2, 4, 8 \}
+\item 
+int \hyperlink{amisnd_8c_a3fdf54bd59259d1511ddcf6d8ca3ffdd}{notetab} \mbox{[}$\,$\mbox{]} = \{ 0, 2, 4, 5, 7, 9, 11, 12 \}
+\item 
+long \hyperlink{amisnd_8c_abb7ec1a88b68d3af3134f874ff8e27c2}{freqtab} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{amisnd_8c_a1be13b6835a38a6e44159a30cad6653b}{\index{amisnd.\+c@{amisnd.\+c}!A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E@{A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E}}
+\index{A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E@{A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E~60}}\label{amisnd_8c_a1be13b6835a38a6e44159a30cad6653b}
+
+
+Definition at line 34 of file amisnd.\+c.
+
+
+
+Referenced by amii\+\_\+speaker().
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{amisnd_8c_a3e02715e3a4452dfec9a28e6bbdc8bd2}{\index{amisnd.\+c@{amisnd.\+c}!I\+F\+F\+H\+E\+A\+D@{I\+F\+F\+H\+E\+A\+D}}
+\index{I\+F\+F\+H\+E\+A\+D@{I\+F\+F\+H\+E\+A\+D}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{I\+F\+F\+H\+E\+A\+D}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf I\+F\+F\+H\+E\+A\+D}  {\bf I\+F\+F\+H\+E\+A\+D}}}\label{amisnd_8c_a3e02715e3a4452dfec9a28e6bbdc8bd2}
+\hypertarget{amisnd_8c_a4eea291636642b7c76f1e56a88880026}{\index{amisnd.\+c@{amisnd.\+c}!V\+H\+D\+R@{V\+H\+D\+R}}
+\index{V\+H\+D\+R@{V\+H\+D\+R}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{V\+H\+D\+R}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf V\+H\+D\+R}  {\bf V\+H\+D\+R}}}\label{amisnd_8c_a4eea291636642b7c76f1e56a88880026}
+
+
+\subsection{Function Documentation}
+\hypertarget{amisnd_8c_afa5675136ed62c49302acca9efba289a}{\index{amisnd.\+c@{amisnd.\+c}!amii\+\_\+speaker@{amii\+\_\+speaker}}
+\index{amii\+\_\+speaker@{amii\+\_\+speaker}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{amii\+\_\+speaker}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+speaker (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{instr, }
+\item[{char $\ast$}]{melody, }
+\item[{int}]{vol}
+\end{DoxyParamCaption}
+)}}\label{amisnd_8c_afa5675136ed62c49302acca9efba289a}
+
+
+Definition at line 106 of file amisnd.\+c.
+
+
+
+References A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E, amii\+\_\+volume, makesound(), O\+B\+J\+\_\+\+N\+A\+M\+E, objects, and obj\+::otyp.
+
+
+
+Referenced by do\+\_\+improvisation(), and do\+\_\+play\+\_\+instrument().
+
+
+\begin{DoxyCode}
+107 \{
+108     \textcolor{keywordtype}{int} typ = instr->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp};
+109     \textcolor{keywordtype}{char} * actualn = (\textcolor{keywordtype}{char} *)\hyperlink{objclass_8h_aaa71280f2bfe02894ab8c39af548d6ae}{OBJ\_NAME}( \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[typ] ) ;
+110 
+111     \textcolor{comment}{/* Make volume be relative to users volume level, with 60 being the}
+112 \textcolor{comment}{     * average level that will be passed to us.}
+113 \textcolor{comment}{     */}
+114     vol = vol * \hyperlink{amisnd_8c_ae96cc7860c6aae15421383f90db6798f}{amii\_volume} / \hyperlink{amisnd_8c_a1be13b6835a38a6e44159a30cad6653b}{AMII\_AVERAGE\_VOLUME};
+115 
+116     \hyperlink{amisnd_8c_a4f69109189acac706b635a9eb8c39e98}{makesound}( actualn, melody, vol );
+117 \}
+\end{DoxyCode}
+\hypertarget{amisnd_8c_a4f69109189acac706b635a9eb8c39e98}{\index{amisnd.\+c@{amisnd.\+c}!makesound@{makesound}}
+\index{makesound@{makesound}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{makesound}]{\setlength{\rightskip}{0pt plus 5cm}void makesound (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{actualn, }
+\item[{char $\ast$}]{melody, }
+\item[{int}]{vol}
+\end{DoxyParamCaption}
+)}}\label{amisnd_8c_a4f69109189acac706b635a9eb8c39e98}
+
+
+Definition at line 121 of file amisnd.\+c.
+
+
+
+References Delay(), dlb, dlb\+\_\+fclose, dlb\+\_\+fopen, dlb\+\_\+fread, flags, freqtab, Gfx\+Base, name, notetab, N\+U\+L\+L, perror, flag\+::silent, and whichannel.
+
+
+
+Referenced by amii\+\_\+speaker().
+
+
+\begin{DoxyCode}
+122 \{
+123     \textcolor{keywordtype}{char} *t;
+124     \textcolor{keywordtype}{int} c, cycles, dot, dlay;
+125     \hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} *stream = 0;
+126     \hyperlink{structIFFHEAD}{IFFHEAD} iffhead;
+127     \textcolor{keyword}{struct }IOAudio *AudioIO = 0;
+128     \textcolor{keyword}{struct }MsgPort *AudioMP = 0;
+129     \textcolor{keyword}{struct }Message *AudioMSG = 0;
+130     \hyperlink{def__os2_8h_af632da489ebc3708ec3ab6791ee53fa4}{ULONG} device = -1;
+131     \hyperlink{def__os2_8h_a4ae1dab0fb4b072a66584546209e7d58}{BYTE} *waveptr = 0;
+132     LONG frequency=440, duration=1, clock, samp, samples, samcyc=1;
+133     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} [ 100 ] ;
+134 
+135     \textcolor{keywordflow}{if} ( \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a12a28da243338f8c34e9c1d51a5a58bf}{silent} )
+136         \textcolor{keywordflow}{return};
+137 
+138     \textcolor{keywordflow}{if}( \hyperlink{amisnd_8c_a27b8182e2ba664f425ed01cbb790f0ad}{GfxBase}->DisplayFlags & PAL )
+139         clock = 3546895;
+140     \textcolor{keywordflow}{else}
+141         clock = 3579545;
+142 
+143     \textcolor{comment}{/*}
+144 \textcolor{comment}{     * Convert type to file name - if there's nothing to play we}
+145 \textcolor{comment}{     * shouldn't be here in the first place.}
+146 \textcolor{comment}{     */}
+147     strncpy(name, actualn,\textcolor{keyword}{sizeof}(name) ) ;
+148     \textcolor{keywordflow}{for}( t = strchr( name, \textcolor{charliteral}{' '} ); t; t = strchr( name, \textcolor{charliteral}{' '} ) )
+149         *t = \textcolor{charliteral}{'\_'};
+150     \textcolor{keywordflow}{if}( (stream = \hyperlink{dlb_8h_a46a9ab27d1ae601750baeacc2c0a8d44}{dlb\_fopen}( name, \textcolor{stringliteral}{"r"} )) == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+151     \{
+152         \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}( name );
+153         \textcolor{keywordflow}{return};
+154     \}
+155 
+156     AudioIO = (\textcolor{keyword}{struct }IOAudio *)
+157         AllocMem( \textcolor{keyword}{sizeof}( \textcolor{keyword}{struct} IOAudio ), MEMF\_PUBLIC|MEMF\_CLEAR );
+158     \textcolor{keywordflow}{if}( AudioIO == 0 )
+159         \textcolor{keywordflow}{goto} killaudio;
+160 
+161     AudioMP = CreateMsgPort();
+162     \textcolor{keywordflow}{if}( AudioMP == 0 )
+163         \textcolor{keywordflow}{goto} killaudio;
+164 
+165     AudioIO->ioa\_Request.io\_Message.mn\_ReplyPort = AudioMP;
+166     AudioIO->ioa\_Request.io\_Message.mn\_Node.ln\_Pri = 0;
+167     AudioIO->ioa\_Request.io\_Command = ADCMD\_ALLOCATE;
+168     AudioIO->ioa\_Request.io\_Flags = ADIOF\_NOWAIT;
+169     AudioIO->ioa\_AllocKey = 0;
+170     AudioIO->ioa\_Data = \hyperlink{amisnd_8c_a35e47618d20cb4a3f9865b1145ccb29e}{whichannel};
+171     AudioIO->ioa\_Length = \textcolor{keyword}{sizeof}( \hyperlink{amisnd_8c_a35e47618d20cb4a3f9865b1145ccb29e}{whichannel} );
+172 
+173     device = OpenDevice( AUDIONAME, 0L, (\textcolor{keyword}{struct} IORequest *)AudioIO, 0L );
+174     \textcolor{keywordflow}{if}( device != 0 )
+175         \textcolor{keywordflow}{goto} killaudio;
+176 
+177     \textcolor{keywordflow}{if}( \hyperlink{dlb_8h_af592eddf34d2c61fface3d1bd8fae80a}{dlb\_fread}( (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&iffhead, \textcolor{keyword}{sizeof}( iffhead ), 1, stream ) != 1 )
+178         \textcolor{keywordflow}{goto} killaudio;
+179 
+180     \textcolor{comment}{/* This is an even number of bytes long */}
+181     \textcolor{keywordflow}{if}( \hyperlink{dlb_8h_af592eddf34d2c61fface3d1bd8fae80a}{dlb\_fread}( name, (iffhead.namelen+1) & ~1, 1, stream ) != 1 )
+182         \textcolor{keywordflow}{goto} killaudio;
+183 
+184     \textcolor{keywordflow}{if}( \hyperlink{dlb_8h_af592eddf34d2c61fface3d1bd8fae80a}{dlb\_fread}( (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&samples, 4, 1, stream ) != 1 )
+185         \textcolor{keywordflow}{goto} killaudio;
+186 
+187     \textcolor{keywordflow}{if}( \hyperlink{dlb_8h_af592eddf34d2c61fface3d1bd8fae80a}{dlb\_fread}( (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&samples, 4, 1, stream ) != 1 )
+188         \textcolor{keywordflow}{goto} killaudio;
+189 
+190     waveptr = AllocMem( samples, MEMF\_CHIP|MEMF\_PUBLIC );
+191     \textcolor{keywordflow}{if}( !waveptr )
+192         \textcolor{keywordflow}{goto} killaudio;
+193 
+194     \textcolor{keywordflow}{if}( \hyperlink{dlb_8h_af592eddf34d2c61fface3d1bd8fae80a}{dlb\_fread}( waveptr, samples, 1, stream ) != 1 )
+195         \textcolor{keywordflow}{goto} killaudio;
+196 
+197     \textcolor{keywordflow}{while}( melody[0] && melody[1] )
+198     \{
+199         c = *melody++;
+200         duration = *melody++;
+201         dot = 0;
+202         \textcolor{keywordflow}{if}( *melody == \textcolor{charliteral}{'.'} )
+203         \{
+204             dot = 1;
+205             ++melody;
+206         \}
+207         \textcolor{keywordflow}{switch}( duration )
+208         \{
+209             \textcolor{keywordflow}{case} \textcolor{charliteral}{'w'}: dlay = 3; duration = 1; cycles = 1; \textcolor{keywordflow}{break};
+210             \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}: dlay = 3; duration = 2; cycles = 1; \textcolor{keywordflow}{break};
+211             \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}: dlay = 2; duration = 4; cycles = 1; \textcolor{keywordflow}{break};
+212             \textcolor{keywordflow}{case} \textcolor{charliteral}{'e'}: dlay = 1; duration = 8; cycles = 1; \textcolor{keywordflow}{break};
+213             \textcolor{keywordflow}{case} \textcolor{charliteral}{'x'}: dlay = 0; duration = 16; cycles = 1; \textcolor{keywordflow}{break};
+214             \textcolor{keywordflow}{case} \textcolor{charliteral}{'t'}: dlay = 0; duration = 32; cycles = 1; \textcolor{keywordflow}{break};
+215             \textcolor{keywordflow}{default}: \textcolor{keywordflow}{goto} killaudio;  \textcolor{comment}{/* unrecognized duration */}
+216         \}
+217 
+218         \textcolor{comment}{/* Lower case characters are one octave above upper case */}
+219         \textcolor{keywordflow}{switch}( c )
+220         \{
+221             \textcolor{keywordflow}{case} \textcolor{charliteral}{'a'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'b'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'c'}:
+222             \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'e'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'f'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'g'}:
+223                 c -= \textcolor{charliteral}{'a'} - 7;
+224                 \textcolor{keywordflow}{break};
+225 
+226             \textcolor{keywordflow}{case} \textcolor{charliteral}{'A'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'B'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'C'}:
+227             \textcolor{keywordflow}{case} \textcolor{charliteral}{'D'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'E'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'F'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'G'}:
+228                 c -= \textcolor{charliteral}{'A'};
+229                 \textcolor{keywordflow}{break};
+230 
+231             \textcolor{keywordflow}{default}:
+232                 \textcolor{keywordflow}{continue};
+233         \}
+234 
+235         samcyc = samples;
+236 
+237         \textcolor{comment}{/* lowercase start at middle 'C', upper case are one octave below */}
+238         frequency = c > 7 ? \hyperlink{amisnd_8c_abb7ec1a88b68d3af3134f874ff8e27c2}{freqtab}[\hyperlink{amisnd_8c_a3fdf54bd59259d1511ddcf6d8ca3ffdd}{notetab}[c%7]]*2 : \hyperlink{amisnd_8c_abb7ec1a88b68d3af3134f874ff8e27c2}{freqtab}[
+      \hyperlink{amisnd_8c_a3fdf54bd59259d1511ddcf6d8ca3ffdd}{notetab}[c]];
+239 
+240         \textcolor{comment}{/* We can't actually do a dotted whole note unless we add code for a real}
+241 \textcolor{comment}{         * 8SVX sample which includes sustain sample information to tell us how}
+242 \textcolor{comment}{         * to hold the note steady...  So when duration == 1, ignore 'dot'...}
+243 \textcolor{comment}{         */}
+244         \textcolor{keywordflow}{if}( dot && duration > 1 )
+245             samp = ((samples / duration) * 3) / 2;
+246         \textcolor{keywordflow}{else}
+247             samp = samples / duration;
+248 
+249         \textcolor{comment}{/* Only use some of the samples based on frequency */}
+250         samp = frequency * samp / 880;
+251 
+252         \textcolor{comment}{/* The 22khz samples are middle C samples, so adjust the play}
+253 \textcolor{comment}{         * back frequency accordingly}
+254 \textcolor{comment}{         */}
+255         frequency = (frequency * (iffhead.vhdr.freq*2)/3) / 440L;
+256 
+257         AudioIO->ioa\_Request.io\_Message.mn\_ReplyPort = AudioMP;
+258         AudioIO->ioa\_Request.io\_Command = CMD\_WRITE;
+259         AudioIO->ioa\_Request.io\_Flags = ADIOF\_PERVOL;
+260         AudioIO->ioa\_Data = (\hyperlink{def__os2_8h_a4ae1dab0fb4b072a66584546209e7d58}{BYTE} *)waveptr;
+261         AudioIO->ioa\_Length = samp;
+262 
+263         \textcolor{comment}{/* The clock rate represents the unity rate, so dividing by}
+264 \textcolor{comment}{         * the frequency gives us a period ratio...}
+265 \textcolor{comment}{         */}
+266 \textcolor{comment}{/*printf( "clock: %ld, freq: %ld, div: %ld\(\backslash\)n", clock, frequency, clock/frequency );*/}
+267         AudioIO->ioa\_Period = clock/frequency;
+268         AudioIO->ioa\_Volume = vol;
+269         AudioIO->ioa\_Cycles = cycles;
+270 
+271         BeginIO( (\textcolor{keyword}{struct} IORequest *)AudioIO );
+272         WaitPort( AudioMP );
+273         AudioMSG = GetMsg( AudioMP );
+274         \textcolor{keywordflow}{if}( dlay )
+275             \hyperlink{celib_8c_a9efdce133fda030ebb0c7793ffc03d14}{Delay}( dlay );
+276     \}
+277 
+278     killaudio:
+279     \textcolor{keywordflow}{if}( stream ) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}( stream );
+280     \textcolor{keywordflow}{if}( waveptr ) FreeMem( waveptr, samples );
+281     \textcolor{keywordflow}{if}( device == 0 ) CloseDevice( (\textcolor{keyword}{struct} IORequest *)AudioIO );
+282     \textcolor{keywordflow}{if}( AudioMP ) DeleteMsgPort( AudioMP );
+283     \textcolor{keywordflow}{if}( AudioIO ) FreeMem( AudioIO, \textcolor{keyword}{sizeof}( *AudioIO ) );
+284 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{amisnd_8c_ae96cc7860c6aae15421383f90db6798f}{\index{amisnd.\+c@{amisnd.\+c}!amii\+\_\+volume@{amii\+\_\+volume}}
+\index{amii\+\_\+volume@{amii\+\_\+volume}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{amii\+\_\+volume}]{\setlength{\rightskip}{0pt plus 5cm}int amii\+\_\+volume = {\bf A\+M\+I\+I\+\_\+\+A\+V\+E\+R\+A\+G\+E\+\_\+\+V\+O\+L\+U\+M\+E}}}\label{amisnd_8c_ae96cc7860c6aae15421383f90db6798f}
+
+
+Definition at line 36 of file amisnd.\+c.
+
+
+
+Referenced by amii\+\_\+speaker().
+
+\hypertarget{amisnd_8c_abb7ec1a88b68d3af3134f874ff8e27c2}{\index{amisnd.\+c@{amisnd.\+c}!freqtab@{freqtab}}
+\index{freqtab@{freqtab}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{freqtab}]{\setlength{\rightskip}{0pt plus 5cm}long freqtab\mbox{[}$\,$\mbox{]}}}\label{amisnd_8c_abb7ec1a88b68d3af3134f874ff8e27c2}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    220,    
+    233,    
+    246,    
+    261,    
+    277,    
+    293,    
+    311,    
+    329,    
+    349,    
+    370,    
+    392,    
+    415,    
+    440,    
+\}
+\end{DoxyCode}
+
+
+Definition at line 68 of file amisnd.\+c.
+
+
+
+Referenced by makesound().
+
+\hypertarget{amisnd_8c_a27b8182e2ba664f425ed01cbb790f0ad}{\index{amisnd.\+c@{amisnd.\+c}!Gfx\+Base@{Gfx\+Base}}
+\index{Gfx\+Base@{Gfx\+Base}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{Gfx\+Base}]{\setlength{\rightskip}{0pt plus 5cm}struct Gfx\+Base$\ast$ Gfx\+Base}}\label{amisnd_8c_a27b8182e2ba664f425ed01cbb790f0ad}
+
+
+Referenced by amii\+\_\+init\+\_\+nhwindows(), and makesound().
+
+\hypertarget{amisnd_8c_a3fdf54bd59259d1511ddcf6d8ca3ffdd}{\index{amisnd.\+c@{amisnd.\+c}!notetab@{notetab}}
+\index{notetab@{notetab}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{notetab}]{\setlength{\rightskip}{0pt plus 5cm}int notetab\mbox{[}$\,$\mbox{]} = \{ 0, 2, 4, 5, 7, 9, 11, 12 \}}}\label{amisnd_8c_a3fdf54bd59259d1511ddcf6d8ca3ffdd}
+
+
+Definition at line 65 of file amisnd.\+c.
+
+
+
+Referenced by makesound().
+
+\hypertarget{amisnd_8c_a35e47618d20cb4a3f9865b1145ccb29e}{\index{amisnd.\+c@{amisnd.\+c}!whichannel@{whichannel}}
+\index{whichannel@{whichannel}!amisnd.\+c@{amisnd.\+c}}
+\subsubsection[{whichannel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U\+B\+Y\+T\+E} whichannel\mbox{[}$\,$\mbox{]} = \{ 1, 2, 4, 8 \}}}\label{amisnd_8c_a35e47618d20cb4a3f9865b1145ccb29e}
+
+
+Definition at line 60 of file amisnd.\+c.
+
+
+
+Referenced by makesound().
+

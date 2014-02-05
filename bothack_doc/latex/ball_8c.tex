@@ -1,0 +1,1012 @@
+\hypertarget{ball_8c}{\section{nethack/src/ball.c File Reference}
+\label{ball_8c}\index{nethack/src/ball.\+c@{nethack/src/ball.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ball_8c_a417b06b2a78cb4af37426815a3987d87}{B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R}~0	/$\ast$ ball \& chain at different positions $\ast$/
+\item 
+\#define \hyperlink{ball_8c_aa8b2207a2e62600298f78fcc0efe9dd4}{B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N}~1	/$\ast$ chain on top of ball $\ast$/
+\item 
+\#define \hyperlink{ball_8c_a1bc6862dc372b4475d5d2b5a7a5385e4}{B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L}~2	/$\ast$ ball on top of chain $\ast$/
+\item 
+\#define \hyperlink{ball_8c_a81ac9791ce8ceed2572328c7b2731e45}{C\+H\+A\+I\+N\+\_\+\+I\+N\+\_\+\+M\+I\+D\+D\+L\+E}(chx, chy)~(distmin(x, y, chx, chy) $<$= 1 \&\& distmin(chx, chy, \hyperlink{decl_8c_a53fdd33b6bb166ee5802f21f4388a6c5}{uball}-\/$>$ox, \hyperlink{decl_8c_a53fdd33b6bb166ee5802f21f4388a6c5}{uball}-\/$>$oy) $<$= 1)
+\item 
+\#define \hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{I\+S\+\_\+\+C\+H\+A\+I\+N\+\_\+\+R\+O\+C\+K}(x, y)
+\item 
+\#define \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{S\+K\+I\+P\+\_\+\+T\+O\+\_\+\+D\+R\+A\+G}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{ball_8c_aa1e6cfb0a1927431ac0a59d7de396e3f}{N\+D\+E\+C\+L} (\hyperlink{ball_8c_a489c98684984585ebc7a73b771524cf6}{bc\+\_\+order})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{ball_8c_ad910718616855513040e094e08d625ed}{N\+D\+E\+C\+L} (\hyperlink{ball_8c_afdb658246cb158671ef0f86be1e694a1}{litter})
+\item 
+void \hyperlink{ball_8c_a5ec9362b3f554d20a6d5a1ffe332db33}{ballfall} ()
+\item 
+void \hyperlink{ball_8c_ae38eff6ef477a64e08d48e372e5dc406}{placebc} ()
+\item 
+void \hyperlink{ball_8c_a5596cf2bf4f23320ff7738af699100dc}{unplacebc} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{ball_8c_a489c98684984585ebc7a73b771524cf6}{bc\+\_\+order} ()
+\item 
+void \hyperlink{ball_8c_a1d95541d3112c7643b58b7d5fdd46d86}{set\+\_\+bc} (int already\+\_\+blind)
+\item 
+void \hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{move\+\_\+bc} (int before, int control, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} ballx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} bally, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} chainx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} chainy)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{ball_8c_a049bb0f6f118be5dba01139ccaea840e}{drag\+\_\+ball} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, int $\ast$bc\+\_\+control, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} $\ast$ballx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} $\ast$bally, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} $\ast$chainx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} $\ast$chainy, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} $\ast$cause\+\_\+delay, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} allow\+\_\+drag)
+\item 
+void \hyperlink{ball_8c_aad9708ae772d6f726d3d7520ec81ac9b}{drop\+\_\+ball} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{ball_8c_afdb658246cb158671ef0f86be1e694a1}{litter} ()
+\item 
+void \hyperlink{ball_8c_a364c3572675b9211bd9e7b34745d2470}{drag\+\_\+down} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{ball_8c_a1bc6862dc372b4475d5d2b5a7a5385e4}{\index{ball.\+c@{ball.\+c}!B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L@{B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L}}
+\index{B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L@{B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L}!ball.\+c@{ball.\+c}}
+\subsubsection[{B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L~2	/$\ast$ ball on top of chain $\ast$/}}\label{ball_8c_a1bc6862dc372b4475d5d2b5a7a5385e4}
+
+
+Definition at line 86 of file ball.\+c.
+
+
+
+Referenced by bc\+\_\+order(), and move\+\_\+bc().
+
+\hypertarget{ball_8c_aa8b2207a2e62600298f78fcc0efe9dd4}{\index{ball.\+c@{ball.\+c}!B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N@{B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N}}
+\index{B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N@{B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N}!ball.\+c@{ball.\+c}}
+\subsubsection[{B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N~1	/$\ast$ chain on top of ball $\ast$/}}\label{ball_8c_aa8b2207a2e62600298f78fcc0efe9dd4}
+
+
+Definition at line 85 of file ball.\+c.
+
+
+
+Referenced by bc\+\_\+order(), move\+\_\+bc(), placebc(), and set\+\_\+bc().
+
+\hypertarget{ball_8c_a417b06b2a78cb4af37426815a3987d87}{\index{ball.\+c@{ball.\+c}!B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R@{B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R}}
+\index{B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R@{B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R}!ball.\+c@{ball.\+c}}
+\subsubsection[{B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R~0	/$\ast$ ball \& chain at different positions $\ast$/}}\label{ball_8c_a417b06b2a78cb4af37426815a3987d87}
+
+
+Definition at line 84 of file ball.\+c.
+
+
+
+Referenced by bc\+\_\+order(), move\+\_\+bc(), placebc(), and set\+\_\+bc().
+
+\hypertarget{ball_8c_a81ac9791ce8ceed2572328c7b2731e45}{\index{ball.\+c@{ball.\+c}!C\+H\+A\+I\+N\+\_\+\+I\+N\+\_\+\+M\+I\+D\+D\+L\+E@{C\+H\+A\+I\+N\+\_\+\+I\+N\+\_\+\+M\+I\+D\+D\+L\+E}}
+\index{C\+H\+A\+I\+N\+\_\+\+I\+N\+\_\+\+M\+I\+D\+D\+L\+E@{C\+H\+A\+I\+N\+\_\+\+I\+N\+\_\+\+M\+I\+D\+D\+L\+E}!ball.\+c@{ball.\+c}}
+\subsubsection[{C\+H\+A\+I\+N\+\_\+\+I\+N\+\_\+\+M\+I\+D\+D\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+A\+I\+N\+\_\+\+I\+N\+\_\+\+M\+I\+D\+D\+L\+E(
+\begin{DoxyParamCaption}
+\item[{}]{chx, }
+\item[{}]{chy}
+\end{DoxyParamCaption}
+)~(distmin(x, y, chx, chy) $<$= 1 \&\& distmin(chx, chy, {\bf uball}-\/$>$ox, {\bf uball}-\/$>$oy) $<$= 1)}}\label{ball_8c_a81ac9791ce8ceed2572328c7b2731e45}
+
+
+Referenced by drag\+\_\+ball().
+
+\hypertarget{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{\index{ball.\+c@{ball.\+c}!I\+S\+\_\+\+C\+H\+A\+I\+N\+\_\+\+R\+O\+C\+K@{I\+S\+\_\+\+C\+H\+A\+I\+N\+\_\+\+R\+O\+C\+K}}
+\index{I\+S\+\_\+\+C\+H\+A\+I\+N\+\_\+\+R\+O\+C\+K@{I\+S\+\_\+\+C\+H\+A\+I\+N\+\_\+\+R\+O\+C\+K}!ball.\+c@{ball.\+c}}
+\subsubsection[{I\+S\+\_\+\+C\+H\+A\+I\+N\+\_\+\+R\+O\+C\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+S\+\_\+\+C\+H\+A\+I\+N\+\_\+\+R\+O\+C\+K(
+\begin{DoxyParamCaption}
+\item[{}]{x, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{rm_8h_a041df081d95aacdcbf31a3bbfdd36e0e}{IS\_ROCK}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ) || (\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ) && \(\backslash\)
+      (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask & (\hyperlink{rm_8h_a65f9ce7db71ac3d4c13edfe69732ec9a}{D\_CLOSED}|\hyperlink{rm_8h_a0996530515217dfd9f5e12878cb1dc8b}{D\_LOCKED}))))
+\end{DoxyCode}
+
+
+Referenced by drag\+\_\+ball().
+
+\hypertarget{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{\index{ball.\+c@{ball.\+c}!S\+K\+I\+P\+\_\+\+T\+O\+\_\+\+D\+R\+A\+G@{S\+K\+I\+P\+\_\+\+T\+O\+\_\+\+D\+R\+A\+G}}
+\index{S\+K\+I\+P\+\_\+\+T\+O\+\_\+\+D\+R\+A\+G@{S\+K\+I\+P\+\_\+\+T\+O\+\_\+\+D\+R\+A\+G}!ball.\+c@{ball.\+c}}
+\subsubsection[{S\+K\+I\+P\+\_\+\+T\+O\+\_\+\+D\+R\+A\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+K\+I\+P\+\_\+\+T\+O\+\_\+\+D\+R\+A\+G}}\label{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\{ *chainx = oldchainx; *chainy = oldchainy; \hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{\(\backslash\)}
+\hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{    move\_bc}(0, *bc\_control, *ballx, *bally, *chainx, *chainy); \(\backslash\)
+    goto drag; \}
+\end{DoxyCode}
+
+
+Referenced by drag\+\_\+ball().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{ball_8c_a5ec9362b3f554d20a6d5a1ffe332db33}{\index{ball.\+c@{ball.\+c}!ballfall@{ballfall}}
+\index{ballfall@{ballfall}!ball.\+c@{ball.\+c}}
+\subsubsection[{ballfall}]{\setlength{\rightskip}{0pt plus 5cm}void ballfall (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_a5ec9362b3f554d20a6d5a1ffe332db33}
+
+
+Definition at line 13 of file ball.\+c.
+
+
+
+References carried, F\+A\+L\+S\+E, flags, H\+E\+A\+D, is\+\_\+metallic, N\+O\+\_\+\+K\+I\+L\+L\+E\+R\+\_\+\+P\+R\+E\+F\+I\+X, obj\+::ox, obj\+::oy, rn1, setuqwep(), setuswapwep(), setuwep(), u, uarmh, uball, uquiver, uswapwep, uwep, you\+::ux, you\+::uy, and flag\+::verbose.
+
+
+\begin{DoxyCode}
+14 \{
+15     \textcolor{keywordtype}{boolean} gets\_hit;
+16 
+17     gets\_hit = (((\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}) || (\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})) &&
+18             ((\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} == \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})? \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} : (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean})rn2(5)));
+19     \textcolor{keywordflow}{if} (\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})) \{
+20         pline(\textcolor{stringliteral}{"Startled, you drop the iron ball."});
+21         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} == \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})
+22             \hyperlink{wield_8c_adc7f46a6707f98835bb3c181d7ae1821}{setuwep}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0);
+23         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep} == \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})
+24             \hyperlink{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}{setuswapwep}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0);
+25         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a7544f9c7591e79476549f321400d269b}{uquiver} == \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})
+26             \hyperlink{wield_8c_a6004112a6fc3b435bb2cff99c8b884d3}{setuqwep}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0);;
+27         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} != \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})
+28             freeinv(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball});
+29     \}
+30     \textcolor{keywordflow}{if}(gets\_hit)\{
+31         \textcolor{keywordtype}{int} dmg = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(7,25);
+32         pline\_The(\textcolor{stringliteral}{"iron ball falls on your %s."},
+33             body\_part(\hyperlink{hack_8h_a110f3b6cdacd45daee818b3e5965f6da}{HEAD}));
+34         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh}) \{
+35             \textcolor{keywordflow}{if}(\hyperlink{objclass_8h_a5134e0e0a63a108b16f212e15a97fc1a}{is\_metallic}(\hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh})) \{
+36             pline(\textcolor{stringliteral}{"Fortunately, you are wearing a hard helmet."});
+37             dmg = 3;
+38             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose})
+39             Your(\textcolor{stringliteral}{"%s does not protect you."}, xname(\hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh}));
+40         \}
+41         losehp(dmg, \textcolor{stringliteral}{"crunched in the head by an iron ball"},
+42             \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX});
+43     \}
+44 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_a489c98684984585ebc7a73b771524cf6}{\index{ball.\+c@{ball.\+c}!bc\+\_\+order@{bc\+\_\+order}}
+\index{bc\+\_\+order@{bc\+\_\+order}!ball.\+c@{ball.\+c}}
+\subsubsection[{bc\+\_\+order}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int bc\+\_\+order (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_a489c98684984585ebc7a73b771524cf6}
+
+
+Definition at line 150 of file ball.\+c.
+
+
+
+References B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L, B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N, B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R, carried, level, dlevel\+\_\+t\+::objects, obj\+::ox, obj\+::oy, u, uball, and uchain.
+
+
+
+Referenced by drop\+\_\+ball(), move\+\_\+bc(), and set\+\_\+bc().
+
+
+\begin{DoxyCode}
+151 \{
+152     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{structobj}{obj};
+153 
+154     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} != \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} || \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} != \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->
+      \hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} || \hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})
+155         || \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow)
+156     \textcolor{keywordflow}{return} \hyperlink{ball_8c_a417b06b2a78cb4af37426815a3987d87}{BCPOS\_DIFFER};
+157 
+158     \textcolor{keywordflow}{for} (obj = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ac128f805d01d7746b499596dd3b92a53}{objects}[\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}]; obj; obj = obj->nexthere) \{
+159     \textcolor{keywordflow}{if} (obj == \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}) \textcolor{keywordflow}{return} \hyperlink{ball_8c_aa8b2207a2e62600298f78fcc0efe9dd4}{BCPOS\_CHAIN};
+160     \textcolor{keywordflow}{if} (obj == \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}) \textcolor{keywordflow}{return} \hyperlink{ball_8c_a1bc6862dc372b4475d5d2b5a7a5385e4}{BCPOS\_BALL};
+161     \}
+162     impossible(\textcolor{stringliteral}{"bc\_order:  ball&chain not in same location!"});
+163     \textcolor{keywordflow}{return} \hyperlink{ball_8c_a417b06b2a78cb4af37426815a3987d87}{BCPOS\_DIFFER};
+164 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_a049bb0f6f118be5dba01139ccaea840e}{\index{ball.\+c@{ball.\+c}!drag\+\_\+ball@{drag\+\_\+ball}}
+\index{drag\+\_\+ball@{drag\+\_\+ball}!ball.\+c@{ball.\+c}}
+\subsubsection[{drag\+\_\+ball}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} drag\+\_\+ball (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{int $\ast$}]{bc\+\_\+control, }
+\item[{{\bf xchar} $\ast$}]{ballx, }
+\item[{{\bf xchar} $\ast$}]{bally, }
+\item[{{\bf xchar} $\ast$}]{chainx, }
+\item[{{\bf xchar} $\ast$}]{chainy, }
+\item[{{\bf boolean} $\ast$}]{cause\+\_\+delay, }
+\item[{{\bf boolean}}]{allow\+\_\+drag}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_a049bb0f6f118be5dba01139ccaea840e}
+
+
+Definition at line 360 of file ball.\+c.
+
+
+
+References abs(), B\+C\+\_\+\+B\+A\+L\+L, B\+C\+\_\+\+C\+H\+A\+I\+N, carried, C\+H\+A\+I\+N\+\_\+\+I\+N\+\_\+\+M\+I\+D\+D\+L\+E, F\+A\+L\+S\+E, find\+\_\+mac(), hmon(), H\+O\+L\+E, invent, I\+S\+\_\+\+C\+H\+A\+I\+N\+\_\+\+R\+O\+C\+K, Levitation, levl, Luck, m\+\_\+at, move\+\_\+bc(), newsym(), omon\+\_\+adj(), obj\+::ox, obj\+::oy, P\+I\+T, P\+O\+O\+L, S\+K\+I\+P\+\_\+\+T\+O\+\_\+\+D\+R\+A\+G, S\+L\+T\+\_\+\+E\+N\+C\+U\+M\+B\+E\+R, S\+P\+I\+K\+E\+D\+\_\+\+P\+I\+T, T\+R\+A\+P\+D\+O\+O\+R, T\+R\+U\+E, u, uball, uchain, you\+::ux, you\+::ux0, you\+::uy, you\+::uy0, trap\+::x, and trap\+::y.
+
+
+
+Referenced by teleds().
+
+
+\begin{DoxyCode}
+367 \{
+368     \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *t = (\textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *)0;
+369     \textcolor{keywordtype}{boolean} already\_in\_rock;
+370 
+371     *ballx  = \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox};
+372     *bally  = \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+373     *chainx = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox};
+374     *chainy = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+375     *bc\_control = 0;
+376     *cause\_delay = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+377 
+378     \textcolor{keywordflow}{if} (dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) <= 2) \{   \textcolor{comment}{/* nothing moved */}
+379         \hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{move\_bc}(1, *bc\_control, *ballx, *bally, *chainx, *chainy);
+380         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+381     \}
+382 
+383     \textcolor{comment}{/* only need to move the chain? */}
+384     \textcolor{keywordflow}{if} (\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}) || distmin(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->
+      \hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) <= 2) \{
+385         \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} oldchainx = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, oldchainy = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+386         *bc\_control = \hyperlink{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{BC\_CHAIN};
+387         \hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{move\_bc}(1, *bc\_control, *ballx, *bally, *chainx, *chainy);
+388         \textcolor{keywordflow}{if} (\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})) \{
+389         \textcolor{comment}{/* move chain only if necessary */}
+390         \textcolor{keywordflow}{if} (distmin(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) > 1) \{
+391             *chainx = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+392             *chainy = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+393         \}
+394         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+395         \}
+396 \textcolor{preprocessor}{#define CHAIN\_IN\_MIDDLE(chx, chy) \(\backslash\)}
+397 \textcolor{preprocessor}{(distmin(x, y, chx, chy) <= 1 && distmin(chx, chy, uball->ox, uball->oy) <= 1)}
+398 \textcolor{preprocessor}{#define IS\_CHAIN\_ROCK(x,y) \(\backslash\)}
+399 \textcolor{preprocessor}{(IS\_ROCK(levl[x][y].typ) || (IS\_DOOR(levl[x][y].typ) && \(\backslash\)}
+400 \textcolor{preprocessor}{      (levl[x][y].doormask & (D\_CLOSED|D\_LOCKED))))}
+401 \textcolor{comment}{/* Don't ever move the chain into solid rock.  If we have to, then instead}
+402 \textcolor{comment}{ * undo the move\_bc() and jump to the drag ball code.  Note that this also}
+403 \textcolor{comment}{ * means the "cannot carry and drag" message will not appear, since unless we}
+404 \textcolor{comment}{ * moved at least two squares there is no possibility of the chain position}
+405 \textcolor{comment}{ * being in solid rock.}
+406 \textcolor{comment}{ */}
+407 \textcolor{preprocessor}{#define SKIP\_TO\_DRAG \{ *chainx = oldchainx; *chainy = oldchainy; \(\backslash\)}
+408 \textcolor{preprocessor}{    move\_bc(0, *bc\_control, *ballx, *bally, *chainx, *chainy); \(\backslash\)}
+409 \textcolor{preprocessor}{    goto drag; \} }
+410         \textcolor{keywordflow}{if} (\hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) || \hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(*chainx, *chainy)
+411             || \hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}))
+412         already\_in\_rock = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+413         \textcolor{keywordflow}{else}
+414         already\_in\_rock = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+415 
+416         \textcolor{keywordflow}{switch}(dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy})) \{
+417         \textcolor{comment}{/* two spaces diagonal from ball, move chain inbetween */}
+418         \textcolor{keywordflow}{case} 8:
+419             *chainx = (\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} + \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x})/2;
+420             *chainy = (\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} + \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y})/2;
+421             \textcolor{keywordflow}{if} (\hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(*chainx, *chainy) && !already\_in\_rock)
+422             \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{SKIP\_TO\_DRAG};
+423             \textcolor{keywordflow}{break};
+424 
+425         \textcolor{comment}{/* player is distance 2/1 from ball; move chain to one of the}
+426 \textcolor{comment}{         * two spaces between}
+427 \textcolor{comment}{         *   @}
+428 \textcolor{comment}{         *   \_\_}
+429 \textcolor{comment}{         *    0}
+430 \textcolor{comment}{         */}
+431         \textcolor{keywordflow}{case} 5: \{
+432             \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} tempx, tempy, tempx2, tempy2;
+433 
+434             \textcolor{comment}{/* find position closest to current position of chain */}
+435             \textcolor{comment}{/* no effect if current position is already OK */}
+436             \textcolor{keywordflow}{if} (\hyperlink{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}{abs}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x} - \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}) == 1) \{
+437             tempx = \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x};
+438             tempx2 = \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox};
+439             tempy = tempy2 = (\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} + \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y})/2;
+440             \} \textcolor{keywordflow}{else} \{
+441             tempx = tempx2 = (\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} + \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x})/2;
+442             tempy = \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y};
+443             tempy2 = \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+444             \}
+445             \textcolor{keywordflow}{if} (\hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(tempx, tempy) &&
+446                 !\hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(tempx2, tempy2) &&
+447                 !already\_in\_rock) \{
+448             \textcolor{keywordflow}{if} (allow\_drag) \{
+449                 \textcolor{comment}{/* Avoid pathological case *if* not teleporting:}
+450 \textcolor{comment}{                 *   0              0\_}
+451 \textcolor{comment}{                 *   \_X  move northeast  ----->  X@}
+452 \textcolor{comment}{                 *    @}
+453 \textcolor{comment}{                 */}
+454                 \textcolor{keywordflow}{if} (dist2(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) == 5 &&
+455                   dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, tempx, tempy) == 1)
+456                 \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{SKIP\_TO\_DRAG};
+457                 \textcolor{comment}{/* Avoid pathological case *if* not teleporting:}
+458 \textcolor{comment}{                 *    0              0}
+459 \textcolor{comment}{                 *   \_X  move east       ----->  X\_}
+460 \textcolor{comment}{                 *    @               @}
+461 \textcolor{comment}{                 */}
+462                 \textcolor{keywordflow}{if} (dist2(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) == 4 &&
+463                   dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, tempx, tempy) == 2)
+464                 \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{SKIP\_TO\_DRAG};
+465             \}
+466             *chainx = tempx2;
+467             *chainy = tempy2;
+468             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(tempx, tempy) &&
+469                 \hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(tempx2, tempy2) &&
+470                 !already\_in\_rock) \{
+471             \textcolor{keywordflow}{if} (allow\_drag) \{
+472                 \textcolor{keywordflow}{if} (dist2(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) == 5 &&
+473                     dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, tempx2, tempy2) == 1)
+474                 \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{SKIP\_TO\_DRAG};
+475                 \textcolor{keywordflow}{if} (dist2(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) == 4 &&
+476                   dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, tempx2, tempy2) == 2)
+477                 \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{SKIP\_TO\_DRAG};
+478             \}
+479             *chainx = tempx;
+480             *chainy = tempy;
+481             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(tempx, tempy) &&
+482                 \hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(tempx2, tempy2) &&
+483                 !already\_in\_rock) \{
+484             \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{SKIP\_TO\_DRAG};
+485             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (dist2(tempx, tempy, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) <
+486              dist2(tempx2, tempy2, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) ||
+487                ((dist2(tempx, tempy, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) ==
+488              dist2(tempx2, tempy2, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy})) && rn2(2))) \{
+489             *chainx = tempx;
+490             *chainy = tempy;
+491             \} \textcolor{keywordflow}{else} \{
+492             *chainx = tempx2;
+493             *chainy = tempy2;
+494             \}
+495             \textcolor{keywordflow}{break};
+496         \}
+497 
+498         \textcolor{comment}{/* ball is two spaces horizontal or vertical from player; move*/}
+499         \textcolor{comment}{/* chain inbetween *unless* current chain position is OK */}
+500         \textcolor{keywordflow}{case} 4:
+501             \textcolor{keywordflow}{if} (\hyperlink{ball_8c_a81ac9791ce8ceed2572328c7b2731e45}{CHAIN\_IN\_MIDDLE}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->
+      \hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}))
+502             \textcolor{keywordflow}{break};
+503             *chainx = (\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x} + \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox})/2;
+504             *chainy = (\hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y} + \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy})/2;
+505             \textcolor{keywordflow}{if} (\hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(*chainx, *chainy) && !already\_in\_rock)
+506             \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{SKIP\_TO\_DRAG};
+507             \textcolor{keywordflow}{break};
+508         
+509         \textcolor{comment}{/* ball is one space diagonal from player.  Check for the}
+510 \textcolor{comment}{         * following special case:}
+511 \textcolor{comment}{         *   @}
+512 \textcolor{comment}{         *    \_    moving southwest becomes  @\_}
+513 \textcolor{comment}{         *   0                                0}
+514 \textcolor{comment}{         * (This will also catch teleporting that happens to resemble}
+515 \textcolor{comment}{         * this case, but oh well.)  Otherwise fall through.}
+516 \textcolor{comment}{         */}
+517         \textcolor{keywordflow}{case} 2:
+518             \textcolor{keywordflow}{if} (dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) == 2 &&
+519                 dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) == 4) \{
+520             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} == \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y})
+521                 *chainx = \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox};
+522             \textcolor{keywordflow}{else}
+523                 *chainy = \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+524             \textcolor{keywordflow}{if} (\hyperlink{ball_8c_ab54a9487327efe5329fd8912fbdf8dee}{IS\_CHAIN\_ROCK}(*chainx, *chainy) && !already\_in\_rock)
+525                 \hyperlink{ball_8c_aa7c35cf731aa0e517514d6dd700090e8}{SKIP\_TO\_DRAG};
+526             \textcolor{keywordflow}{break};
+527             \}
+528             \textcolor{comment}{/* fall through */}
+529         \textcolor{keywordflow}{case} 1:
+530         \textcolor{keywordflow}{case} 0:
+531             \textcolor{comment}{/* do nothing if possible */}
+532             \textcolor{keywordflow}{if} (\hyperlink{ball_8c_a81ac9791ce8ceed2572328c7b2731e45}{CHAIN\_IN\_MIDDLE}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->
+      \hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}))
+533             \textcolor{keywordflow}{break};
+534             \textcolor{comment}{/* otherwise try to drag chain to player's old position */}
+535             \textcolor{keywordflow}{if} (\hyperlink{ball_8c_a81ac9791ce8ceed2572328c7b2731e45}{CHAIN\_IN\_MIDDLE}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})) \{
+536             *chainx = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+537             *chainy = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+538             \textcolor{keywordflow}{break};
+539             \}
+540             \textcolor{comment}{/* otherwise use player's new position (they must have}
+541 \textcolor{comment}{               teleported, for this to happen) */}
+542             *chainx = \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x};
+543             *chainy = \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y};
+544             \textcolor{keywordflow}{break};
+545         
+546         \textcolor{keywordflow}{default}: impossible(\textcolor{stringliteral}{"bad chain movement"});
+547             \textcolor{keywordflow}{break};
+548         \}
+549 \textcolor{preprocessor}{#undef SKIP\_TO\_DRAG}
+550 \textcolor{preprocessor}{#undef IS\_CHAIN\_ROCK}
+551 \textcolor{preprocessor}{#undef CHAIN\_IN\_MIDDLE}
+552         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+553     \}
+554 
+555 drag:
+556 
+557     \textcolor{keywordflow}{if} (near\_capacity() > \hyperlink{hack_8h_ade4c50a25545e7ca7eba7d45383be984}{SLT\_ENCUMBER} && dist2(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.
+      \hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) <= 2) \{
+558         You(\textcolor{stringliteral}{"cannot %sdrag the heavy iron ball."},
+559                 \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent} ? \textcolor{stringliteral}{"carry all that and also "} : \textcolor{stringliteral}{""});
+560         nomul(0);
+561         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+562     \}
+563 
+564     \textcolor{keywordflow}{if} ((is\_pool(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) &&
+565             \textcolor{comment}{/* water not mere continuation of previous water */}
+566             (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].typ == \hyperlink{rm_8h_abf0d5c9a865c02bf5cc94e5d5755997c}{POOL} ||
+567              !is\_pool(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) ||
+568              \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].typ == \hyperlink{rm_8h_abf0d5c9a865c02bf5cc94e5d5755997c}{POOL}))
+569         || ((t = t\_at(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy})) &&
+570             (t->ttyp == \hyperlink{trap_8h_af181c9e6602b6432a0bf1a9243808968}{PIT} ||
+571              t->ttyp == \hyperlink{trap_8h_a813fa80e09de5d455e2af3743a95bad9}{SPIKED\_PIT} ||
+572              t->ttyp == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE} ||
+573              t->ttyp == \hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR})) ) \{
+574 
+575         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a3dbdc08291ccd1d6de010d72e4b180fb}{Levitation}) \{
+576         You\_feel(\textcolor{stringliteral}{"a tug from the iron ball."});
+577         \textcolor{keywordflow}{if} (t) t->tseen = 1;
+578         \} \textcolor{keywordflow}{else} \{
+579         \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *victim;
+580 
+581         You(\textcolor{stringliteral}{"are jerked back by the iron ball!"});
+582         \textcolor{keywordflow}{if} ((victim = \hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy})) != 0) \{
+583             \textcolor{keywordtype}{int} tmp;
+584 
+585             tmp = -2 + \hyperlink{you_8h_ae69937c86a71264fd0e91dab8a64cae4}{Luck} + \hyperlink{worn_8c_a03e1b53b51c959a61e4c205e65d1095a}{find\_mac}(victim);
+586             tmp += \hyperlink{dothrow_8c_a52fc908fc5be663b06b7a3a4ae042bb2}{omon\_adj}(victim, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+587             \textcolor{keywordflow}{if} (tmp >= rnd(20))
+588             (void) \hyperlink{uhitm_8c_a995bc5394db9ea09e5851976d7f9f755}{hmon}(victim,\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},1);
+589             \textcolor{keywordflow}{else}
+590             miss(xname(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}), victim);
+591 
+592         \}       \textcolor{comment}{/* now check again in case mon died */}
+593         \textcolor{keywordflow}{if} (!\hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy})) \{
+594             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox};
+595             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+596             \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afe13de7f227dec3c2a5829967934b095}{ux0}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a9b39ba2afea70f31c1d423f8bdcb25a6}{uy0});
+597         \}
+598         nomul(0);
+599 
+600         *bc\_control = \hyperlink{you_8h_a6eb9e4ef3644799e6b7921c1a236a453}{BC\_BALL};
+601         \hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{move\_bc}(1, *bc\_control, *ballx, *bally, *chainx, *chainy);
+602         *ballx = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox};
+603         *bally = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+604         \hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{move\_bc}(0, *bc\_control, *ballx, *bally, *chainx, *chainy);
+605         spoteffects(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+606         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+607         \}
+608     \}
+609 
+610     *bc\_control = \hyperlink{you_8h_a6eb9e4ef3644799e6b7921c1a236a453}{BC\_BALL}|\hyperlink{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{BC\_CHAIN};
+611 
+612     \hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{move\_bc}(1, *bc\_control, *ballx, *bally, *chainx, *chainy);
+613     \textcolor{keywordflow}{if} (dist2(x, y, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) > 2) \{
+614         \textcolor{comment}{/* Awful case: we're still in range of the ball, so we thought we}
+615 \textcolor{comment}{         * could only move the chain, but it turned out that the target}
+616 \textcolor{comment}{         * square for the chain was rock, so we had to drag it instead.}
+617 \textcolor{comment}{         * But we can't drag it either, because we teleported and are more}
+618 \textcolor{comment}{         * than one square from our old position.  Revert to the teleport}
+619 \textcolor{comment}{         * behavior.}
+620 \textcolor{comment}{         */}
+621         *ballx = *chainx = x;
+622         *bally = *chainy = y;
+623     \} \textcolor{keywordflow}{else} \{
+624         *ballx  = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox};
+625         *bally  = \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+626         *chainx = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+627         *chainy = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+628     \}
+629     *cause\_delay = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+630     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+631 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_a364c3572675b9211bd9e7b34745d2470}{\index{ball.\+c@{ball.\+c}!drag\+\_\+down@{drag\+\_\+down}}
+\index{drag\+\_\+down@{drag\+\_\+down}!ball.\+c@{ball.\+c}}
+\subsubsection[{drag\+\_\+down}]{\setlength{\rightskip}{0pt plus 5cm}void drag\+\_\+down (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_a364c3572675b9211bd9e7b34745d2470}
+
+
+Definition at line 747 of file ball.\+c.
+
+
+
+References A\+\_\+\+S\+T\+R, carried, F\+A\+L\+S\+E, K\+I\+L\+L\+E\+D\+\_\+\+B\+Y\+\_\+\+A\+N, litter(), N\+O\+\_\+\+K\+I\+L\+L\+E\+R\+\_\+\+P\+R\+E\+F\+I\+X, uball, and uwep.
+
+
+\begin{DoxyCode}
+748 \{
+749     \textcolor{keywordtype}{boolean} forward;
+750     \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} dragchance = 3;
+751 
+752     \textcolor{comment}{/*}
+753 \textcolor{comment}{     *  Assume that the ball falls forward if:}
+754 \textcolor{comment}{     *}
+755 \textcolor{comment}{     *  a) the character is wielding it, or}
+756 \textcolor{comment}{     *  b) the character has both hands available to hold it (i.e. is}
+757 \textcolor{comment}{     *     not wielding any weapon), or}
+758 \textcolor{comment}{     *  c) (perhaps) it falls forward out of his non-weapon hand}
+759 \textcolor{comment}{     */}
+760 
+761     forward = \hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}) && (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} == \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball} || !\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} || !rn2(3));
+762 
+763     \textcolor{keywordflow}{if} (\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}))
+764         You(\textcolor{stringliteral}{"lose your grip on the iron ball."});
+765 
+766     \textcolor{keywordflow}{if} (forward) \{
+767         \textcolor{keywordflow}{if}(rn2(6)) \{
+768             pline\_The(\textcolor{stringliteral}{"iron ball drags you downstairs!"});
+769             losehp(rnd(6), \textcolor{stringliteral}{"dragged downstairs by an iron ball"},
+770                 \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX});
+771             \hyperlink{ball_8c_afdb658246cb158671ef0f86be1e694a1}{litter}();
+772         \}
+773     \} \textcolor{keywordflow}{else} \{
+774         \textcolor{keywordflow}{if}(rn2(2)) \{
+775             pline\_The(\textcolor{stringliteral}{"iron ball smacks into you!"});
+776             losehp(rnd(20), \textcolor{stringliteral}{"iron ball collision"}, \hyperlink{decl_8h_af4e54910b730baa32b2dfbe4dd2942c1}{KILLED\_BY\_AN});
+777             exercise(\hyperlink{attrib_8h_ad53430e3d611a366ec4b5c457b4c67f7}{A\_STR}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+778             dragchance -= 2;
+779         \}
+780         \textcolor{keywordflow}{if}( (\textcolor{keywordtype}{int}) dragchance >= rnd(6)) \{
+781             pline\_The(\textcolor{stringliteral}{"iron ball drags you downstairs!"});
+782             losehp(rnd(3), \textcolor{stringliteral}{"dragged downstairs by an iron ball"},
+783                 \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX});
+784             exercise(\hyperlink{attrib_8h_ad53430e3d611a366ec4b5c457b4c67f7}{A\_STR}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+785             \hyperlink{ball_8c_afdb658246cb158671ef0f86be1e694a1}{litter}();
+786         \}
+787     \}
+788 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_aad9708ae772d6f726d3d7520ec81ac9b}{\index{ball.\+c@{ball.\+c}!drop\+\_\+ball@{drop\+\_\+ball}}
+\index{drop\+\_\+ball@{drop\+\_\+ball}!ball.\+c@{ball.\+c}}
+\subsubsection[{drop\+\_\+ball}]{\setlength{\rightskip}{0pt plus 5cm}void drop\+\_\+ball (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_aad9708ae772d6f726d3d7520ec81ac9b}
+
+
+Definition at line 643 of file ball.\+c.
+
+
+
+References B\+C\+\_\+\+C\+H\+A\+I\+N, you\+::bc\+\_\+felt, bc\+\_\+order(), you\+::bc\+\_\+order, you\+::bglyph, Blind, you\+::cglyph, you\+::dx, you\+::dy, H\+O\+L\+E, In\+\_\+sokoban, K\+I\+L\+L\+E\+D\+\_\+\+B\+Y, L\+E\+F\+T\+\_\+\+S\+I\+D\+E, L\+E\+G, Levitation, levl, M\+O\+N\+\_\+\+A\+T, newsym(), obj\+::ox, obj\+::oy, P\+I\+T, R\+I\+G\+H\+T\+\_\+\+S\+I\+D\+E, rn1, S\+P\+I\+K\+E\+D\+\_\+\+P\+I\+T, T\+R\+A\+P\+D\+O\+O\+R, T\+R\+U\+E, T\+T\+\_\+\+B\+E\+A\+R\+T\+R\+A\+P, T\+T\+\_\+\+I\+N\+F\+L\+O\+O\+R, T\+T\+\_\+\+L\+A\+V\+A, T\+T\+\_\+\+P\+I\+T, T\+T\+\_\+\+W\+E\+B, u, uchain, you\+::utrap, you\+::utraptype, you\+::ux, you\+::ux0, you\+::uy, you\+::uy0, you\+::uz, vision\+\_\+full\+\_\+recalc, trap\+::x, and trap\+::y.
+
+
+
+Referenced by throwit().
+
+
+\begin{DoxyCode}
+645 \{
+646     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+647     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} = \hyperlink{ball_8c_a489c98684984585ebc7a73b771524cf6}{bc\_order}();           \textcolor{comment}{/* get the order */}
+648                             \textcolor{comment}{/* pick up glyph */}
+649     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph} = (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order}) ? \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph} : \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].glyph;
+650     \}
+651 
+652     \textcolor{keywordflow}{if} (x != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} || y != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) \{
+653     \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *t;
+654     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *pullmsg = \textcolor{stringliteral}{"The ball pulls you out of the %s!"};
+655 
+656     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype} != \hyperlink{you_8h_a4e2d887e8b74f3d5a794cb08f126f676}{TT\_INFLOOR}) \{
+657         \textcolor{keywordflow}{switch}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype}) \{
+658         \textcolor{keywordflow}{case} \hyperlink{you_8h_aea6a4ea47e82cae080755cd9c3ed8b9a}{TT\_PIT}:
+659         pline(pullmsg, \textcolor{stringliteral}{"pit"});
+660         \textcolor{keywordflow}{break};
+661         \textcolor{keywordflow}{case} \hyperlink{you_8h_a6f36535a424a78d6f283a71b2d953ac3}{TT\_WEB}:
+662         pline(pullmsg, \textcolor{stringliteral}{"web"});
+663         pline\_The(\textcolor{stringliteral}{"web is destroyed!"});
+664         deltrap(t\_at(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}));
+665         \textcolor{keywordflow}{break};
+666         \textcolor{keywordflow}{case} \hyperlink{you_8h_a1d97aac071079ee345fc1a88536bf7d6}{TT\_LAVA}:
+667         pline(pullmsg, \textcolor{stringliteral}{"lava"});
+668         \textcolor{keywordflow}{break};
+669         \textcolor{keywordflow}{case} \hyperlink{you_8h_a414c1cda852975eb778f7c5b75613f32}{TT\_BEARTRAP}: \{
+670         \textcolor{keyword}{register} \textcolor{keywordtype}{long} side = rn2(3) ? \hyperlink{prop_8h_afcef3187c40bbab100f6605e2e92c421}{LEFT\_SIDE} : \hyperlink{prop_8h_ad3956168f0f547d8e524c4654e8648c8}{RIGHT\_SIDE};
+671         pline(pullmsg, \textcolor{stringliteral}{"bear trap"});
+672         set\_wounded\_legs(side, \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(1000, 500));
+673 \textcolor{preprocessor}{#ifdef STEED}
+674         \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed)
+675 \textcolor{preprocessor}{#endif}
+676         \{
+677             Your(\textcolor{stringliteral}{"%s %s is severely damaged."},
+678                     (side == \hyperlink{prop_8h_afcef3187c40bbab100f6605e2e92c421}{LEFT\_SIDE}) ? \textcolor{stringliteral}{"left"} : \textcolor{stringliteral}{"right"},
+679                     body\_part(\hyperlink{hack_8h_a18e0de6fde17def36a938036ab8166f5}{LEG}));
+680             losehp(2, \textcolor{stringliteral}{"leg damage from being pulled out of a bear trap"},
+681                     \hyperlink{decl_8h_a0b77d6f094070ee1d9900156357f6f62}{KILLED\_BY});
+682         \}
+683         \textcolor{keywordflow}{break};
+684           \}
+685         \}
+686         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} = 0;
+687         fill\_pit(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+688     \}
+689 
+690     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afe13de7f227dec3c2a5829967934b095}{ux0} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+691     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a9b39ba2afea70f31c1d423f8bdcb25a6}{uy0} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+692     \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a3dbdc08291ccd1d6de010d72e4b180fb}{Levitation} && !\hyperlink{rm_8h_a17ef631151b987fd582fca76a429c08a}{MON\_AT}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}) && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} &&
+693                 (is\_pool(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}) ||
+694                  ((t = t\_at(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y})) &&
+695                   (t->ttyp == \hyperlink{trap_8h_af181c9e6602b6432a0bf1a9243808968}{PIT} || t->ttyp == \hyperlink{trap_8h_a813fa80e09de5d455e2af3743a95bad9}{SPIKED\_PIT} ||
+696                    t->ttyp == \hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR} || t->ttyp == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE})))) \{
+697         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} = \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x};
+698         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} = \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y};
+699     \} \textcolor{keywordflow}{else} \{
+700         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} = \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x} - \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx};
+701         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} = \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y} - \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy};
+702     \}
+703     \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 1;   \textcolor{comment}{/* hero has moved, recalculate vision later */}
+704 
+705     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+706         \textcolor{comment}{/* drop glyph under the chain */}
+707         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & \hyperlink{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{BC\_CHAIN})
+708         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph};
+709         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt}  = 0;     \textcolor{comment}{/* feel nothing */}
+710         \textcolor{comment}{/* pick up new glyph */}
+711         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph} = (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order}) ? \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph} : \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.
+      \hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}].glyph;
+712     \}
+713     movobj(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});   \textcolor{comment}{/* has a newsym */}
+714     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+715         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} = \hyperlink{ball_8c_a489c98684984585ebc7a73b771524cf6}{bc\_order}();
+716     \}
+717     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afe13de7f227dec3c2a5829967934b095}{ux0},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a9b39ba2afea70f31c1d423f8bdcb25a6}{uy0});      \textcolor{comment}{/* clean up old position */}
+718     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afe13de7f227dec3c2a5829967934b095}{ux0} != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} || \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a9b39ba2afea70f31c1d423f8bdcb25a6}{uy0} != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) \{
+719         spoteffects(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+720         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ad19541d30218e5f3834c01d42bb381e2}{In\_sokoban}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+721         change\_luck(-1);    \textcolor{comment}{/* Sokoban guilt */}
+722     \}
+723     \}
+724 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_afdb658246cb158671ef0f86be1e694a1}{\index{ball.\+c@{ball.\+c}!litter@{litter}}
+\index{litter@{litter}!ball.\+c@{ball.\+c}}
+\subsubsection[{litter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void litter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_afdb658246cb158671ef0f86be1e694a1}
+
+
+Definition at line 728 of file ball.\+c.
+
+
+
+References invent, obj\+::nobj, otmp, obj\+::owt, and uball.
+
+
+
+Referenced by drag\+\_\+down().
+
+
+\begin{DoxyCode}
+729 \{
+730     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp} = \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}, *nextobj;
+731     \textcolor{keywordtype}{int} capacity = weight\_cap();
+732 
+733     \textcolor{keywordflow}{while} (otmp) \{
+734         nextobj = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj};
+735         \textcolor{keywordflow}{if} ((otmp != \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}) && (rnd(capacity) <= (\textcolor{keywordtype}{int})otmp->\hyperlink{structobj_a606b1d5b273b814049cc1b1991adfeec}{owt})) \{
+736             \textcolor{keywordflow}{if} (canletgo(otmp, \textcolor{stringliteral}{""})) \{
+737                 Your(\textcolor{stringliteral}{"%s you down the stairs."},
+738                      aobjnam(otmp, \textcolor{stringliteral}{"follow"}));
+739                 dropx(otmp);
+740             \}
+741         \}
+742         otmp = nextobj;
+743     \}
+744 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{\index{ball.\+c@{ball.\+c}!move\+\_\+bc@{move\+\_\+bc}}
+\index{move\+\_\+bc@{move\+\_\+bc}!ball.\+c@{ball.\+c}}
+\subsubsection[{move\+\_\+bc}]{\setlength{\rightskip}{0pt plus 5cm}void move\+\_\+bc (
+\begin{DoxyParamCaption}
+\item[{int}]{before, }
+\item[{int}]{control, }
+\item[{{\bf xchar}}]{ballx, }
+\item[{{\bf xchar}}]{bally, }
+\item[{{\bf xchar}}]{chainx, }
+\item[{{\bf xchar}}]{chainy}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}
+
+
+Definition at line 231 of file ball.\+c.
+
+
+
+References B\+C\+\_\+\+B\+A\+L\+L, B\+C\+\_\+\+C\+H\+A\+I\+N, you\+::bc\+\_\+felt, bc\+\_\+order(), you\+::bc\+\_\+order, B\+C\+P\+O\+S\+\_\+\+B\+A\+L\+L, B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N, B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R, you\+::bglyph, Blind, carried, you\+::cglyph, levl, map\+\_\+object(), newsym(), obj\+::ox, obj\+::oy, u, uball, and uchain.
+
+
+
+Referenced by drag\+\_\+ball(), and teleds().
+
+
+\begin{DoxyCode}
+234 \{
+235     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+236     \textcolor{comment}{/*}
+237 \textcolor{comment}{     *  The hero is blind.  Time to work hard.  The ball and chain that}
+238 \textcolor{comment}{     *  are attached to the hero are very special.  The hero knows that}
+239 \textcolor{comment}{     *  they are attached, so when they move, the hero knows that they}
+240 \textcolor{comment}{     *  aren't at the last position remembered.  This is complicated}
+241 \textcolor{comment}{     *  by the fact that the hero can "feel" the surrounding locations}
+242 \textcolor{comment}{     *  at any time, hence, making one or both of them show up again.}
+243 \textcolor{comment}{     *  So, we have to keep track of which is felt at any one time and}
+244 \textcolor{comment}{     *  act accordingly.}
+245 \textcolor{comment}{     */}
+246     \textcolor{keywordflow}{if} (!before) \{
+247         \textcolor{keywordflow}{if} ((control & \hyperlink{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{BC\_CHAIN}) && (control & \hyperlink{you_8h_a6eb9e4ef3644799e6b7921c1a236a453}{BC\_BALL})) \{
+248         \textcolor{comment}{/*}
+249 \textcolor{comment}{         *  Both ball and chain moved.  If felt, drop glyph.}
+250 \textcolor{comment}{         */}
+251         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & BC\_BALL)
+252             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph};
+253         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & BC\_CHAIN)
+254             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph};
+255         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} = 0;
+256 
+257         \textcolor{comment}{/* Pick up glyph at new location. */}
+258         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph} = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[ballx][bally].glyph;
+259         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph} = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[chainx][chainy].glyph;
+260 
+261         movobj(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},ballx,bally);
+262         movobj(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain},chainx,chainy);
+263         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (control & BC\_BALL) \{
+264         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & BC\_BALL) \{
+265             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} == \hyperlink{ball_8c_a417b06b2a78cb4af37426815a3987d87}{BCPOS\_DIFFER}) \{  \textcolor{comment}{/* ball by itself */}
+266             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph};
+267             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} == \hyperlink{ball_8c_a1bc6862dc372b4475d5d2b5a7a5385e4}{BCPOS\_BALL}) \{
+268             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & BC\_CHAIN) \{   \textcolor{comment}{/* know chain is there */}
+269                 \hyperlink{display_8c_a5c4fd462bd2806ee7e870039c75022e4}{map\_object}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}, 0);
+270             \} \textcolor{keywordflow}{else} \{
+271                 \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph};
+272             \}
+273             \}
+274             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} &= ~BC\_BALL;  \textcolor{comment}{/* no longer feel the ball */}
+275         \}
+276 
+277         \textcolor{comment}{/* Pick up glyph at new position. */}
+278         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph} = (ballx != chainx || bally != chainy) ?
+279                     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[ballx][bally].glyph : \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph};
+280 
+281         movobj(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},ballx,bally);
+282         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (control & BC\_CHAIN) \{
+283         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & BC\_CHAIN) \{
+284             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} == \hyperlink{ball_8c_a417b06b2a78cb4af37426815a3987d87}{BCPOS\_DIFFER}) \{
+285             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph};
+286             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} == \hyperlink{ball_8c_aa8b2207a2e62600298f78fcc0efe9dd4}{BCPOS\_CHAIN}) \{
+287             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & BC\_BALL) \{
+288                 \hyperlink{display_8c_a5c4fd462bd2806ee7e870039c75022e4}{map\_object}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}, 0);
+289             \} \textcolor{keywordflow}{else} \{
+290                 \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.
+      \hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph};
+291             \}
+292             \}
+293             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} &= ~BC\_CHAIN;
+294         \}
+295         \textcolor{comment}{/* Pick up glyph at new position. */}
+296         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph} = (ballx != chainx || bally != chainy) ?
+297                     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[chainx][chainy].glyph : \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph};
+298 
+299         movobj(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain},chainx,chainy);
+300         \}
+301 
+302         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} = \hyperlink{ball_8c_a489c98684984585ebc7a73b771524cf6}{bc\_order}();   \textcolor{comment}{/* reset the order */}
+303     \}
+304 
+305     \} \textcolor{keywordflow}{else} \{
+306     \textcolor{comment}{/*}
+307 \textcolor{comment}{     *  The hero is not blind.  To make this work correctly, we need to}
+308 \textcolor{comment}{     *  pick up the ball and chain before the hero moves, then put them}
+309 \textcolor{comment}{     *  in their new positions after the hero moves.}
+310 \textcolor{comment}{     */}
+311     \textcolor{keywordflow}{if} (before) \{
+312         \textcolor{keywordflow}{if} (!control) \{
+313         \textcolor{comment}{/*}
+314 \textcolor{comment}{         * Neither ball nor chain is moving, so remember which was}
+315 \textcolor{comment}{         * on top until !before.  Use the variable u.bc\_order}
+316 \textcolor{comment}{         * since it is only valid when blind.}
+317 \textcolor{comment}{         */}
+318         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} = \hyperlink{ball_8c_a489c98684984585ebc7a73b771524cf6}{bc\_order}();
+319         \}
+320 
+321         remove\_object(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain});
+322         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+323         \textcolor{keywordflow}{if} (!\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})) \{
+324         remove\_object(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball});
+325         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox},  \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+326         \}
+327     \} \textcolor{keywordflow}{else} \{
+328         \textcolor{keywordtype}{int} on\_floor = !\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball});
+329 
+330         \textcolor{keywordflow}{if} ((control & BC\_CHAIN) ||
+331                 (!control && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} == \hyperlink{ball_8c_aa8b2207a2e62600298f78fcc0efe9dd4}{BCPOS\_CHAIN})) \{
+332         \textcolor{comment}{/* If the chain moved or nothing moved & chain on top. */}
+333         \textcolor{keywordflow}{if} (on\_floor) place\_object(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},  ballx, bally);
+334         place\_object(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}, chainx, chainy); \textcolor{comment}{/* chain on top */}
+335         \} \textcolor{keywordflow}{else} \{
+336         place\_object(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}, chainx, chainy);
+337         \textcolor{keywordflow}{if} (on\_floor) place\_object(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},  ballx, bally);
+338                                 \textcolor{comment}{/* ball on top */}
+339         \}
+340         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(chainx, chainy);
+341         \textcolor{keywordflow}{if} (on\_floor) \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(ballx, bally);
+342     \}
+343     \}
+344 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_aa1e6cfb0a1927431ac0a59d7de396e3f}{\index{ball.\+c@{ball.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!ball.\+c@{ball.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf bc\+\_\+order}}]{}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_aa1e6cfb0a1927431ac0a59d7de396e3f}
+\hypertarget{ball_8c_ad910718616855513040e094e08d625ed}{\index{ball.\+c@{ball.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!ball.\+c@{ball.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf litter}}]{}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_ad910718616855513040e094e08d625ed}
+\hypertarget{ball_8c_ae38eff6ef477a64e08d48e372e5dc406}{\index{ball.\+c@{ball.\+c}!placebc@{placebc}}
+\index{placebc@{placebc}!ball.\+c@{ball.\+c}}
+\subsubsection[{placebc}]{\setlength{\rightskip}{0pt plus 5cm}void placebc (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_ae38eff6ef477a64e08d48e372e5dc406}
+
+
+Definition at line 99 of file ball.\+c.
+
+
+
+References you\+::bc\+\_\+order, B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N, B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R, carried, u, uball, uchain, you\+::ux, and you\+::uy.
+
+
+
+Referenced by movebubbles(), and teleds().
+
+
+\begin{DoxyCode}
+100 \{
+101     \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain} || !\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}) \{
+102     impossible(\textcolor{stringliteral}{"Where are your ball and chain?"});
+103     \textcolor{keywordflow}{return};
+104     \}
+105 
+106     (void) flooreffects(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \textcolor{stringliteral}{""});    \textcolor{comment}{/* chain might rust */}
+107 
+108     \textcolor{keywordflow}{if} (\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}))     \textcolor{comment}{/* the ball is carried */}
+109     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} = \hyperlink{ball_8c_a417b06b2a78cb4af37426815a3987d87}{BCPOS\_DIFFER};
+110     \textcolor{keywordflow}{else} \{
+111     \textcolor{comment}{/* ball might rust -- already checked when carried */}
+112     (\textcolor{keywordtype}{void}) flooreffects(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \textcolor{stringliteral}{""});
+113     place\_object(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+114     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} = \hyperlink{ball_8c_aa8b2207a2e62600298f78fcc0efe9dd4}{BCPOS\_CHAIN};
+115     \}
+116 
+117     place\_object(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+118 
+119     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph} = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}].glyph;   \textcolor{comment}{/* pick up glyph */}
+120 
+121     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+122 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_a1d95541d3112c7643b58b7d5fdd46d86}{\index{ball.\+c@{ball.\+c}!set\+\_\+bc@{set\+\_\+bc}}
+\index{set\+\_\+bc@{set\+\_\+bc}!ball.\+c@{ball.\+c}}
+\subsubsection[{set\+\_\+bc}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+bc (
+\begin{DoxyParamCaption}
+\item[{int}]{already\+\_\+blind}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_a1d95541d3112c7643b58b7d5fdd46d86}
+
+
+Definition at line 173 of file ball.\+c.
+
+
+
+References B\+C\+\_\+\+B\+A\+L\+L, B\+C\+\_\+\+C\+H\+A\+I\+N, you\+::bc\+\_\+felt, bc\+\_\+order(), you\+::bc\+\_\+order, B\+C\+P\+O\+S\+\_\+\+C\+H\+A\+I\+N, B\+C\+P\+O\+S\+\_\+\+D\+I\+F\+F\+E\+R, you\+::bglyph, carried, you\+::cglyph, levl, newsym(), obj\+::ox, obj\+::oy, u, uball, uchain, you\+::ux, and you\+::uy.
+
+
+\begin{DoxyCode}
+175 \{
+176     \textcolor{keywordtype}{int} ball\_on\_floor = !\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball});
+177 
+178     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} = \hyperlink{ball_8c_a489c98684984585ebc7a73b771524cf6}{bc\_order}();               \textcolor{comment}{/* get the order */}
+179     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} = ball\_on\_floor ? \hyperlink{you_8h_a6eb9e4ef3644799e6b7921c1a236a453}{BC\_BALL}|\hyperlink{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{BC\_CHAIN} : 
+      \hyperlink{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{BC\_CHAIN};   \textcolor{comment}{/* felt */}
+180 
+181     \textcolor{keywordflow}{if} (already\_blind || \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow) \{
+182     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph} = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}].glyph;
+183     \textcolor{keywordflow}{return};
+184     \}
+185 
+186     \textcolor{comment}{/*}
+187 \textcolor{comment}{     *  Since we can still see, remove the ball&chain and get the glyph that}
+188 \textcolor{comment}{     *  would be beneath them.  Then put the ball&chain back.  This is pretty}
+189 \textcolor{comment}{     *  disgusting, but it will work.}
+190 \textcolor{comment}{     */}
+191     remove\_object(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain});
+192     \textcolor{keywordflow}{if} (ball\_on\_floor) remove\_object(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball});
+193 
+194     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+195     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph} = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph;
+196 
+197     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} == \hyperlink{ball_8c_a417b06b2a78cb4af37426815a3987d87}{BCPOS\_DIFFER}) \{      \textcolor{comment}{/* different locations */}
+198     place\_object(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+199     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+200     \textcolor{keywordflow}{if} (ball\_on\_floor) \{
+201         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});       \textcolor{comment}{/* see under ball */}
+202         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph} = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph;
+203         place\_object(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},  \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+204         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});       \textcolor{comment}{/* restore ball */}
+205     \}
+206     \} \textcolor{keywordflow}{else} \{
+207     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph};
+208     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_acf0adfb1b19b6ae98a85fda17829c994}{bc\_order} == \hyperlink{ball_8c_aa8b2207a2e62600298f78fcc0efe9dd4}{BCPOS\_CHAIN}) \{
+209         place\_object(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},  \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+210         place\_object(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+211     \} \textcolor{keywordflow}{else} \{
+212         place\_object(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+213         place\_object(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},  \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+214     \}
+215     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+216     \}
+217 \}
+\end{DoxyCode}
+\hypertarget{ball_8c_a5596cf2bf4f23320ff7738af699100dc}{\index{ball.\+c@{ball.\+c}!unplacebc@{unplacebc}}
+\index{unplacebc@{unplacebc}!ball.\+c@{ball.\+c}}
+\subsubsection[{unplacebc}]{\setlength{\rightskip}{0pt plus 5cm}void unplacebc (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{ball_8c_a5596cf2bf4f23320ff7738af699100dc}
+
+
+Definition at line 125 of file ball.\+c.
+
+
+
+References B\+C\+\_\+\+B\+A\+L\+L, B\+C\+\_\+\+C\+H\+A\+I\+N, you\+::bc\+\_\+felt, you\+::bglyph, Blind, carried, you\+::cglyph, levl, newsym(), obj\+::ox, obj\+::oy, u, uball, and uchain.
+
+
+
+Referenced by movebubbles(), and teleds().
+
+
+\begin{DoxyCode}
+126 \{
+127     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow) \textcolor{keywordflow}{return};    \textcolor{comment}{/* ball&chain not placed while swallowed */}
+128 
+129     \textcolor{keywordflow}{if} (!\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball})) \{
+130     obj\_extract\_self(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball});
+131     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} && (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & \hyperlink{you_8h_a6eb9e4ef3644799e6b7921c1a236a453}{BC\_BALL}))     \textcolor{comment}{/* drop glyph */}
+132         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afb1ab0ddc249cdae37545533aa363c38}{bglyph};
+133 
+134     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox},\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+135     \}
+136     obj\_extract\_self(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain});
+137     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} && (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} & \hyperlink{you_8h_a472e93efe25244bcc845fd6dbcaee2c2}{BC\_CHAIN}))       \textcolor{comment}{/* drop glyph */}
+138     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}][\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}].glyph = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa08408f1685acac28ede4200fae7e866}{cglyph};
+139 
+140     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox},\hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+141     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3d3a16319933c6301b41ba9e1ed0fc3e}{bc\_felt} = 0;                  \textcolor{comment}{/* feel nothing */}
+142 \}
+\end{DoxyCode}

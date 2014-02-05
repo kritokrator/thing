@@ -1,0 +1,538 @@
+\hypertarget{win_2win32_2mhmain_8h}{\section{nethack/win/win32/mhmain.h File Reference}
+\label{win_2win32_2mhmain_8h}\index{nethack/win/win32/mhmain.\+h@{nethack/win/win32/mhmain.\+h}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+H\+W\+N\+D \hyperlink{win_2win32_2mhmain_8h_a8e7d4667a550bc737594fcbf8b395769}{mswin\+\_\+init\+\_\+main\+\_\+window} (void)
+\item 
+void \hyperlink{win_2win32_2mhmain_8h_a658d1edb48c312e41bc75c74008f27dc}{mswin\+\_\+layout\+\_\+main\+\_\+window} (H\+W\+N\+D changed\+\_\+child)
+\item 
+void \hyperlink{win_2win32_2mhmain_8h_aca9658c7a6e3808c27aa4bcef6cd14c5}{mswin\+\_\+select\+\_\+map\+\_\+mode} (int map\+\_\+mode)
+\item 
+void \hyperlink{win_2win32_2mhmain_8h_a1595dca81f572437fda1a1d40918153d}{mswin\+\_\+menu\+\_\+check\+\_\+intf\+\_\+mode} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{win_2win32_2mhmain_8h_a8e7d4667a550bc737594fcbf8b395769}{\index{win/win32/mhmain.\+h@{win/win32/mhmain.\+h}!mswin\+\_\+init\+\_\+main\+\_\+window@{mswin\+\_\+init\+\_\+main\+\_\+window}}
+\index{mswin\+\_\+init\+\_\+main\+\_\+window@{mswin\+\_\+init\+\_\+main\+\_\+window}!win/win32/mhmain.\+h@{win/win32/mhmain.\+h}}
+\subsubsection[{mswin\+\_\+init\+\_\+main\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}H\+W\+N\+D mswin\+\_\+init\+\_\+main\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhmain_8h_a8e7d4667a550bc737594fcbf8b395769}
+
+
+Definition at line 34 of file mhmain.\+c.
+
+
+
+References Get\+N\+H\+App(), I\+D\+S\+\_\+\+A\+P\+P\+\_\+\+T\+I\+T\+L\+E, M\+A\+X\+\_\+\+L\+O\+A\+D\+S\+T\+R\+I\+N\+G, N\+U\+L\+L, panic(), register\+\_\+main\+\_\+window\+\_\+class(), mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Bottom, mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Left, mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Max\+X, mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Max\+Y, mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Min\+X, mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Min\+Y, mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Right, mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Show\+State, mswin\+\_\+nhwindow\+\_\+app\+::reg\+Main\+Top, sz\+Main\+Window\+Class, and sz\+Title.
+
+
+
+Referenced by mswin\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+34                                \{
+35     \textcolor{keyword}{static} \textcolor{keywordtype}{int} run\_once = 0;
+36     HWND ret;
+37     RECT rc;
+38 
+39     \textcolor{comment}{/* register window class */}
+40     \textcolor{keywordflow}{if}( !run\_once ) \{
+41         LoadString(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp, \hyperlink{sys_2wince_2resource_8h_a636c9aea2a8d16b73e43df39b3e0e7bd}{IDS\_APP\_TITLE}, \hyperlink{sys_2wince_2mhmain_8c_a0255997040d96a52f933b0c0d4bd8e01}{szTitle}, 
+      \hyperlink{sys_2wince_2mhmain_8c_a2b68559d692760680c326428841254d1}{MAX\_LOADSTRING});
+42         \hyperlink{sys_2wince_2mhmain_8c_a8273d626ec093a429eee1a36ab478513}{register\_main\_window\_class}( );
+43         run\_once = 1;
+44     \}
+45     
+46     \textcolor{comment}{/* create the main window */}
+47     SystemParametersInfo(SPI\_GETWORKAREA, 0, &rc, 0);
+48 
+49     ret = CreateWindow(
+50             \hyperlink{sys_2wince_2mhmain_8c_a7ca9b3ace892ddc7646eb64d69b562df}{szMainWindowClass},     \textcolor{comment}{/* registered class name */}
+51             \hyperlink{sys_2wince_2mhmain_8c_a0255997040d96a52f933b0c0d4bd8e01}{szTitle},             \textcolor{comment}{/* window name */}
+52             WS\_CLIPCHILDREN,        \textcolor{comment}{/* window style */}
+53             rc.left,                \textcolor{comment}{/* horizontal position of window */}
+54             rc.top,                 \textcolor{comment}{/* vertical position of window */}
+55             rc.right - rc.left,     \textcolor{comment}{/* window width */}
+56             rc.bottom - rc.top,     \textcolor{comment}{/* window height */}
+57             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},                   \textcolor{comment}{/* handle to parent or owner window */}
+58             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},                   \textcolor{comment}{/* menu handle or child identifier */}
+59             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,       \textcolor{comment}{/* handle to application instance */}
+60             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}                    \textcolor{comment}{/* window-creation data */}
+61         );
+62 
+63     \textcolor{keywordflow}{if}( !ret ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create main window"});
+64     \textcolor{keywordflow}{return} ret;
+65 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhmain_8h_a658d1edb48c312e41bc75c74008f27dc}{\index{win/win32/mhmain.\+h@{win/win32/mhmain.\+h}!mswin\+\_\+layout\+\_\+main\+\_\+window@{mswin\+\_\+layout\+\_\+main\+\_\+window}}
+\index{mswin\+\_\+layout\+\_\+main\+\_\+window@{mswin\+\_\+layout\+\_\+main\+\_\+window}!win/win32/mhmain.\+h@{win/win32/mhmain.\+h}}
+\subsubsection[{mswin\+\_\+layout\+\_\+main\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+layout\+\_\+main\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{changed\+\_\+child}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhmain_8h_a658d1edb48c312e41bc75c74008f27dc}
+
+
+Definition at line 541 of file mhmain.\+c.
+
+
+
+References A\+L\+I\+G\+N\+\_\+\+B\+O\+T\+T\+O\+M, A\+L\+I\+G\+N\+\_\+\+L\+E\+F\+T, A\+L\+I\+G\+N\+\_\+\+R\+I\+G\+H\+T, A\+L\+I\+G\+N\+\_\+\+T\+O\+P, mswin\+\_\+nhwindow\+\_\+data\+::dead, Get\+N\+H\+App(), mswin\+\_\+nhwindow\+\_\+app\+::h\+Main\+Wnd, iflags, max, M\+A\+X\+W\+I\+N\+D\+O\+W\+S, min, mswin\+\_\+command\+\_\+window\+\_\+size(), mswin\+\_\+hwnd\+\_\+from\+\_\+winid(), mswin\+\_\+menu\+\_\+window\+\_\+size(), mswin\+\_\+message\+\_\+window\+\_\+size(), mswin\+\_\+status\+\_\+window\+\_\+size(), N\+H\+W\+\_\+\+M\+A\+P, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+R\+I\+P, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, N\+U\+L\+L, plname, S\+I\+Z\+E, T\+R\+U\+E, mswin\+\_\+nhwindow\+\_\+data\+::type, type, instance\+\_\+flags\+::wc\+\_\+align\+\_\+message, instance\+\_\+flags\+::wc\+\_\+align\+\_\+status, mswin\+\_\+nhwindow\+\_\+data\+::win, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, W\+I\+N\+\_\+\+S\+T\+A\+T\+U\+S, and mswin\+\_\+nhwindow\+\_\+app\+::windowlist.
+
+
+
+Referenced by Main\+Wnd\+Proc(), mswin\+\_\+popup\+\_\+destroy(), mswin\+\_\+popup\+\_\+display(), mswin\+\_\+preference\+\_\+update(), on\+M\+S\+N\+H\+Command(), and on\+W\+M\+Command().
+
+
+\begin{DoxyCode}
+542 \{
+543     \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} i;
+544     RECT client\_rt, wnd\_rect;
+545     POINT status\_org;
+546     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} status\_size;
+547     POINT msg\_org;
+548     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} msg\_size;
+549     POINT map\_org;
+550     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} map\_size;
+551     POINT cmd\_org;
+552     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} cmd\_size;
+553     HWND wnd\_status, wnd\_msg;
+554     \hyperlink{structmswin__nethack__main__window}{PNHMainWindow}  data;
+555 \textcolor{preprocessor}{#if defined(WIN\_CE\_POCKETPC)}
+556     SIPINFO sip;
+557     RECT menu\_bar;
+558     RECT visible\_rt;
+559     POINT pt;
+560 \textcolor{preprocessor}{#endif}
+561 
+562     GetClientRect(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd, &client\_rt);
+563 
+564 \textcolor{preprocessor}{#if defined(WIN\_CE\_POCKETPC)  }
+565     ZeroMemory(&sip, \textcolor{keyword}{sizeof}(sip));
+566     sip.cbSize = \textcolor{keyword}{sizeof}(sip);
+567     SHSipInfo(SPI\_GETSIPINFO, 0, &sip, 0);
+568     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->bFullScreen ) sip.rcVisibleDesktop.top = 0;
+569 
+570     \textcolor{comment}{/* adjust client rectangle size */}
+571     GetWindowRect(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMenuBar, &menu\_bar);
+572     client\_rt.bottom -= menu\_bar.bottom-menu\_bar.top;
+573 
+574     \textcolor{comment}{/* calcuate visible rect in client coordinates */}
+575     pt.x = sip.rcVisibleDesktop.left;
+576     pt.y = sip.rcVisibleDesktop.top;
+577     ScreenToClient(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd, &pt);
+578     SetRect(&wnd\_rect, 
+579             pt.x, 
+580             pt.y, 
+581             pt.x+sip.rcVisibleDesktop.right-sip.rcVisibleDesktop.left,
+582             pt.y+sip.rcVisibleDesktop.bottom-sip.rcVisibleDesktop.top );
+583     IntersectRect(&visible\_rt, &client\_rt, &wnd\_rect);
+584 \textcolor{preprocessor}{#else}
+585 \textcolor{preprocessor}{#   if  !defined(WIN\_CE\_SMARTPHONE)}
+586     client\_rt.top += CommandBar\_Height(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMenuBar);
+587 \textcolor{preprocessor}{#   else}
+588     \textcolor{comment}{/* Smartphone only */}
+589     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->bFullScreen ) \{
+590         RECT menu\_bar;
+591         GetWindowRect(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMenuBar, &menu\_bar);
+592         client\_rt.bottom -= menu\_bar.bottom-menu\_bar.top;
+593     \}
+594 \textcolor{preprocessor}{#   endif}
+595 \textcolor{preprocessor}{#endif}
+596 
+597     \textcolor{comment}{/* get window data */}
+598     data = (\hyperlink{sys_2wince_2mhmain_8c_a29321e02c4db63bfd295f570f8991f96}{PNHMainWindow})GetWindowLong(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->
+      \hyperlink{structmswin__nhwindow__app_ada318d77e9dd51678af5d9a3ce6ef03a}{hMainWnd}, GWL\_USERDATA);
+599 
+600     \textcolor{comment}{/* get sizes of child windows */}
+601     wnd\_status = \hyperlink{sys_2wince_2mswproc_8c_a0890d6b16657f7ad53aebadc8818f147}{mswin\_hwnd\_from\_winid}(\hyperlink{decl_8h_ae0690a38fd295760409995ce03b88329}{WIN\_STATUS});
+602     \textcolor{keywordflow}{if}( IsWindow(wnd\_status) ) \{ 
+603         \hyperlink{sys_2wince_2mhstatus_8c_afe3299b041f27146f5608077f0dcf5f2}{mswin\_status\_window\_size}(wnd\_status, &status\_size);
+604     \} \textcolor{keywordflow}{else} \{
+605         status\_size.cx = status\_size.cy = 0;
+606     \}
+607 
+608     wnd\_msg = \hyperlink{sys_2wince_2mswproc_8c_a0890d6b16657f7ad53aebadc8818f147}{mswin\_hwnd\_from\_winid}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+609     \textcolor{keywordflow}{if}( IsWindow(wnd\_msg) ) \{ 
+610         \hyperlink{sys_2wince_2mhmsgwnd_8c_a83f12dae73f3dbddc7af82b4cc3f90bf}{mswin\_message\_window\_size}(wnd\_msg, &msg\_size);
+611     \} \textcolor{keywordflow}{else} \{
+612         msg\_size.cx = msg\_size.cy = 0;
+613     \}
+614 
+615     cmd\_size.cx = cmd\_size.cy = 0;
+616     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->bCmdPad && IsWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hCmdWnd) ) \{
+617         \hyperlink{mhcmd_8c_afe4b902f057d00e6b697018057d286c6}{mswin\_command\_window\_size}(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hCmdWnd, &cmd\_size);
+618     \}
+619 
+620     \textcolor{comment}{/* set window positions */}
+621 
+622     \textcolor{comment}{/* calculate the application windows size */}
+623 \textcolor{preprocessor}{#if defined(WIN\_CE\_POCKETPC)}
+624     SetRect(&wnd\_rect, visible\_rt.left, visible\_rt.top, visible\_rt.right, visible\_rt.bottom);
+625     \textcolor{keywordflow}{if}( sip.fdwFlags & SIPF\_ON )
+626         cmd\_size.cx = cmd\_size.cy = 0;  \textcolor{comment}{/* hide keypad window */}
+627 \textcolor{preprocessor}{#else}
+628     SetRect(&wnd\_rect, client\_rt.left, client\_rt.top, client\_rt.right, client\_rt.bottom);
+629 \textcolor{preprocessor}{#endif}
+630 
+631 \textcolor{preprocessor}{#if !defined(WIN\_CE\_SMARTPHONE)}
+632     \textcolor{comment}{/* other ports have it at the bottom of the screen */}
+633     cmd\_size.cx = (wnd\_rect.right-wnd\_rect.left);
+634     cmd\_org.x = wnd\_rect.left;
+635     cmd\_org.y = wnd\_rect.bottom - cmd\_size.cy;
+636     wnd\_rect.bottom -= cmd\_size.cy;
+637 \textcolor{preprocessor}{#endif}
+638 
+639     \textcolor{comment}{/* status window */}
+640     \textcolor{keywordflow}{switch}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a59e71b710998b8e0a611d775cee0dded}{wc\_align\_status}) \{
+641     \textcolor{keywordflow}{case} \hyperlink{winprocs_8h_a666975a1345df39683a0a65b81466b20}{ALIGN\_LEFT}:
+642         status\_size.cx = (wnd\_rect.right-wnd\_rect.left)/4;
+643         status\_size.cy = (wnd\_rect.bottom-wnd\_rect.top); \textcolor{comment}{// that won't look good}
+644         status\_org.x = wnd\_rect.left;
+645         status\_org.y = wnd\_rect.top;
+646         wnd\_rect.left += status\_size.cx;
+647         \textcolor{keywordflow}{break};
+648 
+649     \textcolor{keywordflow}{case} \hyperlink{winprocs_8h_a9a7eca07c41cee4267778375e95c8c89}{ALIGN\_RIGHT}:  
+650         status\_size.cx = (wnd\_rect.right-wnd\_rect.left)/4; 
+651         status\_size.cy = (wnd\_rect.bottom-wnd\_rect.top); \textcolor{comment}{// that won't look good}
+652         status\_org.x = wnd\_rect.right - status\_size.cx;
+653         status\_org.y = wnd\_rect.top;
+654         wnd\_rect.right -= status\_size.cx;
+655         \textcolor{keywordflow}{break};
+656 
+657     \textcolor{keywordflow}{case} \hyperlink{winprocs_8h_a22259b290850e32bb66006d1e215aff1}{ALIGN\_TOP}:    
+658         status\_size.cx = (wnd\_rect.right-wnd\_rect.left);
+659         status\_org.x = wnd\_rect.left;
+660         status\_org.y = wnd\_rect.top;
+661         wnd\_rect.top += status\_size.cy;
+662         \textcolor{keywordflow}{break};
+663 
+664     \textcolor{keywordflow}{case} \hyperlink{winprocs_8h_ab546a081cc65499710bf3e8165a1477b}{ALIGN\_BOTTOM}:
+665     \textcolor{keywordflow}{default}:
+666         status\_size.cx = (wnd\_rect.right-wnd\_rect.left);
+667         status\_org.x = wnd\_rect.left;
+668         status\_org.y = wnd\_rect.bottom - status\_size.cy;
+669         wnd\_rect.bottom -= status\_size.cy;
+670         \textcolor{keywordflow}{break};
+671     \}
+672 
+673     \textcolor{comment}{/* message window */}
+674     \textcolor{keywordflow}{switch}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a1072207cf89377c1bf7a1891be5f66da}{wc\_align\_message}) \{
+675     \textcolor{keywordflow}{case} \hyperlink{winprocs_8h_a666975a1345df39683a0a65b81466b20}{ALIGN\_LEFT}:
+676 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+677         \textcolor{comment}{/* smartphone has a keypad window on the right (bottom) side of the message window */}
+678         msg\_size.cx = cmd\_size.cx = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(msg\_size.cx, cmd\_size.cx);
+679         msg\_size.cy = (wnd\_rect.bottom-wnd\_rect.top) - cmd\_size.cy;
+680         msg\_org.x = cmd\_org.x = wnd\_rect.left;
+681         msg\_org.y = wnd\_rect.top;
+682         cmd\_org.y = msg\_org.y + msg\_size.cy;
+683 #\textcolor{keywordflow}{else}
+684         msg\_size.cx = (wnd\_rect.right-wnd\_rect.left)/4;
+685         msg\_size.cy = (wnd\_rect.bottom-wnd\_rect.top); 
+686         msg\_org.x = wnd\_rect.left;
+687         msg\_org.y = wnd\_rect.top;
+688 \textcolor{preprocessor}{#endif}
+689         wnd\_rect.left += msg\_size.cx;
+690 
+691         \textcolor{keywordflow}{break};
+692 
+693     \textcolor{keywordflow}{case} \hyperlink{winprocs_8h_a9a7eca07c41cee4267778375e95c8c89}{ALIGN\_RIGHT}:  
+694 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+695         \textcolor{comment}{/* smartphone has a keypad window on the right (bottom) side of the message window */}
+696         msg\_size.cx = cmd\_size.cx = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(msg\_size.cx, cmd\_size.cx);
+697         msg\_size.cy = (wnd\_rect.bottom-wnd\_rect.top) - cmd\_size.cy;
+698         msg\_org.x = cmd\_org.x = wnd\_rect.right - msg\_size.cx;
+699         msg\_org.y = wnd\_rect.top;
+700         cmd\_org.y = msg\_org.y + msg\_size.cy;
+701 #\textcolor{keywordflow}{else}
+702         msg\_size.cx = (wnd\_rect.right-wnd\_rect.left)/4; 
+703         msg\_size.cy = (wnd\_rect.bottom-wnd\_rect.top); 
+704         msg\_org.x = wnd\_rect.right - msg\_size.cx;
+705         msg\_org.y = wnd\_rect.top;
+706 \textcolor{preprocessor}{#endif}
+707     
+708         wnd\_rect.right -= msg\_size.cx;
+709         \textcolor{keywordflow}{break};
+710 
+711     \textcolor{keywordflow}{case} \hyperlink{winprocs_8h_a22259b290850e32bb66006d1e215aff1}{ALIGN\_TOP}:    
+712 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+713         \textcolor{comment}{/* smartphone has a keypad window on the right side of the message window */}
+714         msg\_size.cy = cmd\_size.cy = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(msg\_size.cy, cmd\_size.cy);
+715         msg\_size.cx = (wnd\_rect.right - wnd\_rect.left) - cmd\_size.cx;
+716         msg\_org.x = wnd\_rect.left;
+717         cmd\_org.x = msg\_org.x + msg\_size.cx;
+718         msg\_org.y = cmd\_org.y = wnd\_rect.bottom - msg\_size.cy;
+719 #\textcolor{keywordflow}{else}
+720         msg\_size.cx = (wnd\_rect.right-wnd\_rect.left);
+721         msg\_org.x = wnd\_rect.left;
+722         msg\_org.y = wnd\_rect.top;
+723 \textcolor{preprocessor}{#endif}
+724         wnd\_rect.top += msg\_size.cy;
+725         \textcolor{keywordflow}{break};
+726 
+727     \textcolor{keywordflow}{case} \hyperlink{winprocs_8h_ab546a081cc65499710bf3e8165a1477b}{ALIGN\_BOTTOM}:
+728     \textcolor{keywordflow}{default}:
+729 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+730         \textcolor{comment}{/* smartphone has a keypad window on the right side of the message window */}
+731         msg\_size.cy = cmd\_size.cy = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(msg\_size.cy, cmd\_size.cy);
+732         msg\_size.cx = (wnd\_rect.right - wnd\_rect.left) - cmd\_size.cx;
+733         msg\_org.x = wnd\_rect.left;
+734         cmd\_org.x = msg\_org.x + msg\_size.cx;
+735         msg\_org.y = cmd\_org.y = wnd\_rect.bottom - msg\_size.cy;
+736 #\textcolor{keywordflow}{else}
+737         msg\_size.cx = (wnd\_rect.right-wnd\_rect.left);
+738         msg\_org.x = wnd\_rect.left;
+739         msg\_org.y = wnd\_rect.bottom - msg\_size.cy;
+740 \textcolor{preprocessor}{#endif}
+741         wnd\_rect.bottom -= msg\_size.cy;
+742         \textcolor{keywordflow}{break};
+743     \}
+744 
+745     map\_org.x = wnd\_rect.left;
+746     map\_org.y = wnd\_rect.top;
+747     map\_size.cx = wnd\_rect.right - wnd\_rect.left;
+748     map\_size.cy = wnd\_rect.bottom - wnd\_rect.top;
+749 
+750     \textcolor{comment}{/* go through the windows list and adjust sizes */}
+751     \textcolor{keywordflow}{for}( i=0; i<\hyperlink{sys_2wince_2winMS_8h_af269a7b9e75b06eb55576655ce6e5530}{MAXWINDOWS}; i++ ) \{
+752         \textcolor{keywordflow}{if}(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_ae17570be9f8535fa8868079618f03e7e}{windowlist}[i].\hyperlink{structmswin__nhwindow__data_ae10a423b314e3c84ef33e6c57f7447d4}{win} && !\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->
+      \hyperlink{structmswin__nhwindow__app_ae17570be9f8535fa8868079618f03e7e}{windowlist}[i].\hyperlink{structmswin__nhwindow__data_acd523d0a823e7b01d8ae620ec69fd953}{dead}) \{
+753             \textcolor{keywordflow}{switch}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_ae17570be9f8535fa8868079618f03e7e}{windowlist}[i].\hyperlink{structmswin__nhwindow__data_aacbfb89655cec852a2e1d64e626392ec}{type} ) \{
+754             \textcolor{keywordflow}{case} \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}:
+755                 MoveWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->windowlist[i].win, 
+756                            msg\_org.x, 
+757                            msg\_org.y,
+758                            msg\_size.cx, 
+759                            msg\_size.cy, 
+760                            \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+761                 \textcolor{keywordflow}{break};
+762             \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}:
+763                 MoveWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->windowlist[i].win, 
+764                            map\_org.x, 
+765                            map\_org.y,
+766                            map\_size.cx, 
+767                            map\_size.cy, 
+768                            \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+769                 \textcolor{keywordflow}{break};
+770             \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}:
+771                 MoveWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->windowlist[i].win, 
+772                            status\_org.x,
+773                            status\_org.y,
+774                            status\_size.cx, 
+775                            status\_size.cy, 
+776                            \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+777                 \textcolor{keywordflow}{break};
+778 
+779             \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}:
+780             \textcolor{keywordflow}{case} \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}:
+781             \textcolor{keywordflow}{case} \hyperlink{sys_2wince_2winMS_8h_a0143988c915f8d929be99e4c918a5b6b}{NHW\_RIP}:
+782             \{
+783                 POINT menu\_org;
+784                 \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} menu\_size;
+785 
+786                 menu\_org.x = client\_rt.left;
+787                 menu\_org.y = client\_rt.top;
+788 \textcolor{preprocessor}{#if defined(WIN\_CE\_POCKETPC)}
+789                 menu\_size.cx = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(sip.rcVisibleDesktop.right-sip.rcVisibleDesktop.left,
+790                                    client\_rt.right - client\_rt.left);
+791                 menu\_size.cy = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(sip.rcVisibleDesktop.bottom-sip.rcVisibleDesktop.top,
+792                                    client\_rt.bottom - client\_rt.top);
+793 \textcolor{preprocessor}{#else}
+794                 menu\_size.cx = client\_rt.right - client\_rt.left;
+795                 menu\_size.cy = client\_rt.bottom - client\_rt.top;
+796 \textcolor{preprocessor}{#endif}
+797 
+798 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+799                 \textcolor{comment}{/* leave room for the command window */}
+800                 \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->windowlist[i].\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} == \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU} ) \{
+801                     menu\_size.cy -= cmd\_size.cy;
+802                 \}
+803 
+804                 \textcolor{comment}{/* dialogs are popup windows unde SmartPhone so we need }
+805 \textcolor{comment}{                   to convert to screen coordinates */}
+806                 ClientToScreen(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd, &menu\_org);
+807 \textcolor{preprocessor}{#endif}
+808                 MoveWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->windowlist[i].win, 
+809                            menu\_org.x, 
+810                            menu\_org.y,
+811                            menu\_size.cx, 
+812                            menu\_size.cy, 
+813                            \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+814             \} \textcolor{keywordflow}{break};
+815             \}
+816             ShowWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->windowlist[i].win, SW\_SHOW);
+817             InvalidateRect(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->windowlist[i].win, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+818         \}
+819     \}
+820 
+821     \textcolor{keywordflow}{if}( IsWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hCmdWnd) ) \{
+822         \textcolor{comment}{/* show command window only if it exists and }
+823 \textcolor{comment}{           the game is ready (plname is set) */}
+824         \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->bCmdPad && cmd\_size.cx>0 && cmd\_size.cy>0 && *
+      \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}) \{
+825             MoveWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hCmdWnd, 
+826                    cmd\_org.x,
+827                    cmd\_org.y,
+828                    cmd\_size.cx, 
+829                    cmd\_size.cy, 
+830                    \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} );
+831             ShowWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hCmdWnd, SW\_SHOW);
+832         \} \textcolor{keywordflow}{else} \{
+833             ShowWindow(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hCmdWnd, SW\_HIDE);
+834         \}
+835     \}
+836 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhmain_8h_a1595dca81f572437fda1a1d40918153d}{\index{win/win32/mhmain.\+h@{win/win32/mhmain.\+h}!mswin\+\_\+menu\+\_\+check\+\_\+intf\+\_\+mode@{mswin\+\_\+menu\+\_\+check\+\_\+intf\+\_\+mode}}
+\index{mswin\+\_\+menu\+\_\+check\+\_\+intf\+\_\+mode@{mswin\+\_\+menu\+\_\+check\+\_\+intf\+\_\+mode}!win/win32/mhmain.\+h@{win/win32/mhmain.\+h}}
+\subsubsection[{mswin\+\_\+menu\+\_\+check\+\_\+intf\+\_\+mode}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+menu\+\_\+check\+\_\+intf\+\_\+mode (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhmain_8h_a1595dca81f572437fda1a1d40918153d}
+
+
+Definition at line 868 of file mhmain.\+c.
+
+
+
+References Get\+N\+H\+App(), and I\+D\+M\+\_\+\+N\+H\+M\+O\+D\+E.
+
+
+
+Referenced by mswin\+\_\+init\+\_\+nhwindows(), and on\+W\+M\+Command().
+
+
+\begin{DoxyCode}
+869 \{
+870     HMENU hMenu = GetMenu(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd);
+871 
+872     \textcolor{keywordflow}{if} (\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->regNetHackMode)
+873         CheckMenuItem(hMenu, \hyperlink{win_2win32_2resource_8h_a58195913abe541d0d33e33e7905883f5}{IDM\_NHMODE}, MF\_CHECKED);
+874     \textcolor{keywordflow}{else}
+875         CheckMenuItem(hMenu, \hyperlink{win_2win32_2resource_8h_a58195913abe541d0d33e33e7905883f5}{IDM\_NHMODE}, MF\_UNCHECKED);
+876 
+877 \}
+\end{DoxyCode}
+\hypertarget{win_2win32_2mhmain_8h_aca9658c7a6e3808c27aa4bcef6cd14c5}{\index{win/win32/mhmain.\+h@{win/win32/mhmain.\+h}!mswin\+\_\+select\+\_\+map\+\_\+mode@{mswin\+\_\+select\+\_\+map\+\_\+mode}}
+\index{mswin\+\_\+select\+\_\+map\+\_\+mode@{mswin\+\_\+select\+\_\+map\+\_\+mode}!win/win32/mhmain.\+h@{win/win32/mhmain.\+h}}
+\subsubsection[{mswin\+\_\+select\+\_\+map\+\_\+mode}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+select\+\_\+map\+\_\+mode (
+\begin{DoxyParamCaption}
+\item[{int}]{map\+\_\+mode}
+\end{DoxyParamCaption}
+)}}\label{win_2win32_2mhmain_8h_aca9658c7a6e3808c27aa4bcef6cd14c5}
+
+
+Definition at line 1008 of file mhmain.\+c.
+
+
+
+References \+\_\+get\+\_\+main\+\_\+menu(), B\+U\+F\+S\+Z, error(), Get\+N\+H\+App(), mswin\+\_\+nhwindow\+\_\+app\+::h\+Main\+Wnd, I\+D\+\_\+\+M\+A\+P, I\+D\+\_\+\+V\+I\+E\+W, I\+D\+M\+\_\+\+M\+A\+P\+\_\+\+A\+S\+C\+I\+I10\+X18, I\+D\+M\+\_\+\+M\+A\+P\+\_\+\+F\+I\+T\+\_\+\+T\+O\+\_\+\+S\+C\+R\+E\+E\+N, I\+D\+M\+\_\+\+M\+A\+P\+\_\+\+T\+I\+L\+E\+S, I\+D\+S\+\_\+\+C\+A\+P\+\_\+\+E\+N\+T\+I\+R\+E\+M\+A\+P, I\+D\+S\+\_\+\+C\+A\+P\+\_\+\+N\+O\+R\+M\+A\+L\+M\+A\+P, iflags, I\+S\+\_\+\+M\+A\+P\+\_\+\+A\+S\+C\+I\+I, I\+S\+\_\+\+M\+A\+P\+\_\+\+F\+I\+T\+\_\+\+T\+O\+\_\+\+S\+C\+R\+E\+E\+N, Is\+\_\+rogue\+\_\+level, M\+A\+P\+\_\+\+M\+O\+D\+E\+\_\+\+T\+I\+L\+E\+S, mswin\+\_\+nethack\+\_\+main\+\_\+window\+::map\+Acsii\+Mode\+Save, mapmode2menuid(), mswin\+\_\+hwnd\+\_\+from\+\_\+winid(), mswin\+\_\+map\+\_\+mode(), mswin\+\_\+winid\+\_\+from\+\_\+type(), N\+H\+W\+\_\+\+M\+A\+P, panic(), u, you\+::uz, instance\+\_\+flags\+::wc\+\_\+map\+\_\+mode, W\+I\+N\+\_\+\+E\+R\+R, and W\+I\+N\+\_\+\+M\+A\+P.
+
+
+
+Referenced by Main\+Wnd\+Proc(), mswin\+\_\+preference\+\_\+update(), on\+M\+S\+N\+H\+Command(), and on\+W\+M\+Command().
+
+
+\begin{DoxyCode}
+1009 \{
+1010     HMENU hmenuMap;
+1011     \hyperlink{structmswin__nethack__main__window}{PNHMainWindow}  data;
+1012     \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} map\_id;
+1013 
+1014     map\_id = \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP};
+1015     data = (\hyperlink{sys_2wince_2mhmain_8c_a29321e02c4db63bfd295f570f8991f96}{PNHMainWindow})GetWindowLong(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->
+      \hyperlink{structmswin__nhwindow__app_ada318d77e9dd51678af5d9a3ce6ef03a}{hMainWnd}, GWL\_USERDATA);
+1016 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+1017     \textcolor{comment}{/* Smartphone manu has only 2 items */}
+1018     hmenuMap = \hyperlink{sys_2wince_2mhmain_8c_adc99ed42333f35e6cb8b3b5e2a6d4028}{\_get\_main\_menu}(\hyperlink{sys_2wince_2resource_8h_aa66173bc90a896d7c1aa30ca981f13d3}{ID\_VIEW});
+1019 \textcolor{preprocessor}{#else}
+1020     hmenuMap = \hyperlink{sys_2wince_2mhmain_8c_adc99ed42333f35e6cb8b3b5e2a6d4028}{\_get\_main\_menu}(\hyperlink{sys_2wince_2resource_8h_acb4c6f9fed4cab414cdfef3e332468cf}{ID\_MAP});
+1021 \textcolor{preprocessor}{#endif}
+1022 
+1023     \textcolor{comment}{/* override for Rogue level */}
+1024 \textcolor{preprocessor}{#ifdef REINCARNATION}
+1025     \textcolor{keywordflow}{if}( \hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && !\hyperlink{sys_2wince_2mhmain_8c_a15cc43d288525772b40dcd6072d3f834}{IS\_MAP\_ASCII}(mode) ) \textcolor{keywordflow}{return};
+1026 \textcolor{preprocessor}{#endif}
+1027 
+1028     \textcolor{comment}{/* set map mode menu mark */}
+1029     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmain_8c_a15cc43d288525772b40dcd6072d3f834}{IS\_MAP\_ASCII}(mode) ) \{
+1030         CheckMenuRadioItem(
+1031             hmenuMap, 
+1032             \hyperlink{sys_2wince_2resource_8h_a941da7827e6a3fccd71ede6d80dd6ed6}{IDM\_MAP\_TILES}, 
+1033             \hyperlink{sys_2wince_2resource_8h_a02ba6072091ba0e3a629def339d270b3}{IDM\_MAP\_FIT\_TO\_SCREEN}, 
+1034             \hyperlink{sys_2wince_2mhmain_8c_aa6cf3a08d2d7d27ecea1da33853c3981}{mapmode2menuid}( \hyperlink{sys_2wince_2mhmain_8c_a5c1e93f650bca5521bd9449a11d08bd0}{IS\_MAP\_FIT\_TO\_SCREEN}(mode)? data->
+      \hyperlink{structmswin__nethack__main__window_a2befc52d80c6b5673ce6846b24d2c266}{mapAcsiiModeSave} : mode ), 
+1035             MF\_BYCOMMAND);
+1036     \} \textcolor{keywordflow}{else} \{
+1037         CheckMenuRadioItem(
+1038             hmenuMap, 
+1039             \hyperlink{sys_2wince_2resource_8h_a941da7827e6a3fccd71ede6d80dd6ed6}{IDM\_MAP\_TILES}, 
+1040             \hyperlink{sys_2wince_2resource_8h_a02ba6072091ba0e3a629def339d270b3}{IDM\_MAP\_FIT\_TO\_SCREEN}, 
+1041             \hyperlink{sys_2wince_2mhmain_8c_aa6cf3a08d2d7d27ecea1da33853c3981}{mapmode2menuid}( \hyperlink{winprocs_8h_a4e5a5df8a98a429b268f73636dbce5ab}{MAP\_MODE\_TILES} ), 
+1042             MF\_BYCOMMAND);
+1043     \}
+1044 
+1045 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+1046     \textcolor{comment}{/* update "Fit To Screen" item text */}
+1047     \{
+1048         TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1049         TBBUTTONINFO tbbi;
+1050 
+1051         ZeroMemory( wbuf, \textcolor{keyword}{sizeof}(wbuf) );
+1052         \textcolor{keywordflow}{if}( !LoadString( 
+1053             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp, 
+1054             (\hyperlink{sys_2wince_2mhmain_8c_a5c1e93f650bca5521bd9449a11d08bd0}{IS\_MAP\_FIT\_TO\_SCREEN}(mode)? \hyperlink{sys_2wince_2resource_8h_ac28880451947fd61071289e01df6aba9}{IDS\_CAP\_NORMALMAP} : 
+      \hyperlink{sys_2wince_2resource_8h_a9d12528235c88d8cd70632207ee06634}{IDS\_CAP\_ENTIREMAP}),
+1055             wbuf,
+1056             \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}) ) \{
+1057             \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"cannot load main menu strings"});
+1058         \}
+1059 
+1060         ZeroMemory( &tbbi, \textcolor{keyword}{sizeof}(tbbi) );
+1061         tbbi.cbSize = \textcolor{keyword}{sizeof}(tbbi);
+1062         tbbi.dwMask = TBIF\_TEXT;
+1063         tbbi.pszText = wbuf;
+1064         \textcolor{keywordflow}{if}( !SendMessage( 
+1065                 \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMenuBar, 
+1066                 TB\_SETBUTTONINFO, 
+1067                 \hyperlink{sys_2wince_2resource_8h_a02ba6072091ba0e3a629def339d270b3}{IDM\_MAP\_FIT\_TO\_SCREEN}, 
+1068                 (LPARAM)&tbbi) ) \{
+1069             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}( \textcolor{stringliteral}{"Cannot update IDM\_MAP\_FIT\_TO\_SCREEN menu item."} );
+1070         \}
+1071     \}
+1072 \textcolor{preprocessor}{#else}
+1073     \textcolor{comment}{/* set fit-to-screen mode mark */}
+1074     CheckMenuItem(
+1075         hmenuMap,
+1076         \hyperlink{sys_2wince_2resource_8h_a02ba6072091ba0e3a629def339d270b3}{IDM\_MAP\_FIT\_TO\_SCREEN},
+1077         MF\_BYCOMMAND | 
+1078         (\hyperlink{sys_2wince_2mhmain_8c_a5c1e93f650bca5521bd9449a11d08bd0}{IS\_MAP\_FIT\_TO\_SCREEN}(mode)? MF\_CHECKED : MF\_UNCHECKED)
+1079     );
+1080 \textcolor{preprocessor}{#endif}
+1081 
+1082     \textcolor{keywordflow}{if}( \hyperlink{sys_2wince_2mhmain_8c_a15cc43d288525772b40dcd6072d3f834}{IS\_MAP\_ASCII}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a10495720747b71f0c42953aa2b96d5b5}{wc\_map\_mode}) && !
+      \hyperlink{sys_2wince_2mhmain_8c_a5c1e93f650bca5521bd9449a11d08bd0}{IS\_MAP\_FIT\_TO\_SCREEN}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a10495720747b71f0c42953aa2b96d5b5}{wc\_map\_mode})) \{
+1083         data->\hyperlink{structmswin__nethack__main__window_a2befc52d80c6b5673ce6846b24d2c266}{mapAcsiiModeSave} = \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a10495720747b71f0c42953aa2b96d5b5}{wc\_map\_mode};
+1084     \}
+1085 
+1086     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a10495720747b71f0c42953aa2b96d5b5}{wc\_map\_mode} = mode;
+1087     
+1088     \textcolor{comment}{/* }
+1089 \textcolor{comment}{    ** first, check if WIN\_MAP has been inialized.}
+1090 \textcolor{comment}{    ** If not - attempt to retrieve it by type, then check it again}
+1091 \textcolor{comment}{    */}
+1092     \textcolor{keywordflow}{if}( map\_id==\hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} ) 
+1093         map\_id = \hyperlink{sys_2wince_2mswproc_8c_a57e27ce5d15b0dfe1985171f9b966041}{mswin\_winid\_from\_type}(\hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP});
+1094     \textcolor{keywordflow}{if}( map\_id!=\hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} )
+1095         \hyperlink{sys_2wince_2mhmap_8c_a3cc8c75ab01843325bb704d173373fd4}{mswin\_map\_mode}(\hyperlink{sys_2wince_2mswproc_8c_a0890d6b16657f7ad53aebadc8818f147}{mswin\_hwnd\_from\_winid}(map\_id), mode);
+1096 \}
+\end{DoxyCode}

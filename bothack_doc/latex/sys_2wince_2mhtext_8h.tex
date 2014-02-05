@@ -1,0 +1,82 @@
+\hypertarget{sys_2wince_2mhtext_8h}{\section{nethack/sys/wince/mhtext.h File Reference}
+\label{sys_2wince_2mhtext_8h}\index{nethack/sys/wince/mhtext.\+h@{nethack/sys/wince/mhtext.\+h}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+H\+W\+N\+D \hyperlink{sys_2wince_2mhtext_8h_ae237f4f0312cd51e1164e51204a49d09}{mswin\+\_\+init\+\_\+text\+\_\+window} ()
+\item 
+void \hyperlink{sys_2wince_2mhtext_8h_ad410231040b9649c7b097461caeb79fe}{mswin\+\_\+display\+\_\+text\+\_\+window} (H\+W\+N\+D hwnd)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{sys_2wince_2mhtext_8h_ad410231040b9649c7b097461caeb79fe}{\index{sys/wince/mhtext.\+h@{sys/wince/mhtext.\+h}!mswin\+\_\+display\+\_\+text\+\_\+window@{mswin\+\_\+display\+\_\+text\+\_\+window}}
+\index{mswin\+\_\+display\+\_\+text\+\_\+window@{mswin\+\_\+display\+\_\+text\+\_\+window}!sys/wince/mhtext.\+h@{sys/wince/mhtext.\+h}}
+\subsubsection[{mswin\+\_\+display\+\_\+text\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+display\+\_\+text\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhtext_8h_ad410231040b9649c7b097461caeb79fe}
+
+
+Definition at line 46 of file mhtext.\+c.
+
+
+\begin{DoxyCode}
+47 \{
+48     \hyperlink{structmswin__nethack__text__window}{PNHTextWindow} data;
+49     
+50     data = (\hyperlink{sys_2wince_2mhtext_8c_aaa8032e4e5366f3ed6f735e961d4994e}{PNHTextWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+51     \textcolor{keywordflow}{if}( data ) \{
+52         HWND control;
+53         control = GetDlgItem(hWnd, \hyperlink{sys_2wince_2resource_8h_a5a3e3e31caaecfedcda0408c52a93b1e}{IDC\_TEXT\_CONTROL});
+54         SendMessage(control, EM\_FMTLINES, 1, 0 );
+55         \hyperlink{mhtxtbuf_8c_ad3aa1058c339493ae60ba46351d4b2d4}{mswin\_render\_text}(data->\hyperlink{structmswin__nethack__text__window_a103624299b7831b14459a3a7b47c0271}{window\_text}, GetDlgItem(hWnd, 
+      \hyperlink{sys_2wince_2resource_8h_a5a3e3e31caaecfedcda0408c52a93b1e}{IDC\_TEXT\_CONTROL}));
+56 
+57         data->\hyperlink{structmswin__nethack__text__window_a7e683da7c6146eb8003bac175347383d}{done} = 0;
+58         \hyperlink{sys_2wince_2mswproc_8c_a2a23443a8cfc6b5b41024850877e0f5e}{mswin\_popup\_display}(hWnd, &data->\hyperlink{structmswin__nethack__text__window_a7e683da7c6146eb8003bac175347383d}{done});
+59         \hyperlink{sys_2wince_2mswproc_8c_a49804134a4aaa8874010372eae4612f9}{mswin\_popup\_destroy}(hWnd);
+60     \}
+61 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhtext_8h_ae237f4f0312cd51e1164e51204a49d09}{\index{sys/wince/mhtext.\+h@{sys/wince/mhtext.\+h}!mswin\+\_\+init\+\_\+text\+\_\+window@{mswin\+\_\+init\+\_\+text\+\_\+window}}
+\index{mswin\+\_\+init\+\_\+text\+\_\+window@{mswin\+\_\+init\+\_\+text\+\_\+window}!sys/wince/mhtext.\+h@{sys/wince/mhtext.\+h}}
+\subsubsection[{mswin\+\_\+init\+\_\+text\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}H\+W\+N\+D mswin\+\_\+init\+\_\+text\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhtext_8h_ae237f4f0312cd51e1164e51204a49d09}
+
+
+Definition at line 23 of file mhtext.\+c.
+
+
+\begin{DoxyCode}
+23                                \{
+24     HWND ret;
+25     \hyperlink{structmswin__nethack__text__window}{PNHTextWindow} data;
+26 
+27     ret = \hyperlink{dialogs_8c_aaf356545a4c5797e317091864c988de0}{CreateDialog}(
+28             \hyperlink{win_2win32_2mhtext_8c_afa11eb8c832e838349416cf3bbdd29fe}{GetNHApp}()->hApp,
+29             MAKEINTRESOURCE(\hyperlink{sys_2wince_2resource_8h_ae13d4f0d01ecf92dcee8e748f63a5bd4}{IDD\_NHTEXT}),
+30             \hyperlink{win_2win32_2mhtext_8c_afa11eb8c832e838349416cf3bbdd29fe}{GetNHApp}()->hMainWnd,
+31             \hyperlink{sys_2wince_2mhtext_8c_a682f897cc2508d22b5670b3cd32748c5}{TextWndProc}
+32     );
+33     \textcolor{keywordflow}{if}( !ret ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create text window"});
+34 
+35     data = (\hyperlink{sys_2wince_2mhtext_8c_aaa8032e4e5366f3ed6f735e961d4994e}{PNHTextWindow})\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(\textcolor{keyword}{sizeof}(\hyperlink{structmswin__nethack__text__window}{NHTextWindow}));
+36     \textcolor{keywordflow}{if}( !data ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"out of memory"});
+37 
+38     ZeroMemory(data, \textcolor{keyword}{sizeof}(\hyperlink{structmswin__nethack__text__window}{NHTextWindow}));
+39     data->\hyperlink{structmswin__nethack__text__window_a103624299b7831b14459a3a7b47c0271}{window\_text} = \hyperlink{mhtxtbuf_8c_a4fd9327233e68071e2a79c64b2e40d2b}{mswin\_init\_text\_buffer}(
+40             \hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.\hyperlink{structsinfo_ac1f9d8fcec6871fb805fe566ac8a8823}{gameover}? \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} : \hyperlink{win_2win32_2mhtext_8c_afa11eb8c832e838349416cf3bbdd29fe}{GetNHApp}()->bWrapText
+41         );
+42     SetWindowLong(ret, GWL\_USERDATA, (LONG)data);
+43     \textcolor{keywordflow}{return} ret;
+44 \}
+\end{DoxyCode}

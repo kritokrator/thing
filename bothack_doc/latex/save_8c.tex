@@ -1,0 +1,1193 @@
+\hypertarget{save_8c}{\section{nethack/src/save.c File Reference}
+\label{save_8c}\index{nethack/src/save.\+c@{nethack/src/save.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lev.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}quest.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{save_8c_afafaffc3104b878f75d122f5238bb318}{nulls}~\hyperlink{decl_8c_ac5502c45391ee8365e0990d2671dd278}{nul}
+\item 
+\#define \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{H\+U\+P}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{save_8c_a128041c78cf8dd07be5c32562cfa05e3}{F\+D\+E\+C\+L} (\hyperlink{save_8c_a942fcfd316f49dde6f32f637e1de7d4c}{savelevchn},(int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{save_8c_ad0dc791df9eb12761042ffffed182e4a}{F\+D\+E\+C\+L} (\hyperlink{save_8c_a90295b9095f1f74564c4cd5a1e435dae}{savedamage},(int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{save_8c_a2f9ca8649ac8e10e72555c247fc00dae}{F\+D\+E\+C\+L} (\hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn},(int, struct \hyperlink{structobj}{obj} $\ast$, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{save_8c_a12123e51223c59e7c21a90b18adf8bba}{F\+D\+E\+C\+L} (\hyperlink{save_8c_a6c5d0d6e4de0ead5da051dd7c2d44c25}{savemonchn},(int, struct \hyperlink{structmonst}{monst} $\ast$, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{save_8c_a5d5c7f718ff23c80a3b4af3c470c70c5}{F\+D\+E\+C\+L} (\hyperlink{save_8c_aaa27bdab042b9bc83951bf9a8876bbc7}{savetrapchn},(int, struct \hyperlink{structtrap}{trap} $\ast$, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{save_8c_abf33db969f097f81c703c468cbff5bcd}{F\+D\+E\+C\+L} (\hyperlink{save_8c_a46a765ff481d5cbfee2550e540415578}{savegamestate},(int, int))
+\item 
+int \hyperlink{save_8c_a7561be96dcd8aad740ef1e3d410bf03b}{dosave} ()
+\item 
+int \hyperlink{save_8c_ad7ef14d200fa1551917a04a47bf2125c}{dosave0} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{save_8c_a46a765ff481d5cbfee2550e540415578}{savegamestate} (int fd, int mode)
+\item 
+void \hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev} (int fd, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} lev, int mode)
+\item 
+void \hyperlink{save_8c_a961e149d17d8e7891b72cd74336c68c2}{bufon} (int fd)
+\item 
+void \hyperlink{save_8c_af215ea077313a03a37b9530f05cbda46}{bufoff} (int fd)
+\item 
+void \hyperlink{save_8c_ae1317b09b119a1374b2b587aedf5f721}{bflush} (int fd)
+\item 
+void \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite} (int fd, \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t} loc, unsigned num)
+\item 
+void \hyperlink{save_8c_ada08c9aeb3924f3573f774f08a5cbc5b}{bclose} (int fd)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{save_8c_a942fcfd316f49dde6f32f637e1de7d4c}{savelevchn} (int fd, int mode)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{save_8c_a90295b9095f1f74564c4cd5a1e435dae}{savedamage} (int fd, int mode)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn} (int fd, struct \hyperlink{structobj}{obj} $\ast$\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}, int mode)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{save_8c_a6c5d0d6e4de0ead5da051dd7c2d44c25}{savemonchn} (int fd, struct \hyperlink{structmonst}{monst} $\ast$mtmp, int mode)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{save_8c_aaa27bdab042b9bc83951bf9a8876bbc7}{savetrapchn} (int fd, struct \hyperlink{structtrap}{trap} $\ast$\hyperlink{structtrap}{trap}, int mode)
+\item 
+void \hyperlink{save_8c_aff4b6aa0a5610dd3645ab6c37311d5c7}{savefruitchn} (int fd, int mode)
+\item 
+void \hyperlink{save_8c_a140273d59f77e33b38883b02904c2682}{free\+\_\+dungeons} ()
+\item 
+void \hyperlink{save_8c_a183c8baf3dc4b198167b5ae80a6a07dd}{freedynamicdata} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned \hyperlink{save_8c_aafcbfd58642a78cf19f9f3488d34b6ab}{ustuck\+\_\+id} = 0
+\item 
+static unsigned \hyperlink{save_8c_a2b8bf6c169d18743a61d0c37923415b7}{usteed\+\_\+id} = 0
+\item 
+static int \hyperlink{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{bw\+\_\+fd} = -\/1
+\item 
+static F\+I\+L\+E $\ast$ \hyperlink{save_8c_a6260cd81fdd8ab2cf1e86e151b885198}{bw\+\_\+\+F\+I\+L\+E} = 0
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{save_8c_a264058b7f1af0620efa8d8561edad1e8}{buffering} = \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{\index{save.\+c@{save.\+c}!H\+U\+P@{H\+U\+P}}
+\index{H\+U\+P@{H\+U\+P}!save.\+c@{save.\+c}}
+\subsubsection[{H\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+U\+P}}\label{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}
+
+
+Definition at line 48 of file save.\+c.
+
+
+
+Referenced by dosave0().
+
+\hypertarget{save_8c_afafaffc3104b878f75d122f5238bb318}{\index{save.\+c@{save.\+c}!nulls@{nulls}}
+\index{nulls@{nulls}!save.\+c@{save.\+c}}
+\subsubsection[{nulls}]{\setlength{\rightskip}{0pt plus 5cm}\#define nulls~{\bf nul}}}\label{save_8c_afafaffc3104b878f75d122f5238bb318}
+
+
+Definition at line 42 of file save.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{save_8c_ada08c9aeb3924f3573f774f08a5cbc5b}{\index{save.\+c@{save.\+c}!bclose@{bclose}}
+\index{bclose@{bclose}!save.\+c@{save.\+c}}
+\subsubsection[{bclose}]{\setlength{\rightskip}{0pt plus 5cm}void bclose (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{save_8c_ada08c9aeb3924f3573f774f08a5cbc5b}
+
+
+Definition at line 775 of file save.\+c.
+
+
+
+References bufoff(), and close().
+
+
+
+Referenced by dosave0(), restlevelfile(), and savebones().
+
+
+\begin{DoxyCode}
+777 \{
+778     \hyperlink{save_8c_af215ea077313a03a37b9530f05cbda46}{bufoff}(fd);
+779 \textcolor{preprocessor}{#ifdef UNIX}
+780     \textcolor{keywordflow}{if} (fd == \hyperlink{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{bw\_fd}) \{
+781     (void) fclose(\hyperlink{save_8c_a6260cd81fdd8ab2cf1e86e151b885198}{bw\_FILE});
+782     \hyperlink{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{bw\_fd} = -1;
+783     \hyperlink{save_8c_a6260cd81fdd8ab2cf1e86e151b885198}{bw\_FILE} = 0;
+784     \} \textcolor{keywordflow}{else}
+785 \textcolor{preprocessor}{#endif}
+786     (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+787     \textcolor{keywordflow}{return};
+788 \}
+\end{DoxyCode}
+\hypertarget{save_8c_ae1317b09b119a1374b2b587aedf5f721}{\index{save.\+c@{save.\+c}!bflush@{bflush}}
+\index{bflush@{bflush}!save.\+c@{save.\+c}}
+\subsubsection[{bflush}]{\setlength{\rightskip}{0pt plus 5cm}void bflush (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{save_8c_ae1317b09b119a1374b2b587aedf5f721}
+
+
+Definition at line 722 of file save.\+c.
+
+
+
+References panic().
+
+
+
+Referenced by bufoff(), savebones(), savegamestate(), and savelev().
+
+
+\begin{DoxyCode}
+724 \{
+725 \textcolor{preprocessor}{#ifdef UNIX}
+726     \textcolor{keywordflow}{if}(fd == \hyperlink{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{bw\_fd}) \{
+727     \textcolor{keywordflow}{if}(fflush(\hyperlink{save_8c_a6260cd81fdd8ab2cf1e86e151b885198}{bw\_FILE}) == EOF)
+728         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"flush of savefile failed!"});
+729     \}
+730 \textcolor{preprocessor}{#endif}
+731     \textcolor{keywordflow}{return};
+732 \}
+\end{DoxyCode}
+\hypertarget{save_8c_af215ea077313a03a37b9530f05cbda46}{\index{save.\+c@{save.\+c}!bufoff@{bufoff}}
+\index{bufoff@{bufoff}!save.\+c@{save.\+c}}
+\subsubsection[{bufoff}]{\setlength{\rightskip}{0pt plus 5cm}void bufoff (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{save_8c_af215ea077313a03a37b9530f05cbda46}
+
+
+Definition at line 714 of file save.\+c.
+
+
+
+References bflush(), and F\+A\+L\+S\+E.
+
+
+
+Referenced by bclose(), and store\+\_\+version().
+
+
+\begin{DoxyCode}
+716 \{
+717     \hyperlink{save_8c_ae1317b09b119a1374b2b587aedf5f721}{bflush}(fd);
+718     \hyperlink{save_8c_a264058b7f1af0620efa8d8561edad1e8}{buffering} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+719 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a961e149d17d8e7891b72cd74336c68c2}{\index{save.\+c@{save.\+c}!bufon@{bufon}}
+\index{bufon@{bufon}!save.\+c@{save.\+c}}
+\subsubsection[{bufon}]{\setlength{\rightskip}{0pt plus 5cm}void bufon (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a961e149d17d8e7891b72cd74336c68c2}
+
+
+Definition at line 700 of file save.\+c.
+
+
+
+References panic(), and T\+R\+U\+E.
+
+
+
+Referenced by restlevelfile(), and store\+\_\+version().
+
+
+\begin{DoxyCode}
+702 \{
+703 \textcolor{preprocessor}{#ifdef UNIX}
+704     \textcolor{keywordflow}{if}(\hyperlink{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{bw\_fd} >= 0)
+705     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"double buffering unexpected"});
+706     \hyperlink{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{bw\_fd} = fd;
+707     \textcolor{keywordflow}{if}((\hyperlink{save_8c_a6260cd81fdd8ab2cf1e86e151b885198}{bw\_FILE} = fdopen(fd, \textcolor{stringliteral}{"w"})) == 0)
+708     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"buffering of file %d failed"}, fd);
+709 \textcolor{preprocessor}{#endif}
+710     \hyperlink{save_8c_a264058b7f1af0620efa8d8561edad1e8}{buffering} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+711 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a2e7663422968049372dd9cc6b325a84a}{\index{save.\+c@{save.\+c}!bwrite@{bwrite}}
+\index{bwrite@{bwrite}!save.\+c@{save.\+c}}
+\subsubsection[{bwrite}]{\setlength{\rightskip}{0pt plus 5cm}void bwrite (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf genericptr\+\_\+t}}]{loc, }
+\item[{unsigned}]{num}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a2e7663422968049372dd9cc6b325a84a}
+
+
+Definition at line 735 of file save.\+c.
+
+
+
+References E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, panic(), program\+\_\+state, terminate(), and write().
+
+
+
+Referenced by dosave0(), save\+\_\+oracles(), save\+\_\+regions(), save\+\_\+waterlevel(), save\+\_\+worm(), savebones(), savedamage(), savefruitchn(), savegamestate(), savelev(), savelevchn(), savemonchn(), savenames(), saveobjchn(), savetrapchn(), and store\+\_\+version().
+
+
+\begin{DoxyCode}
+739 \{
+740     \textcolor{keywordtype}{boolean} failed;
+741 
+742 \textcolor{preprocessor}{#ifdef MFLOPPY}
+743     bytes\_counted += num;
+744     \textcolor{keywordflow}{if} (count\_only) \textcolor{keywordflow}{return};
+745 \textcolor{preprocessor}{#endif}
+746 
+747 \textcolor{preprocessor}{#ifdef UNIX}
+748     \textcolor{keywordflow}{if} (\hyperlink{save_8c_a264058b7f1af0620efa8d8561edad1e8}{buffering}) \{
+749         \textcolor{keywordflow}{if}(fd != \hyperlink{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{bw\_fd})
+750         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"unbuffered write to fd %d (!= %d)"}, fd, \hyperlink{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{bw\_fd});
+751 
+752         failed = (fwrite(loc, (\textcolor{keywordtype}{int})num, 1, \hyperlink{save_8c_a6260cd81fdd8ab2cf1e86e151b885198}{bw\_FILE}) != 1);
+753     \} \textcolor{keywordflow}{else}
+754 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* UNIX */}\textcolor{preprocessor}{}
+755     \{
+756 \textcolor{comment}{/* lint wants the 3rd arg of write to be an int; lint -p an unsigned */}
+757 \textcolor{preprocessor}{#if defined(BSD) || defined(ULTRIX)}
+758         failed = (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(fd, loc, (\textcolor{keywordtype}{int})num) != (int)num);
+759 \textcolor{preprocessor}{#else }\textcolor{comment}{/* e.g. SYSV, \_\_TURBOC\_\_ */}\textcolor{preprocessor}{}
+760         failed = (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(fd, loc, num) != num);
+761 \textcolor{preprocessor}{#endif}
+762     \}
+763 
+764     \textcolor{keywordflow}{if} (failed) \{
+765 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS) || defined(\_\_EMX\_\_)}
+766         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.done\_hup)
+767         \hyperlink{end_8c_a30ebaced48494e6e25f8833532ec17ca}{terminate}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+768         \textcolor{keywordflow}{else}
+769 \textcolor{preprocessor}{#endif}
+770         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"cannot write %u bytes to file #%d"}, num, fd);
+771     \}
+772 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a7561be96dcd8aad740ef1e3d410bf03b}{\index{save.\+c@{save.\+c}!dosave@{dosave}}
+\index{dosave@{dosave}!save.\+c@{save.\+c}}
+\subsubsection[{dosave}]{\setlength{\rightskip}{0pt plus 5cm}int dosave (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a7561be96dcd8aad740ef1e3d410bf03b}
+
+
+Definition at line 55 of file save.\+c.
+
+
+
+References clear\+\_\+nhwindow, display\+\_\+nhwindow, doredraw(), dosave0(), exit\+\_\+nhwindows, E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, multi, program\+\_\+state, sinfo\+::something\+\_\+worth\+\_\+saving, terminate(), T\+R\+U\+E, u, you\+::uhp, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, and yn.
+
+
+
+Referenced by Main\+Wnd\+Proc(), and on\+W\+M\+Command().
+
+
+\begin{DoxyCode}
+56 \{
+57     \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+58     \textcolor{keywordflow}{if}(\hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(\textcolor{stringliteral}{"Really save?"}) == \textcolor{charliteral}{'n'}) \{
+59         \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+60         \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a498406921f71695627a7107240f3ed7a}{multi} > 0) nomul(0);
+61     \} \textcolor{keywordflow}{else} \{
+62         \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+63         pline(\textcolor{stringliteral}{"Saving..."});
+64 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS) || defined(\_\_EMX\_\_)}
+65         \hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.done\_hup = 0;
+66 \textcolor{preprocessor}{#endif}
+67         \textcolor{keywordflow}{if}(\hyperlink{save_8c_ad7ef14d200fa1551917a04a47bf2125c}{dosave0}()) \{
+68             \hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.\hyperlink{structsinfo_ae213176cfedea7945c371048e57e2931}{something\_worth\_saving} = 0;
+69             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} = -1;     \textcolor{comment}{/* universal game's over indicator */}
+70             \textcolor{comment}{/* make sure they see the Saving message */}
+71             \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+72             \hyperlink{winprocs_8h_ae874ce2b3810c39744ef196e24d5c9fc}{exit\_nhwindows}(\textcolor{stringliteral}{"Be seeing you..."});
+73             \hyperlink{end_8c_a30ebaced48494e6e25f8833532ec17ca}{terminate}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+74         \} \textcolor{keywordflow}{else} (\textcolor{keywordtype}{void})\hyperlink{display_8c_abf432a93fec9c94db8570f8a2c01468e}{doredraw}();
+75     \}
+76     \textcolor{keywordflow}{return} 0;
+77 \}
+\end{DoxyCode}
+\hypertarget{save_8c_ad7ef14d200fa1551917a04a47bf2125c}{\index{save.\+c@{save.\+c}!dosave0@{dosave0}}
+\index{dosave0@{dosave0}!save.\+c@{save.\+c}}
+\subsubsection[{dosave0}]{\setlength{\rightskip}{0pt plus 5cm}int dosave0 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_ad7ef14d200fa1551917a04a47bf2125c}
+
+
+Definition at line 113 of file save.\+c.
+
+
+
+References bclose(), B\+U\+F\+S\+Z, bwrite(), clear\+\_\+nhwindow, close(), C\+O\+L\+N\+O, compress(), C\+O\+U\+N\+T\+\_\+\+S\+A\+V\+E, create\+\_\+savefile(), curs, delete\+\_\+levelfile(), delete\+\_\+savefile(), d\+\_\+level\+::dlevel, d\+\_\+level\+::dnum, done, F\+A\+L\+S\+E, flags, flushout(), fqname(), F\+R\+E\+E\+\_\+\+S\+A\+V\+E, flag\+::friday13, F\+U\+L\+L\+\_\+\+M\+O\+O\+N, getlev(), hackpid, H\+U\+P, iflags, killer, level\+\_\+info, L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S, monst\+::m\+\_\+id, mark\+\_\+synch, minit(), flag\+::moonphase, window\+\_\+procs\+::name, open\+\_\+levelfile(), open\+\_\+savefile(), P\+L\+\_\+\+N\+S\+I\+Z, plname, putstr, S\+A\+V\+E\+F, savegamestate(), savelev(), S\+A\+V\+E\+P\+R\+E\+F\+I\+X, store\+\_\+version(), strncmpi(), T\+R\+I\+C\+K\+E\+D, u, uncompress(), usteed\+\_\+id, you\+::ustuck, you\+::uz, vision\+\_\+recalc(), W\+I\+N\+\_\+\+M\+A\+P, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, instance\+\_\+flags\+::window\+\_\+inited, windowprocs, W\+R\+I\+T\+E\+\_\+\+S\+A\+V\+E, and yn.
+
+
+
+Referenced by dosave(), ghack\+\_\+save\+\_\+game(), and Main\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+114 \{
+115     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_save;
+116     \textcolor{keyword}{register} \textcolor{keywordtype}{int} fd, ofd;
+117     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} ltmp;
+118     \hyperlink{structd__level}{d\_level} uz\_save;
+119     \textcolor{keywordtype}{char} whynot[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+120 
+121     \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a12ec3caf95cc60603fc1ecc9b7266e48}{SAVEF}[0])
+122         \textcolor{keywordflow}{return} 0;
+123     fq\_save = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a12ec3caf95cc60603fc1ecc9b7266e48}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 1);    \textcolor{comment}{/* level files take 0 */}
+124 
+125 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS)}
+126     (void) signal(SIGHUP, SIG\_IGN);
+127 \textcolor{preprocessor}{#endif}
+128 \textcolor{preprocessor}{#ifndef NO\_SIGNAL}
+129     (void) signal(SIGINT, SIG\_IGN);
+130 \textcolor{preprocessor}{#endif}
+131 
+132 \textcolor{preprocessor}{#if defined(MICRO) && defined(MFLOPPY)}
+133     \textcolor{keywordflow}{if} (!saveDiskPrompt(0)) \textcolor{keywordflow}{return} 0;
+134 \textcolor{preprocessor}{#endif}
+135 
+136     \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2fc6c78c4c5f6e1d0027ac575135426f}{window\_inited}) \{
+137         \hyperlink{files_8c_a7cf705b08e7bab7c245b81f60f1a8c76}{uncompress}(fq\_save);
+138         fd = \hyperlink{files_8c_a4bf980fee09182324515fb62eb918d29}{open\_savefile}();
+139         \textcolor{keywordflow}{if} (fd > 0) \{
+140         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+141         \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+142         There(\textcolor{stringliteral}{"seems to be an old save file."});
+143         \textcolor{keywordflow}{if} (\hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(\textcolor{stringliteral}{"Overwrite the old file?"}) == \textcolor{charliteral}{'n'}) \{
+144             \hyperlink{files_8c_a972d5467067d99c9406312d01203d690}{compress}(fq\_save);
+145             \textcolor{keywordflow}{return} 0;
+146         \}
+147         \}
+148     \}
+149 
+150     \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{winprocs_8h_a72bbad3e5805d71f128c614261fc7ee0}{mark\_synch}();  \textcolor{comment}{/* flush any buffered screen output */}
+151 
+152     fd = \hyperlink{files_8c_a54e9d02eec6dc845fd6703209b09a1ab}{create\_savefile}();
+153     \textcolor{keywordflow}{if}(fd < 0) \{
+154         \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} pline(\textcolor{stringliteral}{"Cannot open save file."});
+155         (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();    \textcolor{comment}{/* ab@unido */}
+156         \textcolor{keywordflow}{return}(0);
+157     \}
+158 
+159     \hyperlink{vision_8c_a07b3acbfcca75497c31df8d8aee1ca53}{vision\_recalc}(2);  \textcolor{comment}{/* shut down vision to prevent problems}
+160 \textcolor{comment}{                   in the event of an impossible() call */}
+161     
+162     \textcolor{comment}{/* undo date-dependent luck adjustments made at startup time */}
+163     \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a238ee0e647aca6e3eb9b3fc8cc4f1de5}{moonphase} == \hyperlink{flag_8h_aaa35dc9b0130d9f8b827caddc655cb3a}{FULL\_MOON}) \textcolor{comment}{/* ut-sally!fletcher */}
+164         change\_luck(-1);        \textcolor{comment}{/* and unido!ab */}
+165     \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_acf8e0f21621c7af03112ca1280d2bf2e}{friday13})
+166         change\_luck(1);
+167     \textcolor{keywordflow}{if}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2fc6c78c4c5f6e1d0027ac575135426f}{window\_inited})
+168         \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+169 
+170 \textcolor{preprocessor}{#ifdef MICRO}
+171     dotcnt = 0;
+172     dotrow = 2;
+173     \hyperlink{winprocs_8h_aa05861c1c269bc08d1ee7fcc3c9b85c5}{curs}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}, 1, 1);
+174     \textcolor{keywordflow}{if} (\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(\textcolor{stringliteral}{"X11"}, \hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.\hyperlink{structwindow__procs_a3c3f9beba0ac50aabe7ce172f042e917}{name}, 3))
+175       \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}, 0, \textcolor{stringliteral}{"Saving:"});
+176 \textcolor{preprocessor}{#endif}
+177 \textcolor{preprocessor}{#ifdef MFLOPPY}
+178     \textcolor{comment}{/* make sure there is enough disk space */}
+179     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.checkspace) \{
+180         \textcolor{keywordtype}{long} fds, needed;
+181 
+182         \hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev}(fd, ledger\_no(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}), \hyperlink{lev_8h_af278f508ebfcebe77bc078316e7a2d18}{COUNT\_SAVE});
+183         \hyperlink{save_8c_a46a765ff481d5cbfee2550e540415578}{savegamestate}(fd, \hyperlink{lev_8h_af278f508ebfcebe77bc078316e7a2d18}{COUNT\_SAVE});
+184         needed = bytes\_counted;
+185 
+186         \textcolor{keywordflow}{for} (ltmp = 1; ltmp <= maxledgerno(); ltmp++)
+187         \textcolor{keywordflow}{if} (ltmp != ledger\_no(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && \hyperlink{decl_8h_a8bfac57de50a3a9d8ddd84b6aaaba2ad}{level\_info}[ltmp].where)
+188             needed += \hyperlink{decl_8h_a8bfac57de50a3a9d8ddd84b6aaaba2ad}{level\_info}[ltmp].\hyperlink{structsize}{size} + (\textcolor{keyword}{sizeof} ltmp);
+189         fds = freediskspace(fq\_save);
+190         \textcolor{keywordflow}{if} (needed > fds) \{
+191         \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \{
+192             There(\textcolor{stringliteral}{"is insufficient space on SAVE disk."});
+193             pline(\textcolor{stringliteral}{"Require %ld bytes but only have %ld."}, needed, fds);
+194         \}
+195         \hyperlink{amidos_8c_a3ae75ca6d6a54d3b9ea1bed0affdf452}{flushout}();
+196         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+197         (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+198         \textcolor{keywordflow}{return} 0;
+199         \}
+200 
+201         co\_false();
+202     \}
+203 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* MFLOPPY */}\textcolor{preprocessor}{}
+204 
+205     \hyperlink{version_8c_aa7fde5122fc8cf75dbc460ac3b3a6507}{store\_version}(fd);
+206 \textcolor{preprocessor}{#ifdef STORE\_PLNAME\_IN\_FILE}
+207     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \hyperlink{global_8h_a06d346f470496500184b39a3c9c4df9d}{PL\_NSIZ});
+208 \textcolor{preprocessor}{#endif}
+209     \hyperlink{save_8c_aafcbfd58642a78cf19f9f3488d34b6ab}{ustuck\_id} = (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck} ? \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck}->\hyperlink{structmonst_ad8084d1c794f3903b9ffa85fca798abd}{m\_id} : 0);
+210 \textcolor{preprocessor}{#ifdef STEED}
+211     \hyperlink{save_8c_a2b8bf6c169d18743a61d0c37923415b7}{usteed\_id} = (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed ? \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed->m\_id : 0);
+212 \textcolor{preprocessor}{#endif}
+213     \hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev}(fd, ledger\_no(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}), \hyperlink{lev_8h_a5743e308b58e25a32b7629de505bc991}{WRITE\_SAVE} | \hyperlink{lev_8h_a39f3d47170c994b6ac6ec401c34cebd3}{FREE\_SAVE});
+214     \hyperlink{save_8c_a46a765ff481d5cbfee2550e540415578}{savegamestate}(fd, \hyperlink{lev_8h_a5743e308b58e25a32b7629de505bc991}{WRITE\_SAVE} | \hyperlink{lev_8h_a39f3d47170c994b6ac6ec401c34cebd3}{FREE\_SAVE});
+215 
+216     \textcolor{comment}{/* While copying level files around, zero out u.uz to keep}
+217 \textcolor{comment}{     * parts of the restore code from completely initializing all}
+218 \textcolor{comment}{     * in-core data structures, since all we're doing is copying.}
+219 \textcolor{comment}{     * This also avoids at least one nasty core dump.}
+220 \textcolor{comment}{     */}
+221     uz\_save = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz};
+222     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} = 0;
+223     \textcolor{comment}{/* these pointers are no longer valid, and at least u.usteed}
+224 \textcolor{comment}{     * may mislead place\_monster() on other levels}
+225 \textcolor{comment}{     */}
+226     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck} = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)0;
+227 \textcolor{preprocessor}{#ifdef STEED}
+228     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)0;
+229 \textcolor{preprocessor}{#endif}
+230 
+231     \textcolor{keywordflow}{for}(ltmp = (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar})1; ltmp <= maxledgerno(); ltmp++) \{
+232         \textcolor{keywordflow}{if} (ltmp == ledger\_no(&uz\_save)) \textcolor{keywordflow}{continue};
+233         \textcolor{keywordflow}{if} (!(\hyperlink{decl_8h_a8bfac57de50a3a9d8ddd84b6aaaba2ad}{level\_info}[ltmp].\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags} & \hyperlink{dungeon_8h_a25f55258a9cda52bb2b92e60217bdead}{LFILE\_EXISTS})) \textcolor{keywordflow}{continue};
+234 \textcolor{preprocessor}{#ifdef MICRO}
+235         \hyperlink{winprocs_8h_aa05861c1c269bc08d1ee7fcc3c9b85c5}{curs}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}, 1 + dotcnt++, dotrow);
+236         \textcolor{keywordflow}{if} (dotcnt >= (\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} - 1)) \{
+237             dotrow++;
+238             dotcnt = 0;
+239         \}
+240         \textcolor{keywordflow}{if} (\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(\textcolor{stringliteral}{"X11"}, \hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.\hyperlink{structwindow__procs_a3c3f9beba0ac50aabe7ce172f042e917}{name}, 3))\{
+241           \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}, 0, \textcolor{stringliteral}{"."});
+242         \}
+243         \hyperlink{winprocs_8h_a72bbad3e5805d71f128c614261fc7ee0}{mark\_synch}();
+244 \textcolor{preprocessor}{#endif}
+245         ofd = \hyperlink{files_8c_a06158f3eda93ec61af96b6ca48306da7}{open\_levelfile}(ltmp, whynot);
+246         \textcolor{keywordflow}{if} (ofd < 0) \{
+247             \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} pline(\textcolor{stringliteral}{"%s"}, whynot);
+248             (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+249             (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+250             \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer} = whynot;
+251             \hyperlink{save_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(\hyperlink{hack_8h_a2d6235975513e9630a8895cd64a67905}{TRICKED});
+252             \textcolor{keywordflow}{return}(0);
+253         \}
+254         \hyperlink{restore_8c_adf561b811f7ff644e8d9cb39ad374c41}{minit}();   \textcolor{comment}{/* ZEROCOMP */}
+255         \hyperlink{restore_8c_ab39927b02273a97a807663df0d02d0f4}{getlev}(ofd, \hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid}, ltmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+256         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(ofd);
+257         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &ltmp, \textcolor{keyword}{sizeof} ltmp); \textcolor{comment}{/* level number*/}
+258         \hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev}(fd, ltmp, \hyperlink{lev_8h_a5743e308b58e25a32b7629de505bc991}{WRITE\_SAVE} | \hyperlink{lev_8h_a39f3d47170c994b6ac6ec401c34cebd3}{FREE\_SAVE});     \textcolor{comment}{/* actual level*/}
+259         \hyperlink{files_8c_a032ae2e2853e75a4acf5a3d379c661fc}{delete\_levelfile}(ltmp);
+260     \}
+261     \hyperlink{save_8c_ada08c9aeb3924f3573f774f08a5cbc5b}{bclose}(fd);
+262 
+263     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz} = uz\_save;
+264 
+265     \textcolor{comment}{/* get rid of current level --jgm */}
+266     \hyperlink{files_8c_a032ae2e2853e75a4acf5a3d379c661fc}{delete\_levelfile}(ledger\_no(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}));
+267     \hyperlink{files_8c_a032ae2e2853e75a4acf5a3d379c661fc}{delete\_levelfile}(0);
+268     \hyperlink{files_8c_a972d5467067d99c9406312d01203d690}{compress}(fq\_save);
+269     \textcolor{keywordflow}{return}(1);
+270 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a128041c78cf8dd07be5c32562cfa05e3}{\index{save.\+c@{save.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!save.\+c@{save.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf savelevchn}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a128041c78cf8dd07be5c32562cfa05e3}
+\hypertarget{save_8c_ad0dc791df9eb12761042ffffed182e4a}{\index{save.\+c@{save.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!save.\+c@{save.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf savedamage}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_ad0dc791df9eb12761042ffffed182e4a}
+\hypertarget{save_8c_a2f9ca8649ac8e10e72555c247fc00dae}{\index{save.\+c@{save.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!save.\+c@{save.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf saveobjchn}}]{, }
+\item[{(int, struct {\bf obj} $\ast$, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a2f9ca8649ac8e10e72555c247fc00dae}
+\hypertarget{save_8c_a12123e51223c59e7c21a90b18adf8bba}{\index{save.\+c@{save.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!save.\+c@{save.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf savemonchn}}]{, }
+\item[{(int, struct {\bf monst} $\ast$, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a12123e51223c59e7c21a90b18adf8bba}
+\hypertarget{save_8c_a5d5c7f718ff23c80a3b4af3c470c70c5}{\index{save.\+c@{save.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!save.\+c@{save.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf savetrapchn}}]{, }
+\item[{(int, struct {\bf trap} $\ast$, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a5d5c7f718ff23c80a3b4af3c470c70c5}
+\hypertarget{save_8c_abf33db969f097f81c703c468cbff5bcd}{\index{save.\+c@{save.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!save.\+c@{save.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf savegamestate}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_abf33db969f097f81c703c468cbff5bcd}
+\hypertarget{save_8c_a140273d59f77e33b38883b02904c2682}{\index{save.\+c@{save.\+c}!free\+\_\+dungeons@{free\+\_\+dungeons}}
+\index{free\+\_\+dungeons@{free\+\_\+dungeons}!save.\+c@{save.\+c}}
+\subsubsection[{free\+\_\+dungeons}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+dungeons (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a140273d59f77e33b38883b02904c2682}
+
+
+Definition at line 947 of file save.\+c.
+
+
+
+References F\+A\+L\+S\+E, F\+R\+E\+E\+\_\+\+S\+A\+V\+E, savelevchn(), and T\+R\+U\+E.
+
+
+
+Referenced by freedynamicdata(), and prscore().
+
+
+\begin{DoxyCode}
+948 \{
+949 \textcolor{preprocessor}{#ifdef FREE\_ALL\_MEMORY}
+950     \hyperlink{save_8c_a942fcfd316f49dde6f32f637e1de7d4c}{savelevchn}(0, \hyperlink{lev_8h_a39f3d47170c994b6ac6ec401c34cebd3}{FREE\_SAVE});
+951     save\_dungeon(0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+952 \textcolor{preprocessor}{#endif}
+953     \textcolor{keywordflow}{return};
+954 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a183c8baf3dc4b198167b5ae80a6a07dd}{\index{save.\+c@{save.\+c}!freedynamicdata@{freedynamicdata}}
+\index{freedynamicdata@{freedynamicdata}!save.\+c@{save.\+c}}
+\subsubsection[{freedynamicdata}]{\setlength{\rightskip}{0pt plus 5cm}void freedynamicdata (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a183c8baf3dc4b198167b5ae80a6a07dd}
+
+
+Definition at line 957 of file save.\+c.
+
+
+
+References billobjs, dlevel\+\_\+t\+::buriedobjlist, D\+I\+S\+P\+\_\+\+F\+R\+E\+E\+M\+E\+M, fmon, fobj, free(), free\+\_\+dungeons(), freefruitchn(), ftrap, iflags, invent, level, migrating\+\_\+mons, migrating\+\_\+objs, mydogs, R\+A\+N\+G\+E\+\_\+\+G\+L\+O\+B\+A\+L, R\+A\+N\+G\+E\+\_\+\+L\+E\+V\+E\+L, tmp\+\_\+at(), unload\+\_\+qtlist(), instance\+\_\+flags\+::wc\+\_\+font\+\_\+map, instance\+\_\+flags\+::wc\+\_\+font\+\_\+menu, instance\+\_\+flags\+::wc\+\_\+font\+\_\+message, instance\+\_\+flags\+::wc\+\_\+font\+\_\+status, instance\+\_\+flags\+::wc\+\_\+font\+\_\+text, and instance\+\_\+flags\+::wc\+\_\+tile\+\_\+file.
+
+
+
+Referenced by terminate().
+
+
+\begin{DoxyCode}
+958 \{
+959     \hyperlink{questpgr_8c_a8be49a36e9193fb686ac6db367a038f4}{unload\_qtlist}();
+960     free\_invbuf();  \textcolor{comment}{/* let\_to\_name (invent.c) */}
+961     free\_youbuf();  \textcolor{comment}{/* You\_buf,&c (pline.c) */}
+962     \hyperlink{display_8c_a0567746aec3aa9a3e8075d8eabb29846}{tmp\_at}(\hyperlink{display_8h_a04bf882074111f4d4ceabd3696f789c4}{DISP\_FREEMEM}, 0);  \textcolor{comment}{/* temporary display effects */}
+963 \textcolor{preprocessor}{#ifdef FREE\_ALL\_MEMORY}
+964 \textcolor{preprocessor}{# define freeobjchn(X)  (saveobjchn(0, X, FREE\_SAVE),  X = 0)}
+965 \textcolor{preprocessor}{# define freemonchn(X)  (savemonchn(0, X, FREE\_SAVE),  X = 0)}
+966 \textcolor{preprocessor}{# define freetrapchn(X) (savetrapchn(0, X, FREE\_SAVE), X = 0)}
+967 \textcolor{preprocessor}{# define freefruitchn()  savefruitchn(0, FREE\_SAVE)}
+968 \textcolor{preprocessor}{# define freenames()     savenames(0, FREE\_SAVE)}
+969 \textcolor{preprocessor}{# define free\_oracles() save\_oracles(0, FREE\_SAVE)}
+970 \textcolor{preprocessor}{# define free\_waterlevel() save\_waterlevel(0, FREE\_SAVE)}
+971 \textcolor{preprocessor}{# define free\_worm()     save\_worm(0, FREE\_SAVE)}
+972 \textcolor{preprocessor}{# define free\_timers(R)  save\_timers(0, FREE\_SAVE, R)}
+973 \textcolor{preprocessor}{# define free\_light\_sources(R) save\_light\_sources(0, FREE\_SAVE, R);}
+974 \textcolor{preprocessor}{# define free\_engravings() save\_engravings(0, FREE\_SAVE)}
+975 \textcolor{preprocessor}{# define freedamage()    savedamage(0, FREE\_SAVE)}
+976 \textcolor{preprocessor}{# define free\_animals()  mon\_animal\_list(FALSE)}
+977 
+978     \textcolor{comment}{/* move-specific data */}
+979     dmonsfree();        \textcolor{comment}{/* release dead monsters */}
+980 
+981     \textcolor{comment}{/* level-specific data */}
+982     free\_timers(\hyperlink{timeout_8h_aa61d2086b782ee9cc52a9dbd921d5e29}{RANGE\_LEVEL});
+983     free\_light\_sources(\hyperlink{timeout_8h_aa61d2086b782ee9cc52a9dbd921d5e29}{RANGE\_LEVEL});
+984     freemonchn(\hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon});
+985     free\_worm();        \textcolor{comment}{/* release worm segment information */}
+986     freetrapchn(\hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap});
+987     freeobjchn(\hyperlink{rm_8h_a4d2866bf9ebea1c08c26174b5c8cfbb7}{fobj});
+988     freeobjchn(\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a3f47ab569a36a0574eb4363915fe2fae}{buriedobjlist});
+989     freeobjchn(\hyperlink{decl_8h_a10c61a6197f59182f24cea646c4b9a81}{billobjs});
+990     free\_engravings();
+991     freedamage();
+992 
+993     \textcolor{comment}{/* game-state data */}
+994     free\_timers(\hyperlink{timeout_8h_a56888daded603d4271c675ec6fa15b19}{RANGE\_GLOBAL});
+995     free\_light\_sources(\hyperlink{timeout_8h_a56888daded603d4271c675ec6fa15b19}{RANGE\_GLOBAL});
+996     freeobjchn(\hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent});
+997     freeobjchn(\hyperlink{decl_8h_a9e736562f9d13a35004d49ab7c4c0ca7}{migrating\_objs});
+998     freemonchn(\hyperlink{decl_8h_a10b9afc11cdab35fe16667bb8a5506d2}{migrating\_mons});
+999     freemonchn(\hyperlink{decl_8h_adf725793c60d6be3ae981bd224f745e0}{mydogs});       \textcolor{comment}{/* ascension or dungeon escape */}
+1000      \textcolor{comment}{/* freelevchn();   [folded into free\_dungeons()] */}
+1001     free\_animals();
+1002     free\_oracles();
+1003     \hyperlink{restore_8c_ab16ff9ce41130269e6375865b1247bfc}{freefruitchn}();
+1004     freenames();
+1005     free\_waterlevel();
+1006     \hyperlink{save_8c_a140273d59f77e33b38883b02904c2682}{free\_dungeons}();
+1007 
+1008     \textcolor{comment}{/* some pointers in iflags */}
+1009     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_aa6ea2de4586a805d461b0a92a229b7a8}{wc\_font\_map}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_aa6ea2de4586a805d461b0a92a229b7a8}{wc\_font\_map});
+1010     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a1cd982dcf1dd4bebc211a2d38dc74eea}{wc\_font\_message}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_a1cd982dcf1dd4bebc211a2d38dc74eea}{wc\_font\_message});
+1011     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_adadc7a55169eda5a908c200536396872}{wc\_font\_text}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_adadc7a55169eda5a908c200536396872}{wc\_font\_text});
+1012     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2feb69a3cf238cd4018f1c76f622ad17}{wc\_font\_menu}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_a2feb69a3cf238cd4018f1c76f622ad17}{wc\_font\_menu});
+1013     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a6b5bba710c4e80b026a4c1e77d015489}{wc\_font\_status}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_a6b5bba710c4e80b026a4c1e77d015489}{wc\_font\_status});
+1014     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a124beae6172167923de264a085b8bae4}{wc\_tile\_file}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_a124beae6172167923de264a085b8bae4}{wc\_tile\_file});
+1015 \textcolor{preprocessor}{#ifdef AUTOPICKUP\_EXCEPTIONS}
+1016     free\_autopickup\_exceptions();
+1017 \textcolor{preprocessor}{#endif}
+1018 
+1019 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* FREE\_ALL\_MEMORY */}\textcolor{preprocessor}{}
+1020     \textcolor{keywordflow}{return};
+1021 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a90295b9095f1f74564c4cd5a1e435dae}{\index{save.\+c@{save.\+c}!savedamage@{savedamage}}
+\index{savedamage@{savedamage}!save.\+c@{save.\+c}}
+\subsubsection[{savedamage}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void savedamage (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a90295b9095f1f74564c4cd5a1e435dae}
+
+
+Definition at line 814 of file save.\+c.
+
+
+
+References bwrite(), dlevel\+\_\+t\+::damagelist, free(), level, damage\+::next, perform\+\_\+bwrite, and release\+\_\+data.
+
+
+
+Referenced by savelev().
+
+
+\begin{DoxyCode}
+816 \{
+817     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structdamage}{damage} *damageptr, *tmp\_dam;
+818     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} xl = 0;
+819 
+820     damageptr = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a32cc1062d668db12f8f02ff2ea0d3fcd}{damagelist};
+821     \textcolor{keywordflow}{for} (tmp\_dam = damageptr; tmp\_dam; tmp\_dam = tmp\_dam->\hyperlink{structdamage_accbaacc957cc3a4b110dc07fdb812ee6}{next})
+822         xl++;
+823     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+824         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &xl, \textcolor{keyword}{sizeof}(xl));
+825 
+826     \textcolor{keywordflow}{while} (xl--) \{
+827         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+828         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) damageptr, \textcolor{keyword}{sizeof}(*damageptr));
+829         tmp\_dam = damageptr;
+830         damageptr = damageptr->\hyperlink{structdamage_accbaacc957cc3a4b110dc07fdb812ee6}{next};
+831         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+832         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})tmp\_dam);
+833     \}
+834     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+835         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a32cc1062d668db12f8f02ff2ea0d3fcd}{damagelist} = 0;
+836 \}
+\end{DoxyCode}
+\hypertarget{save_8c_aff4b6aa0a5610dd3645ab6c37311d5c7}{\index{save.\+c@{save.\+c}!savefruitchn@{savefruitchn}}
+\index{savefruitchn@{savefruitchn}!save.\+c@{save.\+c}}
+\subsubsection[{savefruitchn}]{\setlength{\rightskip}{0pt plus 5cm}void savefruitchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{save_8c_aff4b6aa0a5610dd3645ab6c37311d5c7}
+
+
+Definition at line 925 of file save.\+c.
+
+
+
+References bwrite(), dealloc\+\_\+fruit, ffruit, fruit\+::fid, fruit\+::nextf, perform\+\_\+bwrite, and release\+\_\+data.
+
+
+
+Referenced by savebones(), and savegamestate().
+
+
+\begin{DoxyCode}
+927 \{
+928     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structfruit}{fruit} *f2, *f1;
+929 
+930     f1 = \hyperlink{decl_8h_ad67dc437078ce8705a8bff226f87076f}{ffruit};
+931     \textcolor{keywordflow}{while} (f1) \{
+932         f2 = f1->\hyperlink{structfruit_abdefc7da964abc0fe643d941b7ab3057}{nextf};
+933         \textcolor{keywordflow}{if} (f1->\hyperlink{structfruit_ad6877c834bde1a6c94370dab88feb2f1}{fid} >= 0 && \hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+934         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) f1, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structfruit}{fruit}));
+935         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+936         \hyperlink{objclass_8h_a7800724983f6a8e87465f0672e79ae9a}{dealloc\_fruit}(f1);
+937         f1 = f2;
+938     \}
+939     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+940         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{save_8c_afafaffc3104b878f75d122f5238bb318}{nulls}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structfruit}{fruit}));
+941     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+942         \hyperlink{decl_8h_ad67dc437078ce8705a8bff226f87076f}{ffruit} = 0;
+943 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a46a765ff481d5cbfee2550e540415578}{\index{save.\+c@{save.\+c}!savegamestate@{savegamestate}}
+\index{savegamestate@{savegamestate}!save.\+c@{save.\+c}}
+\subsubsection[{savegamestate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void savegamestate (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a46a765ff481d5cbfee2550e540415578}
+
+
+Definition at line 273 of file save.\+c.
+
+
+
+References bflush(), bwrite(), C\+O\+U\+N\+T\+\_\+\+S\+A\+V\+E, current\+\_\+fruit, flags, getuid(), invent, migrating\+\_\+mons, migrating\+\_\+objs, monstermoves, moves, perform\+\_\+bwrite, pl\+\_\+character, pl\+\_\+fruit, quest\+\_\+status, R\+A\+N\+G\+E\+\_\+\+G\+L\+O\+B\+A\+L, release\+\_\+data, save\+\_\+oracles(), save\+\_\+waterlevel(), savefruitchn(), savelevchn(), savemonchn(), savenames(), saveobjchn(), spl\+\_\+book, u, and usteed\+\_\+id.
+
+
+
+Referenced by dosave0().
+
+
+\begin{DoxyCode}
+275 \{
+276     \textcolor{keywordtype}{int} uid;
+277 
+278 \textcolor{preprocessor}{#ifdef MFLOPPY}
+279     count\_only = (mode & \hyperlink{lev_8h_af278f508ebfcebe77bc078316e7a2d18}{COUNT\_SAVE});
+280 \textcolor{preprocessor}{#endif}
+281     uid = \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}();
+282     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &uid, \textcolor{keyword}{sizeof} uid);
+283     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structflag}{flag}));
+284     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structyou}{you}));
+285 
+286     \textcolor{comment}{/* must come before migrating\_objs and migrating\_mons are freed */}
+287     save\_timers(fd, mode, \hyperlink{timeout_8h_a56888daded603d4271c675ec6fa15b19}{RANGE\_GLOBAL});
+288     save\_light\_sources(fd, mode, \hyperlink{timeout_8h_a56888daded603d4271c675ec6fa15b19}{RANGE\_GLOBAL});
+289 
+290     \hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn}(fd, \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}, mode);
+291     \hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn}(fd, \hyperlink{decl_8h_a9e736562f9d13a35004d49ab7c4c0ca7}{migrating\_objs}, mode);
+292     \hyperlink{save_8c_a6c5d0d6e4de0ead5da051dd7c2d44c25}{savemonchn}(fd, \hyperlink{decl_8h_a10b9afc11cdab35fe16667bb8a5506d2}{migrating\_mons}, mode);
+293     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode)) \{
+294         \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent} = 0;
+295         \hyperlink{decl_8h_a9e736562f9d13a35004d49ab7c4c0ca7}{migrating\_objs} = 0;
+296         \hyperlink{decl_8h_a10b9afc11cdab35fe16667bb8a5506d2}{migrating\_mons} = 0;
+297     \}
+298     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{structmvitals}{mvitals}, \textcolor{keyword}{sizeof}(mvitals));
+299 
+300     save\_dungeon(fd, (\textcolor{keywordtype}{boolean})!!\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode),
+301              (\textcolor{keywordtype}{boolean})!!\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode));
+302     \hyperlink{save_8c_a942fcfd316f49dde6f32f637e1de7d4c}{savelevchn}(fd, mode);
+303     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a2ccad6e8fb93740ed50c6d9a8f72ce2f}{moves}, \textcolor{keyword}{sizeof} moves);
+304     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a75c1f008487d95630d0d789a79bb5c74}{monstermoves}, \textcolor{keyword}{sizeof} monstermoves);
+305     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a0cccaa8c269a70f9f598d16b8bcad4f7}{quest\_status}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structq__score}{q\_score}));
+306     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book},
+307                 \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structspell}{spell}) * (MAXSPELL + 1));
+308     save\_artifacts(fd);
+309     \hyperlink{rumors_8c_a0d22964e3ed141d773028b68be51be0a}{save\_oracles}(fd, mode);
+310     \textcolor{keywordflow}{if}(\hyperlink{save_8c_aafcbfd58642a78cf19f9f3488d34b6ab}{ustuck\_id})
+311         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{save_8c_aafcbfd58642a78cf19f9f3488d34b6ab}{ustuck\_id}, \textcolor{keyword}{sizeof} ustuck\_id);
+312 \textcolor{preprocessor}{#ifdef STEED}
+313     \textcolor{keywordflow}{if}(\hyperlink{save_8c_a2b8bf6c169d18743a61d0c37923415b7}{usteed\_id})
+314         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{save_8c_a2b8bf6c169d18743a61d0c37923415b7}{usteed\_id}, \textcolor{keyword}{sizeof} usteed\_id);
+315 \textcolor{preprocessor}{#endif}
+316     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_a053ad248bf641e54a6f7bfb6a8fb9e05}{pl\_character}, \textcolor{keyword}{sizeof} pl\_character);
+317     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_abdd09a1ba870cc8f20c2a5a1a9e38d68}{pl\_fruit}, \textcolor{keyword}{sizeof} pl\_fruit);
+318     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a3ba39ed8bee2af6aa41539375a35fe8c}{current\_fruit}, \textcolor{keyword}{sizeof} current\_fruit);
+319     \hyperlink{save_8c_aff4b6aa0a5610dd3645ab6c37311d5c7}{savefruitchn}(fd, mode);
+320     \hyperlink{o__init_8c_acf5509243a1e3ffc44ba1e46a5b635c7}{savenames}(fd, mode);
+321     \hyperlink{mkmaze_8c_abf535e619c60a8876cdd8fb4781d4414}{save\_waterlevel}(fd, mode);
+322     \hyperlink{save_8c_ae1317b09b119a1374b2b587aedf5f721}{bflush}(fd);
+323 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{\index{save.\+c@{save.\+c}!savelev@{savelev}}
+\index{savelev@{savelev}!save.\+c@{save.\+c}}
+\subsubsection[{savelev}]{\setlength{\rightskip}{0pt plus 5cm}void savelev (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf xchar}}]{lev, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}
+
+
+Definition at line 435 of file save.\+c.
+
+
+
+References bflush(), billobjs, dlevel\+\_\+t\+::buriedobjlist, bwrite(), C\+O\+L\+N\+O, C\+O\+U\+N\+T\+\_\+\+S\+A\+V\+E, dndest, dnladder, dnstair, doors, flags, dlevel\+\_\+t\+::flags, fmon, fobj, F\+R\+E\+E\+\_\+\+S\+A\+V\+E, ftrap, rm\+::glyph, hackpid, iflags, level, level\+\_\+info, levl, monstermoves, panic(), instance\+\_\+flags\+::purge\+\_\+monsters, R\+A\+N\+G\+E\+\_\+\+L\+E\+V\+E\+L, release\+\_\+data, R\+O\+W\+N\+O, save\+\_\+regions(), save\+\_\+worm(), savedamage(), savemonchn(), saveobjchn(), savetrapchn(), rm\+::seenv, sstairs, rm\+::typ, updest, upladder, upstair, and V\+I\+S\+I\+T\+E\+D.
+
+
+
+Referenced by dorecover(), dosave0(), restlevelfile(), restore\+\_\+savefile(), and savebones().
+
+
+\begin{DoxyCode}
+440 \{
+441 \textcolor{preprocessor}{#ifdef TOS}
+442     \textcolor{keywordtype}{short} tlev;
+443 \textcolor{preprocessor}{#endif}
+444 
+445     \textcolor{comment}{/* if we're tearing down the current level without saving anything}
+446 \textcolor{comment}{       (which happens upon entrance to the endgame or after an aborted}
+447 \textcolor{comment}{       restore attempt) then we don't want to do any actual I/O */}
+448     \textcolor{keywordflow}{if} (mode == \hyperlink{lev_8h_a39f3d47170c994b6ac6ec401c34cebd3}{FREE\_SAVE}) \textcolor{keywordflow}{goto} skip\_lots;
+449     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a246e9f136457484fe45ef20ecb85dc67}{purge\_monsters}) \{
+450         \textcolor{comment}{/* purge any dead monsters (necessary if we're starting}
+451 \textcolor{comment}{         * a panic save rather than a normal one, or sometimes}
+452 \textcolor{comment}{         * when changing levels without taking time -- e.g.}
+453 \textcolor{comment}{         * create statue trap then immediately level teleport) */}
+454         dmonsfree();
+455     \}
+456 
+457     \textcolor{keywordflow}{if}(fd < 0) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Save on bad file!"}); \textcolor{comment}{/* impossible */}
+458 \textcolor{preprocessor}{#ifdef MFLOPPY}
+459     count\_only = (mode & \hyperlink{lev_8h_af278f508ebfcebe77bc078316e7a2d18}{COUNT\_SAVE});
+460 \textcolor{preprocessor}{#endif}
+461     \textcolor{keywordflow}{if} (lev >= 0 && lev <= maxledgerno())
+462         \hyperlink{decl_8h_a8bfac57de50a3a9d8ddd84b6aaaba2ad}{level\_info}[lev].\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags} |= \hyperlink{dungeon_8h_a28615ad40e5d11edaefd903c02206f6d}{VISITED};
+463     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid},\textcolor{keyword}{sizeof}(hackpid));
+464 \textcolor{preprocessor}{#ifdef TOS}
+465     tlev=lev; tlev &= 0x00ff;
+466     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &tlev,\textcolor{keyword}{sizeof}(tlev));
+467 \textcolor{preprocessor}{#else}
+468     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &lev,\textcolor{keyword}{sizeof}(lev));
+469 \textcolor{preprocessor}{#endif}
+470 \textcolor{preprocessor}{#ifdef RLECOMP}
+471     \{
+472         \textcolor{comment}{/* perform run-length encoding of rm structs */}
+473         \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *prm, *rgrm;
+474         \textcolor{keywordtype}{int} x, y;
+475         \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} match;
+476 
+477         rgrm = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[0][0];     \textcolor{comment}{/* start matching at first rm */}
+478         match = 0;
+479 
+480         \textcolor{keywordflow}{for} (y = 0; y < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; y++) \{
+481         \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; x++) \{
+482             prm = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y];
+483             \textcolor{keywordflow}{if} (prm->\hyperlink{structrm_a35df3d254aba2b97739aed75313cbe5c}{glyph} == rgrm->\hyperlink{structrm_a35df3d254aba2b97739aed75313cbe5c}{glyph}
+484             && prm->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} == rgrm->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ}
+485             && prm->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv} == rgrm->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv}
+486             && prm->horizontal == rgrm->horizontal
+487             && prm->flags == rgrm->flags
+488             && prm->lit == rgrm->lit
+489             && prm->waslit == rgrm->waslit
+490             && prm->roomno == rgrm->roomno
+491             && prm->edge == rgrm->edge) \{
+492             match++;
+493             \textcolor{keywordflow}{if} (match > 254) \{
+494                 match = 254;    \textcolor{comment}{/* undo this match */}
+495                 \textcolor{keywordflow}{goto} writeout;
+496             \}
+497             \} \textcolor{keywordflow}{else} \{
+498             \textcolor{comment}{/* the run has been broken,}
+499 \textcolor{comment}{             * write out run-length encoding */}
+500             writeout:
+501             \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&match, \textcolor{keyword}{sizeof}(\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}));
+502             \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})rgrm, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structrm}{rm}));
+503             \textcolor{comment}{/* start encoding again. we have at least 1 rm}
+504 \textcolor{comment}{             * in the next run, viz. this one. */}
+505             match = 1;
+506             rgrm = prm;
+507             \}
+508         \}
+509         \}
+510         \textcolor{keywordflow}{if} (match > 0) \{
+511         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&match, \textcolor{keyword}{sizeof}(\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}));
+512         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})rgrm, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structrm}{rm}));
+513         \}
+514     \}
+515 \textcolor{preprocessor}{#else}
+516     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl},\textcolor{keyword}{sizeof}(levl));
+517 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* RLECOMP */}\textcolor{preprocessor}{}
+518 
+519     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a75c1f008487d95630d0d789a79bb5c74}{monstermoves},\textcolor{keyword}{sizeof}(monstermoves));
+520     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a265268a80f34414794da0aa1e8166d62}{upstair},\textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+521     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_aece4704da0e935d82fa5702fb744f882}{dnstair},\textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+522     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_ab4a05e4336ef730195b4f5159e1708ce}{upladder},\textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+523     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_afce63666c65b67fb6e38e9c517eeba12}{dnladder},\textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+524     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs},\textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+525     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest},\textcolor{keyword}{sizeof}(\hyperlink{structdest__area}{dest\_area}));
+526     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest},\textcolor{keyword}{sizeof}(\hyperlink{structdest__area}{dest\_area}));
+527     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags},\textcolor{keyword}{sizeof}(
+      \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}));
+528     \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{mkroom_8h_a2f0608010228278f7299277b3a67d492}{doors}, \textcolor{keyword}{sizeof}(doors));
+529     save\_rooms(fd); \textcolor{comment}{/* no dynamic memory to reclaim */}
+530 
+531     \textcolor{comment}{/* from here on out, saving also involves allocated memory cleanup */}
+532  skip\_lots:
+533     \textcolor{comment}{/* must be saved before mons, objs, and buried objs */}
+534     save\_timers(fd, mode, \hyperlink{timeout_8h_aa61d2086b782ee9cc52a9dbd921d5e29}{RANGE\_LEVEL});
+535     save\_light\_sources(fd, mode, \hyperlink{timeout_8h_aa61d2086b782ee9cc52a9dbd921d5e29}{RANGE\_LEVEL});
+536 
+537     \hyperlink{save_8c_a6c5d0d6e4de0ead5da051dd7c2d44c25}{savemonchn}(fd, \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon}, mode);
+538     \hyperlink{worm_8c_ad56054f29cf980ff32aabdc6dde7ad3a}{save\_worm}(fd, mode);   \textcolor{comment}{/* save worm information */}
+539     \hyperlink{save_8c_aaa27bdab042b9bc83951bf9a8876bbc7}{savetrapchn}(fd, \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap}, mode);
+540     \hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn}(fd, \hyperlink{rm_8h_a4d2866bf9ebea1c08c26174b5c8cfbb7}{fobj}, mode);
+541     \hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn}(fd, \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a3f47ab569a36a0574eb4363915fe2fae}{buriedobjlist}, mode);
+542     \hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn}(fd, \hyperlink{decl_8h_a10c61a6197f59182f24cea646c4b9a81}{billobjs}, mode);
+543     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode)) \{
+544         \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon} = 0;
+545         \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap} = 0;
+546         \hyperlink{rm_8h_a4d2866bf9ebea1c08c26174b5c8cfbb7}{fobj} = 0;
+547         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a3f47ab569a36a0574eb4363915fe2fae}{buriedobjlist} = 0;
+548         \hyperlink{decl_8h_a10c61a6197f59182f24cea646c4b9a81}{billobjs} = 0;
+549     \}
+550     save\_engravings(fd, mode);
+551     \hyperlink{save_8c_a90295b9095f1f74564c4cd5a1e435dae}{savedamage}(fd, mode);
+552     \hyperlink{region_8c_a838af489fa2b6468bef800775160f074}{save\_regions}(fd, mode);
+553     \textcolor{keywordflow}{if} (mode != \hyperlink{lev_8h_a39f3d47170c994b6ac6ec401c34cebd3}{FREE\_SAVE}) \hyperlink{save_8c_ae1317b09b119a1374b2b587aedf5f721}{bflush}(fd);
+554 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a942fcfd316f49dde6f32f637e1de7d4c}{\index{save.\+c@{save.\+c}!savelevchn@{savelevchn}}
+\index{savelevchn@{savelevchn}!save.\+c@{save.\+c}}
+\subsubsection[{savelevchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void savelevchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a942fcfd316f49dde6f32f637e1de7d4c}
+
+
+Definition at line 792 of file save.\+c.
+
+
+
+References bwrite(), free(), s\+\_\+level\+::next, perform\+\_\+bwrite, release\+\_\+data, and sp\+\_\+levchn.
+
+
+
+Referenced by free\+\_\+dungeons(), and savegamestate().
+
+
+\begin{DoxyCode}
+794 \{
+795     \hyperlink{structs__level}{s\_level}  *tmplev, *tmplev2;
+796     \textcolor{keywordtype}{int} cnt = 0;
+797 
+798     \textcolor{keywordflow}{for} (tmplev = \hyperlink{decl_8h_ae083fd1de4c06d511d4c7fec98f788c4}{sp\_levchn}; tmplev; tmplev = tmplev->\hyperlink{structs__level_a05f0992e55967b904dd299418a2058da}{next}) cnt++;
+799     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+800         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &cnt, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+801 
+802     \textcolor{keywordflow}{for} (tmplev = \hyperlink{decl_8h_ae083fd1de4c06d511d4c7fec98f788c4}{sp\_levchn}; tmplev; tmplev = tmplev2) \{
+803         tmplev2 = tmplev->\hyperlink{structs__level_a05f0992e55967b904dd299418a2058da}{next};
+804         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+805         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) tmplev, \textcolor{keyword}{sizeof}(\hyperlink{structs__level}{s\_level}));
+806         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+807         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) tmplev);
+808     \}
+809     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+810         \hyperlink{decl_8h_ae083fd1de4c06d511d4c7fec98f788c4}{sp\_levchn} = 0;
+811 \}
+\end{DoxyCode}
+\hypertarget{save_8c_a6c5d0d6e4de0ead5da051dd7c2d44c25}{\index{save.\+c@{save.\+c}!savemonchn@{savemonchn}}
+\index{savemonchn@{savemonchn}!save.\+c@{save.\+c}}
+\subsubsection[{savemonchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void savemonchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{save_8c_a6c5d0d6e4de0ead5da051dd7c2d44c25}
+
+
+Definition at line 871 of file save.\+c.
+
+
+
+References bwrite(), dealloc\+\_\+monst, mons, monst\+::mxlth, monst\+::nmon, perform\+\_\+bwrite, release\+\_\+data, and saveobjchn().
+
+
+
+Referenced by savegamestate(), and savelev().
+
+
+\begin{DoxyCode}
+874 \{
+875     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp2;
+876     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} xl;
+877     \textcolor{keywordtype}{int} minusone = -1;
+878     \textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *monbegin = &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[0];
+879 
+880     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+881         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &monbegin, \textcolor{keyword}{sizeof}(monbegin));
+882 
+883     \textcolor{keywordflow}{while} (mtmp) \{
+884         mtmp2 = mtmp->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon};
+885         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode)) \{
+886         xl = mtmp->\hyperlink{structmonst_a6c24439d98c9580ee2a3918008801ac2}{mxlth} + mtmp->\hyperlink{structmonst_a03fe7192ae1efd428bc9a0d2f856125f}{mnamelth};
+887         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &xl, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+888         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) mtmp, xl + \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmonst}{monst}));
+889         \}
+890         \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_a480856d6a5db5610593c9816e525a978}{minvent})
+891         \hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn}(fd,mtmp->\hyperlink{structmonst_a480856d6a5db5610593c9816e525a978}{minvent},mode);
+892         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+893         \hyperlink{monst_8h_a26688b139dc425f7e8a5b6cca8d5c466}{dealloc\_monst}(mtmp);
+894         mtmp = mtmp2;
+895     \}
+896     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+897         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &minusone, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+898 \}
+\end{DoxyCode}
+\hypertarget{save_8c_ab28d43e3151a220689b5287bdae1c305}{\index{save.\+c@{save.\+c}!saveobjchn@{saveobjchn}}
+\index{saveobjchn@{saveobjchn}!save.\+c@{save.\+c}}
+\subsubsection[{saveobjchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void saveobjchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{struct {\bf obj} $\ast$}]{otmp, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{save_8c_ab28d43e3151a220689b5287bdae1c305}
+
+
+Definition at line 839 of file save.\+c.
+
+
+
+References book\+\_\+disappears(), bwrite(), F\+O\+O\+D\+\_\+\+C\+L\+A\+S\+S, Has\+\_\+contents, obj\+::nobj, O\+B\+J\+\_\+\+F\+R\+E\+E, obj\+::oxlth, perform\+\_\+bwrite, release\+\_\+data, and S\+P\+B\+O\+O\+K\+\_\+\+C\+L\+A\+S\+S.
+
+
+
+Referenced by savegamestate(), savelev(), and savemonchn().
+
+
+\begin{DoxyCode}
+842 \{
+843     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *otmp2;
+844     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} xl;
+845     \textcolor{keywordtype}{int} minusone = -1;
+846 
+847     \textcolor{keywordflow}{while}(otmp) \{
+848         otmp2 = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj};
+849         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode)) \{
+850         xl = otmp->\hyperlink{structobj_aff8be0ef151aed04ef0d41f39c90b9ef}{oxlth} + otmp->\hyperlink{structobj_a032663f21fa617948660e1102147b47d}{onamelth};
+851         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &xl, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+852         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) otmp, xl + \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structobj}{obj}));
+853         \}
+854         \textcolor{keywordflow}{if} (\hyperlink{obj_8h_ae2e47c7280efe98de2333e8078f8ce71}{Has\_contents}(otmp))
+855         \hyperlink{save_8c_ab28d43e3151a220689b5287bdae1c305}{saveobjchn}(fd,otmp->\hyperlink{structobj_aa7bed832c417657c964b6f5893737586}{cobj},mode);
+856         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode)) \{
+857         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a98c4704dea5f0606fe545294b44f8fd6}{FOOD\_CLASS}) food\_disappears(otmp);
+858         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{SPBOOK\_CLASS}) \hyperlink{spell_8c_afb4f2e9fe8494e82961945cd0d0467d5}{book\_disappears}(otmp);
+859         otmp->\hyperlink{structobj_a57f24060a7aa1c3d2fd02c1c550cb5c6}{where} = \hyperlink{obj_8h_a1a30035b131908457d0b16db1d194eaa}{OBJ\_FREE};    \textcolor{comment}{/* set to free so dealloc will work */}
+860         otmp->\hyperlink{structobj_a1606b78f4b7e85536033e77348551f5f}{timed} = 0;   \textcolor{comment}{/* not timed any more */}
+861         otmp->lamplit = 0;  \textcolor{comment}{/* caller handled lights */}
+862         dealloc\_obj(otmp);
+863         \}
+864         otmp = otmp2;
+865     \}
+866     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+867         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &minusone, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+868 \}
+\end{DoxyCode}
+\hypertarget{save_8c_aaa27bdab042b9bc83951bf9a8876bbc7}{\index{save.\+c@{save.\+c}!savetrapchn@{savetrapchn}}
+\index{savetrapchn@{savetrapchn}!save.\+c@{save.\+c}}
+\subsubsection[{savetrapchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void savetrapchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{struct {\bf trap} $\ast$}]{trap, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{save_8c_aaa27bdab042b9bc83951bf9a8876bbc7}
+
+
+Definition at line 901 of file save.\+c.
+
+
+
+References bwrite(), dealloc\+\_\+trap, trap\+::ntrap, perform\+\_\+bwrite, and release\+\_\+data.
+
+
+
+Referenced by savelev().
+
+
+\begin{DoxyCode}
+904 \{
+905     \textcolor{keyword}{register} \textcolor{keyword}{struct }trap *trap2;
+906 
+907     \textcolor{keywordflow}{while} (trap) \{
+908         trap2 = trap->\hyperlink{structtrap_aef8ea4650dce701fde7f7f3e1310c892}{ntrap};
+909         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+910         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) trap, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} trap));
+911         \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+912         \hyperlink{trap_8h_a917b04b62a7182cfdf8b4c1a663d2244}{dealloc\_trap}(trap);
+913         trap = trap2;
+914     \}
+915     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode))
+916         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{save_8c_afafaffc3104b878f75d122f5238bb318}{nulls}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} trap));
+917 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{save_8c_a264058b7f1af0620efa8d8561edad1e8}{\index{save.\+c@{save.\+c}!buffering@{buffering}}
+\index{buffering@{buffering}!save.\+c@{save.\+c}}
+\subsubsection[{buffering}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} buffering = {\bf F\+A\+L\+S\+E}\hspace{0.3cm}{\ttfamily [static]}}}\label{save_8c_a264058b7f1af0620efa8d8561edad1e8}
+
+
+Definition at line 697 of file save.\+c.
+
+\hypertarget{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}{\index{save.\+c@{save.\+c}!bw\+\_\+fd@{bw\+\_\+fd}}
+\index{bw\+\_\+fd@{bw\+\_\+fd}!save.\+c@{save.\+c}}
+\subsubsection[{bw\+\_\+fd}]{\setlength{\rightskip}{0pt plus 5cm}int bw\+\_\+fd = -\/1\hspace{0.3cm}{\ttfamily [static]}}}\label{save_8c_ae0353b8f22c09b43e0caa8f710467dc9}
+
+
+Definition at line 695 of file save.\+c.
+
+\hypertarget{save_8c_a6260cd81fdd8ab2cf1e86e151b885198}{\index{save.\+c@{save.\+c}!bw\+\_\+\+F\+I\+L\+E@{bw\+\_\+\+F\+I\+L\+E}}
+\index{bw\+\_\+\+F\+I\+L\+E@{bw\+\_\+\+F\+I\+L\+E}!save.\+c@{save.\+c}}
+\subsubsection[{bw\+\_\+\+F\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ bw\+\_\+\+F\+I\+L\+E = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{save_8c_a6260cd81fdd8ab2cf1e86e151b885198}
+
+
+Definition at line 696 of file save.\+c.
+
+\hypertarget{save_8c_a2b8bf6c169d18743a61d0c37923415b7}{\index{save.\+c@{save.\+c}!usteed\+\_\+id@{usteed\+\_\+id}}
+\index{usteed\+\_\+id@{usteed\+\_\+id}!save.\+c@{save.\+c}}
+\subsubsection[{usteed\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}unsigned usteed\+\_\+id = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{save_8c_a2b8bf6c169d18743a61d0c37923415b7}
+
+
+Definition at line 52 of file save.\+c.
+
+
+
+Referenced by dosave0(), and savegamestate().
+
+\hypertarget{save_8c_aafcbfd58642a78cf19f9f3488d34b6ab}{\index{save.\+c@{save.\+c}!ustuck\+\_\+id@{ustuck\+\_\+id}}
+\index{ustuck\+\_\+id@{ustuck\+\_\+id}!save.\+c@{save.\+c}}
+\subsubsection[{ustuck\+\_\+id}]{\setlength{\rightskip}{0pt plus 5cm}unsigned ustuck\+\_\+id = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{save_8c_aafcbfd58642a78cf19f9f3488d34b6ab}
+
+
+Definition at line 52 of file save.\+c.
+

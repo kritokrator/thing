@@ -1,0 +1,168 @@
+\hypertarget{macpopup_8h}{\section{nethack/include/macpopup.h File Reference}
+\label{macpopup_8h}\index{nethack/include/macpopup.\+h@{nethack/include/macpopup.\+h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{macpopup_8h_a9a9c399fb98ac92081a8e3feb516d5cc}{Flash\+Button} (Dialog\+Ref, short)
+\item 
+char \hyperlink{macpopup_8h_a50461f5c14d3a1773fac430a0c827ae0}{queued\+\_\+resp} (char $\ast$resp)
+\item 
+char \hyperlink{macpopup_8h_a72c4292d26feedf74cb3f02b88b4d1e0}{topl\+\_\+yn\+\_\+function} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$query, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$resp, char def)
+\item 
+int \hyperlink{macpopup_8h_a020575204be12bf93e6d877e4e326832}{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue} (char $\ast$bufp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{macpopup_8h_a9a9c399fb98ac92081a8e3feb516d5cc}{\index{macpopup.\+h@{macpopup.\+h}!Flash\+Button@{Flash\+Button}}
+\index{Flash\+Button@{Flash\+Button}!macpopup.\+h@{macpopup.\+h}}
+\subsubsection[{Flash\+Button}]{\setlength{\rightskip}{0pt plus 5cm}void Flash\+Button (
+\begin{DoxyParamCaption}
+\item[{Dialog\+Ref}]{, }
+\item[{short}]{}
+\end{DoxyParamCaption}
+)}}\label{macpopup_8h_a9a9c399fb98ac92081a8e3feb516d5cc}
+
+
+Definition at line 16 of file mmodal.\+c.
+
+
+
+References Delay(), rect, and type.
+
+
+
+Referenced by ask\+\_\+filter().
+
+
+\begin{DoxyCode}
+16                                         \{
+17     \textcolor{keywordtype}{short} \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+18     Handle handle;
+19     Rect \hyperlink{rect_8c_a58a1301fcdb736034a47900ee20578ec}{rect};
+20     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} ticks;
+21 
+22     \textcolor{comment}{/* Apple recommends 8 ticks */}
+23     GetDialogItem(wind, item, &type, &handle, &rect);
+24     HiliteControl((ControlHandle)handle, kControlButtonPart);
+25     \hyperlink{celib_8c_a9efdce133fda030ebb0c7793ffc03d14}{Delay}(8, &ticks);
+26     HiliteControl((ControlHandle)handle, 0);
+27     \textcolor{keywordflow}{return};
+28 \}
+\end{DoxyCode}
+\hypertarget{macpopup_8h_a020575204be12bf93e6d877e4e326832}{\index{macpopup.\+h@{macpopup.\+h}!get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue@{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue}}
+\index{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue@{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue}!macpopup.\+h@{macpopup.\+h}}
+\subsubsection[{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{bufp}
+\end{DoxyParamCaption}
+)}}\label{macpopup_8h_a020575204be12bf93e6d877e4e326832}
+
+
+Definition at line 16 of file mgetline.\+c.
+
+
+
+References try\+\_\+key\+\_\+queue().
+
+
+
+Referenced by topl\+\_\+getlin().
+
+
+\begin{DoxyCode}
+16                                       \{
+17     * bufp = 0;
+18     \textcolor{keywordflow}{if} (\hyperlink{macwin_8c_a336b0f4640568ff74f60c3d8b29e8d52}{try\_key\_queue} (bufp)) \{
+19         \textcolor{keywordflow}{while} (* bufp) \{
+20             \textcolor{keywordflow}{if} (* bufp == 10 || * bufp == 13) \{
+21                 * bufp = 0;
+22             \}
+23             bufp ++;
+24         \}
+25         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+26     \}
+27     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+28 \}
+\end{DoxyCode}
+\hypertarget{macpopup_8h_a50461f5c14d3a1773fac430a0c827ae0}{\index{macpopup.\+h@{macpopup.\+h}!queued\+\_\+resp@{queued\+\_\+resp}}
+\index{queued\+\_\+resp@{queued\+\_\+resp}!macpopup.\+h@{macpopup.\+h}}
+\subsubsection[{queued\+\_\+resp}]{\setlength{\rightskip}{0pt plus 5cm}char queued\+\_\+resp (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{resp}
+\end{DoxyParamCaption}
+)}}\label{macpopup_8h_a50461f5c14d3a1773fac430a0c827ae0}
+
+
+Definition at line 11 of file mactopl.\+c.
+
+
+
+References buf, try\+\_\+key\+\_\+queue(), and yn\+\_\+number.
+
+
+
+Referenced by topl\+\_\+yn\+\_\+function().
+
+
+\begin{DoxyCode}
+11                         \{
+12     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[30];
+13     \textcolor{keywordflow}{if} (\hyperlink{macwin_8c_a336b0f4640568ff74f60c3d8b29e8d52}{try\_key\_queue}(buf)) \{
+14         \textcolor{keywordflow}{if} (!resp || strchr(resp, buf[0]))
+15             \textcolor{keywordflow}{return} buf[0];
+16         \textcolor{keywordflow}{if} (digit(buf[0]) && strchr(resp, \textcolor{charliteral}{'#'})) \{
+17             \hyperlink{decl_8h_a8d0d181363445ec14b97df39150532e9}{yn\_number} = atoi(buf);
+18             \textcolor{keywordflow}{return} \textcolor{charliteral}{'#'};
+19         \}
+20     \}
+21     \textcolor{keywordflow}{return} \textcolor{charliteral}{'\(\backslash\)0'};
+22 \}
+\end{DoxyCode}
+\hypertarget{macpopup_8h_a72c4292d26feedf74cb3f02b88b4d1e0}{\index{macpopup.\+h@{macpopup.\+h}!topl\+\_\+yn\+\_\+function@{topl\+\_\+yn\+\_\+function}}
+\index{topl\+\_\+yn\+\_\+function@{topl\+\_\+yn\+\_\+function}!macpopup.\+h@{macpopup.\+h}}
+\subsubsection[{topl\+\_\+yn\+\_\+function}]{\setlength{\rightskip}{0pt plus 5cm}char topl\+\_\+yn\+\_\+function (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{query, }
+\item[{{\bf const} char $\ast$}]{resp, }
+\item[{char}]{def}
+\end{DoxyParamCaption}
+)}}\label{macpopup_8h_a72c4292d26feedf74cb3f02b88b4d1e0}
+
+
+Definition at line 26 of file mactopl.\+c.
+
+
+
+References buf, enter\+\_\+topl\+\_\+mode(), leave\+\_\+topl\+\_\+mode(), nhbell, queued\+\_\+resp(), topl\+\_\+set\+\_\+resp(), and yn\+\_\+number.
+
+
+
+Referenced by mac\+\_\+yn\+\_\+function().
+
+
+\begin{DoxyCode}
+26                                                                 \{
+27     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[30];
+28     \textcolor{keywordtype}{char} c = \hyperlink{mactopl_8c_a50461f5c14d3a1773fac430a0c827ae0}{queued\_resp}((\textcolor{keywordtype}{char} *) resp);
+29     \textcolor{keywordflow}{if} (!c) \{
+30         \hyperlink{macwin_8c_aa6e33d4f635b32400951988d58316edf}{enter\_topl\_mode}((\textcolor{keywordtype}{char} *) query);
+31         \hyperlink{macwin_8c_a7919e577c7f6fe3391905caaf29b5afb}{topl\_set\_resp}((\textcolor{keywordtype}{char} *) resp, def);
+32 
+33         \textcolor{keywordflow}{do} \{
+34             c = readchar();
+35             \textcolor{keywordflow}{if} (c && resp && !strchr(resp, c)) \{
+36                 \hyperlink{winprocs_8h_af67660f5fad2a702109065ec601ca346}{nhbell}();
+37                 c = \textcolor{charliteral}{'\(\backslash\)0'};
+38             \}
+39         \} \textcolor{keywordflow}{while} (!c);
+40 
+41         \hyperlink{macwin_8c_a7919e577c7f6fe3391905caaf29b5afb}{topl\_set\_resp}(\textcolor{stringliteral}{""}, \textcolor{charliteral}{'\(\backslash\)0'});
+42         \hyperlink{macwin_8c_acdf93be14c6dd2032b3d9881423c18dd}{leave\_topl\_mode}(buf);
+43         \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'#'})
+44             \hyperlink{decl_8h_a8d0d181363445ec14b97df39150532e9}{yn\_number} = atoi(buf);
+45     \}
+46     \textcolor{keywordflow}{return} c;
+47 \}
+\end{DoxyCode}

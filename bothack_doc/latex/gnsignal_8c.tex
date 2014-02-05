@@ -1,0 +1,625 @@
+\hypertarget{gnsignal_8c}{\section{nethack/win/gnome/gnsignal.c File Reference}
+\label{gnsignal_8c}\index{nethack/win/gnome/gnsignal.\+c@{nethack/win/gnome/gnsignal.\+c}}
+}
+{\ttfamily \#include \char`\"{}gnsignal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gnmain.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$gdk/gdkkeysyms.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(c)~(0x80 $\vert$ (c))
+\item 
+\#define \hyperlink{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}(c)~(0x1f \& (c))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{gnsignal_8c_a2c49cff2ef722dfb9425f60d01d59e06}{ghack\+\_\+init\+\_\+signals} (void)
+\item 
+static gint \hyperlink{gnsignal_8c_a96a57fc9ab80850d0f20d9d062dff4b6}{timeout\+\_\+callback} (gpointer data)
+\item 
+void \hyperlink{gnsignal_8c_aa9aeab1b0ef274fa4e2c94a8b085bcb0}{ghack\+\_\+delay} (Gtk\+Widget $\ast$win, int num\+Millisecs, gpointer data)
+\item 
+void \hyperlink{gnsignal_8c_af1892417c71cf829ce055df7174e56b1}{ghack\+\_\+handle\+\_\+button\+\_\+press} (Gtk\+Widget $\ast$widget, Gdk\+Event\+Button $\ast$event, gpointer data)
+\item 
+void \hyperlink{gnsignal_8c_a7fbda300bdea50081626f27029e1932f}{ghack\+\_\+handle\+\_\+key\+\_\+press} (Gtk\+Widget $\ast$widget, Gdk\+Event\+Key $\ast$event, gpointer data)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+G\+List $\ast$ \hyperlink{gnsignal_8c_a0e6cf81b52e14cf12b108963dde1729f}{g\+\_\+key\+Buffer}
+\item 
+G\+List $\ast$ \hyperlink{gnsignal_8c_ae47be96e52c8d9bbb958c91ed24afacc}{g\+\_\+click\+Buffer}
+\item 
+int \hyperlink{gnsignal_8c_a2013547bc9aa76cbb93127bd9e5970a0}{g\+\_\+num\+Keys} =0
+\item 
+int \hyperlink{gnsignal_8c_aad0a88fb32227a59f3ac782cf92cb0c9}{g\+\_\+num\+Clicks} =0
+\item 
+int \hyperlink{gnsignal_8c_a9b4b4ad8a2bcc37729dadfc43b2a3dbb}{g\+\_\+asking\+Question} =0
+\item 
+static int \hyperlink{gnsignal_8c_a46c676dbad47f2d25789894a5fd64b65}{s\+\_\+done} =\hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}{\index{gnsignal.\+c@{gnsignal.\+c}!C@{C}}
+\index{C@{C}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{C}]{\setlength{\rightskip}{0pt plus 5cm}\#define C(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~(0x1f \& (c))}}\label{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}
+
+
+Definition at line 244 of file gnsignal.\+c.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+key\+\_\+press().
+
+\hypertarget{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{\index{gnsignal.\+c@{gnsignal.\+c}!M@{M}}
+\index{M@{M}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{M}]{\setlength{\rightskip}{0pt plus 5cm}\#define M(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~(0x80 $\vert$ (c))}}\label{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}
+
+
+Definition at line 238 of file gnsignal.\+c.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+key\+\_\+press().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{gnsignal_8c_aa9aeab1b0ef274fa4e2c94a8b085bcb0}{\index{gnsignal.\+c@{gnsignal.\+c}!ghack\+\_\+delay@{ghack\+\_\+delay}}
+\index{ghack\+\_\+delay@{ghack\+\_\+delay}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{ghack\+\_\+delay}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+delay (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{win, }
+\item[{int}]{num\+Millisecs, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}}\label{gnsignal_8c_aa9aeab1b0ef274fa4e2c94a8b085bcb0}
+
+
+Definition at line 186 of file gnsignal.\+c.
+
+
+
+References F\+A\+L\+S\+E, N\+U\+L\+L, s\+\_\+done, and timeout\+\_\+callback().
+
+
+
+Referenced by ghack\+\_\+init\+\_\+map\+\_\+window(), ghack\+\_\+init\+\_\+message\+\_\+window(), and ghack\+\_\+init\+\_\+status\+\_\+window().
+
+
+\begin{DoxyCode}
+187 \{
+188     \hyperlink{gnsignal_8c_a46c676dbad47f2d25789894a5fd64b65}{s\_done}=\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+189     gtk\_timeout\_add( (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) numMillisecs, 
+190         \hyperlink{gnsignal_8c_a96a57fc9ab80850d0f20d9d062dff4b6}{timeout\_callback}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+191     \textcolor{keywordflow}{while}( \hyperlink{gnsignal_8c_a46c676dbad47f2d25789894a5fd64b65}{s\_done}==\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE})
+192     gtk\_main\_iteration();
+193 \}
+\end{DoxyCode}
+\hypertarget{gnsignal_8c_af1892417c71cf829ce055df7174e56b1}{\index{gnsignal.\+c@{gnsignal.\+c}!ghack\+\_\+handle\+\_\+button\+\_\+press@{ghack\+\_\+handle\+\_\+button\+\_\+press}}
+\index{ghack\+\_\+handle\+\_\+button\+\_\+press@{ghack\+\_\+handle\+\_\+button\+\_\+press}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{ghack\+\_\+handle\+\_\+button\+\_\+press}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+handle\+\_\+button\+\_\+press (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{widget, }
+\item[{Gdk\+Event\+Button $\ast$}]{event, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}}\label{gnsignal_8c_af1892417c71cf829ce055df7174e56b1}
+
+
+Definition at line 197 of file gnsignal.\+c.
+
+
+
+References C\+L\+I\+C\+K\+\_\+1, C\+L\+I\+C\+K\+\_\+2, g\+\_\+click\+Buffer, g\+\_\+num\+Clicks, ghack\+\_\+glyph\+\_\+height(), ghack\+\_\+glyph\+\_\+width(), G\+H\+Click\+::mod, G\+H\+Click\+::x, and G\+H\+Click\+::y.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+map\+\_\+window().
+
+
+\begin{DoxyCode}
+199 \{
+200     \hyperlink{structGHClick}{GHClick} *click;
+201     \textcolor{keywordtype}{double} x1, y1;
+202 
+203     \textcolor{keywordflow}{if} (event->type != GDK\_BUTTON\_PRESS)
+204     \textcolor{keywordflow}{return};
+205     
+206     gnome\_canvas\_window\_to\_world( GNOME\_CANVAS( widget), event->x, 
+207         event->y, &x1, &y1);
+208 \textcolor{comment}{/*}
+209 \textcolor{comment}{    g\_message("I got a click at %f,%f with button %d \(\backslash\)n", }
+210 \textcolor{comment}{        x1, y1, event->button);}
+211 \textcolor{comment}{*/}
+212 
+213     \textcolor{comment}{/* We allocate storage here, so we need to remember if (g\_numClicks>0)}
+214 \textcolor{comment}{     * to blow this away when closing the app using something like }
+215 \textcolor{comment}{     *  while (g\_clickBuffer)}
+216 \textcolor{comment}{     *       \{}
+217 \textcolor{comment}{     *      g\_free((GHClick)g\_clickBuffer->data);}
+218 \textcolor{comment}{     *          g\_clickBuffer = g\_clickBuffer->next;}
+219 \textcolor{comment}{     *       \}}
+220 \textcolor{comment}{     *  g\_list\_free( g\_clickBuffer );}
+221 \textcolor{comment}{     *}
+222 \textcolor{comment}{     */}
+223     click = g\_new( \hyperlink{structGHClick}{GHClick}, 1);
+224     
+225     click->\hyperlink{structGHClick_ad7461ee00ed3a2f04603eef7429d10f9}{x}=(int)x1/\hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}();
+226     click->\hyperlink{structGHClick_a5d3940337259fe197aa857bf98fb09cb}{y}=(int)y1/\hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}();
+227     click->\hyperlink{structGHClick_a46d19be2dfbee76bc7b756be116e0d17}{mod}=(\textcolor{keyword}{event}->button == 1)? \hyperlink{wintype_8h_acaefc3f142237be043fe21977bf19afe}{CLICK\_1} : \hyperlink{wintype_8h_ac44dad3d5c7ce9d3af01d967ea38e6e9}{CLICK\_2};
+228     
+229     \hyperlink{gnsignal_8c_ae47be96e52c8d9bbb958c91ed24afacc}{g\_clickBuffer} = g\_list\_prepend (\hyperlink{gnsignal_8c_ae47be96e52c8d9bbb958c91ed24afacc}{g\_clickBuffer}, click);
+230     \textcolor{comment}{/* Could use g\_list\_length(), but it is stupid and just}
+231 \textcolor{comment}{     * traverses the list while counting, so we'll just do }
+232 \textcolor{comment}{     * the counting ourselves in advance. */}
+233     \hyperlink{gnsignal_8c_aad0a88fb32227a59f3ac782cf92cb0c9}{g\_numClicks}++;
+234 \}
+\end{DoxyCode}
+\hypertarget{gnsignal_8c_a7fbda300bdea50081626f27029e1932f}{\index{gnsignal.\+c@{gnsignal.\+c}!ghack\+\_\+handle\+\_\+key\+\_\+press@{ghack\+\_\+handle\+\_\+key\+\_\+press}}
+\index{ghack\+\_\+handle\+\_\+key\+\_\+press@{ghack\+\_\+handle\+\_\+key\+\_\+press}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{ghack\+\_\+handle\+\_\+key\+\_\+press}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+handle\+\_\+key\+\_\+press (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{widget, }
+\item[{Gdk\+Event\+Key $\ast$}]{event, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}}\label{gnsignal_8c_a7fbda300bdea50081626f27029e1932f}
+
+
+Definition at line 249 of file gnsignal.\+c.
+
+
+
+References C, g\+\_\+asking\+Question, g\+\_\+key\+Buffer, g\+\_\+num\+Keys, ghack\+\_\+save\+\_\+game\+\_\+cb(), iflags, M, N\+U\+L\+L, and instance\+\_\+flags\+::num\+\_\+pad.
+
+
+
+Referenced by ghack\+\_\+accelerator\+\_\+selected(), and ghack\+\_\+main\+\_\+window\+\_\+key\+\_\+press().
+
+
+\begin{DoxyCode}
+250 \{
+251     \textcolor{keyword}{static} \textcolor{keywordtype}{int} was\_pound = 0;
+252     \textcolor{keywordtype}{int} key = 0;
+253     \textcolor{keywordtype}{int} ctl = GDK\_CONTROL\_MASK;
+254     \textcolor{keywordtype}{int} alt = GDK\_MOD1\_MASK;
+255 
+256     \textcolor{comment}{/* Turn this on to debug key events */}
+257 \textcolor{preprocessor}{#if 0}
+258     g\_message(\textcolor{stringliteral}{"I got a \(\backslash\)"%s\(\backslash\)" key (%d) %s%s"}, 
+259           gdk\_keyval\_name (event->keyval), event->keyval, 
+260           (event->state&ctl)? \textcolor{stringliteral}{"+CONTROL"}:\textcolor{stringliteral}{""}, (event->state&alt)? \textcolor{stringliteral}{"+ALT"}:\textcolor{stringliteral}{""});
+261 \textcolor{preprocessor}{#endif}
+262 
+263     \textcolor{keywordflow}{switch} (event->keyval) \{
+264     \textcolor{comment}{/* special keys to do stuff with */}
+265 
+266     \textcolor{comment}{/* Set up the direction keys */}
+267 
+268     \textcolor{comment}{/* First handle the arrow keys -- these always mean move */}
+269     \textcolor{keywordflow}{case} GDK\_Right:
+270     \textcolor{keywordflow}{case} GDK\_rightarrow:
+271     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad}) key=\textcolor{charliteral}{'6'}; \textcolor{keywordflow}{else}  key=\textcolor{charliteral}{'l'}; \textcolor{keywordflow}{break};
+272     \textcolor{keywordflow}{case} GDK\_Left:
+273     \textcolor{keywordflow}{case} GDK\_leftarrow:
+274     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad}) key=\textcolor{charliteral}{'4'}; \textcolor{keywordflow}{else}  key=\textcolor{charliteral}{'h'}; \textcolor{keywordflow}{break};
+275     \textcolor{keywordflow}{case} GDK\_Up:
+276     \textcolor{keywordflow}{case} GDK\_uparrow:
+277     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad}) key=\textcolor{charliteral}{'8'}; \textcolor{keywordflow}{else}  key=\textcolor{charliteral}{'k'}; \textcolor{keywordflow}{break};
+278     \textcolor{keywordflow}{case} GDK\_Down:
+279     \textcolor{keywordflow}{case} GDK\_downarrow:
+280     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad}) key=\textcolor{charliteral}{'2'}; \textcolor{keywordflow}{else}  key=\textcolor{charliteral}{'j'}; \textcolor{keywordflow}{break};
+281     \textcolor{keywordflow}{case} GDK\_Home:
+282     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad}) key=\textcolor{charliteral}{'7'}; \textcolor{keywordflow}{else}  key=\textcolor{charliteral}{'y'}; \textcolor{keywordflow}{break};
+283     \textcolor{keywordflow}{case} GDK\_End:
+284     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad}) key=\textcolor{charliteral}{'1'}; \textcolor{keywordflow}{else}  key=\textcolor{charliteral}{'b'}; \textcolor{keywordflow}{break};
+285     \textcolor{keywordflow}{case} GDK\_Page\_Down:
+286     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad}) key=\textcolor{charliteral}{'3'}; \textcolor{keywordflow}{else}  key=\textcolor{charliteral}{'n'}; \textcolor{keywordflow}{break};
+287     \textcolor{keywordflow}{case} GDK\_Page\_Up:
+288     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad}) key=\textcolor{charliteral}{'9'}; \textcolor{keywordflow}{else}  key=\textcolor{charliteral}{'u'}; \textcolor{keywordflow}{break};
+289     \textcolor{keywordflow}{case} \textcolor{charliteral}{' '}:        key=\textcolor{charliteral}{'.'}; \textcolor{keywordflow}{break};
+290 
+291     \textcolor{comment}{/* Now, handle the numberpad (move or numbers) */}
+292     \textcolor{keywordflow}{case} GDK\_KP\_Right:
+293     \textcolor{keywordflow}{case} GDK\_KP\_6:
+294     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+295         key = GDK\_KP\_6;
+296     \textcolor{keywordflow}{else}
+297         key=\textcolor{charliteral}{'6'}; 
+298     \textcolor{keywordflow}{break};
+299 
+300     \textcolor{keywordflow}{case} GDK\_KP\_Left:
+301     \textcolor{keywordflow}{case} GDK\_KP\_4:
+302     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+303         key = GDK\_KP\_4;
+304     \textcolor{keywordflow}{else}
+305         key=\textcolor{charliteral}{'4'}; 
+306     \textcolor{keywordflow}{break};
+307 
+308     \textcolor{keywordflow}{case} GDK\_KP\_Up:
+309     \textcolor{keywordflow}{case} GDK\_KP\_8:
+310     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+311         key = GDK\_KP\_8;
+312     \textcolor{keywordflow}{else}
+313         key=\textcolor{charliteral}{'8'}; 
+314     \textcolor{keywordflow}{break};
+315 
+316     \textcolor{keywordflow}{case} GDK\_KP\_Down:
+317     \textcolor{keywordflow}{case} GDK\_KP\_2:
+318     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+319         key = GDK\_KP\_2;
+320     \textcolor{keywordflow}{else}
+321         key=\textcolor{charliteral}{'2'}; 
+322     \textcolor{keywordflow}{break};
+323 
+324     \textcolor{comment}{/* Move Top-Left */}
+325     \textcolor{keywordflow}{case} GDK\_KP\_Home:
+326     \textcolor{keywordflow}{case} GDK\_KP\_7:
+327     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+328         key = GDK\_KP\_7;
+329     \textcolor{keywordflow}{else}
+330         key=\textcolor{charliteral}{'7'}; 
+331     \textcolor{keywordflow}{break};
+332 
+333     \textcolor{keywordflow}{case} GDK\_KP\_Page\_Up:
+334     \textcolor{keywordflow}{case} GDK\_KP\_9:
+335     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+336         key = GDK\_KP\_9;
+337     \textcolor{keywordflow}{else}
+338         key=\textcolor{charliteral}{'9'}; 
+339     \textcolor{keywordflow}{break};
+340 
+341     \textcolor{keywordflow}{case} GDK\_KP\_End:
+342     \textcolor{keywordflow}{case} GDK\_KP\_1:
+343     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+344         key = GDK\_KP\_1;
+345     \textcolor{keywordflow}{else}
+346         key=\textcolor{charliteral}{'1'}; 
+347     \textcolor{keywordflow}{break};
+348 
+349     \textcolor{keywordflow}{case} GDK\_KP\_Page\_Down:
+350     \textcolor{keywordflow}{case} GDK\_KP\_3:
+351     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+352         key = GDK\_KP\_3;
+353     \textcolor{keywordflow}{else}
+354         key=\textcolor{charliteral}{'3'}; 
+355     \textcolor{keywordflow}{break};
+356   
+357   
+358     \textcolor{keywordflow}{case} GDK\_KP\_5:
+359     \textcolor{keywordflow}{if} (event->state & (GDK\_CONTROL\_MASK | GDK\_SHIFT\_MASK) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.
+      \hyperlink{structinstance__flags_abf8ead01634763341598a10bd5052f7e}{num\_pad})
+360         key = GDK\_KP\_5;
+361     \textcolor{keywordflow}{else}
+362         key=\textcolor{charliteral}{'5'}; 
+363     \textcolor{keywordflow}{break};
+364 
+365     \textcolor{keywordflow}{case} GDK\_KP\_Delete:
+366     \textcolor{keywordflow}{case} GDK\_KP\_Decimal:
+367     key=\textcolor{charliteral}{'.'}; 
+368     \textcolor{keywordflow}{break};
+369 
+370     \textcolor{comment}{/* can't just ignore "#", it's a core feature */}
+371     \textcolor{keywordflow}{case} GDK\_numbersign:
+372     key=\textcolor{charliteral}{'#'};
+373     \textcolor{keywordflow}{break};
+374 
+375     \textcolor{comment}{/* We will probably want to do something with these later... */}
+376     \textcolor{keywordflow}{case} GDK\_KP\_Begin:
+377     \textcolor{keywordflow}{case} GDK\_KP\_F1:
+378     \textcolor{keywordflow}{case} GDK\_F1:
+379     \textcolor{keywordflow}{case} GDK\_KP\_F2:
+380     \textcolor{keywordflow}{case} GDK\_F2:
+381     \textcolor{keywordflow}{case} GDK\_KP\_F3:
+382     \textcolor{keywordflow}{case} GDK\_F3:
+383     \textcolor{keywordflow}{case} GDK\_KP\_F4:
+384     \textcolor{keywordflow}{case} GDK\_F4:
+385     \textcolor{keywordflow}{case} GDK\_F5:
+386     \textcolor{keywordflow}{case} GDK\_F6:
+387     \textcolor{keywordflow}{case} GDK\_F7:
+388     \textcolor{keywordflow}{case} GDK\_F8:
+389     \textcolor{keywordflow}{case} GDK\_F9:
+390     \textcolor{keywordflow}{case} GDK\_F10:
+391     \textcolor{keywordflow}{case} GDK\_F11:
+392     \textcolor{keywordflow}{case} GDK\_F12:
+393     \textcolor{keywordflow}{break};
+394     \textcolor{comment}{/* various keys to ignore */}
+395     \textcolor{keywordflow}{case} GDK\_KP\_Insert:
+396     \textcolor{keywordflow}{case} GDK\_Insert:
+397     \textcolor{keywordflow}{case} GDK\_Delete:
+398     \textcolor{keywordflow}{case} GDK\_Print:
+399     \textcolor{keywordflow}{case} GDK\_BackSpace:
+400     \textcolor{keywordflow}{case} GDK\_Pause:
+401     \textcolor{keywordflow}{case} GDK\_Scroll\_Lock:
+402     \textcolor{keywordflow}{case} GDK\_Shift\_Lock:
+403     \textcolor{keywordflow}{case} GDK\_Num\_Lock:
+404     \textcolor{keywordflow}{case} GDK\_Caps\_Lock:
+405     \textcolor{keywordflow}{case} GDK\_Control\_L:
+406     \textcolor{keywordflow}{case} GDK\_Control\_R:
+407     \textcolor{keywordflow}{case} GDK\_Shift\_L:
+408     \textcolor{keywordflow}{case} GDK\_Shift\_R:
+409     \textcolor{keywordflow}{case} GDK\_Alt\_L:
+410     \textcolor{keywordflow}{case} GDK\_Alt\_R:
+411     \textcolor{keywordflow}{case} GDK\_Meta\_L:
+412     \textcolor{keywordflow}{case} GDK\_Meta\_R:
+413     \textcolor{keywordflow}{case} GDK\_Mode\_switch:
+414     \textcolor{keywordflow}{case} GDK\_Multi\_key:
+415     \textcolor{keywordflow}{return};
+416 
+417     \textcolor{keywordflow}{default}:
+418     key = \textcolor{keyword}{event}->keyval;
+419     \textcolor{keywordflow}{break};
+420     \}
+421 
+422     \textcolor{keywordflow}{if} ((event->state & alt) || was\_pound) \{
+423     key=\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(event->keyval);
+424     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (event->state & ctl) \{
+425     key=\hyperlink{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}(event->keyval);
+426     \}
+427     \textcolor{keywordflow}{if} (was\_pound) \{
+428     was\_pound = 0;
+429     \}
+430  
+431     \textcolor{comment}{/* Ok, here is where we do clever stuff to overide the default}
+432 \textcolor{comment}{     * game behavior */}
+433     \textcolor{keywordflow}{if} (\hyperlink{gnsignal_8c_a9b4b4ad8a2bcc37729dadfc43b2a3dbb}{g\_askingQuestion} == 0) \{
+434 
+435     \textcolor{keywordflow}{if} (key == \textcolor{charliteral}{'S'} || key == \hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}(\textcolor{charliteral}{'S'}) || key == \hyperlink{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}(\textcolor{charliteral}{'S'})) \{
+436         \hyperlink{gnmain_8c_ab7b6ceec400dc7415077a98c8432495e}{ghack\_save\_game\_cb}( \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+437         \textcolor{keywordflow}{return};
+438     \}
+439     \}
+440     \hyperlink{gnsignal_8c_a0e6cf81b52e14cf12b108963dde1729f}{g\_keyBuffer} = g\_list\_prepend (\hyperlink{gnsignal_8c_a0e6cf81b52e14cf12b108963dde1729f}{g\_keyBuffer}, GINT\_TO\_POINTER( key));
+441     \hyperlink{gnsignal_8c_a2013547bc9aa76cbb93127bd9e5970a0}{g\_numKeys}++;
+442 \}
+\end{DoxyCode}
+\hypertarget{gnsignal_8c_a2c49cff2ef722dfb9425f60d01d59e06}{\index{gnsignal.\+c@{gnsignal.\+c}!ghack\+\_\+init\+\_\+signals@{ghack\+\_\+init\+\_\+signals}}
+\index{ghack\+\_\+init\+\_\+signals@{ghack\+\_\+init\+\_\+signals}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{ghack\+\_\+init\+\_\+signals}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+init\+\_\+signals (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{gnsignal_8c_a2c49cff2ef722dfb9425f60d01d59e06}
+
+
+Definition at line 60 of file gnsignal.\+c.
+
+
+
+References ghack\+\_\+signals, G\+H\+S\+I\+G\+\_\+\+A\+D\+D\+\_\+\+M\+E\+N\+U, G\+H\+S\+I\+G\+\_\+\+C\+L\+E\+A\+R, G\+H\+S\+I\+G\+\_\+\+C\+L\+I\+P\+A\+R\+O\+U\+N\+D, G\+H\+S\+I\+G\+\_\+\+C\+U\+R\+S, G\+H\+S\+I\+G\+\_\+\+D\+E\+L\+A\+Y, G\+H\+S\+I\+G\+\_\+\+D\+I\+S\+P\+L\+A\+Y, G\+H\+S\+I\+G\+\_\+\+E\+N\+D\+\_\+\+M\+E\+N\+U, G\+H\+S\+I\+G\+\_\+\+F\+A\+D\+E\+\_\+\+H\+I\+G\+H\+L\+I\+G\+H\+T, G\+H\+S\+I\+G\+\_\+\+P\+R\+I\+N\+T\+\_\+\+G\+L\+Y\+P\+H, G\+H\+S\+I\+G\+\_\+\+P\+U\+T\+S\+T\+R, G\+H\+S\+I\+G\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+M\+E\+N\+U, and G\+H\+S\+I\+G\+\_\+\+S\+T\+A\+R\+T\+\_\+\+M\+E\+N\+U.
+
+
+
+Referenced by gnome\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+61 \{
+62   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87edda8f46e9493e702b6cbc4923ff7a5d9ac1}{GHSIG\_CURS}] =
+63     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+64                       \textcolor{stringliteral}{"ghack\_curs"},
+65                       GTK\_RUN\_FIRST,
+66                       gtk\_marshal\_NONE\_\_INT\_INT,
+67                       GTK\_TYPE\_NONE,
+68                       2,
+69                       GTK\_TYPE\_INT,
+70                       GTK\_TYPE\_INT);  
+71 
+72   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87eddaeb4c598a3d870b09936c029aa4023a20}{GHSIG\_PUTSTR}] =
+73     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+74                       \textcolor{stringliteral}{"ghack\_putstr"},
+75                       GTK\_RUN\_FIRST,
+76                       gtk\_marshal\_NONE\_\_INT\_POINTER,
+77                       GTK\_TYPE\_NONE,
+78                       2,
+79                       GTK\_TYPE\_INT,
+80                       GTK\_TYPE\_POINTER);
+81 
+82   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87edda4a4eb9b5df74d92429314f065cfc4e81}{GHSIG\_PRINT\_GLYPH}] =
+83     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+84                       \textcolor{stringliteral}{"ghack\_print\_glyph"},
+85                       GTK\_RUN\_FIRST,
+86                       gtk\_marshal\_NONE\_\_INT\_INT\_POINTER,
+87                       GTK\_TYPE\_NONE,
+88                       3,
+89                       GTK\_TYPE\_INT,
+90                       GTK\_TYPE\_INT,
+91                       GTK\_TYPE\_POINTER);
+92 
+93   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87eddae2a1ff06e31ce3810d1aa9025116ee5d}{GHSIG\_CLEAR}] =
+94     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+95                       \textcolor{stringliteral}{"ghack\_clear"},
+96                       GTK\_RUN\_FIRST,
+97                       gtk\_marshal\_NONE\_\_NONE,
+98                       GTK\_TYPE\_NONE,
+99                       0);
+100   
+101   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87edda8f7fb83e9b73ca3cd40d8c06dbc56692}{GHSIG\_DISPLAY}] =
+102     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+103                       \textcolor{stringliteral}{"ghack\_display"},
+104                       GTK\_RUN\_FIRST,
+105                       gtk\_marshal\_NONE\_\_BOOL,
+106                       GTK\_TYPE\_NONE,
+107                       1,
+108                       GTK\_TYPE\_BOOL);
+109   
+110   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87eddae326b7186b32812b143683a3dae23ec2}{GHSIG\_START\_MENU}] =
+111     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+112                       \textcolor{stringliteral}{"ghack\_start\_menu"},
+113                       GTK\_RUN\_FIRST,
+114                       gtk\_marshal\_NONE\_\_NONE,
+115                       GTK\_TYPE\_NONE,
+116                       0);
+117   
+118   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87eddaa0c0885c571ee3d26e6dcb5ec9804204}{GHSIG\_ADD\_MENU}] =
+119     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+120                       \textcolor{stringliteral}{"ghack\_add\_menu"},
+121                       GTK\_RUN\_FIRST,
+122                       gtk\_marshal\_NONE\_\_POINTER,
+123                       GTK\_TYPE\_NONE,
+124                       1,
+125                       GTK\_TYPE\_POINTER);
+126   
+127   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87edda1c99c97440b3a02a64e8356cc67459e4}{GHSIG\_END\_MENU}] =
+128     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+129                       \textcolor{stringliteral}{"ghack\_end\_menu"},
+130                       GTK\_RUN\_FIRST,
+131                       gtk\_marshal\_NONE\_\_POINTER,
+132                       GTK\_TYPE\_NONE,
+133                       1,
+134                       GTK\_TYPE\_POINTER);
+135   
+136   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87edda4cd777581376d78b70e51c0b02c5b4ee}{GHSIG\_SELECT\_MENU}] =
+137     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+138                       \textcolor{stringliteral}{"ghack\_select\_menu"},
+139                       GTK\_RUN\_FIRST,
+140                       gtk\_marshal\_NONE\_\_POINTER\_INT\_POINTER,
+141                       GTK\_TYPE\_NONE,
+142                       3,
+143                       GTK\_TYPE\_POINTER,
+144                       GTK\_TYPE\_INT,
+145                       GTK\_TYPE\_POINTER);
+146   
+147   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87edda7ed19358c2a2265810852542cd9b1786}{GHSIG\_CLIPAROUND}] =
+148     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+149                       \textcolor{stringliteral}{"ghack\_cliparound"},
+150                       GTK\_RUN\_FIRST,
+151                       gtk\_marshal\_NONE\_\_INT\_INT,
+152                       GTK\_TYPE\_NONE,
+153                       2,
+154                       GTK\_TYPE\_INT,
+155                       GTK\_TYPE\_INT);
+156 
+157   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87edda7c38950ab5348b77bee3ee73ee52e34e}{GHSIG\_FADE\_HIGHLIGHT}] =
+158     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+159                       \textcolor{stringliteral}{"ghack\_fade\_highlight"},
+160                       GTK\_RUN\_FIRST,
+161                       gtk\_marshal\_NONE\_\_NONE,
+162                       GTK\_TYPE\_NONE,
+163                       0);
+164   
+165   \hyperlink{gnsignal_8h_ae983ec25465bee52ec604cd1414d14c2}{ghack\_signals}[\hyperlink{gnsignal_8h_ac205be2172292384dd687b5471a87eddaab0ef3a2fa1524845a2109b822ac013d}{GHSIG\_DELAY}] =
+166     gtk\_object\_class\_user\_signal\_new (gtk\_type\_class (gtk\_widget\_get\_type ()),
+167                       \textcolor{stringliteral}{"gnome\_delay\_output"},
+168                       GTK\_RUN\_FIRST,
+169                       gtk\_marshal\_NONE\_\_INT,
+170                       GTK\_TYPE\_NONE,
+171                       1,
+172                       GTK\_TYPE\_INT);
+173   
+174 \}
+\end{DoxyCode}
+\hypertarget{gnsignal_8c_a96a57fc9ab80850d0f20d9d062dff4b6}{\index{gnsignal.\+c@{gnsignal.\+c}!timeout\+\_\+callback@{timeout\+\_\+callback}}
+\index{timeout\+\_\+callback@{timeout\+\_\+callback}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{timeout\+\_\+callback}]{\setlength{\rightskip}{0pt plus 5cm}static gint timeout\+\_\+callback (
+\begin{DoxyParamCaption}
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gnsignal_8c_a96a57fc9ab80850d0f20d9d062dff4b6}
+
+
+Definition at line 179 of file gnsignal.\+c.
+
+
+
+References F\+A\+L\+S\+E, s\+\_\+done, and T\+R\+U\+E.
+
+
+
+Referenced by ghack\+\_\+delay().
+
+
+\begin{DoxyCode}
+180 \{
+181     \hyperlink{gnsignal_8c_a46c676dbad47f2d25789894a5fd64b65}{s\_done}=\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+182     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+183 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{gnsignal_8c_a9b4b4ad8a2bcc37729dadfc43b2a3dbb}{\index{gnsignal.\+c@{gnsignal.\+c}!g\+\_\+asking\+Question@{g\+\_\+asking\+Question}}
+\index{g\+\_\+asking\+Question@{g\+\_\+asking\+Question}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{g\+\_\+asking\+Question}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+asking\+Question =0}}\label{gnsignal_8c_a9b4b4ad8a2bcc37729dadfc43b2a3dbb}
+
+
+Definition at line 13 of file gnsignal.\+c.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+key\+\_\+press(), gnome\+\_\+nh\+\_\+poskey(), and gnome\+\_\+nhgetch().
+
+\hypertarget{gnsignal_8c_ae47be96e52c8d9bbb958c91ed24afacc}{\index{gnsignal.\+c@{gnsignal.\+c}!g\+\_\+click\+Buffer@{g\+\_\+click\+Buffer}}
+\index{g\+\_\+click\+Buffer@{g\+\_\+click\+Buffer}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{g\+\_\+click\+Buffer}]{\setlength{\rightskip}{0pt plus 5cm}G\+List$\ast$ g\+\_\+click\+Buffer}}\label{gnsignal_8c_ae47be96e52c8d9bbb958c91ed24afacc}
+
+
+Definition at line 10 of file gnsignal.\+c.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+button\+\_\+press(), and gnome\+\_\+nh\+\_\+poskey().
+
+\hypertarget{gnsignal_8c_a0e6cf81b52e14cf12b108963dde1729f}{\index{gnsignal.\+c@{gnsignal.\+c}!g\+\_\+key\+Buffer@{g\+\_\+key\+Buffer}}
+\index{g\+\_\+key\+Buffer@{g\+\_\+key\+Buffer}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{g\+\_\+key\+Buffer}]{\setlength{\rightskip}{0pt plus 5cm}G\+List$\ast$ g\+\_\+key\+Buffer}}\label{gnsignal_8c_a0e6cf81b52e14cf12b108963dde1729f}
+
+
+Definition at line 9 of file gnsignal.\+c.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+key\+\_\+press(), gnome\+\_\+nh\+\_\+poskey(), and gnome\+\_\+nhgetch().
+
+\hypertarget{gnsignal_8c_aad0a88fb32227a59f3ac782cf92cb0c9}{\index{gnsignal.\+c@{gnsignal.\+c}!g\+\_\+num\+Clicks@{g\+\_\+num\+Clicks}}
+\index{g\+\_\+num\+Clicks@{g\+\_\+num\+Clicks}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{g\+\_\+num\+Clicks}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+num\+Clicks =0}}\label{gnsignal_8c_aad0a88fb32227a59f3ac782cf92cb0c9}
+
+
+Definition at line 12 of file gnsignal.\+c.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+button\+\_\+press(), and gnome\+\_\+nh\+\_\+poskey().
+
+\hypertarget{gnsignal_8c_a2013547bc9aa76cbb93127bd9e5970a0}{\index{gnsignal.\+c@{gnsignal.\+c}!g\+\_\+num\+Keys@{g\+\_\+num\+Keys}}
+\index{g\+\_\+num\+Keys@{g\+\_\+num\+Keys}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{g\+\_\+num\+Keys}]{\setlength{\rightskip}{0pt plus 5cm}int g\+\_\+num\+Keys =0}}\label{gnsignal_8c_a2013547bc9aa76cbb93127bd9e5970a0}
+
+
+Definition at line 11 of file gnsignal.\+c.
+
+
+
+Referenced by ghack\+\_\+handle\+\_\+key\+\_\+press(), gnome\+\_\+nh\+\_\+poskey(), and gnome\+\_\+nhgetch().
+
+\hypertarget{gnsignal_8c_a46c676dbad47f2d25789894a5fd64b65}{\index{gnsignal.\+c@{gnsignal.\+c}!s\+\_\+done@{s\+\_\+done}}
+\index{s\+\_\+done@{s\+\_\+done}!gnsignal.\+c@{gnsignal.\+c}}
+\subsubsection[{s\+\_\+done}]{\setlength{\rightskip}{0pt plus 5cm}int s\+\_\+done ={\bf F\+A\+L\+S\+E}\hspace{0.3cm}{\ttfamily [static]}}}\label{gnsignal_8c_a46c676dbad47f2d25789894a5fd64b65}
+
+
+Definition at line 14 of file gnsignal.\+c.
+
+
+
+Referenced by ghack\+\_\+delay(), and timeout\+\_\+callback().
+

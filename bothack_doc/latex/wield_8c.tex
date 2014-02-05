@@ -1,0 +1,1204 @@
+\hypertarget{wield_8c}{\section{nethack/src/wield.c File Reference}
+\label{wield_8c}\index{nethack/src/wield.\+c@{nethack/src/wield.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{wield_8c_a023088263838d6f65c97bc583110a167}{erodeable\+\_\+wep}(optr)
+\item 
+\#define \hyperlink{wield_8c_afce0248524dfef0efe2eb44e7f307be0}{will\+\_\+weld}(optr)
+\item 
+\#define \hyperlink{wield_8c_af250d7d8235768cf80c111c491a2e02a}{N\+O\+T\+\_\+\+W\+E\+A\+P\+O\+N}(\hyperlink{structobj}{obj})~(!\hyperlink{obj_8h_a5f347f7456e4da8284a9bc369bc32d45}{is\+\_\+weptool}(\hyperlink{structobj}{obj}) \&\& \hyperlink{structobj}{obj}-\/$>$oclass != \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{W\+E\+A\+P\+O\+N\+\_\+\+C\+L\+A\+S\+S})
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{wield_8c_a163c91747c1dffbd53be0c35aab60a2c}{F\+D\+E\+C\+L} (\hyperlink{wield_8c_a79d0105a7802b4e1c9aa88e2c5144141}{ready\+\_\+weapon},(struct \hyperlink{structobj}{obj} $\ast$))
+\item 
+void \hyperlink{wield_8c_adc7f46a6707f98835bb3c181d7ae1821}{setuwep} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{wield_8c_a79d0105a7802b4e1c9aa88e2c5144141}{ready\+\_\+weapon} (struct \hyperlink{structobj}{obj} $\ast$wep)
+\item 
+void \hyperlink{wield_8c_a6004112a6fc3b435bb2cff99c8b884d3}{setuqwep} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\item 
+void \hyperlink{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}{setuswapwep} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\item 
+int \hyperlink{wield_8c_a9a149961d931fa794b73559a39cf1442}{dowield} ()
+\item 
+int \hyperlink{wield_8c_a72a796264e3d24ec74113ef522c2dfd3}{doswapweapon} ()
+\item 
+int \hyperlink{wield_8c_aeac98803e7fb0a527a359b94134eedde}{dowieldquiver} ()
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{wield_8c_ae2eef862b3b1fea9a18c7b9d5b746d2b}{wield\+\_\+tool} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj}, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$verb)
+\item 
+int \hyperlink{wield_8c_a3b7fbd46da00d32eb5b8af935abdce20}{can\+\_\+twoweapon} ()
+\item 
+void \hyperlink{wield_8c_a85ec1f0cd8ac29343a1a7695e513365e}{drop\+\_\+uswapwep} ()
+\item 
+int \hyperlink{wield_8c_a542e4e9c193fd3817f35f24f7d13d2d3}{dotwoweapon} ()
+\item 
+void \hyperlink{wield_8c_acfe25ed4d9db889cb4bc70a9c5ab9c4d}{uwepgone} ()
+\item 
+void \hyperlink{wield_8c_a1531bc28e4b47daa2051df7547511b8d}{uswapwepgone} ()
+\item 
+void \hyperlink{wield_8c_a71fe300569a0fdbc8f3e6b3af4fe0bf0}{uqwepgone} ()
+\item 
+void \hyperlink{wield_8c_a8936c33b1297630daea8e9448b804588}{untwoweapon} ()
+\item 
+void \hyperlink{wield_8c_a4a244d8bac0d5f5e1003b738cb04aaf9}{erode\+\_\+obj} (struct \hyperlink{structobj}{obj} $\ast$target, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} acid\+\_\+dmg, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} fade\+\_\+scrolls)
+\item 
+int \hyperlink{wield_8c_a042dfc3138475fd1ed6b09de0e591c46}{chwepon} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}, int amount)
+\item 
+int \hyperlink{wield_8c_ade2321e11c702d69c6fd7b261ae62040}{welded} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\item 
+void \hyperlink{wield_8c_acf3b9dae627bf80b5565774296f5b9a9}{weldmsg} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{wield_8c_ac4d8b6af169048c772a13ae18e802f92}{wield\+\_\+objs} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{wield_8c_ae21d565883c15bb8c74640f48d3ad974}{ready\+\_\+objs} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{wield_8c_ad584c47d7d93295295d130a80f2fc309}{bullets} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{wield_8c_a023088263838d6f65c97bc583110a167}{\index{wield.\+c@{wield.\+c}!erodeable\+\_\+wep@{erodeable\+\_\+wep}}
+\index{erodeable\+\_\+wep@{erodeable\+\_\+wep}!wield.\+c@{wield.\+c}}
+\subsubsection[{erodeable\+\_\+wep}]{\setlength{\rightskip}{0pt plus 5cm}\#define erodeable\+\_\+wep(
+\begin{DoxyParamCaption}
+\item[{}]{optr}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a023088263838d6f65c97bc583110a167}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((optr)->oclass == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} \(\backslash\)
+                || \hyperlink{obj_8h_a5f347f7456e4da8284a9bc369bc32d45}{is\_weptool}(optr) \(\backslash\)
+                || (optr)->otyp == HEAVY\_IRON\_BALL \(\backslash\)
+                || (optr)->otyp == IRON\_CHAIN)
+\end{DoxyCode}
+
+
+Definition at line 57 of file wield.\+c.
+
+\hypertarget{wield_8c_af250d7d8235768cf80c111c491a2e02a}{\index{wield.\+c@{wield.\+c}!N\+O\+T\+\_\+\+W\+E\+A\+P\+O\+N@{N\+O\+T\+\_\+\+W\+E\+A\+P\+O\+N}}
+\index{N\+O\+T\+\_\+\+W\+E\+A\+P\+O\+N@{N\+O\+T\+\_\+\+W\+E\+A\+P\+O\+N}!wield.\+c@{wield.\+c}}
+\subsubsection[{N\+O\+T\+\_\+\+W\+E\+A\+P\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+T\+\_\+\+W\+E\+A\+P\+O\+N(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)~(!{\bf is\+\_\+weptool}({\bf obj}) \&\& {\bf obj}-\/$>$oclass != {\bf W\+E\+A\+P\+O\+N\+\_\+\+C\+L\+A\+S\+S})}}\label{wield_8c_af250d7d8235768cf80c111c491a2e02a}
+
+
+Referenced by can\+\_\+twoweapon().
+
+\hypertarget{wield_8c_afce0248524dfef0efe2eb44e7f307be0}{\index{wield.\+c@{wield.\+c}!will\+\_\+weld@{will\+\_\+weld}}
+\index{will\+\_\+weld@{will\+\_\+weld}!wield.\+c@{wield.\+c}}
+\subsubsection[{will\+\_\+weld}]{\setlength{\rightskip}{0pt plus 5cm}\#define will\+\_\+weld(
+\begin{DoxyParamCaption}
+\item[{}]{optr}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_afce0248524dfef0efe2eb44e7f307be0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((optr)->cursed \(\backslash\)
+                && (\hyperlink{wield_8c_a023088263838d6f65c97bc583110a167}{erodeable\_wep}(optr) \(\backslash\)
+                   || (optr)->otyp == TIN\_OPENER))
+\end{DoxyCode}
+
+
+Definition at line 63 of file wield.\+c.
+
+
+
+Referenced by ready\+\_\+weapon(), and welded().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{wield_8c_a3b7fbd46da00d32eb5b8af935abdce20}{\index{wield.\+c@{wield.\+c}!can\+\_\+twoweapon@{can\+\_\+twoweapon}}
+\index{can\+\_\+twoweapon@{can\+\_\+twoweapon}!wield.\+c@{wield.\+c}}
+\subsubsection[{can\+\_\+twoweapon}]{\setlength{\rightskip}{0pt plus 5cm}int can\+\_\+twoweapon (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a3b7fbd46da00d32eb5b8af935abdce20}
+
+
+Definition at line 469 of file wield.\+c.
+
+
+
+References bimanual, B\+U\+F\+S\+Z, could\+\_\+twoweap, monst\+::data, drop\+\_\+uswapwep(), Role\+Name\+::f, F\+A\+L\+S\+E, flag\+::female, flags, Glib, H\+A\+N\+D, is\+\_\+plural, Role\+Name\+::m, permonst\+::mname, mons, Role\+::name, N\+O\+T\+\_\+\+W\+E\+A\+P\+O\+N, otmp, Sprintf, Stone\+\_\+resistance, touch\+\_\+petrifies, T\+R\+U\+E, uarmg, uarms, Upolyd, urole, uswapwep, uwep, and youmonst.
+
+
+
+Referenced by attack(), doswapweapon(), and dotwoweapon().
+
+
+\begin{DoxyCode}
+470 \{
+471     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+472 
+473 \textcolor{preprocessor}{#define NOT\_WEAPON(obj) (!is\_weptool(obj) && obj->oclass != WEAPON\_CLASS)}
+474     \textcolor{keywordflow}{if} (!\hyperlink{mondata_8h_a4c22bce1fdf1e06fec6f6534a1bfde9d}{could\_twoweap}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) \{
+475         \textcolor{keywordflow}{if} (\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd})
+476             You\_cant(\textcolor{stringliteral}{"use two weapons in your current form."});
+477         \textcolor{keywordflow}{else}
+478             pline(\textcolor{stringliteral}{"%s aren't able to use two weapons at once."},
+479               makeplural((\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female} && \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a9d8f4b8c99abfbf5ca40901e5dcc581a}{f}) ?
+480                      \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a9d8f4b8c99abfbf5ca40901e5dcc581a}{f} : \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a264d1ed0d4715edaaad295e8ab4c1002}{m}));
+481     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} || !\hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep})
+482         Your(\textcolor{stringliteral}{"%s%s%s empty."}, \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} ? \textcolor{stringliteral}{"left "} : \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep} ? \textcolor{stringliteral}{"right "} : \textcolor{stringliteral}{""},
+483             body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND}), (!\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} && !uswapwep) ? \textcolor{stringliteral}{"s are"} : \textcolor{stringliteral}{" is"});
+484     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{wield_8c_af250d7d8235768cf80c111c491a2e02a}{NOT\_WEAPON}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) || \hyperlink{wield_8c_af250d7d8235768cf80c111c491a2e02a}{NOT\_WEAPON}(uswapwep)) \{
+485         otmp = \hyperlink{wield_8c_af250d7d8235768cf80c111c491a2e02a}{NOT\_WEAPON}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) ? \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} : \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep};
+486         pline(\textcolor{stringliteral}{"%s %s."}, Yname2(otmp),
+487             \hyperlink{obj_8h_a8bebd62ba942159b2b8888847cd2df99}{is\_plural}(otmp) ? \textcolor{stringliteral}{"aren't weapons"} : \textcolor{stringliteral}{"isn't a weapon"});
+488     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) || \hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(uswapwep)) \{
+489         otmp = \hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) ? \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} : \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep};
+490         pline(\textcolor{stringliteral}{"%s isn't one-handed."}, Yname2(otmp));
+491     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_aee21972b230a8408f2b85e26f195e91d}{uarms})
+492         You\_cant(\textcolor{stringliteral}{"use two weapons while wearing a shield."});
+493     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (uswapwep->oartifact)
+494         pline(\textcolor{stringliteral}{"%s %s being held second to another weapon!"},
+495             Yname2(uswapwep), otense(uswapwep, \textcolor{stringliteral}{"resist"}));
+496     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg} && !\hyperlink{youprop_8h_a90b638323d50e1f8d52d4a9576d90551}{Stone\_resistance} && (uswapwep->otyp == CORPSE &&
+497             \hyperlink{mondata_8h_ad1e85e493d27cdfdbe94c43710c4b191}{touch\_petrifies}(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[uswapwep->corpsenm]))) \{
+498         \textcolor{keywordtype}{char} kbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+499 
+500         You(\textcolor{stringliteral}{"wield the %s corpse with your bare %s."},
+501             \hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[uswapwep->corpsenm].\hyperlink{structpermonst_ae92da7d141243d7e37d4a12340bb248f}{mname}, body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND}));
+502         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(kbuf, \textcolor{stringliteral}{"%s corpse"}, an(\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[uswapwep->corpsenm].\hyperlink{structpermonst_ae92da7d141243d7e37d4a12340bb248f}{mname}));
+503         instapetrify(kbuf);
+504     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_afa8a7e926d960a90cabc72d52cd13ae1}{Glib} || uswapwep->cursed) \{
+505         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_afa8a7e926d960a90cabc72d52cd13ae1}{Glib})
+506             uswapwep->bknown = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+507         \hyperlink{wield_8c_a85ec1f0cd8ac29343a1a7695e513365e}{drop\_uswapwep}();
+508     \} \textcolor{keywordflow}{else}
+509         \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+510     \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+511 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a042dfc3138475fd1ed6b09de0e591c46}{\index{wield.\+c@{wield.\+c}!chwepon@{chwepon}}
+\index{chwepon@{chwepon}!wield.\+c@{wield.\+c}}
+\subsubsection[{chwepon}]{\setlength{\rightskip}{0pt plus 5cm}int chwepon (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{otmp, }
+\item[{int}]{amount}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a042dfc3138475fd1ed6b09de0e591c46}
+
+
+Definition at line 687 of file wield.\+c.
+
+
+
+References A\+\_\+\+D\+E\+X, Blind, buf, B\+U\+F\+S\+Z, H\+A\+N\+D, is\+\_\+elven\+\_\+weapon, is\+\_\+weptool, makeknown, N\+H\+\_\+\+B\+L\+A\+C\+K, N\+H\+\_\+\+B\+L\+U\+E, obj\+::oartifact, obj\+::oclass, O\+N\+A\+M\+E, obj\+::otyp, S\+C\+R\+O\+L\+L\+\_\+\+C\+L\+A\+S\+S, obj\+::spe, Sprintf, uwep, and W\+E\+A\+P\+O\+N\+\_\+\+C\+L\+A\+S\+S.
+
+
+\begin{DoxyCode}
+690 \{
+691     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *color = hcolor((amount < 0) ? \hyperlink{decl_8h_a55df3d1bd35f9756e4d497a2762a6c70}{NH\_BLACK} : \hyperlink{decl_8h_a4f6c2fe619d62160c2fe57f7ff57d1fb}{NH\_BLUE});
+692     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *xtime;
+693     \textcolor{keywordtype}{int} \hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} = STRANGE\_OBJECT;
+694 
+695     \textcolor{keywordflow}{if}(!\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} || (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} != \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} && !
+      \hyperlink{obj_8h_a5f347f7456e4da8284a9bc369bc32d45}{is\_weptool}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}))) \{
+696         \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+697 
+698         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"Your %s %s."}, makeplural(body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND})),
+699             (amount >= 0) ? \textcolor{stringliteral}{"twitch"} : \textcolor{stringliteral}{"itch"});
+700         strange\_feeling(otmp, buf);
+701         exercise(\hyperlink{attrib_8h_ad8117dfaac470310d7540a3e8dcc00e0}{A\_DEX}, (\textcolor{keywordtype}{boolean}) (amount >= 0));
+702         \textcolor{keywordflow}{return}(0);
+703     \}
+704 
+705     \textcolor{keywordflow}{if} (otmp && otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_ac23f261da0f9e2a4c6afccecfc167a96}{SCROLL\_CLASS}) otyp = otmp->
+      \hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp};
+706 
+707     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == WORM\_TOOTH && amount >= 0) \{
+708         \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} = CRYSKNIFE;
+709         \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->oerodeproof = 0;
+710         Your(\textcolor{stringliteral}{"weapon seems sharper now."});
+711         \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->cursed = 0;
+712         \textcolor{keywordflow}{if} (otyp != STRANGE\_OBJECT) \hyperlink{hack_8h_afbd3607e7cef2f888f4190d40d058011}{makeknown}(otyp);
+713         \textcolor{keywordflow}{return}(1);
+714     \}
+715 
+716     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == CRYSKNIFE && amount < 0) \{
+717         \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} = WORM\_TOOTH;
+718         \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->oerodeproof = 0;
+719         Your(\textcolor{stringliteral}{"weapon seems duller now."});
+720         \textcolor{keywordflow}{if} (otyp != STRANGE\_OBJECT && otmp->bknown) \hyperlink{hack_8h_afbd3607e7cef2f888f4190d40d058011}{makeknown}(otyp);
+721         \textcolor{keywordflow}{return}(1);
+722     \}
+723 
+724     \textcolor{keywordflow}{if} (amount < 0 && uwep->\hyperlink{structobj_af03ce8a6a0ca51e8d8954fb1a1a31fbe}{oartifact} && restrict\_name(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, \hyperlink{obj_8h_a1cbe5aea8be676f47a4597882a411c37}{ONAME}(
+      \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}))) \{
+725         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind})
+726         Your(\textcolor{stringliteral}{"%s %s."}, aobjnam(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, \textcolor{stringliteral}{"faintly glow"}), color);
+727         \textcolor{keywordflow}{return}(1);
+728     \}
+729     \textcolor{comment}{/* there is a (soft) upper and lower limit to uwep->spe */}
+730     \textcolor{keywordflow}{if}(((\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} > 5 && amount >= 0) || (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} < -5 && amount < 0))
+731                                 && rn2(3)) \{
+732         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind})
+733         Your(\textcolor{stringliteral}{"%s %s for a while and then %s."},
+734          aobjnam(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, \textcolor{stringliteral}{"violently glow"}), color,
+735          otense(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, \textcolor{stringliteral}{"evaporate"}));
+736         \textcolor{keywordflow}{else}
+737         Your(\textcolor{stringliteral}{"%s."}, aobjnam(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, \textcolor{stringliteral}{"evaporate"}));
+738 
+739         useupall(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}); \textcolor{comment}{/* let all of them disappear */}
+740         \textcolor{keywordflow}{return}(1);
+741     \}
+742     \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+743         xtime = (amount*amount == 1) ? \textcolor{stringliteral}{"moment"} : \textcolor{stringliteral}{"while"};
+744         Your(\textcolor{stringliteral}{"%s %s for a %s."},
+745          aobjnam(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, amount == 0 ? \textcolor{stringliteral}{"violently glow"} : \textcolor{stringliteral}{"glow"}),
+746          color, xtime);
+747         \textcolor{keywordflow}{if} (otyp != STRANGE\_OBJECT && \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->known &&
+748             (amount > 0 || (amount < 0 && otmp->bknown)))
+749         \hyperlink{hack_8h_afbd3607e7cef2f888f4190d40d058011}{makeknown}(otyp);
+750     \}
+751     \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} += amount;
+752     \textcolor{keywordflow}{if}(amount > 0) \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->cursed = 0;
+753 
+754     \textcolor{comment}{/*}
+755 \textcolor{comment}{     * Enchantment, which normally improves a weapon, has an}
+756 \textcolor{comment}{     * addition adverse reaction on Magicbane whose effects are}
+757 \textcolor{comment}{     * spe dependent.  Give an obscure clue here.}
+758 \textcolor{comment}{     */}
+759     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_af03ce8a6a0ca51e8d8954fb1a1a31fbe}{oartifact} == ART\_MAGICBANE && \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} >= 0) \{
+760         Your(\textcolor{stringliteral}{"right %s %sches!"},
+761             body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND}),
+762             (((amount > 1) && (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} > 1)) ? \textcolor{stringliteral}{"flin"} : \textcolor{stringliteral}{"it"}));
+763     \}
+764 
+765     \textcolor{comment}{/* an elven magic clue, cookie@keebler */}
+766     \textcolor{comment}{/* elven weapons vibrate warningly when enchanted beyond a limit */}
+767     \textcolor{keywordflow}{if} ((\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} > 5)
+768         && (\hyperlink{obj_8h_a430f2a311c2810f6403fcfcc96a58ad0}{is\_elven\_weapon}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) || \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_af03ce8a6a0ca51e8d8954fb1a1a31fbe}{oartifact} || !rn2(7)))
+769         Your(\textcolor{stringliteral}{"%s unexpectedly."},
+770         aobjnam(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, \textcolor{stringliteral}{"suddenly vibrate"}));
+771 
+772     \textcolor{keywordflow}{return}(1);
+773 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a72a796264e3d24ec74113ef522c2dfd3}{\index{wield.\+c@{wield.\+c}!doswapweapon@{doswapweapon}}
+\index{doswapweapon@{doswapweapon}!wield.\+c@{wield.\+c}}
+\subsubsection[{doswapweapon}]{\setlength{\rightskip}{0pt plus 5cm}int doswapweapon (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a72a796264e3d24ec74113ef522c2dfd3}
+
+
+Definition at line 287 of file wield.\+c.
+
+
+
+References can\+\_\+twoweapon(), cantwield, monst\+::data, multi, ready\+\_\+weapon(), setuswapwep(), you\+::twoweap, u, untwoweapon(), uswapwep, uwep, welded(), weldmsg(), and youmonst.
+
+
+
+Referenced by dowield(), and wield\+\_\+tool().
+
+
+\begin{DoxyCode}
+288 \{
+289     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *oldwep, *oldswap;
+290     \textcolor{keywordtype}{int} result = 0;
+291 
+292 
+293     \textcolor{comment}{/* May we attempt this? */}
+294     \hyperlink{decl_8h_a498406921f71695627a7107240f3ed7a}{multi} = 0;
+295     \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_affb79b25deabc9564b20a275b5ac7e5f}{cantwield}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) \{
+296         pline(\textcolor{stringliteral}{"Don't be ridiculous!"});
+297         \textcolor{keywordflow}{return}(0);
+298     \}
+299     \textcolor{keywordflow}{if} (\hyperlink{wield_8c_ade2321e11c702d69c6fd7b261ae62040}{welded}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep})) \{
+300         \hyperlink{wield_8c_acf3b9dae627bf80b5565774296f5b9a9}{weldmsg}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep});
+301         \textcolor{keywordflow}{return} (0);
+302     \}
+303 
+304     \textcolor{comment}{/* Unwield your current secondary weapon */}
+305     oldwep = \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep};
+306     oldswap = \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep};
+307     \hyperlink{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}{setuswapwep}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+308 
+309     \textcolor{comment}{/* Set your new primary weapon */}
+310     result = \hyperlink{wield_8c_a79d0105a7802b4e1c9aa88e2c5144141}{ready\_weapon}(oldswap);
+311 
+312     \textcolor{comment}{/* Set your new secondary weapon */}
+313     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} == oldwep)
+314         \textcolor{comment}{/* Wield failed for some reason */}
+315         \hyperlink{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}{setuswapwep}(oldswap);
+316     \textcolor{keywordflow}{else} \{
+317         \hyperlink{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}{setuswapwep}(oldwep);
+318         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep})
+319             prinv((\textcolor{keywordtype}{char} *)0, \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep}, 0L);
+320         \textcolor{keywordflow}{else}
+321             You(\textcolor{stringliteral}{"have no secondary weapon readied."});
+322     \}
+323 
+324     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap} && !\hyperlink{wield_8c_a3b7fbd46da00d32eb5b8af935abdce20}{can\_twoweapon}())
+325         \hyperlink{wield_8c_a8936c33b1297630daea8e9448b804588}{untwoweapon}();
+326 
+327     \textcolor{keywordflow}{return} (result);
+328 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a542e4e9c193fd3817f35f24f7d13d2d3}{\index{wield.\+c@{wield.\+c}!dotwoweapon@{dotwoweapon}}
+\index{dotwoweapon@{dotwoweapon}!wield.\+c@{wield.\+c}}
+\subsubsection[{dotwoweapon}]{\setlength{\rightskip}{0pt plus 5cm}int dotwoweapon (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a542e4e9c193fd3817f35f24f7d13d2d3}
+
+
+Definition at line 526 of file wield.\+c.
+
+
+
+References A\+\_\+\+D\+E\+X, A\+C\+U\+R\+R, can\+\_\+twoweapon(), you\+::twoweap, u, and update\+\_\+inventory.
+
+
+\begin{DoxyCode}
+527 \{
+528     \textcolor{comment}{/* You can always toggle it off */}
+529     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap}) \{
+530         You(\textcolor{stringliteral}{"switch to your primary weapon."});
+531         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap} = 0;
+532         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+533         \textcolor{keywordflow}{return} (0);
+534     \}
+535 
+536     \textcolor{comment}{/* May we use two weapons? */}
+537     \textcolor{keywordflow}{if} (\hyperlink{wield_8c_a3b7fbd46da00d32eb5b8af935abdce20}{can\_twoweapon}()) \{
+538         \textcolor{comment}{/* Success! */}
+539         You(\textcolor{stringliteral}{"begin two-weapon combat."});
+540         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap} = 1;
+541         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+542         \textcolor{keywordflow}{return} (rnd(20) > \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_ad8117dfaac470310d7540a3e8dcc00e0}{A\_DEX}));
+543     \}
+544     \textcolor{keywordflow}{return} (0);
+545 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a9a149961d931fa794b73559a39cf1442}{\index{wield.\+c@{wield.\+c}!dowield@{dowield}}
+\index{dowield@{dowield}!wield.\+c@{wield.\+c}}
+\subsubsection[{dowield}]{\setlength{\rightskip}{0pt plus 5cm}int dowield (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a9a149961d931fa794b73559a39cf1442}
+
+
+Definition at line 233 of file wield.\+c.
+
+
+
+References cantwield, monst\+::data, doswapweapon(), F\+A\+L\+S\+E, flags, is\+\_\+weptool, multi, obj\+::owornmask, flag\+::pushweapon, ready\+\_\+weapon(), setuqwep(), setuswapwep(), S\+T\+E\+E\+D, untwoweapon(), unweapon, uquiver, uswapwep, uwep, W\+\_\+\+A\+M\+U\+L, W\+\_\+\+A\+R\+M\+O\+R, W\+\_\+\+R\+I\+N\+G, W\+\_\+\+T\+O\+O\+L, welded(), weldmsg(), youmonst, and zeroobj.
+
+
+\begin{DoxyCode}
+234 \{
+235     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *wep, *oldwep;
+236     \textcolor{keywordtype}{int} result;
+237 
+238     \textcolor{comment}{/* May we attempt this? */}
+239     \hyperlink{decl_8h_a498406921f71695627a7107240f3ed7a}{multi} = 0;
+240     \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_affb79b25deabc9564b20a275b5ac7e5f}{cantwield}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) \{
+241         pline(\textcolor{stringliteral}{"Don't be ridiculous!"});
+242         \textcolor{keywordflow}{return}(0);
+243     \}
+244 
+245     \textcolor{comment}{/* Prompt for a new weapon */}
+246     \textcolor{keywordflow}{if} (!(wep = getobj(\hyperlink{wield_8c_ac4d8b6af169048c772a13ae18e802f92}{wield\_objs}, \textcolor{stringliteral}{"wield"})))
+247         \textcolor{comment}{/* Cancelled */}
+248         \textcolor{keywordflow}{return} (0);
+249     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (wep == \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) \{
+250         You(\textcolor{stringliteral}{"are already wielding that!"});
+251         \textcolor{keywordflow}{if} (\hyperlink{obj_8h_a5f347f7456e4da8284a9bc369bc32d45}{is\_weptool}(wep)) \hyperlink{decl_8h_abc99d0f4cd19504d514e134524947a9e}{unweapon} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};   \textcolor{comment}{/* [see setuwep()] */}
+252         \textcolor{keywordflow}{return} (0);
+253     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{wield_8c_ade2321e11c702d69c6fd7b261ae62040}{welded}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep})) \{
+254         \hyperlink{wield_8c_acf3b9dae627bf80b5565774296f5b9a9}{weldmsg}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep});
+255         \textcolor{comment}{/* previously interrupted armor removal mustn't be resumed */}
+256         reset\_remarm();
+257         \textcolor{keywordflow}{return} (0);
+258     \}
+259 
+260     \textcolor{comment}{/* Handle no object, or object in other slot */}
+261     \textcolor{keywordflow}{if} (wep == &\hyperlink{decl_8h_ac38c1775c821ebb3ef2304e234ea23a4}{zeroobj})
+262         wep = (\textcolor{keyword}{struct }\hyperlink{structobj}{obj} *) 0;
+263     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (wep == \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep})
+264         \textcolor{keywordflow}{return} (\hyperlink{wield_8c_a72a796264e3d24ec74113ef522c2dfd3}{doswapweapon}());
+265     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (wep == \hyperlink{decl_8h_a7544f9c7591e79476549f321400d269b}{uquiver})
+266         \hyperlink{wield_8c_a6004112a6fc3b435bb2cff99c8b884d3}{setuqwep}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+267     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (wep->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} & (\hyperlink{prop_8h_afb4c914cfecbde6972d893bc33e10aa9}{W\_ARMOR} | \hyperlink{prop_8h_a855614df1627862ffc73bf31e283b7b9}{W\_RING} | \hyperlink{prop_8h_a1a4f9d6f31538cc9d677e617b49597d2}{W\_AMUL} | 
+      \hyperlink{prop_8h_ac2c824bec7fcb9f986b9e905d1f5ee8a}{W\_TOOL}
+268 #ifdef \hyperlink{config_8h_a0386a3058afaec36a953bb688cf7cf04}{STEED}
+269             | W\_SADDLE
+270 #endif
+271             )) \{
+272         You(\textcolor{stringliteral}{"cannot wield that!"});
+273         \textcolor{keywordflow}{return} (0);
+274     \}
+275 
+276     \textcolor{comment}{/* Set your new primary weapon */}
+277     oldwep = \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep};
+278     result = \hyperlink{wield_8c_a79d0105a7802b4e1c9aa88e2c5144141}{ready\_weapon}(wep);
+279     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a5033ffab33ed5af8af75952e59a61b83}{pushweapon} && oldwep && \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} != oldwep)
+280         \hyperlink{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}{setuswapwep}(oldwep);
+281     \hyperlink{wield_8c_a8936c33b1297630daea8e9448b804588}{untwoweapon}();
+282 
+283     \textcolor{keywordflow}{return} (result);
+284 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_aeac98803e7fb0a527a359b94134eedde}{\index{wield.\+c@{wield.\+c}!dowieldquiver@{dowieldquiver}}
+\index{dowieldquiver@{dowieldquiver}!wield.\+c@{wield.\+c}}
+\subsubsection[{dowieldquiver}]{\setlength{\rightskip}{0pt plus 5cm}int dowieldquiver (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_aeac98803e7fb0a527a359b94134eedde}
+
+
+Definition at line 331 of file wield.\+c.
+
+
+
+References F\+E\+A\+T\+U\+R\+E\+\_\+\+N\+O\+T\+I\+C\+E\+\_\+\+V\+E\+R, flags, is\+\_\+plural, multi, objects, obj\+::otyp, obj\+::owornmask, P\+\_\+\+S\+L\+I\+N\+G, ready\+\_\+objs, setuqwep(), setuswapwep(), S\+T\+E\+E\+D, flag\+::suppress\+\_\+alert, untwoweapon(), uquiver, uslinging, uswapwep, uwep, W\+\_\+\+A\+M\+U\+L, W\+\_\+\+A\+R\+M\+O\+R, W\+\_\+\+Q\+U\+I\+V\+E\+R, W\+\_\+\+R\+I\+N\+G, W\+\_\+\+T\+O\+O\+L, and zeroobj.
+
+
+\begin{DoxyCode}
+332 \{
+333     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *newquiver;
+334     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *quivee\_types = (\hyperlink{obj_8h_a2adb148f9956bf79f1825fed308ce583}{uslinging}() ||
+335           (\hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill == 
+      \hyperlink{skills_8h_ab846b30f6bc0e1fa47cf5811bfdf90eb}{P\_SLING})) ?
+336                   \hyperlink{wield_8c_ad584c47d7d93295295d130a80f2fc309}{bullets} : \hyperlink{wield_8c_ae21d565883c15bb8c74640f48d3ad974}{ready\_objs};
+337 
+338     \textcolor{comment}{/* Since the quiver isn't in your hands, don't check cantwield(), */}
+339     \textcolor{comment}{/* will\_weld(), touch\_petrifies(), etc. */}
+340     \hyperlink{decl_8h_a498406921f71695627a7107240f3ed7a}{multi} = 0;
+341 
+342     \textcolor{comment}{/* Because 'Q' used to be quit... */}
+343     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ab558d0d3ed4a3952a137452df27c7c64}{suppress\_alert} < \hyperlink{hack_8h_a59736f3202b417b907e43dc52bb63922}{FEATURE\_NOTICE\_VER}(3,3,0))
+344         pline(\textcolor{stringliteral}{"Note: Please use #quit if you wish to exit the game."});
+345 
+346     \textcolor{comment}{/* Prompt for a new quiver */}
+347     \textcolor{keywordflow}{if} (!(newquiver = getobj(quivee\_types, \textcolor{stringliteral}{"ready"})))
+348         \textcolor{comment}{/* Cancelled */}
+349         \textcolor{keywordflow}{return} (0);
+350 
+351     \textcolor{comment}{/* Handle no object, or object in other slot */}
+352     \textcolor{comment}{/* Any type is okay, since we give no intrinsics anyways */}
+353     \textcolor{keywordflow}{if} (newquiver == &\hyperlink{decl_8h_ac38c1775c821ebb3ef2304e234ea23a4}{zeroobj}) \{
+354         \textcolor{comment}{/* Explicitly nothing */}
+355         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a7544f9c7591e79476549f321400d269b}{uquiver}) \{
+356             You(\textcolor{stringliteral}{"now have no ammunition readied."});
+357             \hyperlink{wield_8c_a6004112a6fc3b435bb2cff99c8b884d3}{setuqwep}(newquiver = (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+358         \} \textcolor{keywordflow}{else} \{
+359             You(\textcolor{stringliteral}{"already have no ammunition readied!"});
+360             \textcolor{keywordflow}{return}(0);
+361         \}
+362     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (newquiver == \hyperlink{decl_8h_a7544f9c7591e79476549f321400d269b}{uquiver}) \{
+363         pline(\textcolor{stringliteral}{"That ammunition is already readied!"});
+364         \textcolor{keywordflow}{return}(0);
+365     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (newquiver == \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) \{
+366         \textcolor{comment}{/* Prevent accidentally readying the main weapon */}
+367         pline(\textcolor{stringliteral}{"%s already being used as a weapon!"},
+368               !\hyperlink{obj_8h_a8bebd62ba942159b2b8888847cd2df99}{is\_plural}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) ? \textcolor{stringliteral}{"That is"} : \textcolor{stringliteral}{"They are"});
+369         \textcolor{keywordflow}{return}(0);
+370     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (newquiver->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} & (\hyperlink{prop_8h_afb4c914cfecbde6972d893bc33e10aa9}{W\_ARMOR} | \hyperlink{prop_8h_a855614df1627862ffc73bf31e283b7b9}{W\_RING} | 
+      \hyperlink{prop_8h_a1a4f9d6f31538cc9d677e617b49597d2}{W\_AMUL} | \hyperlink{prop_8h_ac2c824bec7fcb9f986b9e905d1f5ee8a}{W\_TOOL}
+371 #ifdef \hyperlink{config_8h_a0386a3058afaec36a953bb688cf7cf04}{STEED}
+372             | W\_SADDLE
+373 #endif
+374             )) \{
+375         You(\textcolor{stringliteral}{"cannot ready that!"});
+376         \textcolor{keywordflow}{return} (0);
+377     \} \textcolor{keywordflow}{else} \{
+378         \textcolor{keywordtype}{long} dummy;
+379 
+380 
+381         \textcolor{comment}{/* Check if it's the secondary weapon */}
+382         \textcolor{keywordflow}{if} (newquiver == \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep}) \{
+383             \hyperlink{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}{setuswapwep}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+384             \hyperlink{wield_8c_a8936c33b1297630daea8e9448b804588}{untwoweapon}();
+385         \}
+386 
+387         \textcolor{comment}{/* Okay to put in quiver; print it */}
+388         dummy = newquiver->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask};
+389         newquiver->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} |= \hyperlink{prop_8h_a9b95d7c6e22f325a5bc0326d7673a4f4}{W\_QUIVER};
+390         prinv((\textcolor{keywordtype}{char} *)0, newquiver, 0L);
+391         newquiver->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} = dummy;
+392     \}
+393 
+394     \textcolor{comment}{/* Finally, place it in the quiver */}
+395     \hyperlink{wield_8c_a6004112a6fc3b435bb2cff99c8b884d3}{setuqwep}(newquiver);
+396     \textcolor{comment}{/* Take no time since this is a convenience slot */}
+397     \textcolor{keywordflow}{return} (0);
+398 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a85ec1f0cd8ac29343a1a7695e513365e}{\index{wield.\+c@{wield.\+c}!drop\+\_\+uswapwep@{drop\+\_\+uswapwep}}
+\index{drop\+\_\+uswapwep@{drop\+\_\+uswapwep}!wield.\+c@{wield.\+c}}
+\subsubsection[{drop\+\_\+uswapwep}]{\setlength{\rightskip}{0pt plus 5cm}void drop\+\_\+uswapwep (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a85ec1f0cd8ac29343a1a7695e513365e}
+
+
+Definition at line 514 of file wield.\+c.
+
+
+
+References B\+U\+F\+S\+Z, H\+A\+N\+D, Strcpy, and uswapwep.
+
+
+
+Referenced by can\+\_\+twoweapon().
+
+
+\begin{DoxyCode}
+515 \{
+516     \textcolor{keywordtype}{char} str[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+517     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{structobj}{obj} = \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep};
+518 
+519     \textcolor{comment}{/* Avoid trashing makeplural's static buffer */}
+520     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(str, makeplural(body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND})));
+521     Your(\textcolor{stringliteral}{"%s from your %s!"},  aobjnam(obj, \textcolor{stringliteral}{"slip"}), str);
+522     dropx(obj);
+523 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a4a244d8bac0d5f5e1003b738cb04aaf9}{\index{wield.\+c@{wield.\+c}!erode\+\_\+obj@{erode\+\_\+obj}}
+\index{erode\+\_\+obj@{erode\+\_\+obj}!wield.\+c@{wield.\+c}}
+\subsubsection[{erode\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}void erode\+\_\+obj (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{target, }
+\item[{{\bf boolean}}]{acid\+\_\+dmg, }
+\item[{{\bf boolean}}]{fade\+\_\+scrolls}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a4a244d8bac0d5f5e1003b738cb04aaf9}
+
+
+Definition at line 598 of file wield.\+c.
+
+
+
+References bhitpos, Blind, cansee, canseemon, carried, flags, is\+\_\+corrodeable, is\+\_\+rustprone, M\+A\+I\+L, M\+A\+X\+\_\+\+E\+R\+O\+D\+E, mcarried, S\+C\+R\+O\+L\+L\+\_\+\+C\+L\+A\+S\+S, T\+R\+U\+E, flag\+::verbose, coord\+::x, coord\+::y, and youmonst.
+
+
+
+Referenced by passive\+\_\+obj().
+
+
+\begin{DoxyCode}
+602 \{
+603     \textcolor{keywordtype}{int} erosion;
+604     \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *victim;
+605     \textcolor{keywordtype}{boolean} vismon;
+606     \textcolor{keywordtype}{boolean} visobj;
+607 
+608     \textcolor{keywordflow}{if} (!target)
+609         \textcolor{keywordflow}{return};
+610     victim = \hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(target) ? &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst} :
+611         \hyperlink{obj_8h_a35bc29b64e990f1dca2dcb5c627917ce}{mcarried}(target) ? target->ocarry : (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)0;
+612     vismon = victim && (victim != &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}) && \hyperlink{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}{canseemon}(victim);
+613     visobj = !victim && \hyperlink{vision_8h_a857efc720262bc13a9e4b4bcbb079b5c}{cansee}(\hyperlink{hack_8h_a4c9226f2a1ebd72a254bb15c96d75440}{bhitpos}.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, \hyperlink{hack_8h_a4c9226f2a1ebd72a254bb15c96d75440}{bhitpos}.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}); \textcolor{comment}{/* assume thrown */}
+614 
+615     erosion = acid\_dmg ? target->oeroded2 : target->oeroded;
+616 
+617     \textcolor{keywordflow}{if} (target->greased) \{
+618         grease\_protect(target,(\textcolor{keywordtype}{char} *)0,victim);
+619     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (target->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_ac23f261da0f9e2a4c6afccecfc167a96}{SCROLL\_CLASS}) \{
+620         \textcolor{keywordflow}{if}(fade\_scrolls && target->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != SCR\_BLANK\_PAPER
+621 #ifdef \hyperlink{amiconf_8h_ad660fcaacb2a9801c006f5401095c408}{MAIL}
+622         && target->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} != SCR\_MAIL
+623 #endif
+624                     )
+625         \{
+626         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+627             \textcolor{keywordflow}{if} (victim == &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst})
+628             Your(\textcolor{stringliteral}{"%s."}, aobjnam(target, \textcolor{stringliteral}{"fade"}));
+629             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (vismon)
+630             pline(\textcolor{stringliteral}{"%s's %s."}, Monnam(victim),
+631                   aobjnam(target, \textcolor{stringliteral}{"fade"}));
+632             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (visobj)
+633             pline\_The(\textcolor{stringliteral}{"%s."}, aobjnam(target, \textcolor{stringliteral}{"fade"}));
+634         \}
+635         target->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} = SCR\_BLANK\_PAPER;
+636         target->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = 0;
+637         \}
+638     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (target->oerodeproof ||
+639         (acid\_dmg ? !\hyperlink{objclass_8h_accadaa322e6f90207a5317ad010c61a4}{is\_corrodeable}(target) : !\hyperlink{objclass_8h_a0dfa252c1e3725f34bc515c1c307fff9}{is\_rustprone}(target))) \{
+640         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose} || !(target->oerodeproof && target->rknown)) \{
+641         \textcolor{keywordflow}{if} (victim == &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst})
+642             Your(\textcolor{stringliteral}{"%s not affected."}, aobjnam(target, \textcolor{stringliteral}{"are"}));
+643         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (vismon)
+644             pline(\textcolor{stringliteral}{"%s's %s not affected."}, Monnam(victim),
+645             aobjnam(target, \textcolor{stringliteral}{"are"}));
+646         \textcolor{comment}{/* no message if not carried */}
+647         \}
+648         \textcolor{keywordflow}{if} (target->oerodeproof) target->rknown = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+649     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (erosion < \hyperlink{obj_8h_a560969716d5322448dbe570b13154aca}{MAX\_ERODE}) \{
+650         \textcolor{keywordflow}{if} (victim == &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst})
+651         Your(\textcolor{stringliteral}{"%s%s!"}, aobjnam(target, acid\_dmg ? \textcolor{stringliteral}{"corrode"} : \textcolor{stringliteral}{"rust"}),
+652             erosion+1 == \hyperlink{obj_8h_a560969716d5322448dbe570b13154aca}{MAX\_ERODE} ? \textcolor{stringliteral}{" completely"} :
+653             erosion ? \textcolor{stringliteral}{" further"} : \textcolor{stringliteral}{""});
+654         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (vismon)
+655         pline(\textcolor{stringliteral}{"%s's %s%s!"}, Monnam(victim),
+656             aobjnam(target, acid\_dmg ? \textcolor{stringliteral}{"corrode"} : \textcolor{stringliteral}{"rust"}),
+657             erosion+1 == \hyperlink{obj_8h_a560969716d5322448dbe570b13154aca}{MAX\_ERODE} ? \textcolor{stringliteral}{" completely"} :
+658             erosion ? \textcolor{stringliteral}{" further"} : \textcolor{stringliteral}{""});
+659         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (visobj)
+660         pline\_The(\textcolor{stringliteral}{"%s%s!"},
+661             aobjnam(target, acid\_dmg ? \textcolor{stringliteral}{"corrode"} : \textcolor{stringliteral}{"rust"}),
+662             erosion+1 == \hyperlink{obj_8h_a560969716d5322448dbe570b13154aca}{MAX\_ERODE} ? \textcolor{stringliteral}{" completely"} :
+663             erosion ? \textcolor{stringliteral}{" further"} : \textcolor{stringliteral}{""});
+664         \textcolor{keywordflow}{if} (acid\_dmg)
+665         target->oeroded2++;
+666         \textcolor{keywordflow}{else}
+667         target->oeroded++;
+668     \} \textcolor{keywordflow}{else} \{
+669         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose}) \{
+670         \textcolor{keywordflow}{if} (victim == &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst})
+671             Your(\textcolor{stringliteral}{"%s completely %s."},
+672             aobjnam(target, \hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind} ? \textcolor{stringliteral}{"feel"} : \textcolor{stringliteral}{"look"}),
+673             acid\_dmg ? \textcolor{stringliteral}{"corroded"} : \textcolor{stringliteral}{"rusty"});
+674         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (vismon)
+675             pline(\textcolor{stringliteral}{"%s's %s completely %s."}, Monnam(victim),
+676             aobjnam(target, \textcolor{stringliteral}{"look"}),
+677             acid\_dmg ? \textcolor{stringliteral}{"corroded"} : \textcolor{stringliteral}{"rusty"});
+678         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (visobj)
+679             pline\_The(\textcolor{stringliteral}{"%s completely %s."},
+680             aobjnam(target, \textcolor{stringliteral}{"look"}),
+681             acid\_dmg ? \textcolor{stringliteral}{"corroded"} : \textcolor{stringliteral}{"rusty"});
+682         \}
+683     \}
+684 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a163c91747c1dffbd53be0c35aab60a2c}{\index{wield.\+c@{wield.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!wield.\+c@{wield.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ready\+\_\+weapon}}]{, }
+\item[{(struct {\bf obj} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a163c91747c1dffbd53be0c35aab60a2c}
+\hypertarget{wield_8c_a79d0105a7802b4e1c9aa88e2c5144141}{\index{wield.\+c@{wield.\+c}!ready\+\_\+weapon@{ready\+\_\+weapon}}
+\index{ready\+\_\+weapon@{ready\+\_\+weapon}!wield.\+c@{wield.\+c}}
+\subsubsection[{ready\+\_\+weapon}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int ready\+\_\+weapon (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{wep}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a79d0105a7802b4e1c9aa88e2c5144141}
+
+
+Definition at line 116 of file wield.\+c.
+
+
+
+References bimanual, Blind, B\+U\+F\+S\+Z, F\+A\+L\+S\+E, H\+A\+N\+D, H\+A\+N\+D\+E\+D, I\+R\+O\+N, is\+\_\+sword, permonst\+::mname, mons, objects, Race\+\_\+if, setuwep(), Sprintf, Stone\+\_\+resistance, touch\+\_\+petrifies, T\+R\+U\+E, u, uarmg, uarms, uwep, you\+::ux, you\+::uy, W\+\_\+\+W\+E\+P, will\+\_\+weld, and youmonst.
+
+
+
+Referenced by doswapweapon(), and dowield().
+
+
+\begin{DoxyCode}
+118 \{
+119     \textcolor{comment}{/* Separated function so swapping works easily */}
+120     \textcolor{keywordtype}{int} res = 0;
+121 
+122     \textcolor{keywordflow}{if} (!wep) \{
+123         \textcolor{comment}{/* No weapon */}
+124         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) \{
+125         You(\textcolor{stringliteral}{"are empty %s."}, body\_part(\hyperlink{hack_8h_aa04c527bae27e412fb7c19b8a936bf39}{HANDED}));
+126         \hyperlink{wield_8c_adc7f46a6707f98835bb3c181d7ae1821}{setuwep}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+127         res++;
+128         \} \textcolor{keywordflow}{else}
+129         You(\textcolor{stringliteral}{"are already empty %s."}, body\_part(\hyperlink{hack_8h_aa04c527bae27e412fb7c19b8a936bf39}{HANDED}));
+130     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg} && !\hyperlink{youprop_8h_a90b638323d50e1f8d52d4a9576d90551}{Stone\_resistance} && wep->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == CORPSE
+131                 && \hyperlink{mondata_8h_ad1e85e493d27cdfdbe94c43710c4b191}{touch\_petrifies}(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[wep->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm}])) \{
+132         \textcolor{comment}{/* Prevent wielding cockatrice when not wearing gloves --KAA */}
+133         \textcolor{keywordtype}{char} kbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+134 
+135         You(\textcolor{stringliteral}{"wield the %s corpse in your bare %s."},
+136         \hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[wep->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm}].\hyperlink{structpermonst_ae92da7d141243d7e37d4a12340bb248f}{mname}, makeplural(body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND})));
+137         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(kbuf, \textcolor{stringliteral}{"%s corpse"}, an(\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[wep->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm}].
+      \hyperlink{structpermonst_ae92da7d141243d7e37d4a12340bb248f}{mname}));
+138         instapetrify(kbuf);
+139     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_aee21972b230a8408f2b85e26f195e91d}{uarms} && \hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(wep))
+140         You(\textcolor{stringliteral}{"cannot wield a two-handed %s while wearing a shield."},
+141         \hyperlink{obj_8h_ae284b60ec8919e5fb325f5a7b39a093c}{is\_sword}(wep) ? \textcolor{stringliteral}{"sword"} :
+142             wep->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == BATTLE\_AXE ? \textcolor{stringliteral}{"axe"} : \textcolor{stringliteral}{"weapon"});
+143     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (wep->\hyperlink{structobj_af03ce8a6a0ca51e8d8954fb1a1a31fbe}{oartifact} && !touch\_artifact(wep, &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst})) \{
+144         res++;  \textcolor{comment}{/* takes a turn even though it doesn't get wielded */}
+145     \} \textcolor{keywordflow}{else} \{
+146         \textcolor{comment}{/* Weapon WILL be wielded after this point */}
+147         res++;
+148         \textcolor{keywordflow}{if} (\hyperlink{wield_8c_afce0248524dfef0efe2eb44e7f307be0}{will\_weld}(wep)) \{
+149         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *tmp = xname(wep), *thestr = \textcolor{stringliteral}{"The "};
+150         \textcolor{keywordflow}{if} (strncmp(tmp, thestr, 4) && !strncmp(The(tmp),thestr,4))
+151             tmp = thestr;
+152         \textcolor{keywordflow}{else} tmp = \textcolor{stringliteral}{""};
+153         pline(\textcolor{stringliteral}{"%s%s %s to your %s!"}, tmp, aobjnam(wep, \textcolor{stringliteral}{"weld"}),
+154             (wep->\hyperlink{structobj_ad08c0ed1a746fbb52377ecd7e4220578}{quan} == 1L) ? \textcolor{stringliteral}{"itself"} : \textcolor{stringliteral}{"themselves"}, \textcolor{comment}{/* a3 */}
+155             \hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(wep) ?
+156                 (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)makeplural(body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND}))
+157                 : body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND}));
+158         wep->bknown = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+159         \} \textcolor{keywordflow}{else} \{
+160         \textcolor{comment}{/* The message must be printed before setuwep (since}
+161 \textcolor{comment}{         * you might die and be revived from changing weapons),}
+162 \textcolor{comment}{         * and the message must be before the death message and}
+163 \textcolor{comment}{         * Lifesaved rewielding.  Yet we want the message to}
+164 \textcolor{comment}{         * say "weapon in hand", thus this kludge.}
+165 \textcolor{comment}{         */}
+166         \textcolor{keywordtype}{long} \hyperlink{structmonst_a10134cb1897b4ccd2d51aba7bae60c50}{dummy} = wep->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask};
+167         wep->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} |= \hyperlink{prop_8h_abd75a55f67b13523ef4377d4eb6fb6ad}{W\_WEP};
+168         prinv((\textcolor{keywordtype}{char} *)0, wep, 0L);
+169         wep->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} = \hyperlink{structmonst_a10134cb1897b4ccd2d51aba7bae60c50}{dummy};
+170         \}
+171         \hyperlink{wield_8c_adc7f46a6707f98835bb3c181d7ae1821}{setuwep}(wep);
+172 
+173         \textcolor{comment}{/* KMH -- Talking artifacts are finally implemented */}
+174         arti\_speak(wep);
+175 
+176         \textcolor{keywordflow}{if} (artifact\_light(wep) && !wep->lamplit) \{
+177         begin\_burn(wep, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+178         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind})
+179             pline(\textcolor{stringliteral}{"%s to glow brilliantly!"}, Tobjnam(wep, \textcolor{stringliteral}{"begin"}));
+180         \}
+181 
+182 \textcolor{preprocessor}{#if 0}
+183         \textcolor{comment}{/* we'll get back to this someday, but it's not balanced yet */}
+184         \textcolor{keywordflow}{if} (\hyperlink{you_8h_ac1b9b8d9c3387e3d3a36b9474945879c}{Race\_if}(PM\_ELF) && !wep->\hyperlink{structobj_af03ce8a6a0ca51e8d8954fb1a1a31fbe}{oartifact} &&
+185                 \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[wep->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_material == \hyperlink{objclass_8h_a3c344bd0876915ca614f68b06d878c44}{IRON}) \{
+186         \textcolor{comment}{/* Elves are averse to wielding cold iron */}
+187         You(\textcolor{stringliteral}{"have an uneasy feeling about wielding cold iron."});
+188         change\_luck(-1);
+189         \}
+190 \textcolor{preprocessor}{#endif}
+191 
+192         \textcolor{keywordflow}{if} (wep->unpaid) \{
+193         \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *this\_shkp;
+194 
+195         \textcolor{keywordflow}{if} ((this\_shkp = shop\_keeper(inside\_shop(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}))) !=
+196             (\textcolor{keyword}{struct} \hyperlink{structmonst}{monst} *)0) \{
+197             pline(\textcolor{stringliteral}{"%s says \(\backslash\)"You be careful with my %s!\(\backslash\)""},
+198               shkname(this\_shkp),
+199               xname(wep));
+200         \}
+201         \}
+202     \}
+203     \textcolor{keywordflow}{return}(res);
+204 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a6004112a6fc3b435bb2cff99c8b884d3}{\index{wield.\+c@{wield.\+c}!setuqwep@{setuqwep}}
+\index{setuqwep@{setuqwep}!wield.\+c@{wield.\+c}}
+\subsubsection[{setuqwep}]{\setlength{\rightskip}{0pt plus 5cm}void setuqwep (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a6004112a6fc3b435bb2cff99c8b884d3}
+
+
+Definition at line 207 of file wield.\+c.
+
+
+
+References setworn(), update\+\_\+inventory, and W\+\_\+\+Q\+U\+I\+V\+E\+R.
+
+
+
+Referenced by autoquiver(), ballfall(), dowield(), dowieldquiver(), in\+\_\+container(), ini\+\_\+inv(), ship\+\_\+object(), and wield\+\_\+tool().
+
+
+\begin{DoxyCode}
+209 \{
+210     \hyperlink{worn_8c_ae7018d12ec8662328050dfd7bd8dc903}{setworn}(obj, \hyperlink{prop_8h_a9b95d7c6e22f325a5bc0326d7673a4f4}{W\_QUIVER});
+211     \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+212 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}{\index{wield.\+c@{wield.\+c}!setuswapwep@{setuswapwep}}
+\index{setuswapwep@{setuswapwep}!wield.\+c@{wield.\+c}}
+\subsubsection[{setuswapwep}]{\setlength{\rightskip}{0pt plus 5cm}void setuswapwep (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a88ffb17424a5f0e8fb61b20d02811959}
+
+
+Definition at line 215 of file wield.\+c.
+
+
+
+References setworn(), update\+\_\+inventory, and W\+\_\+\+S\+W\+A\+P\+W\+E\+P.
+
+
+
+Referenced by ballfall(), doswapweapon(), dowield(), dowieldquiver(), in\+\_\+container(), ini\+\_\+inv(), and ship\+\_\+object().
+
+
+\begin{DoxyCode}
+217 \{
+218     \hyperlink{worn_8c_ae7018d12ec8662328050dfd7bd8dc903}{setworn}(obj, \hyperlink{prop_8h_a4571f54e71d38d81a610eaf77e5fecd9}{W\_SWAPWEP});
+219     \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+220 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_adc7f46a6707f98835bb3c181d7ae1821}{\index{wield.\+c@{wield.\+c}!setuwep@{setuwep}}
+\index{setuwep@{setuwep}!wield.\+c@{wield.\+c}}
+\subsubsection[{setuwep}]{\setlength{\rightskip}{0pt plus 5cm}void setuwep (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_adc7f46a6707f98835bb3c181d7ae1821}
+
+
+Definition at line 84 of file wield.\+c.
+
+
+
+References Blind, F\+A\+L\+S\+E, is\+\_\+ammo, is\+\_\+launcher, is\+\_\+missile, is\+\_\+pole, is\+\_\+weptool, setworn(), T\+R\+U\+E, u, unweapon, update\+\_\+inventory, uwep, W\+\_\+\+W\+E\+P, and W\+E\+A\+P\+O\+N\+\_\+\+C\+L\+A\+S\+S.
+
+
+
+Referenced by ballfall(), hmon\+\_\+hitmon(), in\+\_\+container(), ini\+\_\+inv(), ready\+\_\+weapon(), restgamestate(), ship\+\_\+object(), throwit(), and wield\+\_\+tool().
+
+
+\begin{DoxyCode}
+86 \{
+87     \textcolor{keyword}{struct }obj *olduwep = \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep};
+88 
+89     \textcolor{keywordflow}{if} (obj == \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) \textcolor{keywordflow}{return}; \textcolor{comment}{/* necessary to not set unweapon */}
+90     \textcolor{comment}{/* This message isn't printed in the caller because it happens}
+91 \textcolor{comment}{     * *whenever* Sunsword is unwielded, from whatever cause.}
+92 \textcolor{comment}{     */}
+93     \hyperlink{worn_8c_ae7018d12ec8662328050dfd7bd8dc903}{setworn}(obj, \hyperlink{prop_8h_abd75a55f67b13523ef4377d4eb6fb6ad}{W\_WEP});
+94     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} == obj && artifact\_light(olduwep) && olduwep->lamplit) \{
+95         end\_burn(olduwep, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+96         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) pline(\textcolor{stringliteral}{"%s glowing."}, Tobjnam(olduwep, \textcolor{stringliteral}{"stop"}));
+97     \}
+98     \textcolor{comment}{/* Note: Explicitly wielding a pick-axe will not give a "bashing"}
+99 \textcolor{comment}{     * message.  Wielding one via 'a'pplying it will.}
+100 \textcolor{comment}{     * 3.2.2:  Wielding arbitrary objects will give bashing message too.}
+101 \textcolor{comment}{     */}
+102     \textcolor{keywordflow}{if} (obj) \{
+103         \hyperlink{decl_8h_abc99d0f4cd19504d514e134524947a9e}{unweapon} = (obj->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS}) ?
+104                 \hyperlink{obj_8h_a1e24f22788f0b91381a52c8fb38850bd}{is\_launcher}(obj) || \hyperlink{obj_8h_a17d7bf4a6f8336a314c0825cf5848c54}{is\_ammo}(obj) ||
+105                 \hyperlink{obj_8h_a8f997086cdf86ba7eb98102f6e7d4b90}{is\_missile}(obj) || (\hyperlink{obj_8h_a29685da5fad6a22d02355fb61bbf234b}{is\_pole}(obj)
+106 \textcolor{preprocessor}{#ifdef STEED}
+107                 && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed
+108 \textcolor{preprocessor}{#endif}
+109                 ) : !\hyperlink{obj_8h_a5f347f7456e4da8284a9bc369bc32d45}{is\_weptool}(obj);
+110     \} \textcolor{keywordflow}{else}
+111         \hyperlink{decl_8h_abc99d0f4cd19504d514e134524947a9e}{unweapon} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};    \textcolor{comment}{/* for "bare hands" message */}
+112     \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+113 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a8936c33b1297630daea8e9448b804588}{\index{wield.\+c@{wield.\+c}!untwoweapon@{untwoweapon}}
+\index{untwoweapon@{untwoweapon}!wield.\+c@{wield.\+c}}
+\subsubsection[{untwoweapon}]{\setlength{\rightskip}{0pt plus 5cm}void untwoweapon (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a8936c33b1297630daea8e9448b804588}
+
+
+Definition at line 586 of file wield.\+c.
+
+
+
+References F\+A\+L\+S\+E, you\+::twoweap, u, and update\+\_\+inventory.
+
+
+
+Referenced by attack(), doswapweapon(), dowield(), dowieldquiver(), and wield\+\_\+tool().
+
+
+\begin{DoxyCode}
+587 \{
+588     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap}) \{
+589         You(\textcolor{stringliteral}{"can no longer use two weapons at once."});
+590         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+591         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+592     \}
+593     \textcolor{keywordflow}{return};
+594 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a71fe300569a0fdbc8f3e6b3af4fe0bf0}{\index{wield.\+c@{wield.\+c}!uqwepgone@{uqwepgone}}
+\index{uqwepgone@{uqwepgone}!wield.\+c@{wield.\+c}}
+\subsubsection[{uqwepgone}]{\setlength{\rightskip}{0pt plus 5cm}void uqwepgone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a71fe300569a0fdbc8f3e6b3af4fe0bf0}
+
+
+Definition at line 577 of file wield.\+c.
+
+
+
+References setworn(), update\+\_\+inventory, uquiver, and W\+\_\+\+Q\+U\+I\+V\+E\+R.
+
+
+\begin{DoxyCode}
+578 \{
+579     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a7544f9c7591e79476549f321400d269b}{uquiver}) \{
+580         \hyperlink{worn_8c_ae7018d12ec8662328050dfd7bd8dc903}{setworn}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0, \hyperlink{prop_8h_a9b95d7c6e22f325a5bc0326d7673a4f4}{W\_QUIVER});
+581         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+582     \}
+583 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_a1531bc28e4b47daa2051df7547511b8d}{\index{wield.\+c@{wield.\+c}!uswapwepgone@{uswapwepgone}}
+\index{uswapwepgone@{uswapwepgone}!wield.\+c@{wield.\+c}}
+\subsubsection[{uswapwepgone}]{\setlength{\rightskip}{0pt plus 5cm}void uswapwepgone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_a1531bc28e4b47daa2051df7547511b8d}
+
+
+Definition at line 568 of file wield.\+c.
+
+
+
+References setworn(), update\+\_\+inventory, uswapwep, and W\+\_\+\+S\+W\+A\+P\+W\+E\+P.
+
+
+\begin{DoxyCode}
+569 \{
+570     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep}) \{
+571         \hyperlink{worn_8c_ae7018d12ec8662328050dfd7bd8dc903}{setworn}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0, \hyperlink{prop_8h_a4571f54e71d38d81a610eaf77e5fecd9}{W\_SWAPWEP});
+572         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+573     \}
+574 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_acfe25ed4d9db889cb4bc70a9c5ab9c4d}{\index{wield.\+c@{wield.\+c}!uwepgone@{uwepgone}}
+\index{uwepgone@{uwepgone}!wield.\+c@{wield.\+c}}
+\subsubsection[{uwepgone}]{\setlength{\rightskip}{0pt plus 5cm}void uwepgone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_acfe25ed4d9db889cb4bc70a9c5ab9c4d}
+
+
+Definition at line 554 of file wield.\+c.
+
+
+
+References Blind, F\+A\+L\+S\+E, setworn(), T\+R\+U\+E, unweapon, update\+\_\+inventory, uwep, and W\+\_\+\+W\+E\+P.
+
+
+
+Referenced by hmon\+\_\+hitmon(), and use\+\_\+misc().
+
+
+\begin{DoxyCode}
+555 \{
+556     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) \{
+557         \textcolor{keywordflow}{if} (artifact\_light(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) && \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->lamplit) \{
+558             end\_burn(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+559             \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) pline(\textcolor{stringliteral}{"%s glowing."}, Tobjnam(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}, \textcolor{stringliteral}{"stop"}));
+560         \}
+561         \hyperlink{worn_8c_ae7018d12ec8662328050dfd7bd8dc903}{setworn}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0, \hyperlink{prop_8h_abd75a55f67b13523ef4377d4eb6fb6ad}{W\_WEP});
+562         \hyperlink{decl_8h_abc99d0f4cd19504d514e134524947a9e}{unweapon} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+563         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+564     \}
+565 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_ade2321e11c702d69c6fd7b261ae62040}{\index{wield.\+c@{wield.\+c}!welded@{welded}}
+\index{welded@{welded}!wield.\+c@{wield.\+c}}
+\subsubsection[{welded}]{\setlength{\rightskip}{0pt plus 5cm}int welded (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_ade2321e11c702d69c6fd7b261ae62040}
+
+
+Definition at line 776 of file wield.\+c.
+
+
+
+References T\+R\+U\+E, uwep, and will\+\_\+weld.
+
+
+
+Referenced by doswapweapon(), dowield(), fix\+\_\+worst\+\_\+trouble(), in\+\_\+container(), in\+\_\+trouble(), pleased(), throw\+\_\+obj(), use\+\_\+misc(), wield\+\_\+tool(), and worst\+\_\+cursed\+\_\+item().
+
+
+\begin{DoxyCode}
+778 \{
+779     \textcolor{keywordflow}{if} (obj && obj == \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} && \hyperlink{wield_8c_afce0248524dfef0efe2eb44e7f307be0}{will\_weld}(obj)) \{
+780         obj->bknown = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+781         \textcolor{keywordflow}{return} 1;
+782     \}
+783     \textcolor{keywordflow}{return} 0;
+784 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_acf3b9dae627bf80b5565774296f5b9a9}{\index{wield.\+c@{wield.\+c}!weldmsg@{weldmsg}}
+\index{weldmsg@{weldmsg}!wield.\+c@{wield.\+c}}
+\subsubsection[{weldmsg}]{\setlength{\rightskip}{0pt plus 5cm}void weldmsg (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_acf3b9dae627bf80b5565774296f5b9a9}
+
+
+Definition at line 787 of file wield.\+c.
+
+
+
+References bimanual, H\+A\+N\+D, and obj\+::owornmask.
+
+
+
+Referenced by doswapweapon(), dowield(), in\+\_\+container(), and throw\+\_\+obj().
+
+
+\begin{DoxyCode}
+789 \{
+790     \textcolor{keywordtype}{long} savewornmask;
+791 
+792     savewornmask = obj->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask};
+793     Your(\textcolor{stringliteral}{"%s %s welded to your %s!"},
+794         xname(obj), otense(obj, \textcolor{stringliteral}{"are"}),
+795         \hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(obj) ? (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)makeplural(body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND}))
+796                 : body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND}));
+797     obj->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} = savewornmask;
+798 \}
+\end{DoxyCode}
+\hypertarget{wield_8c_ae2eef862b3b1fea9a18c7b9d5b746d2b}{\index{wield.\+c@{wield.\+c}!wield\+\_\+tool@{wield\+\_\+tool}}
+\index{wield\+\_\+tool@{wield\+\_\+tool}!wield.\+c@{wield.\+c}}
+\subsubsection[{wield\+\_\+tool}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} wield\+\_\+tool (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj, }
+\item[{{\bf const} char $\ast$}]{verb}
+\end{DoxyParamCaption}
+)}}\label{wield_8c_ae2eef862b3b1fea9a18c7b9d5b746d2b}
+
+
+Definition at line 403 of file wield.\+c.
+
+
+
+References bimanual, B\+U\+F\+S\+Z, cantwield, monst\+::data, doswapweapon(), F\+A\+L\+S\+E, flags, H\+A\+N\+D, setuqwep(), setuwep(), T\+R\+U\+E, you\+::twoweap, u, uarms, untwoweapon(), unweapon, uquiver, uswapwep, uwep, flag\+::verbose, W\+\_\+\+A\+M\+U\+L, W\+\_\+\+A\+R\+M\+O\+R, W\+\_\+\+R\+I\+N\+G, W\+\_\+\+T\+O\+O\+L, W\+E\+A\+P\+O\+N\+\_\+\+C\+L\+A\+S\+S, welded(), what, and youmonst.
+
+
+\begin{DoxyCode}
+406 \{
+407     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\hyperlink{detect_8c_a951a98f1e2d69ca61adcd53c0f8faca3}{what};
+408     \textcolor{keywordtype}{boolean} more\_than\_1;
+409 
+410     \textcolor{keywordflow}{if} (obj == \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};   \textcolor{comment}{/* nothing to do if already wielding it */}
+411 
+412     \textcolor{keywordflow}{if} (!verb) verb = \textcolor{stringliteral}{"wield"};
+413     what = xname(obj);
+414     more\_than\_1 = (obj->\hyperlink{structobj_ad08c0ed1a746fbb52377ecd7e4220578}{quan} > 1L ||
+415            strstri(what, \textcolor{stringliteral}{"pair of "}) != 0 ||
+416            strstri(what, \textcolor{stringliteral}{"s of "}) != 0);
+417 
+418     \textcolor{keywordflow}{if} (obj->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} & (\hyperlink{prop_8h_afb4c914cfecbde6972d893bc33e10aa9}{W\_ARMOR}|\hyperlink{prop_8h_a855614df1627862ffc73bf31e283b7b9}{W\_RING}|\hyperlink{prop_8h_a1a4f9d6f31538cc9d677e617b49597d2}{W\_AMUL}|
+      \hyperlink{prop_8h_ac2c824bec7fcb9f986b9e905d1f5ee8a}{W\_TOOL})) \{
+419     \textcolor{keywordtype}{char} yourbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+420 
+421     You\_cant(\textcolor{stringliteral}{"%s %s %s while wearing %s."},
+422          verb, shk\_your(yourbuf, obj), what,
+423          more\_than\_1 ? \textcolor{stringliteral}{"them"} : \textcolor{stringliteral}{"it"});
+424     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+425     \}
+426     \textcolor{keywordflow}{if} (\hyperlink{wield_8c_ade2321e11c702d69c6fd7b261ae62040}{welded}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep})) \{
+427     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_afd7dfe45d35356d861ab5e9834231929}{verbose}) \{
+428         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *hand = body\_part(\hyperlink{hack_8h_a701f28a9a2b5334b58333f06e27ad91f}{HAND});
+429 
+430         \textcolor{keywordflow}{if} (\hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep})) hand = makeplural(hand);
+431         \textcolor{keywordflow}{if} (strstri(what, \textcolor{stringliteral}{"pair of "}) != 0) more\_than\_1 = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+432         pline(
+433          \textcolor{stringliteral}{"Since your weapon is welded to your %s, you cannot %s %s %s."},
+434           hand, verb, more\_than\_1 ? \textcolor{stringliteral}{"those"} : \textcolor{stringliteral}{"that"}, xname(obj));
+435     \} \textcolor{keywordflow}{else} \{
+436         You\_cant(\textcolor{stringliteral}{"do that."});
+437     \}
+438     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+439     \}
+440     \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_affb79b25deabc9564b20a275b5ac7e5f}{cantwield}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) \{
+441     You\_cant(\textcolor{stringliteral}{"hold %s strongly enough."}, more\_than\_1 ? \textcolor{stringliteral}{"them"} : \textcolor{stringliteral}{"it"});
+442     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+443     \}
+444     \textcolor{comment}{/* check shield */}
+445     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_aee21972b230a8408f2b85e26f195e91d}{uarms} && \hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(obj)) \{
+446     You(\textcolor{stringliteral}{"cannot %s a two-handed %s while wearing a shield."},
+447         verb, (obj->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS}) ? \textcolor{stringliteral}{"weapon"} : \textcolor{stringliteral}{"tool"});
+448     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+449     \}
+450     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a7544f9c7591e79476549f321400d269b}{uquiver} == obj) \hyperlink{wield_8c_a6004112a6fc3b435bb2cff99c8b884d3}{setuqwep}((\textcolor{keyword}{struct} obj *)0);
+451     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep} == obj) \{
+452     (void) \hyperlink{wield_8c_a72a796264e3d24ec74113ef522c2dfd3}{doswapweapon}();
+453     \textcolor{comment}{/* doswapweapon might fail */}
+454     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep} == obj) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+455     \} \textcolor{keywordflow}{else} \{
+456     You(\textcolor{stringliteral}{"now wield %s."}, doname(obj));
+457     \hyperlink{wield_8c_adc7f46a6707f98835bb3c181d7ae1821}{setuwep}(obj);
+458     \}
+459     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} != obj) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}; \textcolor{comment}{/* rewielded old object after dying */}
+460     \textcolor{comment}{/* applying weapon or tool that gets wielded ends two-weapon combat */}
+461     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap})
+462     \hyperlink{wield_8c_a8936c33b1297630daea8e9448b804588}{untwoweapon}();
+463     \textcolor{keywordflow}{if} (obj->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} != \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS})
+464     \hyperlink{decl_8h_abc99d0f4cd19504d514e134524947a9e}{unweapon} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+465     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+466 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{wield_8c_ad584c47d7d93295295d130a80f2fc309}{\index{wield.\+c@{wield.\+c}!bullets@{bullets}}
+\index{bullets@{bullets}!wield.\+c@{wield.\+c}}
+\subsubsection[{bullets}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} {\bf const} char bullets\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{wield_8c_ad584c47d7d93295295d130a80f2fc309}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=   
+    \{ \hyperlink{objclass_8h_a6ec43df3638569a3e63d44058318540a}{ALL\_CLASSES}, \hyperlink{objclass_8h_a30e8fe0e7ab2f2b04d82531f48e3cf00}{ALLOW\_NONE}, \hyperlink{objclass_8h_afc09c51ea922e9928f86a51177244796}{GEM\_CLASS}, 
+      \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS}, 0 \}
+\end{DoxyCode}
+
+
+Definition at line 229 of file wield.\+c.
+
+\hypertarget{wield_8c_ae21d565883c15bb8c74640f48d3ad974}{\index{wield.\+c@{wield.\+c}!ready\+\_\+objs@{ready\+\_\+objs}}
+\index{ready\+\_\+objs@{ready\+\_\+objs}!wield.\+c@{wield.\+c}}
+\subsubsection[{ready\+\_\+objs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} {\bf const} char ready\+\_\+objs\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{wield_8c_ae21d565883c15bb8c74640f48d3ad974}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+    \{ \hyperlink{objclass_8h_a6ec43df3638569a3e63d44058318540a}{ALL\_CLASSES}, \hyperlink{objclass_8h_a30e8fe0e7ab2f2b04d82531f48e3cf00}{ALLOW\_NONE}, \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS}, 0 \}
+\end{DoxyCode}
+
+
+Definition at line 227 of file wield.\+c.
+
+
+
+Referenced by dowieldquiver().
+
+\hypertarget{wield_8c_ac4d8b6af169048c772a13ae18e802f92}{\index{wield.\+c@{wield.\+c}!wield\+\_\+objs@{wield\+\_\+objs}}
+\index{wield\+\_\+objs@{wield\+\_\+objs}!wield.\+c@{wield.\+c}}
+\subsubsection[{wield\+\_\+objs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} {\bf const} char wield\+\_\+objs\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{wield_8c_ac4d8b6af169048c772a13ae18e802f92}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+    \{ \hyperlink{objclass_8h_a6ec43df3638569a3e63d44058318540a}{ALL\_CLASSES}, \hyperlink{objclass_8h_a30e8fe0e7ab2f2b04d82531f48e3cf00}{ALLOW\_NONE}, \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS}, 
+      \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}, 0 \}
+\end{DoxyCode}
+
+
+Definition at line 225 of file wield.\+c.
+

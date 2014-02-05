@@ -1,0 +1,881 @@
+\hypertarget{quest_8c}{\section{nethack/src/quest.c File Reference}
+\label{quest_8c}\index{nethack/src/quest.\+c@{nethack/src/quest.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}quest.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}qtext.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{quest_8c_a09144e87d6284297201936245278457c}{Not\+\_\+firsttime}~(on\+\_\+level(\&u.\+uz0, \&u.\+uz))
+\item 
+\#define \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(x)~(quest\+\_\+status.\+x)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{quest_8c_abed756d2b7e042abcbe9fab970c72108}{N\+D\+E\+C\+L} (\hyperlink{quest_8c_aaa220b67ea65617d64e4391f965e1eb4}{on\+\_\+start})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{quest_8c_ae2bb0ace7c1178f12564a9331d5b8e9f}{N\+D\+E\+C\+L} (\hyperlink{quest_8c_a3cafe772887345114145f92bc01125e9}{on\+\_\+locate})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{quest_8c_a7459e4d79e05d2d39045ff3fcab88d5a}{N\+D\+E\+C\+L} (\hyperlink{quest_8c_abd05bbffa80e98e9237e2b6f9fbe8b53}{on\+\_\+goal})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{quest_8c_aa20c00833e0105d771a2bc3dfdd7eb94}{N\+D\+E\+C\+L} (\hyperlink{quest_8c_a2dbc194ab2d7f87bc98c4e06d4e59c6d}{not\+\_\+capable})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{quest_8c_a631c5731221c400858ff258df54afb61}{F\+D\+E\+C\+L} (\hyperlink{quest_8c_ad34ca69e68eff85a744d0c414c013a1e}{is\+\_\+pure},(\hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{quest_8c_ac43dadbf383dda023448d9e9ddbbb1ed}{F\+D\+E\+C\+L} (\hyperlink{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}{expulsion},(\hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{quest_8c_a55c27507ad5eb4da01fb164c24a5943c}{N\+D\+E\+C\+L} (\hyperlink{quest_8c_a421fba2ffa6c3d3ab6a737fd10ae88d2}{chat\+\_\+with\+\_\+leader})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{quest_8c_aad8e2ccee23ec3897a4ed087bdf114a8}{N\+D\+E\+C\+L} (\hyperlink{quest_8c_a5dafcd3ffcbb89b4fe240d7819d96e3b}{chat\+\_\+with\+\_\+nemesis})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{quest_8c_aeba27ecffa63db9703df0804045d9c51}{N\+D\+E\+C\+L} (\hyperlink{quest_8c_a85eb4a8a5fbf1a3cda3c093e4e5f37d7}{chat\+\_\+with\+\_\+guardian})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{quest_8c_a5bbe24de5960b4f3da39cee8d94e2849}{F\+D\+E\+C\+L} (\hyperlink{quest_8c_a6c5213df42594c2dabdfc40437845847}{prisoner\+\_\+speaks},(struct \hyperlink{structmonst}{monst} $\ast$))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{quest_8c_aaa220b67ea65617d64e4391f965e1eb4}{on\+\_\+start} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{quest_8c_a3cafe772887345114145f92bc01125e9}{on\+\_\+locate} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{quest_8c_abd05bbffa80e98e9237e2b6f9fbe8b53}{on\+\_\+goal} ()
+\item 
+void \hyperlink{quest_8c_ad228031bee6420d08fbb7a3857f8ad11}{onquest} ()
+\item 
+void \hyperlink{quest_8c_a6ba524272829a4024d72c4dbaecceaf7}{nemdead} ()
+\item 
+void \hyperlink{quest_8c_a44c9c874ef5ecf6651270b43b54442da}{artitouch} ()
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{quest_8c_a7f2255eaf7802111bb67960e67f7212b}{ok\+\_\+to\+\_\+quest} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{quest_8c_a2dbc194ab2d7f87bc98c4e06d4e59c6d}{not\+\_\+capable} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{quest_8c_ad34ca69e68eff85a744d0c414c013a1e}{is\+\_\+pure} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} talk)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}{expulsion} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} seal)
+\item 
+void \hyperlink{quest_8c_a46355840144325db9a1e398995dde470}{finish\+\_\+quest} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{quest_8c_a421fba2ffa6c3d3ab6a737fd10ae88d2}{chat\+\_\+with\+\_\+leader} ()
+\item 
+void \hyperlink{quest_8c_a587f48e6804637c8b8b83a438f34f2c7}{leader\+\_\+speaks} (struct \hyperlink{structmonst}{monst} $\ast$mtmp)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{quest_8c_a5dafcd3ffcbb89b4fe240d7819d96e3b}{chat\+\_\+with\+\_\+nemesis} ()
+\item 
+void \hyperlink{quest_8c_a55975a0ad253028ff1c9ba4410537f06}{nemesis\+\_\+speaks} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{quest_8c_a85eb4a8a5fbf1a3cda3c093e4e5f37d7}{chat\+\_\+with\+\_\+guardian} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{quest_8c_a6c5213df42594c2dabdfc40437845847}{prisoner\+\_\+speaks} (struct \hyperlink{structmonst}{monst} $\ast$mtmp)
+\item 
+void \hyperlink{quest_8c_aaca4b74649431c6c2df8e185066e793f}{quest\+\_\+chat} (struct \hyperlink{structmonst}{monst} $\ast$mtmp)
+\item 
+void \hyperlink{quest_8c_af3496897a5461c4a4356f1f233617957}{quest\+\_\+talk} (struct \hyperlink{structmonst}{monst} $\ast$mtmp)
+\item 
+void \hyperlink{quest_8c_ac36e3dab5b829804e1ab17e844e1cd6a}{quest\+\_\+stat\+\_\+check} (struct \hyperlink{structmonst}{monst} $\ast$mtmp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{quest_8c_a09144e87d6284297201936245278457c}{\index{quest.\+c@{quest.\+c}!Not\+\_\+firsttime@{Not\+\_\+firsttime}}
+\index{Not\+\_\+firsttime@{Not\+\_\+firsttime}!quest.\+c@{quest.\+c}}
+\subsubsection[{Not\+\_\+firsttime}]{\setlength{\rightskip}{0pt plus 5cm}\#define Not\+\_\+firsttime~(on\+\_\+level(\&u.\+uz0, \&u.\+uz))}}\label{quest_8c_a09144e87d6284297201936245278457c}
+
+
+Definition at line 12 of file quest.\+c.
+
+
+
+Referenced by onquest().
+
+\hypertarget{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{\index{quest.\+c@{quest.\+c}!Qstat@{Qstat}}
+\index{Qstat@{Qstat}!quest.\+c@{quest.\+c}}
+\subsubsection[{Qstat}]{\setlength{\rightskip}{0pt plus 5cm}\#define Qstat(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(quest\+\_\+status.\+x)}}\label{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}
+
+
+Definition at line 13 of file quest.\+c.
+
+
+
+Referenced by artitouch(), chat\+\_\+with\+\_\+guardian(), chat\+\_\+with\+\_\+leader(), chat\+\_\+with\+\_\+nemesis(), finish\+\_\+quest(), leader\+\_\+speaks(), nemdead(), nemesis\+\_\+speaks(), ok\+\_\+to\+\_\+quest(), on\+\_\+goal(), on\+\_\+locate(), on\+\_\+start(), quest\+\_\+chat(), quest\+\_\+stat\+\_\+check(), and quest\+\_\+talk().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{quest_8c_a44c9c874ef5ecf6651270b43b54442da}{\index{quest.\+c@{quest.\+c}!artitouch@{artitouch}}
+\index{artitouch@{artitouch}!quest.\+c@{quest.\+c}}
+\subsubsection[{artitouch}]{\setlength{\rightskip}{0pt plus 5cm}void artitouch (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a44c9c874ef5ecf6651270b43b54442da}
+
+
+Definition at line 85 of file quest.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, Qstat, Q\+T\+\_\+\+G\+O\+T\+I\+T, qt\+\_\+pager(), and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+86 \{
+87     \textcolor{keywordflow}{if}(!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(touched\_artifact)) \{
+88         \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(touched\_artifact) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+89         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_aae69cc62fe9f2f1f8f353ccf1712e6e8}{QT\_GOTIT});
+90         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+91     \}
+92 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a85eb4a8a5fbf1a3cda3c093e4e5f37d7}{\index{quest.\+c@{quest.\+c}!chat\+\_\+with\+\_\+guardian@{chat\+\_\+with\+\_\+guardian}}
+\index{chat\+\_\+with\+\_\+guardian@{chat\+\_\+with\+\_\+guardian}!quest.\+c@{quest.\+c}}
+\subsubsection[{chat\+\_\+with\+\_\+guardian}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void chat\+\_\+with\+\_\+guardian (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a85eb4a8a5fbf1a3cda3c093e4e5f37d7}
+
+
+Definition at line 316 of file quest.\+c.
+
+
+
+References Qstat, Q\+T\+\_\+\+G\+U\+A\+R\+D\+T\+A\+L\+K, Q\+T\+\_\+\+G\+U\+A\+R\+D\+T\+A\+L\+K2, qt\+\_\+pager(), rn1, u, and you\+::uhave.
+
+
+
+Referenced by quest\+\_\+chat().
+
+
+\begin{DoxyCode}
+317 \{
+318 \textcolor{comment}{/*  These guys/gals really don't have much to say... */}
+319     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.questart && \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(killed\_nemesis))
+320         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(5, \hyperlink{qtext_8h_af34abade5257ccf1ae2a411ca745bcca}{QT\_GUARDTALK2}));
+321     \textcolor{keywordflow}{else}
+322         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(5, \hyperlink{qtext_8h_a810b9e0b45cda02da88fb51abf1b4f4d}{QT\_GUARDTALK}));
+323 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a421fba2ffa6c3d3ab6a737fd10ae88d2}{\index{quest.\+c@{quest.\+c}!chat\+\_\+with\+\_\+leader@{chat\+\_\+with\+\_\+leader}}
+\index{chat\+\_\+with\+\_\+leader@{chat\+\_\+with\+\_\+leader}!quest.\+c@{quest.\+c}}
+\subsubsection[{chat\+\_\+with\+\_\+leader}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void chat\+\_\+with\+\_\+leader (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a421fba2ffa6c3d3ab6a737fd10ae88d2}
+
+
+Definition at line 206 of file quest.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, com\+\_\+pager(), expulsion(), F\+A\+L\+S\+E, finish\+\_\+quest(), invent, is\+\_\+pure(), is\+\_\+quest\+\_\+artifact(), M\+A\+X\+\_\+\+Q\+U\+E\+S\+T\+\_\+\+T\+R\+I\+E\+S, obj\+::nobj, not\+\_\+capable(), otmp, qstart\+\_\+level, Qstat, Q\+T\+\_\+\+A\+S\+S\+I\+G\+N\+Q\+U\+E\+S\+T, Q\+T\+\_\+\+B\+A\+D\+A\+L\+I\+G\+N, Q\+T\+\_\+\+B\+A\+D\+L\+E\+V\+E\+L, Q\+T\+\_\+\+B\+A\+N\+I\+S\+H\+E\+D, Q\+T\+\_\+\+E\+N\+C\+O\+U\+R\+A\+G\+E, Q\+T\+\_\+\+F\+I\+R\+S\+T\+L\+E\+A\+D\+E\+R, Q\+T\+\_\+\+L\+A\+S\+T\+L\+E\+A\+D\+E\+R, Q\+T\+\_\+\+N\+E\+X\+T\+L\+E\+A\+D\+E\+R, qt\+\_\+pager(), Q\+T\+\_\+\+P\+O\+S\+T\+H\+A\+N\+K\+S, rn1, T\+R\+U\+E, u, you\+::uhave, and you\+::uz.
+
+
+
+Referenced by leader\+\_\+speaks(), and quest\+\_\+chat().
+
+
+\begin{DoxyCode}
+207 \{
+208 \textcolor{comment}{/*  Rule 0: Cheater checks.                 */}
+209     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.questart && !\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(met\_nemesis))
+210         \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(cheater) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+211 
+212 \textcolor{comment}{/*  It is possible for you to get the amulet without completing}
+213 \textcolor{comment}{ *  the quest.  If so, try to induce the player to quest.}
+214 \textcolor{comment}{ */}
+215     \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(got\_thanks)) \{
+216 \textcolor{comment}{/*  Rule 1: You've gone back with/without the amulet.   */}
+217         \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.amulet)    \hyperlink{quest_8c_a46355840144325db9a1e398995dde470}{finish\_quest}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0);
+218 
+219 \textcolor{comment}{/*  Rule 2: You've gone back before going for the amulet.   */}
+220         \textcolor{keywordflow}{else}        \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_ad57f2cb237513d0ac2a5ee457053b3c9}{QT\_POSTHANKS});
+221     \}
+222 
+223 \textcolor{comment}{/*  Rule 3: You've got the artifact and are back to return it. */}
+224       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.questart) \{
+225         \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+226 
+227         \textcolor{keywordflow}{for} (otmp = \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj})
+228         \textcolor{keywordflow}{if} (\hyperlink{questpgr_8c_a883c5ecd485acd110958e3a233cf9b57}{is\_quest\_artifact}(otmp)) \textcolor{keywordflow}{break};
+229 
+230         \hyperlink{quest_8c_a46355840144325db9a1e398995dde470}{finish\_quest}(otmp);
+231 
+232 \textcolor{comment}{/*  Rule 4: You haven't got the artifact yet.   */}
+233     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(got\_quest)) \{
+234         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(10, \hyperlink{qtext_8h_ae65c59d4a1017c415c8e0be668761748}{QT\_ENCOURAGE}));
+235 
+236 \textcolor{comment}{/*  Rule 5: You aren't yet acceptable - or are you? */}
+237     \} \textcolor{keywordflow}{else} \{
+238       \textcolor{keywordflow}{if}(!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(met\_leader)) \{
+239         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a9689a15fbf9c4a58b4f894459b82dff7}{QT\_FIRSTLEADER});
+240         \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(met\_leader) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+241         \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(not\_ready) = 0;
+242       \} \textcolor{keywordflow}{else} \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a98d7b0dc7368f17fa4e1f8fe07983468}{QT\_NEXTLEADER});
+243       \textcolor{comment}{/* the quest leader might have passed through the portal into}
+244 \textcolor{comment}{         the regular dungeon; none of the remaining make sense there */}
+245       \textcolor{keywordflow}{if} (!on\_level(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}, &\hyperlink{decl_8h_a3ec05aec32af27cb15e824c121b0a938}{qstart\_level})) \textcolor{keywordflow}{return};
+246 
+247       \textcolor{keywordflow}{if}(\hyperlink{quest_8c_a2dbc194ab2d7f87bc98c4e06d4e59c6d}{not\_capable}()) \{
+248         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a60dd4f9502525e73d4b11428aac213a5}{QT\_BADLEVEL});
+249         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+250         \hyperlink{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}{expulsion}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+251       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{quest_8c_ad34ca69e68eff85a744d0c414c013a1e}{is\_pure}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}) < 0) \{
+252         \hyperlink{questpgr_8c_a46ceb90f530db0baf90130da5deb1c6b}{com\_pager}(\hyperlink{qtext_8h_a04b51cd2754f9eebd37fdc504efe8d1b}{QT\_BANISHED});
+253         \hyperlink{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}{expulsion}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+254       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{quest_8c_ad34ca69e68eff85a744d0c414c013a1e}{is\_pure}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}) == 0) \{
+255         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_abdc17f98fcae9b2cddef5dc2d3ac6ece}{QT\_BADALIGN});
+256         \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(not\_ready) == \hyperlink{quest_8h_a95d62174fe3fb6d6b0bbce29637de96b}{MAX\_QUEST\_TRIES}) \{
+257           \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_ae71de3850772d963cdbc5e7aca8c7bc0}{QT\_LASTLEADER});
+258           \hyperlink{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}{expulsion}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+259         \} \textcolor{keywordflow}{else} \{
+260           \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(not\_ready)++;
+261           exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+262           \hyperlink{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}{expulsion}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+263         \}
+264       \} \textcolor{keywordflow}{else} \{  \textcolor{comment}{/* You are worthy! */}
+265         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_adb68c9bd330296d03f3192618b8159b9}{QT\_ASSIGNQUEST});
+266         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+267         \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(got\_quest) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+268       \}
+269     \}
+270 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a5dafcd3ffcbb89b4fe240d7819d96e3b}{\index{quest.\+c@{quest.\+c}!chat\+\_\+with\+\_\+nemesis@{chat\+\_\+with\+\_\+nemesis}}
+\index{chat\+\_\+with\+\_\+nemesis@{chat\+\_\+with\+\_\+nemesis}!quest.\+c@{quest.\+c}}
+\subsubsection[{chat\+\_\+with\+\_\+nemesis}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void chat\+\_\+with\+\_\+nemesis (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a5dafcd3ffcbb89b4fe240d7819d96e3b}
+
+
+Definition at line 292 of file quest.\+c.
+
+
+
+References Qstat, Q\+T\+\_\+\+D\+I\+S\+C\+O\+U\+R\+A\+G\+E, qt\+\_\+pager(), and rn1.
+
+
+
+Referenced by quest\+\_\+chat().
+
+
+\begin{DoxyCode}
+293 \{
+294 \textcolor{comment}{/*  The nemesis will do most of the talking, but... */}
+295     \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(10, \hyperlink{qtext_8h_ab2f4fe2f2e25b5cbd94ba6944dd7e8cc}{QT\_DISCOURAGE}));
+296     \textcolor{keywordflow}{if}(!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(met\_nemesis)) \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(met\_nemesis++);
+297 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}{\index{quest.\+c@{quest.\+c}!expulsion@{expulsion}}
+\index{expulsion@{expulsion}!quest.\+c@{quest.\+c}}
+\subsubsection[{expulsion}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void expulsion (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{seal}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}
+
+
+Definition at line 144 of file quest.\+c.
+
+
+
+References d\+\_\+level\+::dnum, branch\+::end1, branch\+::end2, F\+A\+L\+S\+E, ftrap, M\+A\+G\+I\+C\+\_\+\+P\+O\+R\+T\+A\+L, trap\+::ntrap, u, you\+::uevent, and you\+::uz.
+
+
+
+Referenced by chat\+\_\+with\+\_\+leader(), and leader\+\_\+speaks().
+
+
+\begin{DoxyCode}
+146 \{
+147     \hyperlink{structbranch}{branch} *br;
+148     \hyperlink{structd__level}{d\_level} *dest;
+149     \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *t;
+150     \textcolor{keywordtype}{int} portal\_flag;
+151 
+152     br = dungeon\_branch(\textcolor{stringliteral}{"The Quest"});
+153     dest = (br->\hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}) ? &br->\hyperlink{structbranch_ae943c130ab49b7d1281034ce23e84977}{end2} : &br->
+      \hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1};
+154     portal\_flag = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.qexpelled ? 0 :   \textcolor{comment}{/* returned via artifact? */}
+155           !seal ? 1 : -1;
+156     schedule\_goto(dest, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, portal\_flag, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0);
+157     \textcolor{keywordflow}{if} (seal) \{ \textcolor{comment}{/* remove the portal to the quest - sealing it off */}
+158     \textcolor{keywordtype}{int} reexpelled = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.qexpelled;
+159     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.qexpelled = 1;
+160     \textcolor{comment}{/* Delete the near portal now; the far (main dungeon side)}
+161 \textcolor{comment}{       portal will be deleted as part of arrival on that level.}
+162 \textcolor{comment}{       If monster movement is in progress, any who haven't moved}
+163 \textcolor{comment}{       yet will now miss out on a chance to wander through it... */}
+164     \textcolor{keywordflow}{for} (t = \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap}; t; t = t->\hyperlink{structtrap_aef8ea4650dce701fde7f7f3e1310c892}{ntrap})
+165         \textcolor{keywordflow}{if} (t->ttyp == \hyperlink{trap_8h_a64bfa610e12179ef4bfa46c65166b2fe}{MAGIC\_PORTAL}) \textcolor{keywordflow}{break};
+166     \textcolor{keywordflow}{if} (t) deltrap(t);  \textcolor{comment}{/* (display might be briefly out of sync) */}
+167     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!reexpelled) impossible(\textcolor{stringliteral}{"quest portal already gone?"});
+168     \}
+169 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a631c5731221c400858ff258df54afb61}{\index{quest.\+c@{quest.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf is\+\_\+pure}}]{, }
+\item[{({\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a631c5731221c400858ff258df54afb61}
+\hypertarget{quest_8c_ac43dadbf383dda023448d9e9ddbbb1ed}{\index{quest.\+c@{quest.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf expulsion}}]{, }
+\item[{({\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_ac43dadbf383dda023448d9e9ddbbb1ed}
+\hypertarget{quest_8c_a5bbe24de5960b4f3da39cee8d94e2849}{\index{quest.\+c@{quest.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf prisoner\+\_\+speaks}}]{, }
+\item[{(struct {\bf monst} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a5bbe24de5960b4f3da39cee8d94e2849}
+\hypertarget{quest_8c_a46355840144325db9a1e398995dde470}{\index{quest.\+c@{quest.\+c}!finish\+\_\+quest@{finish\+\_\+quest}}
+\index{finish\+\_\+quest@{finish\+\_\+quest}!quest.\+c@{quest.\+c}}
+\subsubsection[{finish\+\_\+quest}]{\setlength{\rightskip}{0pt plus 5cm}void finish\+\_\+quest (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a46355840144325db9a1e398995dde470}
+
+
+Definition at line 177 of file quest.\+c.
+
+
+
+References com\+\_\+pager(), otmp, Qstat, Q\+T\+\_\+\+H\+A\+S\+A\+M\+U\+L\+E\+T, Q\+T\+\_\+\+O\+F\+F\+E\+R\+E\+D\+I\+T, Q\+T\+\_\+\+O\+F\+F\+E\+R\+E\+D\+I\+T2, qt\+\_\+pager(), T\+R\+U\+E, u, you\+::uevent, you\+::uhave, and update\+\_\+inventory.
+
+
+
+Referenced by chat\+\_\+with\+\_\+leader(), and thitmonst().
+
+
+\begin{DoxyCode}
+179 \{
+180     \textcolor{keyword}{struct }obj *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+181 
+182     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.amulet) \{ \textcolor{comment}{/* unlikely but not impossible */}
+183         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a22c5d065339aec9de2fc63c3843bc0a7}{QT\_HASAMULET});
+184         \textcolor{comment}{/* leader IDs the real amulet but ignores any fakes */}
+185         \textcolor{keywordflow}{if} ((otmp = carrying(AMULET\_OF\_YENDOR)) != 0)
+186         fully\_identify\_obj(otmp);
+187     \} \textcolor{keywordflow}{else} \{
+188         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(got\_thanks) ? \hyperlink{qtext_8h_a3d1e56153e813fd15528ba289d437ac4}{QT\_OFFEREDIT} : 
+      \hyperlink{qtext_8h_a28e36ca60f5600c2ba09dd525035085f}{QT\_OFFEREDIT2});
+189         \textcolor{comment}{/* should have obtained bell during quest;}
+190 \textcolor{comment}{           if not, suggest returning for it now */}
+191         \textcolor{keywordflow}{if} ((otmp = carrying(BELL\_OF\_OPENING)) == 0)
+192         \hyperlink{questpgr_8c_a46ceb90f530db0baf90130da5deb1c6b}{com\_pager}(5);
+193     \}
+194     \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(got\_thanks) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+195 
+196     \textcolor{keywordflow}{if} (obj) \{
+197         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.qcompleted = 1; \textcolor{comment}{/* you did it! */}
+198         \textcolor{comment}{/* behave as if leader imparts sufficient info about the}
+199 \textcolor{comment}{           quest artifact */}
+200         fully\_identify\_obj(obj);
+201         \hyperlink{winprocs_8h_a12feb374290012aafc2340c5ba15f7e8}{update\_inventory}();
+202     \}
+203 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_ad34ca69e68eff85a744d0c414c013a1e}{\index{quest.\+c@{quest.\+c}!is\+\_\+pure@{is\+\_\+pure}}
+\index{is\+\_\+pure@{is\+\_\+pure}!quest.\+c@{quest.\+c}}
+\subsubsection[{is\+\_\+pure}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int is\+\_\+pure (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{talk}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_ad34ca69e68eff85a744d0c414c013a1e}
+
+
+Definition at line 109 of file quest.\+c.
+
+
+
+References A\+\_\+\+C\+U\+R\+R\+E\+N\+T, A\+\_\+\+O\+R\+I\+G\+I\+N\+A\+L, M\+I\+N\+\_\+\+Q\+U\+E\+S\+T\+\_\+\+A\+L\+I\+G\+N, align\+::record, align\+::type, u, you\+::ualign, you\+::ualignbase, and wizard.
+
+
+
+Referenced by chat\+\_\+with\+\_\+leader(), and ok\+\_\+to\+\_\+quest().
+
+
+\begin{DoxyCode}
+111 \{
+112     \textcolor{keywordtype}{int} purity;
+113     \hyperlink{align_8h_a3e17b7a656899892e425fc89481aa2ab}{aligntyp} original\_alignment = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a842b4c48c384af3e9a8156009f8a82ac}{ualignbase}[\hyperlink{you_8h_aadbc53a20604f260f6f2b0db9fe19b1d}{A\_ORIGINAL}];
+114 
+115 \textcolor{preprocessor}{#ifdef WIZARD}
+116     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && talk) \{
+117     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_a0dadfa91b9ff06447f91ea8a2b898827}{type} != original\_alignment) \{
+118         You(\textcolor{stringliteral}{"are currently %s instead of %s."},
+119         align\_str(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_a0dadfa91b9ff06447f91ea8a2b898827}{type}), align\_str(original\_alignment));
+120     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a842b4c48c384af3e9a8156009f8a82ac}{ualignbase}[\hyperlink{you_8h_ae93bec331f5af339006b90ff1ec0c013}{A\_CURRENT}] != original\_alignment) \{
+121         You(\textcolor{stringliteral}{"have converted."});
+122     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_ab3a768425270c33f059e3ead817e4e83}{record} < \hyperlink{quest_8h_af7f3a45fc62d977123cf01d37c7a363d}{MIN\_QUEST\_ALIGN}) \{
+123         You(\textcolor{stringliteral}{"are currently %d and require %d."},
+124         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_ab3a768425270c33f059e3ead817e4e83}{record}, \hyperlink{quest_8h_af7f3a45fc62d977123cf01d37c7a363d}{MIN\_QUEST\_ALIGN});
+125         \textcolor{keywordflow}{if} (yn\_function(\textcolor{stringliteral}{"adjust?"}, (\textcolor{keywordtype}{char} *)0, \textcolor{charliteral}{'y'}) == \textcolor{charliteral}{'y'})
+126         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_ab3a768425270c33f059e3ead817e4e83}{record} = \hyperlink{quest_8h_af7f3a45fc62d977123cf01d37c7a363d}{MIN\_QUEST\_ALIGN};
+127     \}
+128     \}
+129 \textcolor{preprocessor}{#endif}
+130     purity = (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_ab3a768425270c33f059e3ead817e4e83}{record} >= \hyperlink{quest_8h_af7f3a45fc62d977123cf01d37c7a363d}{MIN\_QUEST\_ALIGN} &&
+131           \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_a0dadfa91b9ff06447f91ea8a2b898827}{type} == original\_alignment &&
+132           \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a842b4c48c384af3e9a8156009f8a82ac}{ualignbase}[\hyperlink{you_8h_ae93bec331f5af339006b90ff1ec0c013}{A\_CURRENT}] == original\_alignment) ?  1 :
+133          (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a842b4c48c384af3e9a8156009f8a82ac}{ualignbase}[\hyperlink{you_8h_ae93bec331f5af339006b90ff1ec0c013}{A\_CURRENT}] != original\_alignment) ? -1 : 0;
+134     \textcolor{keywordflow}{return} purity;
+135 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a587f48e6804637c8b8b83a438f34f2c7}{\index{quest.\+c@{quest.\+c}!leader\+\_\+speaks@{leader\+\_\+speaks}}
+\index{leader\+\_\+speaks@{leader\+\_\+speaks}!quest.\+c@{quest.\+c}}
+\subsubsection[{leader\+\_\+speaks}]{\setlength{\rightskip}{0pt plus 5cm}void leader\+\_\+speaks (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a587f48e6804637c8b8b83a438f34f2c7}
+
+
+Definition at line 273 of file quest.\+c.
+
+
+
+References chat\+\_\+with\+\_\+leader(), expulsion(), qstart\+\_\+level, Qstat, Q\+T\+\_\+\+L\+A\+S\+T\+L\+E\+A\+D\+E\+R, qt\+\_\+pager(), S\+T\+R\+A\+T\+\_\+\+W\+A\+I\+T\+M\+A\+S\+K, T\+R\+U\+E, u, and you\+::uz.
+
+
+
+Referenced by quest\+\_\+talk().
+
+
+\begin{DoxyCode}
+275 \{
+276     \textcolor{comment}{/* maybe you attacked leader? */}
+277     \textcolor{keywordflow}{if}(!mtmp->mpeaceful) \{
+278         \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(pissed\_off) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+279         mtmp->\hyperlink{structmonst_a5d03af85e4563c4068ac07d616af859f}{mstrategy} &= ~\hyperlink{monst_8h_a4f9dcb847e3f6a5b6d1e5ce78902938b}{STRAT\_WAITMASK};  \textcolor{comment}{/* end the inaction */}
+280     \}
+281     \textcolor{comment}{/* the quest leader might have passed through the portal into the}
+282 \textcolor{comment}{       regular dungeon; if so, mustn't perform "backwards expulsion" */}
+283     \textcolor{keywordflow}{if} (!on\_level(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}, &\hyperlink{decl_8h_a3ec05aec32af27cb15e824c121b0a938}{qstart\_level})) \textcolor{keywordflow}{return};
+284 
+285     \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(pissed\_off)) \{
+286       \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_ae71de3850772d963cdbc5e7aca8c7bc0}{QT\_LASTLEADER});
+287       \hyperlink{quest_8c_a06eee72ea7c792ff90ce5340d11370d3}{expulsion}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+288     \} \textcolor{keywordflow}{else} \hyperlink{quest_8c_a421fba2ffa6c3d3ab6a737fd10ae88d2}{chat\_with\_leader}();
+289 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_abed756d2b7e042abcbe9fab970c72108}{\index{quest.\+c@{quest.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf on\+\_\+start}}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_abed756d2b7e042abcbe9fab970c72108}
+\hypertarget{quest_8c_ae2bb0ace7c1178f12564a9331d5b8e9f}{\index{quest.\+c@{quest.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf on\+\_\+locate}}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_ae2bb0ace7c1178f12564a9331d5b8e9f}
+\hypertarget{quest_8c_a7459e4d79e05d2d39045ff3fcab88d5a}{\index{quest.\+c@{quest.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf on\+\_\+goal}}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a7459e4d79e05d2d39045ff3fcab88d5a}
+\hypertarget{quest_8c_aa20c00833e0105d771a2bc3dfdd7eb94}{\index{quest.\+c@{quest.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf not\+\_\+capable}}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_aa20c00833e0105d771a2bc3dfdd7eb94}
+\hypertarget{quest_8c_a55c27507ad5eb4da01fb164c24a5943c}{\index{quest.\+c@{quest.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf chat\+\_\+with\+\_\+leader}}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a55c27507ad5eb4da01fb164c24a5943c}
+\hypertarget{quest_8c_aad8e2ccee23ec3897a4ed087bdf114a8}{\index{quest.\+c@{quest.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf chat\+\_\+with\+\_\+nemesis}}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_aad8e2ccee23ec3897a4ed087bdf114a8}
+\hypertarget{quest_8c_aeba27ecffa63db9703df0804045d9c51}{\index{quest.\+c@{quest.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!quest.\+c@{quest.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf chat\+\_\+with\+\_\+guardian}}]{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_aeba27ecffa63db9703df0804045d9c51}
+\hypertarget{quest_8c_a6ba524272829a4024d72c4dbaecceaf7}{\index{quest.\+c@{quest.\+c}!nemdead@{nemdead}}
+\index{nemdead@{nemdead}!quest.\+c@{quest.\+c}}
+\subsubsection[{nemdead}]{\setlength{\rightskip}{0pt plus 5cm}void nemdead (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a6ba524272829a4024d72c4dbaecceaf7}
+
+
+Definition at line 76 of file quest.\+c.
+
+
+
+References Qstat, Q\+T\+\_\+\+K\+I\+L\+L\+E\+D\+N\+E\+M, qt\+\_\+pager(), and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+77 \{
+78     \textcolor{keywordflow}{if}(!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(killed\_nemesis)) \{
+79         \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(killed\_nemesis) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+80         \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_af40638561897e29c44a00220f9dd04b7}{QT\_KILLEDNEM});
+81     \}
+82 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a55975a0ad253028ff1c9ba4410537f06}{\index{quest.\+c@{quest.\+c}!nemesis\+\_\+speaks@{nemesis\+\_\+speaks}}
+\index{nemesis\+\_\+speaks@{nemesis\+\_\+speaks}!quest.\+c@{quest.\+c}}
+\subsubsection[{nemesis\+\_\+speaks}]{\setlength{\rightskip}{0pt plus 5cm}void nemesis\+\_\+speaks (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a55975a0ad253028ff1c9ba4410537f06}
+
+
+Definition at line 300 of file quest.\+c.
+
+
+
+References Qstat, Q\+T\+\_\+\+D\+I\+S\+C\+O\+U\+R\+A\+G\+E, Q\+T\+\_\+\+F\+I\+R\+S\+T\+N\+E\+M\+E\+S\+I\+S, Q\+T\+\_\+\+N\+E\+M\+W\+A\+N\+T\+S\+I\+T, Q\+T\+\_\+\+N\+E\+X\+T\+N\+E\+M\+E\+S\+I\+S, Q\+T\+\_\+\+O\+T\+H\+E\+R\+N\+E\+M\+E\+S\+I\+S, qt\+\_\+pager(), rn1, T\+R\+U\+E, u, and you\+::uhave.
+
+
+
+Referenced by quest\+\_\+talk().
+
+
+\begin{DoxyCode}
+301 \{
+302     \textcolor{keywordflow}{if}(!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(in\_battle)) \{
+303       \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.questart) \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a0a4f1e14f546383d0f4d935d849e6f8e}{QT\_NEMWANTSIT});
+304       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal) == 1 || !\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(met\_nemesis))
+305           \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a0e08cebadb45a0dae4593f0287e43537}{QT\_FIRSTNEMESIS});
+306       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal) < 4) \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a4adb11872b821c85cc3df36de5ac489a}{QT\_NEXTNEMESIS});
+307       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal) < 7) \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a2070253b52c5fcb1075c651eac762318}{QT\_OTHERNEMESIS});
+308       \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!rn2(5))  \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(10, \hyperlink{qtext_8h_ab2f4fe2f2e25b5cbd94ba6944dd7e8cc}{QT\_DISCOURAGE}));
+309       \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal) < 7) \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal)++;
+310       \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(met\_nemesis) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+311     \} \textcolor{keywordflow}{else} \textcolor{comment}{/* he will spit out random maledictions */}
+312       \textcolor{keywordflow}{if}(!rn2(5))   \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(10, \hyperlink{qtext_8h_ab2f4fe2f2e25b5cbd94ba6944dd7e8cc}{QT\_DISCOURAGE}));
+313 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a2dbc194ab2d7f87bc98c4e06d4e59c6d}{\index{quest.\+c@{quest.\+c}!not\+\_\+capable@{not\+\_\+capable}}
+\index{not\+\_\+capable@{not\+\_\+capable}!quest.\+c@{quest.\+c}}
+\subsubsection[{not\+\_\+capable}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} not\+\_\+capable (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a2dbc194ab2d7f87bc98c4e06d4e59c6d}
+
+
+Definition at line 103 of file quest.\+c.
+
+
+
+References M\+I\+N\+\_\+\+Q\+U\+E\+S\+T\+\_\+\+L\+E\+V\+E\+L, u, and you\+::ulevel.
+
+
+
+Referenced by chat\+\_\+with\+\_\+leader().
+
+
+\begin{DoxyCode}
+104 \{
+105     \textcolor{keywordflow}{return}((\textcolor{keywordtype}{boolean})(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} < \hyperlink{quest_8h_a7395352ab0f7cead018562948c5abb59}{MIN\_QUEST\_LEVEL}));
+106 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a7f2255eaf7802111bb67960e67f7212b}{\index{quest.\+c@{quest.\+c}!ok\+\_\+to\+\_\+quest@{ok\+\_\+to\+\_\+quest}}
+\index{ok\+\_\+to\+\_\+quest@{ok\+\_\+to\+\_\+quest}!quest.\+c@{quest.\+c}}
+\subsubsection[{ok\+\_\+to\+\_\+quest}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} ok\+\_\+to\+\_\+quest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a7f2255eaf7802111bb67960e67f7212b}
+
+
+Definition at line 96 of file quest.\+c.
+
+
+
+References F\+A\+L\+S\+E, is\+\_\+pure(), and Qstat.
+
+
+
+Referenced by down\+\_\+gate().
+
+
+\begin{DoxyCode}
+97 \{
+98     \textcolor{keywordflow}{return}((\textcolor{keywordtype}{boolean})((\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(got\_quest) || \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(got\_thanks)))
+99             && (\hyperlink{quest_8c_ad34ca69e68eff85a744d0c414c013a1e}{is\_pure}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}) > 0));
+100 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_abd05bbffa80e98e9237e2b6f9fbe8b53}{\index{quest.\+c@{quest.\+c}!on\+\_\+goal@{on\+\_\+goal}}
+\index{on\+\_\+goal@{on\+\_\+goal}!quest.\+c@{quest.\+c}}
+\subsubsection[{on\+\_\+goal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void on\+\_\+goal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_abd05bbffa80e98e9237e2b6f9fbe8b53}
+
+
+Definition at line 50 of file quest.\+c.
+
+
+
+References Qstat, Q\+T\+\_\+\+F\+I\+R\+S\+T\+G\+O\+A\+L, Q\+T\+\_\+\+N\+E\+X\+T\+G\+O\+A\+L, and qt\+\_\+pager().
+
+
+
+Referenced by onquest().
+
+
+\begin{DoxyCode}
+51 \{
+52   \textcolor{keywordflow}{if} (\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(killed\_nemesis)) \{
+53     \textcolor{keywordflow}{return};
+54   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal)) \{
+55     \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a7e781db703fb50fd8130140be772f7ac}{QT\_FIRSTGOAL});
+56     \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal) = 1;
+57   \} \textcolor{keywordflow}{else} \{
+58     \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a445a1ddfbd36232befa6a669d1105642}{QT\_NEXTGOAL});
+59     \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal) < 7) \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(made\_goal)++;
+60   \}
+61 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a3cafe772887345114145f92bc01125e9}{\index{quest.\+c@{quest.\+c}!on\+\_\+locate@{on\+\_\+locate}}
+\index{on\+\_\+locate@{on\+\_\+locate}!quest.\+c@{quest.\+c}}
+\subsubsection[{on\+\_\+locate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void on\+\_\+locate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a3cafe772887345114145f92bc01125e9}
+
+
+Definition at line 40 of file quest.\+c.
+
+
+
+References d\+\_\+level\+::dlevel, Qstat, Q\+T\+\_\+\+F\+I\+R\+S\+T\+L\+O\+C\+A\+T\+E, Q\+T\+\_\+\+N\+E\+X\+T\+L\+O\+C\+A\+T\+E, qt\+\_\+pager(), T\+R\+U\+E, u, you\+::uz, and you\+::uz0.
+
+
+
+Referenced by onquest().
+
+
+\begin{DoxyCode}
+41 \{
+42   \textcolor{keywordflow}{if}(!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(first\_locate)) \{
+43     \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a9594e6e88c8ea2222167c0e10a0ab2a3}{QT\_FIRSTLOCATE});
+44     \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(first\_locate) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+45   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a91637ade745880be0af66e4c0b0ff1c1}{uz0}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} < \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} && !\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(killed\_nemesis))
+46     \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a77536175866316cc04209d10abc4c25d}{QT\_NEXTLOCATE});
+47 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_aaa220b67ea65617d64e4391f965e1eb4}{\index{quest.\+c@{quest.\+c}!on\+\_\+start@{on\+\_\+start}}
+\index{on\+\_\+start@{on\+\_\+start}!quest.\+c@{quest.\+c}}
+\subsubsection[{on\+\_\+start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void on\+\_\+start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_aaa220b67ea65617d64e4391f965e1eb4}
+
+
+Definition at line 28 of file quest.\+c.
+
+
+
+References d\+\_\+level\+::dlevel, d\+\_\+level\+::dnum, Qstat, Q\+T\+\_\+\+F\+I\+R\+S\+T\+T\+I\+M\+E, Q\+T\+\_\+\+N\+E\+X\+T\+T\+I\+M\+E, Q\+T\+\_\+\+O\+T\+H\+E\+R\+T\+I\+M\+E, qt\+\_\+pager(), T\+R\+U\+E, u, you\+::uz, and you\+::uz0.
+
+
+
+Referenced by onquest().
+
+
+\begin{DoxyCode}
+29 \{
+30   \textcolor{keywordflow}{if}(!\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(first\_start)) \{
+31     \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_aad59fb0deda2d35c371d99969aa73d74}{QT\_FIRSTTIME});
+32     \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(first\_start) = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+33   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}((\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a91637ade745880be0af66e4c0b0ff1c1}{uz0}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}) || (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a91637ade745880be0af66e4c0b0ff1c1}{uz0}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} < 
+      \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel})) \{
+34     \textcolor{keywordflow}{if}(\hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(not\_ready) <= 2) \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a0e6d3c66deca4330247743b6d0846a11}{QT\_NEXTTIME});
+35     \textcolor{keywordflow}{else}    \hyperlink{questpgr_8c_a8382da39d72ba0389c82a68081634ab7}{qt\_pager}(\hyperlink{qtext_8h_a47069b6502b29c6f2e8fa12c69c4f3c0}{QT\_OTHERTIME});
+36   \}
+37 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_ad228031bee6420d08fbb7a3857f8ad11}{\index{quest.\+c@{quest.\+c}!onquest@{onquest}}
+\index{onquest@{onquest}!quest.\+c@{quest.\+c}}
+\subsubsection[{onquest}]{\setlength{\rightskip}{0pt plus 5cm}void onquest (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_ad228031bee6420d08fbb7a3857f8ad11}
+
+
+Definition at line 64 of file quest.\+c.
+
+
+
+References d\+\_\+level\+::dlevel, Is\+\_\+nemesis, Is\+\_\+qlocate, Is\+\_\+qstart, Not\+\_\+firsttime, on\+\_\+goal(), on\+\_\+locate(), on\+\_\+start(), u, you\+::uevent, you\+::uz, and you\+::uz0.
+
+
+\begin{DoxyCode}
+65 \{
+66     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.qcompleted || \hyperlink{quest_8c_a09144e87d6284297201936245278457c}{Not\_firsttime}) \textcolor{keywordflow}{return};
+67     \textcolor{keywordflow}{if}(!Is\_special(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \textcolor{keywordflow}{return};
+68 
+69     \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_ae99e82304f88e8f69678af279ead2556}{Is\_qstart}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \hyperlink{quest_8c_aaa220b67ea65617d64e4391f965e1eb4}{on\_start}();
+70     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_a7297db18e655828291c91b302e6262f7}{Is\_qlocate}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} > \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a91637ade745880be0af66e4c0b0ff1c1}{uz0}.
+      \hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel}) \hyperlink{quest_8c_a3cafe772887345114145f92bc01125e9}{on\_locate}();
+71     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_a18c44911887dd5de953326d5c7bd80bd}{Is\_nemesis}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \hyperlink{quest_8c_abd05bbffa80e98e9237e2b6f9fbe8b53}{on\_goal}();
+72     \textcolor{keywordflow}{return};
+73 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_a6c5213df42594c2dabdfc40437845847}{\index{quest.\+c@{quest.\+c}!prisoner\+\_\+speaks@{prisoner\+\_\+speaks}}
+\index{prisoner\+\_\+speaks@{prisoner\+\_\+speaks}!quest.\+c@{quest.\+c}}
+\subsubsection[{prisoner\+\_\+speaks}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void prisoner\+\_\+speaks (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_a6c5213df42594c2dabdfc40437845847}
+
+
+Definition at line 326 of file quest.\+c.
+
+
+
+References canseemon, F\+A\+L\+S\+E, mons, and S\+T\+R\+A\+T\+\_\+\+W\+A\+I\+T\+M\+A\+S\+K.
+
+
+
+Referenced by quest\+\_\+talk().
+
+
+\begin{DoxyCode}
+328 \{
+329     \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data} == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_PRISONER] &&
+330             (mtmp->\hyperlink{structmonst_a5d03af85e4563c4068ac07d616af859f}{mstrategy} & \hyperlink{monst_8h_a4f9dcb847e3f6a5b6d1e5ce78902938b}{STRAT\_WAITMASK})) \{
+331         \textcolor{comment}{/* Awaken the prisoner */}
+332         \textcolor{keywordflow}{if} (\hyperlink{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}{canseemon}(mtmp))
+333             pline(\textcolor{stringliteral}{"%s speaks:"}, Monnam(mtmp));
+334         verbalize(\textcolor{stringliteral}{"I'm finally free!"});
+335         mtmp->\hyperlink{structmonst_a5d03af85e4563c4068ac07d616af859f}{mstrategy} &= ~\hyperlink{monst_8h_a4f9dcb847e3f6a5b6d1e5ce78902938b}{STRAT\_WAITMASK};
+336         mtmp->mpeaceful = 1;
+337 
+338         \textcolor{comment}{/* Your god is happy... */}
+339         adjalign(3);
+340 
+341         \textcolor{comment}{/* ...But the guards are not */}
+342         (void) angry\_guards(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+343     \}
+344     \textcolor{keywordflow}{return};
+345 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_aaca4b74649431c6c2df8e185066e793f}{\index{quest.\+c@{quest.\+c}!quest\+\_\+chat@{quest\+\_\+chat}}
+\index{quest\+\_\+chat@{quest\+\_\+chat}!quest.\+c@{quest.\+c}}
+\subsubsection[{quest\+\_\+chat}]{\setlength{\rightskip}{0pt plus 5cm}void quest\+\_\+chat (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_aaca4b74649431c6c2df8e185066e793f}
+
+
+Definition at line 348 of file quest.\+c.
+
+
+
+References chat\+\_\+with\+\_\+guardian(), chat\+\_\+with\+\_\+leader(), chat\+\_\+with\+\_\+nemesis(), M\+S\+\_\+\+G\+U\+A\+R\+D\+I\+A\+N, M\+S\+\_\+\+N\+E\+M\+E\+S\+I\+S, and Qstat.
+
+
+\begin{DoxyCode}
+350 \{
+351     \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_ad8084d1c794f3903b9ffa85fca798abd}{m\_id} == \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(leader\_m\_id)) \{
+352     \hyperlink{quest_8c_a421fba2ffa6c3d3ab6a737fd10ae88d2}{chat\_with\_leader}();
+353     \textcolor{keywordflow}{return};
+354     \}
+355     \textcolor{keywordflow}{switch}(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}->\hyperlink{structpermonst_a8f9cc062b40fa92ce38e504987326190}{msound}) \{
+356         \textcolor{keywordflow}{case} \hyperlink{monflag_8h_ad3e95482807ad66e48de9c5e1c865e63}{MS\_NEMESIS}:  \hyperlink{quest_8c_a5dafcd3ffcbb89b4fe240d7819d96e3b}{chat\_with\_nemesis}(); \textcolor{keywordflow}{break};
+357         \textcolor{keywordflow}{case} \hyperlink{monflag_8h_a1e410cbbb06eda4ed3d5c3aa6e1bf69f}{MS\_GUARDIAN}:    \hyperlink{quest_8c_a85eb4a8a5fbf1a3cda3c093e4e5f37d7}{chat\_with\_guardian}(); \textcolor{keywordflow}{break};
+358         \textcolor{keywordflow}{default}:    impossible(\textcolor{stringliteral}{"quest\_chat: Unknown quest character %s."},
+359                    mon\_nam(mtmp));
+360     \}
+361 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_ac36e3dab5b829804e1ab17e844e1cd6a}{\index{quest.\+c@{quest.\+c}!quest\+\_\+stat\+\_\+check@{quest\+\_\+stat\+\_\+check}}
+\index{quest\+\_\+stat\+\_\+check@{quest\+\_\+stat\+\_\+check}!quest.\+c@{quest.\+c}}
+\subsubsection[{quest\+\_\+stat\+\_\+check}]{\setlength{\rightskip}{0pt plus 5cm}void quest\+\_\+stat\+\_\+check (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_ac36e3dab5b829804e1ab17e844e1cd6a}
+
+
+Definition at line 379 of file quest.\+c.
+
+
+
+References M\+S\+\_\+\+N\+E\+M\+E\+S\+I\+S, Qstat, u, you\+::ux, and you\+::uy.
+
+
+\begin{DoxyCode}
+381 \{
+382     \textcolor{keywordflow}{if}(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}->\hyperlink{structpermonst_a8f9cc062b40fa92ce38e504987326190}{msound} == \hyperlink{monflag_8h_ad3e95482807ad66e48de9c5e1c865e63}{MS\_NEMESIS})
+383     \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(in\_battle) = (mtmp->mcanmove && !mtmp->msleeping &&
+384                 monnear(mtmp, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}));
+385 \}
+\end{DoxyCode}
+\hypertarget{quest_8c_af3496897a5461c4a4356f1f233617957}{\index{quest.\+c@{quest.\+c}!quest\+\_\+talk@{quest\+\_\+talk}}
+\index{quest\+\_\+talk@{quest\+\_\+talk}!quest.\+c@{quest.\+c}}
+\subsubsection[{quest\+\_\+talk}]{\setlength{\rightskip}{0pt plus 5cm}void quest\+\_\+talk (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp}
+\end{DoxyParamCaption}
+)}}\label{quest_8c_af3496897a5461c4a4356f1f233617957}
+
+
+Definition at line 364 of file quest.\+c.
+
+
+
+References leader\+\_\+speaks(), M\+S\+\_\+\+D\+J\+I\+N\+N\+I, M\+S\+\_\+\+N\+E\+M\+E\+S\+I\+S, nemesis\+\_\+speaks(), prisoner\+\_\+speaks(), and Qstat.
+
+
+\begin{DoxyCode}
+366 \{
+367     \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_ad8084d1c794f3903b9ffa85fca798abd}{m\_id} == \hyperlink{quest_8c_aa4526d236f91e8c1653ae58bd0ad66df}{Qstat}(leader\_m\_id)) \{
+368     \hyperlink{quest_8c_a587f48e6804637c8b8b83a438f34f2c7}{leader\_speaks}(mtmp);
+369     \textcolor{keywordflow}{return};
+370     \}
+371     \textcolor{keywordflow}{switch}(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}->\hyperlink{structpermonst_a8f9cc062b40fa92ce38e504987326190}{msound}) \{
+372         \textcolor{keywordflow}{case} \hyperlink{monflag_8h_ad3e95482807ad66e48de9c5e1c865e63}{MS\_NEMESIS}:  \hyperlink{quest_8c_a55975a0ad253028ff1c9ba4410537f06}{nemesis\_speaks}(); \textcolor{keywordflow}{break};
+373         \textcolor{keywordflow}{case} \hyperlink{monflag_8h_ab67088c6a3879e6ca1dc29ac8fda62f2}{MS\_DJINNI}:    \hyperlink{quest_8c_a6c5213df42594c2dabdfc40437845847}{prisoner\_speaks}(mtmp); \textcolor{keywordflow}{break};
+374         \textcolor{keywordflow}{default}:        \textcolor{keywordflow}{break};
+375     \}
+376 \}
+\end{DoxyCode}

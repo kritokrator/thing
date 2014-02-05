@@ -1,0 +1,484 @@
+\hypertarget{mplayer_8c}{\section{nethack/src/mplayer.c File Reference}
+\label{mplayer_8c}\index{nethack/src/mplayer.\+c@{nethack/src/mplayer.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{mplayer_8c_aab6544e1f1eb2c41eaa4d63c51576319}{N\+D\+E\+C\+L} (\hyperlink{mplayer_8c_ab9691be0d4e7a3e54d93f47de145c379}{dev\+\_\+name})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mplayer_8c_a65f47505797f6f48c0a64b41ec90d249}{F\+D\+E\+C\+L} (\hyperlink{mplayer_8c_aca9063dc97b1f422c2909c566fadba2d}{get\+\_\+mplname},(struct \hyperlink{structmonst}{monst} $\ast$, char $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mplayer_8c_a6b5300950d7d71d845243ac418b1a966}{F\+D\+E\+C\+L} (\hyperlink{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{mk\+\_\+mplayer\+\_\+armor},(struct \hyperlink{structmonst}{monst} $\ast$, \hyperlink{wingem1_8c_ad659aea772b5811d42324ccffeb9d682}{S\+H\+O\+R\+T\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{mplayer_8c_ab9691be0d4e7a3e54d93f47de145c379}{dev\+\_\+name} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mplayer_8c_aca9063dc97b1f422c2909c566fadba2d}{get\+\_\+mplname} (struct \hyperlink{structmonst}{monst} $\ast$mtmp, char $\ast$nam)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{mk\+\_\+mplayer\+\_\+armor} (struct \hyperlink{structmonst}{monst} $\ast$mon, short typ)
+\item 
+struct \hyperlink{structmonst}{monst} $\ast$ \hyperlink{mplayer_8c_ac08b2beba47b592806724a9ee4f346bd}{mk\+\_\+mplayer} (struct \hyperlink{structpermonst}{permonst} $\ast$ptr, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} special)
+\item 
+void \hyperlink{mplayer_8c_a97c0f328de86c64cf153d89780416efd}{create\+\_\+mplayers} (int num, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} special)
+\item 
+void \hyperlink{mplayer_8c_a1c9b81013b520914400f0a93ecfbc7e1}{mplayer\+\_\+talk} (struct \hyperlink{structmonst}{monst} $\ast$mtmp)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{mplayer_8c_a712c8a601ba39dcb826118c9b3ae9358}{developers} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{mplayer_8c_a97c0f328de86c64cf153d89780416efd}{\index{mplayer.\+c@{mplayer.\+c}!create\+\_\+mplayers@{create\+\_\+mplayers}}
+\index{create\+\_\+mplayers@{create\+\_\+mplayers}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{create\+\_\+mplayers}]{\setlength{\rightskip}{0pt plus 5cm}void create\+\_\+mplayers (
+\begin{DoxyParamCaption}
+\item[{int}]{num, }
+\item[{{\bf boolean}}]{special}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_a97c0f328de86c64cf153d89780416efd}
+
+
+Definition at line 290 of file mplayer.\+c.
+
+
+
+References C\+O\+L\+N\+O, monst\+::data, goodpos(), mk\+\_\+mplayer(), mons, rn1, and R\+O\+W\+N\+O.
+
+
+\begin{DoxyCode}
+293 \{
+294     \textcolor{keywordtype}{int} pm, x, y;
+295     \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} fakemon;
+296 
+297     \textcolor{keywordflow}{while}(num) \{
+298         \textcolor{keywordtype}{int} tryct = 0;
+299 
+300         \textcolor{comment}{/* roll for character class */}
+301         pm = PM\_ARCHEOLOGIST + rn2(PM\_WIZARD - PM\_ARCHEOLOGIST + 1);
+302         fakemon.data = &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[pm];
+303 
+304         \textcolor{comment}{/* roll for an available location */}
+305         \textcolor{keywordflow}{do} \{
+306             x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-4, 2);
+307             y = rnd(\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-2);
+308         \} \textcolor{keywordflow}{while}(!\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, y, &fakemon, 0) && tryct++ <= 50);
+309 
+310         \textcolor{comment}{/* if pos not found in 50 tries, don't bother to continue */}
+311         \textcolor{keywordflow}{if}(tryct > 50) \textcolor{keywordflow}{return};
+312 
+313         (void) \hyperlink{mplayer_8c_ac08b2beba47b592806724a9ee4f346bd}{mk\_mplayer}(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[pm], (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar})x, (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar})y, special);
+314         num--;
+315     \}
+316 \}
+\end{DoxyCode}
+\hypertarget{mplayer_8c_ab9691be0d4e7a3e54d93f47de145c379}{\index{mplayer.\+c@{mplayer.\+c}!dev\+\_\+name@{dev\+\_\+name}}
+\index{dev\+\_\+name@{dev\+\_\+name}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{dev\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf const} char$\ast$ dev\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_ab9691be0d4e7a3e54d93f47de145c379}
+
+
+Definition at line 42 of file mplayer.\+c.
+
+
+
+References monst\+::data, F\+A\+L\+S\+E, fmon, is\+\_\+mplayer, m, N\+A\+M\+E, monst\+::nmon, S\+I\+Z\+E, and T\+R\+U\+E.
+
+
+
+Referenced by get\+\_\+mplname().
+
+
+\begin{DoxyCode}
+43 \{
+44     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i, \hyperlink{muse_8c_a3ff7db235f25673e1fe2b7b1d66d305d}{m} = 0, n = \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}(\hyperlink{mplayer_8c_a712c8a601ba39dcb826118c9b3ae9358}{developers});
+45     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp;
+46     \textcolor{keyword}{register} \textcolor{keywordtype}{boolean} match;
+47 
+48     \textcolor{keywordflow}{do} \{
+49         match = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+50         i = rn2(n);
+51         \textcolor{keywordflow}{for} (mtmp = \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon}; mtmp; mtmp = mtmp->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon}) \{
+52         \textcolor{keywordflow}{if}(!\hyperlink{mondata_8h_a8bca282ec1e3773ac219c334e54071d5}{is\_mplayer}(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data})) \textcolor{keywordflow}{continue};
+53         \textcolor{keywordflow}{if}(!strncmp(\hyperlink{mplayer_8c_a712c8a601ba39dcb826118c9b3ae9358}{developers}[i], \hyperlink{monst_8h_ac29ed1d493cdb635e09ebbecb209ac2d}{NAME}(mtmp),
+54                            strlen(\hyperlink{mplayer_8c_a712c8a601ba39dcb826118c9b3ae9358}{developers}[i]))) \{
+55             match = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+56             \textcolor{keywordflow}{break};
+57             \}
+58         \}
+59         m++;
+60     \} \textcolor{keywordflow}{while} (match && m < 100); \textcolor{comment}{/* m for insurance */}
+61 
+62     \textcolor{keywordflow}{if} (match) \textcolor{keywordflow}{return} (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)0;
+63     \textcolor{keywordflow}{return}(\hyperlink{mplayer_8c_a712c8a601ba39dcb826118c9b3ae9358}{developers}[i]);
+64 \}
+\end{DoxyCode}
+\hypertarget{mplayer_8c_a65f47505797f6f48c0a64b41ec90d249}{\index{mplayer.\+c@{mplayer.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf get\+\_\+mplname}}]{, }
+\item[{(struct {\bf monst} $\ast$, char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_a65f47505797f6f48c0a64b41ec90d249}
+\hypertarget{mplayer_8c_a6b5300950d7d71d845243ac418b1a966}{\index{mplayer.\+c@{mplayer.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mk\+\_\+mplayer\+\_\+armor}}]{, }
+\item[{(struct {\bf monst} $\ast$, {\bf S\+H\+O\+R\+T\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_a6b5300950d7d71d845243ac418b1a966}
+\hypertarget{mplayer_8c_aca9063dc97b1f422c2909c566fadba2d}{\index{mplayer.\+c@{mplayer.\+c}!get\+\_\+mplname@{get\+\_\+mplname}}
+\index{get\+\_\+mplname@{get\+\_\+mplname}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{get\+\_\+mplname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void get\+\_\+mplname (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{char $\ast$}]{nam}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_aca9063dc97b1f422c2909c566fadba2d}
+
+
+Definition at line 67 of file mplayer.\+c.
+
+
+
+References dev\+\_\+name(), is\+\_\+female, Strcat, and Strcpy.
+
+
+
+Referenced by mk\+\_\+mplayer().
+
+
+\begin{DoxyCode}
+70 \{
+71     \textcolor{keywordtype}{boolean} fmlkind = \hyperlink{mondata_8h_a4ef9c86fddd17a5704d9312dd66d37f0}{is\_female}(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data});
+72     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *devnam;
+73 
+74     devnam = \hyperlink{mplayer_8c_ab9691be0d4e7a3e54d93f47de145c379}{dev\_name}();
+75     \textcolor{keywordflow}{if} (!devnam)
+76         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(nam, fmlkind ? \textcolor{stringliteral}{"Eve"} : \textcolor{stringliteral}{"Adam"});
+77     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (fmlkind && !!strcmp(devnam, \textcolor{stringliteral}{"Janet"}))
+78         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(nam, rn2(2) ? \textcolor{stringliteral}{"Maud"} : \textcolor{stringliteral}{"Eve"});
+79     \textcolor{keywordflow}{else} \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(nam, devnam);
+80 
+81     \textcolor{keywordflow}{if} (fmlkind || !strcmp(nam, \textcolor{stringliteral}{"Janet"}))
+82         mtmp->female = 1;
+83     \textcolor{keywordflow}{else}
+84         mtmp->female = 0;
+85     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(nam, \textcolor{stringliteral}{" the "});
+86     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(nam, rank\_of((\textcolor{keywordtype}{int})mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev},
+87                 monsndx(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}),
+88                 (\textcolor{keywordtype}{boolean})mtmp->female));
+89 \}
+\end{DoxyCode}
+\hypertarget{mplayer_8c_ac08b2beba47b592806724a9ee4f346bd}{\index{mplayer.\+c@{mplayer.\+c}!mk\+\_\+mplayer@{mk\+\_\+mplayer}}
+\index{mk\+\_\+mplayer@{mk\+\_\+mplayer}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{mk\+\_\+mplayer}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf monst}$\ast$ mk\+\_\+mplayer (
+\begin{DoxyParamCaption}
+\item[{struct {\bf permonst} $\ast$}]{ptr, }
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{{\bf boolean}}]{special}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_ac08b2beba47b592806724a9ee4f346bd}
+
+
+Definition at line 112 of file mplayer.\+c.
+
+
+
+References A\+\_\+\+N\+O\+N\+E, F\+A\+L\+S\+E, get\+\_\+mplname(), In\+\_\+endgame, is\+\_\+mplayer, m\+\_\+at, m\+\_\+dowear(), monst\+::m\+\_\+lev, monst\+::mgold, monst\+::mhp, monst\+::mhpmax, mk\+\_\+mplayer\+\_\+armor(), M\+O\+N\+\_\+\+A\+T, N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S, obj\+::oartifact, otmp, P\+L\+\_\+\+N\+S\+I\+Z, R\+A\+N\+D\+O\+M\+\_\+\+C\+L\+A\+S\+S, rloc(), rn1, rnd\+\_\+defensive\+\_\+item(), rnd\+\_\+misc\+\_\+item(), rnd\+\_\+offensive\+\_\+item(), obj\+::spe, T\+R\+U\+E, u, and you\+::uz.
+
+
+
+Referenced by create\+\_\+monster(), and create\+\_\+mplayers().
+
+
+\begin{DoxyCode}
+116 \{
+117     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp;
+118     \textcolor{keywordtype}{char} nam[\hyperlink{global_8h_a06d346f470496500184b39a3c9c4df9d}{PL\_NSIZ}];
+119 
+120     \textcolor{keywordflow}{if}(!\hyperlink{mondata_8h_a8bca282ec1e3773ac219c334e54071d5}{is\_mplayer}(ptr))
+121         \textcolor{keywordflow}{return}((\textcolor{keyword}{struct} \hyperlink{structmonst}{monst} *)0);
+122 
+123     \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a17ef631151b987fd582fca76a429c08a}{MON\_AT}(x, y))
+124         (void) \hyperlink{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}{rloc}(\hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(x, y), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}); \textcolor{comment}{/* insurance */}
+125 
+126     \textcolor{keywordflow}{if}(!\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) special = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+127 
+128     \textcolor{keywordflow}{if} ((mtmp = makemon(ptr, x, y, \hyperlink{hack_8h_ae449582f467baa0da531a6ea116a18f2}{NO\_MM\_FLAGS})) != 0) \{
+129         \textcolor{keywordtype}{short} weapon = rn2(2) ? LONG\_SWORD : rnd\_class(SPEAR, BULLWHIP);
+130         \textcolor{keywordtype}{short} armor = rnd\_class(GRAY\_DRAGON\_SCALE\_MAIL, YELLOW\_DRAGON\_SCALE\_MAIL);
+131         \textcolor{keywordtype}{short} cloak = !rn2(8) ? STRANGE\_OBJECT :
+132                 rnd\_class(OILSKIN\_CLOAK, CLOAK\_OF\_DISPLACEMENT);
+133         \textcolor{keywordtype}{short} helm = !rn2(8) ? STRANGE\_OBJECT :
+134                 rnd\_class(ELVEN\_LEATHER\_HELM, HELM\_OF\_TELEPATHY);
+135         \textcolor{keywordtype}{short} shield = !rn2(8) ? STRANGE\_OBJECT :
+136                 rnd\_class(ELVEN\_SHIELD, SHIELD\_OF\_REFLECTION);
+137         \textcolor{keywordtype}{int} quan;
+138         \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+139 
+140         mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev} = (special ? \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(16,15) : rnd(16));
+141         mtmp->\hyperlink{structmonst_abe22e95755f1348a6a1c78252be5d76d}{mhp} = mtmp->\hyperlink{structmonst_a66c107319bb7bb318c04e6a0f5f03c60}{mhpmax} = d((\textcolor{keywordtype}{int})mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev},10) +
+142                     (special ? (30 + rnd(30)) : 30);
+143         \textcolor{keywordflow}{if}(special) \{
+144             \hyperlink{mplayer_8c_aca9063dc97b1f422c2909c566fadba2d}{get\_mplname}(mtmp, nam);
+145             mtmp = christen\_monst(mtmp, nam);
+146         \textcolor{comment}{/* that's why they are "stuck" in the endgame :-) */}
+147         (void)mongets(mtmp, FAKE\_AMULET\_OF\_YENDOR);
+148         \}
+149         mtmp->mpeaceful = 0;
+150         set\_malign(mtmp); \textcolor{comment}{/* peaceful may have changed again */}
+151 
+152         \textcolor{keywordflow}{switch}(monsndx(ptr)) \{
+153         \textcolor{keywordflow}{case} PM\_ARCHEOLOGIST:
+154             \textcolor{keywordflow}{if} (rn2(2)) weapon = BULLWHIP;
+155             \textcolor{keywordflow}{break};
+156         \textcolor{keywordflow}{case} PM\_BARBARIAN:
+157             \textcolor{keywordflow}{if} (rn2(2)) \{
+158                 weapon = rn2(2) ? TWO\_HANDED\_SWORD : BATTLE\_AXE;
+159                 shield = STRANGE\_OBJECT;
+160             \}
+161             \textcolor{keywordflow}{if} (rn2(2)) armor = rnd\_class(PLATE\_MAIL, CHAIN\_MAIL);
+162             \textcolor{keywordflow}{if} (helm == HELM\_OF\_BRILLIANCE) helm = STRANGE\_OBJECT;
+163             \textcolor{keywordflow}{break};
+164         \textcolor{keywordflow}{case} PM\_CAVEMAN:
+165         \textcolor{keywordflow}{case} PM\_CAVEWOMAN:
+166             \textcolor{keywordflow}{if} (rn2(4)) weapon = MACE;
+167             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rn2(2)) weapon = CLUB;
+168             \textcolor{keywordflow}{if} (helm == HELM\_OF\_BRILLIANCE) helm = STRANGE\_OBJECT;
+169             \textcolor{keywordflow}{break};
+170         \textcolor{keywordflow}{case} PM\_HEALER:
+171             \textcolor{keywordflow}{if} (rn2(4)) weapon = QUARTERSTAFF;
+172             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rn2(2)) weapon = rn2(2) ? UNICORN\_HORN : SCALPEL;
+173             \textcolor{keywordflow}{if} (rn2(4)) helm = rn2(2) ? HELM\_OF\_BRILLIANCE : HELM\_OF\_TELEPATHY;
+174             \textcolor{keywordflow}{if} (rn2(2)) shield = STRANGE\_OBJECT;
+175             \textcolor{keywordflow}{break};
+176         \textcolor{keywordflow}{case} PM\_KNIGHT:
+177             \textcolor{keywordflow}{if} (rn2(4)) weapon = LONG\_SWORD;
+178             \textcolor{keywordflow}{if} (rn2(2)) armor = rnd\_class(PLATE\_MAIL, CHAIN\_MAIL);
+179             \textcolor{keywordflow}{break};
+180         \textcolor{keywordflow}{case} PM\_MONK:
+181             weapon = STRANGE\_OBJECT;
+182             armor = STRANGE\_OBJECT;
+183             cloak = ROBE;
+184             \textcolor{keywordflow}{if} (rn2(2)) shield = STRANGE\_OBJECT;
+185             \textcolor{keywordflow}{break};
+186         \textcolor{keywordflow}{case} PM\_PRIEST:
+187         \textcolor{keywordflow}{case} PM\_PRIESTESS:
+188             \textcolor{keywordflow}{if} (rn2(2)) weapon = MACE;
+189             \textcolor{keywordflow}{if} (rn2(2)) armor = rnd\_class(PLATE\_MAIL, CHAIN\_MAIL);
+190             \textcolor{keywordflow}{if} (rn2(4)) cloak = ROBE;
+191             \textcolor{keywordflow}{if} (rn2(4)) helm = rn2(2) ? HELM\_OF\_BRILLIANCE : HELM\_OF\_TELEPATHY;
+192             \textcolor{keywordflow}{if} (rn2(2)) shield = STRANGE\_OBJECT;
+193             \textcolor{keywordflow}{break};
+194         \textcolor{keywordflow}{case} PM\_RANGER:
+195             \textcolor{keywordflow}{if} (rn2(2)) weapon = ELVEN\_DAGGER;
+196             \textcolor{keywordflow}{break};
+197         \textcolor{keywordflow}{case} PM\_ROGUE:
+198             \textcolor{keywordflow}{if} (rn2(2)) weapon = SHORT\_SWORD;
+199             \textcolor{keywordflow}{break};
+200         \textcolor{keywordflow}{case} PM\_SAMURAI:
+201             \textcolor{keywordflow}{if} (rn2(2)) weapon = KATANA;
+202             \textcolor{keywordflow}{break};
+203 \textcolor{preprocessor}{#ifdef TOURIST}
+204         \textcolor{keywordflow}{case} PM\_TOURIST:
+205             \textcolor{comment}{/* Defaults are just fine */}
+206             \textcolor{keywordflow}{break};
+207 \textcolor{preprocessor}{#endif}
+208         \textcolor{keywordflow}{case} PM\_VALKYRIE:
+209             \textcolor{keywordflow}{if} (rn2(2)) weapon = WAR\_HAMMER;
+210             \textcolor{keywordflow}{if} (rn2(2)) armor = rnd\_class(PLATE\_MAIL, CHAIN\_MAIL);
+211             \textcolor{keywordflow}{break};
+212         \textcolor{keywordflow}{case} PM\_WIZARD:
+213             \textcolor{keywordflow}{if} (rn2(4)) weapon = rn2(2) ? QUARTERSTAFF : ATHAME;
+214             \textcolor{keywordflow}{if} (rn2(2)) \{
+215                 armor = rn2(2) ? BLACK\_DRAGON\_SCALE\_MAIL :
+216                         SILVER\_DRAGON\_SCALE\_MAIL;
+217                 cloak = CLOAK\_OF\_MAGIC\_RESISTANCE;
+218             \}
+219             \textcolor{keywordflow}{if} (rn2(4)) helm = HELM\_OF\_BRILLIANCE;
+220             shield = STRANGE\_OBJECT;
+221             \textcolor{keywordflow}{break};
+222         \textcolor{keywordflow}{default}: impossible(\textcolor{stringliteral}{"bad mplayer monster"});
+223             weapon = 0;
+224             \textcolor{keywordflow}{break};
+225         \}
+226 
+227         \textcolor{keywordflow}{if} (weapon != STRANGE\_OBJECT) \{
+228         otmp = mksobj(weapon, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+229         otmp->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = (special ? \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(5,4) : rn2(4));
+230         \textcolor{keywordflow}{if} (!rn2(3)) otmp->oerodeproof = 1;
+231         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!rn2(2)) otmp->greased = 1;
+232         \textcolor{keywordflow}{if} (special && rn2(2))
+233             otmp = mk\_artifact(otmp, \hyperlink{align_8h_abe65d0cb8c8ae018c5bd63a280000eaa}{A\_NONE});
+234         \textcolor{comment}{/* mplayers knew better than to overenchant Magicbane */}
+235         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_af03ce8a6a0ca51e8d8954fb1a1a31fbe}{oartifact} == ART\_MAGICBANE)
+236             otmp->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = rnd(4);
+237         (void) mpickobj(mtmp, otmp);
+238         \}
+239 
+240         \textcolor{keywordflow}{if}(special) \{
+241         \textcolor{keywordflow}{if} (!rn2(10))
+242             (\textcolor{keywordtype}{void}) mongets(mtmp, rn2(3) ? LUCKSTONE : LOADSTONE);
+243         \hyperlink{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{mk\_mplayer\_armor}(mtmp, armor);
+244         \hyperlink{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{mk\_mplayer\_armor}(mtmp, cloak);
+245         \hyperlink{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{mk\_mplayer\_armor}(mtmp, helm);
+246         \hyperlink{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{mk\_mplayer\_armor}(mtmp, shield);
+247         \textcolor{keywordflow}{if} (rn2(8))
+248             \hyperlink{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{mk\_mplayer\_armor}(mtmp, rnd\_class(LEATHER\_GLOVES,
+249                            GAUNTLETS\_OF\_DEXTERITY));
+250         \textcolor{keywordflow}{if} (rn2(8))
+251             \hyperlink{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{mk\_mplayer\_armor}(mtmp, rnd\_class(LOW\_BOOTS, LEVITATION\_BOOTS));
+252         \hyperlink{worn_8c_a7e0d383cf09a999a333ec1154d0d52f3}{m\_dowear}(mtmp, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+253 
+254         quan = rn2(3) ? rn2(3) : rn2(16);
+255         \textcolor{keywordflow}{while}(quan--)
+256             (void)mongets(mtmp, rnd\_class(DILITHIUM\_CRYSTAL, JADE));
+257         \textcolor{comment}{/* To get the gold "right" would mean a player can double his */}
+258         \textcolor{comment}{/* gold supply by killing one mplayer.  Not good. */}
+259 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+260         mtmp->\hyperlink{structmonst_a06dbdd0ca7ee096216aa10f86beed533}{mgold} = rn2(1000);
+261 \textcolor{preprocessor}{#else}
+262         mkmonmoney(mtmp, rn2(1000));
+263 \textcolor{preprocessor}{#endif}
+264         quan = rn2(10);
+265         \textcolor{keywordflow}{while}(quan--)
+266             (void) mpickobj(mtmp, mkobj(\hyperlink{objclass_8h_ac72b41688ea83d87d0b4143899a9b0d7}{RANDOM\_CLASS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}));
+267         \}
+268         quan = rnd(3);
+269         \textcolor{keywordflow}{while}(quan--)
+270         (void)mongets(mtmp, \hyperlink{muse_8c_a3f44daad6fea8db7a3823a5ad9297cd7}{rnd\_offensive\_item}(mtmp));
+271         quan = rnd(3);
+272         \textcolor{keywordflow}{while}(quan--)
+273         (void)mongets(mtmp, \hyperlink{muse_8c_ac8a389f8c0a717ed822b5f2e6d099e9d}{rnd\_defensive\_item}(mtmp));
+274         quan = rnd(3);
+275         \textcolor{keywordflow}{while}(quan--)
+276         (void)mongets(mtmp, \hyperlink{muse_8c_a23c2634e5c91f8a024abfa2a7eaebe91}{rnd\_misc\_item}(mtmp));
+277     \}
+278 
+279     \textcolor{keywordflow}{return}(mtmp);
+280 \}
+\end{DoxyCode}
+\hypertarget{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}{\index{mplayer.\+c@{mplayer.\+c}!mk\+\_\+mplayer\+\_\+armor@{mk\+\_\+mplayer\+\_\+armor}}
+\index{mk\+\_\+mplayer\+\_\+armor@{mk\+\_\+mplayer\+\_\+armor}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{mk\+\_\+mplayer\+\_\+armor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mk\+\_\+mplayer\+\_\+armor (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mon, }
+\item[{short}]{typ}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_ad92bae7dca9db8a757b19a961060a6e7}
+
+
+Definition at line 92 of file mplayer.\+c.
+
+
+
+References F\+A\+L\+S\+E, rn1, and obj\+::spe.
+
+
+
+Referenced by mk\+\_\+mplayer().
+
+
+\begin{DoxyCode}
+95 \{
+96     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{structobj}{obj};
+97 
+98     \textcolor{keywordflow}{if} (typ == STRANGE\_OBJECT) \textcolor{keywordflow}{return};
+99     obj = mksobj(typ, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+100     \textcolor{keywordflow}{if} (!rn2(3)) obj->oerodeproof = 1;
+101     \textcolor{keywordflow}{if} (!rn2(3)) curse(obj);
+102     \textcolor{keywordflow}{if} (!rn2(3)) bless(obj);
+103     \textcolor{comment}{/* Most players who get to the endgame who have cursed equipment}
+104 \textcolor{comment}{     * have it because the wizard or other monsters cursed it, so its}
+105 \textcolor{comment}{     * chances of having plusses is the same as usual....}
+106 \textcolor{comment}{     */}
+107     obj->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = rn2(10) ? (rn2(3) ? rn2(5) : \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(4,4)) : -rnd(3);
+108     (void) mpickobj(mon, obj);
+109 \}
+\end{DoxyCode}
+\hypertarget{mplayer_8c_a1c9b81013b520914400f0a93ecfbc7e1}{\index{mplayer.\+c@{mplayer.\+c}!mplayer\+\_\+talk@{mplayer\+\_\+talk}}
+\index{mplayer\+\_\+talk@{mplayer\+\_\+talk}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{mplayer\+\_\+talk}]{\setlength{\rightskip}{0pt plus 5cm}void mplayer\+\_\+talk (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_a1c9b81013b520914400f0a93ecfbc7e1}
+
+
+Definition at line 319 of file mplayer.\+c.
+
+
+
+References Role\+::femalenum, Role\+::malenum, mons, and urole.
+
+
+\begin{DoxyCode}
+321 \{
+322     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *same\_class\_msg[3] = \{
+323         \textcolor{stringliteral}{"I can't win, and neither will you!"},
+324         \textcolor{stringliteral}{"You don't deserve to win!"},
+325         \textcolor{stringliteral}{"Mine should be the honor, not yours!"},
+326     \},        *other\_class\_msg[3] = \{
+327         \textcolor{stringliteral}{"The low-life wants to talk, eh?"},
+328         \textcolor{stringliteral}{"Fight, scum!"},
+329         \textcolor{stringliteral}{"Here is what I have to say!"},
+330     \};
+331 
+332     \textcolor{keywordflow}{if}(mtmp->mpeaceful) \textcolor{keywordflow}{return}; \textcolor{comment}{/* will drop to humanoid talk */}
+333 
+334     pline(\textcolor{stringliteral}{"Talk? -- %s"},
+335         (mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data} == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[\hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_aa88f771ec189bdfc9d50fd7e9a9800df}{malenum}] ||
+336         mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data} == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[\hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a3df6c34453ea826bb3bad15d174765d1}{femalenum}]) ?
+337         same\_class\_msg[rn2(3)] : other\_class\_msg[rn2(3)]);
+338 \}
+\end{DoxyCode}
+\hypertarget{mplayer_8c_aab6544e1f1eb2c41eaa4d63c51576319}{\index{mplayer.\+c@{mplayer.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf const} char$\ast$ N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf dev\+\_\+name}}]{}
+\end{DoxyParamCaption}
+)}}\label{mplayer_8c_aab6544e1f1eb2c41eaa4d63c51576319}
+
+
+\subsection{Variable Documentation}
+\hypertarget{mplayer_8c_a712c8a601ba39dcb826118c9b3ae9358}{\index{mplayer.\+c@{mplayer.\+c}!developers@{developers}}
+\index{developers@{developers}!mplayer.\+c@{mplayer.\+c}}
+\subsubsection[{developers}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ developers\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{mplayer_8c_a712c8a601ba39dcb826118c9b3ae9358}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    
+    \textcolor{stringliteral}{"Dave"}, \textcolor{stringliteral}{"Dean"}, \textcolor{stringliteral}{"Eric"}, \textcolor{stringliteral}{"Izchak"}, \textcolor{stringliteral}{"Janet"}, \textcolor{stringliteral}{"Jessie"},
+    \textcolor{stringliteral}{"Ken"}, \textcolor{stringliteral}{"Kevin"}, \textcolor{stringliteral}{"Michael"}, \textcolor{stringliteral}{"Mike"}, \textcolor{stringliteral}{"Pat"}, \textcolor{stringliteral}{"Paul"}, \textcolor{stringliteral}{"Steve"}, \textcolor{stringliteral}{"Timo"},
+    \textcolor{stringliteral}{"Warwick"},
+    
+    \textcolor{stringliteral}{"Bill"}, \textcolor{stringliteral}{"Eric"}, \textcolor{stringliteral}{"Keizo"}, \textcolor{stringliteral}{"Ken"}, \textcolor{stringliteral}{"Kevin"}, \textcolor{stringliteral}{"Michael"}, \textcolor{stringliteral}{"Mike"}, \textcolor{stringliteral}{"Paul"},
+    \textcolor{stringliteral}{"Stephen"}, \textcolor{stringliteral}{"Steve"}, \textcolor{stringliteral}{"Timo"}, \textcolor{stringliteral}{"Yitzhak"},
+    
+    \textcolor{stringliteral}{"Andy"}, \textcolor{stringliteral}{"Gregg"}, \textcolor{stringliteral}{"Janne"}, \textcolor{stringliteral}{"Keni"}, \textcolor{stringliteral}{"Mike"}, \textcolor{stringliteral}{"Olaf"}, \textcolor{stringliteral}{"Richard"},
+    
+    \textcolor{stringliteral}{"Andy"}, \textcolor{stringliteral}{"Chris"}, \textcolor{stringliteral}{"Dean"}, \textcolor{stringliteral}{"Jon"}, \textcolor{stringliteral}{"Jonathan"}, \textcolor{stringliteral}{"Kevin"}, \textcolor{stringliteral}{"Wang"},
+    
+    \textcolor{stringliteral}{"Eric"}, \textcolor{stringliteral}{"Marvin"}, \textcolor{stringliteral}{"Warwick"},
+    
+    \textcolor{stringliteral}{"Alex"}, \textcolor{stringliteral}{"Dion"}, \textcolor{stringliteral}{"Michael"},
+    
+    \textcolor{stringliteral}{"Helge"}, \textcolor{stringliteral}{"Ron"}, \textcolor{stringliteral}{"Timo"},
+    
+    \textcolor{stringliteral}{"Joshua"}, \textcolor{stringliteral}{"Pat"},
+    \textcolor{stringliteral}{""}\}
+\end{DoxyCode}
+
+
+Definition at line 17 of file mplayer.\+c.
+

@@ -1,0 +1,454 @@
+\hypertarget{drawing_8c}{\section{nethack/src/drawing.c File Reference}
+\label{drawing_8c}\index{nethack/src/drawing.\+c@{nethack/src/drawing.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tcap.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}{C}(n)
+\item 
+\#define \hyperlink{drawing_8c_a28c4a88eb59a9eaf2ae8b968769627d5}{g\+\_\+\+F\+I\+L\+L\+E\+R}(symbol)~0
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{drawing_8c_a590c649cc5a0ec129bc65368e7202b55}{def\+\_\+char\+\_\+to\+\_\+objclass} (char ch)
+\item 
+int \hyperlink{drawing_8c_a96d46e83653ce0f583dbced270cdf106}{def\+\_\+char\+\_\+to\+\_\+monclass} (char ch)
+\item 
+void \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\+\_\+graphics} (\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$graph\+\_\+chars, int glth, int maxlen, int \hyperlink{Window_8c_a6313d4fad4381a8c1cd37bac963cec12}{offset})
+\item 
+void \hyperlink{drawing_8c_a0ba09dee9ab5e45ff03f6b0bfa0b9f1e}{switch\+\_\+graphics} (int gr\+\_\+set\+\_\+flag)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} \hyperlink{drawing_8c_a1fbe3a29deee480c33465cbb21f4f012}{oc\+\_\+syms} \mbox{[}\hyperlink{objclass_8h_af51133138bfb718b55aaa7f29711a10a}{M\+A\+X\+O\+C\+L\+A\+S\+S\+E\+S}\mbox{]} = \hyperlink{hack_8h_a35beee7b0f2f3e294c4a4a69a5f02df4}{D\+U\+M\+M\+Y}
+\item 
+\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} \hyperlink{drawing_8c_ad8e71cd12d6e4d48b240325f0a5f9758}{showsyms} \mbox{[}\hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{M\+A\+X\+P\+C\+H\+A\+R\+S}\mbox{]} = \hyperlink{hack_8h_a35beee7b0f2f3e294c4a4a69a5f02df4}{D\+U\+M\+M\+Y}
+\item 
+\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} \hyperlink{drawing_8c_a60b7c4f15fb530ce35d503dae35b79d0}{monsyms} \mbox{[}\hyperlink{monsym_8h_a8c6bb361baecfba17240e1e0af655e1b}{M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S}\mbox{]} = \hyperlink{hack_8h_a35beee7b0f2f3e294c4a4a69a5f02df4}{D\+U\+M\+M\+Y}
+\item 
+\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} \hyperlink{drawing_8c_ab3d2fdb1e0f7681246c5b38775944f46}{warnsyms} \mbox{[}\hyperlink{decl_8h_aeee8b486e8dc54c672bc3af9eb3ef68d}{W\+A\+R\+N\+C\+O\+U\+N\+T}\mbox{]} = \hyperlink{hack_8h_a35beee7b0f2f3e294c4a4a69a5f02df4}{D\+U\+M\+M\+Y}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{drawing_8c_a143ba64db6190f08d7a7af38836b45c2}{def\+\_\+oc\+\_\+syms} \mbox{[}\hyperlink{objclass_8h_af51133138bfb718b55aaa7f29711a10a}{M\+A\+X\+O\+C\+L\+A\+S\+S\+E\+S}\mbox{]}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{drawing_8c_ad88b72975e0164c2b5c4092de5418b94}{invisexplain} \mbox{[}$\,$\mbox{]} = \char`\"{}remembered, unseen, creature\char`\"{}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{drawing_8c_aac283a3f7f26e3b1fa4974dd4647a6df}{objexplain} \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{drawing_8c_a25f810f55c19a1331d556aaa8402861a}{oclass\+\_\+names} \mbox{[}$\,$\mbox{]}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char \hyperlink{drawing_8c_aa795b6d963b7cac4d54e99ee34d5de1f}{def\+\_\+monsyms} \mbox{[}\hyperlink{monsym_8h_a8c6bb361baecfba17240e1e0af655e1b}{M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S}\mbox{]}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{drawing_8c_a815c4bc2d6fb54e172c5b7c3d78120d7}{monexplain} \mbox{[}\hyperlink{monsym_8h_a8c6bb361baecfba17240e1e0af655e1b}{M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S}\mbox{]}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} struct \hyperlink{structsymdef}{symdef} \hyperlink{drawing_8c_a40c9fc72853dbb40c05e137874db6c9c}{def\+\_\+warnsyms} \mbox{[}\hyperlink{decl_8h_aeee8b486e8dc54c672bc3af9eb3ef68d}{W\+A\+R\+N\+C\+O\+U\+N\+T}\mbox{]}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} struct \hyperlink{structsymdef}{symdef} \hyperlink{drawing_8c_a207dbacb240eb4a71d449e59280a72a6}{defsyms} \mbox{[}\hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{M\+A\+X\+P\+C\+H\+A\+R\+S}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}{\index{drawing.\+c@{drawing.\+c}!C@{C}}
+\index{C@{C}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{C}]{\setlength{\rightskip}{0pt plus 5cm}\#define C(
+\begin{DoxyParamCaption}
+\item[{}]{n}
+\end{DoxyParamCaption}
+)}}\label{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}
+
+
+Definition at line 17 of file drawing.\+c.
+
+\hypertarget{drawing_8c_a28c4a88eb59a9eaf2ae8b968769627d5}{\index{drawing.\+c@{drawing.\+c}!g\+\_\+\+F\+I\+L\+L\+E\+R@{g\+\_\+\+F\+I\+L\+L\+E\+R}}
+\index{g\+\_\+\+F\+I\+L\+L\+E\+R@{g\+\_\+\+F\+I\+L\+L\+E\+R}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{g\+\_\+\+F\+I\+L\+L\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define g\+\_\+\+F\+I\+L\+L\+E\+R(
+\begin{DoxyParamCaption}
+\item[{}]{symbol}
+\end{DoxyParamCaption}
+)~0}}\label{drawing_8c_a28c4a88eb59a9eaf2ae8b968769627d5}
+
+
+Definition at line 20 of file drawing.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{\index{drawing.\+c@{drawing.\+c}!assign\+\_\+graphics@{assign\+\_\+graphics}}
+\index{assign\+\_\+graphics@{assign\+\_\+graphics}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{assign\+\_\+graphics}]{\setlength{\rightskip}{0pt plus 5cm}void assign\+\_\+graphics (
+\begin{DoxyParamCaption}
+\item[{{\bf uchar} $\ast$}]{graph\+\_\+chars, }
+\item[{int}]{glth, }
+\item[{int}]{maxlen, }
+\item[{int}]{offset}
+\end{DoxyParamCaption}
+)}}\label{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}
+
+
+Definition at line 643 of file drawing.\+c.
+
+
+
+References showsyms, and symdef\+::sym.
+
+
+
+Referenced by graphics\+\_\+opts(), parse\+\_\+config\+\_\+line(), and switch\+\_\+graphics().
+
+
+\begin{DoxyCode}
+646 \{
+647     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+648 
+649     \textcolor{keywordflow}{for} (i = 0; i < maxlen; i++)
+650     \hyperlink{drawing_8c_ad8e71cd12d6e4d48b240325f0a5f9758}{showsyms}[i+\hyperlink{Window_8c_a6313d4fad4381a8c1cd37bac963cec12}{offset}] = (((i < glth) && graph\_chars[i]) ?
+651                graph\_chars[i] : \hyperlink{drawing_8c_a207dbacb240eb4a71d449e59280a72a6}{defsyms}[i+\hyperlink{Window_8c_a6313d4fad4381a8c1cd37bac963cec12}{offset}].sym);
+652 \}
+\end{DoxyCode}
+\hypertarget{drawing_8c_a96d46e83653ce0f583dbced270cdf106}{\index{drawing.\+c@{drawing.\+c}!def\+\_\+char\+\_\+to\+\_\+monclass@{def\+\_\+char\+\_\+to\+\_\+monclass}}
+\index{def\+\_\+char\+\_\+to\+\_\+monclass@{def\+\_\+char\+\_\+to\+\_\+monclass}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{def\+\_\+char\+\_\+to\+\_\+monclass}]{\setlength{\rightskip}{0pt plus 5cm}int def\+\_\+char\+\_\+to\+\_\+monclass (
+\begin{DoxyParamCaption}
+\item[{char}]{ch}
+\end{DoxyParamCaption}
+)}}\label{drawing_8c_a96d46e83653ce0f583dbced270cdf106}
+
+
+Definition at line 633 of file drawing.\+c.
+
+
+
+References def\+\_\+monsyms, and M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S.
+
+
+
+Referenced by choose\+\_\+classes\+\_\+menu(), parseoptions(), and use\+\_\+crystal\+\_\+ball().
+
+
+\begin{DoxyCode}
+635 \{
+636     \textcolor{keywordtype}{int} i;
+637     \textcolor{keywordflow}{for} (i = 1; i < \hyperlink{monsym_8h_a8c6bb361baecfba17240e1e0af655e1b}{MAXMCLASSES}; i++)
+638     \textcolor{keywordflow}{if} (\hyperlink{drawing_8c_aa795b6d963b7cac4d54e99ee34d5de1f}{def\_monsyms}[i] == ch) \textcolor{keywordflow}{break};
+639     \textcolor{keywordflow}{return} i;
+640 \}
+\end{DoxyCode}
+\hypertarget{drawing_8c_a590c649cc5a0ec129bc65368e7202b55}{\index{drawing.\+c@{drawing.\+c}!def\+\_\+char\+\_\+to\+\_\+objclass@{def\+\_\+char\+\_\+to\+\_\+objclass}}
+\index{def\+\_\+char\+\_\+to\+\_\+objclass@{def\+\_\+char\+\_\+to\+\_\+objclass}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{def\+\_\+char\+\_\+to\+\_\+objclass}]{\setlength{\rightskip}{0pt plus 5cm}int def\+\_\+char\+\_\+to\+\_\+objclass (
+\begin{DoxyParamCaption}
+\item[{char}]{ch}
+\end{DoxyParamCaption}
+)}}\label{drawing_8c_a590c649cc5a0ec129bc65368e7202b55}
+
+
+Definition at line 619 of file drawing.\+c.
+
+
+
+References def\+\_\+oc\+\_\+syms, and M\+A\+X\+O\+C\+L\+A\+S\+S\+E\+S.
+
+
+
+Referenced by change\+\_\+inv\+\_\+order(), choose\+\_\+classes\+\_\+menu(), create\+\_\+object(), parseoptions(), query\+\_\+classes(), and use\+\_\+crystal\+\_\+ball().
+
+
+\begin{DoxyCode}
+621 \{
+622     \textcolor{keywordtype}{int} i;
+623     \textcolor{keywordflow}{for} (i = 1; i < \hyperlink{objclass_8h_af51133138bfb718b55aaa7f29711a10a}{MAXOCLASSES}; i++)
+624     \textcolor{keywordflow}{if} (ch == \hyperlink{drawing_8c_a143ba64db6190f08d7a7af38836b45c2}{def\_oc\_syms}[i]) \textcolor{keywordflow}{break};
+625     \textcolor{keywordflow}{return} i;
+626 \}
+\end{DoxyCode}
+\hypertarget{drawing_8c_a0ba09dee9ab5e45ff03f6b0bfa0b9f1e}{\index{drawing.\+c@{drawing.\+c}!switch\+\_\+graphics@{switch\+\_\+graphics}}
+\index{switch\+\_\+graphics@{switch\+\_\+graphics}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{switch\+\_\+graphics}]{\setlength{\rightskip}{0pt plus 5cm}void switch\+\_\+graphics (
+\begin{DoxyParamCaption}
+\item[{int}]{gr\+\_\+set\+\_\+flag}
+\end{DoxyParamCaption}
+)}}\label{drawing_8c_a0ba09dee9ab5e45ff03f6b0bfa0b9f1e}
+
+
+Definition at line 655 of file drawing.\+c.
+
+
+
+References A\+S\+C\+I\+I\+\_\+\+G\+R\+A\+P\+H\+I\+C\+S, assign\+\_\+graphics(), D\+E\+C\+\_\+\+G\+R\+A\+P\+H\+I\+C\+S, instance\+\_\+flags\+::\+D\+E\+Cgraphics, F\+A\+L\+S\+E, I\+B\+M\+\_\+\+G\+R\+A\+P\+H\+I\+C\+S, instance\+\_\+flags\+::\+I\+B\+Mgraphics, iflags, M\+A\+C\+\_\+\+G\+R\+A\+P\+H\+I\+C\+S, M\+A\+X\+P\+C\+H\+A\+R\+S, S\+I\+Z\+E, and T\+R\+U\+E.
+
+
+
+Referenced by initoptions(), parseoptions(), and process\+\_\+options().
+
+
+\begin{DoxyCode}
+657 \{
+658     \textcolor{keywordflow}{switch} (gr\_set\_flag) \{
+659     \textcolor{keywordflow}{default}:
+660     \textcolor{keywordflow}{case} \hyperlink{rm_8h_a2bfbb70c3867e020dcf95eb849e43491}{ASCII\_GRAPHICS}:
+661         \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\_graphics}((\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} *)0, 0, \hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{MAXPCHARS}, 0);
+662 \textcolor{preprocessor}{#ifdef PC9800}
+663         \textcolor{keywordflow}{if} (ascgraphics\_mode\_callback) (*ascgraphics\_mode\_callback)();
+664 \textcolor{preprocessor}{#endif}
+665         \textcolor{keywordflow}{break};
+666 \textcolor{preprocessor}{#ifdef ASCIIGRAPH}
+667     \textcolor{keywordflow}{case} \hyperlink{rm_8h_a935319051fae1fe5674b6fbb39933733}{IBM\_GRAPHICS}:
+668 \textcolor{comment}{/*}
+669 \textcolor{comment}{ * Use the nice IBM Extended ASCII line-drawing characters (codepage 437).}
+670 \textcolor{comment}{ *}
+671 \textcolor{comment}{ * OS/2 defaults to a multilingual character set (codepage 850, corresponding}
+672 \textcolor{comment}{ * to the ISO 8859 character set.  We should probably do a VioSetCp() call to}
+673 \textcolor{comment}{ * set the codepage to 437.}
+674 \textcolor{comment}{ */}
+675         \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a50993380c2db8f82946efa771d779154}{IBMgraphics} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+676         \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_ab2cddd19049fbf0fa4be5255bddfd633}{DECgraphics} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+677         \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\_graphics}(ibm\_graphics, \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}(ibm\_graphics), 
+      \hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{MAXPCHARS}, 0);
+678 \textcolor{preprocessor}{#ifdef PC9800}
+679         \textcolor{keywordflow}{if} (ibmgraphics\_mode\_callback) (*ibmgraphics\_mode\_callback)();
+680 \textcolor{preprocessor}{#endif}
+681         \textcolor{keywordflow}{break};
+682 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* ASCIIGRAPH */}\textcolor{preprocessor}{}
+683 \textcolor{preprocessor}{#ifdef TERMLIB}
+684     \textcolor{keywordflow}{case} \hyperlink{rm_8h_a09c6675e014eb197a43bc2e26fafb6e5}{DEC\_GRAPHICS}:
+685 \textcolor{comment}{/*}
+686 \textcolor{comment}{ * Use the VT100 line drawing character set.}
+687 \textcolor{comment}{ */}
+688         \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_ab2cddd19049fbf0fa4be5255bddfd633}{DECgraphics} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+689         \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a50993380c2db8f82946efa771d779154}{IBMgraphics} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+690         \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\_graphics}(dec\_graphics, \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}(dec\_graphics), 
+      \hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{MAXPCHARS}, 0);
+691         \textcolor{keywordflow}{if} (decgraphics\_mode\_callback) (*decgraphics\_mode\_callback)();
+692         \textcolor{keywordflow}{break};
+693 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TERMLIB */}\textcolor{preprocessor}{}
+694 \textcolor{preprocessor}{#ifdef MAC\_GRAPHICS\_ENV}
+695     \textcolor{keywordflow}{case} \hyperlink{rm_8h_aac98b106feee08951052259eaa0036b4}{MAC\_GRAPHICS}:
+696         \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\_graphics}(mac\_graphics, \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}(mac\_graphics), 
+      \hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{MAXPCHARS}, 0);
+697         \textcolor{keywordflow}{break};
+698 \textcolor{preprocessor}{#endif}
+699     \}
+700     \textcolor{keywordflow}{return};
+701 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{drawing_8c_aa795b6d963b7cac4d54e99ee34d5de1f}{\index{drawing.\+c@{drawing.\+c}!def\+\_\+monsyms@{def\+\_\+monsyms}}
+\index{def\+\_\+monsyms@{def\+\_\+monsyms}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{def\+\_\+monsyms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char def\+\_\+monsyms\mbox{[}{\bf M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S}\mbox{]}}}\label{drawing_8c_aa795b6d963b7cac4d54e99ee34d5de1f}
+
+
+Definition at line 96 of file drawing.\+c.
+
+
+
+Referenced by def\+\_\+char\+\_\+to\+\_\+monclass().
+
+\hypertarget{drawing_8c_a143ba64db6190f08d7a7af38836b45c2}{\index{drawing.\+c@{drawing.\+c}!def\+\_\+oc\+\_\+syms@{def\+\_\+oc\+\_\+syms}}
+\index{def\+\_\+oc\+\_\+syms@{def\+\_\+oc\+\_\+syms}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{def\+\_\+oc\+\_\+syms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char def\+\_\+oc\+\_\+syms\mbox{[}{\bf M\+A\+X\+O\+C\+L\+A\+S\+S\+E\+S}\mbox{]}}}\label{drawing_8c_a143ba64db6190f08d7a7af38836b45c2}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{charliteral}{'\(\backslash\)0'},       
+    \hyperlink{objclass_8h_aaa26b58e671b4b40f7f8312c363879a8}{ILLOBJ\_SYM},
+    \hyperlink{objclass_8h_a167d576f96915da41d35fc098b819f3f}{WEAPON\_SYM},
+    \hyperlink{objclass_8h_a9fefe709abc6f8db3b4babcf1b93b4b9}{ARMOR\_SYM},
+    \hyperlink{objclass_8h_a959c86dad3a255e717ec7e28fb0ce19f}{RING\_SYM},
+    \hyperlink{objclass_8h_abeeedf23505856ea4f0c846f26ed4c2e}{AMULET\_SYM},
+    \hyperlink{objclass_8h_a076a151e675841434281541364de9696}{TOOL\_SYM},
+    \hyperlink{objclass_8h_a848d724ec3de299f6385915e90ed27c6}{FOOD\_SYM},
+    \hyperlink{objclass_8h_a0e2e4cb90a8f3bb0ecdd9c29cd9249de}{POTION\_SYM},
+    \hyperlink{objclass_8h_a75f09b95cb4f78164924ba67bfc1aa60}{SCROLL\_SYM},
+    \hyperlink{objclass_8h_ad830967316e80031ef402cb1b035fabb}{SPBOOK\_SYM},
+    \hyperlink{objclass_8h_aca0724e812a5f73afd2d8977c93bc532}{WAND\_SYM},
+    \hyperlink{objclass_8h_a51922f9f067235cdf5559a11519a181d}{GOLD\_SYM},
+    \hyperlink{objclass_8h_a93a7922b17f7b2400655f5e79c5a528c}{GEM\_SYM},
+    \hyperlink{objclass_8h_a6dc6e2e0ca0ffaa0e6aa29bc8929bfa5}{ROCK\_SYM},
+    \hyperlink{objclass_8h_a7403b5d54b15be3bf6250f735452eff3}{BALL\_SYM},
+    \hyperlink{objclass_8h_a98d11671bc0c9bbea5315a29cbcf0322}{CHAIN\_SYM},
+    \hyperlink{objclass_8h_a0bcbd6800268b85366292c09e2af0392}{VENOM\_SYM}
+\}
+\end{DoxyCode}
+
+
+Definition at line 28 of file drawing.\+c.
+
+
+
+Referenced by def\+\_\+char\+\_\+to\+\_\+objclass().
+
+\hypertarget{drawing_8c_a40c9fc72853dbb40c05e137874db6c9c}{\index{drawing.\+c@{drawing.\+c}!def\+\_\+warnsyms@{def\+\_\+warnsyms}}
+\index{def\+\_\+warnsyms@{def\+\_\+warnsyms}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{def\+\_\+warnsyms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} struct {\bf symdef} def\+\_\+warnsyms\mbox{[}{\bf W\+A\+R\+N\+C\+O\+U\+N\+T}\mbox{]}}}\label{drawing_8c_a40c9fc72853dbb40c05e137874db6c9c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{\textcolor{charliteral}{'0'}, \textcolor{stringliteral}{"unknown creature causing you worry"}, \hyperlink{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}{C}(\hyperlink{color_8h_a200fd50f64e8a7777954547ef30798a1}{CLR\_WHITE})\},    
+    \{\textcolor{charliteral}{'1'}, \textcolor{stringliteral}{"unknown creature causing you concern"}, \hyperlink{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}{C}(\hyperlink{color_8h_a440726f8973da46eba779f170566b4cc}{CLR\_RED})\},  
+    \{\textcolor{charliteral}{'2'}, \textcolor{stringliteral}{"unknown creature causing you anxiety"}, \hyperlink{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}{C}(\hyperlink{color_8h_a440726f8973da46eba779f170566b4cc}{CLR\_RED})\},  
+    \{\textcolor{charliteral}{'3'}, \textcolor{stringliteral}{"unknown creature causing you disquiet"}, \hyperlink{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}{C}(\hyperlink{color_8h_a440726f8973da46eba779f170566b4cc}{CLR\_RED})\}, 
+    \{\textcolor{charliteral}{'4'}, \textcolor{stringliteral}{"unknown creature causing you alarm"},
+                        \hyperlink{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}{C}(\hyperlink{color_8h_ab6d8d8f1ba06b04bc27ec83e59fad1eb}{CLR\_MAGENTA})\},        
+    \{\textcolor{charliteral}{'5'}, \textcolor{stringliteral}{"unknown creature causing you dread"},
+                        \hyperlink{drawing_8c_ad169b09a4d523ff322121c6aa43c598c}{C}(\hyperlink{color_8h_aaf5c56b44c1ce54ae9b26278f652ea17}{CLR\_BRIGHT\_MAGENTA})\}   
+\}
+\end{DoxyCode}
+
+
+Definition at line 191 of file drawing.\+c.
+
+
+
+Referenced by do\+\_\+look(), initoptions(), and warning\+\_\+opts().
+
+\hypertarget{drawing_8c_a207dbacb240eb4a71d449e59280a72a6}{\index{drawing.\+c@{drawing.\+c}!defsyms@{defsyms}}
+\index{defsyms@{defsyms}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{defsyms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} struct {\bf symdef} defsyms\mbox{[}{\bf M\+A\+X\+P\+C\+H\+A\+R\+S}\mbox{]}}}\label{drawing_8c_a207dbacb240eb4a71d449e59280a72a6}
+
+
+Definition at line 206 of file drawing.\+c.
+
+
+
+Referenced by create\+\_\+monster(), do\+\_\+look(), doidtrap(), dosit(), find\+\_\+trap(), hurtle\+\_\+step(), and lookat().
+
+\hypertarget{drawing_8c_ad88b72975e0164c2b5c4092de5418b94}{\index{drawing.\+c@{drawing.\+c}!invisexplain@{invisexplain}}
+\index{invisexplain@{invisexplain}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{invisexplain}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char invisexplain\mbox{[}$\,$\mbox{]} = \char`\"{}remembered, unseen, creature\char`\"{}}}\label{drawing_8c_ad88b72975e0164c2b5c4092de5418b94}
+
+
+Definition at line 49 of file drawing.\+c.
+
+\hypertarget{drawing_8c_a815c4bc2d6fb54e172c5b7c3d78120d7}{\index{drawing.\+c@{drawing.\+c}!monexplain@{monexplain}}
+\index{monexplain@{monexplain}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{monexplain}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ {\bf const} monexplain\mbox{[}{\bf M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S}\mbox{]}}}\label{drawing_8c_a815c4bc2d6fb54e172c5b7c3d78120d7}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    0,
+    \textcolor{stringliteral}{"ant or other insect"},  \textcolor{stringliteral}{"blob"},         \textcolor{stringliteral}{"cockatrice"},
+    \textcolor{stringliteral}{"dog or other canine"},  \textcolor{stringliteral}{"eye or sphere"},    \textcolor{stringliteral}{"cat or other feline"},
+    \textcolor{stringliteral}{"gremlin"},          \textcolor{stringliteral}{"humanoid"},     \textcolor{stringliteral}{"imp or minor demon"},
+    \textcolor{stringliteral}{"jelly"},            \textcolor{stringliteral}{"kobold"},       \textcolor{stringliteral}{"leprechaun"},
+    \textcolor{stringliteral}{"mimic"},            \textcolor{stringliteral}{"nymph"},        \textcolor{stringliteral}{"orc"},
+    \textcolor{stringliteral}{"piercer"},          \textcolor{stringliteral}{"quadruped"},        \textcolor{stringliteral}{"rodent"},
+    \textcolor{stringliteral}{"arachnid or centipede"},    \textcolor{stringliteral}{"trapper or lurker above"}, \textcolor{stringliteral}{"unicorn or horse"},
+    \textcolor{stringliteral}{"vortex"},       \textcolor{stringliteral}{"worm"}, \textcolor{stringliteral}{"xan or other mythical/fantastic insect"},
+    \textcolor{stringliteral}{"light"},            \textcolor{stringliteral}{"zruty"},
+
+    \textcolor{stringliteral}{"angelic being"},        \textcolor{stringliteral}{"bat or bird"},      \textcolor{stringliteral}{"centaur"},
+    \textcolor{stringliteral}{"dragon"},           \textcolor{stringliteral}{"elemental"},        \textcolor{stringliteral}{"fungus or mold"},
+    \textcolor{stringliteral}{"gnome"},            \textcolor{stringliteral}{"giant humanoid"},   0,
+    \textcolor{stringliteral}{"jabberwock"},       \textcolor{stringliteral}{"Keystone Kop"},     \textcolor{stringliteral}{"lich"},
+    \textcolor{stringliteral}{"mummy"},            \textcolor{stringliteral}{"naga"},         \textcolor{stringliteral}{"ogre"},
+    \textcolor{stringliteral}{"pudding or ooze"},      \textcolor{stringliteral}{"quantum mechanic"}, \textcolor{stringliteral}{"rust monster or disenchanter"},
+    \textcolor{stringliteral}{"snake"},            \textcolor{stringliteral}{"troll"},        \textcolor{stringliteral}{"umber hulk"},
+    \textcolor{stringliteral}{"vampire"},          \textcolor{stringliteral}{"wraith"},       \textcolor{stringliteral}{"xorn"},
+    \textcolor{stringliteral}{"apelike creature"},     \textcolor{stringliteral}{"zombie"},
+
+    \textcolor{stringliteral}{"human or elf"},     \textcolor{stringliteral}{"ghost"},        \textcolor{stringliteral}{"golem"},
+    \textcolor{stringliteral}{"major demon"},      \textcolor{stringliteral}{"sea monster"},      \textcolor{stringliteral}{"lizard"},
+    \textcolor{stringliteral}{"long worm tail"},       \textcolor{stringliteral}{"mimic"}
+\}
+\end{DoxyCode}
+
+
+Definition at line 164 of file drawing.\+c.
+
+\hypertarget{drawing_8c_a60b7c4f15fb530ce35d503dae35b79d0}{\index{drawing.\+c@{drawing.\+c}!monsyms@{monsyms}}
+\index{monsyms@{monsyms}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{monsyms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uchar} monsyms\mbox{[}{\bf M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S}\mbox{]} = {\bf D\+U\+M\+M\+Y}}}\label{drawing_8c_a60b7c4f15fb530ce35d503dae35b79d0}
+
+
+Definition at line 24 of file drawing.\+c.
+
+\hypertarget{drawing_8c_aac283a3f7f26e3b1fa4974dd4647a6df}{\index{drawing.\+c@{drawing.\+c}!objexplain@{objexplain}}
+\index{objexplain@{objexplain}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{objexplain}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ {\bf const} objexplain\mbox{[}$\,$\mbox{]}}}\label{drawing_8c_aac283a3f7f26e3b1fa4974dd4647a6df}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ 
+    0,
+    \textcolor{stringliteral}{"strange object"},
+    \textcolor{stringliteral}{"weapon"},
+    \textcolor{stringliteral}{"suit or piece of armor"},
+    \textcolor{stringliteral}{"ring"},
+    \textcolor{stringliteral}{"amulet"},
+    \textcolor{stringliteral}{"useful item (pick-axe, key, lamp...)"},
+    \textcolor{stringliteral}{"piece of food"},
+    \textcolor{stringliteral}{"potion"},
+    \textcolor{stringliteral}{"scroll"},
+    \textcolor{stringliteral}{"spellbook"},
+    \textcolor{stringliteral}{"wand"},
+    \textcolor{stringliteral}{"pile of coins"},
+    \textcolor{stringliteral}{"gem or rock"},
+    \textcolor{stringliteral}{"boulder or statue"},
+    \textcolor{stringliteral}{"iron ball"},
+    \textcolor{stringliteral}{"iron chain"},
+    \textcolor{stringliteral}{"splash of venom"}
+\}
+\end{DoxyCode}
+
+
+Definition at line 52 of file drawing.\+c.
+
+\hypertarget{drawing_8c_a1fbe3a29deee480c33465cbb21f4f012}{\index{drawing.\+c@{drawing.\+c}!oc\+\_\+syms@{oc\+\_\+syms}}
+\index{oc\+\_\+syms@{oc\+\_\+syms}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{oc\+\_\+syms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uchar} oc\+\_\+syms\mbox{[}{\bf M\+A\+X\+O\+C\+L\+A\+S\+S\+E\+S}\mbox{]} = {\bf D\+U\+M\+M\+Y}}}\label{drawing_8c_a1fbe3a29deee480c33465cbb21f4f012}
+
+
+Definition at line 22 of file drawing.\+c.
+
+\hypertarget{drawing_8c_a25f810f55c19a1331d556aaa8402861a}{\index{drawing.\+c@{drawing.\+c}!oclass\+\_\+names@{oclass\+\_\+names}}
+\index{oclass\+\_\+names@{oclass\+\_\+names}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{oclass\+\_\+names}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ {\bf const} oclass\+\_\+names\mbox{[}$\,$\mbox{]}}}\label{drawing_8c_a25f810f55c19a1331d556aaa8402861a}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    0,
+    \textcolor{stringliteral}{"illegal objects"},
+    \textcolor{stringliteral}{"weapons"},
+    \textcolor{stringliteral}{"armor"},
+    \textcolor{stringliteral}{"rings"},
+    \textcolor{stringliteral}{"amulets"},
+    \textcolor{stringliteral}{"tools"},
+    \textcolor{stringliteral}{"food"},
+    \textcolor{stringliteral}{"potions"},
+    \textcolor{stringliteral}{"scrolls"},
+    \textcolor{stringliteral}{"spellbooks"},
+    \textcolor{stringliteral}{"wands"},
+    \textcolor{stringliteral}{"coins"},
+    \textcolor{stringliteral}{"rocks"},
+    \textcolor{stringliteral}{"large stones"},
+    \textcolor{stringliteral}{"iron balls"},
+    \textcolor{stringliteral}{"chains"},
+    \textcolor{stringliteral}{"venoms"}
+\}
+\end{DoxyCode}
+
+
+Definition at line 74 of file drawing.\+c.
+
+\hypertarget{drawing_8c_ad8e71cd12d6e4d48b240325f0a5f9758}{\index{drawing.\+c@{drawing.\+c}!showsyms@{showsyms}}
+\index{showsyms@{showsyms}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{showsyms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uchar} showsyms\mbox{[}{\bf M\+A\+X\+P\+C\+H\+A\+R\+S}\mbox{]} = {\bf D\+U\+M\+M\+Y}}}\label{drawing_8c_ad8e71cd12d6e4d48b240325f0a5f9758}
+
+
+Definition at line 23 of file drawing.\+c.
+
+
+
+Referenced by assign\+\_\+graphics(), do\+\_\+look(), is\+\_\+swallow\+\_\+sym(), mapglyph(), and nhglyph2charcolor().
+
+\hypertarget{drawing_8c_ab3d2fdb1e0f7681246c5b38775944f46}{\index{drawing.\+c@{drawing.\+c}!warnsyms@{warnsyms}}
+\index{warnsyms@{warnsyms}!drawing.\+c@{drawing.\+c}}
+\subsubsection[{warnsyms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uchar} warnsyms\mbox{[}{\bf W\+A\+R\+N\+C\+O\+U\+N\+T}\mbox{]} = {\bf D\+U\+M\+M\+Y}}}\label{drawing_8c_ab3d2fdb1e0f7681246c5b38775944f46}
+
+
+Definition at line 25 of file drawing.\+c.
+

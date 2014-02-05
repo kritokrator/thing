@@ -1,0 +1,379 @@
+\hypertarget{gnmap_8h}{\section{nethack/win/gnome/gnmap.h File Reference}
+\label{gnmap_8h}\index{nethack/win/gnome/gnmap.\+h@{nethack/win/gnome/gnmap.\+h}}
+}
+{\ttfamily \#include $<$gnome.\+h$>$}\\*
+{\ttfamily \#include $<$gdk\+\_\+imlib.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Gtk\+Widget $\ast$ \hyperlink{gnmap_8h_a44ec54ca300638b53335b3ea677e6405}{ghack\+\_\+init\+\_\+map\+\_\+window} (void)
+\item 
+void \hyperlink{gnmap_8h_a15818b0d93c4f2107f129c6476ff7c71}{ghack\+\_\+reinit\+\_\+map\+\_\+window} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gnmap_8h_a44ec54ca300638b53335b3ea677e6405}{\index{gnmap.\+h@{gnmap.\+h}!ghack\+\_\+init\+\_\+map\+\_\+window@{ghack\+\_\+init\+\_\+map\+\_\+window}}
+\index{ghack\+\_\+init\+\_\+map\+\_\+window@{ghack\+\_\+init\+\_\+map\+\_\+window}!gnmap.\+h@{gnmap.\+h}}
+\subsubsection[{ghack\+\_\+init\+\_\+map\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}Gtk\+Widget$\ast$ ghack\+\_\+init\+\_\+map\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{gnmap_8h_a44ec54ca300638b53335b3ea677e6405}
+
+
+Definition at line 83 of file gnmap.\+c.
+
+
+
+References background, C\+O\+L\+N\+O, F\+A\+L\+S\+E, frame, ghack\+\_\+delay(), ghack\+\_\+glyph\+\_\+height(), ghack\+\_\+glyph\+\_\+width(), ghack\+\_\+handle\+\_\+button\+\_\+press(), ghack\+\_\+map, ghack\+\_\+map\+\_\+clear(), ghack\+\_\+map\+\_\+cliparound(), ghack\+\_\+map\+\_\+cursor\+\_\+to(), ghack\+\_\+map\+\_\+display(), ghack\+\_\+map\+\_\+print\+\_\+glyph(), ghack\+\_\+map\+\_\+putstr(), ghack\+\_\+map\+\_\+window\+\_\+zoom(), height, my\+Canvas\+Group, N\+U\+L\+L, pet\+\_\+mark\+\_\+xpm, petmark, R\+O\+W\+N\+O, T\+R\+U\+E, and width.
+
+
+
+Referenced by gnome\+\_\+create\+\_\+nhwindow\+\_\+by\+\_\+id().
+
+
+\begin{DoxyCode}
+84 \{
+85   GtkWidget        *vbox;
+86   GtkWidget        *hbox;
+87   GtkWidget        *table;
+88   GtkWidget        *\hyperlink{gnmap_8c_aa96506ac11851965d0f25b0c9eb53885}{frame};
+89   GtkWidget        *w;
+90   GtkWidget    *hSeparator;
+91   GtkAdjustment    *adj;
+92   GnomeCanvasImage  *bg;
+93   \textcolor{keywordtype}{double} \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}, x, y;
+94   \textcolor{keywordtype}{int} i;
+95 
+96   width = \hyperlink{gnmap_8c_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} * \hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}();
+97   height = \hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO} * \hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}();
+98 
+99   vbox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 4);
+100   gtk\_container\_set\_border\_width (GTK\_CONTAINER (vbox), 4);
+101   gtk\_widget\_show (vbox);
+102   
+103   \textcolor{comment}{/* Add in a horiz seperator */}
+104   hSeparator = gtk\_hseparator\_new ();
+105   gtk\_box\_pack\_start (GTK\_BOX (vbox), hSeparator, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+106   gtk\_widget\_show ( hSeparator);
+107   
+108   hbox = gtk\_hbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 4);
+109   gtk\_box\_pack\_start (GTK\_BOX (vbox), hbox, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+110   gtk\_widget\_show (hbox);
+111 
+112   \textcolor{comment}{/* Create the Zoom spinbutton.}
+113 \textcolor{comment}{  */}
+114   \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.zoom = 1.0;
+115   w = gtk\_label\_new (\textcolor{stringliteral}{"Zoom:"});
+116   gtk\_box\_pack\_start (GTK\_BOX (hbox), w, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+117   gtk\_widget\_show (w);
+118   adj = GTK\_ADJUSTMENT (gtk\_adjustment\_new (1.00, 0.5, 3.00, 0.05, 0.50, 0.50));
+119   w = gtk\_spin\_button\_new (adj, 0.5, 2);
+120   gtk\_widget\_set\_usize (w, 50, 0);
+121   gtk\_box\_pack\_start (GTK\_BOX (hbox), w, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+122   gtk\_widget\_show (w);
+123 
+124   \textcolor{comment}{/* Canvas and scrollbars}
+125 \textcolor{comment}{  */}
+126   gtk\_widget\_push\_visual (gdk\_imlib\_get\_visual ());
+127   gtk\_widget\_push\_colormap (gdk\_imlib\_get\_colormap ());
+128   \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas = GNOME\_CANVAS (gnome\_canvas\_new());
+129   \textcolor{comment}{//gtk\_widget\_push\_visual(gdk\_rgb\_get\_visual());}
+130   \textcolor{comment}{//gtk\_widget\_push\_colormap(gdk\_rgb\_get\_cmap());}
+131   \textcolor{comment}{//ghack\_map.canvas = GNOME\_CANVAS (gnome\_canvas\_new\_aa());}
+132 
+133   gtk\_widget\_pop\_colormap();
+134   gtk\_widget\_pop\_visual();
+135   gtk\_widget\_show (GTK\_WIDGET(\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas));
+136 
+137   table = gtk\_table\_new (2, 2, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+138   gtk\_table\_set\_row\_spacings (GTK\_TABLE (table), 4);
+139   gtk\_table\_set\_col\_spacings (GTK\_TABLE (table), 4);
+140   gtk\_box\_pack\_start (GTK\_BOX (vbox), table, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 0);
+141   gtk\_widget\_show (table);
+142   
+143   frame = gtk\_frame\_new (\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+144   \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.frame = \hyperlink{gnmap_8c_aa96506ac11851965d0f25b0c9eb53885}{frame};
+145   gtk\_frame\_set\_shadow\_type (GTK\_FRAME (frame), GTK\_SHADOW\_IN);
+146   gtk\_table\_attach (GTK\_TABLE (table), frame,
+147             0, 1, 0, 1,
+148             GTK\_EXPAND | GTK\_FILL | GTK\_SHRINK,
+149             GTK\_EXPAND | GTK\_FILL | GTK\_SHRINK,
+150             0, 0);
+151   gtk\_widget\_show (frame);
+152 
+153   gtk\_container\_add (GTK\_CONTAINER (frame), GTK\_WIDGET(\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas));
+154   gnome\_canvas\_set\_scroll\_region (GNOME\_CANVAS(\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas), 0, 0, 
+155             width+2*\hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}(), height+2*
+      \hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}());
+156 
+157   gnome\_canvas\_set\_pixels\_per\_unit (GNOME\_CANVAS(\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas), 1.0);
+158 
+159   w = gtk\_hscrollbar\_new (GTK\_LAYOUT (\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas)->hadjustment);
+160   gtk\_table\_attach (GTK\_TABLE (table), w,
+161             0, 1, 1, 2,
+162             GTK\_EXPAND | GTK\_FILL | GTK\_SHRINK,
+163             GTK\_FILL,
+164             0, 0);
+165   gtk\_widget\_show (w);
+166 
+167   w = gtk\_vscrollbar\_new (GTK\_LAYOUT (\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas)->vadjustment);
+168   gtk\_table\_attach (GTK\_TABLE (table), w,
+169             1, 2, 0, 1, GTK\_FILL,
+170             GTK\_EXPAND | GTK\_FILL | GTK\_SHRINK,
+171             0, 0);
+172   gtk\_widget\_show (w); 
+173   
+174   \hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup} = GNOME\_CANVAS\_GROUP ( gnome\_canvas\_item\_new ( 
+175             gnome\_canvas\_root(GNOME\_CANVAS(\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas)), 
+176             gnome\_canvas\_group\_get\_type (), 
+177             \textcolor{stringliteral}{"x"}, 0.0, 
+178             \textcolor{stringliteral}{"y"}, 0.0, 
+179             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) );
+180 
+181   \textcolor{comment}{/* Tile the map background with a pretty image */} 
+182   \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background} = gdk\_imlib\_load\_image((\textcolor{keywordtype}{char} *) \textcolor{stringliteral}{"mapbg.xpm"});
+183   \textcolor{keywordflow}{if} (\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+184       g\_warning(\textcolor{stringliteral}{"Bummer! Failed to load the map background image (mapbg.xpm)!"});
+185   \}
+186   \textcolor{keywordflow}{else} \{
+187     gdk\_imlib\_render(\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}, \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_width,
+188       \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_height);
+189 
+190     \textcolor{comment}{/* Tile the map background */}
+191     \textcolor{keywordflow}{for} (y = 0; y < height+\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_height; y+=\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_height)
+192     \{
+193       \textcolor{keywordflow}{for} (x = 0; x < width+\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_width; x+=\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_width)
+194     \{
+195       bg = GNOME\_CANVAS\_IMAGE( gnome\_canvas\_item\_new (
+196               \hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup}, gnome\_canvas\_image\_get\_type (),
+197               \textcolor{stringliteral}{"x"},      (\textcolor{keywordtype}{double}) x,
+198               \textcolor{stringliteral}{"y"},      (\textcolor{keywordtype}{double}) y,
+199               \textcolor{stringliteral}{"width"},  (\textcolor{keywordtype}{double}) \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_width,
+200               \textcolor{stringliteral}{"height"}, (\textcolor{keywordtype}{double}) \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_height,
+201               \textcolor{stringliteral}{"image"},  \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background},
+202               \textcolor{stringliteral}{"anchor"}, (GtkAnchorType) GTK\_ANCHOR\_CENTER,
+203               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) );
+204       gnome\_canvas\_item\_lower\_to\_bottom (GNOME\_CANVAS\_ITEM( bg));
+205     \}
+206     \}
+207   \}
+208 
+209   \textcolor{comment}{/* ghack\_map.map is an array of canvas images.  Each cell of}
+210 \textcolor{comment}{   * the array will contain one tile.  Here, we create the}
+211 \textcolor{comment}{   * space for the cells and then create the cells for easy}
+212 \textcolor{comment}{   * access later.}
+213 \textcolor{comment}{  */}
+214   \textcolor{keywordflow}{for} (i=0, y = 0; y < \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}; y+=\hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}())
+215     \{
+216       \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}; x+=\hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}())
+217     \{
+218       \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.map[i++] = GNOME\_CANVAS\_IMAGE( 
+219           gnome\_canvas\_item\_new (
+220               \hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup},
+221               gnome\_canvas\_image\_get\_type (),
+222               \textcolor{stringliteral}{"x"},      (\textcolor{keywordtype}{double}) x,
+223               \textcolor{stringliteral}{"y"},      (\textcolor{keywordtype}{double}) y,
+224               \textcolor{stringliteral}{"width"},  (\textcolor{keywordtype}{double}) \hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}(),
+225               \textcolor{stringliteral}{"height"}, (\textcolor{keywordtype}{double}) \hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}(),
+226               \textcolor{stringliteral}{"anchor"}, GTK\_ANCHOR\_NORTH\_WEST,
+227               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) );
+228     \}
+229     \}
+230 
+231    \textcolor{comment}{/* Set up the pet mark image */}
+232   \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark} = gdk\_imlib\_create\_image\_from\_xpm\_data( \hyperlink{gnmap_8c_a056e9dfb2a74f5ccf4253f15b3533c32}{pet\_mark\_xpm});
+233   \textcolor{keywordflow}{if} (\hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+234     g\_warning(\textcolor{stringliteral}{"Bummer! Failed to load the pet\_mark image!"});
+235   \}
+236   \textcolor{keywordflow}{else} \{
+237       gdk\_imlib\_render(\hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark}, \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark}->rgb\_width, \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark}->rgb\_height);
+238 
+239       \textcolor{comment}{/* ghack\_map.overlay is an array of canvas images used to}
+240 \textcolor{comment}{       * overlay tile images...}
+241 \textcolor{comment}{       */}
+242       \textcolor{keywordflow}{for} (i=0, y = 0; y < \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}; y+=\hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}())
+243     \{
+244       \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}; x+=\hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}())
+245         \{
+246           \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.overlay[i] = GNOME\_CANVAS\_IMAGE( 
+247               gnome\_canvas\_item\_new (
+248               \hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup},
+249               gnome\_canvas\_image\_get\_type (),
+250               \textcolor{stringliteral}{"x"},      (\textcolor{keywordtype}{double}) x,
+251               \textcolor{stringliteral}{"y"},      (\textcolor{keywordtype}{double}) y,
+252               \textcolor{stringliteral}{"width"},  (\textcolor{keywordtype}{double}) \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark}->rgb\_width,
+253               \textcolor{stringliteral}{"height"}, (\textcolor{keywordtype}{double}) \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark}->rgb\_height,
+254               \textcolor{stringliteral}{"image"},  \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark},
+255               \textcolor{stringliteral}{"anchor"}, GTK\_ANCHOR\_NORTH\_WEST,
+256               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) );
+257           gnome\_canvas\_item\_lower\_to\_bottom (
+258               GNOME\_CANVAS\_ITEM( \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.overlay[i++]));
+259         \}
+260     \}
+261   \}
+262 
+263   \textcolor{comment}{/* Resize the canvas when the spinbutton changes}
+264 \textcolor{comment}{  */}
+265   gtk\_signal\_connect (GTK\_OBJECT (adj),
+266               \textcolor{stringliteral}{"value\_changed"},
+267               (GtkSignalFunc) \hyperlink{gnmap_8c_a4e241342beceaeac702f05b8cbc9a5bf}{ghack\_map\_window\_zoom},
+268               \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas);
+269 
+270   \textcolor{comment}{/* Game signals}
+271 \textcolor{comment}{  */}
+272   gtk\_signal\_connect (GTK\_OBJECT (vbox),
+273               \textcolor{stringliteral}{"ghack\_curs"},
+274               GTK\_SIGNAL\_FUNC (\hyperlink{gnmap_8c_ae57d8ab517f0fbbe2fd6b12194d35829}{ghack\_map\_cursor\_to}),
+275               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+276   gtk\_signal\_connect (GTK\_OBJECT (vbox),
+277               \textcolor{stringliteral}{"ghack\_putstr"},
+278               GTK\_SIGNAL\_FUNC (\hyperlink{gnmap_8c_a5aa687023bf924d1f9c4af0df11887f1}{ghack\_map\_putstr}),
+279               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+280   gtk\_signal\_connect (GTK\_OBJECT (vbox),
+281               \textcolor{stringliteral}{"ghack\_print\_glyph"},
+282               GTK\_SIGNAL\_FUNC (\hyperlink{gnmap_8c_aaf59467e5322e8a13b8618aa8de90c5b}{ghack\_map\_print\_glyph}),
+283               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+284   gtk\_signal\_connect (GTK\_OBJECT (vbox),
+285               \textcolor{stringliteral}{"ghack\_clear"},
+286               GTK\_SIGNAL\_FUNC (\hyperlink{gnmap_8c_a791a445f08da1083cfef8207859f894b}{ghack\_map\_clear}),
+287               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+288   gtk\_signal\_connect (GTK\_OBJECT (vbox),
+289               \textcolor{stringliteral}{"ghack\_display"},
+290               GTK\_SIGNAL\_FUNC (\hyperlink{gnmap_8c_a0ceb459c3f0ca739e241b9c19ed2ec17}{ghack\_map\_display}),
+291               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+292   gtk\_signal\_connect (GTK\_OBJECT (vbox),
+293               \textcolor{stringliteral}{"ghack\_cliparound"},
+294               GTK\_SIGNAL\_FUNC (\hyperlink{gnmap_8c_a23389c56b91f9284ec857df7dc6ca812}{ghack\_map\_cliparound}),
+295               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+296   gtk\_signal\_connect (GTK\_OBJECT (\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas),
+297               \textcolor{stringliteral}{"button\_press\_event"},
+298               GTK\_SIGNAL\_FUNC (\hyperlink{gnsignal_8c_af1892417c71cf829ce055df7174e56b1}{ghack\_handle\_button\_press}),
+299               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+300   gtk\_signal\_connect(GTK\_OBJECT (\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas), 
+301                   \textcolor{stringliteral}{"gnome\_delay\_output"},
+302                       GTK\_SIGNAL\_FUNC(\hyperlink{gnsignal_8c_aa9aeab1b0ef274fa4e2c94a8b085bcb0}{ghack\_delay}), 
+303               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+304   
+305   \textcolor{keywordflow}{return} GTK\_WIDGET(vbox);
+306 \}
+\end{DoxyCode}
+\hypertarget{gnmap_8h_a15818b0d93c4f2107f129c6476ff7c71}{\index{gnmap.\+h@{gnmap.\+h}!ghack\+\_\+reinit\+\_\+map\+\_\+window@{ghack\+\_\+reinit\+\_\+map\+\_\+window}}
+\index{ghack\+\_\+reinit\+\_\+map\+\_\+window@{ghack\+\_\+reinit\+\_\+map\+\_\+window}!gnmap.\+h@{gnmap.\+h}}
+\subsubsection[{ghack\+\_\+reinit\+\_\+map\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+reinit\+\_\+map\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{gnmap_8h_a15818b0d93c4f2107f129c6476ff7c71}
+
+
+Definition at line 524 of file gnmap.\+c.
+
+
+
+References background, C\+O\+L\+N\+O, doredraw(), ghack\+\_\+glyph\+\_\+height(), ghack\+\_\+glyph\+\_\+width(), ghack\+\_\+map, ghack\+\_\+map\+\_\+cliparound(), ghack\+\_\+map\+\_\+cursor\+\_\+to(), height, my\+Canvas\+Group, N\+U\+L\+L, petmark, R\+O\+W\+N\+O, u, you\+::ux, you\+::uy, and width.
+
+
+
+Referenced by ghack\+\_\+settings\+\_\+dialog().
+
+
+\begin{DoxyCode}
+525 \{
+526   GnomeCanvasImage  *bg;
+527   \textcolor{keywordtype}{double} \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}, \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}, x, y;
+528   \textcolor{keywordtype}{int} i;
+529 
+530   \textcolor{comment}{/* ghack\_map\_clear(NULL, NULL); */}
+531 
+532   width = \hyperlink{gnmap_8c_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} * \hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}();
+533   height = \hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO} * \hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}();
+534 
+535   gnome\_canvas\_set\_scroll\_region (GNOME\_CANVAS(\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas), 0, 0, 
+536             width+2*\hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}(), height+2*
+      \hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}());
+537 
+538   \textcolor{comment}{/* remove everything currently in the canvas map */}
+539   gtk\_object\_destroy( GTK\_OBJECT (\hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup}));
+540 
+541   \textcolor{comment}{/* Put some groups back */}
+542   \hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup} = GNOME\_CANVAS\_GROUP ( gnome\_canvas\_item\_new ( 
+543             gnome\_canvas\_root(GNOME\_CANVAS(\hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas)), 
+544             gnome\_canvas\_group\_get\_type (), 
+545             \textcolor{stringliteral}{"x"}, 0.0, 
+546             \textcolor{stringliteral}{"y"}, 0.0, 
+547             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) );
+548 
+549   \textcolor{comment}{/* Tile the map background with a pretty image */} 
+550   \textcolor{keywordflow}{if} (\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background} != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+551     \textcolor{comment}{/* Tile the map background */}
+552     \textcolor{keywordflow}{for} (y = 0; y < height+\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_height; y+=\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_height)
+553     \{
+554       \textcolor{keywordflow}{for} (x = 0; x < width+\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_width; x+=\hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_width)
+555     \{
+556       bg = GNOME\_CANVAS\_IMAGE( gnome\_canvas\_item\_new (
+557               \hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup}, gnome\_canvas\_image\_get\_type (),
+558               \textcolor{stringliteral}{"x"},      (\textcolor{keywordtype}{double}) x,
+559               \textcolor{stringliteral}{"y"},      (\textcolor{keywordtype}{double}) y,
+560               \textcolor{stringliteral}{"width"},  (\textcolor{keywordtype}{double}) \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_width,
+561               \textcolor{stringliteral}{"height"}, (\textcolor{keywordtype}{double}) \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background}->rgb\_height,
+562               \textcolor{stringliteral}{"image"},  \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background},
+563               \textcolor{stringliteral}{"anchor"}, (GtkAnchorType) GTK\_ANCHOR\_CENTER,
+564               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) );
+565       gnome\_canvas\_item\_lower\_to\_bottom (GNOME\_CANVAS\_ITEM( bg));
+566     \}
+567     \}
+568   \}
+569 
+570   \textcolor{comment}{/* ghack\_map.map is an array of canvas images.  Each cell of}
+571 \textcolor{comment}{   * the array will contain one tile.  Here, we create the}
+572 \textcolor{comment}{   * space for the cells and then create the cells for easy}
+573 \textcolor{comment}{   * access later.}
+574 \textcolor{comment}{  */}
+575   \textcolor{keywordflow}{for} (i=0, y = 0; y < \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}; y+=\hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}()) \{
+576       \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}; x+=\hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}()) \{
+577       \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.map[i++] = GNOME\_CANVAS\_IMAGE( 
+578           gnome\_canvas\_item\_new (
+579               \hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup},
+580               gnome\_canvas\_image\_get\_type (),
+581               \textcolor{stringliteral}{"x"},      (\textcolor{keywordtype}{double}) x,
+582               \textcolor{stringliteral}{"y"},      (\textcolor{keywordtype}{double}) y,
+583               \textcolor{stringliteral}{"width"},  (\textcolor{keywordtype}{double}) \hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}(),
+584               \textcolor{stringliteral}{"height"}, (\textcolor{keywordtype}{double}) \hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}(),
+585               \textcolor{stringliteral}{"anchor"}, GTK\_ANCHOR\_NORTH\_WEST,
+586               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) );
+587       \}
+588   \}
+589   
+590   \textcolor{keywordflow}{if} (\hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark} != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+591       \textcolor{comment}{/* ghack\_map.overlay is an array of canvas images used to}
+592 \textcolor{comment}{       * overlay tile images...}
+593 \textcolor{comment}{      */}
+594       \textcolor{keywordflow}{for} (i=0, y = 0; y < \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}; y+=\hyperlink{gnglyph_8c_a1963bd384638635f8d12bf8e24d6fdf0}{ghack\_glyph\_height}()) \{
+595       \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}; x+=\hyperlink{gnglyph_8c_a687b3c388d55c23376d56c57270610b7}{ghack\_glyph\_width}()) \{
+596           \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.overlay[i] = GNOME\_CANVAS\_IMAGE( 
+597               gnome\_canvas\_item\_new (
+598               \hyperlink{gnmap_8c_a70a6dbea3fe77b0c979c7afcdb619b71}{myCanvasGroup},
+599               gnome\_canvas\_image\_get\_type (),
+600               \textcolor{stringliteral}{"x"},      (\textcolor{keywordtype}{double}) x,
+601               \textcolor{stringliteral}{"y"},      (\textcolor{keywordtype}{double}) y,
+602               \textcolor{stringliteral}{"width"},  (\textcolor{keywordtype}{double}) \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark}->rgb\_width,
+603               \textcolor{stringliteral}{"height"}, (\textcolor{keywordtype}{double}) \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark}->rgb\_height,
+604               \textcolor{stringliteral}{"image"},  \hyperlink{gnmap_8c_aa0b634f1506bc7432b30cc95ad69dc8a}{petmark},
+605               \textcolor{stringliteral}{"anchor"}, GTK\_ANCHOR\_NORTH\_WEST,
+606               \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) );
+607           gnome\_canvas\_item\_lower\_to\_bottom (
+608               GNOME\_CANVAS\_ITEM( \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.overlay[i++]));
+609         \}
+610     \}
+611   \}
+612 
+613   \hyperlink{gnmap_8c_a23389c56b91f9284ec857df7dc6ca812}{ghack\_map\_cliparound}(\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+614   \hyperlink{gnmap_8c_ae57d8ab517f0fbbe2fd6b12194d35829}{ghack\_map\_cursor\_to}(\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+615   gnome\_canvas\_update\_now ( \hyperlink{gnmap_8c_aeab0f196279303c96a5eace1ddb34e92}{ghack\_map}.canvas);
+616   \hyperlink{display_8c_abf432a93fec9c94db8570f8a2c01468e}{doredraw}();
+617 \}
+\end{DoxyCode}

@@ -1,0 +1,688 @@
+\hypertarget{objects_8c}{\section{nethack/src/objects.c File Reference}
+\label{objects_8c}\index{nethack/src/objects.\+c@{nethack/src/objects.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}obj.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}objclass.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}prop.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}skills.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}objects.\+c\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}color.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structmonst}{monst}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{O\+B\+J}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc)~\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc
+\item 
+\#define \hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{O\+B\+J\+E\+C\+T}(\hyperlink{structobj}{obj}, bits, prp, sym, prob, dly, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, sdam, ldam, oc1, oc2, nut, color)~\{\hyperlink{structobj}{obj}\}
+\item 
+\#define \hyperlink{objects_8c_a6433aa53ffc95a71953bff4dff3f8abe}{W\+E\+A\+P\+O\+N}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, app, kn, mg, bi, prob, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, sdam, ldam, hitbon, typ, sub, metal, color)
+\item 
+\#define \hyperlink{objects_8c_ad2328e3734dab5920ce0273feb0ca27f}{P\+R\+O\+J\+E\+C\+T\+I\+L\+E}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, app, kn, prob, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, sdam, ldam, hitbon, metal, sub, color)
+\item 
+\#define \hyperlink{objects_8c_a3e459f83894a8f768a64c69247fd686f}{B\+O\+W}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, app, kn, prob, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, hitbon, metal, sub, color)
+\item 
+\#define \hyperlink{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{P}~\hyperlink{objclass_8h_a8c725b0c9ad0bc2c8fa7ed0f3138ef87}{P\+I\+E\+R\+C\+E}
+\item 
+\#define \hyperlink{objects_8c_af933676109efed7ab34cea71d748a517}{S}~\hyperlink{objclass_8h_a69eb17477fd6f6af2c9ca2d5f4c7df3c}{S\+L\+A\+S\+H}
+\item 
+\#define \hyperlink{objects_8c_a111da81ae5883147168bbb8366377b10}{B}~\hyperlink{objclass_8h_ab52aa4018a56a5a17de4bd98cb6ac20b}{W\+H\+A\+C\+K}
+\item 
+\#define \hyperlink{objects_8c_a8714efd3094bf948c56467966d6a7f20}{A\+R\+M\+O\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mgc, blk, power, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, ac, can, sub, metal, c)
+\item 
+\#define \hyperlink{objects_8c_a41bb1bcc256bc134bd6a09bab67aec63}{H\+E\+L\+M}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mgc, power, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, ac, can, metal, c)~\hyperlink{objects_8c_a8714efd3094bf948c56467966d6a7f20}{A\+R\+M\+O\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc,kn,mgc,0,power,prob,\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay},wt,\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost},ac,can,\hyperlink{objclass_8h_aef83afe8f2de2b9dc1a1371050f528c9}{A\+R\+M\+\_\+\+H\+E\+L\+M},metal,c)
+\item 
+\#define \hyperlink{objects_8c_a1f43c0235eb62c7e36799fbd96fd5656}{C\+L\+O\+A\+K}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mgc, power, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, ac, can, metal, c)~\hyperlink{objects_8c_a8714efd3094bf948c56467966d6a7f20}{A\+R\+M\+O\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc,kn,mgc,0,power,prob,\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay},wt,\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost},ac,can,\hyperlink{objclass_8h_ac94f9edc8d7943735cc56988a40434d5}{A\+R\+M\+\_\+\+C\+L\+O\+A\+K},metal,c)
+\item 
+\#define \hyperlink{objects_8c_ac8f2adec384b3f02e43bfc2935be508a}{S\+H\+I\+E\+L\+D}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mgc, blk, power, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, ac, can, metal, c)~\hyperlink{objects_8c_a8714efd3094bf948c56467966d6a7f20}{A\+R\+M\+O\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc,kn,mgc,blk,power,prob,\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay},wt,\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost},ac,can,\hyperlink{objclass_8h_a528282688d83607f4edb355c49d92481}{A\+R\+M\+\_\+\+S\+H\+I\+E\+L\+D},metal,c)
+\item 
+\#define \hyperlink{objects_8c_a52496a2b8682601cead86fe32f96d0e7}{G\+L\+O\+V\+E\+S}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mgc, power, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, ac, can, metal, c)~\hyperlink{objects_8c_a8714efd3094bf948c56467966d6a7f20}{A\+R\+M\+O\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc,kn,mgc,0,power,prob,\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay},wt,\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost},ac,can,\hyperlink{objclass_8h_a919d04830bf74d6be7c5c37eca2e30f7}{A\+R\+M\+\_\+\+G\+L\+O\+V\+E\+S},metal,c)
+\item 
+\#define \hyperlink{objects_8c_ad78a53fb2ee7d2e67abaac73db1bc0c2}{B\+O\+O\+T\+S}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mgc, power, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, ac, can, metal, c)~\hyperlink{objects_8c_a8714efd3094bf948c56467966d6a7f20}{A\+R\+M\+O\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc,kn,mgc,0,power,prob,\hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay},wt,\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost},ac,can,\hyperlink{objclass_8h_aee3fc7ba8c189a765d3c74f3259f2947}{A\+R\+M\+\_\+\+B\+O\+O\+T\+S},metal,c)
+\item 
+\#define \hyperlink{objects_8c_a2fd8e65484f5194e9e0d6f7bf4478fe8}{D\+R\+G\+N\+\_\+\+A\+R\+M\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, mgc, power, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, ac, color)~\hyperlink{objects_8c_a8714efd3094bf948c56467966d6a7f20}{A\+R\+M\+O\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},(char $\ast$)0,1,mgc,1,power,0,5,40,\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost},ac,0,\hyperlink{objclass_8h_a7517d7ec844ac3197657e4d914e3affe}{A\+R\+M\+\_\+\+S\+U\+I\+T},\hyperlink{objclass_8h_acf77ecadb95e675f743a5b03631c9c2e}{D\+R\+A\+G\+O\+N\+\_\+\+H\+I\+D\+E},color)
+\item 
+\#define \hyperlink{objects_8c_a90a009ae2d65bff494193fd73035f898}{R\+I\+N\+G}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, power, stone, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, mgc, spec, mohs, metal, color)
+\item 
+\#define \hyperlink{objects_8c_a4ac24d260e37bb9f6fe35483c1de768d}{A\+M\+U\+L\+E\+T}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, power, prob)
+\item 
+\#define \hyperlink{objects_8c_ac097373be97c71f35947b60d35a052d4}{T\+O\+O\+L}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mrg, mgc, chg, prob, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, mat, color)
+\item 
+\#define \hyperlink{objects_8c_af0ad316d748c25f285eb5c6a8d0e954b}{C\+O\+N\+T\+A\+I\+N\+E\+R}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mgc, chg, prob, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, mat, color)
+\item 
+\#define \hyperlink{objects_8c_aa9c3267786fa0b516548efb4c2147133}{W\+E\+P\+T\+O\+O\+L}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, mgc, bi, prob, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, sdam, ldam, hitbon, sub, mat, clr)
+\item 
+\#define \hyperlink{objects_8c_a066a85b5a8525b212a1a2a7162fd31cd}{F\+O\+O\+D}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, wt, unk, tin, nutrition, color)
+\item 
+\#define \hyperlink{objects_8c_a84a4a4b771abbc3132397f5ed06a44dd}{P\+O\+T\+I\+O\+N}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, mgc, power, prob, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, color)
+\item 
+\#define \hyperlink{objects_8c_a09467b10b1c3778f84d85933a0db42a1}{S\+C\+R\+O\+L\+L}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, text, mgc, prob, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost})
+\item 
+\#define \hyperlink{objects_8c_a475fdb917ef111bd0283f3072daf613c}{S\+P\+E\+L\+L}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, sub, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, \hyperlink{decl_8c_a721c99bfa099c4225215ba102e91fa39}{level}, mgc, dir, color)
+\item 
+\#define \hyperlink{objects_8c_a77901d36bc5da33c1d7d9b92cf8c5cc9}{W\+A\+N\+D}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, typ, prob, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, mgc, dir, metal, color)
+\item 
+\#define \hyperlink{objects_8c_ad428f23b3f58ee7b11d68a10768f41a1}{C\+O\+I\+N}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, prob, metal, worth)
+\item 
+\#define \hyperlink{objects_8c_a6dfe3a3e5626dd0c5bb7ecfc74362f16}{G\+E\+M}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, prob, wt, gval, nutr, mohs, glass, color)
+\item 
+\#define \hyperlink{objects_8c_ac1b5af7f6cac1028cbf4a80a05496eea}{R\+O\+C\+K}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, desc, kn, prob, wt, gval, sdam, ldam, mgc, nutr, mohs, glass, color)
+\item 
+\#define \hyperlink{objects_8c_aadf41edaaf4fbaf9b7966e0d152b9f51}{O\+B\+J\+E\+C\+T\+S\+\_\+\+P\+A\+S\+S\+\_\+2\+\_\+}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{objects_8c_aef9335c57a9e72a8bec26243bb3f073b}{N\+D\+E\+C\+L} (\hyperlink{objects_8c_a66f318fcc49a321cef8994507ea175c4}{objects\+\_\+init})
+\item 
+void \hyperlink{objects_8c_a66f318fcc49a321cef8994507ea175c4}{objects\+\_\+init} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} struct \hyperlink{structobjdescr}{objdescr} \hyperlink{objects_8c_a2b1b7b831e64f9f121addb609e3f96e1}{obj\+\_\+descr} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{objects_8c_a4ac24d260e37bb9f6fe35483c1de768d}{\index{objects.\+c@{objects.\+c}!A\+M\+U\+L\+E\+T@{A\+M\+U\+L\+E\+T}}
+\index{A\+M\+U\+L\+E\+T@{A\+M\+U\+L\+E\+T}!objects.\+c@{objects.\+c}}
+\subsubsection[{A\+M\+U\+L\+E\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+M\+U\+L\+E\+T(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{power, }
+\item[{}]{prob}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a4ac24d260e37bb9f6fe35483c1de768d}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), BITS(0,0,0,0,1,0,0,0,0,0,0,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},\hyperlink{objclass_8h_a3c344bd0876915ca614f68b06d878c44}{IRON}), power, \(\backslash\)
+        \hyperlink{objclass_8h_af05e45a3c94a4a19096ee4f048ee96cd}{AMULET\_CLASS}, prob, 0, 20, 150, 0, 0, 0, 0, 20, \hyperlink{color_8h_a8dcfbc04034b5147a309f0ecf803a3e9}{HI\_METAL} )
+\end{DoxyCode}
+\hypertarget{objects_8c_a8714efd3094bf948c56467966d6a7f20}{\index{objects.\+c@{objects.\+c}!A\+R\+M\+O\+R@{A\+R\+M\+O\+R}}
+\index{A\+R\+M\+O\+R@{A\+R\+M\+O\+R}!objects.\+c@{objects.\+c}}
+\subsubsection[{A\+R\+M\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+R\+M\+O\+R(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mgc, }
+\item[{}]{blk, }
+\item[{}]{power, }
+\item[{}]{prob, }
+\item[{}]{{\bf delay}, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{ac, }
+\item[{}]{can, }
+\item[{}]{sub, }
+\item[{}]{metal, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a8714efd3094bf948c56467966d6a7f20}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), BITS(kn,0,1,0,mgc,1,0,0,blk,0,0,sub,metal), power, \(\backslash\)
+        \hyperlink{objclass_8h_a038c650e790f05f72fa9204b1b82660b}{ARMOR\_CLASS}, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, \(\backslash\)
+        0, 0, 10 - ac, can, wt, c )
+\end{DoxyCode}
+\hypertarget{objects_8c_a111da81ae5883147168bbb8366377b10}{\index{objects.\+c@{objects.\+c}!B@{B}}
+\index{B@{B}!objects.\+c@{objects.\+c}}
+\subsubsection[{B}]{\setlength{\rightskip}{0pt plus 5cm}\#define B~{\bf W\+H\+A\+C\+K}}}\label{objects_8c_a111da81ae5883147168bbb8366377b10}
+\hypertarget{objects_8c_ad78a53fb2ee7d2e67abaac73db1bc0c2}{\index{objects.\+c@{objects.\+c}!B\+O\+O\+T\+S@{B\+O\+O\+T\+S}}
+\index{B\+O\+O\+T\+S@{B\+O\+O\+T\+S}!objects.\+c@{objects.\+c}}
+\subsubsection[{B\+O\+O\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+O\+O\+T\+S(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mgc, }
+\item[{}]{power, }
+\item[{}]{prob, }
+\item[{}]{{\bf delay}, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{ac, }
+\item[{}]{can, }
+\item[{}]{metal, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~{\bf A\+R\+M\+O\+R}({\bf name},desc,kn,mgc,0,power,prob,{\bf delay},wt,{\bf cost},ac,can,{\bf A\+R\+M\+\_\+\+B\+O\+O\+T\+S},metal,c)}}\label{objects_8c_ad78a53fb2ee7d2e67abaac73db1bc0c2}
+\hypertarget{objects_8c_a3e459f83894a8f768a64c69247fd686f}{\index{objects.\+c@{objects.\+c}!B\+O\+W@{B\+O\+W}}
+\index{B\+O\+W@{B\+O\+W}!objects.\+c@{objects.\+c}}
+\subsubsection[{B\+O\+W}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+O\+W(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{app, }
+\item[{}]{kn, }
+\item[{}]{prob, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{hitbon, }
+\item[{}]{metal, }
+\item[{}]{sub, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a3e459f83894a8f768a64c69247fd686f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},app), BITS(kn,0,1,0,0,1,0,0,0,0,0,sub,metal), 0, \(\backslash\)
+        \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS}, prob, 0, \(\backslash\)
+        wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, 2, 2, hitbon, 0, wt, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_a1f43c0235eb62c7e36799fbd96fd5656}{\index{objects.\+c@{objects.\+c}!C\+L\+O\+A\+K@{C\+L\+O\+A\+K}}
+\index{C\+L\+O\+A\+K@{C\+L\+O\+A\+K}!objects.\+c@{objects.\+c}}
+\subsubsection[{C\+L\+O\+A\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+L\+O\+A\+K(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mgc, }
+\item[{}]{power, }
+\item[{}]{prob, }
+\item[{}]{{\bf delay}, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{ac, }
+\item[{}]{can, }
+\item[{}]{metal, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~{\bf A\+R\+M\+O\+R}({\bf name},desc,kn,mgc,0,power,prob,{\bf delay},wt,{\bf cost},ac,can,{\bf A\+R\+M\+\_\+\+C\+L\+O\+A\+K},metal,c)}}\label{objects_8c_a1f43c0235eb62c7e36799fbd96fd5656}
+\hypertarget{objects_8c_ad428f23b3f58ee7b11d68a10768f41a1}{\index{objects.\+c@{objects.\+c}!C\+O\+I\+N@{C\+O\+I\+N}}
+\index{C\+O\+I\+N@{C\+O\+I\+N}!objects.\+c@{objects.\+c}}
+\subsubsection[{C\+O\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+I\+N(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{prob, }
+\item[{}]{metal, }
+\item[{}]{worth}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_ad428f23b3f58ee7b11d68a10768f41a1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},(\textcolor{keywordtype}{char} *)0), BITS(0,1,0,0,0,0,0,0,0,0,0,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},metal), 0, \(\backslash\)
+        \hyperlink{objclass_8h_a2999621925083659147349e261e4cb3d}{COIN\_CLASS}, prob, 0, 1, worth, 0, 0, 0, 0, 0, \hyperlink{color_8h_a85b2d09a21c25913fb71dc40c1271a61}{HI\_GOLD} )
+\end{DoxyCode}
+\hypertarget{objects_8c_af0ad316d748c25f285eb5c6a8d0e954b}{\index{objects.\+c@{objects.\+c}!C\+O\+N\+T\+A\+I\+N\+E\+R@{C\+O\+N\+T\+A\+I\+N\+E\+R}}
+\index{C\+O\+N\+T\+A\+I\+N\+E\+R@{C\+O\+N\+T\+A\+I\+N\+E\+R}!objects.\+c@{objects.\+c}}
+\subsubsection[{C\+O\+N\+T\+A\+I\+N\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+N\+T\+A\+I\+N\+E\+R(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mgc, }
+\item[{}]{chg, }
+\item[{}]{prob, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{mat, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_af0ad316d748c25f285eb5c6a8d0e954b}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), \(\backslash\)
+        BITS(kn,0,chg,1,mgc,chg,0,0,0,0,0,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},mat), \(\backslash\)
+        0, \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}, prob, 0, \(\backslash\)
+        wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, 0, 0, 0, 0, wt, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_a2fd8e65484f5194e9e0d6f7bf4478fe8}{\index{objects.\+c@{objects.\+c}!D\+R\+G\+N\+\_\+\+A\+R\+M\+R@{D\+R\+G\+N\+\_\+\+A\+R\+M\+R}}
+\index{D\+R\+G\+N\+\_\+\+A\+R\+M\+R@{D\+R\+G\+N\+\_\+\+A\+R\+M\+R}!objects.\+c@{objects.\+c}}
+\subsubsection[{D\+R\+G\+N\+\_\+\+A\+R\+M\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+R\+G\+N\+\_\+\+A\+R\+M\+R(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{mgc, }
+\item[{}]{power, }
+\item[{}]{{\bf cost}, }
+\item[{}]{ac, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)~{\bf A\+R\+M\+O\+R}({\bf name},(char $\ast$)0,1,mgc,1,power,0,5,40,{\bf cost},ac,0,{\bf A\+R\+M\+\_\+\+S\+U\+I\+T},{\bf D\+R\+A\+G\+O\+N\+\_\+\+H\+I\+D\+E},color)}}\label{objects_8c_a2fd8e65484f5194e9e0d6f7bf4478fe8}
+\hypertarget{objects_8c_a066a85b5a8525b212a1a2a7162fd31cd}{\index{objects.\+c@{objects.\+c}!F\+O\+O\+D@{F\+O\+O\+D}}
+\index{F\+O\+O\+D@{F\+O\+O\+D}!objects.\+c@{objects.\+c}}
+\subsubsection[{F\+O\+O\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+O\+O\+D(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{prob, }
+\item[{}]{{\bf delay}, }
+\item[{}]{wt, }
+\item[{}]{unk, }
+\item[{}]{tin, }
+\item[{}]{nutrition, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a066a85b5a8525b212a1a2a7162fd31cd}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},(\textcolor{keywordtype}{char} *)0), BITS(1,1,unk,0,0,0,0,0,0,0,0,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},tin), 0, \(\backslash\)
+        \hyperlink{objclass_8h_a98c4704dea5f0606fe545294b44f8fd6}{FOOD\_CLASS}, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, \(\backslash\)
+        wt, nutrition/20 + 5, 0, 0, 0, 0, nutrition, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_a6dfe3a3e5626dd0c5bb7ecfc74362f16}{\index{objects.\+c@{objects.\+c}!G\+E\+M@{G\+E\+M}}
+\index{G\+E\+M@{G\+E\+M}!objects.\+c@{objects.\+c}}
+\subsubsection[{G\+E\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+E\+M(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{prob, }
+\item[{}]{wt, }
+\item[{}]{gval, }
+\item[{}]{nutr, }
+\item[{}]{mohs, }
+\item[{}]{glass, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a6dfe3a3e5626dd0c5bb7ecfc74362f16}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), \(\backslash\)
+        BITS(0,1,0,0,0,0,0,0,0,HARDGEM(mohs),0,-\hyperlink{skills_8h_ab846b30f6bc0e1fa47cf5811bfdf90eb}{P\_SLING},glass), 0, \(\backslash\)
+        \hyperlink{objclass_8h_afc09c51ea922e9928f86a51177244796}{GEM\_CLASS}, prob, 0, 1, gval, 3, 3, 0, 0, nutr, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_a52496a2b8682601cead86fe32f96d0e7}{\index{objects.\+c@{objects.\+c}!G\+L\+O\+V\+E\+S@{G\+L\+O\+V\+E\+S}}
+\index{G\+L\+O\+V\+E\+S@{G\+L\+O\+V\+E\+S}!objects.\+c@{objects.\+c}}
+\subsubsection[{G\+L\+O\+V\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+O\+V\+E\+S(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mgc, }
+\item[{}]{power, }
+\item[{}]{prob, }
+\item[{}]{{\bf delay}, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{ac, }
+\item[{}]{can, }
+\item[{}]{metal, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~{\bf A\+R\+M\+O\+R}({\bf name},desc,kn,mgc,0,power,prob,{\bf delay},wt,{\bf cost},ac,can,{\bf A\+R\+M\+\_\+\+G\+L\+O\+V\+E\+S},metal,c)}}\label{objects_8c_a52496a2b8682601cead86fe32f96d0e7}
+\hypertarget{objects_8c_a41bb1bcc256bc134bd6a09bab67aec63}{\index{objects.\+c@{objects.\+c}!H\+E\+L\+M@{H\+E\+L\+M}}
+\index{H\+E\+L\+M@{H\+E\+L\+M}!objects.\+c@{objects.\+c}}
+\subsubsection[{H\+E\+L\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+E\+L\+M(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mgc, }
+\item[{}]{power, }
+\item[{}]{prob, }
+\item[{}]{{\bf delay}, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{ac, }
+\item[{}]{can, }
+\item[{}]{metal, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~{\bf A\+R\+M\+O\+R}({\bf name},desc,kn,mgc,0,power,prob,{\bf delay},wt,{\bf cost},ac,can,{\bf A\+R\+M\+\_\+\+H\+E\+L\+M},metal,c)}}\label{objects_8c_a41bb1bcc256bc134bd6a09bab67aec63}
+\hypertarget{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{\index{objects.\+c@{objects.\+c}!O\+B\+J@{O\+B\+J}}
+\index{O\+B\+J@{O\+B\+J}!objects.\+c@{objects.\+c}}
+\subsubsection[{O\+B\+J}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc}
+\end{DoxyParamCaption}
+)~{\bf name},desc}}\label{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}
+
+
+Definition at line 33 of file objects.\+c.
+
+\hypertarget{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{\index{objects.\+c@{objects.\+c}!O\+B\+J\+E\+C\+T@{O\+B\+J\+E\+C\+T}}
+\index{O\+B\+J\+E\+C\+T@{O\+B\+J\+E\+C\+T}!objects.\+c@{objects.\+c}}
+\subsubsection[{O\+B\+J\+E\+C\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+E\+C\+T(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}, }
+\item[{}]{bits, }
+\item[{}]{prp, }
+\item[{}]{sym, }
+\item[{}]{prob, }
+\item[{}]{dly, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{sdam, }
+\item[{}]{ldam, }
+\item[{}]{oc1, }
+\item[{}]{oc2, }
+\item[{}]{nut, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)~\{{\bf obj}\}}}\label{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}
+
+
+Definition at line 34 of file objects.\+c.
+
+
+
+Referenced by calc\+\_\+std\+\_\+winplace(), Gem\+\_\+getlin(), Gem\+\_\+yn\+\_\+function(), Inv\+\_\+\+Handler(), mar\+\_\+ask\+\_\+direction(), mar\+\_\+ask\+\_\+name(), mar\+\_\+display\+\_\+nhwindow(), mar\+\_\+draw\+\_\+window(), mar\+\_\+gem\+\_\+init(), mar\+\_\+more(), mar\+\_\+nh\+\_\+poskey(), mar\+\_\+set\+\_\+dir\+\_\+keys(), mar\+\_\+set\+\_\+inv\+\_\+win(), recalc\+\_\+msg\+\_\+win(), and recalc\+\_\+status\+\_\+win().
+
+\hypertarget{objects_8c_aadf41edaaf4fbaf9b7966e0d152b9f51}{\index{objects.\+c@{objects.\+c}!O\+B\+J\+E\+C\+T\+S\+\_\+\+P\+A\+S\+S\+\_\+2\+\_\+@{O\+B\+J\+E\+C\+T\+S\+\_\+\+P\+A\+S\+S\+\_\+2\+\_\+}}
+\index{O\+B\+J\+E\+C\+T\+S\+\_\+\+P\+A\+S\+S\+\_\+2\+\_\+@{O\+B\+J\+E\+C\+T\+S\+\_\+\+P\+A\+S\+S\+\_\+2\+\_\+}!objects.\+c@{objects.\+c}}
+\subsubsection[{O\+B\+J\+E\+C\+T\+S\+\_\+\+P\+A\+S\+S\+\_\+2\+\_\+}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+E\+C\+T\+S\+\_\+\+P\+A\+S\+S\+\_\+2\+\_\+}}\label{objects_8c_aadf41edaaf4fbaf9b7966e0d152b9f51}
+
+
+Definition at line 977 of file objects.\+c.
+
+\hypertarget{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{\index{objects.\+c@{objects.\+c}!P@{P}}
+\index{P@{P}!objects.\+c@{objects.\+c}}
+\subsubsection[{P}]{\setlength{\rightskip}{0pt plus 5cm}\#define P~{\bf P\+I\+E\+R\+C\+E}}}\label{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}
+\hypertarget{objects_8c_a84a4a4b771abbc3132397f5ed06a44dd}{\index{objects.\+c@{objects.\+c}!P\+O\+T\+I\+O\+N@{P\+O\+T\+I\+O\+N}}
+\index{P\+O\+T\+I\+O\+N@{P\+O\+T\+I\+O\+N}!objects.\+c@{objects.\+c}}
+\subsubsection[{P\+O\+T\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+O\+T\+I\+O\+N(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{mgc, }
+\item[{}]{power, }
+\item[{}]{prob, }
+\item[{}]{{\bf cost}, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a84a4a4b771abbc3132397f5ed06a44dd}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), BITS(0,1,0,0,mgc,0,0,0,0,0,0,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},\hyperlink{objclass_8h_ac070bc05447c6faa5ec491a62b615e9f}{GLASS}), power, \(\backslash\)
+        \hyperlink{objclass_8h_a05335e5ee18dfa33af1c40056fe8fab9}{POTION\_CLASS}, prob, 0, 20, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, 0, 0, 0, 0, 10, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_ad2328e3734dab5920ce0273feb0ca27f}{\index{objects.\+c@{objects.\+c}!P\+R\+O\+J\+E\+C\+T\+I\+L\+E@{P\+R\+O\+J\+E\+C\+T\+I\+L\+E}}
+\index{P\+R\+O\+J\+E\+C\+T\+I\+L\+E@{P\+R\+O\+J\+E\+C\+T\+I\+L\+E}!objects.\+c@{objects.\+c}}
+\subsubsection[{P\+R\+O\+J\+E\+C\+T\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+O\+J\+E\+C\+T\+I\+L\+E(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{app, }
+\item[{}]{kn, }
+\item[{}]{prob, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{sdam, }
+\item[{}]{ldam, }
+\item[{}]{hitbon, }
+\item[{}]{metal, }
+\item[{}]{sub, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_ad2328e3734dab5920ce0273feb0ca27f}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},app), \(\backslash\)
+        BITS(kn,1,1,0,0,1,0,0,0,0,\hyperlink{objclass_8h_a8c725b0c9ad0bc2c8fa7ed0f3138ef87}{PIERCE},sub,metal), 0, \(\backslash\)
+        \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS}, prob, 0, \(\backslash\)
+        wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, sdam, ldam, hitbon, 0, wt, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_a90a009ae2d65bff494193fd73035f898}{\index{objects.\+c@{objects.\+c}!R\+I\+N\+G@{R\+I\+N\+G}}
+\index{R\+I\+N\+G@{R\+I\+N\+G}!objects.\+c@{objects.\+c}}
+\subsubsection[{R\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+I\+N\+G(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{power, }
+\item[{}]{stone, }
+\item[{}]{{\bf cost}, }
+\item[{}]{mgc, }
+\item[{}]{spec, }
+\item[{}]{mohs, }
+\item[{}]{metal, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a90a009ae2d65bff494193fd73035f898}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},stone), \(\backslash\)
+        BITS(0,0,spec,0,mgc,spec,0,0,0,HARDGEM(mohs),0,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},metal), \(\backslash\)
+        power, \hyperlink{objclass_8h_a4d65a9d3e979073915c207bf6a806d63}{RING\_CLASS}, 0, 0, 3, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, 0, 0, 0, 0, 15, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_ac1b5af7f6cac1028cbf4a80a05496eea}{\index{objects.\+c@{objects.\+c}!R\+O\+C\+K@{R\+O\+C\+K}}
+\index{R\+O\+C\+K@{R\+O\+C\+K}!objects.\+c@{objects.\+c}}
+\subsubsection[{R\+O\+C\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+C\+K(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{prob, }
+\item[{}]{wt, }
+\item[{}]{gval, }
+\item[{}]{sdam, }
+\item[{}]{ldam, }
+\item[{}]{mgc, }
+\item[{}]{nutr, }
+\item[{}]{mohs, }
+\item[{}]{glass, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_ac1b5af7f6cac1028cbf4a80a05496eea}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), \(\backslash\)
+        BITS(kn,1,0,0,mgc,0,0,0,0,HARDGEM(mohs),0,-\hyperlink{skills_8h_ab846b30f6bc0e1fa47cf5811bfdf90eb}{P\_SLING},glass), 0, \(\backslash\)
+        \hyperlink{objclass_8h_afc09c51ea922e9928f86a51177244796}{GEM\_CLASS}, prob, 0, wt, gval, sdam, ldam, 0, 0, nutr, color )
+\end{DoxyCode}
+
+
+Referenced by autoquiver(), hmon\+\_\+hitmon(), impact\+\_\+drop(), ini\+\_\+inv(), mineralize(), and use\+\_\+offensive().
+
+\hypertarget{objects_8c_af933676109efed7ab34cea71d748a517}{\index{objects.\+c@{objects.\+c}!S@{S}}
+\index{S@{S}!objects.\+c@{objects.\+c}}
+\subsubsection[{S}]{\setlength{\rightskip}{0pt plus 5cm}\#define S~{\bf S\+L\+A\+S\+H}}}\label{objects_8c_af933676109efed7ab34cea71d748a517}
+\hypertarget{objects_8c_a09467b10b1c3778f84d85933a0db42a1}{\index{objects.\+c@{objects.\+c}!S\+C\+R\+O\+L\+L@{S\+C\+R\+O\+L\+L}}
+\index{S\+C\+R\+O\+L\+L@{S\+C\+R\+O\+L\+L}!objects.\+c@{objects.\+c}}
+\subsubsection[{S\+C\+R\+O\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+C\+R\+O\+L\+L(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{text, }
+\item[{}]{mgc, }
+\item[{}]{prob, }
+\item[{}]{{\bf cost}}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a09467b10b1c3778f84d85933a0db42a1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},text), BITS(0,1,0,0,mgc,0,0,0,0,0,0,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},\hyperlink{objclass_8h_a906b7bbedb8374f1dd09974d319faf67}{PAPER}), 0, \(\backslash\)
+        \hyperlink{objclass_8h_ac23f261da0f9e2a4c6afccecfc167a96}{SCROLL\_CLASS}, prob, 0, 5, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, 0, 0, 0, 0, 6, \hyperlink{color_8h_aadb067644d29233401e72ef1038ea08d}{HI\_PAPER} )
+\end{DoxyCode}
+
+
+Referenced by mar\+\_\+menu\+\_\+set\+\_\+slider().
+
+\hypertarget{objects_8c_ac8f2adec384b3f02e43bfc2935be508a}{\index{objects.\+c@{objects.\+c}!S\+H\+I\+E\+L\+D@{S\+H\+I\+E\+L\+D}}
+\index{S\+H\+I\+E\+L\+D@{S\+H\+I\+E\+L\+D}!objects.\+c@{objects.\+c}}
+\subsubsection[{S\+H\+I\+E\+L\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+H\+I\+E\+L\+D(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mgc, }
+\item[{}]{blk, }
+\item[{}]{power, }
+\item[{}]{prob, }
+\item[{}]{{\bf delay}, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{ac, }
+\item[{}]{can, }
+\item[{}]{metal, }
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~{\bf A\+R\+M\+O\+R}({\bf name},desc,kn,mgc,blk,power,prob,{\bf delay},wt,{\bf cost},ac,can,{\bf A\+R\+M\+\_\+\+S\+H\+I\+E\+L\+D},metal,c)}}\label{objects_8c_ac8f2adec384b3f02e43bfc2935be508a}
+\hypertarget{objects_8c_a475fdb917ef111bd0283f3072daf613c}{\index{objects.\+c@{objects.\+c}!S\+P\+E\+L\+L@{S\+P\+E\+L\+L}}
+\index{S\+P\+E\+L\+L@{S\+P\+E\+L\+L}!objects.\+c@{objects.\+c}}
+\subsubsection[{S\+P\+E\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+P\+E\+L\+L(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{sub, }
+\item[{}]{prob, }
+\item[{}]{{\bf delay}, }
+\item[{}]{{\bf level}, }
+\item[{}]{mgc, }
+\item[{}]{dir, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a475fdb917ef111bd0283f3072daf613c}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), BITS(0,0,0,0,mgc,0,0,0,0,0,dir,sub,\hyperlink{objclass_8h_a906b7bbedb8374f1dd09974d319faf67}{PAPER}), 0, \(\backslash\)
+        \hyperlink{objclass_8h_aba5935524b39b0fdd148a3d466a5c580}{SPBOOK\_CLASS}, prob, \hyperlink{spell_8c_a27ae53a9afbeecd64ae8361e06faa090}{delay}, \(\backslash\)
+        50, \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}*100, 0, 0, 0, \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}, 20, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_ac097373be97c71f35947b60d35a052d4}{\index{objects.\+c@{objects.\+c}!T\+O\+O\+L@{T\+O\+O\+L}}
+\index{T\+O\+O\+L@{T\+O\+O\+L}!objects.\+c@{objects.\+c}}
+\subsubsection[{T\+O\+O\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+O\+O\+L(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mrg, }
+\item[{}]{mgc, }
+\item[{}]{chg, }
+\item[{}]{prob, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{mat, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_ac097373be97c71f35947b60d35a052d4}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), \(\backslash\)
+        BITS(kn,mrg,chg,0,mgc,chg,0,0,0,0,0,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},mat), \(\backslash\)
+        0, \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}, prob, 0, \(\backslash\)
+        wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, 0, 0, 0, 0, wt, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_a77901d36bc5da33c1d7d9b92cf8c5cc9}{\index{objects.\+c@{objects.\+c}!W\+A\+N\+D@{W\+A\+N\+D}}
+\index{W\+A\+N\+D@{W\+A\+N\+D}!objects.\+c@{objects.\+c}}
+\subsubsection[{W\+A\+N\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+A\+N\+D(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{typ, }
+\item[{}]{prob, }
+\item[{}]{{\bf cost}, }
+\item[{}]{mgc, }
+\item[{}]{dir, }
+\item[{}]{metal, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a77901d36bc5da33c1d7d9b92cf8c5cc9}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},typ), BITS(0,0,1,0,mgc,1,0,0,0,0,dir,\hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE},metal), 0, \(\backslash\)
+        \hyperlink{objclass_8h_a3465d7e5f808c98fcfc32e3159b9d9c2}{WAND\_CLASS}, prob, 0, 7, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, 0, 0, 0, 0, 30, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_a6433aa53ffc95a71953bff4dff3f8abe}{\index{objects.\+c@{objects.\+c}!W\+E\+A\+P\+O\+N@{W\+E\+A\+P\+O\+N}}
+\index{W\+E\+A\+P\+O\+N@{W\+E\+A\+P\+O\+N}!objects.\+c@{objects.\+c}}
+\subsubsection[{W\+E\+A\+P\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+E\+A\+P\+O\+N(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{app, }
+\item[{}]{kn, }
+\item[{}]{mg, }
+\item[{}]{bi, }
+\item[{}]{prob, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{sdam, }
+\item[{}]{ldam, }
+\item[{}]{hitbon, }
+\item[{}]{typ, }
+\item[{}]{sub, }
+\item[{}]{metal, }
+\item[{}]{color}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a6433aa53ffc95a71953bff4dff3f8abe}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \(\backslash\)
+        \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},app), BITS(kn,mg,1,0,0,1,0,0,bi,0,typ,sub,metal), 0, \(\backslash\)
+        \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS}, prob, 0, \(\backslash\)
+        wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, sdam, ldam, hitbon, 0, wt, color )
+\end{DoxyCode}
+\hypertarget{objects_8c_aa9c3267786fa0b516548efb4c2147133}{\index{objects.\+c@{objects.\+c}!W\+E\+P\+T\+O\+O\+L@{W\+E\+P\+T\+O\+O\+L}}
+\index{W\+E\+P\+T\+O\+O\+L@{W\+E\+P\+T\+O\+O\+L}!objects.\+c@{objects.\+c}}
+\subsubsection[{W\+E\+P\+T\+O\+O\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+E\+P\+T\+O\+O\+L(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf name}, }
+\item[{}]{desc, }
+\item[{}]{kn, }
+\item[{}]{mgc, }
+\item[{}]{bi, }
+\item[{}]{prob, }
+\item[{}]{wt, }
+\item[{}]{{\bf cost}, }
+\item[{}]{sdam, }
+\item[{}]{ldam, }
+\item[{}]{hitbon, }
+\item[{}]{sub, }
+\item[{}]{mat, }
+\item[{}]{clr}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_aa9c3267786fa0b516548efb4c2147133}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{objects_8c_a831b84ffe6ef4ce4167c1c5981fc13e1}{OBJECT}( \hyperlink{objects_8c_aba9f058ba5ae275645237f0e0681f3b2}{OBJ}(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name},desc), \(\backslash\)
+        BITS(kn,0,1,0,mgc,1,0,0,bi,0,hitbon,sub,mat), \(\backslash\)
+        0, \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}, prob, 0, \(\backslash\)
+        wt, \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost}, sdam, ldam, hitbon, 0, wt, clr )
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\hypertarget{objects_8c_aef9335c57a9e72a8bec26243bb3f073b}{\index{objects.\+c@{objects.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!objects.\+c@{objects.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf objects\+\_\+init}}]{}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_aef9335c57a9e72a8bec26243bb3f073b}
+\hypertarget{objects_8c_a66f318fcc49a321cef8994507ea175c4}{\index{objects.\+c@{objects.\+c}!objects\+\_\+init@{objects\+\_\+init}}
+\index{objects\+\_\+init@{objects\+\_\+init}!objects.\+c@{objects.\+c}}
+\subsubsection[{objects\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void objects\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{objects_8c_a66f318fcc49a321cef8994507ea175c4}
+
+
+Definition at line 984 of file objects.\+c.
+
+
+
+Referenced by do\+\_\+makedefs(), and main().
+
+
+\begin{DoxyCode}
+985 \{
+986     \textcolor{keywordflow}{return};
+987 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{objects_8c_a2b1b7b831e64f9f121addb609e3f96e1}{\index{objects.\+c@{objects.\+c}!obj\+\_\+descr@{obj\+\_\+descr}}
+\index{obj\+\_\+descr@{obj\+\_\+descr}!objects.\+c@{objects.\+c}}
+\subsubsection[{obj\+\_\+descr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} struct {\bf objdescr} obj\+\_\+descr\mbox{[}$\,$\mbox{]}}}\label{objects_8c_a2b1b7b831e64f9f121addb609e3f96e1}
+
+
+Definition at line 37 of file objects.\+c.
+
+
+
+Referenced by initoptions().
+

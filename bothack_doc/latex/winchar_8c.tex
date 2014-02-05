@@ -1,0 +1,1493 @@
+\hypertarget{winchar_8c}{\section{nethack/sys/amiga/winchar.c File Reference}
+\label{winchar_8c}\index{nethack/sys/amiga/winchar.\+c@{nethack/sys/amiga/winchar.\+c}}
+}
+{\ttfamily \#include $<$exec/types.\+h$>$}\\*
+{\ttfamily \#include $<$libraries/iffparse.\+h$>$}\\*
+{\ttfamily \#include $<$graphics/scale.\+h$>$}\\*
+{\ttfamily \#include $<$proto/iffparse.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:src/tile.\+c\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:win/share/tile.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/windefs.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winext.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winproto.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structMyBitMap}{My\+Bit\+Map}
+\item 
+struct \hyperlink{structamiv__glyph__node}{amiv\+\_\+glyph\+\_\+node}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{winchar_8c_ac689efacbe7775d3a3451881e886b975}{I\+M\+G\+R\+O\+W\+S}~12
+\item 
+\#define \hyperlink{winchar_8c_a5d23bd5b0fd400665156aa7271f5f99f}{I\+M\+G\+C\+O\+L\+U\+M\+N\+S}~20
+\item 
+\#define \hyperlink{winchar_8c_a48b28e17e71985e1738d921d75b8df1f}{I\+M\+G\+P\+A\+G\+E\+S\+I\+Z\+E}~(\hyperlink{winchar_8c_ac689efacbe7775d3a3451881e886b975}{I\+M\+G\+R\+O\+W\+S}$\ast$\hyperlink{winchar_8c_a5d23bd5b0fd400665156aa7271f5f99f}{I\+M\+G\+C\+O\+L\+U\+M\+N\+S})
+\item 
+\#define \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{I\+D\+\_\+\+B\+M\+A\+P}~M\+A\+K\+E\+\_\+\+I\+D('\hyperlink{objects_8c_a111da81ae5883147168bbb8366377b10}{B}','\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}','\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}','\hyperlink{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{P}')	/$\ast$ The \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} of form we use $\ast$/
+\item 
+\#define \hyperlink{winchar_8c_abcd1dcd9c8074c20b650110c487ec826}{I\+D\+\_\+\+B\+M\+H\+D}~M\+A\+K\+E\+\_\+\+I\+D('\hyperlink{objects_8c_a111da81ae5883147168bbb8366377b10}{B}','\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}','H','D')	/$\ast$ The I\+L\+B\+M bitmap \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header} $\ast$/
+\item 
+\#define \hyperlink{winchar_8c_a83e89c32c825101821f40b21289218a9}{I\+D\+\_\+\+C\+A\+M\+G}~M\+A\+K\+E\+\_\+\+I\+D('\hyperlink{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}','\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}','\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}','G')	/$\ast$ The I\+L\+B\+M camg (ignored) $\ast$/
+\item 
+\#define \hyperlink{winchar_8c_adbfe39990b0b760a79f0192db7961bd8}{I\+D\+\_\+\+C\+M\+A\+P}~M\+A\+K\+E\+\_\+\+I\+D('\hyperlink{gnsignal_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}','\hyperlink{gnsignal_8c_a9a64d11f1dbd7ac22274d0904232a7a6}{M}','\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}','\hyperlink{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{P}')	/$\ast$ Standard I\+L\+B\+M color \hyperlink{gnmap_8c_a76baf160a8e960d9716bd9125f044b28}{map} $\ast$/
+\item 
+\#define \hyperlink{winchar_8c_af25d25b688b21e610cab14b3774cc3fb}{I\+D\+\_\+\+P\+L\+N\+E}~M\+A\+K\+E\+\_\+\+I\+D('\hyperlink{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{P}','L','N','\hyperlink{win_2win32_2winMS_8h_a07484107e6d9fdf38b53edf631d6511d}{E}')	/$\ast$ The plane data $\ast$/
+\item 
+\#define \hyperlink{winchar_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}{I\+D\+\_\+\+P\+D\+A\+T}~M\+A\+K\+E\+\_\+\+I\+D('\hyperlink{objects_8c_a2748566f4c443ee77aa831e63dbb5ebe}{P}','D','\hyperlink{monst_8c_a62d2601a2f7b8cf23e95470fe579de38}{A}','T')	/$\ast$ The \hyperlink{structPDAT}{P\+D\+A\+T} structure below $\ast$/
+\item 
+\#define \hyperlink{winchar_8c_aee2bd29ebc1f321514ded047bb990794}{N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S}~3
+\item 
+\#define \hyperlink{winchar_8c_a45ed746dab0494aec7bb5829488004f3}{T\+B\+L\+M\+O\+N\+T\+I\+L\+E}~0
+\item 
+\#define \hyperlink{winchar_8c_a8f5f0e6158c5fbb7a1c973ac5b7b9ba1}{T\+B\+L\+O\+B\+J\+T\+I\+L\+E}~1
+\item 
+\#define \hyperlink{winchar_8c_a1dd0aedb8654a730e53264a14d9a5703}{T\+B\+L\+O\+T\+H\+T\+I\+L\+E}~2
+\item 
+\#define \hyperlink{winchar_8c_a098623f98940a1c6f1b808d9c8c8a910}{N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S}~80
+\item 
+\#define \hyperlink{winchar_8c_a5ffb57edd896f23db0d795c3ca7baa7e}{G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}~512
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{winchar_8c_a2c3f6775325c30275d11c6abee2db6a0}{main} (int, char $\ast$$\ast$)
+\item 
+struct Bit\+Map $\ast$ \hyperlink{winchar_8c_a5054ef363db2f8b757a97c991b667bfd}{My\+Alloc\+Bit\+Map} (int, int, int, long)
+\item 
+void \hyperlink{winchar_8c_a826909fe5d305f7890c89e58753ec212}{My\+Free\+Bit\+Map} (struct Bit\+Map $\ast$)
+\item 
+void \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{Free\+Image\+Files} (char $\ast$$\ast$, struct Bit\+Map $\ast$$\ast$)
+\item 
+void \hyperlink{winchar_8c_a2bbd4f73bca99f6855764467ea83a3d0}{amiv\+\_\+flush\+\_\+glyph\+\_\+buffer} (struct Window $\ast$)
+\item 
+void \hyperlink{winchar_8c_a53e61def5624ad8cac9d834c234081f7}{amiv\+\_\+lprint\+\_\+glyph} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid}, int, int)
+\item 
+void \hyperlink{winchar_8c_ad151d08a3e9512a56b0d4461b4a65168}{amii\+\_\+lprint\+\_\+glyph} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid}, int, int)
+\item 
+void \hyperlink{winchar_8c_a1d43a285cee2efeee810d59ad9e071ab}{amiv\+\_\+start\+\_\+glyphout} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid})
+\item 
+void \hyperlink{winchar_8c_ad2db856235b6b0b57afd73a5dd1e286d}{amii\+\_\+end\+\_\+glyphout} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid})
+\item 
+void \hyperlink{winchar_8c_a3eaca7a39bb270379315c3d079fd0202}{Set\+Maze\+Type} (\hyperlink{winext_8h_a4023b9ade32dcc4a00ae2f068b79e639}{Maze\+Type})
+\item 
+int \hyperlink{winchar_8c_abc451929a04f40ea85363d6daf7f3960}{Glyph\+To\+Icon} (int)
+\item 
+void \hyperlink{winchar_8c_abcc472aea05e273e80de4fef1df0314d}{amii\+\_\+start\+\_\+glyphout} (\hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid})
+\item 
+void \hyperlink{winchar_8c_a1b2926265ddfa6efb6c368906efa69e7}{amii\+\_\+flush\+\_\+glyph\+\_\+buffer} (struct Window $\ast$)
+\item 
+\hyperlink{structBitMapHeader}{Bit\+Map\+Header} \hyperlink{winchar_8c_a12a3108f5619672ce857bcbaec0fac12}{Read\+Tile\+Image\+Files} ()
+\item 
+\hyperlink{structBitMapHeader}{Bit\+Map\+Header} \hyperlink{winchar_8c_a9926a7f5254f16e05a0ec9419d4a29fa}{Read\+Image\+Files} (char $\ast$$\ast$filenames, struct Bit\+Map $\ast$$\ast$iffimg, char $\ast$$\ast$errstrp)
+\item 
+void \hyperlink{winchar_8c_a52004e01e897470f11cc048fc78f4649}{Free\+Tile\+Image\+Files} ()
+\item 
+void \hyperlink{winchar_8c_aedd7ad0350a58b8fca664bcbdc5f1f35}{flush\+\_\+glyph\+\_\+buffer} (struct Window $\ast$vw)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}{amii\+\_\+extraplanes} = 0
+\item 
+int \hyperlink{winchar_8c_abaef652f2ecc14cf7257f91b8f5f0527}{reclip}
+\item 
+struct \hyperlink{structPDAT}{P\+D\+A\+T} \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}
+\item 
+char $\ast$ \hyperlink{winchar_8c_a0190588bb20fccf5d0c424f0d9a88c62}{tileimages} \mbox{[}$\,$\mbox{]}
+\item 
+struct Bit\+Map $\ast$ \hyperlink{winchar_8c_a59e1af99e18ff54c06c0a9a5d736fa0f}{ifftimg} \mbox{[}\hyperlink{winchar_8c_aee2bd29ebc1f321514ded047bb990794}{N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S}\mbox{]}
+\item 
+struct Bit\+Map $\ast$ \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}
+\item 
+unsigned short \hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\+\_\+node\+\_\+index}
+\item 
+unsigned short \hyperlink{winchar_8c_abcc691cbd16d1b0dc4667d7ce735ec5f}{glyph\+\_\+buffer\+\_\+index}
+\item 
+struct \hyperlink{structamiv__glyph__node}{amiv\+\_\+glyph\+\_\+node} \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\+\_\+g\+\_\+nodes} \mbox{[}\hyperlink{winchar_8c_a098623f98940a1c6f1b808d9c8c8a910}{N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S}\mbox{]}
+\item 
+static char \hyperlink{winchar_8c_a2f39a9700fdc7561d6907e29e6210520}{amiv\+\_\+glyph\+\_\+buffer} \mbox{[}\hyperlink{winchar_8c_a5ffb57edd896f23db0d795c3ca7baa7e}{G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}\mbox{]}
+\item 
+static long \hyperlink{winchar_8c_a9b80bf2de8aa03db642b0e8e4b06e1b4}{xsave}
+\item 
+static long \hyperlink{winchar_8c_adc6ad80b68d03a20fb5dd1394df034dc}{ysave}
+\item 
+static long \hyperlink{winchar_8c_a7301f7ec6ca8a7e74922796f044057fd}{modesave}
+\item 
+static long \hyperlink{winchar_8c_ad50e5dcd3712e91f244ef4763ece7705}{apensave}
+\item 
+static long \hyperlink{winchar_8c_a24084014a9beff291e6199285e4f035e}{bpensave}
+\item 
+static int \hyperlink{winchar_8c_a59f1f5efd63bf119d0ff187caa2dffde}{usecolor}
+\item 
+static \hyperlink{winchar_8c_a176761744efb78c887927c4ebef2b574}{maze\+\_\+type} =\hyperlink{winext_8h_a4023b9ade32dcc4a00ae2f068b79e639ac4592f6f2d8d9c65eb42475862045227}{C\+O\+L\+\_\+\+M\+A\+Z\+E\+\_\+\+B\+R\+I\+C\+K}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{winchar_8c_a5ffb57edd896f23db0d795c3ca7baa7e}{\index{winchar.\+c@{winchar.\+c}!G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E@{G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}}
+\index{G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E@{G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E~512}}\label{winchar_8c_a5ffb57edd896f23db0d795c3ca7baa7e}
+
+
+Definition at line 474 of file winchar.\+c.
+
+\hypertarget{winchar_8c_a77f5e837562d84543cd22f767a581c33}{\index{winchar.\+c@{winchar.\+c}!I\+D\+\_\+\+B\+M\+A\+P@{I\+D\+\_\+\+B\+M\+A\+P}}
+\index{I\+D\+\_\+\+B\+M\+A\+P@{I\+D\+\_\+\+B\+M\+A\+P}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+D\+\_\+\+B\+M\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+B\+M\+A\+P~M\+A\+K\+E\+\_\+\+I\+D('{\bf B}','{\bf M}','{\bf A}','{\bf P}')	/$\ast$ The {\bf type} of form we use $\ast$/}}\label{winchar_8c_a77f5e837562d84543cd22f767a581c33}
+
+
+Definition at line 68 of file winchar.\+c.
+
+
+
+Referenced by Read\+Image\+Files().
+
+\hypertarget{winchar_8c_abcd1dcd9c8074c20b650110c487ec826}{\index{winchar.\+c@{winchar.\+c}!I\+D\+\_\+\+B\+M\+H\+D@{I\+D\+\_\+\+B\+M\+H\+D}}
+\index{I\+D\+\_\+\+B\+M\+H\+D@{I\+D\+\_\+\+B\+M\+H\+D}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+D\+\_\+\+B\+M\+H\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+B\+M\+H\+D~M\+A\+K\+E\+\_\+\+I\+D('{\bf B}','{\bf M}','H','D')	/$\ast$ The I\+L\+B\+M bitmap {\bf header} $\ast$/}}\label{winchar_8c_abcd1dcd9c8074c20b650110c487ec826}
+
+
+Definition at line 69 of file winchar.\+c.
+
+
+
+Referenced by Read\+Image\+Files().
+
+\hypertarget{winchar_8c_a83e89c32c825101821f40b21289218a9}{\index{winchar.\+c@{winchar.\+c}!I\+D\+\_\+\+C\+A\+M\+G@{I\+D\+\_\+\+C\+A\+M\+G}}
+\index{I\+D\+\_\+\+C\+A\+M\+G@{I\+D\+\_\+\+C\+A\+M\+G}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+D\+\_\+\+C\+A\+M\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+C\+A\+M\+G~M\+A\+K\+E\+\_\+\+I\+D('{\bf C}','{\bf A}','{\bf M}','G')	/$\ast$ The I\+L\+B\+M camg (ignored) $\ast$/}}\label{winchar_8c_a83e89c32c825101821f40b21289218a9}
+
+
+Definition at line 70 of file winchar.\+c.
+
+
+
+Referenced by Read\+Image\+Files().
+
+\hypertarget{winchar_8c_adbfe39990b0b760a79f0192db7961bd8}{\index{winchar.\+c@{winchar.\+c}!I\+D\+\_\+\+C\+M\+A\+P@{I\+D\+\_\+\+C\+M\+A\+P}}
+\index{I\+D\+\_\+\+C\+M\+A\+P@{I\+D\+\_\+\+C\+M\+A\+P}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+D\+\_\+\+C\+M\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+C\+M\+A\+P~M\+A\+K\+E\+\_\+\+I\+D('{\bf C}','{\bf M}','{\bf A}','{\bf P}')	/$\ast$ Standard I\+L\+B\+M color {\bf map} $\ast$/}}\label{winchar_8c_adbfe39990b0b760a79f0192db7961bd8}
+
+
+Definition at line 71 of file winchar.\+c.
+
+
+
+Referenced by Read\+Image\+Files().
+
+\hypertarget{winchar_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}{\index{winchar.\+c@{winchar.\+c}!I\+D\+\_\+\+P\+D\+A\+T@{I\+D\+\_\+\+P\+D\+A\+T}}
+\index{I\+D\+\_\+\+P\+D\+A\+T@{I\+D\+\_\+\+P\+D\+A\+T}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+D\+\_\+\+P\+D\+A\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+P\+D\+A\+T~M\+A\+K\+E\+\_\+\+I\+D('{\bf P}','D','{\bf A}','T')	/$\ast$ The {\bf P\+D\+A\+T} structure below $\ast$/}}\label{winchar_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}
+
+
+Definition at line 73 of file winchar.\+c.
+
+
+
+Referenced by Read\+Image\+Files().
+
+\hypertarget{winchar_8c_af25d25b688b21e610cab14b3774cc3fb}{\index{winchar.\+c@{winchar.\+c}!I\+D\+\_\+\+P\+L\+N\+E@{I\+D\+\_\+\+P\+L\+N\+E}}
+\index{I\+D\+\_\+\+P\+L\+N\+E@{I\+D\+\_\+\+P\+L\+N\+E}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+D\+\_\+\+P\+L\+N\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+D\+\_\+\+P\+L\+N\+E~M\+A\+K\+E\+\_\+\+I\+D('{\bf P}','L','N','{\bf E}')	/$\ast$ The plane data $\ast$/}}\label{winchar_8c_af25d25b688b21e610cab14b3774cc3fb}
+
+
+Definition at line 72 of file winchar.\+c.
+
+
+
+Referenced by Read\+Image\+Files().
+
+\hypertarget{winchar_8c_a5d23bd5b0fd400665156aa7271f5f99f}{\index{winchar.\+c@{winchar.\+c}!I\+M\+G\+C\+O\+L\+U\+M\+N\+S@{I\+M\+G\+C\+O\+L\+U\+M\+N\+S}}
+\index{I\+M\+G\+C\+O\+L\+U\+M\+N\+S@{I\+M\+G\+C\+O\+L\+U\+M\+N\+S}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+M\+G\+C\+O\+L\+U\+M\+N\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+M\+G\+C\+O\+L\+U\+M\+N\+S~20}}\label{winchar_8c_a5d23bd5b0fd400665156aa7271f5f99f}
+
+
+Definition at line 65 of file winchar.\+c.
+
+\hypertarget{winchar_8c_a48b28e17e71985e1738d921d75b8df1f}{\index{winchar.\+c@{winchar.\+c}!I\+M\+G\+P\+A\+G\+E\+S\+I\+Z\+E@{I\+M\+G\+P\+A\+G\+E\+S\+I\+Z\+E}}
+\index{I\+M\+G\+P\+A\+G\+E\+S\+I\+Z\+E@{I\+M\+G\+P\+A\+G\+E\+S\+I\+Z\+E}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+M\+G\+P\+A\+G\+E\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+M\+G\+P\+A\+G\+E\+S\+I\+Z\+E~({\bf I\+M\+G\+R\+O\+W\+S}$\ast${\bf I\+M\+G\+C\+O\+L\+U\+M\+N\+S})}}\label{winchar_8c_a48b28e17e71985e1738d921d75b8df1f}
+
+
+Definition at line 66 of file winchar.\+c.
+
+\hypertarget{winchar_8c_ac689efacbe7775d3a3451881e886b975}{\index{winchar.\+c@{winchar.\+c}!I\+M\+G\+R\+O\+W\+S@{I\+M\+G\+R\+O\+W\+S}}
+\index{I\+M\+G\+R\+O\+W\+S@{I\+M\+G\+R\+O\+W\+S}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{I\+M\+G\+R\+O\+W\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+M\+G\+R\+O\+W\+S~12}}\label{winchar_8c_ac689efacbe7775d3a3451881e886b975}
+
+
+Definition at line 64 of file winchar.\+c.
+
+\hypertarget{winchar_8c_a098623f98940a1c6f1b808d9c8c8a910}{\index{winchar.\+c@{winchar.\+c}!N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S@{N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S}}
+\index{N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S@{N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S~80}}\label{winchar_8c_a098623f98940a1c6f1b808d9c8c8a910}
+
+
+Definition at line 473 of file winchar.\+c.
+
+
+
+Referenced by amiv\+\_\+lprint\+\_\+glyph().
+
+\hypertarget{winchar_8c_aee2bd29ebc1f321514ded047bb990794}{\index{winchar.\+c@{winchar.\+c}!N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S@{N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S}}
+\index{N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S@{N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S~3}}\label{winchar_8c_aee2bd29ebc1f321514ded047bb990794}
+
+
+Definition at line 77 of file winchar.\+c.
+
+\hypertarget{winchar_8c_a45ed746dab0494aec7bb5829488004f3}{\index{winchar.\+c@{winchar.\+c}!T\+B\+L\+M\+O\+N\+T\+I\+L\+E@{T\+B\+L\+M\+O\+N\+T\+I\+L\+E}}
+\index{T\+B\+L\+M\+O\+N\+T\+I\+L\+E@{T\+B\+L\+M\+O\+N\+T\+I\+L\+E}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{T\+B\+L\+M\+O\+N\+T\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+B\+L\+M\+O\+N\+T\+I\+L\+E~0}}\label{winchar_8c_a45ed746dab0494aec7bb5829488004f3}
+
+
+Referenced by amiv\+\_\+lprint\+\_\+glyph().
+
+\hypertarget{winchar_8c_a8f5f0e6158c5fbb7a1c973ac5b7b9ba1}{\index{winchar.\+c@{winchar.\+c}!T\+B\+L\+O\+B\+J\+T\+I\+L\+E@{T\+B\+L\+O\+B\+J\+T\+I\+L\+E}}
+\index{T\+B\+L\+O\+B\+J\+T\+I\+L\+E@{T\+B\+L\+O\+B\+J\+T\+I\+L\+E}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{T\+B\+L\+O\+B\+J\+T\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+B\+L\+O\+B\+J\+T\+I\+L\+E~1}}\label{winchar_8c_a8f5f0e6158c5fbb7a1c973ac5b7b9ba1}
+
+
+Referenced by amiv\+\_\+lprint\+\_\+glyph().
+
+\hypertarget{winchar_8c_a1dd0aedb8654a730e53264a14d9a5703}{\index{winchar.\+c@{winchar.\+c}!T\+B\+L\+O\+T\+H\+T\+I\+L\+E@{T\+B\+L\+O\+T\+H\+T\+I\+L\+E}}
+\index{T\+B\+L\+O\+T\+H\+T\+I\+L\+E@{T\+B\+L\+O\+T\+H\+T\+I\+L\+E}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{T\+B\+L\+O\+T\+H\+T\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+B\+L\+O\+T\+H\+T\+I\+L\+E~2}}\label{winchar_8c_a1dd0aedb8654a730e53264a14d9a5703}
+
+
+Referenced by amiv\+\_\+lprint\+\_\+glyph().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{winchar_8c_ad2db856235b6b0b57afd73a5dd1e286d}{\index{winchar.\+c@{winchar.\+c}!amii\+\_\+end\+\_\+glyphout@{amii\+\_\+end\+\_\+glyphout}}
+\index{amii\+\_\+end\+\_\+glyphout@{amii\+\_\+end\+\_\+glyphout}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amii\+\_\+end\+\_\+glyphout}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+end\+\_\+glyphout (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_ad2db856235b6b0b57afd73a5dd1e286d}
+
+
+Definition at line 899 of file winchar.\+c.
+
+
+
+References amii\+\_\+wins, F\+L\+M\+A\+P\+\_\+\+I\+N\+G\+L\+Y\+P\+H, iflags, N\+U\+L\+L, panic(), usecolor, amii\+\_\+\+Win\+Desc\+::wflags, and amii\+\_\+\+Win\+Desc\+::win.
+
+
+
+Referenced by amii\+\_\+display\+\_\+nhwindow(), and amiv\+\_\+flush\+\_\+glyph\+\_\+buffer().
+
+
+\begin{DoxyCode}
+901 \{
+902     \textcolor{keyword}{struct }\hyperlink{structamii__WinDesc}{amii\_WinDesc} *cw;
+903     \textcolor{keyword}{struct }Window *w;
+904 
+905     \textcolor{keywordflow}{if}( ( cw = \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[ window ] ) == (\textcolor{keyword}{struct} \hyperlink{structamii__WinDesc}{amii\_WinDesc} *)
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+906     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"bad window id %d in amii\_end\_glyphout()"}, window );
+907 
+908     \textcolor{keywordflow}{if}( ( cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} & \hyperlink{winami_8h_acd25e68fa1580269477b392d687904f6}{FLMAP\_INGLYPH} ) == 0 )
+909     \textcolor{keywordflow}{return};
+910     cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} &= ~(\hyperlink{winami_8h_acd25e68fa1580269477b392d687904f6}{FLMAP\_INGLYPH});
+911 
+912     \textcolor{keywordflow}{if}( !(w = cw->\hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win} ) )
+913     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"bad winid %d, no window ptr set"}, window );
+914 
+915     \textcolor{comment}{/*}
+916 \textcolor{comment}{     * Clean up whatever is left in the buffer}
+917 \textcolor{comment}{     */}
+918     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.use\_color = \hyperlink{winchar_8c_a59f1f5efd63bf119d0ff187caa2dffde}{usecolor};
+919 
+920     \textcolor{comment}{/*}
+921 \textcolor{comment}{     * Reset internal data structs}
+922 \textcolor{comment}{     */}
+923     SetAPen(w->RPort, \hyperlink{winchar_8c_ad50e5dcd3712e91f244ef4763ece7705}{apensave});
+924     SetBPen(w->RPort, \hyperlink{winchar_8c_a24084014a9beff291e6199285e4f035e}{bpensave});
+925     SetDrMd(w->RPort, \hyperlink{winchar_8c_a7301f7ec6ca8a7e74922796f044057fd}{modesave});
+926 
+927     Move(w->RPort, \hyperlink{winchar_8c_a9b80bf2de8aa03db642b0e8e4b06e1b4}{xsave}, \hyperlink{winchar_8c_adc6ad80b68d03a20fb5dd1394df034dc}{ysave});
+928 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a1b2926265ddfa6efb6c368906efa69e7}{\index{winchar.\+c@{winchar.\+c}!amii\+\_\+flush\+\_\+glyph\+\_\+buffer@{amii\+\_\+flush\+\_\+glyph\+\_\+buffer}}
+\index{amii\+\_\+flush\+\_\+glyph\+\_\+buffer@{amii\+\_\+flush\+\_\+glyph\+\_\+buffer}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amii\+\_\+flush\+\_\+glyph\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+flush\+\_\+glyph\+\_\+buffer (
+\begin{DoxyParamCaption}
+\item[{struct Window $\ast$}]{}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a1b2926265ddfa6efb6c368906efa69e7}
+
+
+Referenced by flush\+\_\+glyph\+\_\+buffer().
+
+\hypertarget{winchar_8c_ad151d08a3e9512a56b0d4461b4a65168}{\index{winchar.\+c@{winchar.\+c}!amii\+\_\+lprint\+\_\+glyph@{amii\+\_\+lprint\+\_\+glyph}}
+\index{amii\+\_\+lprint\+\_\+glyph@{amii\+\_\+lprint\+\_\+glyph}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amii\+\_\+lprint\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+lprint\+\_\+glyph (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{, }
+\item[{int}]{, }
+\item[{int}]{}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_ad151d08a3e9512a56b0d4461b4a65168}
+\hypertarget{winchar_8c_abcc472aea05e273e80de4fef1df0314d}{\index{winchar.\+c@{winchar.\+c}!amii\+\_\+start\+\_\+glyphout@{amii\+\_\+start\+\_\+glyphout}}
+\index{amii\+\_\+start\+\_\+glyphout@{amii\+\_\+start\+\_\+glyphout}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amii\+\_\+start\+\_\+glyphout}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+start\+\_\+glyphout (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_abcc472aea05e273e80de4fef1df0314d}
+\hypertarget{winchar_8c_a2bbd4f73bca99f6855764467ea83a3d0}{\index{winchar.\+c@{winchar.\+c}!amiv\+\_\+flush\+\_\+glyph\+\_\+buffer@{amiv\+\_\+flush\+\_\+glyph\+\_\+buffer}}
+\index{amiv\+\_\+flush\+\_\+glyph\+\_\+buffer@{amiv\+\_\+flush\+\_\+glyph\+\_\+buffer}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amiv\+\_\+flush\+\_\+glyph\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}void amiv\+\_\+flush\+\_\+glyph\+\_\+buffer (
+\begin{DoxyParamCaption}
+\item[{struct Window $\ast$}]{vw}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a2bbd4f73bca99f6855764467ea83a3d0}
+
+
+Definition at line 497 of file winchar.\+c.
+
+
+
+References amii\+\_\+end\+\_\+glyphout(), amii\+\_\+extraplanes, amii\+\_\+putstr(), amii\+\_\+wins, amiv\+\_\+g\+\_\+nodes, amiv\+\_\+start\+\_\+glyphout(), amiv\+\_\+glyph\+\_\+node\+::bitmap, C\+O\+L\+N\+O, cursor\+\_\+off(), flags, glyph\+\_\+node\+\_\+index, mxsize, My\+Alloc\+Bit\+Map(), My\+Free\+Bit\+Map(), mysize, P\+D\+A\+T\+::nplanes, N\+U\+L\+L, amiv\+\_\+glyph\+\_\+node\+::odstx, amiv\+\_\+glyph\+\_\+node\+::odsty, pictdata, reclip, R\+O\+W\+N\+O, rp, amiv\+\_\+glyph\+\_\+node\+::srcx, amiv\+\_\+glyph\+\_\+node\+::srcy, tile, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+A\+P, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, W\+I\+N\+\_\+\+O\+V\+E\+R, xsize, P\+D\+A\+T\+::xsize, ysize, and P\+D\+A\+T\+::ysize.
+
+
+
+Referenced by amiv\+\_\+lprint\+\_\+glyph(), and flush\+\_\+glyph\+\_\+buffer().
+
+
+\begin{DoxyCode}
+499 \{
+500 \textcolor{preprocessor}{#if !defined(DISPMAP) || defined(OPT\_DISPMAP)}
+501     \textcolor{keywordtype}{int} \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize}, \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize}, x, y;
+502     \textcolor{keyword}{struct }BitScaleArgs bsa;
+503     \textcolor{keyword}{struct }BitScaleArgs bsm;
+504     \textcolor{keyword}{struct }RastPort rast;
+505     \textcolor{keyword}{struct }Window *w = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+506     \textcolor{keyword}{struct }BitMap *imgbm = 0, *bm = 0;
+507     \textcolor{keywordtype}{int} i, k;
+508     \textcolor{keywordtype}{int} scaling\_needed;
+509     \textcolor{keyword}{register} \textcolor{keyword}{struct }RastPort *\hyperlink{amirip_8c_aa0639b6491ec144930d14703053f32a4}{rp} = vw->RPort;
+510 \textcolor{preprocessor}{#endif}
+511 
+512     \textcolor{comment}{/* If nothing is buffered, return before we do anything */}
+513     \textcolor{keywordflow}{if}(\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index} == 0)
+514     \textcolor{keywordflow}{return};
+515 
+516     \hyperlink{winfuncs_8c_a21dcf06b1e3a62331c49092d9911f189}{cursor\_off}( \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} );
+517     \hyperlink{winchar_8c_a1d43a285cee2efeee810d59ad9e071ab}{amiv\_start\_glyphout}( \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} );
+518 
+519 \textcolor{preprocessor}{#ifdef OPT\_DISPMAP}
+520     \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.fast\_map)\{
+521 \textcolor{preprocessor}{#endif}
+522 \textcolor{preprocessor}{#ifdef DISPMAP}
+523     display\_map( vw );
+524 \textcolor{preprocessor}{#endif}
+525 \textcolor{preprocessor}{#ifdef OPT\_DISPMAP}
+526     \} \textcolor{keywordflow}{else} \{
+527 \textcolor{preprocessor}{#endif}
+528 \textcolor{preprocessor}{#if !defined(DISPMAP) || defined(OPT\_DISPMAP)}
+529 \textcolor{comment}{/* XXX fix indent */}
+530     \textcolor{comment}{/* This is a dynamic value based on this relationship. */}
+531     scaling\_needed = ( \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize} != \hyperlink{winext_8h_afba9a8d2cd024c7010eae489091d11d6}{mxsize} || \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.
+      \hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize} != \hyperlink{winext_8h_a9703aea67c83633a25beaa737dad2b65}{mysize} );
+532 
+533     \textcolor{comment}{/* If overview window is up, set up to render the correct scale there */}
+534     \textcolor{keywordflow}{if}( \hyperlink{winami_8h_a6a2b237abaae6aafe05c90be6d49d72e}{WIN\_OVER} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} && ( w = \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[ \hyperlink{winami_8h_a6a2b237abaae6aafe05c90be6d49d72e}{WIN\_OVER} ]->win ) != 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+535     \{
+536     InitRastPort( &rast );
+537 
+538     \textcolor{comment}{/* Calculate the x and y size of each tile for a ROWNO by COLNO map */}
+539     xsize = (w->Width - w->BorderLeft - w->BorderRight) / \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO};
+540     ysize = (w->Height - w->BorderTop - w->BorderBottom) / \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO};
+541 
+542     \textcolor{comment}{/* Get a chip memory bitmap to blit out of */}
+543     bm = \hyperlink{winchar_8c_a5054ef363db2f8b757a97c991b667bfd}{MyAllocBitMap}( \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize}, \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.
+      \hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize},
+544         \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a65023668c3da18118ec0f30379454fa0}{nplanes} + \hyperlink{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}{amii\_extraplanes}, MEMF\_CLEAR|MEMF\_CHIP );
+545     \textcolor{keywordflow}{if}( bm == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+546     \{
+547         \hyperlink{winproto_8h_a9fdbf76005ec3ae5b77b3002366c04d3}{amii\_putstr}( \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, 0, \textcolor{stringliteral}{"Can't allocate bitmap for scaling overview
+       window"} );
+548     \}
+549 
+550     rast.BitMap = bm;
+551 
+552     memset( &bsa, 0, \textcolor{keyword}{sizeof}( bsa ) );
+553     bsa.bsa\_SrcX = bsa.bsa\_SrcY = 0;
+554     bsa.bsa\_SrcBitMap = \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile};
+555     bsa.bsa\_SrcWidth = \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize};
+556     bsa.bsa\_SrcHeight = \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize};
+557     bsa.bsa\_XSrcFactor = \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize};
+558     bsa.bsa\_YSrcFactor = \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize};
+559     bsa.bsa\_DestX = 0;
+560     bsa.bsa\_DestY = 0;
+561     bsa.bsa\_DestWidth = \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize};
+562     bsa.bsa\_DestHeight = \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize};
+563     bsa.bsa\_XDestFactor = \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize};
+564     bsa.bsa\_YDestFactor = \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize};
+565     bsa.bsa\_DestBitMap = bm;
+566     \}
+567 
+568     \textcolor{keywordflow}{if}( scaling\_needed )
+569     \{
+570     \textcolor{comment}{/* Fill in scaling data for map rendering */}
+571     memset( &bsm, 0, \textcolor{keyword}{sizeof}( bsm ) );
+572     bsm.bsa\_SrcX = bsm.bsa\_SrcY = 0;
+573     bsm.bsa\_SrcBitMap = \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile};
+574 
+575     bsm.bsa\_SrcWidth = \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize};
+576     bsm.bsa\_SrcHeight = \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize};
+577 
+578     bsm.bsa\_XSrcFactor = \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize};
+579     bsm.bsa\_YSrcFactor = \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize};
+580 
+581     bsm.bsa\_DestWidth = \hyperlink{winext_8h_afba9a8d2cd024c7010eae489091d11d6}{mxsize};
+582     bsm.bsa\_DestHeight = \hyperlink{winext_8h_a9703aea67c83633a25beaa737dad2b65}{mysize};
+583 
+584     bsm.bsa\_XDestFactor = \hyperlink{winext_8h_afba9a8d2cd024c7010eae489091d11d6}{mxsize};
+585     bsm.bsa\_YDestFactor = \hyperlink{winext_8h_a9703aea67c83633a25beaa737dad2b65}{mysize};
+586     bsm.bsa\_DestBitMap = rp->BitMap;
+587     bsm.bsa\_DestY = bsm.bsa\_DestX = 0;
+588 
+589     imgbm = \hyperlink{winchar_8c_a5054ef363db2f8b757a97c991b667bfd}{MyAllocBitMap}( \hyperlink{winext_8h_afba9a8d2cd024c7010eae489091d11d6}{mxsize}, \hyperlink{winext_8h_a9703aea67c83633a25beaa737dad2b65}{mysize},
+590         \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a65023668c3da18118ec0f30379454fa0}{nplanes} + \hyperlink{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}{amii\_extraplanes}, MEMF\_CLEAR|MEMF\_CHIP );
+591     \textcolor{keywordflow}{if}( imgbm == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+592     \{
+593         \hyperlink{winproto_8h_a9fdbf76005ec3ae5b77b3002366c04d3}{amii\_putstr}( \hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, 0,
+594         \textcolor{stringliteral}{"Can't allocate scaling bitmap for map window"} );
+595     \}
+596     \textcolor{keywordflow}{else}
+597         bsm.bsa\_DestBitMap = imgbm;
+598     \}
+599 
+600     \textcolor{comment}{/* Go ahead and start dumping the stuff */}
+601     \textcolor{keywordflow}{for}( i=0; i<\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}; ++i )
+602     \{
+603     \textcolor{comment}{/* Do it */}
+604     \textcolor{keyword}{register} \textcolor{keywordtype}{int} offx, offy, j;
+605     \textcolor{keyword}{struct }BitMap *nodebm = \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].\hyperlink{structamiv__glyph__node_ab11ba30936a2417158aebe7f52a016c7}{bitmap};
+606 
+607     \textcolor{comment}{/* Get the unclipped coordinates */}
+608     x = \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].\hyperlink{structamiv__glyph__node_a01d08c786e450b313545f99bcc9b7cb9}{odstx};
+609     y = \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].\hyperlink{structamiv__glyph__node_ab1e73e6143c4515249068a242593f5bc}{odsty};
+610 
+611     \textcolor{comment}{/* If image is not in CHIP. copy each plane into tile line by line */}
+612 
+613     offx = \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].\hyperlink{structamiv__glyph__node_af363a9798dc6d9c868059dea9aac6398}{srcx} / 8;  \textcolor{comment}{/* 8 is bits per byte */}
+614     offy = \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].\hyperlink{structamiv__glyph__node_a3c3e769de0818636664ba218715b9371}{srcy} * nodebm->BytesPerRow;
+615     \textcolor{keywordflow}{for}( j = 0; j < \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a65023668c3da18118ec0f30379454fa0}{nplanes} + \hyperlink{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}{amii\_extraplanes}; ++j )
+616     \{
+617         \textcolor{keywordflow}{for}( k = 0; k < \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize}; ++k )
+618         \{
+619 
+620             \textcolor{comment}{/* For a 16x16 tile, this could just be short assignments, but}
+621 \textcolor{comment}{             * this code is generalized to handle any size tile image...}
+622 \textcolor{comment}{             */}
+623             memcpy( \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}->Planes[ j ] + ( ( k * \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize} ) / 8 ),
+624             nodebm->Planes[ j ] + offx + offy + ( nodebm->BytesPerRow * k ),
+625             \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize}/8 );
+626         \}
+627     \}
+628 
+629     \textcolor{keywordflow}{if}( !clipping ||
+630         ( x >= clipx    && y >= clipy &&
+631           x <  clipxmax && y <  clipymax ) )
+632     \{
+633         \textcolor{comment}{/* scaling is needed, do it */}
+634         \textcolor{keywordflow}{if}( scaling\_needed )
+635         \{
+636         BitMapScale( &bsm );
+637         BltBitMapRastPort( imgbm, 0, 0,
+638             rp, \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].dstx, \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].dsty,
+639             \hyperlink{winext_8h_afba9a8d2cd024c7010eae489091d11d6}{mxsize}, \hyperlink{winext_8h_a9703aea67c83633a25beaa737dad2b65}{mysize}, 0xc0 );
+640         \}
+641         \textcolor{keywordflow}{else}
+642         \{
+643         BltBitMapRastPort( \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}, 0, 0,
+644             rp, \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].dstx, \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].dsty,
+645             \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize}, \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize}, 0xc0 );
+646         \}
+647     \}
+648     \textcolor{comment}{/* Draw the overview window unless we are scrolling the map raster around */}
+649     \textcolor{keywordflow}{if}( bm && w && \hyperlink{winchar_8c_abaef652f2ecc14cf7257f91b8f5f0527}{reclip} != 2 )
+650     \{
+651         BitMapScale( &bsa );
+652         BltBitMapRastPort( rast.BitMap, 0, 0,
+653             w->RPort,
+654             w->BorderLeft + \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].\hyperlink{structamiv__glyph__node_a01d08c786e450b313545f99bcc9b7cb9}{odstx}*xsize,
+655             w->BorderTop + \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[ i ].\hyperlink{structamiv__glyph__node_ab1e73e6143c4515249068a242593f5bc}{odsty}*ysize,
+656             xsize, ysize, 0xc0 );
+657     \}
+658     \}
+659 
+660     \textcolor{keywordflow}{if}( imgbm ) \hyperlink{winchar_8c_a826909fe5d305f7890c89e58753ec212}{MyFreeBitMap}( imgbm );
+661     \textcolor{keywordflow}{if}( bm ) \hyperlink{winchar_8c_a826909fe5d305f7890c89e58753ec212}{MyFreeBitMap}( bm );
+662 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* DISPMAP */}\textcolor{preprocessor}{}
+663 \textcolor{preprocessor}{#ifdef OPT\_DISPMAP}
+664     \}
+665 \textcolor{preprocessor}{#endif}
+666 
+667     \hyperlink{winchar_8c_ad2db856235b6b0b57afd73a5dd1e286d}{amii\_end\_glyphout}( \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} );
+668 
+669     \textcolor{comment}{/* Clean up */}
+670     glyph\_node\_index = \hyperlink{winchar_8c_abcc691cbd16d1b0dc4667d7ce735ec5f}{glyph\_buffer\_index} = 0;
+671 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a53e61def5624ad8cac9d834c234081f7}{\index{winchar.\+c@{winchar.\+c}!amiv\+\_\+lprint\+\_\+glyph@{amiv\+\_\+lprint\+\_\+glyph}}
+\index{amiv\+\_\+lprint\+\_\+glyph@{amiv\+\_\+lprint\+\_\+glyph}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amiv\+\_\+lprint\+\_\+glyph}]{\setlength{\rightskip}{0pt plus 5cm}void amiv\+\_\+lprint\+\_\+glyph (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window, }
+\item[{int}]{color\+\_\+index, }
+\item[{int}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a53e61def5624ad8cac9d834c234081f7}
+
+
+Definition at line 677 of file winchar.\+c.
+
+
+
+References P\+D\+A\+T\+::across, amii\+\_\+menu\+B\+Pen, amii\+\_\+wins, amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), amiv\+\_\+g\+\_\+nodes, amiv\+\_\+glyph\+\_\+node\+::bitmap, amii\+\_\+\+Win\+Desc\+::cursx, amii\+\_\+\+Win\+Desc\+::cursy, amii\+\_\+\+Win\+Desc\+::curx, amii\+\_\+\+Win\+Desc\+::cury, amiv\+\_\+glyph\+\_\+node\+::dstx, amiv\+\_\+glyph\+\_\+node\+::dsty, flags, F\+L\+M\+A\+P\+\_\+\+C\+U\+R\+S\+U\+P, glyph\+\_\+node\+\_\+index, Glyph\+To\+Icon(), ifftimg, min, mxsize, mysize, N\+H\+W\+\_\+\+M\+A\+P, N\+O\+\_\+\+G\+L\+Y\+P\+H, P\+D\+A\+T\+::nplanes, N\+U\+L\+L, N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S, amiv\+\_\+glyph\+\_\+node\+::odstx, amiv\+\_\+glyph\+\_\+node\+::odsty, panic(), pictdata, rp, amiv\+\_\+glyph\+\_\+node\+::srcx, amiv\+\_\+glyph\+\_\+node\+::srcy, T\+B\+L\+M\+O\+N\+T\+I\+L\+E, T\+B\+L\+O\+B\+J\+T\+I\+L\+E, T\+B\+L\+O\+T\+H\+T\+I\+L\+E, tile, amii\+\_\+\+Win\+Desc\+::type, amii\+\_\+\+Win\+Desc\+::wflags, amii\+\_\+\+Win\+Desc\+::win, P\+D\+A\+T\+::xsize, and P\+D\+A\+T\+::ysize.
+
+
+\begin{DoxyCode}
+680 \{
+681     \textcolor{keywordtype}{int} base;
+682     \textcolor{keyword}{struct }\hyperlink{structamii__WinDesc}{amii\_WinDesc} *cw;
+683     \textcolor{keyword}{struct }Window *w;
+684     \textcolor{keywordtype}{int} curx;
+685     \textcolor{keywordtype}{int} cury;
+686     \textcolor{keywordtype}{int} tbl, icon;
+687     \textcolor{keyword}{register} \textcolor{keywordtype}{int} xoff, yoff;
+688 
+689     \textcolor{comment}{/* Get the real icon index */}
+690     \textcolor{keywordflow}{if}( glyph != \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH} )
+691     icon = \hyperlink{winchar_8c_abc451929a04f40ea85363d6daf7f3960}{GlyphToIcon}( glyph );
+692 
+693     \textcolor{keywordflow}{if}( ( cw=\hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[window] ) == (\textcolor{keyword}{struct} \hyperlink{structamii__WinDesc}{amii\_WinDesc} *)
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+694     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"bad winid in amiv\_lprint\_glyph: %d"}, window );
+695 
+696     w = cw->\hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win};
+697 
+698     \textcolor{keywordflow}{if}( glyph != \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH} && glyph < 10000)
+699     \{
+700     \textcolor{comment}{/* decide on which image has the needed picture */}
+701     \textcolor{keywordflow}{if}( icon <= MAXMONTILE )
+702     \{
+703         tbl = \hyperlink{winchar_8c_a45ed746dab0494aec7bb5829488004f3}{TBLMONTILE};
+704         base = 0;
+705     \}
+706     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( icon <= MAXOBJTILE )
+707     \{
+708         tbl = \hyperlink{winchar_8c_a8f5f0e6158c5fbb7a1c973ac5b7b9ba1}{TBLOBJTILE};
+709         base = MAXMONTILE+1;
+710     \}
+711     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( icon <= MAXOTHTILE )
+712     \{
+713         tbl = \hyperlink{winchar_8c_a1dd0aedb8654a730e53264a14d9a5703}{TBLOTHTILE};
+714         base = MAXOBJTILE+1;
+715     \}
+716     \textcolor{keywordflow}{else}
+717         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"Bad icon #%d, glyph #%d, only %d icons known\(\backslash\)n"}, icon, glyph, MAXOTHTILE );
+718 
+719     \textcolor{comment}{/* Get the relative offset in the page */}
+720 
+721     \textcolor{comment}{/* How many pixels to account for y distance down */}
+722     yoff = ((icon-base) / \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a484ed7435d180061a826001556fae6cf}{across}) * \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.
+      \hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize};
+723 
+724     \textcolor{comment}{/* How many pixels to account for x distance across */}
+725     xoff = ((icon-base) % \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a484ed7435d180061a826001556fae6cf}{across}) * \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.
+      \hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize};
+726     \}
+727 
+728     \textcolor{keywordflow}{if}(glyph >= 10000)\{
+729     \textcolor{comment}{/* Run a single ASCII character out to the rastport right now */}
+730     \textcolor{keywordtype}{char} c= glyph-10000;
+731     \textcolor{keywordtype}{int} xxx,xxy;
+732     \textcolor{keyword}{struct }RastPort *\hyperlink{amirip_8c_aa0639b6491ec144930d14703053f32a4}{rp} = w->RPort;
+733 
+734     Move(rp, xxx=(((cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx}-clipx)*rp->TxWidth) + w->BorderLeft),
+735       xxy=(w->BorderTop + (((cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury}-clipy)+1)* rp->TxHeight)+1));
+736     Text(rp,&c,1);
+737         \textcolor{comment}{/* XXX this shouldn't be necessary: */}
+738     \textcolor{keywordflow}{if}(cw->\hyperlink{structamii__WinDesc_ae9b81e1924a60034c9ca2f7dee3c97fd}{cursx} == xxx && cw->\hyperlink{structamii__WinDesc_a25574bc64eeaecb522e78f5c636da887}{cursy} == xxy)\{
+739         cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} &= ~\hyperlink{winami_8h_a7273e3f6e628faf1db9b852fc1c56729}{FLMAP\_CURSUP};
+740     \}
+741     cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} += rp->TxWidth;    \textcolor{comment}{/* keep things in sync */}
+742     \textcolor{keywordflow}{return};
+743     \}
+744     
+745     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_ab90130f7f09b474842877b2f71d708e0}{type} == \hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP} )
+746     \{
+747     curx = cw->\hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx} - clipx;
+748     cury = cw->\hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury} - clipy;
+749 
+750     \textcolor{comment}{/* See if we're out of glyph nodes */}
+751     \textcolor{keywordflow}{if}(\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index} >= \hyperlink{winchar_8c_a098623f98940a1c6f1b808d9c8c8a910}{NUMBER\_GLYPH\_NODES})
+752         \hyperlink{winchar_8c_a2bbd4f73bca99f6855764467ea83a3d0}{amiv\_flush\_glyph\_buffer}( w );
+753 
+754     \textcolor{comment}{/* Fill in the node. */}
+755     \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}].\hyperlink{structamiv__glyph__node_ada857f1baefdc0ec033c8380ee8b1a4f}{dsty} = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}( w->BorderTop + (cury * 
+      \hyperlink{winext_8h_a9703aea67c83633a25beaa737dad2b65}{mysize}),
+756                         w->Height - 1 );
+757 
+758 \textcolor{preprocessor}{#ifdef OPT\_DISPMAP}
+759     \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.fast\_map)\{
+760 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* keni */}\textcolor{preprocessor}{}
+761 \textcolor{preprocessor}{#ifdef  DISPMAP}
+762     \textcolor{comment}{/* display\_map() needs byte-aligned destinations, and we don't want to}
+763 \textcolor{comment}{     * overwrite the window border.}
+764 \textcolor{comment}{     */}
+765     \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}].\hyperlink{structamiv__glyph__node_a42565a3c855ecf34f2cd47a3af3249b1}{dstx} =
+766                 (w->BorderLeft + 8 + (curx * \hyperlink{winext_8h_afba9a8d2cd024c7010eae489091d11d6}{mxsize})) & -8;
+767 \textcolor{preprocessor}{#endif}
+768 \textcolor{preprocessor}{#ifdef OPT\_DISPMAP}
+769 \} \textcolor{keywordflow}{else} \{
+770 \textcolor{preprocessor}{#endif}
+771 \textcolor{preprocessor}{#if !defined(DISPMAP) || defined(OPT\_DISPMAP)}
+772     \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}].\hyperlink{structamiv__glyph__node_a42565a3c855ecf34f2cd47a3af3249b1}{dstx} = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}( w->BorderLeft + (curx * 
+      \hyperlink{winext_8h_afba9a8d2cd024c7010eae489091d11d6}{mxsize}),
+773                         w->Width - 1 );
+774 \textcolor{preprocessor}{#endif}
+775 \textcolor{preprocessor}{#ifdef OPT\_DISPMAP}
+776 \}
+777 \textcolor{preprocessor}{#endif}
+778     \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}].\hyperlink{structamiv__glyph__node_ab1e73e6143c4515249068a242593f5bc}{odsty} = cw->
+      \hyperlink{structamii__WinDesc_aee07cf405ea0e78eb6b82c339360a0f8}{cury};
+779     \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}].\hyperlink{structamiv__glyph__node_a01d08c786e450b313545f99bcc9b7cb9}{odstx} = cw->
+      \hyperlink{structamii__WinDesc_a4ae862475cf0a2f6aed98394d3ac12bd}{curx};
+780     \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}].\hyperlink{structamiv__glyph__node_af363a9798dc6d9c868059dea9aac6398}{srcx} = xoff;
+781     \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}].\hyperlink{structamiv__glyph__node_a3c3e769de0818636664ba218715b9371}{srcy} = yoff;
+782     \hyperlink{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{amiv\_g\_nodes}[\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index}].\hyperlink{structamiv__glyph__node_ab11ba30936a2417158aebe7f52a016c7}{bitmap} = 
+      \hyperlink{winchar_8c_a59e1af99e18ff54c06c0a9a5d736fa0f}{ifftimg}[ tbl ];
+783     ++\hyperlink{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{glyph\_node\_index};
+784     \}
+785     \textcolor{keywordflow}{else}
+786     \{
+787     \textcolor{comment}{/* Do it */}
+788     \textcolor{keyword}{register} \textcolor{keywordtype}{int} j, k, x, y, apen;
+789     \textcolor{keyword}{struct }RastPort *rp = w->RPort;
+790     x = rp->cp\_x - \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize} - 3;
+791 \textcolor{preprocessor}{#ifdef OPT\_DISPMAP}
+792     \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.fast\_map)\{
+793 \textcolor{preprocessor}{#endif}
+794 \textcolor{preprocessor}{#ifdef DISPMAP}
+795         x &= -8;
+796         \textcolor{keywordflow}{if}(x==0) x = 8;
+797 \textcolor{preprocessor}{#endif}
+798 \textcolor{preprocessor}{#ifdef OPT\_DISPMAP}
+799     \}
+800 \textcolor{preprocessor}{#endif}
+801 
+802     y = rp->cp\_y - \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize} + 1;
+803 
+804     \textcolor{keywordflow}{if}( glyph != \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH} )
+805     \{
+806         \textcolor{keyword}{struct }BitMap *bm = \hyperlink{winchar_8c_a59e1af99e18ff54c06c0a9a5d736fa0f}{ifftimg}[ tbl ];
+807 
+808         \textcolor{comment}{/* 8 bits per byte */}
+809         xoff /= 8;
+810         yoff *= bm->BytesPerRow;
+811         \textcolor{keywordflow}{for}( j = 0; j < \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a65023668c3da18118ec0f30379454fa0}{nplanes}; ++j )
+812         \{
+813         \textcolor{keywordflow}{for}( k = 0; k < \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize}; ++k )
+814         \{
+815             memcpy( \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}->Planes[ j ] + ( ( k * \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize} ) / 8 ),
+816                 bm->Planes[ j ] + xoff + yoff + ( bm->BytesPerRow * k ),
+817                 \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize}/8 );
+818         \}
+819         \}
+820 
+821         BltBitMapRastPort( \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}, 0, 0,
+822         rp, x, y,
+823         \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize}, \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize}, 0xc0 );
+824 
+825         apen = rp->FgPen;
+826         SetAPen( rp, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.amii\_dripens[ SHINEPEN ] );
+827         Move( rp, x-1, y + \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize} );
+828         Draw( rp, x-1, y - 1 );
+829         Draw( rp, x + \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize}, y - 1 );
+830         SetAPen( rp, \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.amii\_dripens[ SHADOWPEN ] );
+831         Move( rp, x + \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize}, y );
+832         Draw( rp, x + \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize}, y + \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize} );
+833         Draw( rp, x, y + \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize} );
+834         SetAPen( rp, apen );
+835     \}
+836     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( x > w->BorderLeft )
+837     \{
+838         \textcolor{keywordtype}{int} apen, bpen;
+839         apen = rp->FgPen;
+840         bpen = rp->BgPen;
+841         SetAPen( rp, \hyperlink{winext_8h_a26ac45dc44f3d41edc95bc99e0b788d8}{amii\_menuBPen} );
+842         SetBPen( rp, \hyperlink{winext_8h_a26ac45dc44f3d41edc95bc99e0b788d8}{amii\_menuBPen} );
+843         RectFill( rp, x-1, y-1, x + \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize}, y + \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.
+      \hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize} );
+844         SetAPen( rp, apen );
+845         SetBPen( rp, bpen );
+846     \}
+847     \}
+848 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a1d43a285cee2efeee810d59ad9e071ab}{\index{winchar.\+c@{winchar.\+c}!amiv\+\_\+start\+\_\+glyphout@{amiv\+\_\+start\+\_\+glyphout}}
+\index{amiv\+\_\+start\+\_\+glyphout@{amiv\+\_\+start\+\_\+glyphout}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amiv\+\_\+start\+\_\+glyphout}]{\setlength{\rightskip}{0pt plus 5cm}void amiv\+\_\+start\+\_\+glyphout (
+\begin{DoxyParamCaption}
+\item[{{\bf winid}}]{window}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a1d43a285cee2efeee810d59ad9e071ab}
+
+
+Definition at line 863 of file winchar.\+c.
+
+
+
+References amii\+\_\+wins, F\+A\+L\+S\+E, F\+L\+M\+A\+P\+\_\+\+I\+N\+G\+L\+Y\+P\+H, iflags, N\+U\+L\+L, panic(), amii\+\_\+\+Win\+Desc\+::wflags, and amii\+\_\+\+Win\+Desc\+::win.
+
+
+
+Referenced by amiv\+\_\+flush\+\_\+glyph\+\_\+buffer().
+
+
+\begin{DoxyCode}
+865 \{
+866     \textcolor{keyword}{struct }\hyperlink{structamii__WinDesc}{amii\_WinDesc} *cw;
+867     \textcolor{keyword}{struct }Window *w;
+868 
+869     \textcolor{keywordflow}{if}( ( cw=\hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[window] ) == (\textcolor{keyword}{struct} \hyperlink{structamii__WinDesc}{amii\_WinDesc} *)
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+870     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"bad winid %d in start\_glyphout()"}, window );
+871 
+872     \textcolor{keywordflow}{if}( cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} & \hyperlink{winami_8h_acd25e68fa1580269477b392d687904f6}{FLMAP\_INGLYPH} )
+873     \textcolor{keywordflow}{return};
+874 
+875     \textcolor{keywordflow}{if}( !(w = cw->\hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win} ) )
+876     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"bad winid %d, no window ptr set"}, window );
+877 
+878     \textcolor{comment}{/*}
+879 \textcolor{comment}{     * Save the context of the window}
+880 \textcolor{comment}{     */}
+881     \hyperlink{winchar_8c_a9b80bf2de8aa03db642b0e8e4b06e1b4}{xsave} = w->RPort->cp\_x;
+882     \hyperlink{winchar_8c_adc6ad80b68d03a20fb5dd1394df034dc}{ysave} = w->RPort->cp\_y;
+883     \hyperlink{winchar_8c_a7301f7ec6ca8a7e74922796f044057fd}{modesave} = w->RPort->DrawMode;
+884     \hyperlink{winchar_8c_ad50e5dcd3712e91f244ef4763ece7705}{apensave} = w->RPort->FgPen;
+885     \hyperlink{winchar_8c_a24084014a9beff291e6199285e4f035e}{bpensave} = w->RPort->BgPen;
+886 
+887     \textcolor{comment}{/*}
+888 \textcolor{comment}{     * Set the mode, and be done with it}
+889 \textcolor{comment}{     */}
+890     \hyperlink{winchar_8c_a59f1f5efd63bf119d0ff187caa2dffde}{usecolor} = \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.use\_color;
+891     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.use\_color = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+892     cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} |= \hyperlink{winami_8h_acd25e68fa1580269477b392d687904f6}{FLMAP\_INGLYPH};
+893 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_aedd7ad0350a58b8fca664bcbdc5f1f35}{\index{winchar.\+c@{winchar.\+c}!flush\+\_\+glyph\+\_\+buffer@{flush\+\_\+glyph\+\_\+buffer}}
+\index{flush\+\_\+glyph\+\_\+buffer@{flush\+\_\+glyph\+\_\+buffer}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{flush\+\_\+glyph\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}void flush\+\_\+glyph\+\_\+buffer (
+\begin{DoxyParamCaption}
+\item[{struct Window $\ast$}]{vw}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_aedd7ad0350a58b8fca664bcbdc5f1f35}
+
+
+Definition at line 484 of file winchar.\+c.
+
+
+
+References amii\+\_\+flush\+\_\+glyph\+\_\+buffer(), amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), and W\+I\+N\+V\+E\+R\+S\+\_\+\+A\+M\+I\+V.
+
+
+
+Referenced by amii\+\_\+cliparound(), amii\+\_\+curs(), amii\+\_\+display\+\_\+nhwindow(), amii\+\_\+wait\+\_\+synch(), and Edit\+Clipping().
+
+
+\begin{DoxyCode}
+486 \{
+487     \textcolor{keywordflow}{if}( \hyperlink{windefs_8h_aa0b90aaeb74b2488a95f0902cef09cbf}{WINVERS\_AMIV} )
+488     \hyperlink{winchar_8c_a2bbd4f73bca99f6855764467ea83a3d0}{amiv\_flush\_glyph\_buffer} ( vw );
+489     \textcolor{keywordflow}{else}
+490     \hyperlink{winchar_8c_a1b2926265ddfa6efb6c368906efa69e7}{amii\_flush\_glyph\_buffer} ( vw );
+491 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{\index{winchar.\+c@{winchar.\+c}!Free\+Image\+Files@{Free\+Image\+Files}}
+\index{Free\+Image\+Files@{Free\+Image\+Files}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{Free\+Image\+Files}]{\setlength{\rightskip}{0pt plus 5cm}void Free\+Image\+Files (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{filenames, }
+\item[{struct Bit\+Map $\ast$$\ast$}]{img}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}
+
+
+Definition at line 453 of file winchar.\+c.
+
+
+
+References ifftimg, My\+Free\+Bit\+Map(), and tile.
+
+
+
+Referenced by Free\+Tile\+Image\+Files(), and Read\+Image\+Files().
+
+
+\begin{DoxyCode}
+454 \{
+455     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+456 
+457     \textcolor{keywordflow}{for}( i = 0; filenames[i]; ++i )
+458     \{
+459     \textcolor{keywordflow}{if}( img[ i ] )
+460         \hyperlink{winchar_8c_a826909fe5d305f7890c89e58753ec212}{MyFreeBitMap}( img[ i ] );
+461     \}
+462 
+463     \textcolor{comment}{/* REALLY ugly hack alert! */}
+464     \textcolor{keywordflow}{if}( \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile} && img==\hyperlink{winchar_8c_a59e1af99e18ff54c06c0a9a5d736fa0f}{ifftimg})
+465     \hyperlink{winchar_8c_a826909fe5d305f7890c89e58753ec212}{MyFreeBitMap}( \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile} );
+466 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a52004e01e897470f11cc048fc78f4649}{\index{winchar.\+c@{winchar.\+c}!Free\+Tile\+Image\+Files@{Free\+Tile\+Image\+Files}}
+\index{Free\+Tile\+Image\+Files@{Free\+Tile\+Image\+Files}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{Free\+Tile\+Image\+Files}]{\setlength{\rightskip}{0pt plus 5cm}void Free\+Tile\+Image\+Files (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a52004e01e897470f11cc048fc78f4649}
+
+
+Definition at line 448 of file winchar.\+c.
+
+
+
+References Free\+Image\+Files(), ifftimg, and tileimages.
+
+
+
+Referenced by amii\+\_\+exit\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+448                     \{
+449     \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}(\hyperlink{winchar_8c_a0190588bb20fccf5d0c424f0d9a88c62}{tileimages},\hyperlink{winchar_8c_a59e1af99e18ff54c06c0a9a5d736fa0f}{ifftimg});
+450 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_abc451929a04f40ea85363d6daf7f3960}{\index{winchar.\+c@{winchar.\+c}!Glyph\+To\+Icon@{Glyph\+To\+Icon}}
+\index{Glyph\+To\+Icon@{Glyph\+To\+Icon}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{Glyph\+To\+Icon}]{\setlength{\rightskip}{0pt plus 5cm}int Glyph\+To\+Icon (
+\begin{DoxyParamCaption}
+\item[{int}]{glyph}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_abc451929a04f40ea85363d6daf7f3960}
+
+
+Definition at line 937 of file winchar.\+c.
+
+
+
+References glyph2tile.
+
+
+
+Referenced by amiv\+\_\+lprint\+\_\+glyph().
+
+
+\begin{DoxyCode}
+938 \{
+939     \textcolor{keywordflow}{if}(glyph>10000)\textcolor{keywordflow}{return} glyph;
+940     \textcolor{keywordflow}{return}( \hyperlink{sys_2wince_2mhmap_8c_a4d61aa736dae8287d97c3a68a3a917c5}{glyph2tile}[glyph] );
+941 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a2c3f6775325c30275d11c6abee2db6a0}{\index{winchar.\+c@{winchar.\+c}!main@{main}}
+\index{main@{main}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{, }
+\item[{char $\ast$$\ast$}]{}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a2c3f6775325c30275d11c6abee2db6a0}
+
+
+Definition at line 40 of file cvtsnd.\+c.
+
+
+
+References I\+F\+F\+::\+\_\+8\+S\+V\+X, alloc(), Ami\+Color\+Map\+::b, basename(), I\+F\+F\+::blen, I\+F\+F\+::\+B\+O\+D\+Y, buf, B\+U\+F\+S\+I\+Z, xpmscreen\+::\+Bytes\+Per\+Row, chdir(), Close, close(), C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, xpmscreen\+::\+Colors, colorsinmap, C\+O\+L\+S, I\+F\+F\+::compress, Bit\+Map\+Header\+::compression, conv\+\_\+image(), decl\+\_\+init(), decode(), eos(), error(), exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, F\+A\+L\+S\+E, fatal\+\_\+error, fclose\+\_\+text\+\_\+file(), F\+C\+M\+A\+S\+K, F\+I\+L\+E\+N\+A\+M\+E\+\_\+\+C\+M\+P, I\+F\+F\+::flen, fname, fopen\+\_\+text\+\_\+file(), fopen\+\_\+xpm\+\_\+file(), I\+F\+F\+::\+F\+O\+R\+M, fp, Fprintf, free(), freopen, I\+F\+F\+::freq, Ami\+Color\+Map\+::g, getcwd(), Bit\+Map\+Header\+::h, xpmscreen\+::\+Height, I\+D\+\_\+\+B\+M\+A\+P, I\+D\+\_\+\+B\+M\+H\+D, I\+D\+\_\+\+C\+A\+M\+G, I\+D\+\_\+\+C\+M\+A\+P, I\+D\+\_\+\+P\+D\+A\+T, I\+D\+\_\+\+P\+L\+N\+E, I\+F\+F\+Parse\+Base, I\+F\+F\+Screen, in, index(), infile, init\+\_\+obj\+\_\+classes(), init\+\_\+yyin(), init\+\_\+yyout(), line\+\_\+number, lseek(), malloc(), map\+\_\+colors(), Bit\+Map\+Header\+::masking, monst\+\_\+init(), A\+I\+F\+F\+::name, I\+F\+F\+::\+N\+A\+M\+E, I\+F\+F\+::name, A\+I\+F\+F\+::namelen, x11\+\_\+header\+::ncolors, I\+F\+F\+::nlen, nplanes, Bit\+Map\+Header\+::n\+Planes, x11\+\_\+header\+::ntiles, N\+U\+L\+L, O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+R\+D\+O\+N\+L\+Y, O\+\_\+\+R\+D\+W\+R, O\+\_\+\+T\+R\+U\+N\+C, O\+\_\+\+W\+R\+O\+N\+L\+Y, objects\+\_\+init(), I\+F\+F\+::octaves, I\+F\+F\+::oneshot, open(), outfile, O\+U\+T\+N\+A\+M\+E, packwritebody(), Bit\+Map\+Header\+::page\+Height, Bit\+Map\+Header\+::page\+Width, x11\+\_\+header\+::per\+\_\+row, perror, planes, P\+R\+E\+F\+I\+X, printf, process\+\_\+file(), Ami\+Color\+Map\+::r, read(), read\+\_\+text\+\_\+tile(), I\+F\+F\+::repeat, Bit\+Map\+Header\+::reserved1, R\+O\+W\+S, I\+F\+F\+::samples, S\+C\+A\+L\+E, S\+E\+E\+K\+\_\+\+E\+N\+D, S\+E\+E\+K\+\_\+\+S\+E\+T, S\+I\+Z\+E, Ttable\+::slot, A\+I\+F\+F\+::sndlen, stdin, stdout, Strcpy, tile\+\_\+bytes, x11\+\_\+header\+::tile\+\_\+height, x11\+\_\+header\+::tile\+\_\+width, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+R\+O\+W, Bit\+Map\+Header\+::transparent\+Color, T\+R\+U\+E, ttable, x11\+\_\+header\+::version, I\+F\+F\+::\+V\+H\+D\+R, I\+F\+F\+::vhlen, vms\+\_\+basename(), I\+F\+F\+::volume, Bit\+Map\+Header\+::w, xpmscreen\+::\+Width, W\+R\+B\+M\+O\+D\+E, write(), Bit\+Map\+Header\+::x, x11\+\_\+colormap, Bit\+Map\+Header\+::x\+Aspect, xexit(), Xpm\+Screen, xsize, Bit\+Map\+Header\+::y, Bit\+Map\+Header\+::y\+Aspect, ysize, and yyparse().
+
+
+
+Referenced by Win\+Main().
+
+
+\begin{DoxyCode}
+41 \{
+42     FILE *\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}, *out;
+43     \hyperlink{structAIFF}{AIFF} aiff;
+44     \hyperlink{structIFF}{IFF} iff;
+45     \textcolor{keyword}{static} \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[16384];
+46     \textcolor{keywordtype}{long} n, len;
+47 
+48     \textcolor{keywordflow}{if} (ac != 3) \{
+49     fprintf(stderr, \textcolor{stringliteral}{"Usage: %s input-file output-file\(\backslash\)n"}, av[0]);
+50     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(20);
+51     \}
+52     \textcolor{keywordflow}{if} (!(in = fopen(av[1], \textcolor{stringliteral}{"r"}))) \{
+53     fprintf(stderr, \textcolor{stringliteral}{"Can't open input file\(\backslash\)n"});
+54     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(20);
+55     \}
+56     \textcolor{keywordflow}{if} (!(out = fopen(av[2], \textcolor{stringliteral}{"w"}))) \{
+57     fprintf(stderr, \textcolor{stringliteral}{"Can't open output file\(\backslash\)n"});
+58     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(20);
+59     \}
+60 
+61     fread(&aiff, \textcolor{keyword}{sizeof}(aiff), 1, in);
+62     memcpy(iff.\hyperlink{structIFF_a03c5d9d6498d0775ac5b5de8d32d6fc6}{FORM}, \textcolor{stringliteral}{"FORM"}, 4);
+63     iff.\hyperlink{structIFF_adef91099995fc9f3a2d2793e72973364}{flen}    = \textcolor{keyword}{sizeof}(iff) + aiff.\hyperlink{structAIFF_a8f1cede21c2276515408d7f1a396095c}{sndlen} - 8;
+64     memcpy(iff.\hyperlink{structIFF_ae2e66f43d027e5ee6b664d30e518da17}{\_8SVX}, \textcolor{stringliteral}{"8SVX"}, 4);
+65     memcpy(iff.\hyperlink{structIFF_a4d304147a1dbd30fb31727571f38418b}{VHDR}, \textcolor{stringliteral}{"VHDR"}, 4);
+66     iff.\hyperlink{structIFF_a2d78f63486ac3ea85cf56abad568295d}{vhlen}  = 20;
+67     iff.\hyperlink{structIFF_a5099f06518cae6f23aed101a7d41abeb}{oneshot}  = aiff.\hyperlink{structAIFF_a8f1cede21c2276515408d7f1a396095c}{sndlen};
+68     iff.\hyperlink{structIFF_a3e53c273523a28fd8c3bcc3da8778bdd}{repeat}    = 0;
+69     iff.\hyperlink{structIFF_ac3d8e88e81739232da3592001db90724}{samples}  = 32;
+70     iff.\hyperlink{structIFF_a04d30d1a382ea7c06a0ca69b801318ad}{freq}    = 22000;
+71     iff.\hyperlink{structIFF_aa6549566463bd447a6a7bf1204646d52}{octaves}  = 1;
+72     iff.\hyperlink{structIFF_a969e7c9fdb899c4597cb79beb7bf7b2b}{compress}= 0;
+73     iff.\hyperlink{structIFF_a4dd05840f2c7166d7d5400802f7f148d}{volume}    = 0x10000;
+74     memcpy(iff.\hyperlink{structIFF_a34b56f8aa93d422392b6b8d18e68062c}{NAME}, \textcolor{stringliteral}{"NAME"}, 4);
+75     iff.\hyperlink{structIFF_a857a1987197e51123f22cc81fd32b02a}{nlen}    = 64;
+76     strncpy(iff.\hyperlink{structIFF_a822828c4ace3714efd1a34b9b3e424b8}{name}, aiff.\hyperlink{structAIFF_a0e5410410479ba3a2ba2f693e9b97953}{name}, 62); iff.\hyperlink{structIFF_a822828c4ace3714efd1a34b9b3e424b8}{name}[aiff.\hyperlink{structAIFF_aab9dbd8c399f4520df88047c706508bd}{namelen}] = 0;
+77     memcpy(iff.\hyperlink{structIFF_aff26572bfbef65efe24439dfd15ecdca}{BODY}, \textcolor{stringliteral}{"BODY"}, 4);
+78     iff.\hyperlink{structIFF_a3fc73472318cc9e5eff0309d223d1009}{blen}    = aiff.\hyperlink{structAIFF_a8f1cede21c2276515408d7f1a396095c}{sndlen};
+79     fwrite(&iff, \textcolor{keyword}{sizeof}(iff), 1, out);
+80     len = aiff.\hyperlink{structAIFF_a8f1cede21c2276515408d7f1a396095c}{sndlen};
+81     \textcolor{keywordflow}{do} \{
+82     \textcolor{keywordflow}{if} (len >= \textcolor{keyword}{sizeof}(buf))
+83         n = fread(buf, 1, \textcolor{keyword}{sizeof}(buf), in);
+84     \textcolor{keywordflow}{else}
+85         n = fread(buf, 1, len, in);
+86     \textcolor{keywordflow}{if} (n) \{
+87         fwrite(buf, 1, n, out);
+88         len -= n;
+89     \}
+90     \} \textcolor{keywordflow}{while} (len && n);
+91 
+92     \textcolor{keywordflow}{if} (len)
+93     fprintf(stderr, \textcolor{stringliteral}{"Warning: %ld bytes of sample missing\(\backslash\)n"}, len);
+94     fclose(in); fclose(out);
+95     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(0);
+96 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a5054ef363db2f8b757a97c991b667bfd}{\index{winchar.\+c@{winchar.\+c}!My\+Alloc\+Bit\+Map@{My\+Alloc\+Bit\+Map}}
+\index{My\+Alloc\+Bit\+Map@{My\+Alloc\+Bit\+Map}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{My\+Alloc\+Bit\+Map}]{\setlength{\rightskip}{0pt plus 5cm}struct Bit\+Map $\ast$ My\+Alloc\+Bit\+Map (
+\begin{DoxyParamCaption}
+\item[{int}]{xsize, }
+\item[{int}]{ysize, }
+\item[{int}]{depth, }
+\item[{long}]{mflags}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a5054ef363db2f8b757a97c991b667bfd}
+
+
+Definition at line 382 of file winchar.\+c.
+
+
+
+References alloc(), My\+Bit\+Map\+::bm, My\+Free\+Bit\+Map(), N\+U\+L\+L, xsize, My\+Bit\+Map\+::xsize, ysize, and My\+Bit\+Map\+::ysize.
+
+
+
+Referenced by amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), and Read\+Image\+Files().
+
+
+\begin{DoxyCode}
+383 \{
+384     \textcolor{keywordtype}{int} j;
+385     \textcolor{keyword}{struct }\hyperlink{structMyBitMap}{MyBitMap} *\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm};
+386 
+387     bm = (\textcolor{keyword}{struct }\hyperlink{structMyBitMap}{MyBitMap} *)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}( \textcolor{keyword}{sizeof}( *bm ) );
+388     \textcolor{keywordflow}{if}( !bm )
+389     \textcolor{keywordflow}{return}( \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+390 
+391     bm->\hyperlink{structMyBitMap_ae0804d602af334c249af60c59ba5422e}{xsize} = \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize};
+392     bm->\hyperlink{structMyBitMap_aae7794695e54b85bbe7f276e290d5455}{ysize} = \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize};
+393     InitBitMap( &bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}, depth, \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize}, \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize} );
+394     \textcolor{keywordflow}{for}( j = 0; j < depth; ++j )
+395     \{
+396     \textcolor{keywordflow}{if}( \hyperlink{structMyBitMap_a1ee0fa498c5e87c84bf505dd1122272f}{mflags} & MEMF\_CHIP )
+397         bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}.Planes[ j ] = AllocRaster( \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize}, \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize} );
+398     \textcolor{keywordflow}{else}
+399         bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}.Planes[ j ] = AllocMem( RASSIZE( \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize}, \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize} ), 
+      \hyperlink{structMyBitMap_a1ee0fa498c5e87c84bf505dd1122272f}{mflags} );
+400 
+401     \textcolor{keywordflow}{if}( bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}.Planes[ j ] == 0 )
+402     \{
+403         \hyperlink{winchar_8c_a826909fe5d305f7890c89e58753ec212}{MyFreeBitMap}( &bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm} );
+404         \textcolor{keywordflow}{return}( \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+405     \}
+406     \textcolor{keywordflow}{if}( \hyperlink{structMyBitMap_a1ee0fa498c5e87c84bf505dd1122272f}{mflags} & MEMF\_CLEAR )
+407         memset( bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}.Planes[ j ], 0, RASSIZE( \hyperlink{sp__lev_8c_a22122ed2c15d87f3ff9e3dad23423244}{xsize}, \hyperlink{sp__lev_8c_a17f6fa5b5051ab79afe70d9598576009}{ysize} ) );
+408     \}
+409     \textcolor{keywordflow}{return}( &bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm} );
+410 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a826909fe5d305f7890c89e58753ec212}{\index{winchar.\+c@{winchar.\+c}!My\+Free\+Bit\+Map@{My\+Free\+Bit\+Map}}
+\index{My\+Free\+Bit\+Map@{My\+Free\+Bit\+Map}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{My\+Free\+Bit\+Map}]{\setlength{\rightskip}{0pt plus 5cm}void My\+Free\+Bit\+Map (
+\begin{DoxyParamCaption}
+\item[{struct Bit\+Map $\ast$}]{bmp}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a826909fe5d305f7890c89e58753ec212}
+
+
+Definition at line 413 of file winchar.\+c.
+
+
+
+References My\+Bit\+Map\+::bm, free(), My\+Bit\+Map\+::mflags, My\+Bit\+Map\+::xsize, and My\+Bit\+Map\+::ysize.
+
+
+
+Referenced by amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), Free\+Image\+Files(), and My\+Alloc\+Bit\+Map().
+
+
+\begin{DoxyCode}
+414 \{
+415     \textcolor{keywordtype}{int} j;
+416     \textcolor{keyword}{struct }\hyperlink{structMyBitMap}{MyBitMap} *\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm} = (\textcolor{keyword}{struct }\hyperlink{structMyBitMap}{MyBitMap} *)\hyperlink{tile2bmp_8c_a71589d37bbc63fa6ddfaed297cb4cfa0}{bmp};
+417 
+418     \textcolor{keywordflow}{for}( j = 0; j < bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}.Depth; ++j )
+419     \{
+420     \textcolor{keywordflow}{if}( bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}.Planes[j] )
+421     \{
+422         \textcolor{keywordflow}{if}( bm->\hyperlink{structMyBitMap_a1ee0fa498c5e87c84bf505dd1122272f}{mflags} & MEMF\_CHIP )
+423         FreeRaster( bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}.Planes[j], bm->\hyperlink{structMyBitMap_ae0804d602af334c249af60c59ba5422e}{xsize}, bm->\hyperlink{structMyBitMap_aae7794695e54b85bbe7f276e290d5455}{ysize} );
+424         \textcolor{keywordflow}{else}
+425         FreeMem( bm->\hyperlink{structMyBitMap_ad2c6c7c024d298033aad2a8dbf26da1b}{bm}.Planes[j], RASSIZE( bm->\hyperlink{structMyBitMap_ae0804d602af334c249af60c59ba5422e}{xsize}, bm->\hyperlink{structMyBitMap_aae7794695e54b85bbe7f276e290d5455}{ysize} ) );
+426     \}
+427     \}
+428     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}( bm );
+429 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a9926a7f5254f16e05a0ec9419d4a29fa}{\index{winchar.\+c@{winchar.\+c}!Read\+Image\+Files@{Read\+Image\+Files}}
+\index{Read\+Image\+Files@{Read\+Image\+Files}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{Read\+Image\+Files}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bit\+Map\+Header} Read\+Image\+Files (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{filenames, }
+\item[{struct Bit\+Map $\ast$$\ast$}]{iffimg, }
+\item[{char $\ast$$\ast$}]{errstrp}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a9926a7f5254f16e05a0ec9419d4a29fa}
+
+
+Definition at line 205 of file winchar.\+c.
+
+
+
+References amii\+\_\+extraplanes, amii\+\_\+initmap, amiv\+\_\+init\+\_\+map, buf, Close, cmap, errno, Free\+Image\+Files(), Bit\+Map\+Header\+::h, I\+D\+\_\+\+B\+M\+A\+P, I\+D\+\_\+\+B\+M\+H\+D, I\+D\+\_\+\+C\+A\+M\+G, I\+D\+\_\+\+C\+M\+A\+P, I\+D\+\_\+\+P\+D\+A\+T, I\+D\+\_\+\+P\+L\+N\+E, I\+F\+F\+Parse\+Base, malloc(), My\+Alloc\+Bit\+Map(), Bit\+Map\+Header\+::n\+Planes, P\+D\+A\+T\+::nplanes, N\+U\+L\+L, pictdata, tile, Bit\+Map\+Header\+::w, P\+D\+A\+T\+::xsize, and P\+D\+A\+T\+::ysize.
+
+
+
+Referenced by Read\+Tile\+Image\+Files().
+
+
+\begin{DoxyCode}
+206 \{
+207     \hyperlink{structBitMapHeader}{BitMapHeader} *bmhd = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, bmhds;
+208     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *\hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap};
+209     \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno};
+210     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i, j;
+211     \textcolor{keyword}{struct }IFFHandle *iff;
+212     \textcolor{keyword}{struct }StoredProperty *\hyperlink{structprop}{prop};
+213 
+214     \hyperlink{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}{IFFParseBase} = OpenLibrary( \textcolor{stringliteral}{"iffparse.library"}, 0L );
+215     \textcolor{keywordflow}{if}( !\hyperlink{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}{IFFParseBase} )
+216     \{
+217     *errstrp = \textcolor{stringliteral}{"No iffparse.library"};
+218     \textcolor{keywordflow}{return} bmhds;
+219     \}
+220 
+221 \textcolor{comment}{/*}
+222 \textcolor{comment}{    for( i = 0; filenames[i]; ++i )}
+223 \textcolor{comment}{    memset( iffimg[i], 0, sizeof( struct BitMap ) );}
+224 \textcolor{comment}{*/}
+225     \textcolor{keywordflow}{for}( i = 0; filenames[i]; ++i )
+226     \{
+227     iff = AllocIFF();
+228     \textcolor{keywordflow}{if}( !iff )
+229     \{
+230         \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}(filenames, iffimg );
+231         *errstrp = \textcolor{stringliteral}{"can't start IFF processing"};
+232         \textcolor{keywordflow}{return} bmhds;
+233     \}
+234     iff->iff\_Stream = Open( filenames[i], MODE\_OLDFILE );
+235     \textcolor{keywordflow}{if}( iff->iff\_Stream == 0 )
+236     \{
+237         \textcolor{keywordtype}{char} *\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf} = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(100+strlen(filenames[i]));
+238         \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}( filenames, iffimg );
+239         sprintf(buf, \textcolor{stringliteral}{"Can't open %s: %s"}, filenames[i], strerror( errno ));
+240         *errstrp = \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+241         \textcolor{keywordflow}{return} bmhds;
+242     \}
+243     InitIFFasDOS( iff );
+244     OpenIFF( iff, IFFF\_READ );
+245     PropChunk( iff, \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{winchar_8c_abcd1dcd9c8074c20b650110c487ec826}{ID\_BMHD} );
+246     PropChunk( iff, \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{winchar_8c_adbfe39990b0b760a79f0192db7961bd8}{ID\_CMAP} );
+247     PropChunk( iff, \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{winchar_8c_a83e89c32c825101821f40b21289218a9}{ID\_CAMG} );
+248     PropChunk( iff, \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{winchar_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}{ID\_PDAT} );
+249     StopChunk( iff, \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{winchar_8c_af25d25b688b21e610cab14b3774cc3fb}{ID\_PLNE} );
+250     \textcolor{keywordflow}{if}( ( j = ParseIFF( iff, IFFPARSE\_SCAN ) ) != 0 )
+251     \{
+252         \textcolor{keywordtype}{char} *buf = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(100);
+253         \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}( filenames, iffimg );
+254         sprintf(buf,\textcolor{stringliteral}{"ParseIFF failed for image %d, failure code: %d"},i,j);
+255         *errstrp = \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+256         \textcolor{keywordflow}{return} bmhds;
+257     \}
+258 
+259     \textcolor{keywordflow}{if}( prop = FindProp( iff, \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{winchar_8c_abcd1dcd9c8074c20b650110c487ec826}{ID\_BMHD} ) )
+260     \{
+261         bmhd = (\hyperlink{structBitMapHeader}{BitMapHeader} *)prop->sp\_Data;
+262     \}
+263     \textcolor{keywordflow}{else}
+264     \{
+265         \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}(filenames, iffimg);
+266         CloseIFF( iff );
+267         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}( iff->iff\_Stream );
+268         FreeIFF( iff );
+269         *errstrp = \textcolor{stringliteral}{"No BMHD CHUNK in file"};
+270         \textcolor{keywordflow}{return} bmhds;
+271     \}
+272 
+273     \textcolor{keywordflow}{if}( prop = FindProp( iff, \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{winchar_8c_adbfe39990b0b760a79f0192db7961bd8}{ID\_CMAP} ) )
+274     \{
+275         cmap = prop->sp\_Data;
+276         \textcolor{keywordflow}{for}( j = 0; j < (1L << bmhd->\hyperlink{structBitMapHeader_af1b1ea355b635d40198d9d97989bc733}{nPlanes})*3; j+=3 )
+277         \{
+278 \textcolor{preprocessor}{#if 0}
+279         \textcolor{comment}{/* Some day we will want to use the larger palette}
+280 \textcolor{comment}{         * resolution available under v39 and later.  i.e.}
+281 \textcolor{comment}{         * 32 instead of 12 bits of color.  Ususally this}
+282 \textcolor{comment}{         * just means shifting the color left by 16-20 bits}
+283 \textcolor{comment}{         * depending on what intensity looks best.  Experience}
+284 \textcolor{comment}{         * says that the higher values are better intensities.}
+285 \textcolor{comment}{         *}
+286 \textcolor{comment}{         * For now though we won't do this. The color table}
+287 \textcolor{comment}{         * structure is incompatible with earlier versions of}
+288 \textcolor{comment}{         * intuition.  We would have to do some funny things}
+289 \textcolor{comment}{         * to make 3*AMII\_MAXCOLORS longs work like 3*AMII\_MAXCOLORS}
+290 \textcolor{comment}{         * UWORD's at run time...  A union would help, but...}
+291 \textcolor{comment}{         */}
+292         \textcolor{keywordflow}{if}( IntuitionBase->LibNode.lib\_Version >= 39 )
+293         \{
+294             \textcolor{comment}{/* 8 bits of color, so shift to left end. */}
+295             \hyperlink{winext_8h_af758a476f0474858372e67facd78c5c4}{amiv\_init\_map}[ j+0 ] = cmap[j+0]<<24;
+296             \hyperlink{winext_8h_af758a476f0474858372e67facd78c5c4}{amiv\_init\_map}[ j+1 ] = cmap[j+1]<<24;
+297             \hyperlink{winext_8h_af758a476f0474858372e67facd78c5c4}{amiv\_init\_map}[ j+2 ] = cmap[j+2]<<24;
+298         \}
+299         \textcolor{keywordflow}{else}
+300 \textcolor{preprocessor}{#endif}
+301         \{
+302             \textcolor{comment}{/* We can only use 4 bits of the 8 that are stored in the}
+303 \textcolor{comment}{             * cmap, so mask them and then shift them into position}
+304 \textcolor{comment}{             * for the UWORD value to store.}
+305 \textcolor{comment}{             */}
+306 \textcolor{preprocessor}{#ifndef TESTING}
+307             \hyperlink{winext_8h_a1b12e8b2fa45f0d58b47b42d920c641c}{amii\_initmap}[ j/3 ] = 
+308             \hyperlink{winext_8h_af758a476f0474858372e67facd78c5c4}{amiv\_init\_map}[ j/3 ] =
+309                     ((cmap[j+0]>>4)<<8)|
+310                     ((cmap[j+1]>>4)<<4)|
+311                     (cmap[j+2]>>4);
+312 \textcolor{preprocessor}{#endif}
+313         \}
+314         \}
+315     \}
+316     \textcolor{keywordflow}{else}
+317     \{
+318         \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}(filenames, iffimg);
+319         CloseIFF( iff );
+320         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}( iff->iff\_Stream );
+321         FreeIFF( iff );
+322         *errstrp = \textcolor{stringliteral}{"No CMAP CHUNK in file"};
+323         \textcolor{keywordflow}{return} bmhds;
+324     \}
+325 
+326     \textcolor{keywordflow}{if}( prop = FindProp( iff, \hyperlink{winchar_8c_a77f5e837562d84543cd22f767a581c33}{ID\_BMAP}, \hyperlink{winchar_8c_a70bc68c6e36e5d00879130c8d8ba3c3b}{ID\_PDAT} ) )
+327     \{
+328         \textcolor{keyword}{struct }\hyperlink{structPDAT}{PDAT} *pp;
+329 
+330         pp = (\textcolor{keyword}{struct }\hyperlink{structPDAT}{PDAT} *)prop->sp\_Data;
+331         \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata} = *pp;
+332     \}
+333     \textcolor{keywordflow}{else}
+334     \{
+335         \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}(filenames, iffimg);
+336         CloseIFF( iff );
+337         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}( iff->iff\_Stream );
+338         FreeIFF( iff );
+339         *errstrp = \textcolor{stringliteral}{"No PDAT CHUNK in file"};
+340         \textcolor{keywordflow}{return} bmhds;
+341     \}
+342 
+343     iffimg[ i ] = \hyperlink{winchar_8c_a5054ef363db2f8b757a97c991b667bfd}{MyAllocBitMap}( bmhd->\hyperlink{structBitMapHeader_addb60a981d49eed2185521b722fda07a}{w}, bmhd->\hyperlink{structBitMapHeader_a207123a0ebb6f3ac8803fb486184347d}{h},
+344         \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a65023668c3da18118ec0f30379454fa0}{nplanes} + \hyperlink{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}{amii\_extraplanes}, MEMF\_CHIP|MEMF\_CLEAR );
+345     \textcolor{keywordflow}{if}( iffimg[ i ] == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+346     \{
+347         \textcolor{keywordtype}{char} *buf = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(80);
+348         \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}(filenames, iffimg);
+349         sprintf(buf, \textcolor{stringliteral}{"Can't allocate bitmap for image %d\(\backslash\)n"}, i );
+350         *errstrp = \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+351         \textcolor{keywordflow}{return} bmhds;
+352     \}
+353     \textcolor{keywordflow}{for}( j = 0; j < \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a65023668c3da18118ec0f30379454fa0}{nplanes} + \hyperlink{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}{amii\_extraplanes}; ++j )
+354     \{
+355         ReadChunkBytes( iff, iffimg[i]->Planes[j], RASSIZE( bmhd->\hyperlink{structBitMapHeader_addb60a981d49eed2185521b722fda07a}{w}, bmhd->\hyperlink{structBitMapHeader_a207123a0ebb6f3ac8803fb486184347d}{h} ) );
+356     \}
+357     bmhds = *bmhd;
+358     CloseIFF( iff );
+359     \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}( iff->iff\_Stream );
+360     FreeIFF( iff );
+361     \}
+362     CloseLibrary( \hyperlink{txt2iff_8c_af2bba7dce1b50891392273cdeca76353}{IFFParseBase} );
+363 
+364     \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile} = \hyperlink{winchar_8c_a5054ef363db2f8b757a97c991b667bfd}{MyAllocBitMap}( \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a957fade03cbfb4ce4de9df4e09be7fc7}{xsize}, \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.
+      \hyperlink{structPDAT_ad7ef994c367e747b85e09149fdccff1b}{ysize},
+365         \hyperlink{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{pictdata}.\hyperlink{structPDAT_a65023668c3da18118ec0f30379454fa0}{nplanes} + \hyperlink{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}{amii\_extraplanes}, MEMF\_CHIP|MEMF\_CLEAR );
+366     \textcolor{keywordflow}{if}( \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} )
+367     \{
+368     \hyperlink{winchar_8c_ab678d4f6f0bc71028253ad299999b95e}{FreeImageFiles}(filenames, iffimg);
+369     *errstrp = \textcolor{stringliteral}{"Can't allocate tile bitmap for scaling"};
+370     \}
+371     \textcolor{keywordflow}{return}( bmhds );
+372 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a12a3108f5619672ce857bcbaec0fac12}{\index{winchar.\+c@{winchar.\+c}!Read\+Tile\+Image\+Files@{Read\+Tile\+Image\+Files}}
+\index{Read\+Tile\+Image\+Files@{Read\+Tile\+Image\+Files}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{Read\+Tile\+Image\+Files}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bit\+Map\+Header} Read\+Tile\+Image\+Files (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a12a3108f5619672ce857bcbaec0fac12}
+
+
+Definition at line 195 of file winchar.\+c.
+
+
+
+References ifftimg, N\+U\+L\+L, panic(), Read\+Image\+Files(), and tileimages.
+
+
+
+Referenced by amii\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+195                     \{
+196     \textcolor{keywordtype}{char} *errstr = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+197     \hyperlink{structBitMapHeader}{BitMapHeader} ret = \hyperlink{winchar_8c_a9926a7f5254f16e05a0ec9419d4a29fa}{ReadImageFiles}(\hyperlink{winchar_8c_a0190588bb20fccf5d0c424f0d9a88c62}{tileimages}, 
+      \hyperlink{winchar_8c_a59e1af99e18ff54c06c0a9a5d736fa0f}{ifftimg}, &errstr);
+198     \textcolor{keywordflow}{if}(errstr)\{
+199     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(errstr);
+200     \}
+201     \textcolor{keywordflow}{return} ret;
+202 \}
+\end{DoxyCode}
+\hypertarget{winchar_8c_a3eaca7a39bb270379315c3d079fd0202}{\index{winchar.\+c@{winchar.\+c}!Set\+Maze\+Type@{Set\+Maze\+Type}}
+\index{Set\+Maze\+Type@{Set\+Maze\+Type}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{Set\+Maze\+Type}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Maze\+Type (
+\begin{DoxyParamCaption}
+\item[{{\bf Maze\+Type}}]{t}
+\end{DoxyParamCaption}
+)}}\label{winchar_8c_a3eaca7a39bb270379315c3d079fd0202}
+
+
+Definition at line 932 of file winchar.\+c.
+
+
+
+References maze\+\_\+type.
+
+
+\begin{DoxyCode}
+933 \{
+934     \hyperlink{winchar_8c_a176761744efb78c887927c4ebef2b574}{maze\_type}=t;
+935 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}{\index{winchar.\+c@{winchar.\+c}!amii\+\_\+extraplanes@{amii\+\_\+extraplanes}}
+\index{amii\+\_\+extraplanes@{amii\+\_\+extraplanes}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amii\+\_\+extraplanes}]{\setlength{\rightskip}{0pt plus 5cm}int amii\+\_\+extraplanes = 0}}\label{winchar_8c_ad56d04d7c6298cb19b1b7c538608bb12}
+
+
+Definition at line 46 of file winchar.\+c.
+
+
+
+Referenced by amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), and Read\+Image\+Files().
+
+\hypertarget{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}{\index{winchar.\+c@{winchar.\+c}!amiv\+\_\+g\+\_\+nodes@{amiv\+\_\+g\+\_\+nodes}}
+\index{amiv\+\_\+g\+\_\+nodes@{amiv\+\_\+g\+\_\+nodes}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amiv\+\_\+g\+\_\+nodes}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf amiv\+\_\+glyph\+\_\+node} amiv\+\_\+g\+\_\+nodes\mbox{[}{\bf N\+U\+M\+B\+E\+R\+\_\+\+G\+L\+Y\+P\+H\+\_\+\+N\+O\+D\+E\+S}\mbox{]}}}\label{winchar_8c_a2c9a4ff66475fef741c4dff34666f390}
+
+
+Definition at line 480 of file winchar.\+c.
+
+
+
+Referenced by amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), and amiv\+\_\+lprint\+\_\+glyph().
+
+\hypertarget{winchar_8c_a2f39a9700fdc7561d6907e29e6210520}{\index{winchar.\+c@{winchar.\+c}!amiv\+\_\+glyph\+\_\+buffer@{amiv\+\_\+glyph\+\_\+buffer}}
+\index{amiv\+\_\+glyph\+\_\+buffer@{amiv\+\_\+glyph\+\_\+buffer}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{amiv\+\_\+glyph\+\_\+buffer}]{\setlength{\rightskip}{0pt plus 5cm}char amiv\+\_\+glyph\+\_\+buffer\mbox{[}{\bf G\+L\+Y\+P\+H\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+Z\+E}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{winchar_8c_a2f39a9700fdc7561d6907e29e6210520}
+
+
+Definition at line 481 of file winchar.\+c.
+
+\hypertarget{winchar_8c_ad50e5dcd3712e91f244ef4763ece7705}{\index{winchar.\+c@{winchar.\+c}!apensave@{apensave}}
+\index{apensave@{apensave}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{apensave}]{\setlength{\rightskip}{0pt plus 5cm}long apensave\hspace{0.3cm}{\ttfamily [static]}}}\label{winchar_8c_ad50e5dcd3712e91f244ef4763ece7705}
+
+
+Definition at line 854 of file winchar.\+c.
+
+\hypertarget{winchar_8c_a24084014a9beff291e6199285e4f035e}{\index{winchar.\+c@{winchar.\+c}!bpensave@{bpensave}}
+\index{bpensave@{bpensave}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{bpensave}]{\setlength{\rightskip}{0pt plus 5cm}long bpensave\hspace{0.3cm}{\ttfamily [static]}}}\label{winchar_8c_a24084014a9beff291e6199285e4f035e}
+
+
+Definition at line 854 of file winchar.\+c.
+
+\hypertarget{winchar_8c_abcc691cbd16d1b0dc4667d7ce735ec5f}{\index{winchar.\+c@{winchar.\+c}!glyph\+\_\+buffer\+\_\+index@{glyph\+\_\+buffer\+\_\+index}}
+\index{glyph\+\_\+buffer\+\_\+index@{glyph\+\_\+buffer\+\_\+index}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{glyph\+\_\+buffer\+\_\+index}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short glyph\+\_\+buffer\+\_\+index}}\label{winchar_8c_abcc691cbd16d1b0dc4667d7ce735ec5f}
+
+
+Definition at line 472 of file winchar.\+c.
+
+\hypertarget{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}{\index{winchar.\+c@{winchar.\+c}!glyph\+\_\+node\+\_\+index@{glyph\+\_\+node\+\_\+index}}
+\index{glyph\+\_\+node\+\_\+index@{glyph\+\_\+node\+\_\+index}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{glyph\+\_\+node\+\_\+index}]{\setlength{\rightskip}{0pt plus 5cm}unsigned short glyph\+\_\+node\+\_\+index}}\label{winchar_8c_a3b8e2b2d833687163a30607fe4e167cd}
+
+
+Definition at line 472 of file winchar.\+c.
+
+
+
+Referenced by amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), and amiv\+\_\+lprint\+\_\+glyph().
+
+\hypertarget{winchar_8c_a59e1af99e18ff54c06c0a9a5d736fa0f}{\index{winchar.\+c@{winchar.\+c}!ifftimg@{ifftimg}}
+\index{ifftimg@{ifftimg}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{ifftimg}]{\setlength{\rightskip}{0pt plus 5cm}struct Bit\+Map$\ast$ ifftimg\mbox{[}{\bf N\+U\+M\+T\+I\+L\+E\+I\+M\+A\+G\+E\+S}\mbox{]}}}\label{winchar_8c_a59e1af99e18ff54c06c0a9a5d736fa0f}
+
+
+Definition at line 89 of file winchar.\+c.
+
+
+
+Referenced by amiv\+\_\+lprint\+\_\+glyph(), Free\+Image\+Files(), Free\+Tile\+Image\+Files(), and Read\+Tile\+Image\+Files().
+
+\hypertarget{winchar_8c_a176761744efb78c887927c4ebef2b574}{\index{winchar.\+c@{winchar.\+c}!maze\+\_\+type@{maze\+\_\+type}}
+\index{maze\+\_\+type@{maze\+\_\+type}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{maze\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}maze\+\_\+type ={\bf C\+O\+L\+\_\+\+M\+A\+Z\+E\+\_\+\+B\+R\+I\+C\+K}\hspace{0.3cm}{\ttfamily [static]}}}\label{winchar_8c_a176761744efb78c887927c4ebef2b574}
+
+
+Definition at line 930 of file winchar.\+c.
+
+
+
+Referenced by Set\+Maze\+Type().
+
+\hypertarget{winchar_8c_a7301f7ec6ca8a7e74922796f044057fd}{\index{winchar.\+c@{winchar.\+c}!modesave@{modesave}}
+\index{modesave@{modesave}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{modesave}]{\setlength{\rightskip}{0pt plus 5cm}long modesave\hspace{0.3cm}{\ttfamily [static]}}}\label{winchar_8c_a7301f7ec6ca8a7e74922796f044057fd}
+
+
+Definition at line 854 of file winchar.\+c.
+
+\hypertarget{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}{\index{winchar.\+c@{winchar.\+c}!pictdata@{pictdata}}
+\index{pictdata@{pictdata}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{pictdata}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf P\+D\+A\+T} pictdata}}\label{winchar_8c_a00763f280fa207a0cf085c6d52246c8c}
+
+
+Definition at line 75 of file winchar.\+c.
+
+
+
+Referenced by amii\+\_\+curs(), amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), amiv\+\_\+lprint\+\_\+glyph(), Count\+Lines(), Display\+Data(), Do\+Menu\+Scroll(), Find\+Line(), and Read\+Image\+Files().
+
+\hypertarget{winchar_8c_abaef652f2ecc14cf7257f91b8f5f0527}{\index{winchar.\+c@{winchar.\+c}!reclip@{reclip}}
+\index{reclip@{reclip}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{reclip}]{\setlength{\rightskip}{0pt plus 5cm}int reclip}}\label{winchar_8c_abaef652f2ecc14cf7257f91b8f5f0527}
+
+
+Referenced by amii\+\_\+clear\+\_\+nhwindow(), amii\+\_\+cliparound(), amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), and Edit\+Clipping().
+
+\hypertarget{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{\index{winchar.\+c@{winchar.\+c}!tile@{tile}}
+\index{tile@{tile}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{tile}]{\setlength{\rightskip}{0pt plus 5cm}struct Bit\+Map $\ast$ tile}}\label{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}
+
+
+Definition at line 89 of file winchar.\+c.
+
+
+
+Referenced by amiv\+\_\+flush\+\_\+glyph\+\_\+buffer(), amiv\+\_\+lprint\+\_\+glyph(), convert\+\_\+tiles(), Free\+Image\+Files(), ghack\+\_\+image\+\_\+from\+\_\+glyph(), map\+\_\+update(), packwritebody(), and Read\+Image\+Files().
+
+\hypertarget{winchar_8c_a0190588bb20fccf5d0c424f0d9a88c62}{\index{winchar.\+c@{winchar.\+c}!tileimages@{tileimages}}
+\index{tileimages@{tileimages}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{tileimages}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ tileimages\mbox{[}$\,$\mbox{]}}}\label{winchar_8c_a0190588bb20fccf5d0c424f0d9a88c62}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+\{
+\textcolor{preprocessor}{#define TBLMONTILE}
+    \textcolor{stringliteral}{"NetHack:tiles/monsters.iff"},
+\textcolor{preprocessor}{#define TBLOBJTILE}
+    \textcolor{stringliteral}{"NetHack:tiles/objects.iff"},
+\textcolor{preprocessor}{#define TBLOTHTILE}
+    \textcolor{stringliteral}{"NetHack:tiles/other.iff"},
+    0,
+\}
+\end{DoxyCode}
+
+
+Definition at line 78 of file winchar.\+c.
+
+
+
+Referenced by Free\+Tile\+Image\+Files(), and Read\+Tile\+Image\+Files().
+
+\hypertarget{winchar_8c_a59f1f5efd63bf119d0ff187caa2dffde}{\index{winchar.\+c@{winchar.\+c}!usecolor@{usecolor}}
+\index{usecolor@{usecolor}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{usecolor}]{\setlength{\rightskip}{0pt plus 5cm}int usecolor\hspace{0.3cm}{\ttfamily [static]}}}\label{winchar_8c_a59f1f5efd63bf119d0ff187caa2dffde}
+
+
+Definition at line 855 of file winchar.\+c.
+
+
+
+Referenced by amii\+\_\+end\+\_\+glyphout().
+
+\hypertarget{winchar_8c_a9b80bf2de8aa03db642b0e8e4b06e1b4}{\index{winchar.\+c@{winchar.\+c}!xsave@{xsave}}
+\index{xsave@{xsave}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{xsave}]{\setlength{\rightskip}{0pt plus 5cm}long xsave\hspace{0.3cm}{\ttfamily [static]}}}\label{winchar_8c_a9b80bf2de8aa03db642b0e8e4b06e1b4}
+
+
+Definition at line 854 of file winchar.\+c.
+
+\hypertarget{winchar_8c_adc6ad80b68d03a20fb5dd1394df034dc}{\index{winchar.\+c@{winchar.\+c}!ysave@{ysave}}
+\index{ysave@{ysave}!winchar.\+c@{winchar.\+c}}
+\subsubsection[{ysave}]{\setlength{\rightskip}{0pt plus 5cm}long ysave\hspace{0.3cm}{\ttfamily [static]}}}\label{winchar_8c_adc6ad80b68d03a20fb5dd1394df034dc}
+
+
+Definition at line 854 of file winchar.\+c.
+

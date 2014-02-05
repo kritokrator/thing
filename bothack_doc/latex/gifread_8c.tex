@@ -1,0 +1,1274 @@
+\hypertarget{gifread_8c}{\section{nethack/win/share/gifread.c File Reference}
+\label{gifread_8c}\index{nethack/win/share/gifread.\+c@{nethack/win/share/gifread.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgifscreen}{gifscreen}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gifread_8c_a0e515f705e462615c4a4d0ffb925caeb}{P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N}(p, red, grn, blu)~do \{ (p).r = (red); (p).g = (grn); (p).b = (blu); \} while ( 0 )
+\item 
+\#define \hyperlink{gifread_8c_a2997021359e1e5b10c7f150377256f79}{M\+A\+X\+\_\+\+L\+W\+Z\+\_\+\+B\+I\+T\+S}~12
+\item 
+\#define \hyperlink{gifread_8c_a3b8d15260ac3936406670327c674af60}{I\+N\+T\+E\+R\+L\+A\+C\+E}~0x40
+\item 
+\#define \hyperlink{gifread_8c_aa462d45fdcd40398d200eefcadca1dea}{L\+O\+C\+A\+L\+C\+O\+L\+O\+R\+M\+A\+P}~0x80
+\item 
+\#define \hyperlink{gifread_8c_ac18ef23df6db515c85d6851a9841d82d}{Bit\+Set}(byte, bit)~(((byte) \& (bit)) == (bit))
+\item 
+\#define \hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{Read\+O\+K}(file, buffer, len)~(fread((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t})buffer, (int)len, 1, file) != 0)
+\item 
+\#define \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{L\+M\+\_\+to\+\_\+uint}(a, b)~(((b)$<$$<$8)$\vert$(a))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+long $\ast$ \hyperlink{gifread_8c_ad689923d338b7e3379071d72b0257979}{F\+D\+E\+C\+L} (\hyperlink{xpm2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc},(unsigned int))
+\item 
+static int \hyperlink{gifread_8c_a437923fab1bb095c2d3e5e8701edc710}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{Get\+Data\+Block},(F\+I\+L\+E $\ast$fd, unsigned char $\ast$\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}))
+\item 
+static void \hyperlink{gifread_8c_ab6121d238d7087d83b3666f1fc1be33d}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_a8357bdad63e6395051f4365d187785ad}{Do\+Extension},(F\+I\+L\+E $\ast$fd, int label))
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{gifread_8c_a55e563cc5fed81223f8b02bcf42f4116}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_a29eb91d604aa57edfdde5d649389d379}{Read\+Color\+Map},(F\+I\+L\+E $\ast$fd, int number))
+\item 
+static void \hyperlink{gifread_8c_a5ad62f7189f47385978b805f0297630d}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_a14981300d845e5ef313d1dead13ad9c1}{read\+\_\+header},(F\+I\+L\+E $\ast$fd))
+\item 
+static int \hyperlink{gifread_8c_af102351de75ca4bbf0df93ce6f0c914f}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_ac7ea016522b6c1de34ac9a618e898eb4}{Get\+Code},(F\+I\+L\+E $\ast$fd, int code\+\_\+size, int \hyperlink{structflag}{flag}))
+\item 
+static int \hyperlink{gifread_8c_ad1e366f1ae9631960fc4d8574ef084f9}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_a23fa148065832d13673e692613dc4fc2}{L\+W\+Z\+Read\+Byte},(F\+I\+L\+E $\ast$fd, int \hyperlink{structflag}{flag}, int \hyperlink{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{input\+\_\+code\+\_\+size}))
+\item 
+static void \hyperlink{gifread_8c_ad4faae22b66b66907ab6d790f753686a}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_a8b4be2cc1e827096431c2d578e78e828}{Read\+Interleaved\+Image},(F\+I\+L\+E $\ast$fd, int len, int \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}))
+\item 
+static void \hyperlink{gifread_8c_af8bae6889704dcb6abe830ed0a8d1528}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_a13770eb662c745520fcc5f6a037f0a74}{Read\+Tile\+Strip},(F\+I\+L\+E $\ast$fd, int len))
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{gifread_8c_a132846d60544d13e83070015db09e112}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_a0715d219e88faf15bccf0d6c90925ba7}{fopen\+\_\+gif\+\_\+file},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{gifread_8c_a033c6234a417c218e142077672c61f63}{F\+D\+E\+C\+L} (\hyperlink{gifread_8c_a06b75cec8089efe8f7030b260dc6a1fa}{read\+\_\+gif\+\_\+tile},(\hyperlink{structpixel}{pixel}($\ast$)\mbox{[}$\,$\mbox{]}))
+\item 
+int \hyperlink{gifread_8c_a1989702923b990e6ed1e9bb341865129}{N\+D\+E\+C\+L} (\hyperlink{gifread_8c_aa7857d5f80f0e18c2f75e290dfb9bc21}{fclose\+\_\+gif\+\_\+file})
+\item 
+static int \hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{Get\+Data\+Block} (F\+I\+L\+E $\ast$fd, unsigned char $\ast$\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf})
+\item 
+static void \hyperlink{gifread_8c_a8357bdad63e6395051f4365d187785ad}{Do\+Extension} (F\+I\+L\+E $\ast$fd, int label)
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{gifread_8c_a29eb91d604aa57edfdde5d649389d379}{Read\+Color\+Map} (F\+I\+L\+E $\ast$fd, int number)
+\item 
+static void \hyperlink{gifread_8c_a14981300d845e5ef313d1dead13ad9c1}{read\+\_\+header} (F\+I\+L\+E $\ast$fd)
+\item 
+static int \hyperlink{gifread_8c_ac7ea016522b6c1de34ac9a618e898eb4}{Get\+Code} (F\+I\+L\+E $\ast$fd, int code\+\_\+size, int \hyperlink{structflag}{flag})
+\item 
+static int \hyperlink{gifread_8c_a23fa148065832d13673e692613dc4fc2}{L\+W\+Z\+Read\+Byte} (F\+I\+L\+E $\ast$fd, int \hyperlink{structflag}{flag}, int \hyperlink{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{input\+\_\+code\+\_\+size})
+\item 
+static void \hyperlink{gifread_8c_a8b4be2cc1e827096431c2d578e78e828}{Read\+Interleaved\+Image} (F\+I\+L\+E $\ast$fd, int len, int \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height})
+\item 
+static void \hyperlink{gifread_8c_a13770eb662c745520fcc5f6a037f0a74}{Read\+Tile\+Strip} (F\+I\+L\+E $\ast$fd, int len)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{gifread_8c_a0715d219e88faf15bccf0d6c90925ba7}{fopen\+\_\+gif\+\_\+file} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{gifread_8c_a06b75cec8089efe8f7030b260dc6a1fa}{read\+\_\+gif\+\_\+tile} (\hyperlink{structpixel}{pixel} $\ast$\hyperlink{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{pixels})
+\item 
+int \hyperlink{gifread_8c_aa7857d5f80f0e18c2f75e290dfb9bc21}{fclose\+\_\+gif\+\_\+file} ()
+\item 
+int \hyperlink{gifread_8c_afced8478b91af5c169926dfa4426333d}{main} (int argc, argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structgifscreen}{gifscreen} \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{Gif\+Screen}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+struct \{\\
+\>int \hyperlink{gifread_8c_a74e3986ee3953a80a467903edf1f12e0}{transparent}\\
+\>int \hyperlink{gifread_8c_ae5ff5ad4047716f5d26843073c8293f1}{delayTime}\\
+\>int \hyperlink{gifread_8c_a361b2aa4c330f8910dea8599d4ad650e}{inputFlag}\\
+\>int \hyperlink{gifread_8c_a2440a0079a270242c316e890acd3e2b2}{disposal}\\
+\} \hyperlink{gifread_8c_ab477ac93809e764aa4abb00112fb4c75}{Gif89} = \{ -\/1, -\/1, -\/1, 0 \}\\
+
+\end{tabbing}\item 
+int \hyperlink{gifread_8c_ab6c80cee0935dee220ae42b15b5ab72c}{Zero\+Data\+Block} = \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\item 
+static F\+I\+L\+E $\ast$ \hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\+\_\+file}
+\item 
+static int \hyperlink{gifread_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}{tiles\+\_\+across}
+\item 
+static int \hyperlink{gifread_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\+\_\+down}
+\item 
+static int \hyperlink{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\+\_\+tiles\+\_\+across}
+\item 
+static int \hyperlink{gifread_8c_ad2d258c2ad56927b102a54974e9768bc}{curr\+\_\+tiles\+\_\+down}
+\item 
+static \hyperlink{structpixel}{pixel} $\ast$$\ast$ \hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}
+\item 
+static unsigned char \hyperlink{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{input\+\_\+code\+\_\+size}
+\item 
+static char $\ast$ \hyperlink{gifread_8c_a0883cfa86aa6e43366e275da98f6ec18}{std\+\_\+args} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{gifread_8c_ac18ef23df6db515c85d6851a9841d82d}{\index{gifread.\+c@{gifread.\+c}!Bit\+Set@{Bit\+Set}}
+\index{Bit\+Set@{Bit\+Set}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Bit\+Set}]{\setlength{\rightskip}{0pt plus 5cm}\#define Bit\+Set(
+\begin{DoxyParamCaption}
+\item[{}]{byte, }
+\item[{}]{bit}
+\end{DoxyParamCaption}
+)~(((byte) \& (bit)) == (bit))}}\label{gifread_8c_ac18ef23df6db515c85d6851a9841d82d}
+
+
+Definition at line 29 of file gifread.\+c.
+
+
+
+Referenced by read\+\_\+header().
+
+\hypertarget{gifread_8c_a3b8d15260ac3936406670327c674af60}{\index{gifread.\+c@{gifread.\+c}!I\+N\+T\+E\+R\+L\+A\+C\+E@{I\+N\+T\+E\+R\+L\+A\+C\+E}}
+\index{I\+N\+T\+E\+R\+L\+A\+C\+E@{I\+N\+T\+E\+R\+L\+A\+C\+E}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{I\+N\+T\+E\+R\+L\+A\+C\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+T\+E\+R\+L\+A\+C\+E~0x40}}\label{gifread_8c_a3b8d15260ac3936406670327c674af60}
+
+
+Definition at line 27 of file gifread.\+c.
+
+
+
+Referenced by read\+\_\+header().
+
+\hypertarget{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{\index{gifread.\+c@{gifread.\+c}!L\+M\+\_\+to\+\_\+uint@{L\+M\+\_\+to\+\_\+uint}}
+\index{L\+M\+\_\+to\+\_\+uint@{L\+M\+\_\+to\+\_\+uint}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{L\+M\+\_\+to\+\_\+uint}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+M\+\_\+to\+\_\+uint(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)~(((b)$<$$<$8)$\vert$(a))}}\label{gifread_8c_a00f002defb10c5d567e08e14a44573c0}
+
+
+Definition at line 33 of file gifread.\+c.
+
+
+
+Referenced by Do\+Extension(), and read\+\_\+header().
+
+\hypertarget{gifread_8c_aa462d45fdcd40398d200eefcadca1dea}{\index{gifread.\+c@{gifread.\+c}!L\+O\+C\+A\+L\+C\+O\+L\+O\+R\+M\+A\+P@{L\+O\+C\+A\+L\+C\+O\+L\+O\+R\+M\+A\+P}}
+\index{L\+O\+C\+A\+L\+C\+O\+L\+O\+R\+M\+A\+P@{L\+O\+C\+A\+L\+C\+O\+L\+O\+R\+M\+A\+P}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{L\+O\+C\+A\+L\+C\+O\+L\+O\+R\+M\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+O\+C\+A\+L\+C\+O\+L\+O\+R\+M\+A\+P~0x80}}\label{gifread_8c_aa462d45fdcd40398d200eefcadca1dea}
+
+
+Definition at line 28 of file gifread.\+c.
+
+
+
+Referenced by read\+\_\+header().
+
+\hypertarget{gifread_8c_a2997021359e1e5b10c7f150377256f79}{\index{gifread.\+c@{gifread.\+c}!M\+A\+X\+\_\+\+L\+W\+Z\+\_\+\+B\+I\+T\+S@{M\+A\+X\+\_\+\+L\+W\+Z\+\_\+\+B\+I\+T\+S}}
+\index{M\+A\+X\+\_\+\+L\+W\+Z\+\_\+\+B\+I\+T\+S@{M\+A\+X\+\_\+\+L\+W\+Z\+\_\+\+B\+I\+T\+S}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+L\+W\+Z\+\_\+\+B\+I\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+L\+W\+Z\+\_\+\+B\+I\+T\+S~12}}\label{gifread_8c_a2997021359e1e5b10c7f150377256f79}
+
+
+Definition at line 25 of file gifread.\+c.
+
+
+
+Referenced by L\+W\+Z\+Read\+Byte().
+
+\hypertarget{gifread_8c_a0e515f705e462615c4a4d0ffb925caeb}{\index{gifread.\+c@{gifread.\+c}!P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N@{P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N}}
+\index{P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N@{P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N(
+\begin{DoxyParamCaption}
+\item[{}]{p, }
+\item[{}]{red, }
+\item[{}]{grn, }
+\item[{}]{blu}
+\end{DoxyParamCaption}
+)~do \{ (p).r = (red); (p).g = (grn); (p).b = (blu); \} while ( 0 )}}\label{gifread_8c_a0e515f705e462615c4a4d0ffb925caeb}
+
+
+Definition at line 23 of file gifread.\+c.
+
+
+
+Referenced by Do\+Extension(), Read\+Interleaved\+Image(), and Read\+Tile\+Strip().
+
+\hypertarget{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{\index{gifread.\+c@{gifread.\+c}!Read\+O\+K@{Read\+O\+K}}
+\index{Read\+O\+K@{Read\+O\+K}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Read\+O\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define Read\+O\+K(
+\begin{DoxyParamCaption}
+\item[{}]{file, }
+\item[{}]{buffer, }
+\item[{}]{len}
+\end{DoxyParamCaption}
+)~(fread(({\bf genericptr\+\_\+t})buffer, (int)len, 1, file) != 0)}}\label{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}
+
+
+Definition at line 31 of file gifread.\+c.
+
+
+
+Referenced by fopen\+\_\+gif\+\_\+file(), Get\+Data\+Block(), read\+\_\+header(), and Read\+Color\+Map().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{gifread_8c_a8357bdad63e6395051f4365d187785ad}{\index{gifread.\+c@{gifread.\+c}!Do\+Extension@{Do\+Extension}}
+\index{Do\+Extension@{Do\+Extension}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Do\+Extension}]{\setlength{\rightskip}{0pt plus 5cm}static void Do\+Extension (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E	$\ast$}]{fd, }
+\item[{int}]{label}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a8357bdad63e6395051f4365d187785ad}
+
+
+Definition at line 96 of file gifread.\+c.
+
+
+
+References background, buf, C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, cmap, Fprintf, Get\+Data\+Block(), Gif89, height, index(), L\+M\+\_\+to\+\_\+uint, P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N, Sprintf, and width.
+
+
+
+Referenced by read\+\_\+header().
+
+
+\begin{DoxyCode}
+99 \{
+100     \textcolor{keyword}{static} \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[256];
+101     \textcolor{keywordtype}{char}        *str;
+102 
+103     \textcolor{keywordflow}{switch} (label) \{
+104     \textcolor{keywordflow}{case} 0x01:      \textcolor{comment}{/* Plain Text Extension */}
+105         str = \textcolor{stringliteral}{"Plain Text Extension"};
+106 \textcolor{preprocessor}{#ifdef notdef}
+107         \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{GetDataBlock}(fd, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) buf) == 0)
+108             ;
+109 
+110         lpos   = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[0], buf[1]);
+111         tpos   = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[2], buf[3]);
+112         \hyperlink{xpm2img_8c_a2474a5474cbff19523a51eb1de01cda4}{width}  = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[4], buf[5]);
+113         \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height} = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[6], buf[7]);
+114         cellw  = buf[8];
+115         cellh  = buf[9];
+116         foreground = buf[10];
+117         \hyperlink{gnmap_8c_aa8d248c62388d52cdc45a693f53af7fd}{background} = buf[11];
+118 
+119         \textcolor{keywordflow}{while} (\hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{GetDataBlock}(fd, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) buf) != 0) \{
+120             \hyperlink{gifread_8c_a0e515f705e462615c4a4d0ffb925caeb}{PPM\_ASSIGN}(\hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[ypos][xpos],
+121                     \hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][\hyperlink{structobj_a5ac1ba635501e7c9e4c37f2eec997920}{v}],
+122                     \hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][v],
+123                     \hyperlink{txt2iff_8c_a7320deca12e5c03a0bcea6f55bd37c43}{cmap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][v]);
+124             ++\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index};
+125         \}
+126 
+127         \textcolor{keywordflow}{return};
+128 \textcolor{preprocessor}{#else}
+129         \textcolor{keywordflow}{break};
+130 \textcolor{preprocessor}{#endif}
+131     \textcolor{keywordflow}{case} 0xff:      \textcolor{comment}{/* Application Extension */}
+132         str = \textcolor{stringliteral}{"Application Extension"};
+133         \textcolor{keywordflow}{break};
+134     \textcolor{keywordflow}{case} 0xfe:      \textcolor{comment}{/* Comment Extension */}
+135         str = \textcolor{stringliteral}{"Comment Extension"};
+136         \textcolor{keywordflow}{while} (\hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{GetDataBlock}(fd, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) buf) != 0) \{
+137             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"gif comment: %s\(\backslash\)n"}, buf );
+138         \}
+139         \textcolor{keywordflow}{return};
+140     \textcolor{keywordflow}{case} 0xf9:      \textcolor{comment}{/* Graphic Control Extension */}
+141         str = \textcolor{stringliteral}{"Graphic Control Extension"};
+142         (void) \hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{GetDataBlock}(fd, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf});
+143         \hyperlink{gifread_8c_ab477ac93809e764aa4abb00112fb4c75}{Gif89}.disposal    = (buf[0] >> 2) & 0x7;
+144         \hyperlink{gifread_8c_ab477ac93809e764aa4abb00112fb4c75}{Gif89}.inputFlag   = (buf[0] >> 1) & 0x1;
+145         \hyperlink{gifread_8c_ab477ac93809e764aa4abb00112fb4c75}{Gif89}.delayTime   = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[1],buf[2]);
+146         \textcolor{keywordflow}{if} ((buf[0] & 0x1) != 0)
+147             \hyperlink{gifread_8c_ab477ac93809e764aa4abb00112fb4c75}{Gif89}.transparent = buf[3];
+148 
+149         \textcolor{keywordflow}{while} (\hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{GetDataBlock}(fd, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) buf) != 0)
+150             ;
+151         \textcolor{keywordflow}{return};
+152     \textcolor{keywordflow}{default}:
+153         str = \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+154         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf, \textcolor{stringliteral}{"UNKNOWN (0x%02x)"}, label);
+155         \textcolor{keywordflow}{break};
+156     \}
+157 
+158     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"got a '%s' extension\(\backslash\)n"}, str);
+159 
+160     \textcolor{keywordflow}{while} (\hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{GetDataBlock}(fd, (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}*) buf) != 0)
+161         ;
+162 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_aa7857d5f80f0e18c2f75e290dfb9bc21}{\index{gifread.\+c@{gifread.\+c}!fclose\+\_\+gif\+\_\+file@{fclose\+\_\+gif\+\_\+file}}
+\index{fclose\+\_\+gif\+\_\+file@{fclose\+\_\+gif\+\_\+file}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{fclose\+\_\+gif\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}int fclose\+\_\+gif\+\_\+file (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{gifread_8c_aa7857d5f80f0e18c2f75e290dfb9bc21}
+
+
+Definition at line 643 of file gifread.\+c.
+
+
+
+References free(), Gif\+Screen, gifscreen\+::\+Height, gifscreen\+::\+Interlace, and T\+I\+L\+E\+\_\+\+Y.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+644 \{
+645     \textcolor{keywordtype}{int} i;
+646 
+647     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a04416bc477001625456cccef080acab7}{Interlace}) \{
+648         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height}; i++) \{
+649             \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[i]);
+650         \}
+651         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image});
+652     \} \textcolor{keywordflow}{else} \{
+653         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; i++) \{
+654             \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[i]);
+655         \}
+656         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image});
+657     \}
+658     \textcolor{keywordflow}{return}(fclose(\hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file}));
+659 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_ad689923d338b7e3379071d72b0257979}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}long$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf alloc}}]{, }
+\item[{(unsigned int)}]{}
+\end{DoxyParamCaption}
+)}}\label{gifread_8c_ad689923d338b7e3379071d72b0257979}
+\hypertarget{gifread_8c_a437923fab1bb095c2d3e5e8701edc710}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf Get\+Data\+Block}}]{, }
+\item[{(F\+I\+L\+E $\ast$fd, unsigned char $\ast${\bf buf})}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a437923fab1bb095c2d3e5e8701edc710}
+\hypertarget{gifread_8c_ab6121d238d7087d83b3666f1fc1be33d}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf Do\+Extension}}]{, }
+\item[{(F\+I\+L\+E $\ast$fd, int label)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_ab6121d238d7087d83b3666f1fc1be33d}
+\hypertarget{gifread_8c_a55e563cc5fed81223f8b02bcf42f4116}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf Read\+Color\+Map}}]{, }
+\item[{(F\+I\+L\+E $\ast$fd, int number)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a55e563cc5fed81223f8b02bcf42f4116}
+\hypertarget{gifread_8c_a5ad62f7189f47385978b805f0297630d}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf read\+\_\+header}}]{, }
+\item[{(F\+I\+L\+E $\ast$fd)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a5ad62f7189f47385978b805f0297630d}
+\hypertarget{gifread_8c_af102351de75ca4bbf0df93ce6f0c914f}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf Get\+Code}}]{, }
+\item[{(F\+I\+L\+E $\ast$fd, int code\+\_\+size, int {\bf flag})}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_af102351de75ca4bbf0df93ce6f0c914f}
+\hypertarget{gifread_8c_ad1e366f1ae9631960fc4d8574ef084f9}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf L\+W\+Z\+Read\+Byte}}]{, }
+\item[{(F\+I\+L\+E $\ast$fd, int {\bf flag}, int {\bf input\+\_\+code\+\_\+size})}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_ad1e366f1ae9631960fc4d8574ef084f9}
+\hypertarget{gifread_8c_ad4faae22b66b66907ab6d790f753686a}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf Read\+Interleaved\+Image}}]{, }
+\item[{(F\+I\+L\+E $\ast$fd, int len, int {\bf height})}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_ad4faae22b66b66907ab6d790f753686a}
+\hypertarget{gifread_8c_af8bae6889704dcb6abe830ed0a8d1528}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf Read\+Tile\+Strip}}]{, }
+\item[{(F\+I\+L\+E $\ast$fd, int len)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_af8bae6889704dcb6abe830ed0a8d1528}
+\hypertarget{gifread_8c_a132846d60544d13e83070015db09e112}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf fopen\+\_\+gif\+\_\+file}}]{, }
+\item[{({\bf const} char $\ast$, {\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{gifread_8c_a132846d60544d13e83070015db09e112}
+\hypertarget{gifread_8c_a033c6234a417c218e142077672c61f63}{\index{gifread.\+c@{gifread.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf read\+\_\+gif\+\_\+tile}}]{, }
+\item[{({\bf pixel}($\ast$)\mbox{[}$\,$\mbox{]})}]{}
+\end{DoxyParamCaption}
+)}}\label{gifread_8c_a033c6234a417c218e142077672c61f63}
+\hypertarget{gifread_8c_a0715d219e88faf15bccf0d6c90925ba7}{\index{gifread.\+c@{gifread.\+c}!fopen\+\_\+gif\+\_\+file@{fopen\+\_\+gif\+\_\+file}}
+\index{fopen\+\_\+gif\+\_\+file@{fopen\+\_\+gif\+\_\+file}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{fopen\+\_\+gif\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} fopen\+\_\+gif\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename, }
+\item[{{\bf const} char $\ast$}]{type}
+\end{DoxyParamCaption}
+) const}}\label{gifread_8c_a0715d219e88faf15bccf0d6c90925ba7}
+
+
+Definition at line 528 of file gifread.\+c.
+
+
+
+References alloc(), exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, F\+A\+L\+S\+E, Fprintf, Gif\+Screen, gifscreen\+::\+Height, gifscreen\+::\+Interlace, L\+W\+Z\+Read\+Byte(), R\+D\+B\+M\+O\+D\+E, read\+\_\+header(), Read\+Interleaved\+Image(), Read\+O\+K, Read\+Tile\+Strip(), T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, T\+R\+U\+E, and gifscreen\+::\+Width.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+531 \{
+532     \textcolor{keywordtype}{int} i;
+533 
+534     \textcolor{keywordflow}{if} (strcmp(\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}, \hyperlink{dlb_8h_a79632e8c9d823c787062c20ec123ae24}{RDBMODE})) \{
+535         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"using reading routine for non-reading?\(\backslash\)n"});
+536         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+537     \}
+538     \hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file} = fopen(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type});
+539     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file} == (FILE *)0) \{
+540         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"cannot open gif file %s\(\backslash\)n"}, \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename});
+541         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+542     \}
+543 
+544     \hyperlink{gifread_8c_a14981300d845e5ef313d1dead13ad9c1}{read\_header}(\hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file});
+545     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width} % \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}) \{
+546         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"error: width %d not divisible by %d\(\backslash\)n"},
+547                 \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width}, \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X});
+548         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+549     \}
+550     \hyperlink{gifread_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}{tiles\_across} = \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width} / \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+551     \hyperlink{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across} = 0;
+552     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height} % \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}) \{
+553         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"error: height %d not divisible by %d\(\backslash\)n"},
+554                 \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height}, \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y});
+555         \textcolor{comment}{/* exit(EXIT\_FAILURE) */};
+556     \}
+557     \hyperlink{gifread_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\_down} = \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height} / \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y};
+558     \hyperlink{gifread_8c_ad2d258c2ad56927b102a54974e9768bc}{curr\_tiles\_down} = 0;
+559 
+560     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a04416bc477001625456cccef080acab7}{Interlace}) \{
+561         \textcolor{comment}{/* sigh -- hope this doesn't happen on micros */}
+562         \hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image} = (\hyperlink{structpixel}{pixel} **)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height} * \textcolor{keyword}{sizeof}(
+      \hyperlink{structpixel}{pixel} *));
+563         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height}; i++) \{
+564         \hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[i] = (\hyperlink{structpixel}{pixel} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width} * \textcolor{keyword}{sizeof}(
+      \hyperlink{structpixel}{pixel}));
+565         \}
+566     \} \textcolor{keywordflow}{else} \{
+567         \hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image} = (\hyperlink{structpixel}{pixel} **)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y} * \textcolor{keyword}{sizeof}(\hyperlink{structpixel}{pixel} *));
+568         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; i++) \{
+569         \hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[i] = (\hyperlink{structpixel}{pixel} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width} * \textcolor{keyword}{sizeof}(
+      \hyperlink{structpixel}{pixel}));
+570         \}
+571     \}
+572 
+573     \textcolor{comment}{/*}
+574 \textcolor{comment}{    **  Initialize the Compression routines}
+575 \textcolor{comment}{    */}
+576     \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(\hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file},&\hyperlink{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{input\_code\_size},1)) \{
+577         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"EOF / read error on image data\(\backslash\)n"});
+578         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+579     \}
+580 
+581     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_a23fa148065832d13673e692613dc4fc2}{LWZReadByte}(\hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, (\textcolor{keywordtype}{int})\hyperlink{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{input\_code\_size}) < 0) \{
+582         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"error reading image\(\backslash\)n"});
+583         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+584     \}
+585 
+586     \textcolor{comment}{/* read first section */}
+587     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a04416bc477001625456cccef080acab7}{Interlace}) \{
+588         \hyperlink{gifread_8c_a8b4be2cc1e827096431c2d578e78e828}{ReadInterleavedImage}(\hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file},
+589                     \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width},\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height});
+590     \} \textcolor{keywordflow}{else} \{
+591         \hyperlink{gifread_8c_a13770eb662c745520fcc5f6a037f0a74}{ReadTileStrip}(\hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file},\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width});
+592     \}
+593     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+594 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_ac7ea016522b6c1de34ac9a618e898eb4}{\index{gifread.\+c@{gifread.\+c}!Get\+Code@{Get\+Code}}
+\index{Get\+Code@{Get\+Code}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Get\+Code}]{\setlength{\rightskip}{0pt plus 5cm}static int Get\+Code (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E	$\ast$}]{fd, }
+\item[{int}]{code\+\_\+size, }
+\item[{int}]{flag}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_ac7ea016522b6c1de34ac9a618e898eb4}
+
+
+Definition at line 293 of file gifread.\+c.
+
+
+
+References buf, count, done, F\+A\+L\+S\+E, Fprintf, Get\+Data\+Block(), and T\+R\+U\+E.
+
+
+
+Referenced by L\+W\+Z\+Read\+Byte().
+
+
+\begin{DoxyCode}
+297 \{
+298     \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}    \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[280];
+299     \textcolor{keyword}{static} \textcolor{keywordtype}{int}      curbit, lastbit, \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}, last\_byte;
+300     \textcolor{keywordtype}{int}         i, j, ret;
+301     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}       \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+302 
+303     \textcolor{keywordflow}{if} (\hyperlink{structflag}{flag}) \{
+304         curbit = 0;
+305         lastbit = 0;
+306         done = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+307         \textcolor{keywordflow}{return} 0;
+308     \}
+309 
+310     \textcolor{keywordflow}{if} ((curbit+code\_size) >= lastbit) \{
+311         \textcolor{keywordflow}{if} (done) \{
+312             \textcolor{keywordflow}{if} (curbit >= lastbit)
+313                 \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"ran off the end of my bits\(\backslash\)n"});
+314             \textcolor{keywordflow}{return} -1;
+315         \}
+316         buf[0] = buf[last\_byte-2];
+317         buf[1] = buf[last\_byte-1];
+318 
+319         \textcolor{keywordflow}{if} ((count = \hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{GetDataBlock}(fd, &buf[2])) == 0)
+320             done = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+321 
+322         last\_byte = 2 + \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+323         curbit = (curbit - lastbit) + 16;
+324         lastbit = (2+\hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count})*8 ;
+325     \}
+326 
+327     ret = 0;
+328     \textcolor{keywordflow}{for} (i = curbit, j = 0; j < code\_size; ++i, ++j)
+329         ret |= ((buf[ i / 8 ] & (1 << (i % 8))) != 0) << j;
+330 
+331     curbit += code\_size;
+332 
+333     \textcolor{keywordflow}{return} ret;
+334 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{\index{gifread.\+c@{gifread.\+c}!Get\+Data\+Block@{Get\+Data\+Block}}
+\index{Get\+Data\+Block@{Get\+Data\+Block}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Get\+Data\+Block}]{\setlength{\rightskip}{0pt plus 5cm}static int Get\+Data\+Block (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E		$\ast$}]{fd, }
+\item[{unsigned char	$\ast$}]{buf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}
+
+
+Definition at line 74 of file gifread.\+c.
+
+
+
+References count, Fprintf, and Read\+O\+K.
+
+
+
+Referenced by Do\+Extension(), Get\+Code(), and L\+W\+Z\+Read\+Byte().
+
+
+\begin{DoxyCode}
+77 \{
+78     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+79 
+80     \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(fd,&count,1)) \{
+81         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"error in getting DataBlock size\(\backslash\)n"});
+82         \textcolor{keywordflow}{return} -1;
+83     \}
+84 
+85     \hyperlink{gifread_8c_ab6c80cee0935dee220ae42b15b5ab72c}{ZeroDataBlock} = (count == 0);
+86 
+87     \textcolor{keywordflow}{if} ((count != 0) && (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(fd, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, count))) \{
+88         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"error in reading DataBlock\(\backslash\)n"});
+89         \textcolor{keywordflow}{return} -1;
+90     \}
+91 
+92     \textcolor{keywordflow}{return} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+93 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_a23fa148065832d13673e692613dc4fc2}{\index{gifread.\+c@{gifread.\+c}!L\+W\+Z\+Read\+Byte@{L\+W\+Z\+Read\+Byte}}
+\index{L\+W\+Z\+Read\+Byte@{L\+W\+Z\+Read\+Byte}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{L\+W\+Z\+Read\+Byte}]{\setlength{\rightskip}{0pt plus 5cm}static int L\+W\+Z\+Read\+Byte (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E	$\ast$}]{fd, }
+\item[{int}]{flag, }
+\item[{int}]{input\+\_\+code\+\_\+size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a23fa148065832d13673e692613dc4fc2}
+
+
+Definition at line 337 of file gifread.\+c.
+
+
+
+References buf, count, exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, F\+A\+L\+S\+E, Fprintf, Get\+Code(), Get\+Data\+Block(), input\+\_\+code\+\_\+size, M\+A\+X\+\_\+\+L\+W\+Z\+\_\+\+B\+I\+T\+S, and T\+R\+U\+E.
+
+
+
+Referenced by fopen\+\_\+gif\+\_\+file(), Read\+Interleaved\+Image(), and Read\+Tile\+Strip().
+
+
+\begin{DoxyCode}
+341 \{
+342     \textcolor{keyword}{static} \textcolor{keywordtype}{int}  fresh = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+343     \textcolor{keywordtype}{int}     code, incode;
+344     \textcolor{keyword}{static} \textcolor{keywordtype}{int}  code\_size, set\_code\_size;
+345     \textcolor{keyword}{static} \textcolor{keywordtype}{int}  max\_code, max\_code\_size;
+346     \textcolor{keyword}{static} \textcolor{keywordtype}{int}  firstcode, oldcode;
+347     \textcolor{keyword}{static} \textcolor{keywordtype}{int}  clear\_code, end\_code;
+348     \textcolor{keyword}{static} \textcolor{keywordtype}{int}  table[2][(1<< \hyperlink{gifread_8c_a2997021359e1e5b10c7f150377256f79}{MAX\_LWZ\_BITS})];
+349     \textcolor{keyword}{static} \textcolor{keywordtype}{int}  stack[(1<<(\hyperlink{gifread_8c_a2997021359e1e5b10c7f150377256f79}{MAX\_LWZ\_BITS}))*2], *sp;
+350     \textcolor{keyword}{register} \textcolor{keywordtype}{int}    i;
+351 
+352     \textcolor{keywordflow}{if} (\hyperlink{structflag}{flag}) \{
+353         set\_code\_size = \hyperlink{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{input\_code\_size};
+354         code\_size = set\_code\_size+1;
+355         clear\_code = 1 << set\_code\_size ;
+356         end\_code = clear\_code + 1;
+357         max\_code\_size = 2*clear\_code;
+358         max\_code = clear\_code+2;
+359 
+360         (void) \hyperlink{gifread_8c_ac7ea016522b6c1de34ac9a618e898eb4}{GetCode}(fd, 0, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+361 
+362         fresh = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+363 
+364         \textcolor{keywordflow}{for} (i = 0; i < clear\_code; ++i) \{
+365             table[0][i] = 0;
+366             table[1][i] = i;
+367         \}
+368         \textcolor{keywordflow}{for} (; i < (1<<\hyperlink{gifread_8c_a2997021359e1e5b10c7f150377256f79}{MAX\_LWZ\_BITS}); ++i)
+369             table[0][i] = table[1][0] = 0;
+370 
+371         sp = stack;
+372 
+373         \textcolor{keywordflow}{return} 0;
+374     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (fresh) \{
+375         fresh = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+376         \textcolor{keywordflow}{do} \{
+377             firstcode = oldcode = \hyperlink{gifread_8c_ac7ea016522b6c1de34ac9a618e898eb4}{GetCode}(fd, code\_size, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+378         \} \textcolor{keywordflow}{while} (firstcode == clear\_code);
+379         \textcolor{keywordflow}{return} firstcode;
+380     \}
+381 
+382     \textcolor{keywordflow}{if} (sp > stack)
+383         \textcolor{keywordflow}{return} *--sp;
+384 
+385     \textcolor{keywordflow}{while} ((code = \hyperlink{gifread_8c_ac7ea016522b6c1de34ac9a618e898eb4}{GetCode}(fd, code\_size, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE})) >= 0) \{
+386         \textcolor{keywordflow}{if} (code == clear\_code) \{
+387             \textcolor{keywordflow}{for} (i = 0; i < clear\_code; ++i) \{
+388                 table[0][i] = 0;
+389                 table[1][i] = i;
+390             \}
+391             \textcolor{keywordflow}{for} (; i < (1<<\hyperlink{gifread_8c_a2997021359e1e5b10c7f150377256f79}{MAX\_LWZ\_BITS}); ++i)
+392                 table[0][i] = table[1][i] = 0;
+393             code\_size = set\_code\_size+1;
+394             max\_code\_size = 2*clear\_code;
+395             max\_code = clear\_code+2;
+396             sp = stack;
+397             firstcode = oldcode = \hyperlink{gifread_8c_ac7ea016522b6c1de34ac9a618e898eb4}{GetCode}(fd, code\_size, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+398             \textcolor{keywordflow}{return} firstcode;
+399         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (code == end\_code) \{
+400             \textcolor{keywordtype}{int}     \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+401             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[260];
+402 
+403             \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ab6c80cee0935dee220ae42b15b5ab72c}{ZeroDataBlock})
+404                 \textcolor{keywordflow}{return} -2;
+405 
+406             \textcolor{keywordflow}{while} ((count = \hyperlink{gifread_8c_ac5fdaeb2570c0054f066af7485d7e9b0}{GetDataBlock}(fd, buf)) > 0)
+407                 ;
+408 
+409             \textcolor{keywordflow}{if} (count != 0)
+410                 \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+411                 \textcolor{stringliteral}{"missing EOD in data stream (common occurrence)\(\backslash\)n"});
+412             \textcolor{keywordflow}{return} -2;
+413         \}
+414 
+415         incode = code;
+416 
+417         \textcolor{keywordflow}{if} (code >= max\_code) \{
+418             *sp++ = firstcode;
+419             code = oldcode;
+420         \}
+421 
+422         \textcolor{keywordflow}{while} (code >= clear\_code) \{
+423             *sp++ = table[1][code];
+424             \textcolor{keywordflow}{if} (code == table[0][code]) \{
+425                 \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"circular table entry BIG ERROR\(\backslash\)n"});
+426                 \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+427             \}
+428             code = table[0][code];
+429         \}
+430 
+431         *sp++ = firstcode = table[1][code];
+432 
+433         \textcolor{keywordflow}{if} ((code = max\_code) <(1<<\hyperlink{gifread_8c_a2997021359e1e5b10c7f150377256f79}{MAX\_LWZ\_BITS})) \{
+434             table[0][code] = oldcode;
+435             table[1][code] = firstcode;
+436             ++max\_code;
+437             \textcolor{keywordflow}{if} ((max\_code >= max\_code\_size) &&
+438                 (max\_code\_size < (1<<\hyperlink{gifread_8c_a2997021359e1e5b10c7f150377256f79}{MAX\_LWZ\_BITS}))) \{
+439                 max\_code\_size *= 2;
+440                 ++code\_size;
+441             \}
+442         \}
+443 
+444         oldcode = incode;
+445 
+446         \textcolor{keywordflow}{if} (sp > stack)
+447             \textcolor{keywordflow}{return} *--sp;
+448     \}
+449     \textcolor{keywordflow}{return} code;
+450 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_afced8478b91af5c169926dfa4426333d}{\index{gifread.\+c@{gifread.\+c}!main@{main}}
+\index{main@{main}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)}}\label{gifread_8c_afced8478b91af5c169926dfa4426333d}
+
+
+Definition at line 668 of file gifread.\+c.
+
+
+
+References exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, fclose\+\_\+gif\+\_\+file(), fclose\+\_\+text\+\_\+file(), fopen\+\_\+gif\+\_\+file(), fopen\+\_\+text\+\_\+file(), Fprintf, init\+\_\+colormap(), pixels, R\+D\+B\+M\+O\+D\+E, read\+\_\+gif\+\_\+tile(), S\+I\+Z\+E, std\+\_\+args, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, write\+\_\+text\+\_\+tile(), and W\+R\+T\+M\+O\+D\+E.
+
+
+\begin{DoxyCode}
+671 \{
+672     \hyperlink{structpixel}{pixel} \hyperlink{txt2iff_8c_a6313a761da46b29ba554302d6d36d116}{pixels}[\hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}][\hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}];
+673 
+674     \textcolor{keywordflow}{if} (argc == 1) \{
+675         argc = \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}(\hyperlink{gifread_8c_a0883cfa86aa6e43366e275da98f6ec18}{std\_args});
+676         argv = \hyperlink{gifread_8c_a0883cfa86aa6e43366e275da98f6ec18}{std\_args};
+677     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc != 3) \{
+678         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"usage: gif2txt giffile txtfile\(\backslash\)n"});
+679         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+680     \}
+681 
+682     \textcolor{keywordflow}{while} (argc > 1) \{
+683         \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_a0715d219e88faf15bccf0d6c90925ba7}{fopen\_gif\_file}(argv[1], \hyperlink{dlb_8h_a79632e8c9d823c787062c20ec123ae24}{RDBMODE}))
+684             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+685 
+686         \hyperlink{tiletext_8c_a2cb5731b96aae136b97a319e6f4d9c6d}{init\_colormap}();
+687 
+688         \textcolor{keywordflow}{if} (!\hyperlink{tiletext_8c_afd96856d9b9d8dd587b735c54e9c2765}{fopen\_text\_file}(argv[2], \hyperlink{dlb_8h_a157992706d1f539fba42c6ff1af07764}{WRTMODE})) \{
+689             (void) \hyperlink{gifread_8c_aa7857d5f80f0e18c2f75e290dfb9bc21}{fclose\_gif\_file}();
+690             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+691         \}
+692 
+693         \textcolor{keywordflow}{while} (\hyperlink{gifread_8c_a06b75cec8089efe8f7030b260dc6a1fa}{read\_gif\_tile}(pixels))
+694             (void) \hyperlink{tiletext_8c_a74b64750c419ae14d3af399325ff644a}{write\_text\_tile}(pixels);
+695 
+696         (void) \hyperlink{gifread_8c_aa7857d5f80f0e18c2f75e290dfb9bc21}{fclose\_gif\_file}();
+697         (void) \hyperlink{tiletext_8c_a52166aa84ff4882399d7699bb074b55b}{fclose\_text\_file}();
+698 
+699         argc -= 2;
+700         argv += 2;
+701     \}
+702     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+703     \textcolor{comment}{/*NOTREACHED*/}
+704     \textcolor{keywordflow}{return} 0;
+705 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_a1989702923b990e6ed1e9bb341865129}{\index{gifread.\+c@{gifread.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf fclose\+\_\+gif\+\_\+file}}]{}
+\end{DoxyParamCaption}
+)}}\label{gifread_8c_a1989702923b990e6ed1e9bb341865129}
+\hypertarget{gifread_8c_a06b75cec8089efe8f7030b260dc6a1fa}{\index{gifread.\+c@{gifread.\+c}!read\+\_\+gif\+\_\+tile@{read\+\_\+gif\+\_\+tile}}
+\index{read\+\_\+gif\+\_\+tile@{read\+\_\+gif\+\_\+tile}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{read\+\_\+gif\+\_\+tile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} read\+\_\+gif\+\_\+tile (
+\begin{DoxyParamCaption}
+\item[{{\bf pixel} $\ast$}]{pixels}
+\end{DoxyParamCaption}
+)}}\label{gifread_8c_a06b75cec8089efe8f7030b260dc6a1fa}
+
+
+Definition at line 598 of file gifread.\+c.
+
+
+
+References C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, F\+A\+L\+S\+E, Gif\+Screen, gifscreen\+::\+Interlace, pixels, Read\+Tile\+Strip(), T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, T\+R\+U\+E, and gifscreen\+::\+Width.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+600 \{
+601     \textcolor{keywordtype}{int} i, j;
+602 
+603     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ad2d258c2ad56927b102a54974e9768bc}{curr\_tiles\_down} >= \hyperlink{gifread_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\_down}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+604     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across} == \hyperlink{gifread_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}{tiles\_across}) \{
+605         \hyperlink{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across} = 0;
+606         \hyperlink{gifread_8c_ad2d258c2ad56927b102a54974e9768bc}{curr\_tiles\_down}++;
+607         \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ad2d258c2ad56927b102a54974e9768bc}{curr\_tiles\_down} >= \hyperlink{gifread_8c_ad70f085e13710115c5234c719e7e5b7e}{tiles\_down}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+608         \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a04416bc477001625456cccef080acab7}{Interlace})
+609             \hyperlink{gifread_8c_a13770eb662c745520fcc5f6a037f0a74}{ReadTileStrip}(\hyperlink{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{gif\_file},\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width});
+610     \}
+611     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a04416bc477001625456cccef080acab7}{Interlace}) \{
+612         \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+613             \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}; i++) \{
+614             pixels[j][i] = \hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[\hyperlink{gifread_8c_ad2d258c2ad56927b102a54974e9768bc}{curr\_tiles\_down}*TILE\_Y + j]
+615                         [\hyperlink{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across}*TILE\_X + i];
+616             \}
+617         \}
+618     \} \textcolor{keywordflow}{else} \{
+619         \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+620             \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}; i++) \{
+621             pixels[j][i] = \hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[j][\hyperlink{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across}*TILE\_X + i];
+622             \}
+623         \}
+624     \}
+625     \hyperlink{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{curr\_tiles\_across}++;
+626 
+627     \textcolor{comment}{/* check for "filler" tile */}
+628     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+629         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X} && i < 4; i += 2) \{
+630             \textcolor{keywordflow}{if} (pixels[j][i].r != \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][0] ||
+631                 pixels[j][i].g != \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][0] ||
+632                 pixels[j][i].b != \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][0] ||
+633                 pixels[j][i+1].r != \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][1] ||
+634                 pixels[j][i+1].g != \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][1] ||
+635                 pixels[j][i+1].b != \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][1])
+636                 \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+637         \}
+638     \}
+639     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+640 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_a14981300d845e5ef313d1dead13ad9c1}{\index{gifread.\+c@{gifread.\+c}!read\+\_\+header@{read\+\_\+header}}
+\index{read\+\_\+header@{read\+\_\+header}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{read\+\_\+header}]{\setlength{\rightskip}{0pt plus 5cm}static void read\+\_\+header (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E	$\ast$}]{fd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a14981300d845e5ef313d1dead13ad9c1}
+
+
+Definition at line 191 of file gifread.\+c.
+
+
+
+References gifscreen\+::\+Aspect\+Ratio, gifscreen\+::\+Background, Bit\+Set, buf, gifscreen\+::\+Color\+Resolution, gifscreen\+::\+Colors, Do\+Extension(), exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, Fprintf, Gif\+Screen, gifscreen\+::\+Height, I\+N\+T\+E\+R\+L\+A\+C\+E, gifscreen\+::\+Interlace, L\+M\+\_\+to\+\_\+uint, L\+O\+C\+A\+L\+C\+O\+L\+O\+R\+M\+A\+P, Read\+Color\+Map(), Read\+O\+K, version, and gifscreen\+::\+Width.
+
+
+
+Referenced by fopen\+\_\+gif\+\_\+file().
+
+
+\begin{DoxyCode}
+193 \{
+194     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[16];
+195     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   c;
+196     \textcolor{keywordtype}{char}        \hyperlink{makedefs_8c_a585eb46070faa7c90d1f942a4828081c}{version}[4];
+197 
+198     \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(fd,buf,6)) \{
+199         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"error reading magic number\(\backslash\)n"});
+200         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+201     \}
+202 
+203     \textcolor{keywordflow}{if} (strncmp((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})buf,\textcolor{stringliteral}{"GIF"},3) != 0) \{
+204         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"not a GIF file\(\backslash\)n"});
+205         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+206     \}
+207 
+208     (void) strncpy(version, (\textcolor{keywordtype}{char} *)buf + 3, 3);
+209     version[3] = \textcolor{charliteral}{'\(\backslash\)0'};
+210 
+211     \textcolor{keywordflow}{if} ((strcmp(version, \textcolor{stringliteral}{"87a"}) != 0) && (strcmp(version, \textcolor{stringliteral}{"89a"}) != 0)) \{
+212         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"bad version number, not '87a' or '89a'\(\backslash\)n"});
+213         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+214     \}
+215 
+216     \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(fd,buf,7)) \{
+217         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"failed to read screen descriptor\(\backslash\)n"});
+218         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+219     \}
+220 
+221     \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width}           = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[0],buf[1]);
+222     \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height}          = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[2],buf[3]);
+223     \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa0d1897afb3181c6ae9b2130b36ca8d9}{Colors}          = 2<<(buf[4]&0x07);
+224     \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a207d54592bfe37394a84e98603d6936f}{ColorResolution} = (((buf[4]&0x70)>>3)+1);
+225     \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aaeadb14e663211655fd7d2a160b288c0}{Background}      = buf[5];
+226     \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_acab49d23a20a86d86038bde8ce879b2b}{AspectRatio}     = buf[6];
+227 
+228     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ac18ef23df6db515c85d6851a9841d82d}{BitSet}(buf[4], \hyperlink{gifread_8c_aa462d45fdcd40398d200eefcadca1dea}{LOCALCOLORMAP})) \{ \textcolor{comment}{/* Global Colormap */}
+229         \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_a29eb91d604aa57edfdde5d649389d379}{ReadColorMap}(fd, \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa0d1897afb3181c6ae9b2130b36ca8d9}{Colors})) \{
+230             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"error reading global colormap\(\backslash\)n"});
+231             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+232         \}
+233     \}
+234 
+235     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_acab49d23a20a86d86038bde8ce879b2b}{AspectRatio} != 0 && \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.
+      \hyperlink{structgifscreen_acab49d23a20a86d86038bde8ce879b2b}{AspectRatio} != 49) \{
+236         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"warning - non-square pixels\(\backslash\)n"});
+237     \}
+238 
+239     \textcolor{keywordflow}{for} (;;) \{
+240         \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(fd,&c,1)) \{
+241             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"EOF / read error on image data\(\backslash\)n"});
+242             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+243         \}
+244 
+245         \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{';'}) \{     \textcolor{comment}{/* GIF terminator */}
+246             \textcolor{keywordflow}{return};
+247         \}
+248 
+249         \textcolor{keywordflow}{if} (c == \textcolor{charliteral}{'!'}) \{     \textcolor{comment}{/* Extension */}
+250             \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(fd,&c,1)) \{
+251             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+252                 \textcolor{stringliteral}{"EOF / read error on extension function code\(\backslash\)n"});
+253             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+254             \}
+255             \hyperlink{gifread_8c_a8357bdad63e6395051f4365d187785ad}{DoExtension}(fd, (\textcolor{keywordtype}{int})c);
+256             \textcolor{keywordflow}{continue};
+257         \}
+258 
+259         \textcolor{keywordflow}{if} (c != \textcolor{charliteral}{','}) \{     \textcolor{comment}{/* Not a valid start character */}
+260             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+261                 \textcolor{stringliteral}{"bogus character 0x%02x, ignoring\(\backslash\)n"}, (\textcolor{keywordtype}{int}) c);
+262             \textcolor{keywordflow}{continue};
+263         \}
+264 
+265         \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(fd,buf,9)) \{
+266             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"couldn't read left/top/width/height\(\backslash\)n"});
+267             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+268         \}
+269 
+270         \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ac18ef23df6db515c85d6851a9841d82d}{BitSet}(buf[8], \hyperlink{gifread_8c_aa462d45fdcd40398d200eefcadca1dea}{LOCALCOLORMAP})) \{
+271             \textcolor{comment}{/* replace global color map with local */}
+272             \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa0d1897afb3181c6ae9b2130b36ca8d9}{Colors} = 1<<((buf[8]&0x07)+1);
+273             \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_a29eb91d604aa57edfdde5d649389d379}{ReadColorMap}(fd, \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa0d1897afb3181c6ae9b2130b36ca8d9}{Colors})) \{
+274                 \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"error reading local colormap\(\backslash\)n"});
+275                 \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+276             \}
+277 
+278         \}
+279         \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width} != \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[4],buf[5])) \{
+280             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"warning: widths don't match\(\backslash\)n"});
+281             \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a3079f5759d42a6edb5720f143dac5e97}{Width} = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[4],buf[5]);
+282         \}
+283         \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height} != \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[6],buf[7])) \{
+284             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"warning: heights don't match\(\backslash\)n"});
+285             \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_aa7f3a15b810a394cb1d01ac5d10d325b}{Height} = \hyperlink{gifread_8c_a00f002defb10c5d567e08e14a44573c0}{LM\_to\_uint}(buf[6],buf[7]);
+286         \}
+287         \hyperlink{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{GifScreen}.\hyperlink{structgifscreen_a04416bc477001625456cccef080acab7}{Interlace} = \hyperlink{gifread_8c_ac18ef23df6db515c85d6851a9841d82d}{BitSet}(buf[8], \hyperlink{gifread_8c_a3b8d15260ac3936406670327c674af60}{INTERLACE});
+288         \textcolor{keywordflow}{return};
+289     \}
+290 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_a29eb91d604aa57edfdde5d649389d379}{\index{gifread.\+c@{gifread.\+c}!Read\+Color\+Map@{Read\+Color\+Map}}
+\index{Read\+Color\+Map@{Read\+Color\+Map}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Read\+Color\+Map}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf boolean} Read\+Color\+Map (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E		$\ast$}]{fd, }
+\item[{int}]{number}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a29eb91d604aa57edfdde5d649389d379}
+
+
+Definition at line 166 of file gifread.\+c.
+
+
+
+References C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, colorsinmap, F\+A\+L\+S\+E, Read\+O\+K, and T\+R\+U\+E.
+
+
+
+Referenced by read\+\_\+header().
+
+
+\begin{DoxyCode}
+169 \{
+170     \textcolor{keywordtype}{int}     i;
+171     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}   rgb[3];
+172 
+173     \textcolor{keywordflow}{for} (i = 0; i < number; ++i) \{
+174         \textcolor{keywordflow}{if} (!\hyperlink{gifread_8c_acb8a3d28450b633973dc405fb7cfca98}{ReadOK}(fd, rgb, \textcolor{keyword}{sizeof}(rgb))) \{
+175             \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+176         \}
+177 
+178         \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][i] = rgb[0] ;
+179         \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][i] = rgb[1] ;
+180         \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][i] = rgb[2] ;
+181     \}
+182     \hyperlink{txt2iff_8c_aff516215666b583bb7940b37a907fb6d}{colorsinmap} = number;
+183     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+184 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_a8b4be2cc1e827096431c2d578e78e828}{\index{gifread.\+c@{gifread.\+c}!Read\+Interleaved\+Image@{Read\+Interleaved\+Image}}
+\index{Read\+Interleaved\+Image@{Read\+Interleaved\+Image}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Read\+Interleaved\+Image}]{\setlength{\rightskip}{0pt plus 5cm}static void Read\+Interleaved\+Image (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E	$\ast$}]{fd, }
+\item[{int}]{len, }
+\item[{int}]{height}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a8b4be2cc1e827096431c2d578e78e828}
+
+
+Definition at line 454 of file gifread.\+c.
+
+
+
+References C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, F\+A\+L\+S\+E, Fprintf, L\+W\+Z\+Read\+Byte(), and P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N.
+
+
+
+Referenced by fopen\+\_\+gif\+\_\+file().
+
+
+\begin{DoxyCode}
+457 \{
+458     \textcolor{keywordtype}{int}     \hyperlink{structobj_a5ac1ba635501e7c9e4c37f2eec997920}{v};
+459     \textcolor{keywordtype}{int}     xpos = 0, ypos = 0, pass = 0;
+460 
+461     \textcolor{keywordflow}{while} ((v = \hyperlink{gifread_8c_a23fa148065832d13673e692613dc4fc2}{LWZReadByte}(fd,\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},(\textcolor{keywordtype}{int})\hyperlink{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{input\_code\_size})) >= 0 ) \{
+462         \hyperlink{gifread_8c_a0e515f705e462615c4a4d0ffb925caeb}{PPM\_ASSIGN}(\hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[ypos][xpos], \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][v],
+463                 \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][v], \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][v]);
+464 
+465         ++xpos;
+466         \textcolor{keywordflow}{if} (xpos == len) \{
+467             xpos = 0;
+468             \textcolor{keywordflow}{switch} (pass) \{
+469                 \textcolor{keywordflow}{case} 0:
+470                 \textcolor{keywordflow}{case} 1:
+471                     ypos += 8; \textcolor{keywordflow}{break};
+472                 \textcolor{keywordflow}{case} 2:
+473                     ypos += 4; \textcolor{keywordflow}{break};
+474                 \textcolor{keywordflow}{case} 3:
+475                     ypos += 2; \textcolor{keywordflow}{break};
+476             \}
+477 
+478             \textcolor{keywordflow}{if} (ypos >= \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height}) \{
+479                 ++pass;
+480                 \textcolor{keywordflow}{switch} (pass) \{
+481                     \textcolor{keywordflow}{case} 1:
+482                         ypos = 4; \textcolor{keywordflow}{break};
+483                     \textcolor{keywordflow}{case} 2:
+484                         ypos = 2; \textcolor{keywordflow}{break};
+485                     \textcolor{keywordflow}{case} 3:
+486                         ypos = 1; \textcolor{keywordflow}{break};
+487                     \textcolor{keywordflow}{default}:
+488                         \textcolor{keywordflow}{goto} fini;
+489                 \}
+490             \}
+491         \}
+492         \textcolor{keywordflow}{if} (ypos >= \hyperlink{xpm2img_8c_ad12fc34ce789bce6c8a05d8a17138534}{height})
+493             \textcolor{keywordflow}{break};
+494     \}
+495 
+496 fini:
+497     \textcolor{keywordflow}{if} (\hyperlink{gifread_8c_a23fa148065832d13673e692613dc4fc2}{LWZReadByte}(fd,\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},(\textcolor{keywordtype}{int})input\_code\_size)>=0)
+498         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"too much input data, ignoring extra...\(\backslash\)n"});
+499 \}
+\end{DoxyCode}
+\hypertarget{gifread_8c_a13770eb662c745520fcc5f6a037f0a74}{\index{gifread.\+c@{gifread.\+c}!Read\+Tile\+Strip@{Read\+Tile\+Strip}}
+\index{Read\+Tile\+Strip@{Read\+Tile\+Strip}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Read\+Tile\+Strip}]{\setlength{\rightskip}{0pt plus 5cm}static void Read\+Tile\+Strip (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{fd, }
+\item[{int}]{len}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a13770eb662c745520fcc5f6a037f0a74}
+
+
+Definition at line 503 of file gifread.\+c.
+
+
+
+References C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, F\+A\+L\+S\+E, L\+W\+Z\+Read\+Byte(), P\+P\+M\+\_\+\+A\+S\+S\+I\+G\+N, and T\+I\+L\+E\+\_\+\+Y.
+
+
+
+Referenced by fopen\+\_\+gif\+\_\+file(), and read\+\_\+gif\+\_\+tile().
+
+
+\begin{DoxyCode}
+506 \{
+507     \textcolor{keywordtype}{int} \hyperlink{structobj_a5ac1ba635501e7c9e4c37f2eec997920}{v};
+508     \textcolor{keywordtype}{int} xpos = 0, ypos = 0;
+509 
+510     \textcolor{keywordflow}{while} ((v = \hyperlink{gifread_8c_a23fa148065832d13673e692613dc4fc2}{LWZReadByte}(fd,\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},(\textcolor{keywordtype}{int})\hyperlink{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{input\_code\_size})) >= 0 ) \{
+511         \hyperlink{gifread_8c_a0e515f705e462615c4a4d0ffb925caeb}{PPM\_ASSIGN}(\hyperlink{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{image}[ypos][xpos], \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][v],
+512                 \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][v], \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][v]);
+513 
+514         ++xpos;
+515         \textcolor{keywordflow}{if} (xpos == len) \{
+516             xpos = 0;
+517             ++ypos;
+518         \}
+519         \textcolor{keywordflow}{if} (ypos >= \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y})
+520             \textcolor{keywordflow}{break};
+521     \}
+522 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}{\index{gifread.\+c@{gifread.\+c}!curr\+\_\+tiles\+\_\+across@{curr\+\_\+tiles\+\_\+across}}
+\index{curr\+\_\+tiles\+\_\+across@{curr\+\_\+tiles\+\_\+across}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{curr\+\_\+tiles\+\_\+across}]{\setlength{\rightskip}{0pt plus 5cm}int curr\+\_\+tiles\+\_\+across\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a6e72702a086d62aa1e7c48a2c1615ed9}
+
+
+Definition at line 55 of file gifread.\+c.
+
+\hypertarget{gifread_8c_ad2d258c2ad56927b102a54974e9768bc}{\index{gifread.\+c@{gifread.\+c}!curr\+\_\+tiles\+\_\+down@{curr\+\_\+tiles\+\_\+down}}
+\index{curr\+\_\+tiles\+\_\+down@{curr\+\_\+tiles\+\_\+down}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{curr\+\_\+tiles\+\_\+down}]{\setlength{\rightskip}{0pt plus 5cm}int curr\+\_\+tiles\+\_\+down\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_ad2d258c2ad56927b102a54974e9768bc}
+
+
+Definition at line 55 of file gifread.\+c.
+
+\hypertarget{gifread_8c_ae5ff5ad4047716f5d26843073c8293f1}{\index{gifread.\+c@{gifread.\+c}!delay\+Time@{delay\+Time}}
+\index{delay\+Time@{delay\+Time}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{delay\+Time}]{\setlength{\rightskip}{0pt plus 5cm}int delay\+Time}}\label{gifread_8c_ae5ff5ad4047716f5d26843073c8293f1}
+
+
+Definition at line 47 of file gifread.\+c.
+
+\hypertarget{gifread_8c_a2440a0079a270242c316e890acd3e2b2}{\index{gifread.\+c@{gifread.\+c}!disposal@{disposal}}
+\index{disposal@{disposal}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{disposal}]{\setlength{\rightskip}{0pt plus 5cm}int disposal}}\label{gifread_8c_a2440a0079a270242c316e890acd3e2b2}
+
+
+Definition at line 49 of file gifread.\+c.
+
+\hypertarget{gifread_8c_ab477ac93809e764aa4abb00112fb4c75}{\index{gifread.\+c@{gifread.\+c}!Gif89@{Gif89}}
+\index{Gif89@{Gif89}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Gif89}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   Gif89}}\label{gifread_8c_ab477ac93809e764aa4abb00112fb4c75}
+
+
+Referenced by Do\+Extension().
+
+\hypertarget{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}{\index{gifread.\+c@{gifread.\+c}!gif\+\_\+file@{gif\+\_\+file}}
+\index{gif\+\_\+file@{gif\+\_\+file}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{gif\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ gif\+\_\+file\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a32850414a5909c4e9d5323929e3a2adb}
+
+
+Definition at line 54 of file gifread.\+c.
+
+\hypertarget{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}{\index{gifread.\+c@{gifread.\+c}!Gif\+Screen@{Gif\+Screen}}
+\index{Gif\+Screen@{Gif\+Screen}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Gif\+Screen}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf gifscreen}  Gif\+Screen}}\label{gifread_8c_ae08439b5162d5ff100e3b1c55767b1e7}
+
+
+Referenced by fclose\+\_\+gif\+\_\+file(), fopen\+\_\+gif\+\_\+file(), read\+\_\+gif\+\_\+tile(), and read\+\_\+header().
+
+\hypertarget{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}{\index{gifread.\+c@{gifread.\+c}!image@{image}}
+\index{image@{image}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{image}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pixel}$\ast$$\ast$ image\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a2d8da73d47fd8a1304cbacafde81f61d}
+
+
+Definition at line 56 of file gifread.\+c.
+
+
+
+Referenced by convert(), and ghack\+\_\+menu\+\_\+window\+\_\+add\+\_\+menu().
+
+\hypertarget{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}{\index{gifread.\+c@{gifread.\+c}!input\+\_\+code\+\_\+size@{input\+\_\+code\+\_\+size}}
+\index{input\+\_\+code\+\_\+size@{input\+\_\+code\+\_\+size}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{input\+\_\+code\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char input\+\_\+code\+\_\+size\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a32bd5fd0fe866a7199359adc6b802d44}
+
+
+Definition at line 57 of file gifread.\+c.
+
+
+
+Referenced by L\+W\+Z\+Read\+Byte().
+
+\hypertarget{gifread_8c_a361b2aa4c330f8910dea8599d4ad650e}{\index{gifread.\+c@{gifread.\+c}!input\+Flag@{input\+Flag}}
+\index{input\+Flag@{input\+Flag}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{input\+Flag}]{\setlength{\rightskip}{0pt plus 5cm}int input\+Flag}}\label{gifread_8c_a361b2aa4c330f8910dea8599d4ad650e}
+
+
+Definition at line 48 of file gifread.\+c.
+
+\hypertarget{gifread_8c_a0883cfa86aa6e43366e275da98f6ec18}{\index{gifread.\+c@{gifread.\+c}!std\+\_\+args@{std\+\_\+args}}
+\index{std\+\_\+args@{std\+\_\+args}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{std\+\_\+args}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ std\+\_\+args\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_a0883cfa86aa6e43366e275da98f6ec18}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \textcolor{stringliteral}{"tilemap"},  
+            \textcolor{stringliteral}{"monsters.gif"}, \textcolor{stringliteral}{"monsters.txt"},
+            \textcolor{stringliteral}{"objects.gif"},  \textcolor{stringliteral}{"objects.txt"},
+            \textcolor{stringliteral}{"other.gif"},    \textcolor{stringliteral}{"other.txt"} \}
+\end{DoxyCode}
+
+
+Definition at line 662 of file gifread.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{gifread_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}{\index{gifread.\+c@{gifread.\+c}!tiles\+\_\+across@{tiles\+\_\+across}}
+\index{tiles\+\_\+across@{tiles\+\_\+across}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{tiles\+\_\+across}]{\setlength{\rightskip}{0pt plus 5cm}int tiles\+\_\+across\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_aef2cb857e4c4d1ea5a6b668647a69d9e}
+
+
+Definition at line 55 of file gifread.\+c.
+
+\hypertarget{gifread_8c_ad70f085e13710115c5234c719e7e5b7e}{\index{gifread.\+c@{gifread.\+c}!tiles\+\_\+down@{tiles\+\_\+down}}
+\index{tiles\+\_\+down@{tiles\+\_\+down}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{tiles\+\_\+down}]{\setlength{\rightskip}{0pt plus 5cm}int tiles\+\_\+down\hspace{0.3cm}{\ttfamily [static]}}}\label{gifread_8c_ad70f085e13710115c5234c719e7e5b7e}
+
+
+Definition at line 55 of file gifread.\+c.
+
+\hypertarget{gifread_8c_a74e3986ee3953a80a467903edf1f12e0}{\index{gifread.\+c@{gifread.\+c}!transparent@{transparent}}
+\index{transparent@{transparent}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{transparent}]{\setlength{\rightskip}{0pt plus 5cm}int transparent}}\label{gifread_8c_a74e3986ee3953a80a467903edf1f12e0}
+
+
+Definition at line 46 of file gifread.\+c.
+
+\hypertarget{gifread_8c_ab6c80cee0935dee220ae42b15b5ab72c}{\index{gifread.\+c@{gifread.\+c}!Zero\+Data\+Block@{Zero\+Data\+Block}}
+\index{Zero\+Data\+Block@{Zero\+Data\+Block}!gifread.\+c@{gifread.\+c}}
+\subsubsection[{Zero\+Data\+Block}]{\setlength{\rightskip}{0pt plus 5cm}int Zero\+Data\+Block = {\bf F\+A\+L\+S\+E}}}\label{gifread_8c_ab6c80cee0935dee220ae42b15b5ab72c}
+
+
+Definition at line 52 of file gifread.\+c.
+

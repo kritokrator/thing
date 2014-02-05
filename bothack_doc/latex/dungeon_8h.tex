@@ -1,0 +1,814 @@
+\hypertarget{dungeon_8h}{\section{nethack/include/dungeon.h File Reference}
+\label{dungeon_8h}\index{nethack/include/dungeon.\+h@{nethack/include/dungeon.\+h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structd__flags}{d\+\_\+flags}
+\item 
+struct \hyperlink{structd__level}{d\+\_\+level}
+\item 
+struct \hyperlink{structs__level}{s\+\_\+level}
+\item 
+struct \hyperlink{structstairway}{stairway}
+\item 
+struct \hyperlink{structdest__area}{dest\+\_\+area}
+\item 
+struct \hyperlink{structdungeon}{dungeon}
+\item 
+struct \hyperlink{structbranch}{branch}
+\item 
+struct \hyperlink{structlinfo}{linfo}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dungeon_8h_a314c06ef53ebfd4f0c3988f67757c8df}{L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R}~0
+\item 
+\#define \hyperlink{dungeon_8h_a64f1a66fa9f3adade0c86ef362d4d018}{L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R}~1
+\item 
+\#define \hyperlink{dungeon_8h_acd94c3d04514c0962274591a15030d3a}{L\+R\+\_\+\+P\+O\+R\+T\+A\+L}~2
+\item 
+\#define \hyperlink{dungeon_8h_a6f8a1eac67dfe592cb3420a916e7b73d}{L\+R\+\_\+\+B\+R\+A\+N\+C\+H}~3
+\item 
+\#define \hyperlink{dungeon_8h_a078bcb75520369d825c84931e908db10}{L\+R\+\_\+\+T\+E\+L\+E}~4
+\item 
+\#define \hyperlink{dungeon_8h_aa0536b8dd5dbecb8f0f26f4b20bb1315}{L\+R\+\_\+\+U\+P\+T\+E\+L\+E}~5
+\item 
+\#define \hyperlink{dungeon_8h_aa5328e9f839b405d36d66f75e7fcbbf8}{L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E}~6
+\item 
+\#define \hyperlink{dungeon_8h_aabc480e0fd400b0716aa5918d59a56eb}{B\+R\+\_\+\+S\+T\+A\+I\+R}~0	/$\ast$ \char`\"{}Regular\char`\"{} connection, 2 staircases. $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_aa87ac1a9cff7510713f573dbddff0c41}{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1}~1	/$\ast$ \char`\"{}Regular\char`\"{} connection.  However, no \hyperlink{structstair}{stair} from  $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_aeb3ee576fc92f4899167661b3335f111}{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2}~2	/$\ast$ \char`\"{}Regular\char`\"{} connection.  However, no \hyperlink{structstair}{stair} from  $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_af0d2f515b7dc33373de1aaafb9483541}{B\+R\+\_\+\+P\+O\+R\+T\+A\+L}~3	/$\ast$ Connection by magic portals (traps) $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_af69a19c1eec378c1cebe9143febbe2b5}{Is\+\_\+astralevel}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a462602292e864000ee1ccbb0fa809cb4}{astral\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_aa4eaf851320108eeaacde06ca61fe041}{Is\+\_\+earthlevel}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_ae6fb6eaa6bd911dda422570dec84f467}{earth\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\+\_\+waterlevel}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a88e71d9f801ec4036c4ceb47492dc1e7}{water\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_ab8c9d0d5de964b295e56e2763f970ac8}{Is\+\_\+firelevel}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a2f7525d2797bef5449362f03c8baa2ab}{fire\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a2d9a2dcb88ded033c3305c7798f81c24}{Is\+\_\+airlevel}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a2f7c4fe4dac049980794a36a3e67c5e4}{air\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a577154aa517f59b492b3443a753c7a9a}{Is\+\_\+medusa\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_ad834c4abc150f144d9da7641e53cfcde}{medusa\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a42461d2ea4a087ca8856842e398fd9e6}{Is\+\_\+oracle\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a88d80dae8fd8c7863cc9fd422aa6dc02}{oracle\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a50e14386cb64e4b65aaea5bd5281b4e3}{Is\+\_\+valley}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a7174a34a59a19f8243ae897749f70fbc}{valley\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a555fa418a5292a6dfb5bcaaf73f4a6ae}{Is\+\_\+juiblex\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a50b4bc49b5943ce4b5e3e389dc7bf01e}{juiblex\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a7c1c523b9c82de2e866dbc055082b972}{Is\+\_\+asmo\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_ab8d530db7e5285b0a5b9694eed6ca393}{asmodeus\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_aa5cf696e71f36d795ed1d2ed7f25aec9}{Is\+\_\+baal\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_acf7dc850e68bb984ec6e9b30c1b81007}{baalzebub\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a1becf680e42d9be2052e23faf1010c46}{Is\+\_\+wiz1\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_abdaabae046b547407ef448fac3dcc922}{wiz1\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a89acfcdb42d7667e270f4daae0da91d5}{Is\+\_\+wiz2\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a588a866799a2a71248a4c28245c0feb2}{wiz2\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_ae65cd42b061716dceea64142aac946e4}{Is\+\_\+wiz3\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a50982c596cf6d51a4d97d5924337ad0c}{wiz3\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a59e2a0655c98162235eb90f2108fc3ee}{Is\+\_\+sanctum}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_aa1cc0150c4a1056892bc53e112e16e46}{sanctum\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a371898acfa727eeb799cb26a76e1fddb}{Is\+\_\+portal\+\_\+level}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a64f4685630d191c24db1e0e048349e6b}{portal\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\+\_\+rogue\+\_\+level}(x)~(on\+\_\+level(x, \&rogue\+\_\+level))
+\item 
+\#define \hyperlink{dungeon_8h_a2985e445d6e532cc0d8e6ba93f5058fd}{Is\+\_\+stronghold}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a4e54fc4d32ee936ad6575e637fdf1a5c}{stronghold\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_ad539d3c407770baa036a6080affad6a5}{Is\+\_\+bigroom}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_ac4f294e4423de2e021970d78ee361d79}{bigroom\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_ae99e82304f88e8f69678af279ead2556}{Is\+\_\+qstart}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a3ec05aec32af27cb15e824c121b0a938}{qstart\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a7297db18e655828291c91b302e6262f7}{Is\+\_\+qlocate}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a252e853a4f74f24aebbeb903aaab4ba5}{qlocate\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a18c44911887dd5de953326d5c7bd80bd}{Is\+\_\+nemesis}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_abb452448dc8bb9c3f30ceb03a4cf2b3e}{nemesis\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_a91a7bc143ab22db0e11c5f8233af9be9}{Is\+\_\+knox}(x)~(on\+\_\+level(x, \&\hyperlink{decl_8h_a70cef4760238b669bde4148c9653d774}{knox\+\_\+level}))
+\item 
+\#define \hyperlink{dungeon_8h_ad19541d30218e5f3834c01d42bb381e2}{In\+\_\+sokoban}(x)~((x)-\/$>$dnum == \hyperlink{decl_8h_ac8ff34df5d5e7ad34c9da9cc130be947}{sokoban\+\_\+dnum})
+\item 
+\#define \hyperlink{dungeon_8h_a5cd7abaad3082e8a7b2f5ec30e44d2f4}{Inhell}~In\+\_\+hell(\&u.\+uz)	/$\ast$ now gehennom $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\+\_\+endgame}(x)~((x)-\/$>$dnum == astral\+\_\+level.\+dnum)
+\item 
+\#define \hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\+\_\+bounded\+\_\+area}(X, Y, L\+X, L\+Y, H\+X, H\+Y)~((X) $>$= (L\+X) \&\& (X) $<$= (H\+X) \&\& (Y) $>$= (L\+Y) \&\& (Y) $<$= (H\+Y))
+\item 
+\#define \hyperlink{dungeon_8h_a88ec61ab6dd74717e3fbe1f60ea1b297}{M\+I\+G\+R\+\_\+\+N\+O\+W\+H\+E\+R\+E}~(-\/1)	/$\ast$ failure \hyperlink{structflag}{flag} for \hyperlink{dokick_8c_a73b4f05e3584dee0ab7ed90b425e08db}{down\+\_\+gate}() $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_a28e698f1f36ba7c0eeb6a782261e2faf}{M\+I\+G\+R\+\_\+\+R\+A\+N\+D\+O\+M}~0
+\item 
+\#define \hyperlink{dungeon_8h_a2d69a7845d752abaa8523a7ddc45f179}{M\+I\+G\+R\+\_\+\+A\+P\+P\+R\+O\+X\+\_\+\+X\+Y}~1	/$\ast$ approximate coordinates $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_aafc4f827dc5a43819528e952f923fc9d}{M\+I\+G\+R\+\_\+\+E\+X\+A\+C\+T\+\_\+\+X\+Y}~2	/$\ast$ specific coordinates $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_add533d1cbaa2c7556039dd076f9929d1}{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+U\+P}~3
+\item 
+\#define \hyperlink{dungeon_8h_acd51174881b5ca0d61f19515754c4921}{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+D\+O\+W\+N}~4
+\item 
+\#define \hyperlink{dungeon_8h_a81af97dd7f470dbb8f5b556492396404}{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+U\+P}~5
+\item 
+\#define \hyperlink{dungeon_8h_ae9b54fed961a26e1834c5cfcfa0faceb}{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+D\+O\+W\+N}~6
+\item 
+\#define \hyperlink{dungeon_8h_aa90de6027eb47b8ced165491eaaed179}{M\+I\+G\+R\+\_\+\+S\+S\+T\+A\+I\+R\+S}~7	/$\ast$ \hyperlink{structdungeon}{dungeon} \hyperlink{structbranch}{branch} $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_af4a39ed97457ce8b845825c5ab4e49b7}{M\+I\+G\+R\+\_\+\+P\+O\+R\+T\+A\+L}~8	/$\ast$ magic portal $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_aab250d419b04792e0098495c733660f5}{M\+I\+G\+R\+\_\+\+N\+E\+A\+R\+\_\+\+P\+L\+A\+Y\+E\+R}~9	/$\ast$ mon\+: followers; obj\+: \hyperlink{structtrap}{trap} \hyperlink{structdoor}{door} $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_a28615ad40e5d11edaefd903c02206f6d}{V\+I\+S\+I\+T\+E\+D}~0x01	/$\ast$ hero has visited this level $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_ac15e050f56d4d4891748e431e64b548d}{F\+O\+R\+G\+O\+T\+T\+E\+N}~0x02	/$\ast$ hero will forget this level when reached $\ast$/
+\item 
+\#define \hyperlink{dungeon_8h_a25f55258a9cda52bb2b92e60217bdead}{L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S}~0x04	/$\ast$ a level file exists for this level $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structd__flags}{d\+\_\+flags} \hyperlink{dungeon_8h_af8b3c56c97edc613d950ee9c8bce81ad}{d\+\_\+flags}
+\item 
+typedef struct \hyperlink{structd__level}{d\+\_\+level} \hyperlink{dungeon_8h_a5a89621971eef2220172bf93c00f83f9}{d\+\_\+level}
+\item 
+typedef struct \hyperlink{structs__level}{s\+\_\+level} \hyperlink{dungeon_8h_a1630a3f8d104fbe4ef719913fd77922d}{s\+\_\+level}
+\item 
+typedef struct \hyperlink{structstairway}{stairway} \hyperlink{dungeon_8h_a3a15ded1fdea50188b6b6f17870c084f}{stairway}
+\item 
+typedef struct \hyperlink{structdest__area}{dest\+\_\+area} \hyperlink{dungeon_8h_a0fc69ea0ff606550ccc347c18237cd23}{dest\+\_\+area}
+\item 
+typedef struct \hyperlink{structdungeon}{dungeon} \hyperlink{dungeon_8h_a52619c6ca708fd21b7aecbdb5998d9de}{dungeon}
+\item 
+typedef struct \hyperlink{structbranch}{branch} \hyperlink{dungeon_8h_ab630025d71bce7249fd9f6d36e3503bf}{branch}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{dungeon_8h_aa87ac1a9cff7510713f573dbddff0c41}{\index{dungeon.\+h@{dungeon.\+h}!B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1@{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1}}
+\index{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1@{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1~1	/$\ast$ \char`\"{}Regular\char`\"{} connection.  However, no {\bf stair} from  $\ast$/}}\label{dungeon_8h_aa87ac1a9cff7510713f573dbddff0c41}
+
+
+Definition at line 82 of file dungeon.\+h.
+
+
+
+Referenced by getlev(), and place\+\_\+branch().
+
+\hypertarget{dungeon_8h_aeb3ee576fc92f4899167661b3335f111}{\index{dungeon.\+h@{dungeon.\+h}!B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2@{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2}}
+\index{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2@{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2~2	/$\ast$ \char`\"{}Regular\char`\"{} connection.  However, no {\bf stair} from  $\ast$/}}\label{dungeon_8h_aeb3ee576fc92f4899167661b3335f111}
+
+
+Definition at line 85 of file dungeon.\+h.
+
+
+
+Referenced by getlev(), and place\+\_\+branch().
+
+\hypertarget{dungeon_8h_af0d2f515b7dc33373de1aaafb9483541}{\index{dungeon.\+h@{dungeon.\+h}!B\+R\+\_\+\+P\+O\+R\+T\+A\+L@{B\+R\+\_\+\+P\+O\+R\+T\+A\+L}}
+\index{B\+R\+\_\+\+P\+O\+R\+T\+A\+L@{B\+R\+\_\+\+P\+O\+R\+T\+A\+L}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{B\+R\+\_\+\+P\+O\+R\+T\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+\_\+\+P\+O\+R\+T\+A\+L~3	/$\ast$ Connection by magic portals (traps) $\ast$/}}\label{dungeon_8h_af0d2f515b7dc33373de1aaafb9483541}
+
+
+Definition at line 88 of file dungeon.\+h.
+
+
+
+Referenced by getlev(), and place\+\_\+branch().
+
+\hypertarget{dungeon_8h_aabc480e0fd400b0716aa5918d59a56eb}{\index{dungeon.\+h@{dungeon.\+h}!B\+R\+\_\+\+S\+T\+A\+I\+R@{B\+R\+\_\+\+S\+T\+A\+I\+R}}
+\index{B\+R\+\_\+\+S\+T\+A\+I\+R@{B\+R\+\_\+\+S\+T\+A\+I\+R}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{B\+R\+\_\+\+S\+T\+A\+I\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+\_\+\+S\+T\+A\+I\+R~0	/$\ast$ \char`\"{}Regular\char`\"{} connection, 2 staircases. $\ast$/}}\label{dungeon_8h_aabc480e0fd400b0716aa5918d59a56eb}
+
+
+Definition at line 81 of file dungeon.\+h.
+
+
+
+Referenced by getlev().
+
+\hypertarget{dungeon_8h_ac15e050f56d4d4891748e431e64b548d}{\index{dungeon.\+h@{dungeon.\+h}!F\+O\+R\+G\+O\+T\+T\+E\+N@{F\+O\+R\+G\+O\+T\+T\+E\+N}}
+\index{F\+O\+R\+G\+O\+T\+T\+E\+N@{F\+O\+R\+G\+O\+T\+T\+E\+N}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{F\+O\+R\+G\+O\+T\+T\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define F\+O\+R\+G\+O\+T\+T\+E\+N~0x02	/$\ast$ hero will forget this level when reached $\ast$/}}\label{dungeon_8h_ac15e050f56d4d4891748e431e64b548d}
+
+
+Definition at line 151 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{\index{dungeon.\+h@{dungeon.\+h}!In\+\_\+endgame@{In\+\_\+endgame}}
+\index{In\+\_\+endgame@{In\+\_\+endgame}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{In\+\_\+endgame}]{\setlength{\rightskip}{0pt plus 5cm}\#define In\+\_\+endgame(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~((x)-\/$>$dnum == astral\+\_\+level.\+dnum)}}\label{dungeon_8h_ae85486e6a752224948478a6e9dab0329}
+
+
+Definition at line 127 of file dungeon.\+h.
+
+
+
+Referenced by domagicportal(), done(), dosacrifice(), drop\+\_\+to(), find\+\_\+defensive(), find\+\_\+offensive(), ghack\+\_\+status\+\_\+window\+\_\+update\+\_\+stats(), level\+\_\+tele(), level\+\_\+tele\+\_\+trap(), lookat(), mineralize(), mk\+\_\+mplayer(), mlevel\+\_\+tele\+\_\+trap(), observable\+\_\+depth(), rndtrap(), tele\+\_\+trap(), and use\+\_\+defensive().
+
+\hypertarget{dungeon_8h_ad19541d30218e5f3834c01d42bb381e2}{\index{dungeon.\+h@{dungeon.\+h}!In\+\_\+sokoban@{In\+\_\+sokoban}}
+\index{In\+\_\+sokoban@{In\+\_\+sokoban}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{In\+\_\+sokoban}]{\setlength{\rightskip}{0pt plus 5cm}\#define In\+\_\+sokoban(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~((x)-\/$>$dnum == {\bf sokoban\+\_\+dnum})}}\label{dungeon_8h_ad19541d30218e5f3834c01d42bb381e2}
+
+
+Definition at line 125 of file dungeon.\+h.
+
+
+
+Referenced by drop\+\_\+ball(), find\+\_\+defensive(), fixup\+\_\+special(), hurtle(), hurtle\+\_\+step(), level\+\_\+tele(), and lift\+\_\+object().
+
+\hypertarget{dungeon_8h_a5cd7abaad3082e8a7b2f5ec30e44d2f4}{\index{dungeon.\+h@{dungeon.\+h}!Inhell@{Inhell}}
+\index{Inhell@{Inhell}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Inhell}]{\setlength{\rightskip}{0pt plus 5cm}\#define Inhell~In\+\_\+hell(\&u.\+uz)	/$\ast$ now gehennom $\ast$/}}\label{dungeon_8h_a5cd7abaad3082e8a7b2f5ec30e44d2f4}
+
+
+Definition at line 126 of file dungeon.\+h.
+
+
+
+Referenced by angrygods(), can\+\_\+pray(), dopray(), dosacrifice(), doturn(), level\+\_\+tele(), mktrap(), prayer\+\_\+done(), random\+\_\+teleport\+\_\+level(), and use\+\_\+defensive().
+
+\hypertarget{dungeon_8h_a2d9a2dcb88ded033c3305c7798f81c24}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+airlevel@{Is\+\_\+airlevel}}
+\index{Is\+\_\+airlevel@{Is\+\_\+airlevel}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+airlevel}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+airlevel(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf air\+\_\+level}))}}\label{dungeon_8h_a2d9a2dcb88ded033c3305c7798f81c24}
+
+
+Definition at line 105 of file dungeon.\+h.
+
+
+
+Referenced by dokick(), feel\+\_\+location(), lookat(), observable\+\_\+depth(), throw\+\_\+gold(), and throwit().
+
+\hypertarget{dungeon_8h_a7c1c523b9c82de2e866dbc055082b972}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+asmo\+\_\+level@{Is\+\_\+asmo\+\_\+level}}
+\index{Is\+\_\+asmo\+\_\+level@{Is\+\_\+asmo\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+asmo\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+asmo\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf asmodeus\+\_\+level}))}}\label{dungeon_8h_a7c1c523b9c82de2e866dbc055082b972}
+
+
+Definition at line 110 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_af69a19c1eec378c1cebe9143febbe2b5}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+astralevel@{Is\+\_\+astralevel}}
+\index{Is\+\_\+astralevel@{Is\+\_\+astralevel}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+astralevel}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+astralevel(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf astral\+\_\+level}))}}\label{dungeon_8h_af69a19c1eec378c1cebe9143febbe2b5}
+
+
+Definition at line 101 of file dungeon.\+h.
+
+
+
+Referenced by do\+\_\+earthquake(), done(), dosacrifice(), ghack\+\_\+status\+\_\+window\+\_\+update\+\_\+stats(), god\+\_\+zaps\+\_\+you(), and observable\+\_\+depth().
+
+\hypertarget{dungeon_8h_aa5cf696e71f36d795ed1d2ed7f25aec9}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+baal\+\_\+level@{Is\+\_\+baal\+\_\+level}}
+\index{Is\+\_\+baal\+\_\+level@{Is\+\_\+baal\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+baal\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+baal\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf baalzebub\+\_\+level}))}}\label{dungeon_8h_aa5cf696e71f36d795ed1d2ed7f25aec9}
+
+
+Definition at line 111 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_ad539d3c407770baa036a6080affad6a5}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+bigroom@{Is\+\_\+bigroom}}
+\index{Is\+\_\+bigroom@{Is\+\_\+bigroom}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+bigroom}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+bigroom(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf bigroom\+\_\+level}))}}\label{dungeon_8h_ad539d3c407770baa036a6080affad6a5}
+
+
+Definition at line 119 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_aa4eaf851320108eeaacde06ca61fe041}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+earthlevel@{Is\+\_\+earthlevel}}
+\index{Is\+\_\+earthlevel@{Is\+\_\+earthlevel}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+earthlevel}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+earthlevel(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf earth\+\_\+level}))}}\label{dungeon_8h_aa4eaf851320108eeaacde06ca61fe041}
+
+
+Definition at line 102 of file dungeon.\+h.
+
+
+
+Referenced by bound\+\_\+digging(), find\+\_\+offensive(), and observable\+\_\+depth().
+
+\hypertarget{dungeon_8h_ab8c9d0d5de964b295e56e2763f970ac8}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+firelevel@{Is\+\_\+firelevel}}
+\index{Is\+\_\+firelevel@{Is\+\_\+firelevel}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+firelevel}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+firelevel(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf fire\+\_\+level}))}}\label{dungeon_8h_ab8c9d0d5de964b295e56e2763f970ac8}
+
+
+Definition at line 104 of file dungeon.\+h.
+
+
+
+Referenced by observable\+\_\+depth().
+
+\hypertarget{dungeon_8h_a555fa418a5292a6dfb5bcaaf73f4a6ae}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+juiblex\+\_\+level@{Is\+\_\+juiblex\+\_\+level}}
+\index{Is\+\_\+juiblex\+\_\+level@{Is\+\_\+juiblex\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+juiblex\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+juiblex\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf juiblex\+\_\+level}))}}\label{dungeon_8h_a555fa418a5292a6dfb5bcaaf73f4a6ae}
+
+
+Definition at line 109 of file dungeon.\+h.
+
+
+
+Referenced by waterbody\+\_\+name().
+
+\hypertarget{dungeon_8h_a91a7bc143ab22db0e11c5f8233af9be9}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+knox@{Is\+\_\+knox}}
+\index{Is\+\_\+knox@{Is\+\_\+knox}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+knox}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+knox(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf knox\+\_\+level}))}}\label{dungeon_8h_a91a7bc143ab22db0e11c5f8233af9be9}
+
+
+Definition at line 123 of file dungeon.\+h.
+
+
+
+Referenced by done(), fixup\+\_\+special(), level\+\_\+tele(), and random\+\_\+teleport\+\_\+level().
+
+\hypertarget{dungeon_8h_a577154aa517f59b492b3443a753c7a9a}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+medusa\+\_\+level@{Is\+\_\+medusa\+\_\+level}}
+\index{Is\+\_\+medusa\+\_\+level@{Is\+\_\+medusa\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+medusa\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+medusa\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf medusa\+\_\+level}))}}\label{dungeon_8h_a577154aa517f59b492b3443a753c7a9a}
+
+
+Definition at line 106 of file dungeon.\+h.
+
+
+
+Referenced by create\+\_\+object(), fixup\+\_\+special(), and waterbody\+\_\+name().
+
+\hypertarget{dungeon_8h_a18c44911887dd5de953326d5c7bd80bd}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+nemesis@{Is\+\_\+nemesis}}
+\index{Is\+\_\+nemesis@{Is\+\_\+nemesis}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+nemesis}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+nemesis(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf nemesis\+\_\+level}))}}\label{dungeon_8h_a18c44911887dd5de953326d5c7bd80bd}
+
+
+Definition at line 122 of file dungeon.\+h.
+
+
+
+Referenced by onquest().
+
+\hypertarget{dungeon_8h_a42461d2ea4a087ca8856842e398fd9e6}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+oracle\+\_\+level@{Is\+\_\+oracle\+\_\+level}}
+\index{Is\+\_\+oracle\+\_\+level@{Is\+\_\+oracle\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+oracle\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+oracle\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf oracle\+\_\+level}))}}\label{dungeon_8h_a42461d2ea4a087ca8856842e398fd9e6}
+
+
+Definition at line 107 of file dungeon.\+h.
+
+
+
+Referenced by mineralize().
+
+\hypertarget{dungeon_8h_a371898acfa727eeb799cb26a76e1fddb}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+portal\+\_\+level@{Is\+\_\+portal\+\_\+level}}
+\index{Is\+\_\+portal\+\_\+level@{Is\+\_\+portal\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+portal\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+portal\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf portal\+\_\+level}))}}\label{dungeon_8h_a371898acfa727eeb799cb26a76e1fddb}
+
+
+Definition at line 116 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_a7297db18e655828291c91b302e6262f7}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+qlocate@{Is\+\_\+qlocate}}
+\index{Is\+\_\+qlocate@{Is\+\_\+qlocate}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+qlocate}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+qlocate(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf qlocate\+\_\+level}))}}\label{dungeon_8h_a7297db18e655828291c91b302e6262f7}
+
+
+Definition at line 121 of file dungeon.\+h.
+
+
+
+Referenced by onquest().
+
+\hypertarget{dungeon_8h_ae99e82304f88e8f69678af279ead2556}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+qstart@{Is\+\_\+qstart}}
+\index{Is\+\_\+qstart@{Is\+\_\+qstart}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+qstart}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+qstart(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf qstart\+\_\+level}))}}\label{dungeon_8h_ae99e82304f88e8f69678af279ead2556}
+
+
+Definition at line 120 of file dungeon.\+h.
+
+
+
+Referenced by onquest().
+
+\hypertarget{dungeon_8h_a2732117523c8540638daf4315dda16b9}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+rogue\+\_\+level@{Is\+\_\+rogue\+\_\+level}}
+\index{Is\+\_\+rogue\+\_\+level@{Is\+\_\+rogue\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+rogue\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+rogue\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&rogue\+\_\+level))}}\label{dungeon_8h_a2732117523c8540638daf4315dda16b9}
+
+
+Definition at line 117 of file dungeon.\+h.
+
+
+
+Referenced by amii\+\_\+add\+\_\+menu(), amii\+\_\+cliparound(), amii\+\_\+curs(), amii\+\_\+print\+\_\+glyph(), cursor\+\_\+common(), cursor\+\_\+off(), cursor\+\_\+on(), cvt\+\_\+sdoor\+\_\+to\+\_\+door(), dorecover(), find\+\_\+offensive(), makelevel(), mapglyph(), mineralize(), mktrap(), mswin\+\_\+clear\+\_\+nhwindow(), mswin\+\_\+select\+\_\+map\+\_\+mode(), on\+Paint(), parseoptions(), topologize(), and vision\+\_\+recalc().
+
+\hypertarget{dungeon_8h_a59e2a0655c98162235eb90f2108fc3ee}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+sanctum@{Is\+\_\+sanctum}}
+\index{Is\+\_\+sanctum@{Is\+\_\+sanctum}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+sanctum}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+sanctum(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf sanctum\+\_\+level}))}}\label{dungeon_8h_a59e2a0655c98162235eb90f2108fc3ee}
+
+
+Definition at line 115 of file dungeon.\+h.
+
+
+
+Referenced by do\+\_\+earthquake(), dosacrifice(), fixup\+\_\+special(), and god\+\_\+zaps\+\_\+you().
+
+\hypertarget{dungeon_8h_a2985e445d6e532cc0d8e6ba93f5058fd}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+stronghold@{Is\+\_\+stronghold}}
+\index{Is\+\_\+stronghold@{Is\+\_\+stronghold}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+stronghold}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+stronghold(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf stronghold\+\_\+level}))}}\label{dungeon_8h_a2985e445d6e532cc0d8e6ba93f5058fd}
+
+
+Definition at line 118 of file dungeon.\+h.
+
+
+
+Referenced by do\+\_\+play\+\_\+instrument(), drop\+\_\+to(), fixup\+\_\+special(), and mlevel\+\_\+tele\+\_\+trap().
+
+\hypertarget{dungeon_8h_a50e14386cb64e4b65aaea5bd5281b4e3}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+valley@{Is\+\_\+valley}}
+\index{Is\+\_\+valley@{Is\+\_\+valley}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+valley}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+valley(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf valley\+\_\+level}))}}\label{dungeon_8h_a50e14386cb64e4b65aaea5bd5281b4e3}
+
+
+Definition at line 108 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+waterlevel@{Is\+\_\+waterlevel}}
+\index{Is\+\_\+waterlevel@{Is\+\_\+waterlevel}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+waterlevel}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+waterlevel(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf water\+\_\+level}))}}\label{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}
+
+
+Definition at line 103 of file dungeon.\+h.
+
+
+
+Referenced by cast\+\_\+protection(), docrt(), dokick(), dosit(), feel\+\_\+location(), fixup\+\_\+special(), is\+\_\+ok\+\_\+location(), newsym(), observable\+\_\+depth(), restore\+\_\+waterlevel(), save\+\_\+waterlevel(), throw\+\_\+gold(), throwit(), throwspell(), under\+\_\+water(), vision\+\_\+recalc(), and waterbody\+\_\+name().
+
+\hypertarget{dungeon_8h_a1becf680e42d9be2052e23faf1010c46}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+wiz1\+\_\+level@{Is\+\_\+wiz1\+\_\+level}}
+\index{Is\+\_\+wiz1\+\_\+level@{Is\+\_\+wiz1\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+wiz1\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+wiz1\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf wiz1\+\_\+level}))}}\label{dungeon_8h_a1becf680e42d9be2052e23faf1010c46}
+
+
+Definition at line 112 of file dungeon.\+h.
+
+
+
+Referenced by fixup\+\_\+special().
+
+\hypertarget{dungeon_8h_a89acfcdb42d7667e270f4daae0da91d5}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+wiz2\+\_\+level@{Is\+\_\+wiz2\+\_\+level}}
+\index{Is\+\_\+wiz2\+\_\+level@{Is\+\_\+wiz2\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+wiz2\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+wiz2\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf wiz2\+\_\+level}))}}\label{dungeon_8h_a89acfcdb42d7667e270f4daae0da91d5}
+
+
+Definition at line 113 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_ae65cd42b061716dceea64142aac946e4}{\index{dungeon.\+h@{dungeon.\+h}!Is\+\_\+wiz3\+\_\+level@{Is\+\_\+wiz3\+\_\+level}}
+\index{Is\+\_\+wiz3\+\_\+level@{Is\+\_\+wiz3\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{Is\+\_\+wiz3\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+wiz3\+\_\+level(
+\begin{DoxyParamCaption}
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(on\+\_\+level(x, \&{\bf wiz3\+\_\+level}))}}\label{dungeon_8h_ae65cd42b061716dceea64142aac946e4}
+
+
+Definition at line 114 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_a25f55258a9cda52bb2b92e60217bdead}{\index{dungeon.\+h@{dungeon.\+h}!L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S@{L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S}}
+\index{L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S@{L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S~0x04	/$\ast$ a level file exists for this level $\ast$/}}\label{dungeon_8h_a25f55258a9cda52bb2b92e60217bdead}
+
+
+Definition at line 152 of file dungeon.\+h.
+
+
+
+Referenced by create\+\_\+levelfile(), delete\+\_\+levelfile(), and dosave0().
+
+\hypertarget{dungeon_8h_a6f8a1eac67dfe592cb3420a916e7b73d}{\index{dungeon.\+h@{dungeon.\+h}!L\+R\+\_\+\+B\+R\+A\+N\+C\+H@{L\+R\+\_\+\+B\+R\+A\+N\+C\+H}}
+\index{L\+R\+\_\+\+B\+R\+A\+N\+C\+H@{L\+R\+\_\+\+B\+R\+A\+N\+C\+H}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{L\+R\+\_\+\+B\+R\+A\+N\+C\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+R\+\_\+\+B\+R\+A\+N\+C\+H~3}}\label{dungeon_8h_a6f8a1eac67dfe592cb3420a916e7b73d}
+
+
+Definition at line 41 of file dungeon.\+h.
+
+
+
+Referenced by fixup\+\_\+special(), place\+\_\+lregion(), put\+\_\+lregion\+\_\+here(), and yyparse().
+
+\hypertarget{dungeon_8h_a314c06ef53ebfd4f0c3988f67757c8df}{\index{dungeon.\+h@{dungeon.\+h}!L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R@{L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R}}
+\index{L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R@{L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R~0}}\label{dungeon_8h_a314c06ef53ebfd4f0c3988f67757c8df}
+
+
+Definition at line 38 of file dungeon.\+h.
+
+
+
+Referenced by fixup\+\_\+special(), put\+\_\+lregion\+\_\+here(), and yyparse().
+
+\hypertarget{dungeon_8h_aa5328e9f839b405d36d66f75e7fcbbf8}{\index{dungeon.\+h@{dungeon.\+h}!L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E@{L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E}}
+\index{L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E@{L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E~6}}\label{dungeon_8h_aa5328e9f839b405d36d66f75e7fcbbf8}
+
+
+Definition at line 44 of file dungeon.\+h.
+
+
+
+Referenced by fixup\+\_\+special(), put\+\_\+lregion\+\_\+here(), and yyparse().
+
+\hypertarget{dungeon_8h_acd94c3d04514c0962274591a15030d3a}{\index{dungeon.\+h@{dungeon.\+h}!L\+R\+\_\+\+P\+O\+R\+T\+A\+L@{L\+R\+\_\+\+P\+O\+R\+T\+A\+L}}
+\index{L\+R\+\_\+\+P\+O\+R\+T\+A\+L@{L\+R\+\_\+\+P\+O\+R\+T\+A\+L}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{L\+R\+\_\+\+P\+O\+R\+T\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+R\+\_\+\+P\+O\+R\+T\+A\+L~2}}\label{dungeon_8h_acd94c3d04514c0962274591a15030d3a}
+
+
+Definition at line 40 of file dungeon.\+h.
+
+
+
+Referenced by fixup\+\_\+special(), put\+\_\+lregion\+\_\+here(), and yyparse().
+
+\hypertarget{dungeon_8h_a078bcb75520369d825c84931e908db10}{\index{dungeon.\+h@{dungeon.\+h}!L\+R\+\_\+\+T\+E\+L\+E@{L\+R\+\_\+\+T\+E\+L\+E}}
+\index{L\+R\+\_\+\+T\+E\+L\+E@{L\+R\+\_\+\+T\+E\+L\+E}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{L\+R\+\_\+\+T\+E\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+R\+\_\+\+T\+E\+L\+E~4}}\label{dungeon_8h_a078bcb75520369d825c84931e908db10}
+
+
+Definition at line 42 of file dungeon.\+h.
+
+
+
+Referenced by fixup\+\_\+special(), put\+\_\+lregion\+\_\+here(), and yyparse().
+
+\hypertarget{dungeon_8h_a64f1a66fa9f3adade0c86ef362d4d018}{\index{dungeon.\+h@{dungeon.\+h}!L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R@{L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R}}
+\index{L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R@{L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R~1}}\label{dungeon_8h_a64f1a66fa9f3adade0c86ef362d4d018}
+
+
+Definition at line 39 of file dungeon.\+h.
+
+
+
+Referenced by fixup\+\_\+special(), put\+\_\+lregion\+\_\+here(), and yyparse().
+
+\hypertarget{dungeon_8h_aa0536b8dd5dbecb8f0f26f4b20bb1315}{\index{dungeon.\+h@{dungeon.\+h}!L\+R\+\_\+\+U\+P\+T\+E\+L\+E@{L\+R\+\_\+\+U\+P\+T\+E\+L\+E}}
+\index{L\+R\+\_\+\+U\+P\+T\+E\+L\+E@{L\+R\+\_\+\+U\+P\+T\+E\+L\+E}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{L\+R\+\_\+\+U\+P\+T\+E\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+R\+\_\+\+U\+P\+T\+E\+L\+E~5}}\label{dungeon_8h_aa0536b8dd5dbecb8f0f26f4b20bb1315}
+
+
+Definition at line 43 of file dungeon.\+h.
+
+
+
+Referenced by fixup\+\_\+special(), put\+\_\+lregion\+\_\+here(), and yyparse().
+
+\hypertarget{dungeon_8h_a2d69a7845d752abaa8523a7ddc45f179}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+A\+P\+P\+R\+O\+X\+\_\+\+X\+Y@{M\+I\+G\+R\+\_\+\+A\+P\+P\+R\+O\+X\+\_\+\+X\+Y}}
+\index{M\+I\+G\+R\+\_\+\+A\+P\+P\+R\+O\+X\+\_\+\+X\+Y@{M\+I\+G\+R\+\_\+\+A\+P\+P\+R\+O\+X\+\_\+\+X\+Y}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+A\+P\+P\+R\+O\+X\+\_\+\+X\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+A\+P\+P\+R\+O\+X\+\_\+\+X\+Y~1	/$\ast$ approximate coordinates $\ast$/}}\label{dungeon_8h_a2d69a7845d752abaa8523a7ddc45f179}
+
+
+Definition at line 136 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_aafc4f827dc5a43819528e952f923fc9d}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+E\+X\+A\+C\+T\+\_\+\+X\+Y@{M\+I\+G\+R\+\_\+\+E\+X\+A\+C\+T\+\_\+\+X\+Y}}
+\index{M\+I\+G\+R\+\_\+\+E\+X\+A\+C\+T\+\_\+\+X\+Y@{M\+I\+G\+R\+\_\+\+E\+X\+A\+C\+T\+\_\+\+X\+Y}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+E\+X\+A\+C\+T\+\_\+\+X\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+E\+X\+A\+C\+T\+\_\+\+X\+Y~2	/$\ast$ specific coordinates $\ast$/}}\label{dungeon_8h_aafc4f827dc5a43819528e952f923fc9d}
+
+
+Definition at line 137 of file dungeon.\+h.
+
+\hypertarget{dungeon_8h_ae9b54fed961a26e1834c5cfcfa0faceb}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+D\+O\+W\+N@{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+D\+O\+W\+N}}
+\index{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+D\+O\+W\+N@{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+D\+O\+W\+N}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+D\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+D\+O\+W\+N~6}}\label{dungeon_8h_ae9b54fed961a26e1834c5cfcfa0faceb}
+
+
+Definition at line 141 of file dungeon.\+h.
+
+
+
+Referenced by use\+\_\+defensive().
+
+\hypertarget{dungeon_8h_a81af97dd7f470dbb8f5b556492396404}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+U\+P@{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+U\+P}}
+\index{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+U\+P@{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+U\+P}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+L\+A\+D\+D\+E\+R\+\_\+\+U\+P~5}}\label{dungeon_8h_a81af97dd7f470dbb8f5b556492396404}
+
+
+Definition at line 140 of file dungeon.\+h.
+
+
+
+Referenced by down\+\_\+gate(), drop\+\_\+to(), obj\+\_\+delivery(), ship\+\_\+object(), and use\+\_\+defensive().
+
+\hypertarget{dungeon_8h_aab250d419b04792e0098495c733660f5}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+N\+E\+A\+R\+\_\+\+P\+L\+A\+Y\+E\+R@{M\+I\+G\+R\+\_\+\+N\+E\+A\+R\+\_\+\+P\+L\+A\+Y\+E\+R}}
+\index{M\+I\+G\+R\+\_\+\+N\+E\+A\+R\+\_\+\+P\+L\+A\+Y\+E\+R@{M\+I\+G\+R\+\_\+\+N\+E\+A\+R\+\_\+\+P\+L\+A\+Y\+E\+R}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+N\+E\+A\+R\+\_\+\+P\+L\+A\+Y\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+N\+E\+A\+R\+\_\+\+P\+L\+A\+Y\+E\+R~9	/$\ast$ mon\+: followers; obj\+: {\bf trap} {\bf door} $\ast$/}}\label{dungeon_8h_aab250d419b04792e0098495c733660f5}
+
+
+Definition at line 144 of file dungeon.\+h.
+
+
+
+Referenced by impact\+\_\+drop(), and obj\+\_\+delivery().
+
+\hypertarget{dungeon_8h_a88ec61ab6dd74717e3fbe1f60ea1b297}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+N\+O\+W\+H\+E\+R\+E@{M\+I\+G\+R\+\_\+\+N\+O\+W\+H\+E\+R\+E}}
+\index{M\+I\+G\+R\+\_\+\+N\+O\+W\+H\+E\+R\+E@{M\+I\+G\+R\+\_\+\+N\+O\+W\+H\+E\+R\+E}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+N\+O\+W\+H\+E\+R\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+N\+O\+W\+H\+E\+R\+E~(-\/1)	/$\ast$ failure {\bf flag} for {\bf down\+\_\+gate}() $\ast$/}}\label{dungeon_8h_a88ec61ab6dd74717e3fbe1f60ea1b297}
+
+
+Definition at line 134 of file dungeon.\+h.
+
+
+
+Referenced by down\+\_\+gate(), drop\+\_\+to(), and ship\+\_\+object().
+
+\hypertarget{dungeon_8h_af4a39ed97457ce8b845825c5ab4e49b7}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+P\+O\+R\+T\+A\+L@{M\+I\+G\+R\+\_\+\+P\+O\+R\+T\+A\+L}}
+\index{M\+I\+G\+R\+\_\+\+P\+O\+R\+T\+A\+L@{M\+I\+G\+R\+\_\+\+P\+O\+R\+T\+A\+L}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+P\+O\+R\+T\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+P\+O\+R\+T\+A\+L~8	/$\ast$ magic portal $\ast$/}}\label{dungeon_8h_af4a39ed97457ce8b845825c5ab4e49b7}
+
+
+Definition at line 143 of file dungeon.\+h.
+
+
+
+Referenced by mlevel\+\_\+tele\+\_\+trap().
+
+\hypertarget{dungeon_8h_a28e698f1f36ba7c0eeb6a782261e2faf}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+R\+A\+N\+D\+O\+M@{M\+I\+G\+R\+\_\+\+R\+A\+N\+D\+O\+M}}
+\index{M\+I\+G\+R\+\_\+\+R\+A\+N\+D\+O\+M@{M\+I\+G\+R\+\_\+\+R\+A\+N\+D\+O\+M}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+R\+A\+N\+D\+O\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+R\+A\+N\+D\+O\+M~0}}\label{dungeon_8h_a28e698f1f36ba7c0eeb6a782261e2faf}
+
+
+Definition at line 135 of file dungeon.\+h.
+
+
+
+Referenced by down\+\_\+gate(), drop\+\_\+to(), mlevel\+\_\+tele\+\_\+trap(), obj\+\_\+delivery(), use\+\_\+defensive(), and use\+\_\+misc().
+
+\hypertarget{dungeon_8h_aa90de6027eb47b8ced165491eaaed179}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+S\+S\+T\+A\+I\+R\+S@{M\+I\+G\+R\+\_\+\+S\+S\+T\+A\+I\+R\+S}}
+\index{M\+I\+G\+R\+\_\+\+S\+S\+T\+A\+I\+R\+S@{M\+I\+G\+R\+\_\+\+S\+S\+T\+A\+I\+R\+S}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+S\+S\+T\+A\+I\+R\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+S\+S\+T\+A\+I\+R\+S~7	/$\ast$ {\bf dungeon} {\bf branch} $\ast$/}}\label{dungeon_8h_aa90de6027eb47b8ced165491eaaed179}
+
+
+Definition at line 142 of file dungeon.\+h.
+
+
+
+Referenced by down\+\_\+gate(), drop\+\_\+to(), obj\+\_\+delivery(), and use\+\_\+defensive().
+
+\hypertarget{dungeon_8h_acd51174881b5ca0d61f19515754c4921}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+D\+O\+W\+N@{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+D\+O\+W\+N}}
+\index{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+D\+O\+W\+N@{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+D\+O\+W\+N}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+D\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+D\+O\+W\+N~4}}\label{dungeon_8h_acd51174881b5ca0d61f19515754c4921}
+
+
+Definition at line 139 of file dungeon.\+h.
+
+
+
+Referenced by use\+\_\+defensive().
+
+\hypertarget{dungeon_8h_add533d1cbaa2c7556039dd076f9929d1}{\index{dungeon.\+h@{dungeon.\+h}!M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+U\+P@{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+U\+P}}
+\index{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+U\+P@{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+U\+P}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+G\+R\+\_\+\+S\+T\+A\+I\+R\+S\+\_\+\+U\+P~3}}\label{dungeon_8h_add533d1cbaa2c7556039dd076f9929d1}
+
+
+Definition at line 138 of file dungeon.\+h.
+
+
+
+Referenced by down\+\_\+gate(), drop\+\_\+to(), obj\+\_\+delivery(), and use\+\_\+defensive().
+
+\hypertarget{dungeon_8h_a28615ad40e5d11edaefd903c02206f6d}{\index{dungeon.\+h@{dungeon.\+h}!V\+I\+S\+I\+T\+E\+D@{V\+I\+S\+I\+T\+E\+D}}
+\index{V\+I\+S\+I\+T\+E\+D@{V\+I\+S\+I\+T\+E\+D}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{V\+I\+S\+I\+T\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define V\+I\+S\+I\+T\+E\+D~0x01	/$\ast$ hero has visited this level $\ast$/}}\label{dungeon_8h_a28615ad40e5d11edaefd903c02206f6d}
+
+
+Definition at line 150 of file dungeon.\+h.
+
+
+
+Referenced by savelev().
+
+\hypertarget{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{\index{dungeon.\+h@{dungeon.\+h}!within\+\_\+bounded\+\_\+area@{within\+\_\+bounded\+\_\+area}}
+\index{within\+\_\+bounded\+\_\+area@{within\+\_\+bounded\+\_\+area}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{within\+\_\+bounded\+\_\+area}]{\setlength{\rightskip}{0pt plus 5cm}\#define within\+\_\+bounded\+\_\+area(
+\begin{DoxyParamCaption}
+\item[{}]{X, }
+\item[{}]{Y, }
+\item[{}]{L\+X, }
+\item[{}]{L\+Y, }
+\item[{}]{H\+X, }
+\item[{}]{H\+Y}
+\end{DoxyParamCaption}
+)~((X) $>$= (L\+X) \&\& (X) $<$= (H\+X) \&\& (Y) $>$= (L\+Y) \&\& (Y) $<$= (H\+Y))}}\label{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}
+
+
+Definition at line 129 of file dungeon.\+h.
+
+
+
+Referenced by bad\+\_\+location(), mkinvpos(), rloc\+\_\+pos\+\_\+ok(), rloco(), and tele\+\_\+jump\+\_\+ok().
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{dungeon_8h_ab630025d71bce7249fd9f6d36e3503bf}{\index{dungeon.\+h@{dungeon.\+h}!branch@{branch}}
+\index{branch@{branch}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{branch}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf branch}  {\bf branch}}}\label{dungeon_8h_ab630025d71bce7249fd9f6d36e3503bf}
+\hypertarget{dungeon_8h_af8b3c56c97edc613d950ee9c8bce81ad}{\index{dungeon.\+h@{dungeon.\+h}!d\+\_\+flags@{d\+\_\+flags}}
+\index{d\+\_\+flags@{d\+\_\+flags}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{d\+\_\+flags}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf d\+\_\+flags}  {\bf d\+\_\+flags}}}\label{dungeon_8h_af8b3c56c97edc613d950ee9c8bce81ad}
+\hypertarget{dungeon_8h_a5a89621971eef2220172bf93c00f83f9}{\index{dungeon.\+h@{dungeon.\+h}!d\+\_\+level@{d\+\_\+level}}
+\index{d\+\_\+level@{d\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{d\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf d\+\_\+level}  {\bf d\+\_\+level}}}\label{dungeon_8h_a5a89621971eef2220172bf93c00f83f9}
+\hypertarget{dungeon_8h_a0fc69ea0ff606550ccc347c18237cd23}{\index{dungeon.\+h@{dungeon.\+h}!dest\+\_\+area@{dest\+\_\+area}}
+\index{dest\+\_\+area@{dest\+\_\+area}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{dest\+\_\+area}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf dest\+\_\+area}  {\bf dest\+\_\+area}}}\label{dungeon_8h_a0fc69ea0ff606550ccc347c18237cd23}
+\hypertarget{dungeon_8h_a52619c6ca708fd21b7aecbdb5998d9de}{\index{dungeon.\+h@{dungeon.\+h}!dungeon@{dungeon}}
+\index{dungeon@{dungeon}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{dungeon}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf dungeon}  {\bf dungeon}}}\label{dungeon_8h_a52619c6ca708fd21b7aecbdb5998d9de}
+\hypertarget{dungeon_8h_a1630a3f8d104fbe4ef719913fd77922d}{\index{dungeon.\+h@{dungeon.\+h}!s\+\_\+level@{s\+\_\+level}}
+\index{s\+\_\+level@{s\+\_\+level}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{s\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf s\+\_\+level}  {\bf s\+\_\+level}}}\label{dungeon_8h_a1630a3f8d104fbe4ef719913fd77922d}
+\hypertarget{dungeon_8h_a3a15ded1fdea50188b6b6f17870c084f}{\index{dungeon.\+h@{dungeon.\+h}!stairway@{stairway}}
+\index{stairway@{stairway}!dungeon.\+h@{dungeon.\+h}}
+\subsubsection[{stairway}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf stairway}  {\bf stairway}}}\label{dungeon_8h_a3a15ded1fdea50188b6b6f17870c084f}

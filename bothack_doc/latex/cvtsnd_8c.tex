@@ -1,0 +1,96 @@
+\hypertarget{cvtsnd_8c}{\section{nethack/sys/amiga/cvtsnd.c File Reference}
+\label{cvtsnd_8c}\index{nethack/sys/amiga/cvtsnd.\+c@{nethack/sys/amiga/cvtsnd.\+c}}
+}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structAIFF}{A\+I\+F\+F}
+\item 
+struct \hyperlink{structIFF}{I\+F\+F}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{cvtsnd_8c_a1778f258b5c77725a60f77b823328168}{main} (int ac, char $\ast$$\ast$av)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{cvtsnd_8c_a1778f258b5c77725a60f77b823328168}{\index{cvtsnd.\+c@{cvtsnd.\+c}!main@{main}}
+\index{main@{main}!cvtsnd.\+c@{cvtsnd.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}main (
+\begin{DoxyParamCaption}
+\item[{int}]{ac, }
+\item[{char $\ast$$\ast$}]{av}
+\end{DoxyParamCaption}
+)}}\label{cvtsnd_8c_a1778f258b5c77725a60f77b823328168}
+
+
+Definition at line 40 of file cvtsnd.\+c.
+
+
+
+Referenced by Win\+Main().
+
+
+\begin{DoxyCode}
+41 \{
+42     FILE *\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}, *out;
+43     \hyperlink{structAIFF}{AIFF} aiff;
+44     \hyperlink{structIFF}{IFF} iff;
+45     \textcolor{keyword}{static} \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[16384];
+46     \textcolor{keywordtype}{long} n, len;
+47 
+48     \textcolor{keywordflow}{if} (ac != 3) \{
+49     fprintf(stderr, \textcolor{stringliteral}{"Usage: %s input-file output-file\(\backslash\)n"}, av[0]);
+50     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(20);
+51     \}
+52     \textcolor{keywordflow}{if} (!(in = fopen(av[1], \textcolor{stringliteral}{"r"}))) \{
+53     fprintf(stderr, \textcolor{stringliteral}{"Can't open input file\(\backslash\)n"});
+54     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(20);
+55     \}
+56     \textcolor{keywordflow}{if} (!(out = fopen(av[2], \textcolor{stringliteral}{"w"}))) \{
+57     fprintf(stderr, \textcolor{stringliteral}{"Can't open output file\(\backslash\)n"});
+58     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(20);
+59     \}
+60 
+61     fread(&aiff, \textcolor{keyword}{sizeof}(aiff), 1, in);
+62     memcpy(iff.\hyperlink{structIFF_a03c5d9d6498d0775ac5b5de8d32d6fc6}{FORM}, \textcolor{stringliteral}{"FORM"}, 4);
+63     iff.\hyperlink{structIFF_adef91099995fc9f3a2d2793e72973364}{flen}    = \textcolor{keyword}{sizeof}(iff) + aiff.\hyperlink{structAIFF_a8f1cede21c2276515408d7f1a396095c}{sndlen} - 8;
+64     memcpy(iff.\hyperlink{structIFF_ae2e66f43d027e5ee6b664d30e518da17}{\_8SVX}, \textcolor{stringliteral}{"8SVX"}, 4);
+65     memcpy(iff.\hyperlink{structIFF_a4d304147a1dbd30fb31727571f38418b}{VHDR}, \textcolor{stringliteral}{"VHDR"}, 4);
+66     iff.\hyperlink{structIFF_a2d78f63486ac3ea85cf56abad568295d}{vhlen}  = 20;
+67     iff.\hyperlink{structIFF_a5099f06518cae6f23aed101a7d41abeb}{oneshot}  = aiff.\hyperlink{structAIFF_a8f1cede21c2276515408d7f1a396095c}{sndlen};
+68     iff.\hyperlink{structIFF_a3e53c273523a28fd8c3bcc3da8778bdd}{repeat}    = 0;
+69     iff.\hyperlink{structIFF_ac3d8e88e81739232da3592001db90724}{samples}  = 32;
+70     iff.\hyperlink{structIFF_a04d30d1a382ea7c06a0ca69b801318ad}{freq}    = 22000;
+71     iff.\hyperlink{structIFF_aa6549566463bd447a6a7bf1204646d52}{octaves}  = 1;
+72     iff.\hyperlink{structIFF_a969e7c9fdb899c4597cb79beb7bf7b2b}{compress}= 0;
+73     iff.\hyperlink{structIFF_a4dd05840f2c7166d7d5400802f7f148d}{volume}    = 0x10000;
+74     memcpy(iff.\hyperlink{structIFF_a34b56f8aa93d422392b6b8d18e68062c}{NAME}, \textcolor{stringliteral}{"NAME"}, 4);
+75     iff.\hyperlink{structIFF_a857a1987197e51123f22cc81fd32b02a}{nlen}    = 64;
+76     strncpy(iff.\hyperlink{structIFF_a822828c4ace3714efd1a34b9b3e424b8}{name}, aiff.\hyperlink{structAIFF_a0e5410410479ba3a2ba2f693e9b97953}{name}, 62); iff.\hyperlink{structIFF_a822828c4ace3714efd1a34b9b3e424b8}{name}[aiff.\hyperlink{structAIFF_aab9dbd8c399f4520df88047c706508bd}{namelen}] = 0;
+77     memcpy(iff.\hyperlink{structIFF_aff26572bfbef65efe24439dfd15ecdca}{BODY}, \textcolor{stringliteral}{"BODY"}, 4);
+78     iff.\hyperlink{structIFF_a3fc73472318cc9e5eff0309d223d1009}{blen}    = aiff.\hyperlink{structAIFF_a8f1cede21c2276515408d7f1a396095c}{sndlen};
+79     fwrite(&iff, \textcolor{keyword}{sizeof}(iff), 1, out);
+80     len = aiff.\hyperlink{structAIFF_a8f1cede21c2276515408d7f1a396095c}{sndlen};
+81     \textcolor{keywordflow}{do} \{
+82     \textcolor{keywordflow}{if} (len >= \textcolor{keyword}{sizeof}(buf))
+83         n = fread(buf, 1, \textcolor{keyword}{sizeof}(buf), in);
+84     \textcolor{keywordflow}{else}
+85         n = fread(buf, 1, len, in);
+86     \textcolor{keywordflow}{if} (n) \{
+87         fwrite(buf, 1, n, out);
+88         len -= n;
+89     \}
+90     \} \textcolor{keywordflow}{while} (len && n);
+91 
+92     \textcolor{keywordflow}{if} (len)
+93     fprintf(stderr, \textcolor{stringliteral}{"Warning: %ld bytes of sample missing\(\backslash\)n"}, len);
+94     fclose(in); fclose(out);
+95     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(0);
+96 \}
+\end{DoxyCode}

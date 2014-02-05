@@ -1,0 +1,124 @@
+\hypertarget{sys_2wince_2mhdlg_8h}{\section{nethack/sys/wince/mhdlg.h File Reference}
+\label{sys_2wince_2mhdlg_8h}\index{nethack/sys/wince/mhdlg.\+h@{nethack/sys/wince/mhdlg.\+h}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{sys_2wince_2mhdlg_8h_a39d42e14bc9786f5e2956df063ab92ff}{mswin\+\_\+getlin\+\_\+window} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$question, char $\ast$result, size\+\_\+t result\+\_\+size)
+\item 
+int \hyperlink{sys_2wince_2mhdlg_8h_ad4240b065b7b8e476803050a29181a20}{mswin\+\_\+ext\+\_\+cmd\+\_\+window} (int $\ast$selection)
+\item 
+int \hyperlink{sys_2wince_2mhdlg_8h_abfa652ee4def0674368c65a2578121a5}{mswin\+\_\+player\+\_\+selection\+\_\+window} (int $\ast$selection)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{sys_2wince_2mhdlg_8h_ad4240b065b7b8e476803050a29181a20}{\index{sys/wince/mhdlg.\+h@{sys/wince/mhdlg.\+h}!mswin\+\_\+ext\+\_\+cmd\+\_\+window@{mswin\+\_\+ext\+\_\+cmd\+\_\+window}}
+\index{mswin\+\_\+ext\+\_\+cmd\+\_\+window@{mswin\+\_\+ext\+\_\+cmd\+\_\+window}!sys/wince/mhdlg.\+h@{sys/wince/mhdlg.\+h}}
+\subsubsection[{mswin\+\_\+ext\+\_\+cmd\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}int mswin\+\_\+ext\+\_\+cmd\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{selection}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhdlg_8h_ad4240b065b7b8e476803050a29181a20}
+
+
+Definition at line 183 of file mhdlg.\+c.
+
+
+\begin{DoxyCode}
+184 \{
+185     \textcolor{keywordtype}{int} ret;
+186     \textcolor{keyword}{struct }\hyperlink{structextcmd__data}{extcmd\_data} data;
+187     
+188     \textcolor{comment}{/* init dialog data */}
+189     ZeroMemory(&data, \textcolor{keyword}{sizeof}(data));
+190     *\hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection} = -1;
+191     data.selection = \hyperlink{structextcmd__data_ab011c2c8d46884e21377956420754497}{selection};
+192 
+193     \textcolor{comment}{/* create modal dialog window */}
+194     ret = DialogBoxParam(
+195             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+196             MAKEINTRESOURCE(\hyperlink{sys_2wince_2resource_8h_afa993406db3065594cbee283067e3b7d}{IDD\_EXTCMD}),
+197             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,
+198             \hyperlink{sys_2wince_2mhdlg_8c_ad9e8613ffe5220c78d6c943c8693e95c}{ExtCmdDlgProc},
+199             (LPARAM)&data
+200     );
+201     \textcolor{keywordflow}{if}( ret==-1 ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create extcmd window"});
+202     \textcolor{keywordflow}{return} ret;
+203 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhdlg_8h_a39d42e14bc9786f5e2956df063ab92ff}{\index{sys/wince/mhdlg.\+h@{sys/wince/mhdlg.\+h}!mswin\+\_\+getlin\+\_\+window@{mswin\+\_\+getlin\+\_\+window}}
+\index{mswin\+\_\+getlin\+\_\+window@{mswin\+\_\+getlin\+\_\+window}!sys/wince/mhdlg.\+h@{sys/wince/mhdlg.\+h}}
+\subsubsection[{mswin\+\_\+getlin\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}int mswin\+\_\+getlin\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{question, }
+\item[{char $\ast$}]{result, }
+\item[{size\+\_\+t}]{result\+\_\+size}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhdlg_8h_a39d42e14bc9786f5e2956df063ab92ff}
+
+
+Definition at line 25 of file mhdlg.\+c.
+
+
+\begin{DoxyCode}
+30 \{
+31     \textcolor{keywordtype}{int} ret;
+32     \textcolor{keyword}{struct }\hyperlink{structgetlin__data}{getlin\_data} data;
+33 
+34     \textcolor{comment}{/* initilize dialog data */}
+35     ZeroMemory(&data, \textcolor{keyword}{sizeof}(data));
+36     data.question = \hyperlink{structgetlin__data_a5ae51373bc945ad0f57b44419c26b7a8}{question};
+37     data.result = \hyperlink{structgetlin__data_a30ab6084717e9691c3ecae6fbeac21b9}{result};
+38     data.result\_size = \hyperlink{structgetlin__data_a94955d5ee37e0a74dce5438809152c34}{result\_size};
+39 
+40     \textcolor{comment}{/* create modal dialog window */}
+41     ret = DialogBoxParam(
+42             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+43             MAKEINTRESOURCE(\hyperlink{sys_2wince_2resource_8h_a31f315296fc7426c1fe25eeb9f32552b}{IDD\_GETLIN}),
+44             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,
+45             \hyperlink{sys_2wince_2mhdlg_8c_a9653a6ffe3ddf03e6b036684d77177f7}{GetlinDlgProc},
+46             (LPARAM)&data
+47     );
+48     \textcolor{keywordflow}{if}( ret==-1 ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create getlin window"});
+49     
+50     \textcolor{keywordflow}{return} ret;
+51 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhdlg_8h_abfa652ee4def0674368c65a2578121a5}{\index{sys/wince/mhdlg.\+h@{sys/wince/mhdlg.\+h}!mswin\+\_\+player\+\_\+selection\+\_\+window@{mswin\+\_\+player\+\_\+selection\+\_\+window}}
+\index{mswin\+\_\+player\+\_\+selection\+\_\+window@{mswin\+\_\+player\+\_\+selection\+\_\+window}!sys/wince/mhdlg.\+h@{sys/wince/mhdlg.\+h}}
+\subsubsection[{mswin\+\_\+player\+\_\+selection\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}int mswin\+\_\+player\+\_\+selection\+\_\+window (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{selection}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhdlg_8h_abfa652ee4def0674368c65a2578121a5}
+
+
+Definition at line 310 of file mhdlg.\+c.
+
+
+\begin{DoxyCode}
+311 \{
+312     \textcolor{keywordtype}{int} ret;
+313     \textcolor{keyword}{struct }\hyperlink{structplsel__data}{plsel\_data} data;
+314 
+315     \textcolor{comment}{/* init dialog data */}
+316     ZeroMemory(&data, \textcolor{keyword}{sizeof}(data));
+317     data.selection = \hyperlink{structplsel__data_a6300c44105a90c7875e99c2b65f56375}{selection};
+318 
+319     \textcolor{comment}{/* create modal dialog */}
+320     ret = DialogBoxParam(
+321             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,
+322             MAKEINTRESOURCE(\hyperlink{sys_2wince_2resource_8h_ad83e812e82862386563ba64c8977d561}{IDD\_PLAYER\_SELECTOR}),
+323             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,
+324             \hyperlink{sys_2wince_2mhdlg_8c_ab354857d5335d3e54cdb3d69c423b885}{PlayerSelectorDlgProc},
+325             (LPARAM)&data
+326     );
+327     \textcolor{keywordflow}{if}( ret==-1 ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create getlin window"});
+328     
+329     \textcolor{keywordflow}{return} ret;
+330 \}
+\end{DoxyCode}

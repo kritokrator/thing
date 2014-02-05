@@ -1,0 +1,357 @@
+\hypertarget{tile2x11_8c}{\section{nethack/win/\+X11/tile2x11.c File Reference}
+\label{tile2x11_8c}\index{nethack/win/\+X11/tile2x11.\+c@{nethack/win/\+X11/tile2x11.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile2x11.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{tile2x11_8c_a0ed5ec90a29db69567bf0ba6ba104bc8}{O\+U\+T\+N\+A\+M\+E}~\char`\"{}x11tiles\char`\"{}	/$\ast$ output file \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static unsigned char \hyperlink{tile2x11_8c_a0d61b8103aba9e202974bd3e066b91ed}{pix\+\_\+to\+\_\+colormap} (\hyperlink{structpixel}{pixel} pix)
+\item 
+static unsigned long \hyperlink{tile2x11_8c_ae30275d1eae6b01faa4e19f4abfa849d}{convert\+\_\+tiles} (unsigned char $\ast$$\ast$tb\+\_\+ptr, unsigned long total)
+\item 
+static void \hyperlink{tile2x11_8c_a7c797925b1325e7d57800a6db654ebfd}{merge\+\_\+text\+\_\+colormap} ()
+\item 
+static void \hyperlink{tile2x11_8c_a56088575f062d94663408662d6f967ba}{process\+\_\+file} (char $\ast$\hyperlink{lev__main_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname})
+\item 
+int \hyperlink{tile2x11_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structx11__header}{x11\+\_\+header} \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}
+\item 
+unsigned char \hyperlink{tile2x11_8c_a997326307063682dcaca122b8813544d}{tile\+\_\+bytes} \mbox{[}\hyperlink{win_2win32_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{T\+I\+L\+E\+\_\+\+X} $\ast$\hyperlink{win_2win32_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{T\+I\+L\+E\+\_\+\+Y} $\ast$(\hyperlink{display_8h_a4195fd83b99331da1a956454b7346c01}{M\+A\+X\+\_\+\+G\+L\+Y\+P\+H}+\hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+R\+O\+W})\mbox{]}
+\item 
+unsigned char $\ast$ \hyperlink{tile2x11_8c_ac17067896e55efe4aee4cc39a16b2e3e}{curr\+\_\+tb} = \hyperlink{tile2x11_8c_a997326307063682dcaca122b8813544d}{tile\+\_\+bytes}
+\item 
+unsigned char \hyperlink{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{x11\+\_\+colormap} \mbox{[}\hyperlink{tile_8h_a321fcd6ec582309d0779ddc457ec5d62}{M\+A\+X\+C\+O\+L\+O\+R\+M\+A\+P\+S\+I\+Z\+E}\mbox{]}\mbox{[}3\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{tile2x11_8c_a0ed5ec90a29db69567bf0ba6ba104bc8}{\index{tile2x11.\+c@{tile2x11.\+c}!O\+U\+T\+N\+A\+M\+E@{O\+U\+T\+N\+A\+M\+E}}
+\index{O\+U\+T\+N\+A\+M\+E@{O\+U\+T\+N\+A\+M\+E}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{O\+U\+T\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+U\+T\+N\+A\+M\+E~\char`\"{}x11tiles\char`\"{}	/$\ast$ output file {\bf name} $\ast$/}}\label{tile2x11_8c_a0ed5ec90a29db69567bf0ba6ba104bc8}
+
+
+Definition at line 13 of file tile2x11.\+c.
+
+
+
+Referenced by main().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{tile2x11_8c_ae30275d1eae6b01faa4e19f4abfa849d}{\index{tile2x11.\+c@{tile2x11.\+c}!convert\+\_\+tiles@{convert\+\_\+tiles}}
+\index{convert\+\_\+tiles@{convert\+\_\+tiles}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{convert\+\_\+tiles}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned long convert\+\_\+tiles (
+\begin{DoxyParamCaption}
+\item[{unsigned char $\ast$$\ast$}]{tb\+\_\+ptr, }
+\item[{unsigned long}]{total}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2x11_8c_ae30275d1eae6b01faa4e19f4abfa849d}
+
+
+Definition at line 47 of file tile2x11.\+c.
+
+
+
+References count, x11\+\_\+header\+::per\+\_\+row, pix\+\_\+to\+\_\+colormap(), read\+\_\+text\+\_\+tile(), tile, T\+I\+L\+E\+\_\+\+X, and T\+I\+L\+E\+\_\+\+Y.
+
+
+
+Referenced by process\+\_\+file().
+
+
+\begin{DoxyCode}
+50 \{
+51     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *tb = *tb\_ptr;
+52     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count} = 0;
+53     \hyperlink{structpixel}{pixel} \hyperlink{winchar_8c_a2dc2eddd592675f7a53c3de0084ab83b}{tile}[\hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}][\hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}];
+54     \textcolor{keywordtype}{int} x, y;
+55 
+56     \textcolor{keywordflow}{while} (\hyperlink{tiletext_8c_a8bfc171583fff7761a8ae79103b6aa89}{read\_text\_tile}(tile)) \{
+57     count++;
+58     total++;
+59     \textcolor{keywordflow}{for} (y = 0; y < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; y++) \{
+60         \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}; x++)
+61         tb[x] = \hyperlink{tile2x11_8c_a0d61b8103aba9e202974bd3e066b91ed}{pix\_to\_colormap}(tile[y][x]);
+62         tb += TILE\_X * \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row};
+63     \}
+64 
+65     \textcolor{comment}{/* repoint at the upper-left corner of the next tile */}
+66     *tb\_ptr += \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+67     \textcolor{keywordflow}{if} (\hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row} == 1 || (total % \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row}) == 0)
+68         *tb\_ptr += TILE\_X * (TILE\_Y - 1) * \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row};
+69     tb = *tb\_ptr;
+70     \}
+71 
+72     \textcolor{keywordflow}{return} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+73 \}
+\end{DoxyCode}
+\hypertarget{tile2x11_8c_a3c04138a5bfe5d72780bb7e82a18e627}{\index{tile2x11.\+c@{tile2x11.\+c}!main@{main}}
+\index{main@{main}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{tile2x11_8c_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 172 of file tile2x11.\+c.
+
+
+
+References I\+F\+F\+::\+\_\+8\+S\+V\+X, I\+F\+F\+::blen, I\+F\+F\+::\+B\+O\+D\+Y, buf, I\+F\+F\+::compress, exit(), I\+F\+F\+::flen, I\+F\+F\+::\+F\+O\+R\+M, fp, Fprintf, I\+F\+F\+::freq, in, A\+I\+F\+F\+::name, I\+F\+F\+::\+N\+A\+M\+E, I\+F\+F\+::name, A\+I\+F\+F\+::namelen, x11\+\_\+header\+::ncolors, I\+F\+F\+::nlen, x11\+\_\+header\+::ntiles, I\+F\+F\+::octaves, I\+F\+F\+::oneshot, O\+U\+T\+N\+A\+M\+E, x11\+\_\+header\+::per\+\_\+row, process\+\_\+file(), I\+F\+F\+::repeat, I\+F\+F\+::samples, A\+I\+F\+F\+::sndlen, tile\+\_\+bytes, x11\+\_\+header\+::tile\+\_\+height, x11\+\_\+header\+::tile\+\_\+width, T\+I\+L\+E\+\_\+\+X, T\+I\+L\+E\+\_\+\+Y, T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+R\+O\+W, x11\+\_\+header\+::version, I\+F\+F\+::\+V\+H\+D\+R, I\+F\+F\+::vhlen, I\+F\+F\+::volume, and x11\+\_\+colormap.
+
+
+\begin{DoxyCode}
+175 \{
+176     FILE *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+177     \textcolor{keywordtype}{int} i;
+178 
+179     \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_afeb200c99dc3b2fd297b209c8ad9dd8d}{version} = 2;        \textcolor{comment}{/* version 1 had no per\_row field */}
+180     \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors} = 0;
+181     \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a7d80edb8d769660ce1149ffe41113e4e}{tile\_width}   = \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X};
+182     \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a7fcb99ec6211c004413a72d551e5c30e}{tile\_height} = \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y};
+183     \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles}   = 0;        \textcolor{comment}{/* updated as we read in files */}
+184     \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row} = \hyperlink{tile2x11_8h_a7e7e80e10f677d5516b3e2d337f74620}{TILES\_PER\_ROW};
+185 
+186     \textcolor{keywordflow}{if} (argc == 1) \{
+187     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"usage: %s txt\_file1 [txt\_file2 ...]\(\backslash\)n"}, argv[0]);
+188     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+189     \}
+190 
+191     fp = fopen(\hyperlink{tile2x11_8c_a0ed5ec90a29db69567bf0ba6ba104bc8}{OUTNAME}, \textcolor{stringliteral}{"w"});
+192     \textcolor{keywordflow}{if} (!fp) \{
+193     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"can't open output file\(\backslash\)n"});
+194     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+195     \}
+196 
+197     \textcolor{comment}{/* don't leave garbage at end of partial row */}
+198     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{tile2x11_8c_a997326307063682dcaca122b8813544d}{tile\_bytes}, 0, \textcolor{keyword}{sizeof}(
+      \hyperlink{tile2x11_8c_a997326307063682dcaca122b8813544d}{tile\_bytes}));
+199 
+200     \textcolor{keywordflow}{for} (i = 1; i < argc; i++)
+201     \hyperlink{tile2x11_8c_a56088575f062d94663408662d6f967ba}{process\_file}(argv[i]);
+202     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Total tiles: %ld\(\backslash\)n"}, \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles});
+203 
+204     \textcolor{comment}{/* round size up to the end of the row */}
+205     \textcolor{keywordflow}{if} ((\hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles} % \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row}) != 0) \{
+206     \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles} += \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row} - (\hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.
+      \hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles} % \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a0093a0825169d5d844a12cf63462da41}{per\_row});
+207     \}
+208 
+209 \textcolor{preprocessor}{#ifdef USE\_XPM}
+210     \textcolor{keywordflow}{if} (xpm\_write(fp) == 0) \{
+211     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"can't write XPM file\(\backslash\)n"});
+212     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+213     \}
+214 \textcolor{preprocessor}{#else}
+215     \textcolor{keywordflow}{if} (fwrite((\textcolor{keywordtype}{char} *)&\hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}, \textcolor{keyword}{sizeof}(\hyperlink{structx11__header}{x11\_header}), 1, fp) == 0) \{
+216     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"can't open output header\(\backslash\)n"});
+217     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+218     \}
+219 
+220     \textcolor{keywordflow}{if} (fwrite((\textcolor{keywordtype}{char} *)\hyperlink{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{x11\_colormap}, 1, \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors}*3, fp) == 0) \{
+221     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"can't write output colormap\(\backslash\)n"});
+222     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+223     \}
+224 
+225     \textcolor{keywordflow}{if} (fwrite((\textcolor{keywordtype}{char} *)\hyperlink{tile2x11_8c_a997326307063682dcaca122b8813544d}{tile\_bytes}, 1,
+226     (\textcolor{keywordtype}{int}) \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles}*\hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a7d80edb8d769660ce1149ffe41113e4e}{tile\_width}*\hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.
+      \hyperlink{structx11__header_a7fcb99ec6211c004413a72d551e5c30e}{tile\_height}, fp) == 0) \{
+227 
+228     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"can't write tile bytes\(\backslash\)n"});
+229     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+230     \}
+231 \textcolor{preprocessor}{#endif}
+232 
+233     fclose(fp);
+234     \textcolor{keywordflow}{return} 0;
+235 \}
+\end{DoxyCode}
+\hypertarget{tile2x11_8c_a7c797925b1325e7d57800a6db654ebfd}{\index{tile2x11.\+c@{tile2x11.\+c}!merge\+\_\+text\+\_\+colormap@{merge\+\_\+text\+\_\+colormap}}
+\index{merge\+\_\+text\+\_\+colormap@{merge\+\_\+text\+\_\+colormap}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{merge\+\_\+text\+\_\+colormap}]{\setlength{\rightskip}{0pt plus 5cm}static void merge\+\_\+text\+\_\+colormap (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2x11_8c_a7c797925b1325e7d57800a6db654ebfd}
+
+
+Definition at line 78 of file tile2x11.\+c.
+
+
+
+References C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, colorsinmap, exit(), Fprintf, M\+A\+X\+C\+O\+L\+O\+R\+M\+A\+P\+S\+I\+Z\+E, x11\+\_\+header\+::ncolors, printf, and x11\+\_\+colormap.
+
+
+
+Referenced by process\+\_\+file().
+
+
+\begin{DoxyCode}
+79 \{
+80     \textcolor{keywordtype}{int} i, j;
+81 
+82     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{txt2iff_8c_aff516215666b583bb7940b37a907fb6d}{colorsinmap}; i++) \{
+83     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors}; j++)
+84         \textcolor{keywordflow}{if} (\hyperlink{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{x11\_colormap}[j][\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}] == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][i] &&
+85             \hyperlink{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{x11\_colormap}[j][\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}] == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[
+      \hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][i] &&
+86             \hyperlink{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{x11\_colormap}[j][\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}] == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[
+      \hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][i])
+87         \textcolor{keywordflow}{break};
+88 
+89     \textcolor{keywordflow}{if} (j >= \hyperlink{tile_8h_a321fcd6ec582309d0779ddc457ec5d62}{MAXCOLORMAPSIZE}) \{
+90         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"colormap overflow\(\backslash\)n"});
+91         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+92     \}
+93 
+94     \textcolor{keywordflow}{if} (j == \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors}) \{ \textcolor{comment}{/* couldn't find it */}
+95 \textcolor{preprocessor}{#ifdef PRINT\_COLORMAP}
+96         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"color %2d: %3d %3d %3d\(\backslash\)n"}, \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors},
+97             \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][i], \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][i],
+98             \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][i]);
+99 \textcolor{preprocessor}{#endif}
+100 
+101         \hyperlink{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{x11\_colormap}[j][\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}] = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][i];
+102         \hyperlink{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{x11\_colormap}[j][\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}] = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[
+      \hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][i];
+103         \hyperlink{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{x11\_colormap}[j][\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}] = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][i];
+104         \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors}++;
+105     \}
+106     \}
+107 \}
+\end{DoxyCode}
+\hypertarget{tile2x11_8c_a0d61b8103aba9e202974bd3e066b91ed}{\index{tile2x11.\+c@{tile2x11.\+c}!pix\+\_\+to\+\_\+colormap@{pix\+\_\+to\+\_\+colormap}}
+\index{pix\+\_\+to\+\_\+colormap@{pix\+\_\+to\+\_\+colormap}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{pix\+\_\+to\+\_\+colormap}]{\setlength{\rightskip}{0pt plus 5cm}static unsigned char pix\+\_\+to\+\_\+colormap (
+\begin{DoxyParamCaption}
+\item[{{\bf pixel}}]{pix}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2x11_8c_a0d61b8103aba9e202974bd3e066b91ed}
+
+
+Definition at line 25 of file tile2x11.\+c.
+
+
+
+References C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, exit(), Fprintf, and x11\+\_\+header\+::ncolors.
+
+
+
+Referenced by convert\+\_\+tiles().
+
+
+\begin{DoxyCode}
+27 \{
+28     \textcolor{keywordtype}{int} i;
+29 
+30     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors}; i++) \{
+31     \textcolor{keywordflow}{if} (pix.\hyperlink{structpixel_aa54a32268c2ddf156577cfc79a858d58}{r} == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][i] &&
+32         pix.\hyperlink{structpixel_ade1a7e5fcb9d3e9756669a559f654958}{g} == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][i] &&
+33         pix.\hyperlink{structpixel_ae12c7adf966c6aa301af45c395925d05}{b} == \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][i])
+34         \textcolor{keywordflow}{break};
+35     \}
+36 
+37     \textcolor{keywordflow}{if} (i == \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a930cf64a8bb09d33c6ca0040b68d7876}{ncolors}) \{
+38     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"can't find color: [%u,%u,%u]\(\backslash\)n"}, pix.\hyperlink{structpixel_aa54a32268c2ddf156577cfc79a858d58}{r}, pix.\hyperlink{structpixel_ade1a7e5fcb9d3e9756669a559f654958}{g}, pix.
+      \hyperlink{structpixel_ae12c7adf966c6aa301af45c395925d05}{b});
+39     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+40     \}
+41     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}) (i & 0xFF);
+42 \}
+\end{DoxyCode}
+\hypertarget{tile2x11_8c_a56088575f062d94663408662d6f967ba}{\index{tile2x11.\+c@{tile2x11.\+c}!process\+\_\+file@{process\+\_\+file}}
+\index{process\+\_\+file@{process\+\_\+file}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{process\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}static void process\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{fname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2x11_8c_a56088575f062d94663408662d6f967ba}
+
+
+Definition at line 112 of file tile2x11.\+c.
+
+
+
+References convert\+\_\+tiles(), count, curr\+\_\+tb, exit(), fclose\+\_\+text\+\_\+file(), fopen\+\_\+text\+\_\+file(), Fprintf, merge\+\_\+text\+\_\+colormap(), x11\+\_\+header\+::ntiles, and R\+D\+T\+M\+O\+D\+E.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+114 \{
+115     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+116 
+117     \textcolor{keywordflow}{if} (!\hyperlink{tiletext_8c_afd96856d9b9d8dd587b735c54e9c2765}{fopen\_text\_file}(\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname}, \hyperlink{dlb_8h_a52b55e796a44079bc56afab59e8c0c89}{RDTMODE})) \{
+118     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"can't open file \(\backslash\)"%s\(\backslash\)"\(\backslash\)n"}, \hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname});
+119     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+120     \}
+121     \hyperlink{tile2x11_8c_a7c797925b1325e7d57800a6db654ebfd}{merge\_text\_colormap}();
+122     count = \hyperlink{tile2x11_8c_ae30275d1eae6b01faa4e19f4abfa849d}{convert\_tiles}(&\hyperlink{tile2x11_8c_ac17067896e55efe4aee4cc39a16b2e3e}{curr\_tb}, \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles});
+123     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"%s: %lu tiles\(\backslash\)n"}, \hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname}, count);
+124     \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header}.\hyperlink{structx11__header_a76bec784f1a45a0ab46189cc413657e9}{ntiles} += \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+125     \hyperlink{tiletext_8c_a52166aa84ff4882399d7699bb074b55b}{fclose\_text\_file}();
+126 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{tile2x11_8c_ac17067896e55efe4aee4cc39a16b2e3e}{\index{tile2x11.\+c@{tile2x11.\+c}!curr\+\_\+tb@{curr\+\_\+tb}}
+\index{curr\+\_\+tb@{curr\+\_\+tb}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{curr\+\_\+tb}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char$\ast$ curr\+\_\+tb = {\bf tile\+\_\+bytes}}}\label{tile2x11_8c_ac17067896e55efe4aee4cc39a16b2e3e}
+
+
+Definition at line 19 of file tile2x11.\+c.
+
+
+
+Referenced by process\+\_\+file().
+
+\hypertarget{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{\index{tile2x11.\+c@{tile2x11.\+c}!header@{header}}
+\index{header@{header}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{header}]{\setlength{\rightskip}{0pt plus 5cm}{\bf x11\+\_\+header} header}}\label{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}
+
+
+Definition at line 17 of file tile2x11.\+c.
+
+
+
+Referenced by bitmap\+\_\+to\+\_\+img(), and init\+\_\+tiles().
+
+\hypertarget{tile2x11_8c_a997326307063682dcaca122b8813544d}{\index{tile2x11.\+c@{tile2x11.\+c}!tile\+\_\+bytes@{tile\+\_\+bytes}}
+\index{tile\+\_\+bytes@{tile\+\_\+bytes}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{tile\+\_\+bytes}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char tile\+\_\+bytes\mbox{[}{\bf T\+I\+L\+E\+\_\+\+X} $\ast${\bf T\+I\+L\+E\+\_\+\+Y} $\ast$({\bf M\+A\+X\+\_\+\+G\+L\+Y\+P\+H}+{\bf T\+I\+L\+E\+S\+\_\+\+P\+E\+R\+\_\+\+R\+O\+W})\mbox{]}}}\label{tile2x11_8c_a997326307063682dcaca122b8813544d}
+
+
+Definition at line 18 of file tile2x11.\+c.
+
+
+
+Referenced by init\+\_\+tiles(), and main().
+
+\hypertarget{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}{\index{tile2x11.\+c@{tile2x11.\+c}!x11\+\_\+colormap@{x11\+\_\+colormap}}
+\index{x11\+\_\+colormap@{x11\+\_\+colormap}!tile2x11.\+c@{tile2x11.\+c}}
+\subsubsection[{x11\+\_\+colormap}]{\setlength{\rightskip}{0pt plus 5cm}unsigned char x11\+\_\+colormap\mbox{[}{\bf M\+A\+X\+C\+O\+L\+O\+R\+M\+A\+P\+S\+I\+Z\+E}\mbox{]}\mbox{[}3\mbox{]}}}\label{tile2x11_8c_a68e8cb999f9284e23070ce26977cbfab}
+
+
+Definition at line 20 of file tile2x11.\+c.
+
+
+
+Referenced by main(), and merge\+\_\+text\+\_\+colormap().
+

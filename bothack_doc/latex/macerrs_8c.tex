@@ -1,0 +1,48 @@
+\hypertarget{macerrs_8c}{\section{nethack/sys/mac/macerrs.c File Reference}
+\label{macerrs_8c}\index{nethack/sys/mac/macerrs.\+c@{nethack/sys/mac/macerrs.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macwin.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$Dialogs.\+h$>$}\\*
+{\ttfamily \#include $<$Text\+Utils.\+h$>$}\\*
+{\ttfamily \#include $<$Resources.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{macerrs_8c_ae04dbb69042f37c4c595fc9beb4ca754}{error} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$format,...)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{macerrs_8c_ae04dbb69042f37c4c595fc9beb4ca754}{\index{macerrs.\+c@{macerrs.\+c}!error@{error}}
+\index{error@{error}!macerrs.\+c@{macerrs.\+c}}
+\subsubsection[{error}]{\setlength{\rightskip}{0pt plus 5cm}void error (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}\label{macerrs_8c_ae04dbb69042f37c4c595fc9beb4ca754}
+
+
+Definition at line 19 of file macerrs.\+c.
+
+
+
+References buf, C2\+P(), and N\+U\+L\+L.
+
+
+\begin{DoxyCode}
+20 \{
+21     Str255 \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+22     va\_list ap;
+23 
+24     va\_start(ap, format);
+25     vsprintf((\textcolor{keywordtype}{char} *)buf, format, ap);
+26     va\_end(ap);
+27 
+28     \hyperlink{macfile_8c_a83774f183f96a11c2fb8314369d23c44}{C2P}((\textcolor{keywordtype}{char} *)buf, buf);
+29     ParamText(buf, (StringPtr)\textcolor{stringliteral}{""}, (StringPtr)\textcolor{stringliteral}{""}, (StringPtr)\textcolor{stringliteral}{""});
+30     Alert(128, (ModalFilterUPP) \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+31     ExitToShell();
+32 \}
+\end{DoxyCode}

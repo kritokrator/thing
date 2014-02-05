@@ -1,0 +1,96 @@
+\hypertarget{sys_2wince_2mhmsgwnd_8h}{\section{nethack/sys/wince/mhmsgwnd.h File Reference}
+\label{sys_2wince_2mhmsgwnd_8h}\index{nethack/sys/wince/mhmsgwnd.\+h@{nethack/sys/wince/mhmsgwnd.\+h}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+H\+W\+N\+D \hyperlink{sys_2wince_2mhmsgwnd_8h_a1afe35c0c2ce82505b2146a9e4e3eb93}{mswin\+\_\+init\+\_\+message\+\_\+window} ()
+\item 
+void \hyperlink{sys_2wince_2mhmsgwnd_8h_a83f12dae73f3dbddc7af82b4cc3f90bf}{mswin\+\_\+message\+\_\+window\+\_\+size} (H\+W\+N\+D h\+Wnd, L\+P\+S\+I\+Z\+E sz)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{sys_2wince_2mhmsgwnd_8h_a1afe35c0c2ce82505b2146a9e4e3eb93}{\index{sys/wince/mhmsgwnd.\+h@{sys/wince/mhmsgwnd.\+h}!mswin\+\_\+init\+\_\+message\+\_\+window@{mswin\+\_\+init\+\_\+message\+\_\+window}}
+\index{mswin\+\_\+init\+\_\+message\+\_\+window@{mswin\+\_\+init\+\_\+message\+\_\+window}!sys/wince/mhmsgwnd.\+h@{sys/wince/mhmsgwnd.\+h}}
+\subsubsection[{mswin\+\_\+init\+\_\+message\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}H\+W\+N\+D mswin\+\_\+init\+\_\+message\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhmsgwnd_8h_a1afe35c0c2ce82505b2146a9e4e3eb93}
+
+
+Definition at line 54 of file mhmsgwnd.\+c.
+
+
+\begin{DoxyCode}
+54                                   \{
+55     \textcolor{keyword}{static} \textcolor{keywordtype}{int} run\_once = 0;
+56     HWND ret;
+57     DWORD style;
+58 
+59     \textcolor{keywordflow}{if}( !run\_once ) \{
+60         \hyperlink{sys_2wince_2mhmsgwnd_8c_a97d883487d43019621db34a81921eb27}{register\_message\_window\_class}( );
+61         run\_once = 1;
+62     \}
+63 
+64 \textcolor{preprocessor}{#ifdef MSG\_WRAP\_TEXT            }
+65     style = WS\_BORDER | WS\_CHILD | WS\_CLIPSIBLINGS | WS\_VSCROLL;
+66 \textcolor{preprocessor}{#else}
+67     style = WS\_BORDER | WS\_CHILD | WS\_CLIPSIBLINGS | WS\_VSCROLL | WS\_HSCROLL;
+68 \textcolor{preprocessor}{#endif}
+69 
+70     ret = CreateWindow(
+71             \hyperlink{sys_2wince_2mhmsgwnd_8c_a787ab0593b5cdc6e80e8602488f03810}{szMessageWindowClass},   \textcolor{comment}{/* registered class name */}
+72             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},                   \textcolor{comment}{/* window name */}           
+73             style, \textcolor{comment}{/* window style */}
+74             0,   \textcolor{comment}{/* horizontal position of window */}
+75             0,   \textcolor{comment}{/* vertical position of window */}
+76             0,   \textcolor{comment}{/* window width */}
+77             0,   \textcolor{comment}{/* window height - set it later */}
+78             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,   \textcolor{comment}{/* handle to parent or owner window */}
+79             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},                   \textcolor{comment}{/* menu handle or child identifier */}
+80             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,       \textcolor{comment}{/* handle to application instance */}
+81             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );                 \textcolor{comment}{/* window-creation data */}
+82 
+83     \textcolor{keywordflow}{if}( !ret ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create message window"});
+84 
+85     \textcolor{keywordflow}{return} ret;
+86 \}
+\end{DoxyCode}
+\hypertarget{sys_2wince_2mhmsgwnd_8h_a83f12dae73f3dbddc7af82b4cc3f90bf}{\index{sys/wince/mhmsgwnd.\+h@{sys/wince/mhmsgwnd.\+h}!mswin\+\_\+message\+\_\+window\+\_\+size@{mswin\+\_\+message\+\_\+window\+\_\+size}}
+\index{mswin\+\_\+message\+\_\+window\+\_\+size@{mswin\+\_\+message\+\_\+window\+\_\+size}!sys/wince/mhmsgwnd.\+h@{sys/wince/mhmsgwnd.\+h}}
+\subsubsection[{mswin\+\_\+message\+\_\+window\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+message\+\_\+window\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{L\+P\+S\+I\+Z\+E}]{sz}
+\end{DoxyParamCaption}
+)}}\label{sys_2wince_2mhmsgwnd_8h_a83f12dae73f3dbddc7af82b4cc3f90bf}
+
+
+Definition at line 572 of file mhmsgwnd.\+c.
+
+
+\begin{DoxyCode}
+573 \{
+574     \hyperlink{structmswin__nethack__message__window}{PNHMessageWindow} data;
+575     RECT rt, client\_rt;
+576 
+577     GetWindowRect(hWnd, &rt);
+578 
+579     sz->cx = rt.right - rt.left;
+580     sz->cy = rt.bottom - rt.top;
+581 
+582     data = (\hyperlink{sys_2wince_2mhmsgwnd_8c_aeb30ef6a644f488174e92ff6962b1728}{PNHMessageWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+583     \textcolor{keywordflow}{if}(data) \{
+584         \textcolor{comment}{/* set size to accomodate MSG\_VISIBLE\_LINES, highligh rectangle and}
+585 \textcolor{comment}{           horizontal scroll bar (difference between window rect and client rect */}
+586         GetClientRect(hWnd, &client\_rt);
+587         sz->cy = sz->cy-(client\_rt.bottom - client\_rt.top) +
+588                  data->\hyperlink{structmswin__nethack__message__window_abcddabdea03ae3f33b1459fb81075dae}{yChar} * \hyperlink{sys_2wince_2mhmsgwnd_8c_ab4f3451af76d732aceaf36e3d3043dfb}{MSG\_VISIBLE\_LINES} + 4;
+589     \}
+590 \}
+\end{DoxyCode}

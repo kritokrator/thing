@@ -1,0 +1,428 @@
+\hypertarget{mhcolor_8c}{\section{nethack/sys/wince/mhcolor.c File Reference}
+\label{mhcolor_8c}\index{nethack/sys/wince/mhcolor.\+c@{nethack/sys/wince/mhcolor.\+c}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhcolor.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__brush__table}{t\+\_\+brush\+\_\+table}
+\item 
+struct \hyperlink{structctv}{ctv}
+\item 
+struct \hyperlink{structctbv}{ctbv}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mhcolor_8c_abedd411fd8f21ebc2341b36e510705c5}{T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S}~10
+\item 
+\#define \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E}(win, \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type})~((((win)\&0x\+F\+F)$<$$<$8)$\vert$((type)\&0x\+F\+F))
+\item 
+\#define \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{B\+R\+U\+S\+H\+T\+A\+B\+L\+E\+\_\+\+E\+N\+T\+R\+Y}(opt, win, \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type})
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structctv}{ctv} \hyperlink{mhcolor_8c_a7deda0528ef2a9bc26ef94f5c822e98a}{color\+\_\+table\+\_\+value}
+\item 
+typedef struct \hyperlink{structctbv}{ctbv} \hyperlink{mhcolor_8c_a786928d58e672b8f0681ea87d83f8331}{color\+\_\+table\+\_\+brush\+\_\+value}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{mhcolor_8c_a421d10322b35e0130d750be4438cec86}{mswin\+\_\+color\+\_\+from\+\_\+string} (char $\ast$colorstring, H\+B\+R\+U\+S\+H $\ast$brushptr, C\+O\+L\+O\+R\+R\+E\+F $\ast$colorptr)
+\item 
+void \hyperlink{mhcolor_8c_a9a81b334da59d65759927c9b10affbe8}{mswin\+\_\+init\+\_\+color\+\_\+table} ()
+\item 
+H\+B\+R\+U\+S\+H \hyperlink{mhcolor_8c_ace6d2982c253de50f648605b5352e083}{mswin\+\_\+get\+\_\+brush} (int win\+\_\+type, int \hyperlink{tiletext_8c_ab4cc0e0b57e1c74c77467ab8ab596e3e}{color\+\_\+index})
+\item 
+C\+O\+L\+O\+R\+R\+E\+F \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\+\_\+get\+\_\+color} (int win\+\_\+type, int \hyperlink{tiletext_8c_ab4cc0e0b57e1c74c77467ab8ab596e3e}{color\+\_\+index})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static struct \hyperlink{structt__brush__table}{t\+\_\+brush\+\_\+table} \hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\+\_\+table} \mbox{[}\hyperlink{win_2win32_2mswproc_8c_abedd411fd8f21ebc2341b36e510705c5}{T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S}\mbox{]}
+\item 
+static int \hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\+\_\+brush} = 0
+\item 
+static struct \hyperlink{structt__brush__table}{t\+\_\+brush\+\_\+table} \hyperlink{mhcolor_8c_a7ec5f45d3c6d0d6098b830351ed895aa}{default\+\_\+brush\+\_\+table} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{mhcolor_8c_a7deda0528ef2a9bc26ef94f5c822e98a}{color\+\_\+table\+\_\+value} \hyperlink{mhcolor_8c_a6ec97e42f59514f4b00f28e5ce290578}{color\+\_\+table} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{mhcolor_8c_a786928d58e672b8f0681ea87d83f8331}{color\+\_\+table\+\_\+brush\+\_\+value} \hyperlink{mhcolor_8c_aab854517d75006608c21ef1bfaabf85e}{color\+\_\+table\+\_\+brush} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{\index{mhcolor.\+c@{mhcolor.\+c}!B\+R\+U\+S\+H\+T\+A\+B\+L\+E\+\_\+\+E\+N\+T\+R\+Y@{B\+R\+U\+S\+H\+T\+A\+B\+L\+E\+\_\+\+E\+N\+T\+R\+Y}}
+\index{B\+R\+U\+S\+H\+T\+A\+B\+L\+E\+\_\+\+E\+N\+T\+R\+Y@{B\+R\+U\+S\+H\+T\+A\+B\+L\+E\+\_\+\+E\+N\+T\+R\+Y}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{B\+R\+U\+S\+H\+T\+A\+B\+L\+E\+\_\+\+E\+N\+T\+R\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+U\+S\+H\+T\+A\+B\+L\+E\+\_\+\+E\+N\+T\+R\+Y(
+\begin{DoxyParamCaption}
+\item[{}]{opt, }
+\item[{}]{win, }
+\item[{}]{{\bf type}}
+\end{DoxyParamCaption}
+)}}\label{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[\hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\_brush}].\hyperlink{structt__brush__table_a57770913705596d7bcb667c615c7878b}{code} = \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}((win), (
+      \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type})); \hyperlink{mhcolor_8c_a421d10322b35e0130d750be4438cec86}{\(\backslash\)}
+\hyperlink{mhcolor_8c_a421d10322b35e0130d750be4438cec86}{    mswin\_color\_from\_string}((opt), &\hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[
+      \hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\_brush}].brush, &\hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[\hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\_brush}].color); \hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{\(\backslash\)}
+\hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{    max\_brush}++;
+\end{DoxyCode}
+
+
+Referenced by mswin\+\_\+init\+\_\+color\+\_\+table().
+
+\hypertarget{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{\index{mhcolor.\+c@{mhcolor.\+c}!N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E@{N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E}}
+\index{N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E@{N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E(
+\begin{DoxyParamCaption}
+\item[{}]{win, }
+\item[{}]{{\bf type}}
+\end{DoxyParamCaption}
+)~((((win)\&0x\+F\+F)$<$$<$8)$\vert$((type)\&0x\+F\+F))}}\label{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}
+
+
+Definition at line 10 of file mhcolor.\+c.
+
+
+
+Referenced by mswin\+\_\+get\+\_\+brush(), and mswin\+\_\+get\+\_\+color().
+
+\hypertarget{mhcolor_8c_abedd411fd8f21ebc2341b36e510705c5}{\index{mhcolor.\+c@{mhcolor.\+c}!T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S@{T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S}}
+\index{T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S@{T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S~10}}\label{mhcolor_8c_abedd411fd8f21ebc2341b36e510705c5}
+
+
+Definition at line 9 of file mhcolor.\+c.
+
+
+
+Referenced by mswin\+\_\+color\+\_\+from\+\_\+string().
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{mhcolor_8c_a786928d58e672b8f0681ea87d83f8331}{\index{mhcolor.\+c@{mhcolor.\+c}!color\+\_\+table\+\_\+brush\+\_\+value@{color\+\_\+table\+\_\+brush\+\_\+value}}
+\index{color\+\_\+table\+\_\+brush\+\_\+value@{color\+\_\+table\+\_\+brush\+\_\+value}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{color\+\_\+table\+\_\+brush\+\_\+value}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf ctbv}  {\bf color\+\_\+table\+\_\+brush\+\_\+value}}}\label{mhcolor_8c_a786928d58e672b8f0681ea87d83f8331}
+\hypertarget{mhcolor_8c_a7deda0528ef2a9bc26ef94f5c822e98a}{\index{mhcolor.\+c@{mhcolor.\+c}!color\+\_\+table\+\_\+value@{color\+\_\+table\+\_\+value}}
+\index{color\+\_\+table\+\_\+value@{color\+\_\+table\+\_\+value}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{color\+\_\+table\+\_\+value}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf ctv}  {\bf color\+\_\+table\+\_\+value}}}\label{mhcolor_8c_a7deda0528ef2a9bc26ef94f5c822e98a}
+
+
+\subsection{Function Documentation}
+\hypertarget{mhcolor_8c_a421d10322b35e0130d750be4438cec86}{\index{mhcolor.\+c@{mhcolor.\+c}!mswin\+\_\+color\+\_\+from\+\_\+string@{mswin\+\_\+color\+\_\+from\+\_\+string}}
+\index{mswin\+\_\+color\+\_\+from\+\_\+string@{mswin\+\_\+color\+\_\+from\+\_\+string}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{mswin\+\_\+color\+\_\+from\+\_\+string}]{\setlength{\rightskip}{0pt plus 5cm}static void mswin\+\_\+color\+\_\+from\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{colorstring, }
+\item[{H\+B\+R\+U\+S\+H $\ast$}]{brushptr, }
+\item[{C\+O\+L\+O\+R\+R\+E\+F $\ast$}]{colorptr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcolor_8c_a421d10322b35e0130d750be4438cec86}
+
+
+Definition at line 174 of file mhcolor.\+c.
+
+
+
+References color\+\_\+table, color\+\_\+table\+\_\+brush, ctv\+::colorstring, ctbv\+::colorstring, ctv\+::colorvalue, index(), max\+\_\+brush, N\+U\+L\+L, panic(), R\+G\+B, S\+Y\+S\+C\+L\+R\+\_\+\+T\+O\+\_\+\+B\+R\+U\+S\+H, ctbv\+::syscolorvalue, and T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S.
+
+
+\begin{DoxyCode}
+175 \{
+176     \hyperlink{structctv}{color\_table\_value} *ctv\_ptr = \hyperlink{mhcolor_8c_a6ec97e42f59514f4b00f28e5ce290578}{color\_table};
+177     \hyperlink{structctbv}{color\_table\_brush\_value} *ctbv\_ptr = \hyperlink{mhcolor_8c_aab854517d75006608c21ef1bfaabf85e}{color\_table\_brush};
+178     \textcolor{keywordtype}{int} red\_value, blue\_value, green\_value;
+179     \textcolor{keyword}{static} \textcolor{keywordtype}{char} *hexadecimals = \textcolor{stringliteral}{"0123456789abcdef"};
+180 
+181     *brushptr = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+182     *colorptr = \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(0, 0, 0);
+183 
+184     \textcolor{keywordflow}{if} (colorstring == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \textcolor{keywordflow}{return};
+185     \textcolor{keywordflow}{if} (*colorstring == \textcolor{charliteral}{'#'}) \{
+186         \textcolor{keywordflow}{if} (strlen(++colorstring) != 6) \textcolor{keywordflow}{return};
+187 
+188         red\_value = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(hexadecimals, tolower(*colorstring++)) - hexadecimals;
+189         red\_value *= 16;
+190         red\_value += \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(hexadecimals, tolower(*colorstring++)) - hexadecimals;
+191 
+192         green\_value = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(hexadecimals, tolower(*colorstring++)) - hexadecimals;
+193         green\_value *= 16;
+194         green\_value += \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(hexadecimals, tolower(*colorstring++)) - hexadecimals;
+195 
+196         blue\_value = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(hexadecimals, tolower(*colorstring++)) - hexadecimals;
+197         blue\_value *= 16;
+198         blue\_value += \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(hexadecimals, tolower(*colorstring++)) - hexadecimals;
+199 
+200         *colorptr = \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(red\_value, blue\_value, green\_value);
+201     \} \textcolor{keywordflow}{else} \{
+202         \textcolor{keywordflow}{while} (*ctv\_ptr->\hyperlink{structctv_a4185f1cf829623f079e60feb10d9995e}{colorstring} && \_stricmp(ctv\_ptr->\hyperlink{structctv_a4185f1cf829623f079e60feb10d9995e}{colorstring}, colorstring))
+203         ++ctv\_ptr;
+204         \textcolor{keywordflow}{if} (*ctv\_ptr->\hyperlink{structctv_a4185f1cf829623f079e60feb10d9995e}{colorstring}) \{
+205         *colorptr = ctv\_ptr->\hyperlink{structctv_ad33d691d43f0fa0402011724fd4b2f04}{colorvalue};
+206         \} \textcolor{keywordflow}{else} \{
+207           \textcolor{keywordflow}{while} (*ctbv\_ptr->\hyperlink{structctbv_a6576045a02ca8194f79f3201927a0806}{colorstring} && \_stricmp(ctbv\_ptr->
+      \hyperlink{structctbv_a6576045a02ca8194f79f3201927a0806}{colorstring}, colorstring))
+208             ++ctbv\_ptr;
+209         \textcolor{keywordflow}{if} (*ctbv\_ptr->\hyperlink{structctbv_a6576045a02ca8194f79f3201927a0806}{colorstring}) \{
+210             *brushptr = \hyperlink{mhcolor_8h_ababa49ed211db00c071857fdd982ece1}{SYSCLR\_TO\_BRUSH}(ctbv\_ptr->\hyperlink{structctbv_a17822b698094e253368ff07fdf2fcf63}{syscolorvalue});
+211             *colorptr = GetSysColor(ctbv\_ptr->\hyperlink{structctbv_a17822b698094e253368ff07fdf2fcf63}{syscolorvalue});
+212         \}
+213         \}
+214     \}
+215     \textcolor{keywordflow}{if} (\hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\_brush} > \hyperlink{mhcolor_8c_abedd411fd8f21ebc2341b36e510705c5}{TOTAL\_BRUSHES}) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Too many colors!"});
+216     *brushptr = CreateSolidBrush(*colorptr);
+217 \}
+\end{DoxyCode}
+\hypertarget{mhcolor_8c_ace6d2982c253de50f648605b5352e083}{\index{mhcolor.\+c@{mhcolor.\+c}!mswin\+\_\+get\+\_\+brush@{mswin\+\_\+get\+\_\+brush}}
+\index{mswin\+\_\+get\+\_\+brush@{mswin\+\_\+get\+\_\+brush}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{mswin\+\_\+get\+\_\+brush}]{\setlength{\rightskip}{0pt plus 5cm}H\+B\+R\+U\+S\+H mswin\+\_\+get\+\_\+brush (
+\begin{DoxyParamCaption}
+\item[{int}]{win\+\_\+type, }
+\item[{int}]{color\+\_\+index}
+\end{DoxyParamCaption}
+)}}\label{mhcolor_8c_ace6d2982c253de50f648605b5352e083}
+
+
+Definition at line 156 of file mhcolor.\+c.
+
+
+
+References t\+\_\+brush\+\_\+table\+::brush, brush\+\_\+table, t\+\_\+brush\+\_\+table\+::code, max\+\_\+brush, N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E, and N\+U\+L\+L.
+
+
+
+Referenced by Menu\+Wnd\+Proc(), register\+\_\+command\+\_\+window\+\_\+class(), register\+\_\+message\+\_\+window\+\_\+class(), register\+\_\+status\+\_\+window\+\_\+class(), and Text\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+157 \{
+158     \textcolor{keywordtype}{int} i;
+159     \textcolor{keywordflow}{for}(i=0; i<\hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\_brush}; i++)
+160         \textcolor{keywordflow}{if}( \hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].code == \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(win\_type, 
+      \hyperlink{tiletext_8c_ab4cc0e0b57e1c74c77467ab8ab596e3e}{color\_index}) )
+161             \textcolor{keywordflow}{return} \hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].\hyperlink{structt__brush__table_aa0982ae9a552ca5a5ee7fee393231b8c}{brush};
+162     \textcolor{keywordflow}{return} \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+163 \}
+\end{DoxyCode}
+\hypertarget{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{\index{mhcolor.\+c@{mhcolor.\+c}!mswin\+\_\+get\+\_\+color@{mswin\+\_\+get\+\_\+color}}
+\index{mswin\+\_\+get\+\_\+color@{mswin\+\_\+get\+\_\+color}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{mswin\+\_\+get\+\_\+color}]{\setlength{\rightskip}{0pt plus 5cm}C\+O\+L\+O\+R\+R\+E\+F mswin\+\_\+get\+\_\+color (
+\begin{DoxyParamCaption}
+\item[{int}]{win\+\_\+type, }
+\item[{int}]{color\+\_\+index}
+\end{DoxyParamCaption}
+)}}\label{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}
+
+
+Definition at line 165 of file mhcolor.\+c.
+
+
+
+References brush\+\_\+table, t\+\_\+brush\+\_\+table\+::code, t\+\_\+brush\+\_\+table\+::color, max\+\_\+brush, N\+H\+B\+R\+U\+S\+H\+\_\+\+C\+O\+D\+E, and R\+G\+B.
+
+
+
+Referenced by Menu\+Wnd\+Proc(), on\+Draw\+Item(), on\+Paint(), Set\+Menu\+List\+Type(), Status\+Wnd\+Proc(), and Text\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+166 \{
+167     \textcolor{keywordtype}{int} i;
+168     \textcolor{keywordflow}{for}(i=0; i<\hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\_brush}; i++)
+169         \textcolor{keywordflow}{if}( \hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].code == \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(win\_type, 
+      \hyperlink{tiletext_8c_ab4cc0e0b57e1c74c77467ab8ab596e3e}{color\_index}) )
+170             \textcolor{keywordflow}{return} \hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].\hyperlink{structt__brush__table_abd455fee406789caa678d28bd5452914}{color};
+171     \textcolor{keywordflow}{return} \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(0, 0, 0);
+172 \}
+\end{DoxyCode}
+\hypertarget{mhcolor_8c_a9a81b334da59d65759927c9b10affbe8}{\index{mhcolor.\+c@{mhcolor.\+c}!mswin\+\_\+init\+\_\+color\+\_\+table@{mswin\+\_\+init\+\_\+color\+\_\+table}}
+\index{mswin\+\_\+init\+\_\+color\+\_\+table@{mswin\+\_\+init\+\_\+color\+\_\+table}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{mswin\+\_\+init\+\_\+color\+\_\+table}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+init\+\_\+color\+\_\+table (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mhcolor_8c_a9a81b334da59d65759927c9b10affbe8}
+
+
+Definition at line 114 of file mhcolor.\+c.
+
+
+
+References t\+\_\+brush\+\_\+table\+::brush, brush\+\_\+table, B\+R\+U\+S\+H\+T\+A\+B\+L\+E\+\_\+\+E\+N\+T\+R\+Y, t\+\_\+brush\+\_\+table\+::code, t\+\_\+brush\+\_\+table\+::color, iflags, max\+\_\+brush, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+G, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+F\+G, N\+H\+W\+\_\+\+K\+E\+Y\+P\+A\+D, N\+H\+W\+\_\+\+M\+E\+N\+U, N\+H\+W\+\_\+\+M\+E\+S\+S\+A\+G\+E, N\+H\+W\+\_\+\+S\+T\+A\+T\+U\+S, N\+H\+W\+\_\+\+T\+E\+X\+T, instance\+\_\+flags\+::wc\+\_\+backgrnd\+\_\+menu, instance\+\_\+flags\+::wc\+\_\+backgrnd\+\_\+message, instance\+\_\+flags\+::wc\+\_\+backgrnd\+\_\+status, instance\+\_\+flags\+::wc\+\_\+backgrnd\+\_\+text, instance\+\_\+flags\+::wc\+\_\+foregrnd\+\_\+menu, instance\+\_\+flags\+::wc\+\_\+foregrnd\+\_\+message, instance\+\_\+flags\+::wc\+\_\+foregrnd\+\_\+status, and instance\+\_\+flags\+::wc\+\_\+foregrnd\+\_\+text.
+
+
+
+Referenced by mswin\+\_\+init\+\_\+nhwindows().
+
+
+\begin{DoxyCode}
+115 \{
+116     \textcolor{keywordtype}{int} i;
+117     \textcolor{keyword}{struct }\hyperlink{structt__brush__table}{t\_brush\_table}* p;
+118 
+119     \textcolor{comment}{/* cleanup */}
+120     \textcolor{keywordflow}{for}( i=0; i<\hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\_brush}; i++ )
+121         DeleteObject(\hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].\hyperlink{structt__brush__table_aa0982ae9a552ca5a5ee7fee393231b8c}{brush});
+122     max\_brush = 0;
+123 
+124     \textcolor{comment}{/* initialize brush table */}
+125 \textcolor{preprocessor}{#define BRUSHTABLE\_ENTRY(opt, win, type) \(\backslash\)}
+126 \textcolor{preprocessor}{    brush\_table[max\_brush].code = NHBRUSH\_CODE((win), (type)); \(\backslash\)}
+127 \textcolor{preprocessor}{    mswin\_color\_from\_string((opt), &brush\_table[max\_brush].brush, &brush\_table[max\_brush].color); \(\backslash\)}
+128 \textcolor{preprocessor}{    max\_brush++;}
+129 
+130     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a4854ab0ecbaf931d125e8ddf187bcaa8}{wc\_foregrnd\_menu}, 
+      \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG});
+131     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a31d2ba572a9da80bba15387b0ebb29c2}{wc\_foregrnd\_message}, 
+      \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG});
+132     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_ab245859108fb1a411f0d98495eee3c7f}{wc\_foregrnd\_status}, 
+      \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG});
+133     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_ac91fe1569b4bfb4746b6531a98577b86}{wc\_foregrnd\_text}, 
+      \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG});
+134     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a31d2ba572a9da80bba15387b0ebb29c2}{wc\_foregrnd\_message}, 
+      \hyperlink{sys_2wince_2winMS_8h_a1ac6eaf855c121d36bce951250a1f2b2}{NHW\_KEYPAD}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG});
+135 
+136     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_ae5094152d080f61309e0bd0bf663fa46}{wc\_backgrnd\_menu}, 
+      \hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG});
+137     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a0d75ca0bd6d66c064a8a886fbf2982fb}{wc\_backgrnd\_message}, 
+      \hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG});
+138     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_acacbb00c74728d404a78dc70f76710a5}{wc\_backgrnd\_status}, 
+      \hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG});
+139     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a82623e4be9e2d9e800057ab9dee47186}{wc\_backgrnd\_text}, 
+      \hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG});
+140     \hyperlink{mhcolor_8c_a23d69affd31bedec214c97a1b58872d5}{BRUSHTABLE\_ENTRY}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a0d75ca0bd6d66c064a8a886fbf2982fb}{wc\_backgrnd\_message}, 
+      \hyperlink{sys_2wince_2winMS_8h_a1ac6eaf855c121d36bce951250a1f2b2}{NHW\_KEYPAD}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG});
+141 \textcolor{preprocessor}{#undef BRUSHTABLE\_ENTRY}
+142 
+143     \textcolor{comment}{/* go through the values and fill in "blanks" (use default values) */}
+144     \textcolor{keywordflow}{for}( i=0; i<\hyperlink{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{max\_brush}; i++ ) \{
+145         \textcolor{keywordflow}{if}( !\hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].brush ) \{
+146             \textcolor{keywordflow}{for}( p = \hyperlink{mhcolor_8c_a7ec5f45d3c6d0d6098b830351ed895aa}{default\_brush\_table}; p->\hyperlink{structt__brush__table_a57770913705596d7bcb667c615c7878b}{code} != -1; p++ ) \{
+147                 \textcolor{keywordflow}{if}( p->\hyperlink{structt__brush__table_a57770913705596d7bcb667c615c7878b}{code}==\hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].\hyperlink{structt__brush__table_a57770913705596d7bcb667c615c7878b}{code} ) \{
+148                     \hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].\hyperlink{structt__brush__table_aa0982ae9a552ca5a5ee7fee393231b8c}{brush} = CreateSolidBrush(p->
+      \hyperlink{structt__brush__table_abd455fee406789caa678d28bd5452914}{color});
+149                     \hyperlink{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{brush\_table}[i].\hyperlink{structt__brush__table_abd455fee406789caa678d28bd5452914}{color} = p->\hyperlink{structt__brush__table_abd455fee406789caa678d28bd5452914}{color};
+150                 \}
+151             \}
+152         \}
+153     \}
+154 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}{\index{mhcolor.\+c@{mhcolor.\+c}!brush\+\_\+table@{brush\+\_\+table}}
+\index{brush\+\_\+table@{brush\+\_\+table}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{brush\+\_\+table}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\+\_\+brush\+\_\+table} brush\+\_\+table\mbox{[}{\bf T\+O\+T\+A\+L\+\_\+\+B\+R\+U\+S\+H\+E\+S}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcolor_8c_af71c2da482eada1f96788e8dc3fbdb65}
+
+
+Definition at line 17 of file mhcolor.\+c.
+
+
+
+Referenced by mswin\+\_\+get\+\_\+brush(), mswin\+\_\+get\+\_\+color(), and mswin\+\_\+init\+\_\+color\+\_\+table().
+
+\hypertarget{mhcolor_8c_a6ec97e42f59514f4b00f28e5ce290578}{\index{mhcolor.\+c@{mhcolor.\+c}!color\+\_\+table@{color\+\_\+table}}
+\index{color\+\_\+table@{color\+\_\+table}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{color\+\_\+table}]{\setlength{\rightskip}{0pt plus 5cm}{\bf color\+\_\+table\+\_\+value} color\+\_\+table\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcolor_8c_a6ec97e42f59514f4b00f28e5ce290578}
+
+
+Definition at line 52 of file mhcolor.\+c.
+
+
+
+Referenced by mswin\+\_\+color\+\_\+from\+\_\+string().
+
+\hypertarget{mhcolor_8c_aab854517d75006608c21ef1bfaabf85e}{\index{mhcolor.\+c@{mhcolor.\+c}!color\+\_\+table\+\_\+brush@{color\+\_\+table\+\_\+brush}}
+\index{color\+\_\+table\+\_\+brush@{color\+\_\+table\+\_\+brush}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{color\+\_\+table\+\_\+brush}]{\setlength{\rightskip}{0pt plus 5cm}{\bf color\+\_\+table\+\_\+brush\+\_\+value} color\+\_\+table\+\_\+brush\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcolor_8c_aab854517d75006608c21ef1bfaabf85e}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{ \textcolor{stringliteral}{"activeborder"},   COLOR\_ACTIVEBORDER  \},
+    \{ \textcolor{stringliteral}{"activecaption"},  COLOR\_ACTIVECAPTION \},
+    \{ \textcolor{stringliteral}{"appworkspace"},   COLOR\_APPWORKSPACE  \},
+    \{ \textcolor{stringliteral}{"background"},     COLOR\_BACKGROUND    \},
+    \{ \textcolor{stringliteral}{"btnface"},        COLOR\_BTNFACE       \},
+    \{ \textcolor{stringliteral}{"btnshadow"},      COLOR\_BTNSHADOW     \},
+    \{ \textcolor{stringliteral}{"btntext"},        COLOR\_BTNTEXT       \},
+    \{ \textcolor{stringliteral}{"captiontext"},    COLOR\_CAPTIONTEXT   \},
+    \{ \textcolor{stringliteral}{"graytext"},       COLOR\_GRAYTEXT      \},
+    \{ \textcolor{stringliteral}{"greytext"},       COLOR\_GRAYTEXT      \},
+    \{ \textcolor{stringliteral}{"highlight"},      COLOR\_HIGHLIGHT     \},
+    \{ \textcolor{stringliteral}{"highlighttext"},  COLOR\_HIGHLIGHTTEXT \},
+    \{ \textcolor{stringliteral}{"inactiveborder"},     COLOR\_INACTIVEBORDER    \},
+    \{ \textcolor{stringliteral}{"inactivecaption"},    COLOR\_INACTIVECAPTION   \},
+    \{ \textcolor{stringliteral}{"menu"},       COLOR\_MENU      \},
+    \{ \textcolor{stringliteral}{"menutext"},       COLOR\_MENUTEXT      \},
+    \{ \textcolor{stringliteral}{"scrollbar"},      COLOR\_SCROLLBAR     \},
+    \{ \textcolor{stringliteral}{"window"},     COLOR\_WINDOW        \},
+    \{ \textcolor{stringliteral}{"windowframe"},    COLOR\_WINDOWFRAME   \},
+    \{ \textcolor{stringliteral}{"windowtext"},     COLOR\_WINDOWTEXT    \},
+    \{ \textcolor{stringliteral}{""},           -1              \},
+\}
+\end{DoxyCode}
+
+
+Definition at line 90 of file mhcolor.\+c.
+
+
+
+Referenced by mswin\+\_\+color\+\_\+from\+\_\+string().
+
+\hypertarget{mhcolor_8c_a7ec5f45d3c6d0d6098b830351ed895aa}{\index{mhcolor.\+c@{mhcolor.\+c}!default\+\_\+brush\+\_\+table@{default\+\_\+brush\+\_\+table}}
+\index{default\+\_\+brush\+\_\+table@{default\+\_\+brush\+\_\+table}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{default\+\_\+brush\+\_\+table}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf t\+\_\+brush\+\_\+table} default\+\_\+brush\+\_\+table\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcolor_8c_a7ec5f45d3c6d0d6098b830351ed895aa}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= 
+\{
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(0, 0, 0) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(0, 0, 0) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(0, 0, 0) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(0, 0, 0) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{sys_2wince_2winMS_8h_a1ac6eaf855c121d36bce951250a1f2b2}{NHW\_KEYPAD}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(0, 0, 0) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}, \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(96, 96, 96) \},
+
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(255, 255, 255) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_ab3d471e84a363992b5a483392d0b2389}{NHW\_MESSAGE}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(192, 192, 192) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_a8ed5b99ab7f854ace5f67f89aaae5404}{NHW\_STATUS}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(192, 192, 192) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(255, 255, 255) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{sys_2wince_2winMS_8h_a1ac6eaf855c121d36bce951250a1f2b2}{NHW\_KEYPAD}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(255, 255, 255) \},
+    \{ \hyperlink{mhcolor_8c_ac454d1e2cf778f885055e25a27cbd775}{NHBRUSH\_CODE}(\hyperlink{wintype_8h_a756172f2e22a3d287cfaf6bc771df606}{NHW\_MAP}, \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(192, 192, 192) \},
+    \{ -1, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB}(0, 0, 0) \}
+\}
+\end{DoxyCode}
+
+
+Definition at line 20 of file mhcolor.\+c.
+
+\hypertarget{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}{\index{mhcolor.\+c@{mhcolor.\+c}!max\+\_\+brush@{max\+\_\+brush}}
+\index{max\+\_\+brush@{max\+\_\+brush}!mhcolor.\+c@{mhcolor.\+c}}
+\subsubsection[{max\+\_\+brush}]{\setlength{\rightskip}{0pt plus 5cm}int max\+\_\+brush = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcolor_8c_a20c8fa8f43129edac2ce0d69ca25368c}
+
+
+Definition at line 18 of file mhcolor.\+c.
+
+
+
+Referenced by mswin\+\_\+color\+\_\+from\+\_\+string(), mswin\+\_\+get\+\_\+brush(), mswin\+\_\+get\+\_\+color(), and mswin\+\_\+init\+\_\+color\+\_\+table().
+

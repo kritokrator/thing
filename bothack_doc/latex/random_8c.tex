@@ -1,0 +1,650 @@
+\hypertarget{random_8c}{\section{nethack/sys/share/random.c File Reference}
+\label{random_8c}\index{nethack/sys/share/random.\+c@{nethack/sys/share/random.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{T\+Y\+P\+E\+\_\+0}~0		/$\ast$ linear congruential $\ast$/
+\item 
+\#define \hyperlink{random_8c_a3c1b328e567007cf8b2a488f7da20cd2}{B\+R\+E\+A\+K\+\_\+0}~8
+\item 
+\#define \hyperlink{random_8c_a4b02509c5d048cb2525e0066d7c2f191}{D\+E\+G\+\_\+0}~0
+\item 
+\#define \hyperlink{random_8c_ae66d150b37bdc4fb534c6cf4fd6927f5}{S\+E\+P\+\_\+0}~0
+\item 
+\#define \hyperlink{random_8c_adf00e147e54d287fe67232fc3c03881f}{T\+Y\+P\+E\+\_\+1}~1		/$\ast$ x$\ast$$\ast$7 + x$\ast$$\ast$3 + 1 $\ast$/
+\item 
+\#define \hyperlink{random_8c_a2f8ab1a0f7425aaa202c501115ac97ac}{B\+R\+E\+A\+K\+\_\+1}~32
+\item 
+\#define \hyperlink{random_8c_a0be2834c56b0aaa7a6d34986f7921200}{D\+E\+G\+\_\+1}~7
+\item 
+\#define \hyperlink{random_8c_a706a88d02086f617d9a4112903e47e41}{S\+E\+P\+\_\+1}~3
+\item 
+\#define \hyperlink{random_8c_a8fde5bf4966bf8bead39337acde60635}{T\+Y\+P\+E\+\_\+2}~2		/$\ast$ x$\ast$$\ast$15 + x + 1 $\ast$/
+\item 
+\#define \hyperlink{random_8c_a05b3315f5cfe0296dcd69a52f1655c6d}{B\+R\+E\+A\+K\+\_\+2}~64
+\item 
+\#define \hyperlink{random_8c_a3ac87cdf960466ff1225acc151e1b990}{D\+E\+G\+\_\+2}~15
+\item 
+\#define \hyperlink{random_8c_a7af722c75c13c22d73bbcca1088b8dfa}{S\+E\+P\+\_\+2}~1
+\item 
+\#define \hyperlink{random_8c_a625df8982f188845257d31ea0e6c59e3}{T\+Y\+P\+E\+\_\+3}~3		/$\ast$ x$\ast$$\ast$31 + x$\ast$$\ast$3 + 1 $\ast$/
+\item 
+\#define \hyperlink{random_8c_ae301c8961d39d5bb4f771779e7f892a5}{B\+R\+E\+A\+K\+\_\+3}~128
+\item 
+\#define \hyperlink{random_8c_a551433e25d99861799734a5d64404a75}{D\+E\+G\+\_\+3}~31
+\item 
+\#define \hyperlink{random_8c_a2edba143f3e114a7eb2e12e87cd22168}{S\+E\+P\+\_\+3}~3
+\item 
+\#define \hyperlink{random_8c_a1eea18b6fa0e026859776264e7b70d06}{T\+Y\+P\+E\+\_\+4}~4		/$\ast$ x$\ast$$\ast$63 + x + 1 $\ast$/
+\item 
+\#define \hyperlink{random_8c_a5b20d74b1c51063cf48aac12871c508b}{B\+R\+E\+A\+K\+\_\+4}~256
+\item 
+\#define \hyperlink{random_8c_aa5908dcf53ecbe2f7e9ba5c3ffca01c1}{D\+E\+G\+\_\+4}~63
+\item 
+\#define \hyperlink{random_8c_a579e3bd1ae8bb600f9eab886a82bf075}{S\+E\+P\+\_\+4}~1
+\item 
+\#define \hyperlink{random_8c_aa30dc4b03b37928eb85a5a389728323b}{M\+A\+X\+\_\+\+T\+Y\+P\+E\+S}~5		/$\ast$ \hyperlink{dialogs_8c_affe776513b24d84b39af8ab0930fef7f}{max} number of types above $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{random_8c_a6d78029d8868ca3f896ff279fb1b99ab}{srandom} (unsigned x)
+\item 
+char $\ast$ \hyperlink{random_8c_ade58feedae0463c0a524095c4f6d5d36}{initstate} (unsigned seed, char $\ast$arg\+\_\+state, int n)
+\item 
+char $\ast$ \hyperlink{random_8c_a6d426e2d2a6b9a1e78919912fba164a4}{setstate} (char $\ast$arg\+\_\+state)
+\item 
+long \hyperlink{random_8c_acf29b9fb7dacb956c6875fd784f855c3}{random} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{random_8c_ae898ac3dafaa5ae84b724d858b381c4e}{degrees} \mbox{[}\hyperlink{random_8c_aa30dc4b03b37928eb85a5a389728323b}{M\+A\+X\+\_\+\+T\+Y\+P\+E\+S}\mbox{]}
+\item 
+static int \hyperlink{random_8c_a562afbec545a7b1a735571c8f385f9c9}{seps} \mbox{[}\hyperlink{random_8c_aa30dc4b03b37928eb85a5a389728323b}{M\+A\+X\+\_\+\+T\+Y\+P\+E\+S}\mbox{]}
+\item 
+static long \hyperlink{random_8c_a5f586124cfd60252e4117aa519955719}{randtbl} \mbox{[}\hyperlink{random_8c_a551433e25d99861799734a5d64404a75}{D\+E\+G\+\_\+3}+1\mbox{]}
+\item 
+static long $\ast$ \hyperlink{random_8c_ac1903d0150310bba699b56e1f230f165}{fptr} = \&\hyperlink{random_8c_a5f586124cfd60252e4117aa519955719}{randtbl}\mbox{[} \hyperlink{random_8c_a2edba143f3e114a7eb2e12e87cd22168}{S\+E\+P\+\_\+3} + 1 \mbox{]}
+\item 
+static long $\ast$ \hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr} = \&\hyperlink{random_8c_a5f586124cfd60252e4117aa519955719}{randtbl}\mbox{[} 1 \mbox{]}
+\item 
+static long $\ast$ \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state} = \&\hyperlink{random_8c_a5f586124cfd60252e4117aa519955719}{randtbl}\mbox{[} 1 \mbox{]}
+\item 
+static int \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\+\_\+type} = \hyperlink{random_8c_a625df8982f188845257d31ea0e6c59e3}{T\+Y\+P\+E\+\_\+3}
+\item 
+static int \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\+\_\+deg} = \hyperlink{random_8c_a551433e25d99861799734a5d64404a75}{D\+E\+G\+\_\+3}
+\item 
+static int \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\+\_\+sep} = \hyperlink{random_8c_a2edba143f3e114a7eb2e12e87cd22168}{S\+E\+P\+\_\+3}
+\item 
+static long $\ast$ \hyperlink{random_8c_ac93fde2d7055cf7b879914da1ec91c56}{end\+\_\+ptr} = \&\hyperlink{random_8c_a5f586124cfd60252e4117aa519955719}{randtbl}\mbox{[} \hyperlink{random_8c_a551433e25d99861799734a5d64404a75}{D\+E\+G\+\_\+3} + 1 \mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{random_8c_a3c1b328e567007cf8b2a488f7da20cd2}{\index{random.\+c@{random.\+c}!B\+R\+E\+A\+K\+\_\+0@{B\+R\+E\+A\+K\+\_\+0}}
+\index{B\+R\+E\+A\+K\+\_\+0@{B\+R\+E\+A\+K\+\_\+0}!random.\+c@{random.\+c}}
+\subsubsection[{B\+R\+E\+A\+K\+\_\+0}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+E\+A\+K\+\_\+0~8}}\label{random_8c_a3c1b328e567007cf8b2a488f7da20cd2}
+
+
+Definition at line 91 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a2f8ab1a0f7425aaa202c501115ac97ac}{\index{random.\+c@{random.\+c}!B\+R\+E\+A\+K\+\_\+1@{B\+R\+E\+A\+K\+\_\+1}}
+\index{B\+R\+E\+A\+K\+\_\+1@{B\+R\+E\+A\+K\+\_\+1}!random.\+c@{random.\+c}}
+\subsubsection[{B\+R\+E\+A\+K\+\_\+1}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+E\+A\+K\+\_\+1~32}}\label{random_8c_a2f8ab1a0f7425aaa202c501115ac97ac}
+
+
+Definition at line 96 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a05b3315f5cfe0296dcd69a52f1655c6d}{\index{random.\+c@{random.\+c}!B\+R\+E\+A\+K\+\_\+2@{B\+R\+E\+A\+K\+\_\+2}}
+\index{B\+R\+E\+A\+K\+\_\+2@{B\+R\+E\+A\+K\+\_\+2}!random.\+c@{random.\+c}}
+\subsubsection[{B\+R\+E\+A\+K\+\_\+2}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+E\+A\+K\+\_\+2~64}}\label{random_8c_a05b3315f5cfe0296dcd69a52f1655c6d}
+
+
+Definition at line 101 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_ae301c8961d39d5bb4f771779e7f892a5}{\index{random.\+c@{random.\+c}!B\+R\+E\+A\+K\+\_\+3@{B\+R\+E\+A\+K\+\_\+3}}
+\index{B\+R\+E\+A\+K\+\_\+3@{B\+R\+E\+A\+K\+\_\+3}!random.\+c@{random.\+c}}
+\subsubsection[{B\+R\+E\+A\+K\+\_\+3}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+E\+A\+K\+\_\+3~128}}\label{random_8c_ae301c8961d39d5bb4f771779e7f892a5}
+
+
+Definition at line 106 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a5b20d74b1c51063cf48aac12871c508b}{\index{random.\+c@{random.\+c}!B\+R\+E\+A\+K\+\_\+4@{B\+R\+E\+A\+K\+\_\+4}}
+\index{B\+R\+E\+A\+K\+\_\+4@{B\+R\+E\+A\+K\+\_\+4}!random.\+c@{random.\+c}}
+\subsubsection[{B\+R\+E\+A\+K\+\_\+4}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+E\+A\+K\+\_\+4~256}}\label{random_8c_a5b20d74b1c51063cf48aac12871c508b}
+
+
+Definition at line 111 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a4b02509c5d048cb2525e0066d7c2f191}{\index{random.\+c@{random.\+c}!D\+E\+G\+\_\+0@{D\+E\+G\+\_\+0}}
+\index{D\+E\+G\+\_\+0@{D\+E\+G\+\_\+0}!random.\+c@{random.\+c}}
+\subsubsection[{D\+E\+G\+\_\+0}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+G\+\_\+0~0}}\label{random_8c_a4b02509c5d048cb2525e0066d7c2f191}
+
+
+Definition at line 92 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a0be2834c56b0aaa7a6d34986f7921200}{\index{random.\+c@{random.\+c}!D\+E\+G\+\_\+1@{D\+E\+G\+\_\+1}}
+\index{D\+E\+G\+\_\+1@{D\+E\+G\+\_\+1}!random.\+c@{random.\+c}}
+\subsubsection[{D\+E\+G\+\_\+1}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+G\+\_\+1~7}}\label{random_8c_a0be2834c56b0aaa7a6d34986f7921200}
+
+
+Definition at line 97 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a3ac87cdf960466ff1225acc151e1b990}{\index{random.\+c@{random.\+c}!D\+E\+G\+\_\+2@{D\+E\+G\+\_\+2}}
+\index{D\+E\+G\+\_\+2@{D\+E\+G\+\_\+2}!random.\+c@{random.\+c}}
+\subsubsection[{D\+E\+G\+\_\+2}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+G\+\_\+2~15}}\label{random_8c_a3ac87cdf960466ff1225acc151e1b990}
+
+
+Definition at line 102 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a551433e25d99861799734a5d64404a75}{\index{random.\+c@{random.\+c}!D\+E\+G\+\_\+3@{D\+E\+G\+\_\+3}}
+\index{D\+E\+G\+\_\+3@{D\+E\+G\+\_\+3}!random.\+c@{random.\+c}}
+\subsubsection[{D\+E\+G\+\_\+3}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+G\+\_\+3~31}}\label{random_8c_a551433e25d99861799734a5d64404a75}
+
+
+Definition at line 107 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_aa5908dcf53ecbe2f7e9ba5c3ffca01c1}{\index{random.\+c@{random.\+c}!D\+E\+G\+\_\+4@{D\+E\+G\+\_\+4}}
+\index{D\+E\+G\+\_\+4@{D\+E\+G\+\_\+4}!random.\+c@{random.\+c}}
+\subsubsection[{D\+E\+G\+\_\+4}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+G\+\_\+4~63}}\label{random_8c_aa5908dcf53ecbe2f7e9ba5c3ffca01c1}
+
+
+Definition at line 112 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_aa30dc4b03b37928eb85a5a389728323b}{\index{random.\+c@{random.\+c}!M\+A\+X\+\_\+\+T\+Y\+P\+E\+S@{M\+A\+X\+\_\+\+T\+Y\+P\+E\+S}}
+\index{M\+A\+X\+\_\+\+T\+Y\+P\+E\+S@{M\+A\+X\+\_\+\+T\+Y\+P\+E\+S}!random.\+c@{random.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+T\+Y\+P\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+T\+Y\+P\+E\+S~5		/$\ast$ {\bf max} number of types above $\ast$/}}\label{random_8c_aa30dc4b03b37928eb85a5a389728323b}
+
+
+Definition at line 121 of file random.\+c.
+
+
+
+Referenced by initstate(), and setstate().
+
+\hypertarget{random_8c_ae66d150b37bdc4fb534c6cf4fd6927f5}{\index{random.\+c@{random.\+c}!S\+E\+P\+\_\+0@{S\+E\+P\+\_\+0}}
+\index{S\+E\+P\+\_\+0@{S\+E\+P\+\_\+0}!random.\+c@{random.\+c}}
+\subsubsection[{S\+E\+P\+\_\+0}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+P\+\_\+0~0}}\label{random_8c_ae66d150b37bdc4fb534c6cf4fd6927f5}
+
+
+Definition at line 93 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a706a88d02086f617d9a4112903e47e41}{\index{random.\+c@{random.\+c}!S\+E\+P\+\_\+1@{S\+E\+P\+\_\+1}}
+\index{S\+E\+P\+\_\+1@{S\+E\+P\+\_\+1}!random.\+c@{random.\+c}}
+\subsubsection[{S\+E\+P\+\_\+1}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+P\+\_\+1~3}}\label{random_8c_a706a88d02086f617d9a4112903e47e41}
+
+
+Definition at line 98 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a7af722c75c13c22d73bbcca1088b8dfa}{\index{random.\+c@{random.\+c}!S\+E\+P\+\_\+2@{S\+E\+P\+\_\+2}}
+\index{S\+E\+P\+\_\+2@{S\+E\+P\+\_\+2}!random.\+c@{random.\+c}}
+\subsubsection[{S\+E\+P\+\_\+2}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+P\+\_\+2~1}}\label{random_8c_a7af722c75c13c22d73bbcca1088b8dfa}
+
+
+Definition at line 103 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a2edba143f3e114a7eb2e12e87cd22168}{\index{random.\+c@{random.\+c}!S\+E\+P\+\_\+3@{S\+E\+P\+\_\+3}}
+\index{S\+E\+P\+\_\+3@{S\+E\+P\+\_\+3}!random.\+c@{random.\+c}}
+\subsubsection[{S\+E\+P\+\_\+3}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+P\+\_\+3~3}}\label{random_8c_a2edba143f3e114a7eb2e12e87cd22168}
+
+
+Definition at line 108 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a579e3bd1ae8bb600f9eab886a82bf075}{\index{random.\+c@{random.\+c}!S\+E\+P\+\_\+4@{S\+E\+P\+\_\+4}}
+\index{S\+E\+P\+\_\+4@{S\+E\+P\+\_\+4}!random.\+c@{random.\+c}}
+\subsubsection[{S\+E\+P\+\_\+4}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+E\+P\+\_\+4~1}}\label{random_8c_a579e3bd1ae8bb600f9eab886a82bf075}
+
+
+Definition at line 113 of file random.\+c.
+
+
+
+Referenced by initstate().
+
+\hypertarget{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{\index{random.\+c@{random.\+c}!T\+Y\+P\+E\+\_\+0@{T\+Y\+P\+E\+\_\+0}}
+\index{T\+Y\+P\+E\+\_\+0@{T\+Y\+P\+E\+\_\+0}!random.\+c@{random.\+c}}
+\subsubsection[{T\+Y\+P\+E\+\_\+0}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+Y\+P\+E\+\_\+0~0		/$\ast$ linear congruential $\ast$/}}\label{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}
+
+
+Definition at line 90 of file random.\+c.
+
+
+
+Referenced by initstate(), random(), setstate(), and srandom().
+
+\hypertarget{random_8c_adf00e147e54d287fe67232fc3c03881f}{\index{random.\+c@{random.\+c}!T\+Y\+P\+E\+\_\+1@{T\+Y\+P\+E\+\_\+1}}
+\index{T\+Y\+P\+E\+\_\+1@{T\+Y\+P\+E\+\_\+1}!random.\+c@{random.\+c}}
+\subsubsection[{T\+Y\+P\+E\+\_\+1}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+Y\+P\+E\+\_\+1~1		/$\ast$ x$\ast$$\ast$7 + x$\ast$$\ast$3 + 1 $\ast$/}}\label{random_8c_adf00e147e54d287fe67232fc3c03881f}
+
+
+Definition at line 95 of file random.\+c.
+
+
+
+Referenced by initstate(), and setstate().
+
+\hypertarget{random_8c_a8fde5bf4966bf8bead39337acde60635}{\index{random.\+c@{random.\+c}!T\+Y\+P\+E\+\_\+2@{T\+Y\+P\+E\+\_\+2}}
+\index{T\+Y\+P\+E\+\_\+2@{T\+Y\+P\+E\+\_\+2}!random.\+c@{random.\+c}}
+\subsubsection[{T\+Y\+P\+E\+\_\+2}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+Y\+P\+E\+\_\+2~2		/$\ast$ x$\ast$$\ast$15 + x + 1 $\ast$/}}\label{random_8c_a8fde5bf4966bf8bead39337acde60635}
+
+
+Definition at line 100 of file random.\+c.
+
+
+
+Referenced by initstate(), and setstate().
+
+\hypertarget{random_8c_a625df8982f188845257d31ea0e6c59e3}{\index{random.\+c@{random.\+c}!T\+Y\+P\+E\+\_\+3@{T\+Y\+P\+E\+\_\+3}}
+\index{T\+Y\+P\+E\+\_\+3@{T\+Y\+P\+E\+\_\+3}!random.\+c@{random.\+c}}
+\subsubsection[{T\+Y\+P\+E\+\_\+3}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+Y\+P\+E\+\_\+3~3		/$\ast$ x$\ast$$\ast$31 + x$\ast$$\ast$3 + 1 $\ast$/}}\label{random_8c_a625df8982f188845257d31ea0e6c59e3}
+
+
+Definition at line 105 of file random.\+c.
+
+
+
+Referenced by initstate(), and setstate().
+
+\hypertarget{random_8c_a1eea18b6fa0e026859776264e7b70d06}{\index{random.\+c@{random.\+c}!T\+Y\+P\+E\+\_\+4@{T\+Y\+P\+E\+\_\+4}}
+\index{T\+Y\+P\+E\+\_\+4@{T\+Y\+P\+E\+\_\+4}!random.\+c@{random.\+c}}
+\subsubsection[{T\+Y\+P\+E\+\_\+4}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+Y\+P\+E\+\_\+4~4		/$\ast$ x$\ast$$\ast$63 + x + 1 $\ast$/}}\label{random_8c_a1eea18b6fa0e026859776264e7b70d06}
+
+
+Definition at line 110 of file random.\+c.
+
+
+
+Referenced by initstate(), and setstate().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{random_8c_ade58feedae0463c0a524095c4f6d5d36}{\index{random.\+c@{random.\+c}!initstate@{initstate}}
+\index{initstate@{initstate}!random.\+c@{random.\+c}}
+\subsubsection[{initstate}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ initstate (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{seed, }
+\item[{char		$\ast$}]{arg\+\_\+state, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{random_8c_ade58feedae0463c0a524095c4f6d5d36}
+
+
+Definition at line 244 of file random.\+c.
+
+
+
+References B\+R\+E\+A\+K\+\_\+0, B\+R\+E\+A\+K\+\_\+1, B\+R\+E\+A\+K\+\_\+2, B\+R\+E\+A\+K\+\_\+3, B\+R\+E\+A\+K\+\_\+4, D\+E\+G\+\_\+0, D\+E\+G\+\_\+1, D\+E\+G\+\_\+2, D\+E\+G\+\_\+3, D\+E\+G\+\_\+4, end\+\_\+ptr, M\+A\+X\+\_\+\+T\+Y\+P\+E\+S, rand\+\_\+deg, rand\+\_\+sep, rand\+\_\+type, rptr, S\+E\+P\+\_\+0, S\+E\+P\+\_\+1, S\+E\+P\+\_\+2, S\+E\+P\+\_\+3, S\+E\+P\+\_\+4, srandom(), state, T\+Y\+P\+E\+\_\+0, T\+Y\+P\+E\+\_\+1, T\+Y\+P\+E\+\_\+2, T\+Y\+P\+E\+\_\+3, and T\+Y\+P\+E\+\_\+4.
+
+
+\begin{DoxyCode}
+249 \{
+250     \textcolor{keyword}{register}  \textcolor{keywordtype}{char}      *ostate     = (\textcolor{keywordtype}{char} *)( &\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ -1 ] );
+251 
+252     \textcolor{keywordflow}{if}(  \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type}  ==  \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{TYPE\_0}  )  \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ -1 ] = \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type};
+253     \textcolor{keywordflow}{else}  \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ -1 ] = \hyperlink{random_8c_aa30dc4b03b37928eb85a5a389728323b}{MAX\_TYPES}*(\hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr} - \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}) + 
+      \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type};
+254     \textcolor{keywordflow}{if}(  n  <  \hyperlink{random_8c_a2f8ab1a0f7425aaa202c501115ac97ac}{BREAK\_1}  )  \{
+255         \textcolor{keywordflow}{if}(  n  <  \hyperlink{random_8c_a3c1b328e567007cf8b2a488f7da20cd2}{BREAK\_0}  )  \{
+256         impossible(
+257  \textcolor{stringliteral}{"initstate: not enough state (%d bytes) with which to do jack; ignored."}, n);
+258         \textcolor{keywordflow}{return} (\textcolor{keywordtype}{char} *)0;
+259         \}
+260         \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type} = \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{TYPE\_0};
+261         \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} = \hyperlink{random_8c_a4b02509c5d048cb2525e0066d7c2f191}{DEG\_0};
+262         \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\_sep} = \hyperlink{random_8c_ae66d150b37bdc4fb534c6cf4fd6927f5}{SEP\_0};
+263     \}
+264     \textcolor{keywordflow}{else}  \{
+265         \textcolor{keywordflow}{if}(  n  <  \hyperlink{random_8c_a05b3315f5cfe0296dcd69a52f1655c6d}{BREAK\_2}  )  \{
+266         \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type} = \hyperlink{random_8c_adf00e147e54d287fe67232fc3c03881f}{TYPE\_1};
+267         \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} = \hyperlink{random_8c_a0be2834c56b0aaa7a6d34986f7921200}{DEG\_1};
+268         \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\_sep} = \hyperlink{random_8c_a706a88d02086f617d9a4112903e47e41}{SEP\_1};
+269         \}
+270         \textcolor{keywordflow}{else}  \{
+271         \textcolor{keywordflow}{if}(  n  <  \hyperlink{random_8c_ae301c8961d39d5bb4f771779e7f892a5}{BREAK\_3}  )  \{
+272             \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type} = \hyperlink{random_8c_a8fde5bf4966bf8bead39337acde60635}{TYPE\_2};
+273             \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} = \hyperlink{random_8c_a3ac87cdf960466ff1225acc151e1b990}{DEG\_2};
+274             \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\_sep} = \hyperlink{random_8c_a7af722c75c13c22d73bbcca1088b8dfa}{SEP\_2};
+275         \}
+276         \textcolor{keywordflow}{else}  \{
+277             \textcolor{keywordflow}{if}(  n  <  \hyperlink{random_8c_a5b20d74b1c51063cf48aac12871c508b}{BREAK\_4}  )  \{
+278             \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type} = \hyperlink{random_8c_a625df8982f188845257d31ea0e6c59e3}{TYPE\_3};
+279             \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} = \hyperlink{random_8c_a551433e25d99861799734a5d64404a75}{DEG\_3};
+280             \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\_sep} = \hyperlink{random_8c_a2edba143f3e114a7eb2e12e87cd22168}{SEP\_3};
+281             \}
+282             \textcolor{keywordflow}{else}  \{
+283             \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type} = \hyperlink{random_8c_a1eea18b6fa0e026859776264e7b70d06}{TYPE\_4};
+284             \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} = \hyperlink{random_8c_aa5908dcf53ecbe2f7e9ba5c3ffca01c1}{DEG\_4};
+285             \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\_sep} = \hyperlink{random_8c_a579e3bd1ae8bb600f9eab886a82bf075}{SEP\_4};
+286             \}
+287         \}
+288         \}
+289     \}
+290     \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state} = &(  ( (\textcolor{keywordtype}{long} *)arg\_state )[1]  );   \textcolor{comment}{/* first location */}
+291     \hyperlink{random_8c_ac93fde2d7055cf7b879914da1ec91c56}{end\_ptr} = &\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} ];   \textcolor{comment}{/* must set end\_ptr before srandom */}
+292     \hyperlink{random_8c_a6d78029d8868ca3f896ff279fb1b99ab}{srandom}( seed );
+293     \textcolor{keywordflow}{if}(  \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type}  ==  \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{TYPE\_0}  )  \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ -1 ] = \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type};
+294     \textcolor{keywordflow}{else}  \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ -1 ] = \hyperlink{random_8c_aa30dc4b03b37928eb85a5a389728323b}{MAX\_TYPES}*(\hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr} - \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}) + 
+      \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type};
+295     \textcolor{keywordflow}{return}( ostate );
+296 \}
+\end{DoxyCode}
+\hypertarget{random_8c_acf29b9fb7dacb956c6875fd784f855c3}{\index{random.\+c@{random.\+c}!random@{random}}
+\index{random@{random}!random.\+c@{random.\+c}}
+\subsubsection[{random}]{\setlength{\rightskip}{0pt plus 5cm}long random (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{random_8c_acf29b9fb7dacb956c6875fd784f855c3}
+
+
+Definition at line 366 of file random.\+c.
+
+
+
+References end\+\_\+ptr, fptr, rand\+\_\+type, rptr, state, and T\+Y\+P\+E\+\_\+0.
+
+
+
+Referenced by srandom().
+
+
+\begin{DoxyCode}
+367 \{
+368     \textcolor{keywordtype}{long}        i;
+369     
+370     \textcolor{keywordflow}{if}(  \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type}  ==  \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{TYPE\_0}  )  \{
+371         i = \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[0] = ( \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[0]*1103515245 + 12345 )&0x7fffffff;
+372     \}
+373     \textcolor{keywordflow}{else}  \{
+374         *\hyperlink{random_8c_ac1903d0150310bba699b56e1f230f165}{fptr} += *\hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr};
+375         i = (*\hyperlink{random_8c_ac1903d0150310bba699b56e1f230f165}{fptr} >> 1)&0x7fffffff;    \textcolor{comment}{/* chucking least random bit */}
+376         \textcolor{keywordflow}{if}(  ++\hyperlink{random_8c_ac1903d0150310bba699b56e1f230f165}{fptr}  >=  \hyperlink{random_8c_ac93fde2d7055cf7b879914da1ec91c56}{end\_ptr}  )  \{
+377         \hyperlink{random_8c_ac1903d0150310bba699b56e1f230f165}{fptr} = \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state};
+378         ++\hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr};
+379         \}
+380         \textcolor{keywordflow}{else}  \{
+381         \textcolor{keywordflow}{if}(  ++\hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr}  >=  \hyperlink{random_8c_ac93fde2d7055cf7b879914da1ec91c56}{end\_ptr}  )  \hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr} = \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state};
+382         \}
+383     \}
+384     \textcolor{keywordflow}{return}( i );
+385 \}
+\end{DoxyCode}
+\hypertarget{random_8c_a6d426e2d2a6b9a1e78919912fba164a4}{\index{random.\+c@{random.\+c}!setstate@{setstate}}
+\index{setstate@{setstate}!random.\+c@{random.\+c}}
+\subsubsection[{setstate}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ setstate (
+\begin{DoxyParamCaption}
+\item[{char		$\ast$}]{arg\+\_\+state}
+\end{DoxyParamCaption}
+)}}\label{random_8c_a6d426e2d2a6b9a1e78919912fba164a4}
+
+
+Definition at line 313 of file random.\+c.
+
+
+
+References degrees, end\+\_\+ptr, fptr, M\+A\+X\+\_\+\+T\+Y\+P\+E\+S, rand\+\_\+deg, rand\+\_\+sep, rand\+\_\+type, rptr, seps, state, type, T\+Y\+P\+E\+\_\+0, T\+Y\+P\+E\+\_\+1, T\+Y\+P\+E\+\_\+2, T\+Y\+P\+E\+\_\+3, and T\+Y\+P\+E\+\_\+4.
+
+
+\begin{DoxyCode}
+316 \{
+317     \textcolor{keyword}{register}  \textcolor{keywordtype}{long}      *new\_state  = (\textcolor{keywordtype}{long} *)arg\_state;
+318     \textcolor{keyword}{register}  \textcolor{keywordtype}{int}       \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}        = new\_state[0]%\hyperlink{random_8c_aa30dc4b03b37928eb85a5a389728323b}{MAX\_TYPES};
+319     \textcolor{keyword}{register}  \textcolor{keywordtype}{int}       rear        = new\_state[0]/\hyperlink{random_8c_aa30dc4b03b37928eb85a5a389728323b}{MAX\_TYPES};
+320     \textcolor{keywordtype}{char}            *ostate     = (\textcolor{keywordtype}{char} *)( &\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ -1 ] );
+321 
+322     \textcolor{keywordflow}{if}(  \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type}  ==  \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{TYPE\_0}  )  \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ -1 ] = \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type};
+323     \textcolor{keywordflow}{else}  \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ -1 ] = \hyperlink{random_8c_aa30dc4b03b37928eb85a5a389728323b}{MAX\_TYPES}*(\hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr} - \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}) + 
+      \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type};
+324     \textcolor{keywordflow}{switch}(  type  )  \{
+325         \textcolor{keywordflow}{case}  \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{TYPE\_0}:
+326         \textcolor{keywordflow}{case}  \hyperlink{random_8c_adf00e147e54d287fe67232fc3c03881f}{TYPE\_1}:
+327         \textcolor{keywordflow}{case}  \hyperlink{random_8c_a8fde5bf4966bf8bead39337acde60635}{TYPE\_2}:
+328         \textcolor{keywordflow}{case}  \hyperlink{random_8c_a625df8982f188845257d31ea0e6c59e3}{TYPE\_3}:
+329         \textcolor{keywordflow}{case}  \hyperlink{random_8c_a1eea18b6fa0e026859776264e7b70d06}{TYPE\_4}:
+330         \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type} = \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+331         \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} = \hyperlink{random_8c_ae898ac3dafaa5ae84b724d858b381c4e}{degrees}[ \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} ];
+332         \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\_sep} = \hyperlink{random_8c_a562afbec545a7b1a735571c8f385f9c9}{seps}[ \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} ];
+333         \textcolor{keywordflow}{break};
+334 
+335         \textcolor{keywordflow}{default}:
+336   impossible(\textcolor{stringliteral}{"setstate: state info has been munged (%d); not changed."}, type);
+337         \textcolor{keywordflow}{break};
+338     \}
+339     \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state} = &new\_state[ 1 ];
+340     \textcolor{keywordflow}{if}(  \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type}  !=  \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{TYPE\_0}  )  \{
+341         \hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr} = &\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ rear ];
+342         \hyperlink{random_8c_ac1903d0150310bba699b56e1f230f165}{fptr} = &\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ (rear + \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\_sep})%\hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} ];
+343     \}
+344     \hyperlink{random_8c_ac93fde2d7055cf7b879914da1ec91c56}{end\_ptr} = &\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg} ];       \textcolor{comment}{/* set end\_ptr too */}
+345     \textcolor{keywordflow}{return}( ostate );
+346 \}
+\end{DoxyCode}
+\hypertarget{random_8c_a6d78029d8868ca3f896ff279fb1b99ab}{\index{random.\+c@{random.\+c}!srandom@{srandom}}
+\index{srandom@{srandom}!random.\+c@{random.\+c}}
+\subsubsection[{srandom}]{\setlength{\rightskip}{0pt plus 5cm}void srandom (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{x}
+\end{DoxyParamCaption}
+)}}\label{random_8c_a6d78029d8868ca3f896ff279fb1b99ab}
+
+
+Definition at line 205 of file random.\+c.
+
+
+
+References fptr, rand\+\_\+deg, rand\+\_\+sep, rand\+\_\+type, random(), rptr, state, and T\+Y\+P\+E\+\_\+0.
+
+
+
+Referenced by initstate().
+
+
+\begin{DoxyCode}
+208 \{
+209         \textcolor{keyword}{register}  \textcolor{keywordtype}{int}       i;
+210 
+211     \textcolor{keywordflow}{if}(  \hyperlink{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{rand\_type}  ==  \hyperlink{random_8c_a7684fdb8b359fbbbcaa5e149704024b3}{TYPE\_0}  )  \{
+212         \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ 0 ] = x;
+213     \}
+214     \textcolor{keywordflow}{else}  \{
+215         \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ 0 ] = x;
+216         \textcolor{keywordflow}{for}( i = 1; i < \hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg}; i++ )  \{
+217         \hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[i] = 1103515245*\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[i - 1] + 12345;
+218         \}
+219         \hyperlink{random_8c_ac1903d0150310bba699b56e1f230f165}{fptr} = &\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ \hyperlink{random_8c_ae6b109559951cf894f4eb06b58f8b574}{rand\_sep} ];
+220         \hyperlink{random_8c_a63004ec1b20556be8625fabfdca384bc}{rptr} = &\hyperlink{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{state}[ 0 ];
+221         \textcolor{keywordflow}{for}( i = 0; i < 10*\hyperlink{random_8c_abe770f91ed0972de3daa1af1999d82e2}{rand\_deg}; i++ )  \hyperlink{random_8c_acf29b9fb7dacb956c6875fd784f855c3}{random}();
+222     \}
+223 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{random_8c_ae898ac3dafaa5ae84b724d858b381c4e}{\index{random.\+c@{random.\+c}!degrees@{degrees}}
+\index{degrees@{degrees}!random.\+c@{random.\+c}}
+\subsubsection[{degrees}]{\setlength{\rightskip}{0pt plus 5cm}int degrees\mbox{[}{\bf M\+A\+X\+\_\+\+T\+Y\+P\+E\+S}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_ae898ac3dafaa5ae84b724d858b381c4e}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \hyperlink{random_8c_a4b02509c5d048cb2525e0066d7c2f191}{DEG\_0}, \hyperlink{random_8c_a0be2834c56b0aaa7a6d34986f7921200}{DEG\_1}, \hyperlink{random_8c_a3ac87cdf960466ff1225acc151e1b990}{DEG\_2},
+                                \hyperlink{random_8c_a551433e25d99861799734a5d64404a75}{DEG\_3}, \hyperlink{random_8c_aa5908dcf53ecbe2f7e9ba5c3ffca01c1}{DEG\_4} \}
+\end{DoxyCode}
+
+
+Definition at line 123 of file random.\+c.
+
+
+
+Referenced by setstate().
+
+\hypertarget{random_8c_ac93fde2d7055cf7b879914da1ec91c56}{\index{random.\+c@{random.\+c}!end\+\_\+ptr@{end\+\_\+ptr}}
+\index{end\+\_\+ptr@{end\+\_\+ptr}!random.\+c@{random.\+c}}
+\subsubsection[{end\+\_\+ptr}]{\setlength{\rightskip}{0pt plus 5cm}long$\ast$ end\+\_\+ptr = \&{\bf randtbl}\mbox{[} {\bf D\+E\+G\+\_\+3} + 1 \mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_ac93fde2d7055cf7b879914da1ec91c56}
+
+
+Definition at line 187 of file random.\+c.
+
+
+
+Referenced by initstate(), random(), and setstate().
+
+\hypertarget{random_8c_ac1903d0150310bba699b56e1f230f165}{\index{random.\+c@{random.\+c}!fptr@{fptr}}
+\index{fptr@{fptr}!random.\+c@{random.\+c}}
+\subsubsection[{fptr}]{\setlength{\rightskip}{0pt plus 5cm}long$\ast$ fptr = \&{\bf randtbl}\mbox{[} {\bf S\+E\+P\+\_\+3} + 1 \mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_ac1903d0150310bba699b56e1f230f165}
+
+
+Definition at line 164 of file random.\+c.
+
+
+
+Referenced by random(), setstate(), and srandom().
+
+\hypertarget{random_8c_abe770f91ed0972de3daa1af1999d82e2}{\index{random.\+c@{random.\+c}!rand\+\_\+deg@{rand\+\_\+deg}}
+\index{rand\+\_\+deg@{rand\+\_\+deg}!random.\+c@{random.\+c}}
+\subsubsection[{rand\+\_\+deg}]{\setlength{\rightskip}{0pt plus 5cm}int rand\+\_\+deg = {\bf D\+E\+G\+\_\+3}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_abe770f91ed0972de3daa1af1999d82e2}
+
+
+Definition at line 184 of file random.\+c.
+
+
+
+Referenced by initstate(), setstate(), and srandom().
+
+\hypertarget{random_8c_ae6b109559951cf894f4eb06b58f8b574}{\index{random.\+c@{random.\+c}!rand\+\_\+sep@{rand\+\_\+sep}}
+\index{rand\+\_\+sep@{rand\+\_\+sep}!random.\+c@{random.\+c}}
+\subsubsection[{rand\+\_\+sep}]{\setlength{\rightskip}{0pt plus 5cm}int rand\+\_\+sep = {\bf S\+E\+P\+\_\+3}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_ae6b109559951cf894f4eb06b58f8b574}
+
+
+Definition at line 185 of file random.\+c.
+
+
+
+Referenced by initstate(), setstate(), and srandom().
+
+\hypertarget{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}{\index{random.\+c@{random.\+c}!rand\+\_\+type@{rand\+\_\+type}}
+\index{rand\+\_\+type@{rand\+\_\+type}!random.\+c@{random.\+c}}
+\subsubsection[{rand\+\_\+type}]{\setlength{\rightskip}{0pt plus 5cm}int rand\+\_\+type = {\bf T\+Y\+P\+E\+\_\+3}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_af6ecf339a26ee3ea6fe5865888b7060e}
+
+
+Definition at line 183 of file random.\+c.
+
+
+
+Referenced by initstate(), random(), setstate(), and srandom().
+
+\hypertarget{random_8c_a5f586124cfd60252e4117aa519955719}{\index{random.\+c@{random.\+c}!randtbl@{randtbl}}
+\index{randtbl@{randtbl}!random.\+c@{random.\+c}}
+\subsubsection[{randtbl}]{\setlength{\rightskip}{0pt plus 5cm}long randtbl\mbox{[}{\bf D\+E\+G\+\_\+3}+1\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_a5f586124cfd60252e4117aa519955719}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \hyperlink{random_8c_a625df8982f188845257d31ea0e6c59e3}{TYPE\_3},
+                0x9a319039, 0x32d9c024, 0x9b663182, 0x5da1f342, 
+                0xde3b81e0, 0xdf0a6fb5, 0xf103bc02, 0x48f340fb, 
+                0x7449e56b, 0xbeb1dbb0, 0xab5c5918, 0x946554fd, 
+                0x8c2e680f, 0xeb3d799f, 0xb11ee0b7, 0x2d436b86, 
+                0xda672e2a, 0x1588ca88, 0xe369735d, 0x904f35f7, 
+                0xd7158fd6, 0x6fa6f051, 0x616e6b96, 0xac94efdc, 
+                0x36413f93, 0xc622c298, 0xf5a42ab8, 0x8a88d77b, 
+                    0xf5ad9d0e, 0x8999220b, 0x27fb47b9 \}
+\end{DoxyCode}
+
+
+Definition at line 142 of file random.\+c.
+
+\hypertarget{random_8c_a63004ec1b20556be8625fabfdca384bc}{\index{random.\+c@{random.\+c}!rptr@{rptr}}
+\index{rptr@{rptr}!random.\+c@{random.\+c}}
+\subsubsection[{rptr}]{\setlength{\rightskip}{0pt plus 5cm}long$\ast$ rptr = \&{\bf randtbl}\mbox{[} 1 \mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_a63004ec1b20556be8625fabfdca384bc}
+
+
+Definition at line 165 of file random.\+c.
+
+
+
+Referenced by initstate(), random(), setstate(), and srandom().
+
+\hypertarget{random_8c_a562afbec545a7b1a735571c8f385f9c9}{\index{random.\+c@{random.\+c}!seps@{seps}}
+\index{seps@{seps}!random.\+c@{random.\+c}}
+\subsubsection[{seps}]{\setlength{\rightskip}{0pt plus 5cm}int seps\mbox{[}{\bf M\+A\+X\+\_\+\+T\+Y\+P\+E\+S}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_a562afbec545a7b1a735571c8f385f9c9}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \hyperlink{random_8c_ae66d150b37bdc4fb534c6cf4fd6927f5}{SEP\_0}, \hyperlink{random_8c_a706a88d02086f617d9a4112903e47e41}{SEP\_1}, \hyperlink{random_8c_a7af722c75c13c22d73bbcca1088b8dfa}{SEP\_2},
+                                \hyperlink{random_8c_a2edba143f3e114a7eb2e12e87cd22168}{SEP\_3}, \hyperlink{random_8c_a579e3bd1ae8bb600f9eab886a82bf075}{SEP\_4} \}
+\end{DoxyCode}
+
+
+Definition at line 126 of file random.\+c.
+
+
+
+Referenced by setstate().
+
+\hypertarget{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}{\index{random.\+c@{random.\+c}!state@{state}}
+\index{state@{state}!random.\+c@{random.\+c}}
+\subsubsection[{state}]{\setlength{\rightskip}{0pt plus 5cm}long$\ast$ state = \&{\bf randtbl}\mbox{[} 1 \mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{random_8c_a12a8a0122ec9c2b08b4ef888b28f4c15}
+
+
+Definition at line 181 of file random.\+c.
+
+
+
+Referenced by initstate(), random(), setstate(), and srandom().
+

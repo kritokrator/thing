@@ -1,0 +1,1627 @@
+\hypertarget{restore_8c}{\section{nethack/src/restore.c File Reference}
+\label{restore_8c}\index{nethack/src/restore.\+c@{nethack/src/restore.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lev.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tcap.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}quest.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structbucket}{bucket}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{restore_8c_ae53e4619edbbd064609e14604e5f1b53}{N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T}~64
+\item 
+\#define \hyperlink{restore_8c_ad6d0a11e5795536939714c4808f2e3a7}{Is\+\_\+\+Ice\+Box}(o)~((o)-\/$>$otyp == I\+C\+E\+\_\+\+B\+O\+X ? \hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+U\+E} \+: \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E})
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_a186a6b9090379683e94092cc15d6e471}{N\+D\+E\+C\+L} (\hyperlink{restore_8c_a87926d3f19aa3b9783757b6f69b58853}{find\+\_\+lev\+\_\+obj})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_aae07e63399f42b00e338ae3a9cdc23fd}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_a6eeae8141b1e9d3baa401059ccc26f3c}{restlevchn},(int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_adcefb36b5eef48a7b7e51febf9eb91e2}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_ac196bb4a9e33e5d766dcc70d0c82e46d}{restdamage},(int, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct \hyperlink{structobj}{obj} $\ast$ \hyperlink{restore_8c_aed87719f6b4032b6ac2dced7ed5a7474}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn},(int, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct \hyperlink{structmonst}{monst} $\ast$ \hyperlink{restore_8c_a7d0cdee5da17fd6faff728dc8701e850}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_a1688543d6276bad96cae599de7ef0614}{restmonchn},(int, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct \hyperlink{structfruit}{fruit} $\ast$ \hyperlink{restore_8c_ac378e489d98e84eb8db4354bc5b9ed8d}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_a925cdb8b162245b5ca16735b1e0d004f}{loadfruitchn},(int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_a5daaa25dccfaf034d695c0525ebb0dd6}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_ab16ff9ce41130269e6375865b1247bfc}{freefruitchn},(struct \hyperlink{structfruit}{fruit} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_a9976d5bea3c5266d798f8ad48294a8a8}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_af7d4ec4fc85328af00ad9e4e13780f5b}{ghostfruit},(struct \hyperlink{structobj}{obj} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{restore_8c_a2bb042b8c5136008cb97a294f9442526}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_a61dedaf1fd2e8fc9cad1fd2fc0718d61}{restgamestate},(int, unsigned int $\ast$, unsigned int $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_a7b240fe06854923a07b110533ecfd941}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_a784718d429c047bd75222d723cb4dc7b}{restlevelstate},(unsigned int, unsigned int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{restore_8c_a9dcd7ab04c8cc58b66718c2a3cb3483b}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_a876bf81659b141ef758c0b678a6a8048}{restlevelfile},(int, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_a6170bc4beec38d436bb7308624ed0c1b}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_af557456e15c204aae27eaa94be3eacbb}{reset\+\_\+oattached\+\_\+mids},(\hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_aec6df2e928e3fe8e5af4600b619ba57f}{N\+D\+E\+C\+L} (\hyperlink{restore_8c_ab946be05de196f893d6f497e7098a8ca}{clear\+\_\+id\+\_\+mapping})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{restore_8c_ab409900483b2b01b06114f84729fa1b8}{F\+D\+E\+C\+L} (\hyperlink{restore_8c_ae20ca0fc14549b4f0e2d9bacd663c0d4}{add\+\_\+id\+\_\+mapping},(unsigned, unsigned))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_a87926d3f19aa3b9783757b6f69b58853}{find\+\_\+lev\+\_\+obj} ()
+\item 
+void \hyperlink{restore_8c_ade47737c4a7e12c92904e51ececb6401}{inven\+\_\+inuse} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} quietly)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_a6eeae8141b1e9d3baa401059ccc26f3c}{restlevchn} (int fd)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_ac196bb4a9e33e5d766dcc70d0c82e46d}{restdamage} (int fd, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} ghostly)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct \hyperlink{structobj}{obj} $\ast$ \hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn} (int fd, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} ghostly, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} frozen)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct \hyperlink{structmonst}{monst} $\ast$ \hyperlink{restore_8c_a1688543d6276bad96cae599de7ef0614}{restmonchn} (int fd, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} ghostly)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct \hyperlink{structfruit}{fruit} $\ast$ \hyperlink{restore_8c_a925cdb8b162245b5ca16735b1e0d004f}{loadfruitchn} (int fd)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_ab16ff9ce41130269e6375865b1247bfc}{freefruitchn} (struct \hyperlink{structfruit}{fruit} $\ast$flist)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_af7d4ec4fc85328af00ad9e4e13780f5b}{ghostfruit} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{restore_8c_a61dedaf1fd2e8fc9cad1fd2fc0718d61}{restgamestate} (int fd, unsigned int $\ast$stuckid, unsigned int $\ast$steedid)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_a784718d429c047bd75222d723cb4dc7b}{restlevelstate} (unsigned int stuckid, unsigned int steedid)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{restore_8c_a876bf81659b141ef758c0b678a6a8048}{restlevelfile} (int fd, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} ltmp)
+\item 
+int \hyperlink{restore_8c_a4fb439a417b679a962bff63981841e4c}{dorecover} (int fd)
+\item 
+void \hyperlink{restore_8c_a3418c2e55f272194ad0d941d453e3879}{trickery} (char $\ast$reason)
+\item 
+void \hyperlink{restore_8c_ab39927b02273a97a807663df0d02d0f4}{getlev} (int fd, int pid, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} lev, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} ghostly)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_ab946be05de196f893d6f497e7098a8ca}{clear\+\_\+id\+\_\+mapping} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_ae20ca0fc14549b4f0e2d9bacd663c0d4}{add\+\_\+id\+\_\+mapping} (unsigned gid, unsigned nid)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{restore_8c_a5d1bd4e03dc078e34d9abae5e53a646a}{lookup\+\_\+id\+\_\+mapping} (unsigned gid, unsigned $\ast$nidp)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{restore_8c_af557456e15c204aae27eaa94be3eacbb}{reset\+\_\+oattached\+\_\+mids} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} ghostly)
+\item 
+void \hyperlink{restore_8c_adf561b811f7ff644e8d9cb39ad374c41}{minit} ()
+\item 
+void \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread} (int fd, \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t} \hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, unsigned int len)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{restore_8c_a2772a8c148ef0a8d68d891ecd4c9ac3b}{n\+\_\+ids\+\_\+mapped} = 0
+\item 
+static struct \hyperlink{structbucket}{bucket} $\ast$ \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\+\_\+map} = 0
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{restore_8c_ab6609a6a0b2249e63b722930f1017ce3}{restoring} = \hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} struct \hyperlink{structfruit}{fruit} $\ast$ \hyperlink{restore_8c_aa513fd668b5863f9c765ec6eb7bc27d5}{oldfruit}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} long \hyperlink{restore_8c_ad7326ac84bce3ce9044afbd1361f8183}{omoves}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{restore_8c_ad6d0a11e5795536939714c4808f2e3a7}{\index{restore.\+c@{restore.\+c}!Is\+\_\+\+Ice\+Box@{Is\+\_\+\+Ice\+Box}}
+\index{Is\+\_\+\+Ice\+Box@{Is\+\_\+\+Ice\+Box}!restore.\+c@{restore.\+c}}
+\subsubsection[{Is\+\_\+\+Ice\+Box}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+\+Ice\+Box(
+\begin{DoxyParamCaption}
+\item[{}]{o}
+\end{DoxyParamCaption}
+)~((o)-\/$>$otyp == I\+C\+E\+\_\+\+B\+O\+X ? {\bf T\+R\+U\+E} \+: {\bf F\+A\+L\+S\+E})}}\label{restore_8c_ad6d0a11e5795536939714c4808f2e3a7}
+
+
+Definition at line 65 of file restore.\+c.
+
+
+
+Referenced by restobjchn().
+
+\hypertarget{restore_8c_ae53e4619edbbd064609e14604e5f1b53}{\index{restore.\+c@{restore.\+c}!N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T@{N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T}}
+\index{N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T@{N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T}!restore.\+c@{restore.\+c}}
+\subsubsection[{N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T~64}}\label{restore_8c_ae53e4619edbbd064609e14604e5f1b53}
+
+
+Definition at line 38 of file restore.\+c.
+
+
+
+Referenced by add\+\_\+id\+\_\+mapping(), and lookup\+\_\+id\+\_\+mapping().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{restore_8c_ae20ca0fc14549b4f0e2d9bacd663c0d4}{\index{restore.\+c@{restore.\+c}!add\+\_\+id\+\_\+mapping@{add\+\_\+id\+\_\+mapping}}
+\index{add\+\_\+id\+\_\+mapping@{add\+\_\+id\+\_\+mapping}!restore.\+c@{restore.\+c}}
+\subsubsection[{add\+\_\+id\+\_\+mapping}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void add\+\_\+id\+\_\+mapping (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{gid, }
+\item[{unsigned}]{nid}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_ae20ca0fc14549b4f0e2d9bacd663c0d4}
+
+
+Definition at line 922 of file restore.\+c.
+
+
+
+References alloc(), bucket\+::gid, id\+\_\+map, bucket\+::map, N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T, bucket\+::next, and bucket\+::nid.
+
+
+
+Referenced by restmonchn(), and restobjchn().
+
+
+\begin{DoxyCode}
+924 \{
+925     \textcolor{keywordtype}{int} idx;
+926 
+927     idx = \hyperlink{restore_8c_a2772a8c148ef0a8d68d891ecd4c9ac3b}{n\_ids\_mapped} % \hyperlink{restore_8c_ae53e4619edbbd064609e14604e5f1b53}{N\_PER\_BUCKET};
+928     \textcolor{comment}{/* idx is zero on first time through, as well as when a new bucket is */}
+929     \textcolor{comment}{/* needed */}
+930     \textcolor{keywordflow}{if} (idx == 0) \{
+931     \textcolor{keyword}{struct }\hyperlink{structbucket}{bucket} *gnu = (\textcolor{keyword}{struct }\hyperlink{structbucket}{bucket} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structbucket}{bucket}));
+932     gnu->\hyperlink{structbucket_a70c4dfb30de550c0caf1ce95f5e8803f}{next} = \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\_map};
+933     \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\_map} = gnu;
+934     \}
+935 
+936     \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\_map}->\hyperlink{structbucket_a7cd78d1e66df897b15f34f0fd2169b5e}{map}[idx].\hyperlink{structbucket_ae577a155960997338a56f7b5d6a8fcac}{gid} = \hyperlink{structbucket_ae577a155960997338a56f7b5d6a8fcac}{gid};
+937     \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\_map}->\hyperlink{structbucket_a7cd78d1e66df897b15f34f0fd2169b5e}{map}[idx].\hyperlink{structbucket_a4e1895c200b88f0355e2164c58ac49cb}{nid} = \hyperlink{structbucket_a4e1895c200b88f0355e2164c58ac49cb}{nid};
+938     \hyperlink{restore_8c_a2772a8c148ef0a8d68d891ecd4c9ac3b}{n\_ids\_mapped}++;
+939 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_ab946be05de196f893d6f497e7098a8ca}{\index{restore.\+c@{restore.\+c}!clear\+\_\+id\+\_\+mapping@{clear\+\_\+id\+\_\+mapping}}
+\index{clear\+\_\+id\+\_\+mapping@{clear\+\_\+id\+\_\+mapping}!restore.\+c@{restore.\+c}}
+\subsubsection[{clear\+\_\+id\+\_\+mapping}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void clear\+\_\+id\+\_\+mapping (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_ab946be05de196f893d6f497e7098a8ca}
+
+
+Definition at line 909 of file restore.\+c.
+
+
+
+References free(), and bucket\+::next.
+
+
+
+Referenced by getlev().
+
+
+\begin{DoxyCode}
+910 \{
+911     \textcolor{keyword}{struct }\hyperlink{structbucket}{bucket} *curr;
+912 
+913     \textcolor{keywordflow}{while} ((curr = \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\_map}) != 0) \{
+914     \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\_map} = curr->\hyperlink{structbucket_a70c4dfb30de550c0caf1ce95f5e8803f}{next};
+915     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) curr);
+916     \}
+917     \hyperlink{restore_8c_a2772a8c148ef0a8d68d891ecd4c9ac3b}{n\_ids\_mapped} = 0;
+918 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a4fb439a417b679a962bff63981841e4c}{\index{restore.\+c@{restore.\+c}!dorecover@{dorecover}}
+\index{dorecover@{dorecover}!restore.\+c@{restore.\+c}}
+\subsubsection[{dorecover}]{\setlength{\rightskip}{0pt plus 5cm}int dorecover (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a4fb439a417b679a962bff63981841e4c}
+
+
+Definition at line 544 of file restore.\+c.
+
+
+
+References clear\+\_\+nhwindow, close(), C\+O\+L\+N\+O, curs, flag\+::debug, delete\+\_\+savefile(), discover, display\+\_\+nhwindow, dungeon\+::dname, d\+\_\+level\+::dnum, docrt(), dungeons, flag\+::explore, F\+A\+L\+S\+E, flags, fobj, F\+R\+E\+E\+\_\+\+S\+A\+V\+E, getlev(), inven\+\_\+inuse(), Is\+\_\+rogue\+\_\+level, load\+\_\+qtlist(), lseek(), mark\+\_\+synch, mread(), window\+\_\+procs\+::name, obj\+::nobj, otmp, obj\+::owornmask, P\+L\+\_\+\+N\+S\+I\+Z, plname, program\+\_\+state, putstr, read(), restgamestate(), restlevelfile(), restlevelstate(), savelev(), setworn(), sinfo\+::something\+\_\+worth\+\_\+saving, strncmpi(), T\+R\+U\+E, u, uptodate(), you\+::ustuck, you\+::uz, vision\+\_\+full\+\_\+recalc, vision\+\_\+reset(), W\+I\+N\+\_\+\+B\+A\+S\+E, W\+I\+N\+\_\+\+M\+A\+P, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, windowprocs, and wizard.
+
+
+
+Referenced by M\+A\+I\+N(), main(), and restlevelfile().
+
+
+\begin{DoxyCode}
+546 \{
+547     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} stuckid = 0, steedid = 0;  \textcolor{comment}{/* not a register */}
+548     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} ltmp;
+549     \textcolor{keywordtype}{int} rtmp;
+550     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+551 
+552 \textcolor{preprocessor}{#ifdef STORE\_PLNAME\_IN\_FILE}
+553     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \hyperlink{global_8h_a06d346f470496500184b39a3c9c4df9d}{PL\_NSIZ});
+554 \textcolor{preprocessor}{#endif}
+555 
+556     \hyperlink{restore_8c_ab6609a6a0b2249e63b722930f1017ce3}{restoring} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+557     \hyperlink{restore_8c_ab39927b02273a97a807663df0d02d0f4}{getlev}(fd, 0, (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar})0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+558     \textcolor{keywordflow}{if} (!\hyperlink{restore_8c_a61dedaf1fd2e8fc9cad1fd2fc0718d61}{restgamestate}(fd, &stuckid, &steedid)) \{
+559         \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+560         \hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev}(-1, 0, \hyperlink{lev_8h_a39f3d47170c994b6ac6ec401c34cebd3}{FREE\_SAVE});  \textcolor{comment}{/* discard current level */}
+561         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+562         (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+563         \hyperlink{restore_8c_ab6609a6a0b2249e63b722930f1017ce3}{restoring} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+564         \textcolor{keywordflow}{return}(0);
+565     \}
+566     \hyperlink{restore_8c_a784718d429c047bd75222d723cb4dc7b}{restlevelstate}(stuckid, steedid);
+567 \textcolor{preprocessor}{#ifdef INSURANCE}
+568     savestateinlock();
+569 \textcolor{preprocessor}{#endif}
+570     rtmp = \hyperlink{restore_8c_a876bf81659b141ef758c0b678a6a8048}{restlevelfile}(fd, ledger\_no(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}));
+571     \textcolor{keywordflow}{if} (rtmp < 2) \textcolor{keywordflow}{return}(rtmp);  \textcolor{comment}{/* dorecover called recursively */}
+572 
+573     \textcolor{comment}{/* these pointers won't be valid while we're processing the}
+574 \textcolor{comment}{     * other levels, but they'll be reset again by restlevelstate()}
+575 \textcolor{comment}{     * afterwards, and in the meantime at least u.usteed may mislead}
+576 \textcolor{comment}{     * place\_monster() on other levels}
+577 \textcolor{comment}{     */}
+578     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck} = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)0;
+579 \textcolor{preprocessor}{#ifdef STEED}
+580     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)0;
+581 \textcolor{preprocessor}{#endif}
+582 
+583 \textcolor{preprocessor}{#ifdef MICRO}
+584 \textcolor{preprocessor}{# ifdef AMII\_GRAPHICS}
+585     \{
+586     \textcolor{keyword}{extern} \textcolor{keyword}{struct }\hyperlink{structwindow__procs}{window\_procs} \hyperlink{amidos_8c_a15de23af499d6c155c1ba39cec0e1cb2}{amii\_procs};
+587     \textcolor{keywordflow}{if}(\hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.win\_init\_nhwindows== \hyperlink{amidos_8c_a15de23af499d6c155c1ba39cec0e1cb2}{amii\_procs}.win\_init\_nhwindows)\{
+588         \textcolor{keyword}{extern} \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{winami_8h_a5a32a2aaab2d6b517c4afde059621c35}{WIN\_BASE};
+589         \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(WIN\_BASE); \textcolor{comment}{/* hack until there's a hook for this */}
+590     \}
+591     \}
+592 \textcolor{preprocessor}{# else}
+593     \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP});
+594 \textcolor{preprocessor}{# endif}
+595     \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+596     You(\textcolor{stringliteral}{"return to level %d in %s%s."},
+597         depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}), \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_a802ae61c0d552cf15d77175a8d5b7c5c}{dname},
+598         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ac2d732f796f18d283c1675e7fa3b7dd5}{debug} ? \textcolor{stringliteral}{" while in debug mode"} :
+599         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a2158b7a81927608e938818f91aa8c1e7}{explore} ? \textcolor{stringliteral}{" while in explore mode"} : \textcolor{stringliteral}{""});
+600     \hyperlink{winprocs_8h_aa05861c1c269bc08d1ee7fcc3c9b85c5}{curs}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}, 1, 1);
+601     dotcnt = 0;
+602     dotrow = 2;
+603     \textcolor{keywordflow}{if} (\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(\textcolor{stringliteral}{"X11"}, \hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.\hyperlink{structwindow__procs_a3c3f9beba0ac50aabe7ce172f042e917}{name}, 3))
+604           \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}, 0, \textcolor{stringliteral}{"Restoring:"});
+605 \textcolor{preprocessor}{#endif}
+606     \textcolor{keywordflow}{while}(1) \{
+607 \textcolor{preprocessor}{#ifdef ZEROCOMP}
+608         \textcolor{keywordflow}{if}(\hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &ltmp, \textcolor{keyword}{sizeof} ltmp) < 0)
+609 \textcolor{preprocessor}{#else}
+610         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &ltmp, \textcolor{keyword}{sizeof} ltmp) != \textcolor{keyword}{sizeof} ltmp)
+611 \textcolor{preprocessor}{#endif}
+612             \textcolor{keywordflow}{break};
+613         \hyperlink{restore_8c_ab39927b02273a97a807663df0d02d0f4}{getlev}(fd, 0, ltmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+614 \textcolor{preprocessor}{#ifdef MICRO}
+615         \hyperlink{winprocs_8h_aa05861c1c269bc08d1ee7fcc3c9b85c5}{curs}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}, 1+dotcnt++, dotrow);
+616         \textcolor{keywordflow}{if} (dotcnt >= (\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} - 1)) \{
+617             dotrow++;
+618             dotcnt = 0;
+619         \}
+620         \textcolor{keywordflow}{if} (\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(\textcolor{stringliteral}{"X11"}, \hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.\hyperlink{structwindow__procs_a3c3f9beba0ac50aabe7ce172f042e917}{name}, 3))\{
+621           \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(\hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP}, 0, \textcolor{stringliteral}{"."});
+622         \}
+623         \hyperlink{winprocs_8h_a72bbad3e5805d71f128c614261fc7ee0}{mark\_synch}();
+624 \textcolor{preprocessor}{#endif}
+625         rtmp = \hyperlink{restore_8c_a876bf81659b141ef758c0b678a6a8048}{restlevelfile}(fd, ltmp);
+626         \textcolor{keywordflow}{if} (rtmp < 2) \textcolor{keywordflow}{return}(rtmp);  \textcolor{comment}{/* dorecover called recursively */}
+627     \}
+628 
+629 \textcolor{preprocessor}{#ifdef BSD}
+630     (void) \hyperlink{wceconf_8h_a0f6bb896aa39f599bf81b462f2ca563f}{lseek}(fd, 0L, 0);
+631 \textcolor{preprocessor}{#else}
+632     (void) \hyperlink{wceconf_8h_a0f6bb896aa39f599bf81b462f2ca563f}{lseek}(fd, (\hyperlink{amiconf_8h_af83497edef361523a95b06deda0b4c2d}{off\_t})0, 0);
+633 \textcolor{preprocessor}{#endif}
+634     (void) \hyperlink{version_8c_a058fe6d05cab8d612e8f622186b83693}{uptodate}(fd, (\textcolor{keywordtype}{char} *)0);     \textcolor{comment}{/* skip version info */}
+635 \textcolor{preprocessor}{#ifdef STORE\_PLNAME\_IN\_FILE}
+636     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \hyperlink{global_8h_a06d346f470496500184b39a3c9c4df9d}{PL\_NSIZ});
+637 \textcolor{preprocessor}{#endif}
+638     \hyperlink{restore_8c_ab39927b02273a97a807663df0d02d0f4}{getlev}(fd, 0, (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar})0, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+639     (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+640 
+641     \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && !\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover})
+642         (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+643 \textcolor{preprocessor}{#ifdef REINCARNATION}
+644     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) assign\_rogue\_graphics(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+645 \textcolor{preprocessor}{#endif}
+646 \textcolor{preprocessor}{#ifdef USE\_TILES}
+647     substitute\_tiles(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+648 \textcolor{preprocessor}{#endif}
+649     \hyperlink{restore_8c_a784718d429c047bd75222d723cb4dc7b}{restlevelstate}(stuckid, steedid);
+650 \textcolor{preprocessor}{#ifdef MFLOPPY}
+651     gameDiskPrompt();
+652 \textcolor{preprocessor}{#endif}
+653     max\_rank\_sz(); \textcolor{comment}{/* to recompute mrank\_sz (botl.c) */}
+654     \textcolor{comment}{/* take care of iron ball & chain */}
+655     \textcolor{keywordflow}{for}(otmp = \hyperlink{rm_8h_a4d2866bf9ebea1c08c26174b5c8cfbb7}{fobj}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj})
+656         \textcolor{keywordflow}{if}(otmp->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask})
+657             \hyperlink{worn_8c_ae7018d12ec8662328050dfd7bd8dc903}{setworn}(otmp, otmp->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask});
+658 
+659     \textcolor{comment}{/* in\_use processing must be after:}
+660 \textcolor{comment}{     *    + The inventory has been read so that freeinv() works.}
+661 \textcolor{comment}{     *    + The current level has been restored so billing information}
+662 \textcolor{comment}{     *  is available.}
+663 \textcolor{comment}{     */}
+664     \hyperlink{restore_8c_ade47737c4a7e12c92904e51ececb6401}{inven\_inuse}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+665 
+666     \hyperlink{questpgr_8c_ad26ecae850ce65c43095fe0fe8ab4b43}{load\_qtlist}();   \textcolor{comment}{/* re-load the quest text info */}
+667     reset\_attribute\_clock();
+668     \textcolor{comment}{/* Set up the vision internals, after levl[] data is loaded */}
+669     \textcolor{comment}{/* but before docrt().                      */}
+670     \hyperlink{vision_8c_afcf29bf260885b9a629e98aee388d622}{vision\_reset}();
+671     \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 1;   \textcolor{comment}{/* recompute vision (not saved) */}
+672 
+673     run\_timers();   \textcolor{comment}{/* expire all timers that have gone off while away */}
+674     \hyperlink{display_8c_aad46d5a3dee537d403163916114fd463}{docrt}();
+675     \hyperlink{restore_8c_ab6609a6a0b2249e63b722930f1017ce3}{restoring} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+676     \hyperlink{winprocs_8h_a177c23e23d7dafb484ad58f01ae1d063}{clear\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE});
+677     \hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.\hyperlink{structsinfo_ae213176cfedea7945c371048e57e2931}{something\_worth\_saving}++;  \textcolor{comment}{/* useful data now exists 
+      */}
+678 
+679     \textcolor{comment}{/* Success! */}
+680     welcome(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+681     \textcolor{keywordflow}{return}(1);
+682 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_aae07e63399f42b00e338ae3a9cdc23fd}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf restlevchn}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_aae07e63399f42b00e338ae3a9cdc23fd}
+\hypertarget{restore_8c_adcefb36b5eef48a7b7e51febf9eb91e2}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf restdamage}}]{, }
+\item[{(int, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_adcefb36b5eef48a7b7e51febf9eb91e2}
+\hypertarget{restore_8c_aed87719f6b4032b6ac2dced7ed5a7474}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct {\bf obj}$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf restobjchn}}]{, }
+\item[{(int, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_aed87719f6b4032b6ac2dced7ed5a7474}
+\hypertarget{restore_8c_a7d0cdee5da17fd6faff728dc8701e850}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct {\bf monst}$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf restmonchn}}]{, }
+\item[{(int, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a7d0cdee5da17fd6faff728dc8701e850}
+\hypertarget{restore_8c_ac378e489d98e84eb8db4354bc5b9ed8d}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct {\bf fruit}$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf loadfruitchn}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_ac378e489d98e84eb8db4354bc5b9ed8d}
+\hypertarget{restore_8c_a5daaa25dccfaf034d695c0525ebb0dd6}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf freefruitchn}}]{, }
+\item[{(struct {\bf fruit} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a5daaa25dccfaf034d695c0525ebb0dd6}
+\hypertarget{restore_8c_a9976d5bea3c5266d798f8ad48294a8a8}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf ghostfruit}}]{, }
+\item[{(struct {\bf obj} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a9976d5bea3c5266d798f8ad48294a8a8}
+\hypertarget{restore_8c_a2bb042b8c5136008cb97a294f9442526}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf restgamestate}}]{, }
+\item[{(int, unsigned int $\ast$, unsigned int $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a2bb042b8c5136008cb97a294f9442526}
+\hypertarget{restore_8c_a7b240fe06854923a07b110533ecfd941}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf restlevelstate}}]{, }
+\item[{(unsigned int, unsigned int)}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a7b240fe06854923a07b110533ecfd941}
+\hypertarget{restore_8c_a9dcd7ab04c8cc58b66718c2a3cb3483b}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf restlevelfile}}]{, }
+\item[{(int, {\bf X\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a9dcd7ab04c8cc58b66718c2a3cb3483b}
+\hypertarget{restore_8c_a6170bc4beec38d436bb7308624ed0c1b}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf reset\+\_\+oattached\+\_\+mids}}]{, }
+\item[{({\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a6170bc4beec38d436bb7308624ed0c1b}
+\hypertarget{restore_8c_ab409900483b2b01b06114f84729fa1b8}{\index{restore.\+c@{restore.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf add\+\_\+id\+\_\+mapping}}]{, }
+\item[{(unsigned, unsigned)}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_ab409900483b2b01b06114f84729fa1b8}
+\hypertarget{restore_8c_a87926d3f19aa3b9783757b6f69b58853}{\index{restore.\+c@{restore.\+c}!find\+\_\+lev\+\_\+obj@{find\+\_\+lev\+\_\+obj}}
+\index{find\+\_\+lev\+\_\+obj@{find\+\_\+lev\+\_\+obj}!restore.\+c@{restore.\+c}}
+\subsubsection[{find\+\_\+lev\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void find\+\_\+lev\+\_\+obj (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a87926d3f19aa3b9783757b6f69b58853}
+
+
+Definition at line 69 of file restore.\+c.
+
+
+
+References C\+O\+L\+N\+O, fobj, level, obj\+::nobj, O\+B\+J\+\_\+\+F\+R\+E\+E, dlevel\+\_\+t\+::objects, otmp, obj\+::ox, obj\+::oy, R\+O\+W\+N\+O, and obj\+::where.
+
+
+
+Referenced by getlev().
+
+
+\begin{DoxyCode}
+70 \{
+71     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *fobjtmp = (\textcolor{keyword}{struct }\hyperlink{structobj}{obj} *)0;
+72     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+73     \textcolor{keywordtype}{int} x,y;
+74 
+75     \textcolor{keywordflow}{for}(x=0; x<\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; x++) \textcolor{keywordflow}{for}(y=0; y<\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; y++)
+76         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ac128f805d01d7746b499596dd3b92a53}{objects}[x][y] = (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0;
+77 
+78     \textcolor{comment}{/*}
+79 \textcolor{comment}{     * Reverse the entire fobj chain, which is necessary so that we can}
+80 \textcolor{comment}{     * place the objects in the proper order.  Make all obj in chain}
+81 \textcolor{comment}{     * OBJ\_FREE so place\_object will work correctly.}
+82 \textcolor{comment}{     */}
+83     \textcolor{keywordflow}{while} ((otmp = \hyperlink{rm_8h_a4d2866bf9ebea1c08c26174b5c8cfbb7}{fobj}) != 0) \{
+84         \hyperlink{rm_8h_a4d2866bf9ebea1c08c26174b5c8cfbb7}{fobj} = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj};
+85         otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj} = fobjtmp;
+86         otmp->\hyperlink{structobj_a57f24060a7aa1c3d2fd02c1c550cb5c6}{where} = \hyperlink{obj_8h_a1a30035b131908457d0b16db1d194eaa}{OBJ\_FREE};
+87         fobjtmp = \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+88     \}
+89     \textcolor{comment}{/* fobj should now be empty */}
+90 
+91     \textcolor{comment}{/* Set level.objects (as well as reversing the chain back again) */}
+92     \textcolor{keywordflow}{while} ((otmp = fobjtmp) != 0) \{
+93         fobjtmp = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj};
+94         place\_object(otmp, otmp->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, otmp->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy});
+95     \}
+96 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_ab16ff9ce41130269e6375865b1247bfc}{\index{restore.\+c@{restore.\+c}!freefruitchn@{freefruitchn}}
+\index{freefruitchn@{freefruitchn}!restore.\+c@{restore.\+c}}
+\subsubsection[{freefruitchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void freefruitchn (
+\begin{DoxyParamCaption}
+\item[{struct {\bf fruit} $\ast$}]{flist}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_ab16ff9ce41130269e6375865b1247bfc}
+
+
+Definition at line 330 of file restore.\+c.
+
+
+
+References dealloc\+\_\+fruit, and fruit\+::nextf.
+
+
+
+Referenced by freedynamicdata(), getlev(), and restgamestate().
+
+
+\begin{DoxyCode}
+332 \{
+333     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structfruit}{fruit} *fnext;
+334 
+335     \textcolor{keywordflow}{while} (flist) \{
+336         fnext = flist->\hyperlink{structfruit_abdefc7da964abc0fe643d941b7ab3057}{nextf};
+337         \hyperlink{objclass_8h_a7800724983f6a8e87465f0672e79ae9a}{dealloc\_fruit}(flist);
+338         flist = fnext;
+339     \}
+340 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_ab39927b02273a97a807663df0d02d0f4}{\index{restore.\+c@{restore.\+c}!getlev@{getlev}}
+\index{getlev@{getlev}!restore.\+c@{restore.\+c}}
+\subsubsection[{getlev}]{\setlength{\rightskip}{0pt plus 5cm}void getlev (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{int}]{pid, }
+\item[{{\bf xchar}}]{lev, }
+\item[{{\bf boolean}}]{ghostly}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_ab39927b02273a97a807663df0d02d0f4}
+
+
+Definition at line 696 of file restore.\+c.
+
+
+
+References billobjs, B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1, B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2, B\+R\+\_\+\+P\+O\+R\+T\+A\+L, B\+R\+\_\+\+S\+T\+A\+I\+R, B\+U\+F\+S\+Z, dlevel\+\_\+t\+::buriedobjlist, clear\+\_\+id\+\_\+mapping(), C\+O\+L\+N\+O, monst\+::data, dealloc\+\_\+trap, d\+\_\+level\+::dlevel, dndest, dnladder, dnstair, mkroom\+::doorct, doorindex, doors, trap\+::dst, branch\+::end1, branch\+::end2, F\+A\+L\+S\+E, mkroom\+::fdoor, find\+\_\+lev\+\_\+obj(), dlevel\+\_\+t\+::flags, fmon, fobj, freefruitchn(), ftrap, hpid, level, levl, loadfruitchn(), M\+A\+G\+I\+C\+\_\+\+P\+O\+R\+T\+A\+L, mazexy(), medusa\+\_\+level, dlevel\+\_\+t\+::monlist, monstermoves, dlevel\+\_\+t\+::monsters, mread(), monst\+::mx, monst\+::my, newtrap, monst\+::nmon, nroom, trap\+::ntrap, O\+\_\+\+B\+I\+N\+A\+R\+Y, panic(), place\+\_\+monster, place\+\_\+wsegs(), R\+A\+N\+G\+E\+\_\+\+L\+E\+V\+E\+L, reset\+\_\+oattached\+\_\+mids(), rest\+\_\+regions(), rest\+\_\+worm(), restdamage(), restmonchn(), restobjchn(), rooms, R\+O\+W\+N\+O, Sprintf, sstairs, S\+T\+A\+I\+R\+S, stronghold\+\_\+level, trickery(), branch\+::type, u, updest, upladder, upstair, you\+::uz, wizard, coord\+::x, xdnstair, coord\+::y, and ydnstair.
+
+
+
+Referenced by dorecover(), dosave0(), and getbones().
+
+
+\begin{DoxyCode}
+700 \{
+701     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *\hyperlink{structtrap}{trap};
+702     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp;
+703     \hyperlink{structbranch}{branch} *br;
+704     \textcolor{keywordtype}{int} \hyperlink{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{hpid};
+705     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} dlvl;
+706     \textcolor{keywordtype}{int} x, y;
+707 \textcolor{preprocessor}{#ifdef TOS}
+708     \textcolor{keywordtype}{short} tlev;
+709 \textcolor{preprocessor}{#endif}
+710 
+711     \textcolor{keywordflow}{if} (ghostly)
+712         \hyperlink{restore_8c_ab946be05de196f893d6f497e7098a8ca}{clear\_id\_mapping}();
+713 
+714 \textcolor{preprocessor}{#if defined(MSDOS) || defined(OS2)}
+715     setmode(fd, \hyperlink{amiconf_8h_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY});
+716 \textcolor{preprocessor}{#endif}
+717     \textcolor{comment}{/* Load the old fruit info.  We have to do it first, so the}
+718 \textcolor{comment}{     * information is available when restoring the objects.}
+719 \textcolor{comment}{     */}
+720     \textcolor{keywordflow}{if} (ghostly) \hyperlink{restore_8c_aa513fd668b5863f9c765ec6eb7bc27d5}{oldfruit} = \hyperlink{restore_8c_a925cdb8b162245b5ca16735b1e0d004f}{loadfruitchn}(fd);
+721 
+722     \textcolor{comment}{/* First some sanity checks */}
+723     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &hpid, \textcolor{keyword}{sizeof}(hpid));
+724 \textcolor{comment}{/* CHECK:  This may prevent restoration */}
+725 \textcolor{preprocessor}{#ifdef TOS}
+726     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &tlev, \textcolor{keyword}{sizeof}(tlev));
+727     dlvl=tlev&0x00ff;
+728 \textcolor{preprocessor}{#else}
+729     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &dlvl, \textcolor{keyword}{sizeof}(dlvl));
+730 \textcolor{preprocessor}{#endif}
+731     \textcolor{keywordflow}{if} ((pid && pid != hpid) || (lev && dlvl != lev)) \{
+732         \textcolor{keywordtype}{char} trickbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+733 
+734         \textcolor{keywordflow}{if} (pid && pid != hpid)
+735         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(trickbuf, \textcolor{stringliteral}{"PID (%d) doesn't match saved PID (%d)!"},
+736             hpid, pid);
+737         \textcolor{keywordflow}{else}
+738         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(trickbuf, \textcolor{stringliteral}{"This is level %d, not %d!"}, dlvl, lev);
+739 \textcolor{preprocessor}{#ifdef WIZARD}
+740         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) pline(trickbuf);
+741 \textcolor{preprocessor}{#endif}
+742         \hyperlink{restore_8c_a3418c2e55f272194ad0d941d453e3879}{trickery}(trickbuf);
+743     \}
+744 
+745 \textcolor{preprocessor}{#ifdef RLECOMP}
+746     \{
+747         \textcolor{keywordtype}{short}   i, j;
+748         \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}  len;
+749         \textcolor{keyword}{struct }\hyperlink{structrm}{rm} r;
+750         
+751 \textcolor{preprocessor}{#if defined(MAC)}
+752         \textcolor{comment}{/* Suppress warning about used before set */}
+753         (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &r, 0, \textcolor{keyword}{sizeof}(r));
+754 \textcolor{preprocessor}{#endif}
+755         i = 0; j = 0; len = 0;
+756         \textcolor{keywordflow}{while}(i < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) \{
+757             \textcolor{keywordflow}{while}(j < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) \{
+758             \textcolor{keywordflow}{if}(len > 0) \{
+759                 \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[j][i] = r;
+760                 len -= 1;
+761                 j += 1;
+762             \} \textcolor{keywordflow}{else} \{
+763                 \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&len, \textcolor{keyword}{sizeof}(\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}));
+764                 \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&r, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structrm}{rm}));
+765             \}
+766             \}
+767             j = 0;
+768             i += 1;
+769         \}
+770     \}
+771 \textcolor{preprocessor}{#else}
+772     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}, \textcolor{keyword}{sizeof}(levl));
+773 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* RLECOMP */}\textcolor{preprocessor}{}
+774 
+775     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{restore_8c_ad7326ac84bce3ce9044afbd1361f8183}{omoves}, \textcolor{keyword}{sizeof}(omoves));
+776     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{decl_8h_a265268a80f34414794da0aa1e8166d62}{upstair}, \textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+777     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{decl_8h_aece4704da0e935d82fa5702fb744f882}{dnstair}, \textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+778     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{decl_8h_ab4a05e4336ef730195b4f5159e1708ce}{upladder}, \textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+779     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{decl_8h_afce63666c65b67fb6e38e9c517eeba12}{dnladder}, \textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+780     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs}, \textcolor{keyword}{sizeof}(\hyperlink{structstairway}{stairway}));
+781     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}, \textcolor{keyword}{sizeof}(\hyperlink{structdest__area}{dest\_area}));
+782     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}, \textcolor{keyword}{sizeof}(\hyperlink{structdest__area}{dest\_area}));
+783     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}, \textcolor{keyword}{sizeof}(
+      \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}));
+784     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{mkroom_8h_a2f0608010228278f7299277b3a67d492}{doors}, \textcolor{keyword}{sizeof}(doors));
+785     rest\_rooms(fd);     \textcolor{comment}{/* No joke :-) */}
+786     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom})
+787         \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex} = \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} - 1].\hyperlink{structmkroom_ae40f76bfb5e37b9315e11abc5517b9d4}{fdoor} + \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[
+      \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} - 1].\hyperlink{structmkroom_af3299bfffb84e2a7cd1a07b4de7c1b53}{doorct};
+788     \textcolor{keywordflow}{else}
+789         \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex} = 0;
+790 
+791     restore\_timers(fd, \hyperlink{timeout_8h_aa61d2086b782ee9cc52a9dbd921d5e29}{RANGE\_LEVEL}, ghostly, \hyperlink{decl_8h_a75c1f008487d95630d0d789a79bb5c74}{monstermoves} - omoves);
+792     restore\_light\_sources(fd);
+793     \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon} = \hyperlink{restore_8c_a1688543d6276bad96cae599de7ef0614}{restmonchn}(fd, ghostly);
+794 
+795     \textcolor{comment}{/* regenerate animals while on another level */}
+796     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel}) \{
+797         \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp2;
+798 
+799         \textcolor{keywordflow}{for} (mtmp = \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon}; mtmp; mtmp = mtmp2) \{
+800         mtmp2 = mtmp->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon};
+801         \textcolor{keywordflow}{if} (ghostly) \{
+802             \textcolor{comment}{/* reset peaceful/malign relative to new character */}
+803             \textcolor{keywordflow}{if}(!mtmp->isshk)
+804                 \textcolor{comment}{/* shopkeepers will reset based on name */}
+805                 mtmp->mpeaceful = peace\_minded(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data});
+806             set\_malign(mtmp);
+807         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a75c1f008487d95630d0d789a79bb5c74}{monstermoves} > omoves)
+808             mon\_catchup\_elapsed\_time(mtmp, \hyperlink{decl_8h_a75c1f008487d95630d0d789a79bb5c74}{monstermoves} - omoves);
+809 
+810         \textcolor{comment}{/* update shape-changers in case protection against}
+811 \textcolor{comment}{           them is different now than when the level was saved */}
+812         restore\_cham(mtmp);
+813         \}
+814     \}
+815 
+816     \hyperlink{worm_8c_ae4757731ba77b1505eaf868ea938d50f}{rest\_worm}(fd); \textcolor{comment}{/* restore worm information */}
+817     \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap} = 0;
+818     \textcolor{keywordflow}{while} (trap = \hyperlink{trap_8h_a6ea99598090c91d5c3617f2c11ef5f96}{newtrap}(),
+819            \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})trap, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} trap)),
+820            trap->tx != 0) \{ \textcolor{comment}{/* need "!= 0" to work around DICE 3.0 bug */}
+821         trap->\hyperlink{structtrap_aef8ea4650dce701fde7f7f3e1310c892}{ntrap} = \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap};
+822         \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap} = trap;
+823     \}
+824     \hyperlink{trap_8h_a917b04b62a7182cfdf8b4c1a663d2244}{dealloc\_trap}(trap);
+825     \hyperlink{rm_8h_a4d2866bf9ebea1c08c26174b5c8cfbb7}{fobj} = \hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn}(fd, ghostly, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+826     \hyperlink{restore_8c_a87926d3f19aa3b9783757b6f69b58853}{find\_lev\_obj}();
+827     \textcolor{comment}{/* restobjchn()'s `frozen' argument probably ought to be a callback}
+828 \textcolor{comment}{       routine so that we can check for objects being buried under ice */}
+829     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a3f47ab569a36a0574eb4363915fe2fae}{buriedobjlist} = \hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn}(fd, ghostly, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+830     \hyperlink{decl_8h_a10c61a6197f59182f24cea646c4b9a81}{billobjs} = \hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn}(fd, ghostly, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+831     rest\_engravings(fd);
+832 
+833     \textcolor{comment}{/* reset level.monsters for new level */}
+834     \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; x++)
+835         \textcolor{keywordflow}{for} (y = 0; y < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; y++)
+836         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_abe8e54209520b4c30e1c8a5364ff1457}{monsters}[x][y] = (\textcolor{keyword}{struct} \hyperlink{structmonst}{monst} *) 0;
+837     \textcolor{keywordflow}{for} (mtmp = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a775d40e9ce8233f0079bc9c0af234fa1}{monlist}; mtmp; mtmp = mtmp->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon}) \{
+838         \textcolor{keywordflow}{if} (mtmp->isshk)
+839         set\_residency(mtmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+840         \hyperlink{rm_8h_af46e44dabc00162cdea350fe3dae252b}{place\_monster}(mtmp, mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my});
+841         \textcolor{keywordflow}{if} (mtmp->wormno) \hyperlink{worm_8c_aa092d65704517ce59bc5b5aa3af2b264}{place\_wsegs}(mtmp);
+842     \}
+843     \hyperlink{restore_8c_ac196bb4a9e33e5d766dcc70d0c82e46d}{restdamage}(fd, ghostly);
+844 
+845     \hyperlink{region_8c_a104b720acbe4f7aa1b5a2a8545f10266}{rest\_regions}(fd, ghostly);
+846     \textcolor{keywordflow}{if} (ghostly) \{
+847         \textcolor{comment}{/* Now get rid of all the temp fruits... */}
+848         \hyperlink{restore_8c_ab16ff9ce41130269e6375865b1247bfc}{freefruitchn}(\hyperlink{restore_8c_aa513fd668b5863f9c765ec6eb7bc27d5}{oldfruit}),  \hyperlink{restore_8c_aa513fd668b5863f9c765ec6eb7bc27d5}{oldfruit} = 0;
+849 
+850         \textcolor{keywordflow}{if} (lev > ledger\_no(&\hyperlink{decl_8h_ad834c4abc150f144d9da7641e53cfcde}{medusa\_level}) &&
+851             lev < ledger\_no(&\hyperlink{decl_8h_a4e54fc4d32ee936ad6575e637fdf1a5c}{stronghold\_level}) && \hyperlink{decl_8h_a55486e08c2be9501e6817ca2a19e4d66}{xdnstair} == 0) \{
+852         \hyperlink{structcoord}{coord} cc;
+853 
+854         \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&cc);
+855         \hyperlink{decl_8h_a55486e08c2be9501e6817ca2a19e4d66}{xdnstair} = cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+856         \hyperlink{decl_8h_a3b86b85dda8af8bff9c5ea84bcc7a52a}{ydnstair} = cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+857         levl[cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].typ = \hyperlink{rm_8h_a814976bdce7e0d26e78d426fdb6f1b22}{STAIRS};
+858         \}
+859 
+860         br = Is\_branchlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+861         \textcolor{keywordflow}{if} (br && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} == 1) \{
+862         \hyperlink{structd__level}{d\_level} ltmp;
+863 
+864         \textcolor{keywordflow}{if} (on\_level(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}, &br->\hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1}))
+865             assign\_level(&ltmp, &br->\hyperlink{structbranch_ae943c130ab49b7d1281034ce23e84977}{end2});
+866         \textcolor{keywordflow}{else}
+867             assign\_level(&ltmp, &br->\hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1});
+868 
+869         \textcolor{keywordflow}{switch}(br->\hyperlink{structbranch_ada8b57edb359f2fa43429fc63662b385}{type}) \{
+870         \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_aabc480e0fd400b0716aa5918d59a56eb}{BR\_STAIR}:
+871         \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_aa87ac1a9cff7510713f573dbddff0c41}{BR\_NO\_END1}:
+872         \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_aeb3ee576fc92f4899167661b3335f111}{BR\_NO\_END2}: \textcolor{comment}{/* OK to assign to sstairs if it's not used */}
+873             assign\_level(&sstairs.tolev, &ltmp);
+874             \textcolor{keywordflow}{break};      
+875         \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_af0d2f515b7dc33373de1aaafb9483541}{BR\_PORTAL}: \textcolor{comment}{/* max of 1 portal per level */}
+876             \{
+877             \textcolor{keyword}{register} \textcolor{keyword}{struct }trap *ttmp;
+878             \textcolor{keywordflow}{for}(ttmp = \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap}; ttmp; ttmp = ttmp->\hyperlink{structtrap_aef8ea4650dce701fde7f7f3e1310c892}{ntrap})
+879                 \textcolor{keywordflow}{if} (ttmp->ttyp == \hyperlink{trap_8h_a64bfa610e12179ef4bfa46c65166b2fe}{MAGIC\_PORTAL})
+880                 \textcolor{keywordflow}{break};
+881             \textcolor{keywordflow}{if} (!ttmp) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"getlev: need portal but none found"});
+882             assign\_level(&ttmp->\hyperlink{structtrap_a7f0184c96889b0dfba889dbb18a06828}{dst}, &ltmp);
+883             \}
+884             \textcolor{keywordflow}{break};
+885         \}
+886         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!br) \{
+887         \textcolor{comment}{/* Remove any dangling portals. */}
+888         \textcolor{keyword}{register} \textcolor{keyword}{struct }trap *ttmp;
+889         \textcolor{keywordflow}{for} (ttmp = \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap}; ttmp; ttmp = ttmp->\hyperlink{structtrap_aef8ea4650dce701fde7f7f3e1310c892}{ntrap})
+890             \textcolor{keywordflow}{if} (ttmp->ttyp == \hyperlink{trap_8h_a64bfa610e12179ef4bfa46c65166b2fe}{MAGIC\_PORTAL}) \{
+891             deltrap(ttmp);
+892             \textcolor{keywordflow}{break}; \textcolor{comment}{/* max of 1 portal/level */}
+893             \}
+894         \}
+895     \}
+896 
+897     \textcolor{comment}{/* must come after all mons & objs are restored */}
+898     relink\_timers(ghostly);
+899     relink\_light\_sources(ghostly);
+900     \hyperlink{restore_8c_af557456e15c204aae27eaa94be3eacbb}{reset\_oattached\_mids}(ghostly);
+901 
+902     \textcolor{keywordflow}{if} (ghostly)
+903         \hyperlink{restore_8c_ab946be05de196f893d6f497e7098a8ca}{clear\_id\_mapping}();
+904 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_af7d4ec4fc85328af00ad9e4e13780f5b}{\index{restore.\+c@{restore.\+c}!ghostfruit@{ghostfruit}}
+\index{ghostfruit@{ghostfruit}!restore.\+c@{restore.\+c}}
+\subsubsection[{ghostfruit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void ghostfruit (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{otmp}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_af7d4ec4fc85328af00ad9e4e13780f5b}
+
+
+Definition at line 343 of file restore.\+c.
+
+
+
+References fruit\+::fid, fruit\+::fname, fruitadd(), and fruit\+::nextf.
+
+
+
+Referenced by restobjchn().
+
+
+\begin{DoxyCode}
+345 \{
+346     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structfruit}{fruit} *oldf;
+347 
+348     \textcolor{keywordflow}{for} (oldf = \hyperlink{restore_8c_aa513fd668b5863f9c765ec6eb7bc27d5}{oldfruit}; oldf; oldf = oldf->\hyperlink{structfruit_abdefc7da964abc0fe643d941b7ab3057}{nextf})
+349         \textcolor{keywordflow}{if} (oldf->\hyperlink{structfruit_ad6877c834bde1a6c94370dab88feb2f1}{fid} == otmp->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe}) \textcolor{keywordflow}{break};
+350 
+351     \textcolor{keywordflow}{if} (!oldf) impossible(\textcolor{stringliteral}{"no old fruit?"});
+352     \textcolor{keywordflow}{else} otmp->\hyperlink{structobj_a14fc8dc59e9073bfbf1e170875a98448}{spe} = \hyperlink{options_8c_a3d06a3472964915e9ea843a7041783e5}{fruitadd}(oldf->\hyperlink{structfruit_aaf40871bc1836c7997ea051693cbd758}{fname});
+353 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_ade47737c4a7e12c92904e51ececb6401}{\index{restore.\+c@{restore.\+c}!inven\+\_\+inuse@{inven\+\_\+inuse}}
+\index{inven\+\_\+inuse@{inven\+\_\+inuse}!restore.\+c@{restore.\+c}}
+\subsubsection[{inven\+\_\+inuse}]{\setlength{\rightskip}{0pt plus 5cm}void inven\+\_\+inuse (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{quietly}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_ade47737c4a7e12c92904e51ececb6401}
+
+
+Definition at line 102 of file restore.\+c.
+
+
+
+References C\+O\+I\+N\+\_\+\+C\+L\+A\+S\+S, F\+A\+L\+S\+E, invent, obj\+::nobj, obj\+::oclass, and otmp.
+
+
+
+Referenced by done(), and dorecover().
+
+
+\begin{DoxyCode}
+104 \{
+105     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}, *otmp2;
+106 
+107     \textcolor{keywordflow}{for} (otmp = \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = otmp2) \{
+108         otmp2 = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj};
+109 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+110         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a2999621925083659147349e261e4cb3d}{COIN\_CLASS}) \{
+111         \textcolor{comment}{/* in\_use gold is created by some menu operations */}
+112         \textcolor{keywordflow}{if} (!otmp->in\_use) \{
+113             impossible(\textcolor{stringliteral}{"inven\_inuse: !in\_use gold in inventory"});
+114         \}
+115         extract\_nobj(otmp, &\hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent});
+116         otmp->in\_use = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+117         dealloc\_obj(otmp);
+118         \} \textcolor{keywordflow}{else}
+119 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* GOLDOBJ */}\textcolor{preprocessor}{}
+120         \textcolor{keywordflow}{if} (otmp->in\_use) \{
+121         \textcolor{keywordflow}{if} (!quietly) pline(\textcolor{stringliteral}{"Finishing off %s..."}, xname(otmp));
+122         useup(otmp);
+123         \}
+124     \}
+125 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a925cdb8b162245b5ca16735b1e0d004f}{\index{restore.\+c@{restore.\+c}!loadfruitchn@{loadfruitchn}}
+\index{loadfruitchn@{loadfruitchn}!restore.\+c@{restore.\+c}}
+\subsubsection[{loadfruitchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct {\bf fruit}$\ast$ loadfruitchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a925cdb8b162245b5ca16735b1e0d004f}
+
+
+Definition at line 313 of file restore.\+c.
+
+
+
+References dealloc\+\_\+fruit, mread(), newfruit, and fruit\+::nextf.
+
+
+
+Referenced by getlev(), and restgamestate().
+
+
+\begin{DoxyCode}
+315 \{
+316     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structfruit}{fruit} *flist, *fnext;
+317 
+318     flist = 0;
+319     \textcolor{keywordflow}{while} (fnext = \hyperlink{objclass_8h_a62664ff762096004a5c29e847175b6ee}{newfruit}(),
+320            \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})fnext, \textcolor{keyword}{sizeof} *fnext),
+321            fnext->fid != 0) \{
+322         fnext->\hyperlink{structfruit_abdefc7da964abc0fe643d941b7ab3057}{nextf} = flist;
+323         flist = fnext;
+324     \}
+325     \hyperlink{objclass_8h_a7800724983f6a8e87465f0672e79ae9a}{dealloc\_fruit}(fnext);
+326     \textcolor{keywordflow}{return} flist;
+327 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a5d1bd4e03dc078e34d9abae5e53a646a}{\index{restore.\+c@{restore.\+c}!lookup\+\_\+id\+\_\+mapping@{lookup\+\_\+id\+\_\+mapping}}
+\index{lookup\+\_\+id\+\_\+mapping@{lookup\+\_\+id\+\_\+mapping}!restore.\+c@{restore.\+c}}
+\subsubsection[{lookup\+\_\+id\+\_\+mapping}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} lookup\+\_\+id\+\_\+mapping (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{gid, }
+\item[{unsigned $\ast$}]{nidp}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a5d1bd4e03dc078e34d9abae5e53a646a}
+
+
+Definition at line 947 of file restore.\+c.
+
+
+
+References F\+A\+L\+S\+E, bucket\+::gid, bucket\+::map, N\+\_\+\+P\+E\+R\+\_\+\+B\+U\+C\+K\+E\+T, bucket\+::next, bucket\+::nid, and T\+R\+U\+E.
+
+
+
+Referenced by reset\+\_\+oattached\+\_\+mids(), and reset\+\_\+region\+\_\+mids().
+
+
+\begin{DoxyCode}
+949 \{
+950     \textcolor{keywordtype}{int} i;
+951     \textcolor{keyword}{struct }\hyperlink{structbucket}{bucket} *curr;
+952 
+953     \textcolor{keywordflow}{if} (\hyperlink{restore_8c_a2772a8c148ef0a8d68d891ecd4c9ac3b}{n\_ids\_mapped})
+954     \textcolor{keywordflow}{for} (curr = \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\_map}; curr; curr = curr->\hyperlink{structbucket_a70c4dfb30de550c0caf1ce95f5e8803f}{next}) \{
+955         \textcolor{comment}{/* first bucket might not be totally full */}
+956         \textcolor{keywordflow}{if} (curr == \hyperlink{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{id\_map}) \{
+957         i = \hyperlink{restore_8c_a2772a8c148ef0a8d68d891ecd4c9ac3b}{n\_ids\_mapped} % \hyperlink{restore_8c_ae53e4619edbbd064609e14604e5f1b53}{N\_PER\_BUCKET};
+958         \textcolor{keywordflow}{if} (i == 0) i = \hyperlink{restore_8c_ae53e4619edbbd064609e14604e5f1b53}{N\_PER\_BUCKET};
+959         \} \textcolor{keywordflow}{else}
+960         i = \hyperlink{restore_8c_ae53e4619edbbd064609e14604e5f1b53}{N\_PER\_BUCKET};
+961 
+962         \textcolor{keywordflow}{while} (--i >= 0)
+963         \textcolor{keywordflow}{if} (\hyperlink{structbucket_ae577a155960997338a56f7b5d6a8fcac}{gid} == curr->\hyperlink{structbucket_a7cd78d1e66df897b15f34f0fd2169b5e}{map}[i].\hyperlink{structbucket_ae577a155960997338a56f7b5d6a8fcac}{gid}) \{
+964             *nidp = curr->\hyperlink{structbucket_a7cd78d1e66df897b15f34f0fd2169b5e}{map}[i].\hyperlink{structbucket_a4e1895c200b88f0355e2164c58ac49cb}{nid};
+965             \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+966         \}
+967     \}
+968 
+969     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+970 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_adf561b811f7ff644e8d9cb39ad374c41}{\index{restore.\+c@{restore.\+c}!minit@{minit}}
+\index{minit@{minit}!restore.\+c@{restore.\+c}}
+\subsubsection[{minit}]{\setlength{\rightskip}{0pt plus 5cm}void minit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_adf561b811f7ff644e8d9cb39ad374c41}
+
+
+Definition at line 1062 of file restore.\+c.
+
+
+
+Referenced by dosave0(), and uptodate().
+
+
+\begin{DoxyCode}
+1063 \{
+1064     \textcolor{keywordflow}{return};
+1065 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a4ca409c62ced3355b984139d6499732c}{\index{restore.\+c@{restore.\+c}!mread@{mread}}
+\index{mread@{mread}!restore.\+c@{restore.\+c}}
+\subsubsection[{mread}]{\setlength{\rightskip}{0pt plus 5cm}void mread (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf genericptr\+\_\+t}}]{buf, }
+\item[{unsigned int}]{len}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a4ca409c62ced3355b984139d6499732c}
+
+
+Definition at line 1068 of file restore.\+c.
+
+
+
+References close(), delete\+\_\+savefile(), error(), panic(), and read().
+
+
+
+Referenced by dorecover(), getbones(), getlev(), loadfruitchn(), rest\+\_\+regions(), rest\+\_\+worm(), restdamage(), restgamestate(), restlevchn(), restmonchn(), restnames(), restobjchn(), restore\+\_\+oracles(), and restore\+\_\+waterlevel().
+
+
+\begin{DoxyCode}
+1072 \{
+1073     \textcolor{keyword}{register} \textcolor{keywordtype}{int} rlen;
+1074 
+1075 \textcolor{preprocessor}{#if defined(BSD) || defined(ULTRIX)}
+1076     rlen = \hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(fd, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, (\textcolor{keywordtype}{int}) len);
+1077     \textcolor{keywordflow}{if}(rlen != len)\{
+1078 \textcolor{preprocessor}{#else }\textcolor{comment}{/* e.g. SYSV, \_\_TURBOC\_\_ */}\textcolor{preprocessor}{}
+1079     rlen = \hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(fd, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, (\textcolor{keywordtype}{unsigned}) len);
+1080     \textcolor{keywordflow}{if}((\textcolor{keywordtype}{unsigned})rlen != len)\{
+1081 \textcolor{preprocessor}{#endif}
+1082         pline(\textcolor{stringliteral}{"Read %d instead of %u bytes."}, rlen, len);
+1083         \textcolor{keywordflow}{if}(\hyperlink{restore_8c_ab6609a6a0b2249e63b722930f1017ce3}{restoring}) \{
+1084             (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+1085             (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+1086             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Error restoring old game."});
+1087         \}
+1088         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Error reading level file."});
+1089     \}
+1090 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a186a6b9090379683e94092cc15d6e471}{\index{restore.\+c@{restore.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf find\+\_\+lev\+\_\+obj}}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a186a6b9090379683e94092cc15d6e471}
+\hypertarget{restore_8c_aec6df2e928e3fe8e5af4600b619ba57f}{\index{restore.\+c@{restore.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!restore.\+c@{restore.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf clear\+\_\+id\+\_\+mapping}}]{}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_aec6df2e928e3fe8e5af4600b619ba57f}
+\hypertarget{restore_8c_af557456e15c204aae27eaa94be3eacbb}{\index{restore.\+c@{restore.\+c}!reset\+\_\+oattached\+\_\+mids@{reset\+\_\+oattached\+\_\+mids}}
+\index{reset\+\_\+oattached\+\_\+mids@{reset\+\_\+oattached\+\_\+mids}!restore.\+c@{restore.\+c}}
+\subsubsection[{reset\+\_\+oattached\+\_\+mids}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void reset\+\_\+oattached\+\_\+mids (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{ghostly}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_af557456e15c204aae27eaa94be3eacbb}
+
+
+Definition at line 973 of file restore.\+c.
+
+
+
+References fobj, lookup\+\_\+id\+\_\+mapping(), monst\+::m\+\_\+id, monst\+::mtame, obj\+::nobj, O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+\_\+\+I\+D, O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+O\+N\+S\+T, O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+N\+O\+T\+H\+I\+N\+G, obj\+::oextra, otmp, and obj\+::oxlth.
+
+
+
+Referenced by getlev().
+
+
+\begin{DoxyCode}
+975 \{
+976     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+977     \textcolor{keywordtype}{unsigned} oldid, nid;
+978     \textcolor{keywordflow}{for} (otmp = \hyperlink{rm_8h_a4d2866bf9ebea1c08c26174b5c8cfbb7}{fobj}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj}) \{
+979     \textcolor{keywordflow}{if} (ghostly && otmp->oattached == \hyperlink{obj_8h_a64392331b2d143b80be3262b52bb62c4}{OATTACHED\_MONST} && otmp->
+      \hyperlink{structobj_aff8be0ef151aed04ef0d41f39c90b9ef}{oxlth}) \{
+980         \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)otmp->\hyperlink{structobj_aba8aff131c3bf3f9bc24949072de3cac}{oextra};
+981 
+982         mtmp->\hyperlink{structmonst_ad8084d1c794f3903b9ffa85fca798abd}{m\_id} = 0;
+983         mtmp->mpeaceful = mtmp->\hyperlink{structmonst_a6d525ec48f9d38cda6accbb0cb39efba}{mtame} = 0; \textcolor{comment}{/* pet's owner died! */}
+984     \}
+985     \textcolor{keywordflow}{if} (ghostly && otmp->oattached == \hyperlink{obj_8h_aa6949a85687215d5dde09de5ce86e3cd}{OATTACHED\_M\_ID}) \{
+986         (void) memcpy((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&oldid, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})otmp->
+      \hyperlink{structobj_aba8aff131c3bf3f9bc24949072de3cac}{oextra},
+987                                 \textcolor{keyword}{sizeof}(oldid));
+988         \textcolor{keywordflow}{if} (\hyperlink{restore_8c_a5d1bd4e03dc078e34d9abae5e53a646a}{lookup\_id\_mapping}(oldid, &nid))
+989         (\textcolor{keywordtype}{void}) memcpy((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})otmp->\hyperlink{structobj_aba8aff131c3bf3f9bc24949072de3cac}{oextra}, (
+      \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&nid,
+990                                 \textcolor{keyword}{sizeof}(nid));
+991         \textcolor{keywordflow}{else}
+992         otmp->oattached = \hyperlink{obj_8h_ae6be3b34b4d46dc3492b06239cdbe318}{OATTACHED\_NOTHING};
+993     \}
+994     \}
+995 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_ac196bb4a9e33e5d766dcc70d0c82e46d}{\index{restore.\+c@{restore.\+c}!restdamage@{restdamage}}
+\index{restdamage@{restdamage}!restore.\+c@{restore.\+c}}
+\subsubsection[{restdamage}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void restdamage (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf boolean}}]{ghostly}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_ac196bb4a9e33e5d766dcc70d0c82e46d}
+
+
+Definition at line 151 of file restore.\+c.
+
+
+
+References alloc(), dlevel\+\_\+t\+::damagelist, d\+\_\+level\+::dlevel, free(), level, monstermoves, mread(), omoves, S\+H\+O\+P\+B\+A\+S\+E, Strcpy, T\+R\+U\+E, u, and you\+::uz.
+
+
+
+Referenced by getlev().
+
+
+\begin{DoxyCode}
+154 \{
+155     \textcolor{keywordtype}{int} counter;
+156     \textcolor{keyword}{struct }\hyperlink{structdamage}{damage} *tmp\_dam;
+157 
+158     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &counter, \textcolor{keyword}{sizeof}(counter));
+159     \textcolor{keywordflow}{if} (!counter)
+160         \textcolor{keywordflow}{return};
+161     tmp\_dam = (\textcolor{keyword}{struct }\hyperlink{structdamage}{damage} *)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structdamage}{damage}));
+162     \textcolor{keywordflow}{while} (--counter >= 0) \{
+163         \textcolor{keywordtype}{char} damaged\_shops[5], *shp = (\textcolor{keywordtype}{char} *)0;
+164 
+165         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) tmp\_dam, \textcolor{keyword}{sizeof}(*tmp\_dam));
+166         \textcolor{keywordflow}{if} (ghostly)
+167         tmp\_dam->when += (\hyperlink{decl_8h_a75c1f008487d95630d0d789a79bb5c74}{monstermoves} - \hyperlink{restore_8c_ad7326ac84bce3ce9044afbd1361f8183}{omoves});
+168         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(damaged\_shops,
+169            in\_rooms(tmp\_dam->place.x, tmp\_dam->place.y, \hyperlink{mkroom_8h_a925701a88c7ed0db502cfac9d8fbcf9e}{SHOPBASE}));
+170         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel}) \{
+171         \textcolor{comment}{/* when restoring, there are two passes over the current}
+172 \textcolor{comment}{         * level.  the first time, u.uz isn't set, so neither is}
+173 \textcolor{comment}{         * shop\_keeper().  just wait and process the damage on}
+174 \textcolor{comment}{         * the second pass.}
+175 \textcolor{comment}{         */}
+176         \textcolor{keywordflow}{for} (shp = damaged\_shops; *shp; shp++) \{
+177             \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *shkp = shop\_keeper(*shp);
+178 
+179             \textcolor{keywordflow}{if} (shkp && inhishop(shkp) &&
+180                 repair\_damage(shkp, tmp\_dam, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}))
+181             \textcolor{keywordflow}{break};
+182         \}
+183         \}
+184         \textcolor{keywordflow}{if} (!shp || !*shp) \{
+185         tmp\_dam->next = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a32cc1062d668db12f8f02ff2ea0d3fcd}{damagelist};
+186         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a32cc1062d668db12f8f02ff2ea0d3fcd}{damagelist} = tmp\_dam;
+187         tmp\_dam = (\textcolor{keyword}{struct }\hyperlink{structdamage}{damage} *)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(*tmp\_dam));
+188         \}
+189     \}
+190     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})tmp\_dam);
+191 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a61dedaf1fd2e8fc9cad1fd2fc0718d61}{\index{restore.\+c@{restore.\+c}!restgamestate@{restgamestate}}
+\index{restgamestate@{restgamestate}!restore.\+c@{restore.\+c}}
+\subsubsection[{restgamestate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} restgamestate (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{unsigned int $\ast$}]{stuckid, }
+\item[{unsigned int $\ast$}]{steedid}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a61dedaf1fd2e8fc9cad1fd2fc0718d61}
+
+
+Definition at line 357 of file restore.\+c.
+
+
+
+References amii\+\_\+setpens(), current\+\_\+fruit, discover, F\+A\+L\+S\+E, ffruit, flags, freefruitchn(), getuid(), invent, loadfruitchn(), migrating\+\_\+mons, migrating\+\_\+objs, monstermoves, moves, mread(), obj\+::nobj, otmp, obj\+::otyp, obj\+::owornmask, pl\+\_\+character, pl\+\_\+fruit, quest\+\_\+status, R\+A\+N\+G\+E\+\_\+\+G\+L\+O\+B\+A\+L, restlevchn(), restmonchn(), restnames(), restobjchn(), restore\+\_\+oracles(), restore\+\_\+waterlevel(), role\+\_\+init(), setuwep(), setworn(), spl\+\_\+book, T\+R\+U\+E, u, unweapon, Upolyd, uwep, wiz1\+\_\+level, and wizard.
+
+
+
+Referenced by dorecover().
+
+
+\begin{DoxyCode}
+360 \{
+361     \textcolor{comment}{/* discover is actually flags.explore */}
+362     \textcolor{keywordtype}{boolean} remember\_discover = \hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover};
+363     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+364     \textcolor{keywordtype}{int} uid;
+365 
+366     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &uid, \textcolor{keyword}{sizeof} uid);
+367     \textcolor{keywordflow}{if} (uid != \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}()) \{        \textcolor{comment}{/* strange ... */}
+368         \textcolor{comment}{/* for wizard mode, issue a reminder; for others, treat it}
+369 \textcolor{comment}{           as an attempt to cheat and refuse to restore this file */}
+370         pline(\textcolor{stringliteral}{"Saved game was not yours."});
+371 \textcolor{preprocessor}{#ifdef WIZARD}
+372         \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard})
+373 \textcolor{preprocessor}{#endif}
+374         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+375     \}
+376 
+377     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structflag}{flag}));
+378     flags.bypasses = 0; \textcolor{comment}{/* never use the saved value of bypasses */}
+379     \textcolor{keywordflow}{if} (remember\_discover) \hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover} = remember\_discover;
+380 
+381     \hyperlink{role_8c_a0af2e586f642074d70c46e171bdb2060}{role\_init}();   \textcolor{comment}{/* Reset the initial role, race, gender, and alignment */}
+382 \textcolor{preprocessor}{#ifdef AMII\_GRAPHICS}
+383     \hyperlink{amiconf_8h_a283ffb5445c8e641b119bfde0d9d19cd}{amii\_setpens}(\hyperlink{winext_8h_ae3cfaa8053fd2f089c9fe1ba90289e98}{amii\_numcolors}); \textcolor{comment}{/* use colors from save file */}
+384 \textcolor{preprocessor}{#endif}
+385     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structyou}{you}));
+386     set\_uasmon();
+387 \textcolor{preprocessor}{#ifdef CLIPPING}
+388     cliparound(u.ux, u.uy);
+389 \textcolor{preprocessor}{#endif}
+390     \textcolor{keywordflow}{if}(u.uhp <= 0 && (!\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd} || u.mh <= 0)) \{
+391         u.ux = u.uy = 0;    \textcolor{comment}{/* affects pline() [hence You()] */}
+392         You(\textcolor{stringliteral}{"were not healthy enough to survive restoration."});
+393         \textcolor{comment}{/* wiz1\_level.dlevel is used by mklev.c to see if lots of stuff is}
+394 \textcolor{comment}{         * uninitialized, so we only have to set it and not the other stuff.}
+395 \textcolor{comment}{         */}
+396         \hyperlink{decl_8h_abdaabae046b547407ef448fac3dcc922}{wiz1\_level}.dlevel = 0;
+397         u.uz.dnum = 0;
+398         u.uz.dlevel = 1;
+399         \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+400     \}
+401 
+402     \textcolor{comment}{/* this stuff comes after potential aborted restore attempts */}
+403     restore\_timers(fd, \hyperlink{timeout_8h_a56888daded603d4271c675ec6fa15b19}{RANGE\_GLOBAL}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0L);
+404     restore\_light\_sources(fd);
+405     \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent} = \hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn}(fd, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+406     \hyperlink{decl_8h_a9e736562f9d13a35004d49ab7c4c0ca7}{migrating\_objs} = \hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn}(fd, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+407     \hyperlink{decl_8h_a10b9afc11cdab35fe16667bb8a5506d2}{migrating\_mons} = \hyperlink{restore_8c_a1688543d6276bad96cae599de7ef0614}{restmonchn}(fd, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+408     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{structmvitals}{mvitals}, \textcolor{keyword}{sizeof}(mvitals));
+409 
+410     \textcolor{comment}{/* this comes after inventory has been loaded */}
+411     \textcolor{keywordflow}{for}(otmp = \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}; \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}; otmp = otmp->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj})
+412         \textcolor{keywordflow}{if}(otmp->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask})
+413             \hyperlink{worn_8c_ae7018d12ec8662328050dfd7bd8dc903}{setworn}(otmp, otmp->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask});
+414     \textcolor{comment}{/* reset weapon so that player will get a reminder about "bashing"}
+415 \textcolor{comment}{       during next fight when bare-handed or wielding an unconventional}
+416 \textcolor{comment}{       item; for pick-axe, we aren't able to distinguish between having}
+417 \textcolor{comment}{       applied or wielded it, so be conservative and assume the former */}
+418     otmp = \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep};    \textcolor{comment}{/* `uwep' usually init'd by setworn() in loop above */}
+419     \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} = 0;   \textcolor{comment}{/* clear it and have setuwep() reinit */}
+420     \hyperlink{wield_8c_adc7f46a6707f98835bb3c181d7ae1821}{setuwep}(otmp);   \textcolor{comment}{/* (don't need any null check here) */}
+421     \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep} || \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == PICK\_AXE || \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == GRAPPLING\_HOOK)
+422         \hyperlink{decl_8h_abc99d0f4cd19504d514e134524947a9e}{unweapon} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+423 
+424     restore\_dungeon(fd);
+425     \hyperlink{restore_8c_a6eeae8141b1e9d3baa401059ccc26f3c}{restlevchn}(fd);
+426     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a2ccad6e8fb93740ed50c6d9a8f72ce2f}{moves}, \textcolor{keyword}{sizeof} moves);
+427     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a75c1f008487d95630d0d789a79bb5c74}{monstermoves}, \textcolor{keyword}{sizeof} monstermoves);
+428     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a0cccaa8c269a70f9f598d16b8bcad4f7}{quest\_status}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structq__score}{q\_score}));
+429     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book},
+430                 \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structspell}{spell}) * (MAXSPELL + 1));
+431     restore\_artifacts(fd);
+432     \hyperlink{rumors_8c_a96cfd6fd2d52e377544c049fef561c3e}{restore\_oracles}(fd);
+433     \textcolor{keywordflow}{if} (u.ustuck)
+434         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) stuckid, \textcolor{keyword}{sizeof} (*stuckid));
+435 \textcolor{preprocessor}{#ifdef STEED}
+436     \textcolor{keywordflow}{if} (u.usteed)
+437         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) steedid, \textcolor{keyword}{sizeof} (*steedid));
+438 \textcolor{preprocessor}{#endif}
+439     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_a053ad248bf641e54a6f7bfb6a8fb9e05}{pl\_character}, \textcolor{keyword}{sizeof} pl\_character);
+440 
+441     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{decl_8h_abdd09a1ba870cc8f20c2a5a1a9e38d68}{pl\_fruit}, \textcolor{keyword}{sizeof} pl\_fruit);
+442     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a3ba39ed8bee2af6aa41539375a35fe8c}{current\_fruit}, \textcolor{keyword}{sizeof} current\_fruit);
+443     \hyperlink{restore_8c_ab16ff9ce41130269e6375865b1247bfc}{freefruitchn}(\hyperlink{decl_8h_ad67dc437078ce8705a8bff226f87076f}{ffruit}); \textcolor{comment}{/* clean up fruit(s) made by initoptions() */}
+444     \hyperlink{decl_8h_ad67dc437078ce8705a8bff226f87076f}{ffruit} = \hyperlink{restore_8c_a925cdb8b162245b5ca16735b1e0d004f}{loadfruitchn}(fd);
+445 
+446     \hyperlink{o__init_8c_abbde51c65ac8cdf07f79c3cb648cf70e}{restnames}(fd);
+447     \hyperlink{mkmaze_8c_a71fbe52a27f516be2677b7def3bbaf2d}{restore\_waterlevel}(fd);
+448     \textcolor{comment}{/* must come after all mons & objs are restored */}
+449     relink\_timers(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+450     relink\_light\_sources(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+451     \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+452 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a6eeae8141b1e9d3baa401059ccc26f3c}{\index{restore.\+c@{restore.\+c}!restlevchn@{restlevchn}}
+\index{restlevchn@{restlevchn}!restore.\+c@{restore.\+c}}
+\subsubsection[{restlevchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void restlevchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a6eeae8141b1e9d3baa401059ccc26f3c}
+
+
+Definition at line 128 of file restore.\+c.
+
+
+
+References alloc(), mread(), s\+\_\+level\+::next, and sp\+\_\+levchn.
+
+
+
+Referenced by restgamestate().
+
+
+\begin{DoxyCode}
+130 \{
+131     \textcolor{keywordtype}{int} cnt;
+132     \hyperlink{structs__level}{s\_level}  *tmplev, *x;
+133 
+134     \hyperlink{decl_8h_ae083fd1de4c06d511d4c7fec98f788c4}{sp\_levchn} = (\hyperlink{structs__level}{s\_level} *) 0;
+135     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &cnt, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+136     \textcolor{keywordflow}{for}(; cnt > 0; cnt--) \{
+137 
+138         tmplev = (\hyperlink{structs__level}{s\_level} *)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\hyperlink{structs__level}{s\_level}));
+139         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) tmplev, \textcolor{keyword}{sizeof}(\hyperlink{structs__level}{s\_level}));
+140         \textcolor{keywordflow}{if}(!\hyperlink{decl_8h_ae083fd1de4c06d511d4c7fec98f788c4}{sp\_levchn}) \hyperlink{decl_8h_ae083fd1de4c06d511d4c7fec98f788c4}{sp\_levchn} = tmplev;
+141         \textcolor{keywordflow}{else} \{
+142 
+143         \textcolor{keywordflow}{for}(x = \hyperlink{decl_8h_ae083fd1de4c06d511d4c7fec98f788c4}{sp\_levchn}; x->\hyperlink{structs__level_a05f0992e55967b904dd299418a2058da}{next}; x = x->\hyperlink{structs__level_a05f0992e55967b904dd299418a2058da}{next});
+144         x->\hyperlink{structs__level_a05f0992e55967b904dd299418a2058da}{next} = tmplev;
+145         \}
+146         tmplev->\hyperlink{structs__level_a05f0992e55967b904dd299418a2058da}{next} = (\hyperlink{structs__level}{s\_level} *)0;
+147     \}
+148 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a876bf81659b141ef758c0b678a6a8048}{\index{restore.\+c@{restore.\+c}!restlevelfile@{restlevelfile}}
+\index{restlevelfile@{restlevelfile}!restore.\+c@{restore.\+c}}
+\subsubsection[{restlevelfile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int restlevelfile (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf xchar}}]{ltmp}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a876bf81659b141ef758c0b678a6a8048}
+
+
+Definition at line 482 of file restore.\+c.
+
+
+
+References allbones, alllevels, bclose(), bufon(), B\+U\+F\+S\+Z, clearlocks(), close(), C\+O\+U\+N\+T\+\_\+\+S\+A\+V\+E, create\+\_\+levelfile(), dorecover(), E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, F\+R\+E\+E\+\_\+\+S\+A\+V\+E, levels, lseek(), panic(), ramdisk, savelev(), terminate(), uptodate(), and W\+R\+I\+T\+E\+\_\+\+S\+A\+V\+E.
+
+
+
+Referenced by dorecover().
+
+
+\begin{DoxyCode}
+488 \{
+489     \textcolor{keyword}{register} \textcolor{keywordtype}{int} nfd;
+490     \textcolor{keywordtype}{char} whynot[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+491 
+492     nfd = \hyperlink{files_8c_a100eb62c4da3d39341f863545b99a801}{create\_levelfile}(ltmp, whynot);
+493     \textcolor{keywordflow}{if} (nfd < 0) \{
+494         \textcolor{comment}{/* BUG: should suppress any attempt to write a panic}
+495 \textcolor{comment}{           save file if file creation is now failing... */}
+496         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"restlevelfile: %s"}, whynot);
+497     \}
+498 \textcolor{preprocessor}{#ifdef MFLOPPY}
+499     \textcolor{keywordflow}{if} (!\hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev}(nfd, ltmp, \hyperlink{lev_8h_af278f508ebfcebe77bc078316e7a2d18}{COUNT\_SAVE})) \{
+500 
+501         \textcolor{comment}{/* The savelev can't proceed because the size required}
+502 \textcolor{comment}{         * is greater than the available disk space.}
+503 \textcolor{comment}{         */}
+504         pline(\textcolor{stringliteral}{"Not enough space on `%s' to restore your game."},
+505             \hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels});
+506 
+507         \textcolor{comment}{/* Remove levels and bones that may have been created.}
+508 \textcolor{comment}{         */}
+509         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(nfd);
+510 \textcolor{preprocessor}{# ifdef AMIGA}
+511         \hyperlink{files_8c_a829000f7fe446d1d26a5c4dbc51643c6}{clearlocks}();
+512 \textcolor{preprocessor}{# else}
+513         eraseall(\hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels}, \hyperlink{micro_8h_a68f434a7656e0a7d151258868b9e55fd}{alllevels});
+514         eraseall(\hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels}, \hyperlink{micro_8h_a165601e7e5f34b4179650451dbb887b4}{allbones});
+515 
+516         \textcolor{comment}{/* Perhaps the person would like to play without a}
+517 \textcolor{comment}{         * RAMdisk.}
+518 \textcolor{comment}{         */}
+519         \textcolor{keywordflow}{if} (\hyperlink{micro_8h_a6c33dd83e1df00f65369a3d422b4bc25}{ramdisk}) \{
+520             \textcolor{comment}{/* PlaywoRAMdisk may not return, but if it does}
+521 \textcolor{comment}{             * it is certain that ramdisk will be 0.}
+522 \textcolor{comment}{             */}
+523             playwoRAMdisk();
+524             \textcolor{comment}{/* Rewind save file and try again */}
+525             (void) \hyperlink{wceconf_8h_a0f6bb896aa39f599bf81b462f2ca563f}{lseek}(fd, (\hyperlink{amiconf_8h_af83497edef361523a95b06deda0b4c2d}{off\_t})0, 0);
+526             (void) \hyperlink{version_8c_a058fe6d05cab8d612e8f622186b83693}{uptodate}(fd, (\textcolor{keywordtype}{char} *)0); \textcolor{comment}{/* skip version */}
+527             \textcolor{keywordflow}{return} \hyperlink{restore_8c_a4fb439a417b679a962bff63981841e4c}{dorecover}(fd);  \textcolor{comment}{/* 0 or 1 */}
+528         \} \textcolor{keywordflow}{else} \{
+529 \textcolor{preprocessor}{# endif}
+530             pline(\textcolor{stringliteral}{"Be seeing you..."});
+531             \hyperlink{end_8c_a30ebaced48494e6e25f8833532ec17ca}{terminate}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+532 \textcolor{preprocessor}{# ifndef AMIGA}
+533         \}
+534 \textcolor{preprocessor}{# endif}
+535     \}
+536 \textcolor{preprocessor}{#endif}
+537     \hyperlink{save_8c_a961e149d17d8e7891b72cd74336c68c2}{bufon}(nfd);
+538     \hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev}(nfd, ltmp, \hyperlink{lev_8h_a5743e308b58e25a32b7629de505bc991}{WRITE\_SAVE} | \hyperlink{lev_8h_a39f3d47170c994b6ac6ec401c34cebd3}{FREE\_SAVE});
+539     \hyperlink{save_8c_ada08c9aeb3924f3573f774f08a5cbc5b}{bclose}(nfd);
+540     \textcolor{keywordflow}{return}(2);
+541 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a784718d429c047bd75222d723cb4dc7b}{\index{restore.\+c@{restore.\+c}!restlevelstate@{restlevelstate}}
+\index{restlevelstate@{restlevelstate}!restore.\+c@{restore.\+c}}
+\subsubsection[{restlevelstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void restlevelstate (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{stuckid, }
+\item[{unsigned int}]{steedid}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a784718d429c047bd75222d723cb4dc7b}
+
+
+Definition at line 458 of file restore.\+c.
+
+
+
+References fmon, monst\+::m\+\_\+id, monst\+::mx, monst\+::my, monst\+::nmon, panic(), remove\+\_\+monster, u, and you\+::ustuck.
+
+
+
+Referenced by dorecover().
+
+
+\begin{DoxyCode}
+460 \{
+461     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp;
+462 
+463     \textcolor{keywordflow}{if} (stuckid) \{
+464         \textcolor{keywordflow}{for} (mtmp = \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon}; mtmp; mtmp = mtmp->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon})
+465             \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_ad8084d1c794f3903b9ffa85fca798abd}{m\_id} == stuckid) \textcolor{keywordflow}{break};
+466         \textcolor{keywordflow}{if} (!mtmp) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot find the monster ustuck."});
+467         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck} = mtmp;
+468     \}
+469 \textcolor{preprocessor}{#ifdef STEED}
+470     \textcolor{keywordflow}{if} (steedid) \{
+471         \textcolor{keywordflow}{for} (mtmp = \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon}; mtmp; mtmp = mtmp->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon})
+472             \textcolor{keywordflow}{if} (mtmp->\hyperlink{structmonst_ad8084d1c794f3903b9ffa85fca798abd}{m\_id} == steedid) \textcolor{keywordflow}{break};
+473         \textcolor{keywordflow}{if} (!mtmp) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot find the monster usteed."});
+474         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed = mtmp;
+475         \hyperlink{rm_8h_a8b498c0777a4cf5d9894ab76cb6a520e}{remove\_monster}(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my});
+476     \}
+477 \textcolor{preprocessor}{#endif}
+478 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a1688543d6276bad96cae599de7ef0614}{\index{restore.\+c@{restore.\+c}!restmonchn@{restmonchn}}
+\index{restmonchn@{restmonchn}!restore.\+c@{restore.\+c}}
+\subsubsection[{restmonchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct {\bf monst}$\ast$ restmonchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf boolean}}]{ghostly}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a1688543d6276bad96cae599de7ef0614}
+
+
+Definition at line 244 of file restore.\+c.
+
+
+
+References add\+\_\+id\+\_\+mapping(), D\+E\+F\+U\+N\+C\+T\+\_\+\+M\+O\+N\+S\+T\+E\+R, F\+A\+L\+S\+E, flags, flag\+::ident, M\+O\+N\+\_\+\+N\+O\+W\+E\+P, mons, mread(), newmonst, monst\+::nmon, obj\+::nobj, offset, obj\+::owornmask, restobjchn(), T\+R\+U\+E, and W\+\_\+\+W\+E\+P.
+
+
+
+Referenced by getlev(), and restgamestate().
+
+
+\begin{DoxyCode}
+247 \{
+248     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp, *mtmp2 = 0;
+249     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *first = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)0;
+250     \textcolor{keywordtype}{int} xl;
+251     \textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *monbegin;
+252     \textcolor{keywordtype}{boolean} moved;
+253 
+254     \textcolor{comment}{/* get the original base address */}
+255     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&monbegin, \textcolor{keyword}{sizeof}(monbegin));
+256     moved = (monbegin != \hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons});
+257 
+258     \textcolor{keywordflow}{while}(1) \{
+259         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &xl, \textcolor{keyword}{sizeof}(xl));
+260         \textcolor{keywordflow}{if}(xl == -1) \textcolor{keywordflow}{break};
+261         mtmp = \hyperlink{monst_8h_a352cffea2f66afefb6dece2621aad500}{newmonst}(xl);
+262         \textcolor{keywordflow}{if}(!first) first = mtmp;
+263         \textcolor{keywordflow}{else} mtmp2->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon} = mtmp;
+264         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) mtmp, (\textcolor{keywordtype}{unsigned}) xl + \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmonst}{monst}));
+265         \textcolor{keywordflow}{if} (ghostly) \{
+266             \textcolor{keywordtype}{unsigned} nid = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ab942b8e32836e4e1bc725d7715bacd68}{ident}++;
+267             \hyperlink{restore_8c_ae20ca0fc14549b4f0e2d9bacd663c0d4}{add\_id\_mapping}(mtmp->m\_id, nid);
+268             mtmp->m\_id = nid;
+269         \}
+270         \textcolor{keywordflow}{if} (moved && mtmp->data) \{
+271             \textcolor{keywordtype}{int} \hyperlink{Window_8c_a6313d4fad4381a8c1cd37bac963cec12}{offset} = mtmp->data - monbegin;   \textcolor{comment}{/*(ptrdiff\_t)*/}
+272             mtmp->data = \hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons} + \hyperlink{Window_8c_a6313d4fad4381a8c1cd37bac963cec12}{offset};  \textcolor{comment}{/* new permonst location */}
+273         \}
+274         \textcolor{keywordflow}{if} (ghostly) \{
+275             \textcolor{keywordtype}{int} mndx = monsndx(mtmp->data);
+276             \textcolor{keywordflow}{if} (propagate(mndx, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, ghostly) == 0) \{
+277                 \textcolor{comment}{/* cookie to trigger purge in getbones() */}
+278                 mtmp->mhpmax = \hyperlink{hack_8h_aba651309065b8f0d3d8c9c2d146e83e3}{DEFUNCT\_MONSTER};  
+279             \}
+280         \}
+281         \textcolor{keywordflow}{if}(mtmp->minvent) \{
+282             \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{structobj}{obj};
+283             mtmp->minvent = \hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn}(fd, ghostly, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+284             \textcolor{comment}{/* restore monster back pointer */}
+285             \textcolor{keywordflow}{for} (obj = mtmp->minvent; obj; obj = obj->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj})
+286                 obj->ocarry = mtmp;
+287         \}
+288         \textcolor{keywordflow}{if} (mtmp->mw) \{
+289             \textcolor{keyword}{struct }obj *obj;
+290 
+291             \textcolor{keywordflow}{for}(obj = mtmp->minvent; obj; obj = obj->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj})
+292                 \textcolor{keywordflow}{if} (obj->\hyperlink{structobj_a7906e045755ba4099705764a4eb076c6}{owornmask} & \hyperlink{prop_8h_abd75a55f67b13523ef4377d4eb6fb6ad}{W\_WEP}) \textcolor{keywordflow}{break};
+293             \textcolor{keywordflow}{if} (obj) mtmp->mw = obj;
+294             \textcolor{keywordflow}{else} \{
+295                 \hyperlink{monst_8h_a34607029d74c5c6d0cb7f33d2092b8c8}{MON\_NOWEP}(mtmp);
+296                 impossible(\textcolor{stringliteral}{"bad monster weapon restore"});
+297             \}
+298         \}
+299 
+300         \textcolor{keywordflow}{if} (mtmp->isshk) restshk(mtmp, ghostly);
+301         \textcolor{keywordflow}{if} (mtmp->ispriest) restpriest(mtmp, ghostly);
+302 
+303         mtmp2 = mtmp;
+304     \}
+305     \textcolor{keywordflow}{if}(first && mtmp2->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon})\{
+306         impossible(\textcolor{stringliteral}{"Restmonchn: error reading monchn."});
+307         mtmp2->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon} = 0;
+308     \}
+309     \textcolor{keywordflow}{return}(first);
+310 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{\index{restore.\+c@{restore.\+c}!restobjchn@{restobjchn}}
+\index{restobjchn@{restobjchn}!restore.\+c@{restore.\+c}}
+\subsubsection[{restobjchn}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct {\bf obj}$\ast$ restobjchn (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf boolean}}]{ghostly, }
+\item[{{\bf boolean}}]{frozen}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}
+
+
+Definition at line 194 of file restore.\+c.
+
+
+
+References add\+\_\+id\+\_\+mapping(), age\+\_\+is\+\_\+relative, obj\+::cobj, flags, ghostfruit(), Has\+\_\+contents, flag\+::ident, Is\+\_\+\+Ice\+Box, monstermoves, mread(), newobj, obj\+::nobj, and otmp.
+
+
+
+Referenced by getlev(), restgamestate(), and restmonchn().
+
+
+\begin{DoxyCode}
+197 \{
+198     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}, *otmp2 = 0;
+199     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *first = (\textcolor{keyword}{struct }\hyperlink{structobj}{obj} *)0;
+200     \textcolor{keywordtype}{int} xl;
+201 
+202     \textcolor{keywordflow}{while}(1) \{
+203         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &xl, \textcolor{keyword}{sizeof}(xl));
+204         \textcolor{keywordflow}{if}(xl == -1) \textcolor{keywordflow}{break};
+205         otmp = \hyperlink{obj_8h_a6cf2ea5aec5dd17cb5d055477a91426a}{newobj}(xl);
+206         \textcolor{keywordflow}{if}(!first) first = \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+207         \textcolor{keywordflow}{else} otmp2->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj} = \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+208         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) otmp,
+209                     (\textcolor{keywordtype}{unsigned}) xl + \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structobj}{obj}));
+210         \textcolor{keywordflow}{if} (ghostly) \{
+211             \textcolor{keywordtype}{unsigned} nid = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ab942b8e32836e4e1bc725d7715bacd68}{ident}++;
+212             \hyperlink{restore_8c_ae20ca0fc14549b4f0e2d9bacd663c0d4}{add\_id\_mapping}(otmp->o\_id, nid);
+213             otmp->o\_id = nid;
+214         \}
+215         \textcolor{keywordflow}{if} (ghostly && otmp->otyp == SLIME\_MOLD) \hyperlink{restore_8c_af7d4ec4fc85328af00ad9e4e13780f5b}{ghostfruit}(otmp);
+216         \textcolor{comment}{/* Ghost levels get object age shifted from old player's clock}
+217 \textcolor{comment}{         * to new player's clock.  Assumption: new player arrived}
+218 \textcolor{comment}{         * immediately after old player died.}
+219 \textcolor{comment}{         */}
+220         \textcolor{keywordflow}{if} (ghostly && !frozen && !\hyperlink{obj_8h_aab158d4d170eadd4e9307f92834eaa32}{age\_is\_relative}(otmp))
+221             otmp->age = \hyperlink{decl_8h_a75c1f008487d95630d0d789a79bb5c74}{monstermoves} - \hyperlink{restore_8c_ad7326ac84bce3ce9044afbd1361f8183}{omoves} + otmp->age;
+222 
+223         \textcolor{comment}{/* get contents of a container or statue */}
+224         \textcolor{keywordflow}{if} (\hyperlink{obj_8h_ae2e47c7280efe98de2333e8078f8ce71}{Has\_contents}(otmp)) \{
+225             \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *otmp3;
+226             otmp->\hyperlink{structobj_aa7bed832c417657c964b6f5893737586}{cobj} = \hyperlink{restore_8c_a76aa6d73187e529cdf3c47812a4503f9}{restobjchn}(fd, ghostly, \hyperlink{restore_8c_ad6d0a11e5795536939714c4808f2e3a7}{Is\_IceBox}(otmp));
+227             \textcolor{comment}{/* restore container back pointers */}
+228             \textcolor{keywordflow}{for} (otmp3 = otmp->\hyperlink{structobj_aa7bed832c417657c964b6f5893737586}{cobj}; otmp3; otmp3 = otmp3->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj})
+229             otmp3->ocontainer = \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+230         \}
+231         \textcolor{keywordflow}{if} (otmp->bypass) otmp->bypass = 0;
+232 
+233         otmp2 = \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+234     \}
+235     \textcolor{keywordflow}{if}(first && otmp2->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj})\{
+236         impossible(\textcolor{stringliteral}{"Restobjchn: error reading objchn."});
+237         otmp2->\hyperlink{structobj_ad1c5d790528ee1d8349ef302994789d8}{nobj} = 0;
+238     \}
+239 
+240     \textcolor{keywordflow}{return}(first);
+241 \}
+\end{DoxyCode}
+\hypertarget{restore_8c_a3418c2e55f272194ad0d941d453e3879}{\index{restore.\+c@{restore.\+c}!trickery@{trickery}}
+\index{trickery@{trickery}!restore.\+c@{restore.\+c}}
+\subsubsection[{trickery}]{\setlength{\rightskip}{0pt plus 5cm}void trickery (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{reason}
+\end{DoxyParamCaption}
+)}}\label{restore_8c_a3418c2e55f272194ad0d941d453e3879}
+
+
+Definition at line 685 of file restore.\+c.
+
+
+
+References done, killer, and T\+R\+I\+C\+K\+E\+D.
+
+
+
+Referenced by getbones(), and getlev().
+
+
+\begin{DoxyCode}
+687 \{
+688     pline(\textcolor{stringliteral}{"Strange, this map is not as I remember it."});
+689     pline(\textcolor{stringliteral}{"Somebody is trying some trickery here..."});
+690     pline(\textcolor{stringliteral}{"This game is void."});
+691     \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer} = reason;
+692     \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(\hyperlink{hack_8h_a2d6235975513e9630a8895cd64a67905}{TRICKED});
+693 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}{\index{restore.\+c@{restore.\+c}!id\+\_\+map@{id\+\_\+map}}
+\index{id\+\_\+map@{id\+\_\+map}!restore.\+c@{restore.\+c}}
+\subsubsection[{id\+\_\+map}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf bucket}$\ast$ id\+\_\+map = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{restore_8c_a43574c88324fcb39fcd26428d6bfbc06}
+
+
+Definition at line 51 of file restore.\+c.
+
+
+
+Referenced by add\+\_\+id\+\_\+mapping().
+
+\hypertarget{restore_8c_a2772a8c148ef0a8d68d891ecd4c9ac3b}{\index{restore.\+c@{restore.\+c}!n\+\_\+ids\+\_\+mapped@{n\+\_\+ids\+\_\+mapped}}
+\index{n\+\_\+ids\+\_\+mapped@{n\+\_\+ids\+\_\+mapped}!restore.\+c@{restore.\+c}}
+\subsubsection[{n\+\_\+ids\+\_\+mapped}]{\setlength{\rightskip}{0pt plus 5cm}int n\+\_\+ids\+\_\+mapped = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{restore_8c_a2772a8c148ef0a8d68d891ecd4c9ac3b}
+
+
+Definition at line 50 of file restore.\+c.
+
+\hypertarget{restore_8c_aa513fd668b5863f9c765ec6eb7bc27d5}{\index{restore.\+c@{restore.\+c}!oldfruit@{oldfruit}}
+\index{oldfruit@{oldfruit}!restore.\+c@{restore.\+c}}
+\subsubsection[{oldfruit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} struct {\bf fruit}$\ast$ oldfruit\hspace{0.3cm}{\ttfamily [static]}}}\label{restore_8c_aa513fd668b5863f9c765ec6eb7bc27d5}
+
+
+Definition at line 62 of file restore.\+c.
+
+\hypertarget{restore_8c_ad7326ac84bce3ce9044afbd1361f8183}{\index{restore.\+c@{restore.\+c}!omoves@{omoves}}
+\index{omoves@{omoves}!restore.\+c@{restore.\+c}}
+\subsubsection[{omoves}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} long omoves\hspace{0.3cm}{\ttfamily [static]}}}\label{restore_8c_ad7326ac84bce3ce9044afbd1361f8183}
+
+
+Definition at line 63 of file restore.\+c.
+
+
+
+Referenced by restdamage().
+
+\hypertarget{restore_8c_ab6609a6a0b2249e63b722930f1017ce3}{\index{restore.\+c@{restore.\+c}!restoring@{restoring}}
+\index{restoring@{restoring}!restore.\+c@{restore.\+c}}
+\subsubsection[{restoring}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} restoring = {\bf F\+A\+L\+S\+E}}}\label{restore_8c_ab6609a6a0b2249e63b722930f1017ce3}
+
+
+Definition at line 61 of file restore.\+c.
+

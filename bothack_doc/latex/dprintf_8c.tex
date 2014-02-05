@@ -1,0 +1,117 @@
+\hypertarget{dprintf_8c}{\section{nethack/sys/mac/dprintf.c File Reference}
+\label{dprintf_8c}\index{nethack/sys/mac/dprintf.\+c@{nethack/sys/mac/dprintf.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macwin.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dprintf_8c_a8268088d95b0fccd54961b2226ff3212}{D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R}~1
+\item 
+\#define \hyperlink{dprintf_8c_a453cad18673746c1daed12917dcb594e}{D\+O\+\_\+\+P\+L\+I\+N\+E}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Boolean \hyperlink{dprintf_8c_abf2f468ea79cbc94987e1fb0f27504a5}{Key\+Down} (unsigned short code)
+\item 
+void \hyperlink{dprintf_8c_a1c98e02fb1c724c42c5b1c628777aa60}{dprintf} (char $\ast$format,...)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{dprintf_8c_a8268088d95b0fccd54961b2226ff3212}{\index{dprintf.\+c@{dprintf.\+c}!D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R@{D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R}}
+\index{D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R@{D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R}!dprintf.\+c@{dprintf.\+c}}
+\subsubsection[{D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R~1}}\label{dprintf_8c_a8268088d95b0fccd54961b2226ff3212}
+
+
+Referenced by dprintf().
+
+\hypertarget{dprintf_8c_a453cad18673746c1daed12917dcb594e}{\index{dprintf.\+c@{dprintf.\+c}!D\+O\+\_\+\+P\+L\+I\+N\+E@{D\+O\+\_\+\+P\+L\+I\+N\+E}}
+\index{D\+O\+\_\+\+P\+L\+I\+N\+E@{D\+O\+\_\+\+P\+L\+I\+N\+E}!dprintf.\+c@{dprintf.\+c}}
+\subsubsection[{D\+O\+\_\+\+P\+L\+I\+N\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+O\+\_\+\+P\+L\+I\+N\+E~2}}\label{dprintf_8c_a453cad18673746c1daed12917dcb594e}
+
+
+Referenced by dprintf().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{dprintf_8c_a1c98e02fb1c724c42c5b1c628777aa60}{\index{dprintf.\+c@{dprintf.\+c}!dprintf@{dprintf}}
+\index{dprintf@{dprintf}!dprintf.\+c@{dprintf.\+c}}
+\subsubsection[{dprintf}]{\setlength{\rightskip}{0pt plus 5cm}void dprintf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{format, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}}\label{dprintf_8c_a1c98e02fb1c724c42c5b1c628777aa60}
+
+
+Definition at line 18 of file dprintf.\+c.
+
+
+
+References flag\+::debug, D\+O\+\_\+\+D\+E\+B\+U\+G\+S\+T\+R, D\+O\+\_\+\+P\+L\+I\+N\+E, flags, iflags, Nh\+Window\+::its\+\_\+window, Key\+Down(), mac\+Flags, the\+Windows, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, and instance\+\_\+flags\+::window\+\_\+inited.
+
+
+
+Referenced by \+\_\+mt\+\_\+init\+\_\+stuff(), allocate\+\_\+offscreen\+\_\+world(), force\+\_\+tty\+\_\+coordinate\+\_\+system\+\_\+recalc(), Get\+Win\+Kind(), mac\+\_\+create\+\_\+nhwindow(), Retrieve\+Position(), Save\+Position(), and Save\+Size().
+
+
+\begin{DoxyCode}
+19 \{
+20 \textcolor{keywordtype}{char} buffer [500];
+21 va\_list list;
+22 \textcolor{keywordtype}{int} doit;
+23 \textcolor{preprocessor}{#define DO\_DEBUGSTR 1}
+24 \textcolor{preprocessor}{#define DO\_PLINE 2}
+25 
+26     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ac2d732f796f18d283c1675e7fa3b7dd5}{debug}) \{
+27         doit = 0;
+28         \textcolor{keywordflow}{if} (\hyperlink{macwin_8h_a42b584526971fb7952b7c94ba897b4b1}{macFlags}.hasDebugger && \hyperlink{dprintf_8c_abf2f468ea79cbc94987e1fb0f27504a5}{KeyDown} (0x39)) \{                    \textcolor{comment}{/* Caps Lock */}
+29             doit = \hyperlink{dprintf_8c_a8268088d95b0fccd54961b2226ff3212}{DO\_DEBUGSTR};
+30         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dprintf_8c_abf2f468ea79cbc94987e1fb0f27504a5}{KeyDown} (0x3B) && \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2fc6c78c4c5f6e1d0027ac575135426f}{window\_inited} &&          \textcolor{comment}{/* Control 
+      */}
+31             (\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE} != -1) && \hyperlink{macwin_8h_a114fc4587c1401f816a5510dc026eec0}{theWindows} [\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}].
+      \hyperlink{structNhWindow_a68dc7295b79e14f4a78a0040c15888e5}{its\_window}) \{
+32             doit = \hyperlink{dprintf_8c_a453cad18673746c1daed12917dcb594e}{DO\_PLINE};
+33         \}
+34         
+35         \textcolor{keywordflow}{if} (doit) \{
+36             va\_start (list, format);
+37             vsprintf (&buffer [1], format, list);
+38             va\_end (list) ;
+39 
+40             \textcolor{keywordflow}{if} (doit == \hyperlink{dprintf_8c_a8268088d95b0fccd54961b2226ff3212}{DO\_DEBUGSTR}) \{
+41                 buffer [0] = strlen (&buffer [1]);
+42                 DebugStr ((\hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} *) buffer);
+43             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (doit == \hyperlink{dprintf_8c_a453cad18673746c1daed12917dcb594e}{DO\_PLINE})        
+44                 pline (\textcolor{stringliteral}{"%s"}, &buffer [1]);
+45         \}
+46     \}
+47 \}
+\end{DoxyCode}
+\hypertarget{dprintf_8c_abf2f468ea79cbc94987e1fb0f27504a5}{\index{dprintf.\+c@{dprintf.\+c}!Key\+Down@{Key\+Down}}
+\index{Key\+Down@{Key\+Down}!dprintf.\+c@{dprintf.\+c}}
+\subsubsection[{Key\+Down}]{\setlength{\rightskip}{0pt plus 5cm}static Boolean Key\+Down (
+\begin{DoxyParamCaption}
+\item[{unsigned short}]{code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{dprintf_8c_abf2f468ea79cbc94987e1fb0f27504a5}
+
+
+Definition at line 9 of file dprintf.\+c.
+
+
+
+Referenced by dprintf().
+
+
+\begin{DoxyCode}
+9                               \{
+10 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} keys [16];
+11 
+12     GetKeys ((\textcolor{keywordtype}{void} *) keys);
+13     \textcolor{keywordflow}{return} ((keys [code >> 3] >> (code & 7)) & 1) != 0;
+14 \}
+\end{DoxyCode}

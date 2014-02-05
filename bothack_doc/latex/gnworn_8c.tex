@@ -1,0 +1,232 @@
+\hypertarget{gnworn_8c}{\section{nethack/win/gnome/gnworn.c File Reference}
+\label{gnworn_8c}\index{nethack/win/gnome/gnworn.\+c@{nethack/win/gnome/gnworn.\+c}}
+}
+{\ttfamily \#include \char`\"{}gnworn.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gnglyph.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gnsignal.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gnomeprv.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}{W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H}~3
+\item 
+\#define \hyperlink{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}{W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T}~6
+\item 
+\#define \hyperlink{gnworn_8c_ad64d68bc8f894ce44d48c61206d22502}{W\+O\+R\+N\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+L\+I\+S\+T}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Gdk\+Imlib\+Image $\ast$ \hyperlink{gnworn_8c_a633597a8ca451315c6f43c8aeb596c46}{image\+\_\+of\+\_\+worn\+\_\+object} (struct \hyperlink{structobj}{obj} $\ast$o)
+\item 
+void \hyperlink{gnworn_8c_a8510725d5d292bb1c4c84e158bb7cd8c}{ghack\+\_\+worn\+\_\+display} (Gtk\+Widget $\ast$win, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} block, gpointer data)
+\item 
+Gtk\+Widget $\ast$ \hyperlink{gnworn_8c_a7d829985686dbd852bd46dbfe2c463d4}{ghack\+\_\+init\+\_\+worn\+\_\+window} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static Gtk\+Widget $\ast$ \hyperlink{gnworn_8c_a08010b49f9d0c331c646e248e121429a}{worn\+\_\+contents} \mbox{[}\hyperlink{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}{W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T}\mbox{]}\mbox{[}\hyperlink{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}{W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H}\mbox{]}
+\item 
+static struct \hyperlink{structobj}{obj} $\ast$ \hyperlink{gnworn_8c_aeb56b1c8f8e4e5df30a160294cacdac5}{last\+\_\+worn\+\_\+objects} \mbox{[}\hyperlink{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}{W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T}\mbox{]}\mbox{[}\hyperlink{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}{W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}{\index{gnworn.\+c@{gnworn.\+c}!W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T@{W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T}}
+\index{W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T@{W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T}!gnworn.\+c@{gnworn.\+c}}
+\subsubsection[{W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T~6}}\label{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}
+
+
+Definition at line 11 of file gnworn.\+c.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+worn\+\_\+window(), and ghack\+\_\+worn\+\_\+display().
+
+\hypertarget{gnworn_8c_ad64d68bc8f894ce44d48c61206d22502}{\index{gnworn.\+c@{gnworn.\+c}!W\+O\+R\+N\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+L\+I\+S\+T@{W\+O\+R\+N\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+L\+I\+S\+T}}
+\index{W\+O\+R\+N\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+L\+I\+S\+T@{W\+O\+R\+N\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+L\+I\+S\+T}!gnworn.\+c@{gnworn.\+c}}
+\subsubsection[{W\+O\+R\+N\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+L\+I\+S\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+O\+R\+N\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+L\+I\+S\+T}}\label{gnworn_8c_ad64d68bc8f894ce44d48c61206d22502}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+\textcolor{comment}{/* struct obj *[WORN\_HEIGHT][WORN\_WIDTH] = */} \{ \(\backslash\)
+    \{ \hyperlink{decl_8h_a7544f9c7591e79476549f321400d269b}{uquiver},   \hyperlink{decl_8h_a5990ad491dff32418089ab967be227a5}{uarmh},     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap} ? \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} : \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep} \}, \(\backslash\)
+    \{ \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade2cee6956bba775aa796bba6ae857ec}{twoweap} ? \hyperlink{decl_8h_ab2586a729017fc01f4612808c80c1945}{uswapwep} : \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},  \hyperlink{decl_8h_aaac1dc498d3597b63617d7056c3e1c1b}{ublindf},    \hyperlink{decl_8h_a1aefaef88eef9075d8136d19410fd3b1}{uwep}    \}, \(\backslash\)
+    \{ \hyperlink{decl_8h_abc75269125700f0668785d8f073a3646}{uleft},   \hyperlink{decl_8h_a602a9d34078660dd260aed96b2abd4ca}{uamul},     \hyperlink{decl_8h_a2d7c456e0ac88316ae0b9e8ae32d17b3}{uright}    \}, \(\backslash\)
+    \{ \hyperlink{decl_8h_aee21972b230a8408f2b85e26f195e91d}{uarms},   \hyperlink{decl_8h_a586be55c11f20a38a490f6bb922a437d}{uarmc},     \hyperlink{decl_8h_a374ab5e4582cfafa2d4ef57211f53293}{uarmg}  \}, \(\backslash\)
+    \{ \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{decl_8h_ad6e6532c78ab5fe0078daf4cf352f3c1}{uarm},       \hyperlink{decl_8h_a585d9f19a7c4a6b419bceab43c687471}{uskin}  \}, \(\backslash\)
+    \{ \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball},   \hyperlink{decl_8h_a11e2d0f62fa1b42374054c939ebb288f}{uarmf},     \hyperlink{decl_8h_ac83f46f409b88c6d6109ed04938ad52a}{uchain}    \} \(\backslash\)
+\}
+\end{DoxyCode}
+
+
+Definition at line 23 of file gnworn.\+c.
+
+
+
+Referenced by ghack\+\_\+worn\+\_\+display().
+
+\hypertarget{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}{\index{gnworn.\+c@{gnworn.\+c}!W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H@{W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H}}
+\index{W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H@{W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H}!gnworn.\+c@{gnworn.\+c}}
+\subsubsection[{W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H~3}}\label{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}
+
+
+Definition at line 10 of file gnworn.\+c.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+worn\+\_\+window(), and ghack\+\_\+worn\+\_\+display().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{gnworn_8c_a7d829985686dbd852bd46dbfe2c463d4}{\index{gnworn.\+c@{gnworn.\+c}!ghack\+\_\+init\+\_\+worn\+\_\+window@{ghack\+\_\+init\+\_\+worn\+\_\+window}}
+\index{ghack\+\_\+init\+\_\+worn\+\_\+window@{ghack\+\_\+init\+\_\+worn\+\_\+window}!gnworn.\+c@{gnworn.\+c}}
+\subsubsection[{ghack\+\_\+init\+\_\+worn\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}Gtk\+Widget$\ast$ ghack\+\_\+init\+\_\+worn\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{gnworn_8c_a7d829985686dbd852bd46dbfe2c463d4}
+
+
+Definition at line 40 of file gnworn.\+c.
+
+
+
+References F\+A\+L\+S\+E, ghack\+\_\+worn\+\_\+display(), image\+\_\+of\+\_\+worn\+\_\+object(), N\+U\+L\+L, T\+R\+U\+E, worn\+\_\+contents, W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T, and W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H.
+
+
+
+Referenced by gnome\+\_\+create\+\_\+nhwindow\+\_\+by\+\_\+id().
+
+
+\begin{DoxyCode}
+41 \{
+42     GtkWidget *top;
+43     GtkWidget *table;
+44     GtkWidget *tablealign;
+45     GtkWidget *label;
+46     \textcolor{keywordtype}{int} i,j;
+47 
+48     top = gtk\_vbox\_new(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+49 
+50     table = gtk\_table\_new(\hyperlink{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}{WORN\_HEIGHT}, \hyperlink{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}{WORN\_WIDTH}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+51     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}{WORN\_HEIGHT}; i++) \{
+52     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}{WORN\_WIDTH}; j++) \{
+53         \hyperlink{gnworn_8c_a08010b49f9d0c331c646e248e121429a}{worn\_contents}[i][j] =
+54         gnome\_pixmap\_new\_from\_imlib(\hyperlink{gnworn_8c_a633597a8ca451315c6f43c8aeb596c46}{image\_of\_worn\_object}(
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}));
+55         \hyperlink{gnworn_8c_aeb56b1c8f8e4e5df30a160294cacdac5}{last\_worn\_objects}[i][j] = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}; \textcolor{comment}{/* a pointer that will never be */}
+56         gtk\_table\_attach(GTK\_TABLE(table), GTK\_WIDGET(\hyperlink{gnworn_8c_a08010b49f9d0c331c646e248e121429a}{worn\_contents}[i][j]),
+57                  j, j+1, i, i+1, 0, 0, 0, 0);
+58     \}
+59     \}
+60     tablealign = gtk\_alignment\_new(0.5, 0.0, 0.0, 1.0);
+61     gtk\_box\_pack\_start(GTK\_BOX(top), tablealign, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+62     gtk\_container\_add(GTK\_CONTAINER(tablealign), table);
+63 
+64     label = gtk\_label\_new(\textcolor{stringliteral}{"Equipment"});
+65     gtk\_label\_set\_justify(GTK\_LABEL(label), GTK\_JUSTIFY\_CENTER);
+66     gtk\_box\_pack\_start(GTK\_BOX(top), label, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+67 
+68     gtk\_signal\_connect(GTK\_OBJECT(top), \textcolor{stringliteral}{"ghack\_display"},
+69                GTK\_SIGNAL\_FUNC(\hyperlink{gnworn_8c_a8510725d5d292bb1c4c84e158bb7cd8c}{ghack\_worn\_display}), \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+70 
+71     \textcolor{keywordflow}{return} top;
+72 \}
+\end{DoxyCode}
+\hypertarget{gnworn_8c_a8510725d5d292bb1c4c84e158bb7cd8c}{\index{gnworn.\+c@{gnworn.\+c}!ghack\+\_\+worn\+\_\+display@{ghack\+\_\+worn\+\_\+display}}
+\index{ghack\+\_\+worn\+\_\+display@{ghack\+\_\+worn\+\_\+display}!gnworn.\+c@{gnworn.\+c}}
+\subsubsection[{ghack\+\_\+worn\+\_\+display}]{\setlength{\rightskip}{0pt plus 5cm}void ghack\+\_\+worn\+\_\+display (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{win, }
+\item[{{\bf boolean}}]{block, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)}}\label{gnworn_8c_a8510725d5d292bb1c4c84e158bb7cd8c}
+
+
+Definition at line 91 of file gnworn.\+c.
+
+
+
+References image\+\_\+of\+\_\+worn\+\_\+object(), worn\+\_\+contents, W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T, W\+O\+R\+N\+\_\+\+O\+B\+J\+E\+C\+T\+\_\+\+L\+I\+S\+T, and W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+worn\+\_\+window().
+
+
+\begin{DoxyCode}
+92 \{
+93     \textcolor{keywordtype}{int} i, j;
+94     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *worn\_objects[\hyperlink{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}{WORN\_HEIGHT}][\hyperlink{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}{WORN\_WIDTH}] = 
+      \hyperlink{gnworn_8c_ad64d68bc8f894ce44d48c61206d22502}{WORN\_OBJECT\_LIST};
+95 
+96     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{gnworn_8c_a9b0fd789a5561270e4f9ed44ce55a109}{WORN\_HEIGHT}; i++) \{
+97     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{gnworn_8c_ab2ae8ca9b033d3fbfeaddc8c92002274}{WORN\_WIDTH}; j++) \{
+98         \textcolor{keywordflow}{if} (worn\_objects[i][j] != \hyperlink{gnworn_8c_aeb56b1c8f8e4e5df30a160294cacdac5}{last\_worn\_objects}[i][j]) \{
+99         \hyperlink{gnworn_8c_aeb56b1c8f8e4e5df30a160294cacdac5}{last\_worn\_objects}[i][j] = worn\_objects[i][j];
+100         gnome\_pixmap\_load\_imlib(GNOME\_PIXMAP(\hyperlink{gnworn_8c_a08010b49f9d0c331c646e248e121429a}{worn\_contents}[i][j]),
+101                 \hyperlink{gnworn_8c_a633597a8ca451315c6f43c8aeb596c46}{image\_of\_worn\_object}(worn\_objects[i][j]));
+102         \}
+103     \}
+104     \}
+105 \}
+\end{DoxyCode}
+\hypertarget{gnworn_8c_a633597a8ca451315c6f43c8aeb596c46}{\index{gnworn.\+c@{gnworn.\+c}!image\+\_\+of\+\_\+worn\+\_\+object@{image\+\_\+of\+\_\+worn\+\_\+object}}
+\index{image\+\_\+of\+\_\+worn\+\_\+object@{image\+\_\+of\+\_\+worn\+\_\+object}!gnworn.\+c@{gnworn.\+c}}
+\subsubsection[{image\+\_\+of\+\_\+worn\+\_\+object}]{\setlength{\rightskip}{0pt plus 5cm}Gdk\+Imlib\+Image $\ast$ image\+\_\+of\+\_\+worn\+\_\+object (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{o}
+\end{DoxyParamCaption}
+)}}\label{gnworn_8c_a633597a8ca451315c6f43c8aeb596c46}
+
+
+Definition at line 75 of file gnworn.\+c.
+
+
+
+References cmap\+\_\+to\+\_\+glyph, F\+A\+L\+S\+E, ghack\+\_\+image\+\_\+from\+\_\+glyph(), obj\+\_\+to\+\_\+glyph, and S\+\_\+stone.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+worn\+\_\+window(), and ghack\+\_\+worn\+\_\+display().
+
+
+\begin{DoxyCode}
+76 \{
+77     \textcolor{keywordtype}{int} glyph;
+78     GdkImlibImage *im;
+79 
+80     \textcolor{keywordflow}{if} (o)
+81     glyph = \hyperlink{display_8h_a14ef77de0b1bfde06713088d7d9f53e8}{obj\_to\_glyph}(o);
+82     \textcolor{keywordflow}{else}
+83     glyph = \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\_to\_glyph}(\hyperlink{rm_8h_a342b42eb0fe3236adbc700b6e725d781}{S\_stone});
+84 
+85     im = \hyperlink{gnglyph_8c_a5aa4ed8940364d99bdf5a7545db02a28}{ghack\_image\_from\_glyph}(glyph, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+86 
+87     \textcolor{keywordflow}{return} im;
+88 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{gnworn_8c_aeb56b1c8f8e4e5df30a160294cacdac5}{\index{gnworn.\+c@{gnworn.\+c}!last\+\_\+worn\+\_\+objects@{last\+\_\+worn\+\_\+objects}}
+\index{last\+\_\+worn\+\_\+objects@{last\+\_\+worn\+\_\+objects}!gnworn.\+c@{gnworn.\+c}}
+\subsubsection[{last\+\_\+worn\+\_\+objects}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf obj}$\ast$ last\+\_\+worn\+\_\+objects\mbox{[}{\bf W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T}\mbox{]}\mbox{[}{\bf W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{gnworn_8c_aeb56b1c8f8e4e5df30a160294cacdac5}
+
+
+Definition at line 34 of file gnworn.\+c.
+
+\hypertarget{gnworn_8c_a08010b49f9d0c331c646e248e121429a}{\index{gnworn.\+c@{gnworn.\+c}!worn\+\_\+contents@{worn\+\_\+contents}}
+\index{worn\+\_\+contents@{worn\+\_\+contents}!gnworn.\+c@{gnworn.\+c}}
+\subsubsection[{worn\+\_\+contents}]{\setlength{\rightskip}{0pt plus 5cm}Gtk\+Widget$\ast$ worn\+\_\+contents\mbox{[}{\bf W\+O\+R\+N\+\_\+\+H\+E\+I\+G\+H\+T}\mbox{]}\mbox{[}{\bf W\+O\+R\+N\+\_\+\+W\+I\+D\+T\+H}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{gnworn_8c_a08010b49f9d0c331c646e248e121429a}
+
+
+Definition at line 33 of file gnworn.\+c.
+
+
+
+Referenced by ghack\+\_\+init\+\_\+worn\+\_\+window(), and ghack\+\_\+worn\+\_\+display().
+

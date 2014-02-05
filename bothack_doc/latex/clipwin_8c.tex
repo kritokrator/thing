@@ -1,0 +1,616 @@
+\hypertarget{clipwin_8c}{\section{nethack/sys/amiga/clipwin.c File Reference}
+\label{clipwin_8c}\index{nethack/sys/amiga/clipwin.\+c@{nethack/sys/amiga/clipwin.\+c}}
+}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{clipwin_8c_aa47b7770b4882333392f57b7ae65e4e4}{Palette\+Color\+Count}~8
+\item 
+\#define \hyperlink{clipwin_8c_a284af3b711f4d2f8d61e643b7f8b0f65}{P\+A\+L\+E\+T\+T\+E}~\hyperlink{clipwin_8c_a012fc5eb08775a1944b04245230b142b}{Palette}
+\item 
+\#define \hyperlink{clipwin_8c_a58690ac110da223859d4c14295600002}{Clip\+Gadget\+List1}~\hyperlink{clipwin_8c_ad850fe5cb595a6b29d392d26aa93821d}{Clip\+Y\+S\+I\+Z\+E}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{def__os2_8h_a5850d5316caf7f4cedd742fdf8cd7c02}{U\+S\+H\+O\+R\+T} \hyperlink{clipwin_8c_a012fc5eb08775a1944b04245230b142b}{Palette} \mbox{[}$\,$\mbox{]}
+\item 
+static S\+H\+O\+R\+T \hyperlink{clipwin_8c_a6a406cf3e7440daece65d723aa040e4c}{Clip\+Border\+Vectors1} \mbox{[}$\,$\mbox{]}
+\item 
+static struct Border \hyperlink{clipwin_8c_a6692be5323e5f0fe0fa9868d8c5ee376}{Clip\+Border1}
+\item 
+static struct Intui\+Text \hyperlink{clipwin_8c_a40cae7681f52df348215cf25dfcd7fcb}{Clip\+I\+Text1}
+\item 
+static struct Gadget \hyperlink{clipwin_8c_ab2b1b3ddf4f0918955e3f797a342773a}{Clip\+Cancel}
+\item 
+static S\+H\+O\+R\+T \hyperlink{clipwin_8c_ae129466dadc7cfb48b6706014b190178}{Clip\+Border\+Vectors2} \mbox{[}$\,$\mbox{]}
+\item 
+static struct Border \hyperlink{clipwin_8c_aaa1ff1501dea843a6d2d3889d3949a0c}{Clip\+Border2}
+\item 
+static struct Intui\+Text \hyperlink{clipwin_8c_a3becf80eb54138d74ea5a319f4c21bc0}{Clip\+I\+Text2}
+\item 
+static struct Gadget \hyperlink{clipwin_8c_ae0bd9b38d10d303ddeffb3caf09c3c51}{Clip\+Okay}
+\item 
+static struct Prop\+Info \hyperlink{clipwin_8c_adc513e1a49a08b25950db0ca2bcc13c2}{Clip\+Clip\+X\+C\+L\+I\+P\+S\+Info}
+\item 
+static struct Image \hyperlink{clipwin_8c_ab6afd7425e737dedaa43b2723ed462ef}{Clip\+Image1}
+\item 
+static struct Intui\+Text \hyperlink{clipwin_8c_afef38647eb37624076610d475526bf12}{Clip\+I\+Text3}
+\item 
+static struct Gadget \hyperlink{clipwin_8c_a2bc81a92944f2445b844ca39c30b6bbc}{Clip\+X\+C\+L\+I\+P}
+\item 
+static struct Prop\+Info \hyperlink{clipwin_8c_af817e0760f7220d9858a721c78305ba7}{Clip\+Clip\+Y\+C\+L\+I\+P\+S\+Info}
+\item 
+static struct Image \hyperlink{clipwin_8c_a839ca07817b61c6449c6366acddc2a52}{Clip\+Image2}
+\item 
+static struct Intui\+Text \hyperlink{clipwin_8c_aa42f24758662a83b30f61a6a9e1de540}{Clip\+I\+Text4}
+\item 
+static struct Gadget \hyperlink{clipwin_8c_ae72e2013f01f9883a38d1223a0225041}{Clip\+Y\+C\+L\+I\+P}
+\item 
+static struct Prop\+Info \hyperlink{clipwin_8c_a43bee0cf9a26cb29886249b58f0ec807}{Clip\+Clip\+X\+S\+I\+Z\+E\+S\+Info}
+\item 
+static struct Image \hyperlink{clipwin_8c_a70b2fcd5a449259ee5a383965463586d}{Clip\+Image3}
+\item 
+static struct Intui\+Text \hyperlink{clipwin_8c_a9f05bfbadc2afd0f2b21be856a4b9823}{Clip\+I\+Text5}
+\item 
+static struct Gadget \hyperlink{clipwin_8c_a609bc92c46f5f92521e89e7b8b72467c}{Clip\+X\+S\+I\+Z\+E}
+\item 
+static struct Prop\+Info \hyperlink{clipwin_8c_afe4e9fadc345d5abf05e07c5de14553c}{Clip\+Clip\+Y\+S\+I\+Z\+E\+S\+Info}
+\item 
+static struct Image \hyperlink{clipwin_8c_a122e29d97bd10af1bab870ed38b88762}{Clip\+Image4}
+\item 
+static struct Intui\+Text \hyperlink{clipwin_8c_ac19e985b32d901c991c6c4d1f4386f69}{Clip\+I\+Text6}
+\item 
+static struct Gadget \hyperlink{clipwin_8c_ad850fe5cb595a6b29d392d26aa93821d}{Clip\+Y\+S\+I\+Z\+E}
+\item 
+static struct New\+Window \hyperlink{clipwin_8c_aedc33a3c2d584d5a90281d77fa57fda2}{Clip\+New\+Window\+Structure1}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{clipwin_8c_a58690ac110da223859d4c14295600002}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Gadget\+List1@{Clip\+Gadget\+List1}}
+\index{Clip\+Gadget\+List1@{Clip\+Gadget\+List1}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Gadget\+List1}]{\setlength{\rightskip}{0pt plus 5cm}\#define Clip\+Gadget\+List1~{\bf Clip\+Y\+S\+I\+Z\+E}}}\label{clipwin_8c_a58690ac110da223859d4c14295600002}
+
+
+Definition at line 249 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a284af3b711f4d2f8d61e643b7f8b0f65}{\index{clipwin.\+c@{clipwin.\+c}!P\+A\+L\+E\+T\+T\+E@{P\+A\+L\+E\+T\+T\+E}}
+\index{P\+A\+L\+E\+T\+T\+E@{P\+A\+L\+E\+T\+T\+E}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{P\+A\+L\+E\+T\+T\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+A\+L\+E\+T\+T\+E~{\bf Palette}}}\label{clipwin_8c_a284af3b711f4d2f8d61e643b7f8b0f65}
+
+
+Definition at line 13 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_aa47b7770b4882333392f57b7ae65e4e4}{\index{clipwin.\+c@{clipwin.\+c}!Palette\+Color\+Count@{Palette\+Color\+Count}}
+\index{Palette\+Color\+Count@{Palette\+Color\+Count}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Palette\+Color\+Count}]{\setlength{\rightskip}{0pt plus 5cm}\#define Palette\+Color\+Count~8}}\label{clipwin_8c_aa47b7770b4882333392f57b7ae65e4e4}
+
+
+\subsection{Variable Documentation}
+\hypertarget{clipwin_8c_a6692be5323e5f0fe0fa9868d8c5ee376}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Border1@{Clip\+Border1}}
+\index{Clip\+Border1@{Clip\+Border1}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Border1}]{\setlength{\rightskip}{0pt plus 5cm}struct Border Clip\+Border1\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a6692be5323e5f0fe0fa9868d8c5ee376}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    -1,-1,  
+    3,0,JAM1,   
+    5,  
+    \hyperlink{clipwin_8c_a6a406cf3e7440daece65d723aa040e4c}{ClipBorderVectors1},   
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 22 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_aaa1ff1501dea843a6d2d3889d3949a0c}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Border2@{Clip\+Border2}}
+\index{Clip\+Border2@{Clip\+Border2}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Border2}]{\setlength{\rightskip}{0pt plus 5cm}struct Border Clip\+Border2\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_aaa1ff1501dea843a6d2d3889d3949a0c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    -1,-1,  
+    3,0,JAM1,   
+    5,  
+    \hyperlink{clipwin_8c_ae129466dadc7cfb48b6706014b190178}{ClipBorderVectors2},   
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 61 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a6a406cf3e7440daece65d723aa040e4c}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Border\+Vectors1@{Clip\+Border\+Vectors1}}
+\index{Clip\+Border\+Vectors1@{Clip\+Border\+Vectors1}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Border\+Vectors1}]{\setlength{\rightskip}{0pt plus 5cm}S\+H\+O\+R\+T Clip\+Border\+Vectors1\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a6a406cf3e7440daece65d723aa040e4c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    0,0,
+    76,0,
+    76,11,
+    0,11,
+    0,0
+\}
+\end{DoxyCode}
+
+
+Definition at line 15 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_ae129466dadc7cfb48b6706014b190178}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Border\+Vectors2@{Clip\+Border\+Vectors2}}
+\index{Clip\+Border\+Vectors2@{Clip\+Border\+Vectors2}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Border\+Vectors2}]{\setlength{\rightskip}{0pt plus 5cm}S\+H\+O\+R\+T Clip\+Border\+Vectors2\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_ae129466dadc7cfb48b6706014b190178}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    0,0,
+    78,0,
+    78,11,
+    0,11,
+    0,0
+\}
+\end{DoxyCode}
+
+
+Definition at line 54 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_ab2b1b3ddf4f0918955e3f797a342773a}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Cancel@{Clip\+Cancel}}
+\index{Clip\+Cancel@{Clip\+Cancel}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Cancel}]{\setlength{\rightskip}{0pt plus 5cm}struct Gadget Clip\+Cancel\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_ab2b1b3ddf4f0918955e3f797a342773a}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    240,59, 
+    75,10,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    RELVERIFY,  
+    BOOLGADGET, 
+    (APTR)&\hyperlink{clipwin_8c_a6692be5323e5f0fe0fa9868d8c5ee376}{ClipBorder1},  
+    NULL,   
+    &\hyperlink{clipwin_8c_a40cae7681f52df348215cf25dfcd7fcb}{ClipIText1},  
+    NULL,   
+    NULL,   
+    \hyperlink{winreq_8c_a9220cda432f9aaaee986619df2f9c167}{GADCANCEL}, 
+    NULL    
+\}
+\end{DoxyCode}
+
+
+Definition at line 38 of file clipwin.\+c.
+
+
+
+Referenced by Edit\+Clipping().
+
+\hypertarget{clipwin_8c_adc513e1a49a08b25950db0ca2bcc13c2}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Clip\+X\+C\+L\+I\+P\+S\+Info@{Clip\+Clip\+X\+C\+L\+I\+P\+S\+Info}}
+\index{Clip\+Clip\+X\+C\+L\+I\+P\+S\+Info@{Clip\+Clip\+X\+C\+L\+I\+P\+S\+Info}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Clip\+X\+C\+L\+I\+P\+S\+Info}]{\setlength{\rightskip}{0pt plus 5cm}struct Prop\+Info Clip\+Clip\+X\+C\+L\+I\+P\+S\+Info\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_adc513e1a49a08b25950db0ca2bcc13c2}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    AUTOKNOB+FREEHORIZ, 
+    24504,-1,   
+    10922,-1,   
+\}
+\end{DoxyCode}
+
+
+Definition at line 93 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a43bee0cf9a26cb29886249b58f0ec807}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Clip\+X\+S\+I\+Z\+E\+S\+Info@{Clip\+Clip\+X\+S\+I\+Z\+E\+S\+Info}}
+\index{Clip\+Clip\+X\+S\+I\+Z\+E\+S\+Info@{Clip\+Clip\+X\+S\+I\+Z\+E\+S\+Info}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Clip\+X\+S\+I\+Z\+E\+S\+Info}]{\setlength{\rightskip}{0pt plus 5cm}struct Prop\+Info Clip\+Clip\+X\+S\+I\+Z\+E\+S\+Info\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a43bee0cf9a26cb29886249b58f0ec807}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    AUTOKNOB+FREEHORIZ, 
+    26212,-1,   
+    10922,-1,   
+\}
+\end{DoxyCode}
+
+
+Definition at line 171 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_af817e0760f7220d9858a721c78305ba7}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Clip\+Y\+C\+L\+I\+P\+S\+Info@{Clip\+Clip\+Y\+C\+L\+I\+P\+S\+Info}}
+\index{Clip\+Clip\+Y\+C\+L\+I\+P\+S\+Info@{Clip\+Clip\+Y\+C\+L\+I\+P\+S\+Info}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Clip\+Y\+C\+L\+I\+P\+S\+Info}]{\setlength{\rightskip}{0pt plus 5cm}struct Prop\+Info Clip\+Clip\+Y\+C\+L\+I\+P\+S\+Info\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_af817e0760f7220d9858a721c78305ba7}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    AUTOKNOB+FREEHORIZ, 
+    13106,-1,   
+    10922,-1,   
+\}
+\end{DoxyCode}
+
+
+Definition at line 132 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_afe4e9fadc345d5abf05e07c5de14553c}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Clip\+Y\+S\+I\+Z\+E\+S\+Info@{Clip\+Clip\+Y\+S\+I\+Z\+E\+S\+Info}}
+\index{Clip\+Clip\+Y\+S\+I\+Z\+E\+S\+Info@{Clip\+Clip\+Y\+S\+I\+Z\+E\+S\+Info}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Clip\+Y\+S\+I\+Z\+E\+S\+Info}]{\setlength{\rightskip}{0pt plus 5cm}struct Prop\+Info Clip\+Clip\+Y\+S\+I\+Z\+E\+S\+Info\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_afe4e9fadc345d5abf05e07c5de14553c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    AUTOKNOB+FREEHORIZ, 
+    -25937,-1,  
+    10922,-1,   
+\}
+\end{DoxyCode}
+
+
+Definition at line 210 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_ab6afd7425e737dedaa43b2723ed462ef}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Image1@{Clip\+Image1}}
+\index{Clip\+Image1@{Clip\+Image1}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Image1}]{\setlength{\rightskip}{0pt plus 5cm}struct Image Clip\+Image1\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_ab6afd7425e737dedaa43b2723ed462ef}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    43,0,   
+    24,3,   
+    0,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    0x0000,0x0000,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 99 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a839ca07817b61c6449c6366acddc2a52}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Image2@{Clip\+Image2}}
+\index{Clip\+Image2@{Clip\+Image2}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Image2}]{\setlength{\rightskip}{0pt plus 5cm}struct Image Clip\+Image2\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a839ca07817b61c6449c6366acddc2a52}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    22,0,   
+    24,3,   
+    0,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    0x0000,0x0000,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 138 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a70b2fcd5a449259ee5a383965463586d}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Image3@{Clip\+Image3}}
+\index{Clip\+Image3@{Clip\+Image3}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Image3}]{\setlength{\rightskip}{0pt plus 5cm}struct Image Clip\+Image3\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a70b2fcd5a449259ee5a383965463586d}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    45,0,   
+    24,3,   
+    0,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    0x0000,0x0000,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 177 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a122e29d97bd10af1bab870ed38b88762}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Image4@{Clip\+Image4}}
+\index{Clip\+Image4@{Clip\+Image4}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Image4}]{\setlength{\rightskip}{0pt plus 5cm}struct Image Clip\+Image4\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a122e29d97bd10af1bab870ed38b88762}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    69,0,   
+    24,3,   
+    0,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    0x0000,0x0000,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 216 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a40cae7681f52df348215cf25dfcd7fcb}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+I\+Text1@{Clip\+I\+Text1}}
+\index{Clip\+I\+Text1@{Clip\+I\+Text1}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+I\+Text1}]{\setlength{\rightskip}{0pt plus 5cm}struct Intui\+Text Clip\+I\+Text1\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a40cae7681f52df348215cf25dfcd7fcb}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    4,0,JAM1,   
+    15,1,   
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    \textcolor{stringliteral}{"Cancel"},   
+    NULL    
+\}
+\end{DoxyCode}
+
+
+Definition at line 30 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a3becf80eb54138d74ea5a319f4c21bc0}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+I\+Text2@{Clip\+I\+Text2}}
+\index{Clip\+I\+Text2@{Clip\+I\+Text2}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+I\+Text2}]{\setlength{\rightskip}{0pt plus 5cm}struct Intui\+Text Clip\+I\+Text2\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a3becf80eb54138d74ea5a319f4c21bc0}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    4,0,JAM1,   
+    24,1,   
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    \textcolor{stringliteral}{"Okay"}, 
+    NULL    
+\}
+\end{DoxyCode}
+
+
+Definition at line 69 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_afef38647eb37624076610d475526bf12}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+I\+Text3@{Clip\+I\+Text3}}
+\index{Clip\+I\+Text3@{Clip\+I\+Text3}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+I\+Text3}]{\setlength{\rightskip}{0pt plus 5cm}struct Intui\+Text Clip\+I\+Text3\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_afef38647eb37624076610d475526bf12}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    3,0,JAM1,   
+    -116,-1,    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    \textcolor{stringliteral}{"X Clip Border:"},   
+    NULL    
+\}
+\end{DoxyCode}
+
+
+Definition at line 108 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_aa42f24758662a83b30f61a6a9e1de540}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+I\+Text4@{Clip\+I\+Text4}}
+\index{Clip\+I\+Text4@{Clip\+I\+Text4}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+I\+Text4}]{\setlength{\rightskip}{0pt plus 5cm}struct Intui\+Text Clip\+I\+Text4\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_aa42f24758662a83b30f61a6a9e1de540}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    3,0,JAM1,   
+    -116,-1,    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    \textcolor{stringliteral}{"Y Clip Border:"},   
+    NULL    
+\}
+\end{DoxyCode}
+
+
+Definition at line 147 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_a9f05bfbadc2afd0f2b21be856a4b9823}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+I\+Text5@{Clip\+I\+Text5}}
+\index{Clip\+I\+Text5@{Clip\+I\+Text5}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+I\+Text5}]{\setlength{\rightskip}{0pt plus 5cm}struct Intui\+Text Clip\+I\+Text5\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a9f05bfbadc2afd0f2b21be856a4b9823}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    3,0,JAM1,   
+    -124,-1,    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    \textcolor{stringliteral}{"X Scale Factor:"},  
+    NULL    
+\}
+\end{DoxyCode}
+
+
+Definition at line 186 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_ac19e985b32d901c991c6c4d1f4386f69}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+I\+Text6@{Clip\+I\+Text6}}
+\index{Clip\+I\+Text6@{Clip\+I\+Text6}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+I\+Text6}]{\setlength{\rightskip}{0pt plus 5cm}struct Intui\+Text Clip\+I\+Text6\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_ac19e985b32d901c991c6c4d1f4386f69}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    3,0,JAM1,   
+    -124,-1,    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    \textcolor{stringliteral}{"Y Scale Factor:"},  
+    NULL    
+\}
+\end{DoxyCode}
+
+
+Definition at line 225 of file clipwin.\+c.
+
+\hypertarget{clipwin_8c_aedc33a3c2d584d5a90281d77fa57fda2}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+New\+Window\+Structure1@{Clip\+New\+Window\+Structure1}}
+\index{Clip\+New\+Window\+Structure1@{Clip\+New\+Window\+Structure1}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+New\+Window\+Structure1}]{\setlength{\rightskip}{0pt plus 5cm}struct New\+Window Clip\+New\+Window\+Structure1\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_aedc33a3c2d584d5a90281d77fa57fda2}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    114,16, 
+    346,76, 
+    0,1,    
+    NEWSIZE+MOUSEMOVE+GADGETDOWN+GADGETUP+CLOSEWINDOW+ACTIVEWINDOW+VANILLAKEY+INTUITICKS,   
+    WINDOWSIZING+WINDOWDRAG+WINDOWDEPTH+WINDOWCLOSE+ACTIVATE+NOCAREREFRESH, 
+    &\hyperlink{clipwin_8c_ad850fe5cb595a6b29d392d26aa93821d}{ClipYSIZE},    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    \textcolor{stringliteral}{"Edit Clipping Parameters"}, 
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    350,76, 
+    -1,-1,  
+    CUSTOMSCREEN    
+\}
+\end{DoxyCode}
+
+
+Definition at line 251 of file clipwin.\+c.
+
+
+
+Referenced by Edit\+Clipping().
+
+\hypertarget{clipwin_8c_ae0bd9b38d10d303ddeffb3caf09c3c51}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Okay@{Clip\+Okay}}
+\index{Clip\+Okay@{Clip\+Okay}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Okay}]{\setlength{\rightskip}{0pt plus 5cm}struct Gadget Clip\+Okay\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_ae0bd9b38d10d303ddeffb3caf09c3c51}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    &\hyperlink{clipwin_8c_ab2b1b3ddf4f0918955e3f797a342773a}{ClipCancel},  
+    17,60,  
+    77,10,  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    RELVERIFY,  
+    BOOLGADGET, 
+    (APTR)&\hyperlink{clipwin_8c_aaa1ff1501dea843a6d2d3889d3949a0c}{ClipBorder2},  
+    NULL,   
+    &\hyperlink{clipwin_8c_a3becf80eb54138d74ea5a319f4c21bc0}{ClipIText2},  
+    NULL,   
+    NULL,   
+    \hyperlink{winreq_8c_a0258d189f5e75c01d285f0c64fd75cf3}{GADOKAY}, 
+    NULL    
+\}
+\end{DoxyCode}
+
+
+Definition at line 77 of file clipwin.\+c.
+
+
+
+Referenced by Edit\+Clipping().
+
+\hypertarget{clipwin_8c_a2bc81a92944f2445b844ca39c30b6bbc}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+X\+C\+L\+I\+P@{Clip\+X\+C\+L\+I\+P}}
+\index{Clip\+X\+C\+L\+I\+P@{Clip\+X\+C\+L\+I\+P}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+X\+C\+L\+I\+P}]{\setlength{\rightskip}{0pt plus 5cm}struct Gadget Clip\+X\+C\+L\+I\+P\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a2bc81a92944f2445b844ca39c30b6bbc}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    &\hyperlink{clipwin_8c_ae0bd9b38d10d303ddeffb3caf09c3c51}{ClipOkay},  
+    134,37, 
+    -199,7, 
+    GRELWIDTH,  
+    RELVERIFY+GADGIMMEDIATE,    
+    PROPGADGET, 
+    (APTR)&\hyperlink{clipwin_8c_ab6afd7425e737dedaa43b2723ed462ef}{ClipImage1},    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    &\hyperlink{clipwin_8c_afef38647eb37624076610d475526bf12}{ClipIText3},  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    (APTR)&\hyperlink{clipwin_8c_adc513e1a49a08b25950db0ca2bcc13c2}{ClipClipXCLIPSInfo},    
+    \hyperlink{winreq_8c_a7c4db99b45d8d9e6d58397cf16b350cc}{XCLIP}, 
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 116 of file clipwin.\+c.
+
+
+
+Referenced by Edit\+Clipping(), and Show\+Clip\+Values().
+
+\hypertarget{clipwin_8c_a609bc92c46f5f92521e89e7b8b72467c}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+X\+S\+I\+Z\+E@{Clip\+X\+S\+I\+Z\+E}}
+\index{Clip\+X\+S\+I\+Z\+E@{Clip\+X\+S\+I\+Z\+E}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+X\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}struct Gadget Clip\+X\+S\+I\+Z\+E\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a609bc92c46f5f92521e89e7b8b72467c}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    &\hyperlink{clipwin_8c_ae72e2013f01f9883a38d1223a0225041}{ClipYCLIP},    
+    134,15, 
+    -199,7, 
+    GRELWIDTH,  
+    RELVERIFY+GADGIMMEDIATE,    
+    PROPGADGET, 
+    (APTR)&\hyperlink{clipwin_8c_a70b2fcd5a449259ee5a383965463586d}{ClipImage3},    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    &\hyperlink{clipwin_8c_a9f05bfbadc2afd0f2b21be856a4b9823}{ClipIText5},  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    (APTR)&\hyperlink{clipwin_8c_a43bee0cf9a26cb29886249b58f0ec807}{ClipClipXSIZESInfo},    
+    \hyperlink{winreq_8c_aa4e3cb2d54808a145ef60a0a53f593e2}{XSIZE}, 
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 194 of file clipwin.\+c.
+
+
+
+Referenced by Edit\+Clipping(), and Show\+Clip\+Values().
+
+\hypertarget{clipwin_8c_ae72e2013f01f9883a38d1223a0225041}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Y\+C\+L\+I\+P@{Clip\+Y\+C\+L\+I\+P}}
+\index{Clip\+Y\+C\+L\+I\+P@{Clip\+Y\+C\+L\+I\+P}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Y\+C\+L\+I\+P}]{\setlength{\rightskip}{0pt plus 5cm}struct Gadget Clip\+Y\+C\+L\+I\+P\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_ae72e2013f01f9883a38d1223a0225041}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    &\hyperlink{clipwin_8c_a2bc81a92944f2445b844ca39c30b6bbc}{ClipXCLIP},    
+    134,46, 
+    -199,7, 
+    GRELWIDTH,  
+    RELVERIFY+GADGIMMEDIATE,    
+    PROPGADGET, 
+    (APTR)&\hyperlink{clipwin_8c_a839ca07817b61c6449c6366acddc2a52}{ClipImage2},    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    &\hyperlink{clipwin_8c_aa42f24758662a83b30f61a6a9e1de540}{ClipIText4},  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    (APTR)&\hyperlink{clipwin_8c_af817e0760f7220d9858a721c78305ba7}{ClipClipYCLIPSInfo},    
+    \hyperlink{winreq_8c_a16e8a7080fc512b675a1c7260659308d}{YCLIP}, 
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 155 of file clipwin.\+c.
+
+
+
+Referenced by Edit\+Clipping(), and Show\+Clip\+Values().
+
+\hypertarget{clipwin_8c_ad850fe5cb595a6b29d392d26aa93821d}{\index{clipwin.\+c@{clipwin.\+c}!Clip\+Y\+S\+I\+Z\+E@{Clip\+Y\+S\+I\+Z\+E}}
+\index{Clip\+Y\+S\+I\+Z\+E@{Clip\+Y\+S\+I\+Z\+E}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Clip\+Y\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}struct Gadget Clip\+Y\+S\+I\+Z\+E\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_ad850fe5cb595a6b29d392d26aa93821d}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    &\hyperlink{clipwin_8c_a609bc92c46f5f92521e89e7b8b72467c}{ClipXSIZE},    
+    134,24, 
+    -199,7, 
+    GRELWIDTH,  
+    RELVERIFY+GADGIMMEDIATE,    
+    PROPGADGET, 
+    (APTR)&\hyperlink{clipwin_8c_a122e29d97bd10af1bab870ed38b88762}{ClipImage4},    
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    &\hyperlink{clipwin_8c_ac19e985b32d901c991c6c4d1f4386f69}{ClipIText6},  
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},   
+    (APTR)&\hyperlink{clipwin_8c_afe4e9fadc345d5abf05e07c5de14553c}{ClipClipYSIZESInfo},    
+    \hyperlink{winreq_8c_afaefa0d521156ca605f526c14d05e272}{YSIZE}, 
+    \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}    
+\}
+\end{DoxyCode}
+
+
+Definition at line 233 of file clipwin.\+c.
+
+
+
+Referenced by Edit\+Clipping(), and Show\+Clip\+Values().
+
+\hypertarget{clipwin_8c_a012fc5eb08775a1944b04245230b142b}{\index{clipwin.\+c@{clipwin.\+c}!Palette@{Palette}}
+\index{Palette@{Palette}!clipwin.\+c@{clipwin.\+c}}
+\subsubsection[{Palette}]{\setlength{\rightskip}{0pt plus 5cm}{\bf U\+S\+H\+O\+R\+T} Palette\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{clipwin_8c_a012fc5eb08775a1944b04245230b142b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    0x0AAA, 
+    0x0000, 
+    0x0FFF, 
+    0x058B, 
+    0x000F, 
+    0x0F0F, 
+    0x00FF, 
+    0x0FFF  
+\textcolor{preprocessor}{#define PaletteColorCount}
+\textcolor{preprocessor}{\}}
+\end{DoxyCode}
+
+
+Definition at line 1 of file clipwin.\+c.
+

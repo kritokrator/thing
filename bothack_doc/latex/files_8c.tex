@@ -1,0 +1,2408 @@
+\hypertarget{files_8c}{\section{nethack/src/files.c File Reference}
+\label{files_8c}\index{nethack/src/files.\+c@{nethack/src/files.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\+\_\+\+B\+I\+N\+A\+R\+Y}~0
+\item 
+\#define \hyperlink{files_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{S\+A\+V\+E\+S\+I\+Z\+E}~\hyperlink{wceconf_8h_a8de29f7c8bbf1a81cc6e71ac602032d3}{F\+I\+L\+E\+N\+A\+M\+E}	/$\ast$ from macconf.\+h or pcconf.\+h $\ast$/
+\item 
+\#define \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{H\+U\+P}~if (!program\+\_\+state.\+done\+\_\+hup)
+\item 
+\#define \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}~fopen
+\item 
+\#define \hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\+\_\+varname}(I\+N\+P, N\+A\+M, L\+E\+N)~\hyperlink{options_8c_a16d0da1536324b0ac6c63d268b3d7cc7}{match\+\_\+optname}(I\+N\+P, N\+A\+M, L\+E\+N, \hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+U\+E})
+\item 
+\#define \hyperlink{files_8c_a65190e4c66c9c6deafd8db02040deb17}{tmp\+\_\+levels}~(char $\ast$)0
+\item 
+\#define \hyperlink{files_8c_a990c7ebedced28a5aed95716a5cb9549}{tmp\+\_\+ramdisk}~(char $\ast$)0
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} char $\ast$ \hyperlink{files_8c_a873329445b5b2e82df7a7582f2a12725}{F\+D\+E\+C\+L} (\hyperlink{files_8c_a458de6506a95af0124cf3fa9d3334d29}{set\+\_\+bonesfile\+\_\+name},(char $\ast$, \hyperlink{structd__level}{d\+\_\+level} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} char $\ast$ \hyperlink{files_8c_a05c30ca3d29acf3c16d4e6a5af0fcc1a}{N\+D\+E\+C\+L} (\hyperlink{files_8c_aab33495a803a6b549ec55e9a8f2e65fe}{set\+\_\+bonestemp\+\_\+name})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} char $\ast$ \hyperlink{files_8c_a9cfa33d063819a0d64b0fc0ad272fef9}{F\+D\+E\+C\+L} (\hyperlink{files_8c_adc4f3e6ce447da39b375f0e3cd9a1a2f}{make\+\_\+lockname},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$, char $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} F\+I\+L\+E $\ast$ \hyperlink{files_8c_a932e5a39c60d835cd20a9b3754fef58c}{F\+D\+E\+C\+L} (\hyperlink{files_8c_afc3340d5bf405ebdc287cce5dbca86fc}{fopen\+\_\+config\+\_\+file},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{files_8c_abf88b5441ed87876666e1268c576b565}{F\+D\+E\+C\+L} (\hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\+\_\+uchars},(F\+I\+L\+E $\ast$, char $\ast$, char $\ast$, \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, int, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+int \hyperlink{files_8c_a51ba7c1e3c4dede448e54330be65f060}{F\+D\+E\+C\+L} (\hyperlink{files_8c_abe144d1a3ceeef7f0b8912a9cfc284a7}{parse\+\_\+config\+\_\+line},(F\+I\+L\+E $\ast$, char $\ast$, char $\ast$, char $\ast$))
+\item 
+char $\ast$ \hyperlink{files_8c_a57ce4a5da10f2f166ae37e2ee0c53834}{fname\+\_\+encode} (char $\ast$legal, char quotechar, char $\ast$s, char $\ast$callerbuf, int \hyperlink{xpm2img_8c_a31b360112a92c0c6c5022a58229ac96a}{bufsz}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+char $\ast$ \hyperlink{files_8c_a57e6a46479d4f7693f20e44361208f3d}{fname\+\_\+decode} (char quotechar, char $\ast$s, char $\ast$callerbuf, int \hyperlink{xpm2img_8c_a31b360112a92c0c6c5022a58229ac96a}{bufsz})
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname} (char $\ast$\hyperlink{winreq_8c_a817969c4fe20a121e99fda658e88fbc7}{basename}, int whichprefix, int buffnum) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+int \hyperlink{files_8c_a645bbb3b1ee441272fe6ca6d801979a6}{validate\+\_\+prefix\+\_\+locations} (char $\ast$reasonbuf)
+\item 
+F\+I\+L\+E $\ast$ \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\+\_\+datafile} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, char $\ast$mode, int prefix) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\+\_\+levelfile\+\_\+name} (char $\ast$file, int lev)
+\item 
+int \hyperlink{files_8c_a100eb62c4da3d39341f863545b99a801}{create\+\_\+levelfile} (int lev, errbuf)
+\item 
+int \hyperlink{files_8c_a06158f3eda93ec61af96b6ca48306da7}{open\+\_\+levelfile} (int lev, errbuf)
+\item 
+void \hyperlink{files_8c_a032ae2e2853e75a4acf5a3d379c661fc}{delete\+\_\+levelfile} (int lev)
+\item 
+void \hyperlink{files_8c_a829000f7fe446d1d26a5c4dbc51643c6}{clearlocks} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} char $\ast$ \hyperlink{files_8c_a458de6506a95af0124cf3fa9d3334d29}{set\+\_\+bonesfile\+\_\+name} (char $\ast$file, \hyperlink{structd__level}{d\+\_\+level} $\ast$lev)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} char $\ast$ \hyperlink{files_8c_aab33495a803a6b549ec55e9a8f2e65fe}{set\+\_\+bonestemp\+\_\+name} ()
+\item 
+int \hyperlink{files_8c_a05dbdf42500297101953ab983702fa66}{create\+\_\+bonesfile} (\hyperlink{structd__level}{d\+\_\+level} $\ast$lev, char $\ast$$\ast$bonesid, errbuf)
+\item 
+void \hyperlink{files_8c_adaf9c63bbc3c42662a963bc9caf67b2f}{commit\+\_\+bonesfile} (\hyperlink{structd__level}{d\+\_\+level} $\ast$lev)
+\item 
+int \hyperlink{files_8c_a7d258860f78390865f62e2205374082f}{open\+\_\+bonesfile} (\hyperlink{structd__level}{d\+\_\+level} $\ast$lev, char $\ast$$\ast$bonesid)
+\item 
+int \hyperlink{files_8c_a960b4d82be9a017423ee0f25c1c5a0bf}{delete\+\_\+bonesfile} (\hyperlink{structd__level}{d\+\_\+level} $\ast$lev)
+\item 
+void \hyperlink{files_8c_a6ecb145d3bc4237de33261102e576a19}{compress\+\_\+bonesfile} ()
+\item 
+void \hyperlink{files_8c_a6d746be0f6526c7549d1192d39ffc0ac}{set\+\_\+savefile\+\_\+name} ()
+\item 
+int \hyperlink{files_8c_a54e9d02eec6dc845fd6703209b09a1ab}{create\+\_\+savefile} ()
+\item 
+int \hyperlink{files_8c_a4bf980fee09182324515fb62eb918d29}{open\+\_\+savefile} ()
+\item 
+int \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\+\_\+savefile} ()
+\item 
+int \hyperlink{files_8c_af780b8c38357751a8a60624825b8e2d8}{restore\+\_\+saved\+\_\+game} ()
+\item 
+char $\ast$$\ast$ \hyperlink{files_8c_af234f89e1fa387fb322a1444abdc7bf0}{get\+\_\+saved\+\_\+games} ()
+\item 
+void \hyperlink{files_8c_ae44c471cf4e6c4d86a09dd2b1cff5392}{free\+\_\+saved\+\_\+games} (char $\ast$$\ast$saved)
+\item 
+void \hyperlink{files_8c_a972d5467067d99c9406312d01203d690}{compress} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{files_8c_a7cf705b08e7bab7c245b81f60f1a8c76}{uncompress} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} char $\ast$ \hyperlink{files_8c_adc4f3e6ce447da39b375f0e3cd9a1a2f}{make\+\_\+lockname} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, char $\ast$lockname) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{files_8c_a991dbc9dc86b6aa9673a7bed36802728}{lock\+\_\+file} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, int whichprefix, int retryct) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\+\_\+file} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} F\+I\+L\+E $\ast$ \hyperlink{files_8c_afc3340d5bf405ebdc287cce5dbca86fc}{fopen\+\_\+config\+\_\+file} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\+\_\+uchars} (F\+I\+L\+E $\ast$\hyperlink{tile2bmp_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, char $\ast$\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, char $\ast$bufp, \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} $\ast$list, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} modlist, int \hyperlink{structsize}{size}, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name})
+\item 
+int \hyperlink{files_8c_abe144d1a3ceeef7f0b8912a9cfc284a7}{parse\+\_\+config\+\_\+line} (F\+I\+L\+E $\ast$\hyperlink{tile2bmp_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, char $\ast$\hyperlink{xpm2img_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, char $\ast$\hyperlink{files_8c_a990c7ebedced28a5aed95716a5cb9549}{tmp\+\_\+ramdisk}, char $\ast$\hyperlink{files_8c_a65190e4c66c9c6deafd8db02040deb17}{tmp\+\_\+levels})
+\item 
+void \hyperlink{files_8c_aaa0f282ea883ea93fed8d94240db280e}{read\+\_\+config\+\_\+file} (char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{files_8c_a710ea32cede86389c13b48ee7c6530e7}{check\+\_\+recordfile} (char $\ast$dir) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{files_8c_ac4f32c4433a1d09114823b45c45f32c3}{paniclog} (char $\ast$\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$reason) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno}
+\item 
+char \hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones} \mbox{[}$\,$\mbox{]} = \char`\"{}bonesnn.\+xxx\char`\"{}
+\item 
+char \hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock} \mbox{[}\hyperlink{global_8h_a06d346f470496500184b39a3c9c4df9d}{P\+L\+\_\+\+N\+S\+I\+Z}+14\mbox{]} = \char`\"{}1lock\char`\"{}
+\item 
+char \hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{S\+A\+V\+E\+F} \mbox{[}\hyperlink{recover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{S\+A\+V\+E\+S\+I\+Z\+E}\mbox{]}
+\item 
+int \hyperlink{files_8c_a125b94ea95930405fd4922ff183722a8}{n\+\_\+dgns}
+\item 
+static int \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting} = 0
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}{configfile}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{files_8c_a4803f3fb2a327c73a199f16a5081a481}{\index{files.\+c@{files.\+c}!fopenp@{fopenp}}
+\index{fopenp@{fopenp}!files.\+c@{files.\+c}}
+\subsubsection[{fopenp}]{\setlength{\rightskip}{0pt plus 5cm}\#define fopenp~fopen}}\label{files_8c_a4803f3fb2a327c73a199f16a5081a481}
+
+
+Definition at line 1478 of file files.\+c.
+
+
+
+Referenced by fopen\+\_\+config\+\_\+file().
+
+\hypertarget{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{\index{files.\+c@{files.\+c}!H\+U\+P@{H\+U\+P}}
+\index{H\+U\+P@{H\+U\+P}!files.\+c@{files.\+c}}
+\subsubsection[{H\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+U\+P~if (!program\+\_\+state.\+done\+\_\+hup)}}\label{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}
+
+
+Definition at line 1250 of file files.\+c.
+
+
+
+Referenced by lock\+\_\+file(), and unlock\+\_\+file().
+
+\hypertarget{files_8c_ab97d09030bff045aa8764d88794fa60c}{\index{files.\+c@{files.\+c}!match\+\_\+varname@{match\+\_\+varname}}
+\index{match\+\_\+varname@{match\+\_\+varname}!files.\+c@{files.\+c}}
+\subsubsection[{match\+\_\+varname}]{\setlength{\rightskip}{0pt plus 5cm}\#define match\+\_\+varname(
+\begin{DoxyParamCaption}
+\item[{}]{I\+N\+P, }
+\item[{}]{N\+A\+M, }
+\item[{}]{L\+E\+N}
+\end{DoxyParamCaption}
+)~{\bf match\+\_\+optname}(I\+N\+P, N\+A\+M, L\+E\+N, {\bf T\+R\+U\+E})}}\label{files_8c_ab97d09030bff045aa8764d88794fa60c}
+
+
+Definition at line 1672 of file files.\+c.
+
+
+
+Referenced by parse\+\_\+config\+\_\+line().
+
+\hypertarget{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{\index{files.\+c@{files.\+c}!O\+\_\+\+B\+I\+N\+A\+R\+Y@{O\+\_\+\+B\+I\+N\+A\+R\+Y}}
+\index{O\+\_\+\+B\+I\+N\+A\+R\+Y@{O\+\_\+\+B\+I\+N\+A\+R\+Y}!files.\+c@{files.\+c}}
+\subsubsection[{O\+\_\+\+B\+I\+N\+A\+R\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+\_\+\+B\+I\+N\+A\+R\+Y~0}}\label{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}
+
+
+Definition at line 51 of file files.\+c.
+
+
+
+Referenced by create\+\_\+bonesfile(), create\+\_\+levelfile(), create\+\_\+savefile(), open\+\_\+bonesfile(), open\+\_\+levelfile(), and open\+\_\+savefile().
+
+\hypertarget{files_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{\index{files.\+c@{files.\+c}!S\+A\+V\+E\+S\+I\+Z\+E@{S\+A\+V\+E\+S\+I\+Z\+E}}
+\index{S\+A\+V\+E\+S\+I\+Z\+E@{S\+A\+V\+E\+S\+I\+Z\+E}!files.\+c@{files.\+c}}
+\subsubsection[{S\+A\+V\+E\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+V\+E\+S\+I\+Z\+E~{\bf F\+I\+L\+E\+N\+A\+M\+E}	/$\ast$ from macconf.\+h or pcconf.\+h $\ast$/}}\label{files_8c_a99d1e3d71b78b71f4f4346054fdbd72c}
+
+
+Definition at line 86 of file files.\+c.
+
+
+
+Referenced by parse\+\_\+config\+\_\+line().
+
+\hypertarget{files_8c_a65190e4c66c9c6deafd8db02040deb17}{\index{files.\+c@{files.\+c}!tmp\+\_\+levels@{tmp\+\_\+levels}}
+\index{tmp\+\_\+levels@{tmp\+\_\+levels}!files.\+c@{files.\+c}}
+\subsubsection[{tmp\+\_\+levels}]{\setlength{\rightskip}{0pt plus 5cm}\#define tmp\+\_\+levels~(char $\ast$)0}}\label{files_8c_a65190e4c66c9c6deafd8db02040deb17}
+
+
+Referenced by read\+\_\+config\+\_\+file().
+
+\hypertarget{files_8c_a990c7ebedced28a5aed95716a5cb9549}{\index{files.\+c@{files.\+c}!tmp\+\_\+ramdisk@{tmp\+\_\+ramdisk}}
+\index{tmp\+\_\+ramdisk@{tmp\+\_\+ramdisk}!files.\+c@{files.\+c}}
+\subsubsection[{tmp\+\_\+ramdisk}]{\setlength{\rightskip}{0pt plus 5cm}\#define tmp\+\_\+ramdisk~(char $\ast$)0}}\label{files_8c_a990c7ebedced28a5aed95716a5cb9549}
+
+
+Referenced by read\+\_\+config\+\_\+file().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{files_8c_a710ea32cede86389c13b48ee7c6530e7}{\index{files.\+c@{files.\+c}!check\+\_\+recordfile@{check\+\_\+recordfile}}
+\index{check\+\_\+recordfile@{check\+\_\+recordfile}!files.\+c@{files.\+c}}
+\subsubsection[{check\+\_\+recordfile}]{\setlength{\rightskip}{0pt plus 5cm}void check\+\_\+recordfile (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{dir}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_a710ea32cede86389c13b48ee7c6530e7}
+
+
+Definition at line 2157 of file files.\+c.
+
+
+
+References append\+\_\+slash(), close(), F\+C\+M\+A\+S\+K, file\+\_\+is\+\_\+stmlf(), fqname(), macclose(), macopen(), O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+R\+D\+W\+R, open(), P\+A\+T\+H\+L\+E\+N, R\+E\+C\+O\+R\+D, S\+\_\+\+I\+R\+E\+A\+D, S\+\_\+\+I\+W\+R\+I\+T\+E, S\+C\+O\+R\+E\+P\+R\+E\+F\+I\+X, Strcat, Strcpy, and wait\+\_\+synch.
+
+
+
+Referenced by chdirx(), and Init\+Mac().
+
+
+\begin{DoxyCode}
+2159 \{
+2160 \textcolor{preprocessor}{#if (defined(macintosh) && (defined(\_\_SC\_\_) || defined(\_\_MRC\_\_))) || defined(\_\_MWERKS\_\_)}
+2161 \textcolor{preprocessor}{# pragma unused(dir)}
+2162 \textcolor{preprocessor}{#endif}
+2163     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_record;
+2164     \textcolor{keywordtype}{int} fd;
+2165 
+2166 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS)}
+2167     fq\_record = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX}, 0);
+2168     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_record, \hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR}, 0);
+2169     \textcolor{keywordflow}{if} (fd >= 0) \{
+2170 \textcolor{preprocessor}{# ifdef VMS }\textcolor{comment}{/* must be stream-lf to use UPDATE\_RECORD\_IN\_PLACE */}\textcolor{preprocessor}{}
+2171         \textcolor{keywordflow}{if} (!\hyperlink{vmsunix_8c_a15313580cf658fe5681d2f0e7b55c2cf}{file\_is\_stmlf}(fd)) \{
+2172             raw\_printf(
+2173           \textcolor{stringliteral}{"Warning: scoreboard file %s is not in stream\_lf format"},
+2174                 fq\_record);
+2175             \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+2176         \}
+2177 \textcolor{preprocessor}{# endif}
+2178         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);  \textcolor{comment}{/* RECORD is accessible */}
+2179     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_record, \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}|\hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK})) >= 0) \{
+2180         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);  \textcolor{comment}{/* RECORD newly created */}
+2181 \textcolor{preprocessor}{# if defined(VMS) && !defined(SECURE)}
+2182         \textcolor{comment}{/* Re-protect RECORD with world:read+write+execute+delete access. */}
+2183         (void) chmod(fq\_record, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK} | 007);
+2184 \textcolor{preprocessor}{# endif }\textcolor{comment}{/* VMS && !SECURE */}\textcolor{preprocessor}{}
+2185     \} \textcolor{keywordflow}{else} \{
+2186         raw\_printf(\textcolor{stringliteral}{"Warning: cannot write scoreboard file %s"}, fq\_record);
+2187         \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+2188     \}
+2189 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* !UNIX && !VMS */}\textcolor{preprocessor}{}
+2190 \textcolor{preprocessor}{#if defined(MICRO) || defined(WIN32)}
+2191     \textcolor{keywordtype}{char} tmp[\hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN}];
+2192 
+2193 \textcolor{preprocessor}{# ifdef OS2\_CODEVIEW   }\textcolor{comment}{/* explicit path on opening for OS/2 */}\textcolor{preprocessor}{}
+2194     \textcolor{comment}{/* how does this work when there isn't an explicit path or fopenp}
+2195 \textcolor{comment}{     * for later access to the file via fopen\_datafile? ? */}
+2196     (void) strncpy(tmp, dir, \hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN} - 1);
+2197     tmp[\hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN}-1] = \textcolor{charliteral}{'\(\backslash\)0'};
+2198     \textcolor{keywordflow}{if} ((strlen(tmp) + 1 + strlen(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD})) < (\hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN} - 1)) \{
+2199         \hyperlink{pcsys_8c_a4b6e1f672cf36868b04539762e206898}{append\_slash}(tmp);
+2200         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(tmp, \hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD});
+2201     \}
+2202     fq\_record = tmp;
+2203 \textcolor{preprocessor}{# else}
+2204     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(tmp, \hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD});
+2205     fq\_record = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX}, 0);
+2206 \textcolor{preprocessor}{# endif}
+2207 
+2208     \textcolor{keywordflow}{if} ((fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_record, \hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR})) < 0) \{
+2209         \textcolor{comment}{/* try to create empty record */}
+2210 \textcolor{preprocessor}{# if defined(AZTEC\_C) || defined(\_DCC) || (defined(\_\_GNUC\_\_) && defined(\_\_AMIGA\_\_))}
+2211         \textcolor{comment}{/* Aztec doesn't use the third argument */}
+2212         \textcolor{comment}{/* DICE doesn't like it */}
+2213         \textcolor{keywordflow}{if} ((fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_record, \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}|\hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR})) < 0) \{
+2214 \textcolor{preprocessor}{# else}
+2215         \textcolor{keywordflow}{if} ((fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_record, \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}|\hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR}, \hyperlink{wceconf_8h_a96c6486aa02a821aa4199525f5e79f60}{S\_IREAD}|
+      \hyperlink{wceconf_8h_a40eb4ad4bcc675d265615042657c37b7}{S\_IWRITE})) < 0) \{
+2216 \textcolor{preprocessor}{# endif}
+2217     raw\_printf(\textcolor{stringliteral}{"Warning: cannot write record %s"}, tmp);
+2218         \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+2219         \} \textcolor{keywordflow}{else}
+2220         (\textcolor{keywordtype}{void}) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+2221     \} \textcolor{keywordflow}{else}      \textcolor{comment}{/* open succeeded */}
+2222         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+2223 \textcolor{preprocessor}{#else }\textcolor{comment}{/* MICRO || WIN32*/}\textcolor{preprocessor}{}
+2224 
+2225 \textcolor{preprocessor}{# ifdef MAC}
+2226     \textcolor{comment}{/* Create the "record" file, if necessary */}
+2227     fq\_record = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX}, 0);
+2228     fd = \hyperlink{macfile_8c_ad68184f60857d3415958aaeb140b8b83}{macopen} (fq\_record, \hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR} | \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}, TEXT\_TYPE);
+2229     \textcolor{keywordflow}{if} (fd != -1) \hyperlink{macfile_8c_af891d673733ceece1ed80959dcd232e0}{macclose} (fd);
+2230 \textcolor{preprocessor}{# endif }\textcolor{comment}{/* MAC */}\textcolor{preprocessor}{}
+2231 
+2232 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* MICRO || WIN32*/}\textcolor{preprocessor}{}
+2233 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a829000f7fe446d1d26a5c4dbc51643c6}{\index{files.\+c@{files.\+c}!clearlocks@{clearlocks}}
+\index{clearlocks@{clearlocks}!files.\+c@{files.\+c}}
+\subsubsection[{clearlocks}]{\setlength{\rightskip}{0pt plus 5cm}void clearlocks (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a829000f7fe446d1d26a5c4dbc51643c6}
+
+
+Definition at line 522 of file files.\+c.
+
+
+
+References alllevels, delete\+\_\+levelfile(), levels, permbones, and ramdisk.
+
+
+
+Referenced by bail(), done(), gnome\+\_\+player\+\_\+selection(), restlevelfile(), and X11\+\_\+player\+\_\+selection().
+
+
+\begin{DoxyCode}
+523 \{
+524 \textcolor{preprocessor}{#if !defined(PC\_LOCKING) && defined(MFLOPPY) && !defined(AMIGA)}
+525     eraseall(\hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels}, \hyperlink{micro_8h_a68f434a7656e0a7d151258868b9e55fd}{alllevels});
+526     \textcolor{keywordflow}{if} (\hyperlink{micro_8h_a6c33dd83e1df00f65369a3d422b4bc25}{ramdisk})
+527         eraseall(\hyperlink{micro_8h_a0d528958f3541dc5e9e27829e3b53403}{permbones}, \hyperlink{micro_8h_a68f434a7656e0a7d151258868b9e55fd}{alllevels});
+528 \textcolor{preprocessor}{#else}
+529     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x;
+530 
+531 \textcolor{preprocessor}{# if defined(UNIX) || defined(VMS)}
+532     (void) signal(SIGHUP, SIG\_IGN);
+533 \textcolor{preprocessor}{# endif}
+534     \textcolor{comment}{/* can't access maxledgerno() before dungeons are created -dlc */}
+535     \textcolor{keywordflow}{for} (x = (\hyperlink{files_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns} ? maxledgerno() : 0); x >= 0; x--)
+536         \hyperlink{files_8c_a032ae2e2853e75a4acf5a3d379c661fc}{delete\_levelfile}(x);    \textcolor{comment}{/* not all levels need be present */}
+537 \textcolor{preprocessor}{#endif}
+538 \}
+\end{DoxyCode}
+\hypertarget{files_8c_adaf9c63bbc3c42662a963bc9caf67b2f}{\index{files.\+c@{files.\+c}!commit\+\_\+bonesfile@{commit\+\_\+bonesfile}}
+\index{commit\+\_\+bonesfile@{commit\+\_\+bonesfile}!files.\+c@{files.\+c}}
+\subsubsection[{commit\+\_\+bonesfile}]{\setlength{\rightskip}{0pt plus 5cm}void commit\+\_\+bonesfile (
+\begin{DoxyParamCaption}
+\item[{{\bf d\+\_\+level} $\ast$}]{lev}
+\end{DoxyParamCaption}
+)}}\label{files_8c_adaf9c63bbc3c42662a963bc9caf67b2f}
+
+
+Definition at line 711 of file files.\+c.
+
+
+
+References bones, B\+O\+N\+E\+S\+P\+R\+E\+F\+I\+X, fqname(), rename(), set\+\_\+bonesfile\+\_\+name(), set\+\_\+bonestemp\+\_\+name(), unlink(), and wizard.
+
+
+
+Referenced by savebones().
+
+
+\begin{DoxyCode}
+713 \{
+714     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_bones, *tempname;
+715     \textcolor{keywordtype}{int} ret;
+716 
+717     (void) \hyperlink{files_8c_a458de6506a95af0124cf3fa9d3334d29}{set\_bonesfile\_name}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, lev);
+718     fq\_bones = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, \hyperlink{decl_8h_aba3fb3d62d1d9f21f0dbe9b8f5c1a380}{BONESPREFIX}, 0);
+719     tempname = \hyperlink{files_8c_aab33495a803a6b549ec55e9a8f2e65fe}{set\_bonestemp\_name}();
+720     tempname = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(tempname, \hyperlink{decl_8h_aba3fb3d62d1d9f21f0dbe9b8f5c1a380}{BONESPREFIX}, 1);
+721 
+722 \textcolor{preprocessor}{#if (defined(SYSV) && !defined(SVR4)) || defined(GENIX)}
+723     \textcolor{comment}{/* old SYSVs don't have rename.  Some SVR3's may, but since they}
+724 \textcolor{comment}{     * also have link/unlink, it doesn't matter. :-)}
+725 \textcolor{comment}{     */}
+726     (void) \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(fq\_bones);
+727     ret = link(tempname, fq\_bones);
+728     ret += \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(tempname);
+729 \textcolor{preprocessor}{#else}
+730     ret = \hyperlink{wceconf_8h_ac3370b37d566f4e9d008e6c3bb299009}{rename}(tempname, fq\_bones);
+731 \textcolor{preprocessor}{#endif}
+732 \textcolor{preprocessor}{#ifdef WIZARD}
+733     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && ret != 0)
+734         pline(\textcolor{stringliteral}{"couldn't rename %s to %s."}, tempname, fq\_bones);
+735 \textcolor{preprocessor}{#endif}
+736 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a972d5467067d99c9406312d01203d690}{\index{files.\+c@{files.\+c}!compress@{compress}}
+\index{compress@{compress}!files.\+c@{files.\+c}}
+\subsubsection[{compress}]{\setlength{\rightskip}{0pt plus 5cm}void compress (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_a972d5467067d99c9406312d01203d690}
+
+
+Definition at line 1212 of file files.\+c.
+
+
+
+References F\+A\+L\+S\+E.
+
+
+
+Referenced by compress\+\_\+bonesfile(), dosave0(), M\+A\+I\+N(), and main().
+
+
+\begin{DoxyCode}
+1214 \{
+1215 \textcolor{preprocessor}{#ifndef COMPRESS}
+1216 \textcolor{preprocessor}{#if (defined(macintosh) && (defined(\_\_SC\_\_) || defined(\_\_MRC\_\_))) || defined(\_\_MWERKS\_\_)}
+1217 \textcolor{preprocessor}{# pragma unused(filename)}
+1218 \textcolor{preprocessor}{#endif}
+1219 \textcolor{preprocessor}{#else}
+1220     docompress\_file(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1221 \textcolor{preprocessor}{#endif}
+1222 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a6ecb145d3bc4237de33261102e576a19}{\index{files.\+c@{files.\+c}!compress\+\_\+bonesfile@{compress\+\_\+bonesfile}}
+\index{compress\+\_\+bonesfile@{compress\+\_\+bonesfile}!files.\+c@{files.\+c}}
+\subsubsection[{compress\+\_\+bonesfile}]{\setlength{\rightskip}{0pt plus 5cm}void compress\+\_\+bonesfile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a6ecb145d3bc4237de33261102e576a19}
+
+
+Definition at line 771 of file files.\+c.
+
+
+
+References bones, B\+O\+N\+E\+S\+P\+R\+E\+F\+I\+X, compress(), and fqname().
+
+
+
+Referenced by getbones(), and savebones().
+
+
+\begin{DoxyCode}
+772 \{
+773     \hyperlink{files_8c_a972d5467067d99c9406312d01203d690}{compress}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, \hyperlink{decl_8h_aba3fb3d62d1d9f21f0dbe9b8f5c1a380}{BONESPREFIX}, 0));
+774 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a05dbdf42500297101953ab983702fa66}{\index{files.\+c@{files.\+c}!create\+\_\+bonesfile@{create\+\_\+bonesfile}}
+\index{create\+\_\+bonesfile@{create\+\_\+bonesfile}!files.\+c@{files.\+c}}
+\subsubsection[{create\+\_\+bonesfile}]{\setlength{\rightskip}{0pt plus 5cm}int create\+\_\+bonesfile (
+\begin{DoxyParamCaption}
+\item[{{\bf d\+\_\+level} $\ast$}]{lev, }
+\item[{char $\ast$$\ast$}]{bonesid, }
+\item[{errbuf}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a05dbdf42500297101953ab983702fa66}
+
+
+Definition at line 651 of file files.\+c.
+
+
+
+References bones, B\+O\+N\+E\+S\+P\+R\+E\+F\+I\+X, creat(), errno, F\+C\+M\+A\+S\+K, fqname(), lock, maccreat(), O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+T\+R\+U\+N\+C, O\+\_\+\+W\+R\+O\+N\+L\+Y, open(), set\+\_\+bonesfile\+\_\+name(), set\+\_\+bonestemp\+\_\+name(), and Sprintf.
+
+
+
+Referenced by savebones().
+
+
+\begin{DoxyCode}
+655 \{
+656     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *file;
+657     \textcolor{keywordtype}{int} fd;
+658 
+659     \textcolor{keywordflow}{if} (errbuf) *errbuf = \textcolor{charliteral}{'\(\backslash\)0'};
+660     *bonesid = \hyperlink{files_8c_a458de6506a95af0124cf3fa9d3334d29}{set\_bonesfile\_name}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, lev);
+661     file = \hyperlink{files_8c_aab33495a803a6b549ec55e9a8f2e65fe}{set\_bonestemp\_name}();
+662     file = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(file, \hyperlink{decl_8h_aba3fb3d62d1d9f21f0dbe9b8f5c1a380}{BONESPREFIX}, 0);
+663 
+664 \textcolor{preprocessor}{#if defined(MICRO) || defined(WIN32)}
+665     \textcolor{comment}{/* Use O\_TRUNC to force the file to be shortened if it already}
+666 \textcolor{comment}{     * exists and is currently longer.}
+667 \textcolor{comment}{     */}
+668     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(file, \hyperlink{fcntl_8h_a11b644a8526139c4cc1850dac1271ced}{O\_WRONLY} |\hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT} | \hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC} | 
+      \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+669 \textcolor{preprocessor}{#else}
+670 \textcolor{preprocessor}{# ifdef MAC}
+671     fd = \hyperlink{macfile_8c_aa36528b84af2aef055c389ccb2574215}{maccreat}(file, BONE\_TYPE);
+672 \textcolor{preprocessor}{# else}
+673     fd = \hyperlink{wceconf_8h_a8e3d15ba88c8177901cb71711b060b36}{creat}(file, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+674 \textcolor{preprocessor}{# endif}
+675 \textcolor{preprocessor}{#endif}
+676     \textcolor{keywordflow}{if} (fd < 0 && errbuf) \textcolor{comment}{/* failure explanation */}
+677         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(errbuf,
+678             \textcolor{stringliteral}{"Cannot create bones \(\backslash\)"%s\(\backslash\)", id %s (errno %d)."},
+679             \hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, *bonesid, \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno});
+680 
+681 \textcolor{preprocessor}{# if defined(VMS) && !defined(SECURE)}
+682     \textcolor{comment}{/*}
+683 \textcolor{comment}{       Re-protect bones file with world:read+write+execute+delete access.}
+684 \textcolor{comment}{       umask() doesn't seem very reliable; also, vaxcrtl won't let us set}
+685 \textcolor{comment}{       delete access without write access, which is what's really wanted.}
+686 \textcolor{comment}{       Can't simply create it with the desired protection because creat}
+687 \textcolor{comment}{       ANDs the mask with the user's default protection, which usually}
+688 \textcolor{comment}{       denies some or all access to world.}
+689 \textcolor{comment}{     */}
+690     (void) chmod(file, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK} | 007);  \textcolor{comment}{/* allow other users full access */}
+691 \textcolor{preprocessor}{# endif }\textcolor{comment}{/* VMS && !SECURE */}\textcolor{preprocessor}{}
+692 
+693     \textcolor{keywordflow}{return} fd;
+694 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a100eb62c4da3d39341f863545b99a801}{\index{files.\+c@{files.\+c}!create\+\_\+levelfile@{create\+\_\+levelfile}}
+\index{create\+\_\+levelfile@{create\+\_\+levelfile}!files.\+c@{files.\+c}}
+\subsubsection[{create\+\_\+levelfile}]{\setlength{\rightskip}{0pt plus 5cm}int create\+\_\+levelfile (
+\begin{DoxyParamCaption}
+\item[{int}]{lev, }
+\item[{errbuf}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a100eb62c4da3d39341f863545b99a801}
+
+
+Definition at line 422 of file files.\+c.
+
+
+
+References creat(), errno, F\+C\+M\+A\+S\+K, linfo\+::flags, fqname(), level\+\_\+info, L\+E\+V\+E\+L\+P\+R\+E\+F\+I\+X, L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S, lock, maccreat(), O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+T\+R\+U\+N\+C, O\+\_\+\+W\+R\+O\+N\+L\+Y, open(), set\+\_\+levelfile\+\_\+name(), and Sprintf.
+
+
+
+Referenced by restlevelfile().
+
+
+\begin{DoxyCode}
+425 \{
+426     \textcolor{keywordtype}{int} fd;
+427     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_lock;
+428 
+429     \textcolor{keywordflow}{if} (errbuf) *errbuf = \textcolor{charliteral}{'\(\backslash\)0'};
+430     \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, lev);
+431     fq\_lock = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, \hyperlink{decl_8h_a3927e6e5163851a0485f8e8adba6f784}{LEVELPREFIX}, 0);
+432 
+433 \textcolor{preprocessor}{#if defined(MICRO) || defined(WIN32)}
+434     \textcolor{comment}{/* Use O\_TRUNC to force the file to be shortened if it already}
+435 \textcolor{comment}{     * exists and is currently longer.}
+436 \textcolor{comment}{     */}
+437 \textcolor{preprocessor}{# ifdef HOLD\_LOCKFILE\_OPEN}
+438     \textcolor{keywordflow}{if} (lev == 0)
+439         fd = open\_levelfile\_exclusively(fq\_lock, lev,
+440                 \hyperlink{fcntl_8h_a11b644a8526139c4cc1850dac1271ced}{O\_WRONLY} |\hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT} | \hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC} | \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY});
+441     \textcolor{keywordflow}{else}
+442 \textcolor{preprocessor}{# endif}
+443     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_lock, \hyperlink{fcntl_8h_a11b644a8526139c4cc1850dac1271ced}{O\_WRONLY} |\hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT} | \hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC} | 
+      \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+444 \textcolor{preprocessor}{#else}
+445 \textcolor{preprocessor}{# ifdef MAC}
+446     fd = \hyperlink{macfile_8c_aa36528b84af2aef055c389ccb2574215}{maccreat}(fq\_lock, LEVL\_TYPE);
+447 \textcolor{preprocessor}{# else}
+448     fd = \hyperlink{wceconf_8h_a8e3d15ba88c8177901cb71711b060b36}{creat}(fq\_lock, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+449 \textcolor{preprocessor}{# endif}
+450 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* MICRO || WIN32 */}\textcolor{preprocessor}{}
+451 
+452     \textcolor{keywordflow}{if} (fd >= 0)
+453         \hyperlink{decl_8h_a8bfac57de50a3a9d8ddd84b6aaaba2ad}{level\_info}[lev].\hyperlink{structlinfo_a866d6f09d62ac17e8ed880c55a4a7f88}{flags} |= \hyperlink{dungeon_8h_a25f55258a9cda52bb2b92e60217bdead}{LFILE\_EXISTS};
+454     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (errbuf)    \textcolor{comment}{/* failure explanation */}
+455         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(errbuf,
+456             \textcolor{stringliteral}{"Cannot create file \(\backslash\)"%s\(\backslash\)" for level %d (errno %d)."},
+457             \hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, lev, \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno});
+458 
+459     \textcolor{keywordflow}{return} fd;
+460 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a54e9d02eec6dc845fd6703209b09a1ab}{\index{files.\+c@{files.\+c}!create\+\_\+savefile@{create\+\_\+savefile}}
+\index{create\+\_\+savefile@{create\+\_\+savefile}!files.\+c@{files.\+c}}
+\subsubsection[{create\+\_\+savefile}]{\setlength{\rightskip}{0pt plus 5cm}int create\+\_\+savefile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a54e9d02eec6dc845fd6703209b09a1ab}
+
+
+Definition at line 860 of file files.\+c.
+
+
+
+References creat(), F\+C\+M\+A\+S\+K, fqname(), getuid(), maccreat(), O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+T\+R\+U\+N\+C, O\+\_\+\+W\+R\+O\+N\+L\+Y, open(), S\+A\+V\+E\+F, and S\+A\+V\+E\+P\+R\+E\+F\+I\+X.
+
+
+
+Referenced by dosave0().
+
+
+\begin{DoxyCode}
+861 \{
+862     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_save;
+863     \textcolor{keywordtype}{int} fd;
+864 
+865     fq\_save = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 0);
+866 \textcolor{preprocessor}{#if defined(MICRO) || defined(WIN32)}
+867     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_save, \hyperlink{fcntl_8h_a11b644a8526139c4cc1850dac1271ced}{O\_WRONLY} | \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY} | \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT} | 
+      \hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+868 \textcolor{preprocessor}{#else}
+869 \textcolor{preprocessor}{# ifdef MAC}
+870     fd = \hyperlink{macfile_8c_aa36528b84af2aef055c389ccb2574215}{maccreat}(fq\_save, SAVE\_TYPE);
+871 \textcolor{preprocessor}{# else}
+872     fd = \hyperlink{wceconf_8h_a8e3d15ba88c8177901cb71711b060b36}{creat}(fq\_save, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+873 \textcolor{preprocessor}{# endif}
+874 \textcolor{preprocessor}{# if defined(VMS) && !defined(SECURE)}
+875     \textcolor{comment}{/*}
+876 \textcolor{comment}{       Make sure the save file is owned by the current process.  That's}
+877 \textcolor{comment}{       the default for non-privileged users, but for priv'd users the}
+878 \textcolor{comment}{       file will be owned by the directory's owner instead of the user.}
+879 \textcolor{comment}{     */}
+880 \textcolor{preprocessor}{#  ifdef getuid }\textcolor{comment}{/*(see vmsunix.c)*/}\textcolor{preprocessor}{}
+881 \textcolor{preprocessor}{#   undef getuid}
+882 \textcolor{preprocessor}{#  endif}
+883     (void) chown(fq\_save, \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}(), getgid());
+884 \textcolor{preprocessor}{# endif }\textcolor{comment}{/* VMS && !SECURE */}\textcolor{preprocessor}{}
+885 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* MICRO */}\textcolor{preprocessor}{}
+886 
+887     \textcolor{keywordflow}{return} fd;
+888 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a960b4d82be9a017423ee0f25c1c5a0bf}{\index{files.\+c@{files.\+c}!delete\+\_\+bonesfile@{delete\+\_\+bonesfile}}
+\index{delete\+\_\+bonesfile@{delete\+\_\+bonesfile}!files.\+c@{files.\+c}}
+\subsubsection[{delete\+\_\+bonesfile}]{\setlength{\rightskip}{0pt plus 5cm}int delete\+\_\+bonesfile (
+\begin{DoxyParamCaption}
+\item[{{\bf d\+\_\+level} $\ast$}]{lev}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a960b4d82be9a017423ee0f25c1c5a0bf}
+
+
+Definition at line 760 of file files.\+c.
+
+
+
+References bones, B\+O\+N\+E\+S\+P\+R\+E\+F\+I\+X, fqname(), set\+\_\+bonesfile\+\_\+name(), and unlink().
+
+
+
+Referenced by getbones(), and savebones().
+
+
+\begin{DoxyCode}
+762 \{
+763     (void) \hyperlink{files_8c_a458de6506a95af0124cf3fa9d3334d29}{set\_bonesfile\_name}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, lev);
+764     \textcolor{keywordflow}{return} !(\hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, \hyperlink{decl_8h_aba3fb3d62d1d9f21f0dbe9b8f5c1a380}{BONESPREFIX}, 0)) < 0);
+765 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a032ae2e2853e75a4acf5a3d379c661fc}{\index{files.\+c@{files.\+c}!delete\+\_\+levelfile@{delete\+\_\+levelfile}}
+\index{delete\+\_\+levelfile@{delete\+\_\+levelfile}!files.\+c@{files.\+c}}
+\subsubsection[{delete\+\_\+levelfile}]{\setlength{\rightskip}{0pt plus 5cm}void delete\+\_\+levelfile (
+\begin{DoxyParamCaption}
+\item[{int}]{lev}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a032ae2e2853e75a4acf5a3d379c661fc}
+
+
+Definition at line 503 of file files.\+c.
+
+
+
+References linfo\+::flags, flags, fqname(), level\+\_\+info, L\+E\+V\+E\+L\+P\+R\+E\+F\+I\+X, L\+F\+I\+L\+E\+\_\+\+E\+X\+I\+S\+T\+S, lock, set\+\_\+levelfile\+\_\+name(), and unlink().
+
+
+
+Referenced by clearlocks(), and dosave0().
+
+
+\begin{DoxyCode}
+505 \{
+506     \textcolor{comment}{/*}
+507 \textcolor{comment}{     * Level 0 might be created by port specific code that doesn't}
+508 \textcolor{comment}{     * call create\_levfile(), so always assume that it exists.}
+509 \textcolor{comment}{     */}
+510     \textcolor{keywordflow}{if} (lev == 0 || (\hyperlink{decl_8h_a8bfac57de50a3a9d8ddd84b6aaaba2ad}{level\_info}[lev].\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags} & \hyperlink{dungeon_8h_a25f55258a9cda52bb2b92e60217bdead}{LFILE\_EXISTS})) \{
+511         \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, lev);
+512 \textcolor{preprocessor}{#ifdef HOLD\_LOCKFILE\_OPEN}
+513         \textcolor{keywordflow}{if} (lev == 0) really\_close();
+514 \textcolor{preprocessor}{#endif}
+515         (void) \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, \hyperlink{decl_8h_a3927e6e5163851a0485f8e8adba6f784}{LEVELPREFIX}, 0));
+516         \hyperlink{decl_8h_a8bfac57de50a3a9d8ddd84b6aaaba2ad}{level\_info}[lev].\hyperlink{structlinfo_a866d6f09d62ac17e8ed880c55a4a7f88}{flags} &= ~LFILE\_EXISTS;
+517     \}
+518 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a848354a4d70a646ed2c6ecf138054110}{\index{files.\+c@{files.\+c}!delete\+\_\+savefile@{delete\+\_\+savefile}}
+\index{delete\+\_\+savefile@{delete\+\_\+savefile}!files.\+c@{files.\+c}}
+\subsubsection[{delete\+\_\+savefile}]{\setlength{\rightskip}{0pt plus 5cm}int delete\+\_\+savefile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a848354a4d70a646ed2c6ecf138054110}
+
+
+Definition at line 910 of file files.\+c.
+
+
+
+References fqname(), S\+A\+V\+E\+F, S\+A\+V\+E\+P\+R\+E\+F\+I\+X, and unlink().
+
+
+
+Referenced by dorecover(), dosave0(), M\+A\+I\+N(), main(), mread(), and restore\+\_\+saved\+\_\+game().
+
+
+\begin{DoxyCode}
+911 \{
+912     (void) \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 0));
+913     \textcolor{keywordflow}{return} 0;   \textcolor{comment}{/* for restore\_saved\_game() (ex-xxxmain.c) test */}
+914 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a873329445b5b2e82df7a7582f2a12725}{\index{files.\+c@{files.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!files.\+c@{files.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} char$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf set\+\_\+bonesfile\+\_\+name}}]{, }
+\item[{(char $\ast$, {\bf d\+\_\+level} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a873329445b5b2e82df7a7582f2a12725}
+\hypertarget{files_8c_a9cfa33d063819a0d64b0fc0ad272fef9}{\index{files.\+c@{files.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!files.\+c@{files.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} char$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf make\+\_\+lockname}}]{, }
+\item[{({\bf const} char $\ast$, char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a9cfa33d063819a0d64b0fc0ad272fef9}
+\hypertarget{files_8c_a932e5a39c60d835cd20a9b3754fef58c}{\index{files.\+c@{files.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!files.\+c@{files.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} F\+I\+L\+E$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf fopen\+\_\+config\+\_\+file}}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a932e5a39c60d835cd20a9b3754fef58c}
+\hypertarget{files_8c_abf88b5441ed87876666e1268c576b565}{\index{files.\+c@{files.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!files.\+c@{files.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf get\+\_\+uchars}}]{, }
+\item[{(F\+I\+L\+E $\ast$, char $\ast$, char $\ast$, {\bf uchar} $\ast$, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, int, {\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_abf88b5441ed87876666e1268c576b565}
+\hypertarget{files_8c_a51ba7c1e3c4dede448e54330be65f060}{\index{files.\+c@{files.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!files.\+c@{files.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf parse\+\_\+config\+\_\+line}}]{, }
+\item[{(F\+I\+L\+E $\ast$, char $\ast$, char $\ast$, char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a51ba7c1e3c4dede448e54330be65f060}
+\hypertarget{files_8c_a57e6a46479d4f7693f20e44361208f3d}{\index{files.\+c@{files.\+c}!fname\+\_\+decode@{fname\+\_\+decode}}
+\index{fname\+\_\+decode@{fname\+\_\+decode}!files.\+c@{files.\+c}}
+\subsubsection[{fname\+\_\+decode}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ fname\+\_\+decode (
+\begin{DoxyParamCaption}
+\item[{char}]{quotechar, }
+\item[{char $\ast$}]{s, }
+\item[{char $\ast$}]{callerbuf, }
+\item[{int}]{bufsz}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a57e6a46479d4f7693f20e44361208f3d}
+
+
+Definition at line 235 of file files.\+c.
+
+
+\begin{DoxyCode}
+239 \{
+240     \textcolor{keywordtype}{char} *sp, *op;
+241     \textcolor{keywordtype}{int} k,calc,cnt = 0;
+242     \textcolor{keyword}{static} \textcolor{keywordtype}{char} hexdigits[] = \textcolor{stringliteral}{"0123456789ABCDEF"};
+243 
+244     sp = s;
+245     op = callerbuf;
+246     *op = \textcolor{charliteral}{'\(\backslash\)0'};
+247     calc = 0;
+248 
+249     \textcolor{keywordflow}{while} (*sp) \{
+250         \textcolor{comment}{/* Do we have room for one more character? */}
+251         \textcolor{keywordflow}{if} ((\hyperlink{xpm2iff_8c_a31b360112a92c0c6c5022a58229ac96a}{bufsz} - cnt) <= 2) \textcolor{keywordflow}{return} callerbuf;
+252         \textcolor{keywordflow}{if} (*sp == quotechar) \{
+253             sp++;
+254             \textcolor{keywordflow}{for} (k=0; k < 16; ++k) \textcolor{keywordflow}{if} (*sp == hexdigits[k]) \textcolor{keywordflow}{break};
+255             \textcolor{keywordflow}{if} (k >= 16) \textcolor{keywordflow}{return} callerbuf;  \textcolor{comment}{/* impossible, so bail */}
+256             calc = k << 4; 
+257             sp++;
+258             \textcolor{keywordflow}{for} (k=0; k < 16; ++k) \textcolor{keywordflow}{if} (*sp == hexdigits[k]) \textcolor{keywordflow}{break};
+259             \textcolor{keywordflow}{if} (k >= 16) \textcolor{keywordflow}{return} callerbuf;  \textcolor{comment}{/* impossible, so bail */}
+260             calc += k; 
+261             sp++;
+262             *op++ = calc;
+263             *op = \textcolor{charliteral}{'\(\backslash\)0'};
+264         \} \textcolor{keywordflow}{else} \{
+265             *op++ = *sp++;
+266             *op = \textcolor{charliteral}{'\(\backslash\)0'};
+267         \}
+268         cnt++;
+269     \}
+270     \textcolor{keywordflow}{return} callerbuf;
+271 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a57ce4a5da10f2f166ae37e2ee0c53834}{\index{files.\+c@{files.\+c}!fname\+\_\+encode@{fname\+\_\+encode}}
+\index{fname\+\_\+encode@{fname\+\_\+encode}!files.\+c@{files.\+c}}
+\subsubsection[{fname\+\_\+encode}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ fname\+\_\+encode (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{legal, }
+\item[{char}]{quotechar, }
+\item[{char $\ast$}]{s, }
+\item[{char $\ast$}]{callerbuf, }
+\item[{int}]{bufsz}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_a57ce4a5da10f2f166ae37e2ee0c53834}
+
+
+Definition at line 189 of file files.\+c.
+
+
+
+References index().
+
+
+
+Referenced by set\+\_\+savefile\+\_\+name().
+
+
+\begin{DoxyCode}
+194 \{
+195     \textcolor{keywordtype}{char} *sp, *op;
+196     \textcolor{keywordtype}{int} cnt = 0;
+197     \textcolor{keyword}{static} \textcolor{keywordtype}{char} hexdigits[] = \textcolor{stringliteral}{"0123456789ABCDEF"};
+198 
+199     sp = s;
+200     op = callerbuf;
+201     *op = \textcolor{charliteral}{'\(\backslash\)0'};
+202     
+203     \textcolor{keywordflow}{while} (*sp) \{
+204         \textcolor{comment}{/* Do we have room for one more character or encoding? */}
+205         \textcolor{keywordflow}{if} ((\hyperlink{xpm2iff_8c_a31b360112a92c0c6c5022a58229ac96a}{bufsz} - cnt) <= 4) \textcolor{keywordflow}{return} callerbuf;
+206 
+207         \textcolor{keywordflow}{if} (*sp == quotechar) \{
+208             (void)sprintf(op, \textcolor{stringliteral}{"%c%02X"}, quotechar, *sp);
+209              op += 3;
+210              cnt += 3;
+211         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(legal, *sp) != 0) || (\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(hexdigits, *sp) != 0)) \{
+212             *op++ = *sp;
+213             *op = \textcolor{charliteral}{'\(\backslash\)0'};
+214             cnt++;
+215         \} \textcolor{keywordflow}{else} \{
+216             (void)sprintf(op,\textcolor{stringliteral}{"%c%02X"}, quotechar, *sp);
+217             op += 3;
+218             cnt += 3;
+219         \}
+220         sp++;
+221     \}
+222     \textcolor{keywordflow}{return} callerbuf;
+223 \}
+\end{DoxyCode}
+\hypertarget{files_8c_afc3340d5bf405ebdc287cce5dbca86fc}{\index{files.\+c@{files.\+c}!fopen\+\_\+config\+\_\+file@{fopen\+\_\+config\+\_\+file}}
+\index{fopen\+\_\+config\+\_\+file@{fopen\+\_\+config\+\_\+file}!files.\+c@{files.\+c}}
+\subsubsection[{fopen\+\_\+config\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} F\+I\+L\+E$\ast$ fopen\+\_\+config\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_afc3340d5bf405ebdc287cce5dbca86fc}
+
+
+Definition at line 1482 of file files.\+c.
+
+
+
+References access(), B\+U\+F\+S\+Z, C\+O\+N\+F\+I\+G\+P\+R\+E\+F\+I\+X, errno, filename, fopenp, fp, fqname(), nh\+\_\+getenv(), Sprintf, Strcpy, and wait\+\_\+synch.
+
+
+
+Referenced by read\+\_\+config\+\_\+file().
+
+
+\begin{DoxyCode}
+1484 \{
+1485     FILE *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+1486 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS)}
+1487     \textcolor{keywordtype}{char}    tmp\_config[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1488     \textcolor{keywordtype}{char} *envp;
+1489 \textcolor{preprocessor}{#endif}
+1490 
+1491     \textcolor{comment}{/* "filename" is an environment variable, so it should hang around */}
+1492     \textcolor{comment}{/* if set, it is expected to be a full path name (if relevant) */}
+1493     \textcolor{keywordflow}{if} (\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}) \{
+1494 \textcolor{preprocessor}{#ifdef UNIX}
+1495         \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_af1acc0166aa41e1eb2fedc606240f23b}{access}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, 4) == -1) \{
+1496             \textcolor{comment}{/* 4 is R\_OK on newer systems */}
+1497             \textcolor{comment}{/* nasty sneaky attempt to read file through}
+1498 \textcolor{comment}{             * NetHack's setuid permissions -- this is the only}
+1499 \textcolor{comment}{             * place a file name may be wholly under the player's}
+1500 \textcolor{comment}{             * control}
+1501 \textcolor{comment}{             */}
+1502             raw\_printf(\textcolor{stringliteral}{"Access to %s denied (%d)."},
+1503                     \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno});
+1504             \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+1505             \textcolor{comment}{/* fall through to standard names */}
+1506         \} \textcolor{keywordflow}{else}
+1507 \textcolor{preprocessor}{#endif}
+1508         \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \textcolor{stringliteral}{"r"})) != (FILE *)0) \{
+1509             \hyperlink{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}{configfile} = \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename};
+1510             \textcolor{keywordflow}{return}(fp);
+1511 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS)}
+1512         \} \textcolor{keywordflow}{else} \{
+1513             \textcolor{comment}{/* access() above probably caught most problems for UNIX */}
+1514             raw\_printf(\textcolor{stringliteral}{"Couldn't open requested config file %s (%d)."},
+1515                     \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno});
+1516             \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+1517             \textcolor{comment}{/* fall through to standard names */}
+1518 \textcolor{preprocessor}{#endif}
+1519         \}
+1520     \}
+1521 
+1522 \textcolor{preprocessor}{#if defined(MICRO) || defined(MAC) || defined(\_\_BEOS\_\_) || defined(WIN32)}
+1523     \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}{configfile}, \hyperlink{decl_8h_a24387f32d3efee89779069c19b1aa57b}{CONFIGPREFIX}, 0), \textcolor{stringliteral}{"r"}))
+1524                                 != (FILE *)0)
+1525         \textcolor{keywordflow}{return}(fp);
+1526 \textcolor{preprocessor}{# ifdef MSDOS}
+1527     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(backward\_compat\_configfile,
+1528                     \hyperlink{decl_8h_a24387f32d3efee89779069c19b1aa57b}{CONFIGPREFIX}, 0), \textcolor{stringliteral}{"r"})) != (FILE *)0)
+1529         \textcolor{keywordflow}{return}(fp);
+1530 \textcolor{preprocessor}{# endif}
+1531 \textcolor{preprocessor}{#else}
+1532     \textcolor{comment}{/* constructed full path names don't need fqname() */}
+1533 \textcolor{preprocessor}{# ifdef VMS}
+1534     \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\textcolor{stringliteral}{"nethackini"}, \hyperlink{decl_8h_a24387f32d3efee89779069c19b1aa57b}{CONFIGPREFIX}, 0), \textcolor{stringliteral}{"r"}))
+1535                                 != (FILE *)0) \{
+1536         \hyperlink{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}{configfile} = \textcolor{stringliteral}{"nethackini"};
+1537         \textcolor{keywordflow}{return}(fp);
+1538     \}
+1539     \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(\textcolor{stringliteral}{"sys$login:nethack.ini"}, \textcolor{stringliteral}{"r"})) != (FILE *)0) \{
+1540         \hyperlink{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}{configfile} = \textcolor{stringliteral}{"nethack.ini"};
+1541         \textcolor{keywordflow}{return}(fp);
+1542     \}
+1543 
+1544     envp = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"HOME"});
+1545     \textcolor{keywordflow}{if} (!envp)
+1546         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(tmp\_config, \textcolor{stringliteral}{"NetHack.cnf"});
+1547     \textcolor{keywordflow}{else}
+1548         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(tmp\_config, \textcolor{stringliteral}{"%s%s"}, envp, \textcolor{stringliteral}{"NetHack.cnf"});
+1549     \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(tmp\_config, \textcolor{stringliteral}{"r"})) != (FILE *)0)
+1550         \textcolor{keywordflow}{return}(fp);
+1551 \textcolor{preprocessor}{# else  }\textcolor{comment}{/* should be only UNIX left */}\textcolor{preprocessor}{}
+1552     envp = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"HOME"});
+1553     \textcolor{keywordflow}{if} (!envp)
+1554         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(tmp\_config, \hyperlink{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}{configfile});
+1555     \textcolor{keywordflow}{else}
+1556         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(tmp\_config, \textcolor{stringliteral}{"%s/%s"}, envp, \hyperlink{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}{configfile});
+1557     \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(tmp\_config, \textcolor{stringliteral}{"r"})) != (FILE *)0)
+1558         \textcolor{keywordflow}{return}(fp);
+1559 \textcolor{preprocessor}{# if defined(\_\_APPLE\_\_)}
+1560     \textcolor{comment}{/* try an alternative */}
+1561     \textcolor{keywordflow}{if} (envp) \{
+1562         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(tmp\_config, \textcolor{stringliteral}{"%s/%s"}, envp, \textcolor{stringliteral}{"Library/Preferences/NetHack Defaults"});
+1563         \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(tmp\_config, \textcolor{stringliteral}{"r"})) != (FILE *)0)
+1564             \textcolor{keywordflow}{return}(fp);
+1565         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(tmp\_config, \textcolor{stringliteral}{"%s/%s"}, envp, \textcolor{stringliteral}{"Library/Preferences/NetHack Defaults.txt"});
+1566         \textcolor{keywordflow}{if} ((fp = \hyperlink{files_8c_a4803f3fb2a327c73a199f16a5081a481}{fopenp}(tmp\_config, \textcolor{stringliteral}{"r"})) != (FILE *)0)
+1567             \textcolor{keywordflow}{return}(fp);
+1568     \}
+1569 \textcolor{preprocessor}{# endif}
+1570     \textcolor{keywordflow}{if} (\hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} != ENOENT) \{
+1571         \textcolor{keywordtype}{char} *details;
+1572 
+1573         \textcolor{comment}{/* e.g., problems when setuid NetHack can't search home}
+1574 \textcolor{comment}{         * directory restricted to user */}
+1575 
+1576 \textcolor{preprocessor}{#if defined (NHSTDC) && !defined(NOTSTDC)}
+1577         \textcolor{keywordflow}{if} ((details = strerror(\hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno})) == 0)
+1578 \textcolor{preprocessor}{#endif}
+1579         details = \textcolor{stringliteral}{""};
+1580         raw\_printf(\textcolor{stringliteral}{"Couldn't open default config file %s %s(%d)."},
+1581                tmp\_config, details, \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno});
+1582         \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+1583     \}
+1584 \textcolor{preprocessor}{# endif}
+1585 \textcolor{preprocessor}{#endif}
+1586     \textcolor{keywordflow}{return} (FILE *)0;
+1587 
+1588 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{\index{files.\+c@{files.\+c}!fopen\+\_\+datafile@{fopen\+\_\+datafile}}
+\index{fopen\+\_\+datafile@{fopen\+\_\+datafile}!files.\+c@{files.\+c}}
+\subsubsection[{fopen\+\_\+datafile}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ fopen\+\_\+datafile (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename, }
+\item[{char $\ast$}]{mode, }
+\item[{int}]{prefix}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}
+
+
+Definition at line 351 of file files.\+c.
+
+
+
+References B\+U\+F\+S\+I\+Z, fp, fqname(), index(), and T\+R\+O\+U\+B\+L\+E\+P\+R\+E\+F\+I\+X.
+
+
+
+Referenced by init\+\_\+tiles(), paniclog(), prscore(), topten(), and tt\+\_\+oname().
+
+
+\begin{DoxyCode}
+354 \{
+355     FILE *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+356 
+357     \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename} = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, prefix, prefix == 
+      \hyperlink{decl_8h_a6b14f7f6b6facb74a457b1d5829a6ff8}{TROUBLEPREFIX} ? 3 : 0);
+358 \textcolor{preprocessor}{#ifdef VMS  }\textcolor{comment}{/* essential to have punctuation, to avoid logical names */}\textcolor{preprocessor}{}
+359     \{
+360     \textcolor{keywordtype}{char} tmp[\hyperlink{wceconf_8h_a72a591cf0a96cf23c63df5c78712dabe}{BUFSIZ}];
+361 
+362     \textcolor{keywordflow}{if} (!\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \textcolor{charliteral}{'.'}) && !\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \textcolor{charliteral}{';'}))
+363         \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename} = strcat(strcpy(tmp, \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}), \textcolor{stringliteral}{";0"});
+364     fp = fopen(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, mode, \textcolor{stringliteral}{"mbc=16"});
+365     \}
+366 \textcolor{preprocessor}{#else}
+367     fp = fopen(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, mode);
+368 \textcolor{preprocessor}{#endif}
+369     \textcolor{keywordflow}{return} \hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+370 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{\index{files.\+c@{files.\+c}!fqname@{fqname}}
+\index{fqname@{fqname}!files.\+c@{files.\+c}}
+\subsubsection[{fqname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ fqname (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{basename, }
+\item[{int}]{whichprefix, }
+\item[{int}]{buffnum}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}
+
+
+Definition at line 277 of file files.\+c.
+
+
+
+References basename(), F\+Q\+N\+\_\+\+M\+A\+X\+\_\+\+F\+I\+L\+E\+N\+A\+M\+E, fqn\+\_\+prefix, P\+R\+E\+F\+I\+X\+\_\+\+C\+O\+U\+N\+T, and Strcpy.
+
+
+
+Referenced by check\+\_\+recordfile(), commit\+\_\+bonesfile(), compress\+\_\+bonesfile(), create\+\_\+bonesfile(), create\+\_\+levelfile(), create\+\_\+savefile(), delete\+\_\+bonesfile(), delete\+\_\+levelfile(), delete\+\_\+savefile(), dosave0(), eraseoldlocks(), fopen\+\_\+config\+\_\+file(), fopen\+\_\+datafile(), getlock(), lock\+\_\+file(), M\+A\+I\+N(), main(), open\+\_\+bonesfile(), open\+\_\+levelfile(), open\+\_\+savefile(), process\+\_\+openfile(), restore\+\_\+saved\+\_\+game(), unlock\+\_\+file(), and validate\+\_\+prefix\+\_\+locations().
+
+
+\begin{DoxyCode}
+280 \{
+281 \textcolor{preprocessor}{#ifndef PREFIXES\_IN\_USE}
+282     \textcolor{keywordflow}{return} \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename};
+283 \textcolor{preprocessor}{#else}
+284     \textcolor{keywordflow}{if} (!\hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename} || whichprefix < 0 || whichprefix >= \hyperlink{decl_8h_a3bf139eac32300928561d583e1c01433}{PREFIX\_COUNT})
+285         \textcolor{keywordflow}{return} \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename};
+286     \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_ad11e533b359d37f0ff5138169c3d3268}{fqn\_prefix}[whichprefix])
+287         \textcolor{keywordflow}{return} \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename};
+288     \textcolor{keywordflow}{if} (buffnum < 0 || buffnum >= FQN\_NUMBUF) \{
+289         impossible(\textcolor{stringliteral}{"Invalid fqn\_filename\_buffer specified: %d"},
+290                                 buffnum);
+291         buffnum = 0;
+292     \}
+293     \textcolor{keywordflow}{if} (strlen(\hyperlink{decl_8h_ad11e533b359d37f0ff5138169c3d3268}{fqn\_prefix}[whichprefix]) + strlen(\hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename}) >=
+294                             \hyperlink{decl_8h_a082e7e95e0fd57163e3697ecb5b94920}{FQN\_MAX\_FILENAME}) \{
+295         impossible(\textcolor{stringliteral}{"fqname too long: %s + %s"}, \hyperlink{decl_8h_ad11e533b359d37f0ff5138169c3d3268}{fqn\_prefix}[whichprefix],
+296                         \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename});
+297         \textcolor{keywordflow}{return} \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename};    \textcolor{comment}{/* XXX */}
+298     \}
+299     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(fqn\_filename\_buffer[buffnum], \hyperlink{decl_8h_ad11e533b359d37f0ff5138169c3d3268}{fqn\_prefix}[whichprefix]);
+300     \textcolor{keywordflow}{return} strcat(fqn\_filename\_buffer[buffnum], \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename});
+301 \textcolor{preprocessor}{#endif}
+302 \}
+\end{DoxyCode}
+\hypertarget{files_8c_ae44c471cf4e6c4d86a09dd2b1cff5392}{\index{files.\+c@{files.\+c}!free\+\_\+saved\+\_\+games@{free\+\_\+saved\+\_\+games}}
+\index{free\+\_\+saved\+\_\+games@{free\+\_\+saved\+\_\+games}!files.\+c@{files.\+c}}
+\subsubsection[{free\+\_\+saved\+\_\+games}]{\setlength{\rightskip}{0pt plus 5cm}void free\+\_\+saved\+\_\+games (
+\begin{DoxyParamCaption}
+\item[{char$\ast$$\ast$}]{saved}
+\end{DoxyParamCaption}
+)}}\label{files_8c_ae44c471cf4e6c4d86a09dd2b1cff5392}
+
+
+Definition at line 1030 of file files.\+c.
+
+
+
+References free().
+
+
+\begin{DoxyCode}
+1032 \{
+1033     \textcolor{keywordflow}{if} ( saved ) \{
+1034     \textcolor{keywordtype}{int} i=0;
+1035     \textcolor{keywordflow}{while} (saved[i]) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})saved[i++]);
+1036     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})saved);
+1037     \}
+1038 \}
+\end{DoxyCode}
+\hypertarget{files_8c_af234f89e1fa387fb322a1444abdc7bf0}{\index{files.\+c@{files.\+c}!get\+\_\+saved\+\_\+games@{get\+\_\+saved\+\_\+games}}
+\index{get\+\_\+saved\+\_\+games@{get\+\_\+saved\+\_\+games}!files.\+c@{files.\+c}}
+\subsubsection[{get\+\_\+saved\+\_\+games}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ get\+\_\+saved\+\_\+games (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_af234f89e1fa387fb322a1444abdc7bf0}
+
+
+Definition at line 997 of file files.\+c.
+
+
+
+References alloc(), B\+U\+F\+S\+Z, getuid(), and Sprintf.
+
+
+\begin{DoxyCode}
+998 \{
+999 \textcolor{preprocessor}{#if defined(UNIX) && defined(QT\_GRAPHICS)}
+1000     \textcolor{keywordtype}{int} myuid=\hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}();
+1001     \textcolor{keyword}{struct }dirent **namelist;
+1002     \textcolor{keywordtype}{int} n = scandir(\textcolor{stringliteral}{"save"}, &namelist, 0, alphasort);;
+1003     \textcolor{keywordflow}{if} ( n > 0 ) \{
+1004     \textcolor{keywordtype}{int} i,j=0;
+1005     \textcolor{keywordtype}{char}** result = (\textcolor{keywordtype}{char}**)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((n+1)*\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}*)); \textcolor{comment}{/* at most */}
+1006     \textcolor{keywordflow}{for} (i=0; i<n; i++) \{
+1007         \textcolor{keywordtype}{int} uid;
+1008         \textcolor{keywordtype}{char} \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}[64]; \textcolor{comment}{/* more than PL\_NSIZ */}
+1009         \textcolor{keywordflow}{if} ( sscanf( namelist[i]->d\_name, \textcolor{stringliteral}{"%d%63s"}, &uid, name ) == 2 ) \{
+1010         \textcolor{keywordflow}{if} ( uid == myuid ) \{
+1011             \textcolor{keywordtype}{char} \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1012             \textcolor{keywordtype}{char}* r;
+1013             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(filename,\textcolor{stringliteral}{"save/%d%s"},uid,name);
+1014             r = plname\_from\_file(filename);
+1015             \textcolor{keywordflow}{if} ( r )
+1016             result[j++] = r;
+1017         \}
+1018         \}
+1019     \}
+1020     result[j++] = 0;
+1021     \textcolor{keywordflow}{return} result;
+1022     \} \textcolor{keywordflow}{else}
+1023 \textcolor{preprocessor}{#endif}
+1024     \{
+1025     \textcolor{keywordflow}{return} 0;
+1026     \}
+1027 \}
+\end{DoxyCode}
+\hypertarget{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{\index{files.\+c@{files.\+c}!get\+\_\+uchars@{get\+\_\+uchars}}
+\index{get\+\_\+uchars@{get\+\_\+uchars}!files.\+c@{files.\+c}}
+\subsubsection[{get\+\_\+uchars}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int get\+\_\+uchars (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{fp, }
+\item[{char $\ast$}]{buf, }
+\item[{char $\ast$}]{bufp, }
+\item[{{\bf uchar} $\ast$}]{list, }
+\item[{{\bf boolean}}]{modlist, }
+\item[{int}]{size, }
+\item[{{\bf const} char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}
+
+
+Definition at line 1598 of file files.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, count, F\+A\+L\+S\+E, T\+R\+U\+E, and wait\+\_\+synch.
+
+
+
+Referenced by parse\+\_\+config\+\_\+line().
+
+
+\begin{DoxyCode}
+1606 \{
+1607     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} num = 0;
+1608     \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count} = 0;
+1609     \textcolor{keywordtype}{boolean} havenum = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1610 
+1611     \textcolor{keywordflow}{while} (1) \{
+1612     \textcolor{keywordflow}{switch}(*bufp) \{
+1613         \textcolor{keywordflow}{case} \textcolor{charliteral}{' '}:  \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)0'}:
+1614         \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)t'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)n'}:
+1615         \textcolor{keywordflow}{if} (havenum) \{
+1616             \textcolor{comment}{/* if modifying in place, don't insert zeros */}
+1617             \textcolor{keywordflow}{if} (num || !modlist) list[\hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count}] = num;
+1618             count++;
+1619             num = 0;
+1620             havenum = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1621         \}
+1622         \textcolor{keywordflow}{if} (count == \hyperlink{structsize}{size} || !*bufp) \textcolor{keywordflow}{return} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1623         bufp++;
+1624         \textcolor{keywordflow}{break};
+1625 
+1626         \textcolor{keywordflow}{case} \textcolor{charliteral}{'0'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'1'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'2'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'3'}:
+1627         \textcolor{keywordflow}{case} \textcolor{charliteral}{'4'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'5'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'6'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'7'}:
+1628         \textcolor{keywordflow}{case} \textcolor{charliteral}{'8'}: \textcolor{keywordflow}{case} \textcolor{charliteral}{'9'}:
+1629         havenum = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1630         num = num*10 + (*bufp-\textcolor{charliteral}{'0'});
+1631         bufp++;
+1632         \textcolor{keywordflow}{break};
+1633 
+1634         \textcolor{keywordflow}{case} \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}:
+1635         \textcolor{keywordflow}{if} (\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp} == (FILE *)0)
+1636             \textcolor{keywordflow}{goto} gi\_error;
+1637         \textcolor{keywordflow}{do}  \{
+1638             \textcolor{keywordflow}{if} (!fgets(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}, \hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp})) \textcolor{keywordflow}{goto} gi\_error;
+1639         \} \textcolor{keywordflow}{while} (\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[0] == \textcolor{charliteral}{'#'});
+1640         bufp = \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+1641         \textcolor{keywordflow}{break};
+1642 
+1643         \textcolor{keywordflow}{default}:
+1644 gi\_error:
+1645         raw\_printf(\textcolor{stringliteral}{"Syntax error in %s"}, \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name});
+1646         \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+1647         \textcolor{keywordflow}{return} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+1648     \}
+1649     \}
+1650     \textcolor{comment}{/*NOTREACHED*/}
+1651 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a991dbc9dc86b6aa9673a7bed36802728}{\index{files.\+c@{files.\+c}!lock\+\_\+file@{lock\+\_\+file}}
+\index{lock\+\_\+file@{lock\+\_\+file}!files.\+c@{files.\+c}}
+\subsubsection[{lock\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} lock\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename, }
+\item[{int}]{whichprefix, }
+\item[{int}]{retryct}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_a991dbc9dc86b6aa9673a7bed36802728}
+
+
+Definition at line 1289 of file files.\+c.
+
+
+
+References B\+U\+F\+S\+Z, Delay(), Delete\+File, errno, F\+A\+L\+S\+E, fqname(), H\+U\+P, L\+O\+C\+K\+P\+R\+E\+F\+I\+X, make\+\_\+lockname(), O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+E\+X\+C\+L, O\+\_\+\+R\+D\+W\+R, open(), perror, raw\+\_\+print, S\+\_\+\+I\+W\+R\+I\+T\+E, and T\+R\+U\+E.
+
+
+
+Referenced by getlock(), and topten().
+
+
+\begin{DoxyCode}
+1293 \{
+1294 \textcolor{preprocessor}{#if (defined(macintosh) && (defined(\_\_SC\_\_) || defined(\_\_MRC\_\_))) || defined(\_\_MWERKS\_\_)}
+1295 \textcolor{preprocessor}{# pragma unused(filename, retryct)}
+1296 \textcolor{preprocessor}{#endif}
+1297     \textcolor{keywordtype}{char} locknambuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1298     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *lockname;
+1299 
+1300     \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting}++;
+1301     \textcolor{keywordflow}{if} (\hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting} > 1) \{
+1302         impossible(\textcolor{stringliteral}{"TRIED TO NEST LOCKS"});
+1303         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1304     \}
+1305 
+1306     lockname = \hyperlink{files_8c_adc4f3e6ce447da39b375f0e3cd9a1a2f}{make\_lockname}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, locknambuf);
+1307     \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename} = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, whichprefix, 0);
+1308 \textcolor{preprocessor}{#ifndef NO\_FILE\_LINKS   }\textcolor{comment}{/* LOCKDIR should be subsumed by LOCKPREFIX */}\textcolor{preprocessor}{}
+1309     lockname = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(lockname, \hyperlink{decl_8h_ab34725ee75fd5fcf782cd33cfffa8601}{LOCKPREFIX}, 2);
+1310 \textcolor{preprocessor}{#endif}
+1311 
+1312 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS)}
+1313 \textcolor{preprocessor}{# ifdef NO\_FILE\_LINKS}
+1314     \textcolor{keywordflow}{while} ((lockfd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(lockname, \hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR}|\hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}|\hyperlink{fcntl_8h_a9f5acfe79fafe14b6694447bd0e9f10b}{O\_EXCL}, 0666)) == -1) \{
+1315 \textcolor{preprocessor}{# else}
+1316     \textcolor{keywordflow}{while} (link(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, lockname) == -1) \{
+1317 \textcolor{preprocessor}{# endif}
+1318         \textcolor{keyword}{register} \textcolor{keywordtype}{int} errnosv = \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno};
+1319 
+1320         \textcolor{keywordflow}{switch} (errnosv) \{  \textcolor{comment}{/* George Barbanis */}
+1321         \textcolor{keywordflow}{case} EEXIST:
+1322         \textcolor{keywordflow}{if} (retryct--) \{
+1323             \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} raw\_printf(
+1324                 \textcolor{stringliteral}{"Waiting for access to %s.  (%d retries left)."},
+1325                 \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, retryct);
+1326 \textcolor{preprocessor}{# if defined(SYSV) || defined(ULTRIX) || defined(VMS)}
+1327             (void)
+1328 # endif
+1329             sleep(1);
+1330         \} \textcolor{keywordflow}{else} \{
+1331             \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} (\textcolor{keywordtype}{void}) \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}("I give up.  Sorry.");
+1332             \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} raw\_printf("Perhaps there is an old %s around?",
+1333                     lockname);
+1334             \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting}--;
+1335             return \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1336         \}
+1337 
+1338         break;
+1339         case ENOENT:
+1340         \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} raw\_printf("Can't find file %s to \hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}!", \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename});
+1341         \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting}--;
+1342         return FALSE;
+1343         case EACCES:
+1344         \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} raw\_printf("No \hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write} permission to lock %s!", filename);
+1345         \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting}--;
+1346         return FALSE;
+1347 \textcolor{preprocessor}{# ifdef VMS         }\textcolor{comment}{/* c\_\_translate(vmsfiles.c) */}\textcolor{preprocessor}{}
+1348         \textcolor{keywordflow}{case} EPERM:
+1349         \textcolor{comment}{/* could be misleading, but usually right */}
+1350         \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} raw\_printf(\textcolor{stringliteral}{"Can't lock %s due to directory protection."},
+1351                    filename);
+1352         \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting}--;
+1353         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1354 \textcolor{preprocessor}{# endif}
+1355         \textcolor{keywordflow}{default}:
+1356         \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(lockname);
+1357         \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} raw\_printf(
+1358                  \textcolor{stringliteral}{"Cannot lock %s for unknown reason (%d)."},
+1359                    filename, errnosv);
+1360         \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting}--;
+1361         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1362         \}
+1363 
+1364     \}
+1365 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* UNIX || VMS */}\textcolor{preprocessor}{}
+1366 
+1367 \textcolor{preprocessor}{#if defined(AMIGA) || defined(WIN32) || defined(MSDOS)}
+1368 \textcolor{preprocessor}{# ifdef AMIGA}
+1369 \textcolor{preprocessor}{#define OPENFAILURE(fd) (!fd)}
+1370     lockptr = 0;
+1371 \textcolor{preprocessor}{# else}
+1372 \textcolor{preprocessor}{#define OPENFAILURE(fd) (fd < 0)}
+1373     lockptr = -1;
+1374 \textcolor{preprocessor}{# endif}
+1375     \textcolor{keywordflow}{while} (--retryct && OPENFAILURE(lockptr)) \{
+1376 \textcolor{preprocessor}{# if defined(WIN32) && !defined(WIN\_CE)}
+1377     lockptr = sopen(lockname, \hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR}|\hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}, SH\_DENYRW, \hyperlink{wceconf_8h_a40eb4ad4bcc675d265615042657c37b7}{S\_IWRITE});
+1378 \textcolor{preprocessor}{# else}
+1379     (void)\hyperlink{wceconf_8h_a9b1e7a754e6345a80a02d08fc24ab195}{DeleteFile}(lockname); \textcolor{comment}{/* in case dead process was here first */}
+1380 \textcolor{preprocessor}{#  ifdef AMIGA}
+1381     lockptr = Open(lockname,MODE\_NEWFILE);
+1382 \textcolor{preprocessor}{#  else}
+1383     lockptr = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(lockname, \hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR}|\hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}|\hyperlink{fcntl_8h_a9f5acfe79fafe14b6694447bd0e9f10b}{O\_EXCL}, 
+      \hyperlink{wceconf_8h_a40eb4ad4bcc675d265615042657c37b7}{S\_IWRITE});
+1384 \textcolor{preprocessor}{#  endif}
+1385 \textcolor{preprocessor}{# endif}
+1386     \textcolor{keywordflow}{if} (OPENFAILURE(lockptr)) \{
+1387         raw\_printf(\textcolor{stringliteral}{"Waiting for access to %s.  (%d retries left)."},
+1388             \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, retryct);
+1389         \hyperlink{celib_8c_a9efdce133fda030ebb0c7793ffc03d14}{Delay}(50);
+1390     \}
+1391     \}
+1392     \textcolor{keywordflow}{if} (!retryct) \{
+1393     raw\_printf(\textcolor{stringliteral}{"I give up.  Sorry."});
+1394     \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting}--;
+1395     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1396     \}
+1397 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* AMIGA || WIN32 || MSDOS */}\textcolor{preprocessor}{}
+1398     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1399 \}
+\end{DoxyCode}
+\hypertarget{files_8c_adc4f3e6ce447da39b375f0e3cd9a1a2f}{\index{files.\+c@{files.\+c}!make\+\_\+lockname@{make\+\_\+lockname}}
+\index{make\+\_\+lockname@{make\+\_\+lockname}!files.\+c@{files.\+c}}
+\subsubsection[{make\+\_\+lockname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} char$\ast$ make\+\_\+lockname (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename, }
+\item[{char $\ast$}]{lockname}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_adc4f3e6ce447da39b375f0e3cd9a1a2f}
+
+
+Definition at line 1253 of file files.\+c.
+
+
+
+References rindex, Strcat, and Strcpy.
+
+
+
+Referenced by lock\+\_\+file(), and unlock\+\_\+file().
+
+
+\begin{DoxyCode}
+1256 \{
+1257 \textcolor{preprocessor}{#if (defined(macintosh) && (defined(\_\_SC\_\_) || defined(\_\_MRC\_\_))) || defined(\_\_MWERKS\_\_)}
+1258 \textcolor{preprocessor}{# pragma unused(filename,lockname)}
+1259     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{char}*)0;
+1260 \textcolor{preprocessor}{#else}
+1261 \textcolor{preprocessor}{# if defined(UNIX) || defined(VMS) || defined(AMIGA) || defined(WIN32) || defined(MSDOS)}
+1262 \textcolor{preprocessor}{#  ifdef NO\_FILE\_LINKS}
+1263     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(lockname, LOCKDIR);
+1264     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(lockname, \textcolor{stringliteral}{"/"});
+1265     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(lockname, \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename});
+1266 \textcolor{preprocessor}{#  else}
+1267     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(lockname, \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename});
+1268 \textcolor{preprocessor}{#  endif}
+1269 \textcolor{preprocessor}{#  ifdef VMS}
+1270       \{
+1271     \textcolor{keywordtype}{char} *semi\_colon = \hyperlink{beconf_8h_a8c35ae4e83034731f6aecfb34c883ecf}{rindex}(lockname, \textcolor{charliteral}{';'});
+1272     \textcolor{keywordflow}{if} (semi\_colon) *semi\_colon = \textcolor{charliteral}{'\(\backslash\)0'};
+1273       \}
+1274     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(lockname, \textcolor{stringliteral}{".lock;1"});
+1275 \textcolor{preprocessor}{#  else}
+1276     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(lockname, \textcolor{stringliteral}{"\_lock"});
+1277 \textcolor{preprocessor}{#  endif}
+1278     \textcolor{keywordflow}{return} lockname;
+1279 \textcolor{preprocessor}{# else}
+1280     lockname[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+1281     \textcolor{keywordflow}{return} (\textcolor{keywordtype}{char}*)0;
+1282 \textcolor{preprocessor}{# endif  }\textcolor{comment}{/* UNIX || VMS || AMIGA || WIN32 || MSDOS */}\textcolor{preprocessor}{}
+1283 \textcolor{preprocessor}{#endif}
+1284 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a05c30ca3d29acf3c16d4e6a5af0fcc1a}{\index{files.\+c@{files.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!files.\+c@{files.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} char$\ast$ N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf set\+\_\+bonestemp\+\_\+name}}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a05c30ca3d29acf3c16d4e6a5af0fcc1a}
+\hypertarget{files_8c_a7d258860f78390865f62e2205374082f}{\index{files.\+c@{files.\+c}!open\+\_\+bonesfile@{open\+\_\+bonesfile}}
+\index{open\+\_\+bonesfile@{open\+\_\+bonesfile}!files.\+c@{files.\+c}}
+\subsubsection[{open\+\_\+bonesfile}]{\setlength{\rightskip}{0pt plus 5cm}int open\+\_\+bonesfile (
+\begin{DoxyParamCaption}
+\item[{{\bf d\+\_\+level} $\ast$}]{lev, }
+\item[{char $\ast$$\ast$}]{bonesid}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a7d258860f78390865f62e2205374082f}
+
+
+Definition at line 740 of file files.\+c.
+
+
+
+References bones, B\+O\+N\+E\+S\+P\+R\+E\+F\+I\+X, fqname(), macopen(), O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+R\+D\+O\+N\+L\+Y, open(), set\+\_\+bonesfile\+\_\+name(), and uncompress().
+
+
+
+Referenced by getbones(), and savebones().
+
+
+\begin{DoxyCode}
+743 \{
+744     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_bones;
+745     \textcolor{keywordtype}{int} fd;
+746 
+747     *bonesid = \hyperlink{files_8c_a458de6506a95af0124cf3fa9d3334d29}{set\_bonesfile\_name}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, lev);
+748     fq\_bones = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, \hyperlink{decl_8h_aba3fb3d62d1d9f21f0dbe9b8f5c1a380}{BONESPREFIX}, 0);
+749     \hyperlink{files_8c_a7cf705b08e7bab7c245b81f60f1a8c76}{uncompress}(fq\_bones); \textcolor{comment}{/* no effect if nonexistent */}
+750 \textcolor{preprocessor}{#ifdef MAC}
+751     fd = \hyperlink{macfile_8c_ad68184f60857d3415958aaeb140b8b83}{macopen}(fq\_bones, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY} | \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, BONE\_TYPE);
+752 \textcolor{preprocessor}{#else}
+753     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_bones, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY} | \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, 0);
+754 \textcolor{preprocessor}{#endif}
+755     \textcolor{keywordflow}{return} fd;
+756 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a06158f3eda93ec61af96b6ca48306da7}{\index{files.\+c@{files.\+c}!open\+\_\+levelfile@{open\+\_\+levelfile}}
+\index{open\+\_\+levelfile@{open\+\_\+levelfile}!files.\+c@{files.\+c}}
+\subsubsection[{open\+\_\+levelfile}]{\setlength{\rightskip}{0pt plus 5cm}int open\+\_\+levelfile (
+\begin{DoxyParamCaption}
+\item[{int}]{lev, }
+\item[{errbuf}]{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a06158f3eda93ec61af96b6ca48306da7}
+
+
+Definition at line 464 of file files.\+c.
+
+
+
+References errno, fqname(), level\+\_\+info, L\+E\+V\+E\+L\+P\+R\+E\+F\+I\+X, lock, macopen(), O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+R\+D\+O\+N\+L\+Y, open(), set\+\_\+levelfile\+\_\+name(), Sprintf, and where.
+
+
+
+Referenced by dosave0().
+
+
+\begin{DoxyCode}
+467 \{
+468     \textcolor{keywordtype}{int} fd;
+469     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_lock;
+470 
+471     \textcolor{keywordflow}{if} (errbuf) *errbuf = \textcolor{charliteral}{'\(\backslash\)0'};
+472     \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, lev);
+473     fq\_lock = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, \hyperlink{decl_8h_a3927e6e5163851a0485f8e8adba6f784}{LEVELPREFIX}, 0);
+474 \textcolor{preprocessor}{#ifdef MFLOPPY}
+475     \textcolor{comment}{/* If not currently accessible, swap it in. */}
+476     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a8bfac57de50a3a9d8ddd84b6aaaba2ad}{level\_info}[lev].\hyperlink{detect_8c_a8201fc0bfa35306851be2a25ab2d6263}{where} != ACTIVE)
+477         swapin\_file(lev);
+478 \textcolor{preprocessor}{#endif}
+479 \textcolor{preprocessor}{#ifdef MAC}
+480     fd = \hyperlink{macfile_8c_ad68184f60857d3415958aaeb140b8b83}{macopen}(fq\_lock, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY} | \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, LEVL\_TYPE);
+481 \textcolor{preprocessor}{#else}
+482 \textcolor{preprocessor}{# ifdef HOLD\_LOCKFILE\_OPEN}
+483     \textcolor{keywordflow}{if} (lev == 0)
+484         fd = open\_levelfile\_exclusively(fq\_lock, lev, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY} | 
+      \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY} );
+485     \textcolor{keywordflow}{else}
+486 \textcolor{preprocessor}{# endif}
+487     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_lock, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY} | \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, 0);
+488 \textcolor{preprocessor}{#endif}
+489 
+490     \textcolor{comment}{/* for failure, return an explanation that our caller can use;}
+491 \textcolor{comment}{       settle for `lock' instead of `fq\_lock' because the latter}
+492 \textcolor{comment}{       might end up being too big for nethack's BUFSZ */}
+493     \textcolor{keywordflow}{if} (fd < 0 && errbuf)
+494         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(errbuf,
+495             \textcolor{stringliteral}{"Cannot open file \(\backslash\)"%s\(\backslash\)" for level %d (errno %d)."},
+496             \hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, lev, \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno});
+497 
+498     \textcolor{keywordflow}{return} fd;
+499 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a4bf980fee09182324515fb62eb918d29}{\index{files.\+c@{files.\+c}!open\+\_\+savefile@{open\+\_\+savefile}}
+\index{open\+\_\+savefile@{open\+\_\+savefile}!files.\+c@{files.\+c}}
+\subsubsection[{open\+\_\+savefile}]{\setlength{\rightskip}{0pt plus 5cm}int open\+\_\+savefile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a4bf980fee09182324515fb62eb918d29}
+
+
+Definition at line 893 of file files.\+c.
+
+
+
+References fqname(), macopen(), O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+R\+D\+O\+N\+L\+Y, open(), S\+A\+V\+E\+F, and S\+A\+V\+E\+P\+R\+E\+F\+I\+X.
+
+
+
+Referenced by dosave0(), and restore\+\_\+saved\+\_\+game().
+
+
+\begin{DoxyCode}
+894 \{
+895     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_save;
+896     \textcolor{keywordtype}{int} fd;
+897 
+898     fq\_save = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 0);
+899 \textcolor{preprocessor}{#ifdef MAC}
+900     fd = \hyperlink{macfile_8c_ad68184f60857d3415958aaeb140b8b83}{macopen}(fq\_save, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY} | \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, SAVE\_TYPE);
+901 \textcolor{preprocessor}{#else}
+902     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_save, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY} | \hyperlink{files_8c_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, 0);
+903 \textcolor{preprocessor}{#endif}
+904     \textcolor{keywordflow}{return} fd;
+905 \}
+\end{DoxyCode}
+\hypertarget{files_8c_ac4f32c4433a1d09114823b45c45f32c3}{\index{files.\+c@{files.\+c}!paniclog@{paniclog}}
+\index{paniclog@{paniclog}!files.\+c@{files.\+c}}
+\subsubsection[{paniclog}]{\setlength{\rightskip}{0pt plus 5cm}void paniclog (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{type, }
+\item[{{\bf const} char $\ast$}]{reason}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_ac4f32c4433a1d09114823b45c45f32c3}
+
+
+Definition at line 2241 of file files.\+c.
+
+
+
+References B\+U\+F\+S\+Z, fopen\+\_\+datafile(), P\+A\+N\+I\+C\+L\+O\+G, program\+\_\+state, T\+R\+O\+U\+B\+L\+E\+P\+R\+E\+F\+I\+X, type, and version\+\_\+string().
+
+
+
+Referenced by validate\+\_\+prefix\+\_\+locations().
+
+
+\begin{DoxyCode}
+2244 \{
+2245 \textcolor{preprocessor}{#ifdef PANICLOG}
+2246     FILE *lfile;
+2247     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+2248 
+2249     \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.in\_paniclog) \{
+2250         \hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.in\_paniclog = 1;
+2251         lfile = \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\_datafile}(\hyperlink{config_8h_a9a712db35cb24510281e5eb81797d11e}{PANICLOG}, \textcolor{stringliteral}{"a"}, 
+      \hyperlink{decl_8h_a6b14f7f6b6facb74a457b1d5829a6ff8}{TROUBLEPREFIX});
+2252         \textcolor{keywordflow}{if} (lfile) \{
+2253             (void) fprintf(lfile, \textcolor{stringliteral}{"%s %08ld: %s %s\(\backslash\)n"},
+2254                    \hyperlink{version_8c_a752dd2d933cd453cdc3ad856d398fece}{version\_string}(buf), yyyymmdd((\hyperlink{wceconf_8h_ae314912f2d5fb5362d86efe017e755f4}{time\_t})0L),
+2255                    \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type}, reason);
+2256             (void) fclose(lfile);
+2257         \}
+2258         \hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.in\_paniclog = 0;
+2259     \}
+2260 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* PANICLOG */}\textcolor{preprocessor}{}
+2261     \textcolor{keywordflow}{return};
+2262 \}
+\end{DoxyCode}
+\hypertarget{files_8c_abe144d1a3ceeef7f0b8912a9cfc284a7}{\index{files.\+c@{files.\+c}!parse\+\_\+config\+\_\+line@{parse\+\_\+config\+\_\+line}}
+\index{parse\+\_\+config\+\_\+line@{parse\+\_\+config\+\_\+line}!files.\+c@{files.\+c}}
+\subsubsection[{parse\+\_\+config\+\_\+line}]{\setlength{\rightskip}{0pt plus 5cm}int parse\+\_\+config\+\_\+line (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E		$\ast$}]{fp, }
+\item[{char		$\ast$}]{buf, }
+\item[{char		$\ast$}]{tmp\+\_\+ramdisk, }
+\item[{char		$\ast$}]{tmp\+\_\+levels}
+\end{DoxyParamCaption}
+)}}\label{files_8c_abe144d1a3ceeef7f0b8912a9cfc284a7}
+
+
+Definition at line 1676 of file files.\+c.
+
+
+
+References amii\+\_\+init\+\_\+map, A\+M\+I\+I\+\_\+\+M\+A\+X\+C\+O\+L\+O\+R\+S, amii\+\_\+menu\+A\+Pen, amii\+\_\+menu\+B\+Pen, amii\+\_\+msg\+A\+Pen, amii\+\_\+msg\+B\+Pen, amii\+\_\+numcolors, amii\+\_\+other\+A\+Pen, amii\+\_\+other\+B\+Pen, amii\+\_\+scrnmode, amii\+\_\+set\+\_\+text\+\_\+font(), amii\+\_\+setpens(), amii\+\_\+stat\+A\+Pen, amii\+\_\+stat\+B\+Pen, amii\+\_\+text\+A\+Pen, amii\+\_\+text\+B\+Pen, append\+\_\+slash(), assign\+\_\+graphics(), assign\+\_\+warnings(), B\+O\+N\+E\+S\+P\+R\+E\+F\+I\+X, instance\+\_\+flags\+::bouldersym, catname, C\+O\+N\+F\+I\+G\+P\+R\+E\+F\+I\+X, D\+A\+T\+A\+P\+R\+E\+F\+I\+X, D\+E\+P\+T\+H, dogname, eos(), F\+A\+L\+S\+E, flags, get\+\_\+uchars(), hackdir, H\+A\+C\+K\+P\+R\+E\+F\+I\+X, iflags, index(), flag\+::initrole, L\+E\+V\+E\+L\+P\+R\+E\+F\+I\+X, L\+O\+C\+K\+P\+R\+E\+F\+I\+X, match\+\_\+varname, M\+A\+X\+D\+C\+H\+A\+R\+S, M\+A\+X\+E\+C\+H\+A\+R\+S, M\+A\+X\+M\+C\+L\+A\+S\+S\+E\+S, M\+A\+X\+O\+C\+L\+A\+S\+S\+E\+S, M\+A\+X\+P\+C\+H\+A\+R\+S, M\+A\+X\+T\+C\+H\+A\+R\+S, min, monsyms, N\+U\+L\+L, oc\+\_\+syms, parseoptions(), P\+A\+T\+H, P\+A\+T\+H\+L\+E\+N, P\+L\+\_\+\+N\+S\+I\+Z, P\+L\+\_\+\+P\+S\+I\+Z, plname, plnamesuffix(), S\+A\+V\+E\+P\+R\+E\+F\+I\+X, S\+A\+V\+E\+S\+I\+Z\+E, S\+C\+O\+R\+E\+P\+R\+E\+F\+I\+X, str2role(), strdup, T\+R\+O\+U\+B\+L\+E\+P\+R\+E\+F\+I\+X, T\+R\+U\+E, and W\+A\+R\+N\+C\+O\+U\+N\+T.
+
+
+
+Referenced by read\+\_\+config\+\_\+file().
+
+
+\begin{DoxyCode}
+1681 \{
+1682 \textcolor{preprocessor}{#if (defined(macintosh) && (defined(\_\_SC\_\_) || defined(\_\_MRC\_\_))) || defined(\_\_MWERKS\_\_)}
+1683 \textcolor{preprocessor}{# pragma unused(tmp\_ramdisk,tmp\_levels)}
+1684 \textcolor{preprocessor}{#endif}
+1685     \textcolor{keywordtype}{char}        *bufp, *altp;
+1686     \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}   translate[\hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{MAXPCHARS}];
+1687     \textcolor{keywordtype}{int}   len;
+1688 
+1689     \textcolor{keywordflow}{if} (*\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf} == \textcolor{charliteral}{'#'})
+1690         \textcolor{keywordflow}{return} 1;
+1691 
+1692     \textcolor{comment}{/* remove trailing whitespace */}
+1693     bufp = \hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf});
+1694     \textcolor{keywordflow}{while} (--bufp > \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf} && isspace(*bufp))
+1695         \textcolor{keywordflow}{continue};
+1696 
+1697     \textcolor{keywordflow}{if} (bufp <= \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf})
+1698         \textcolor{keywordflow}{return} 1;       \textcolor{comment}{/* skip all-blank lines */}
+1699     \textcolor{keywordflow}{else}
+1700         *(bufp + 1) = \textcolor{charliteral}{'\(\backslash\)0'}; \textcolor{comment}{/* terminate line */}
+1701 
+1702     \textcolor{comment}{/* find the '=' or ':' */}
+1703     bufp = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{charliteral}{'='});
+1704     altp = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{charliteral}{':'});
+1705     \textcolor{keywordflow}{if} (!bufp || (altp && altp < bufp)) bufp = altp;
+1706     \textcolor{keywordflow}{if} (!bufp) \textcolor{keywordflow}{return} 0;
+1707 
+1708     \textcolor{comment}{/* skip  whitespace between '=' and value */}
+1709     \textcolor{keywordflow}{do} \{ ++bufp; \} \textcolor{keywordflow}{while} (isspace(*bufp));
+1710 
+1711     \textcolor{comment}{/* Go through possible variables */}
+1712     \textcolor{comment}{/* some of these (at least LEVELS and SAVE) should now set the}
+1713 \textcolor{comment}{     * appropriate fqn\_prefix[] rather than specialized variables}
+1714 \textcolor{comment}{     */}
+1715     \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"OPTIONS"}, 4)) \{
+1716         \hyperlink{options_8c_adb836cedde9a79e3d59efa1c74ec0eba}{parseoptions}(bufp, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1717         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}[0])        \textcolor{comment}{/* If a name was given */}
+1718             \hyperlink{role_8c_aa0498399050c03eb7ddd757e2d7f320e}{plnamesuffix}(); \textcolor{comment}{/* set the character class */}
+1719 \textcolor{preprocessor}{#ifdef AUTOPICKUP\_EXCEPTIONS}
+1720     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"AUTOPICKUP\_EXCEPTION"}, 5)) \{
+1721         add\_autopickup\_exception(bufp);
+1722 \textcolor{preprocessor}{#endif}
+1723 \textcolor{preprocessor}{#ifdef NOCWD\_ASSUMPTIONS}
+1724     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"HACKDIR"}, 4)) \{
+1725         adjust\_prefix(bufp, \hyperlink{decl_8h_a065cd8b315161ab6e5fde27a9217078c}{HACKPREFIX});
+1726     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"LEVELDIR"}, 4) ||
+1727            \hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"LEVELS"}, 4)) \{
+1728         adjust\_prefix(bufp, \hyperlink{decl_8h_a3927e6e5163851a0485f8e8adba6f784}{LEVELPREFIX});
+1729     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"SAVEDIR"}, 4)) \{
+1730         adjust\_prefix(bufp, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX});
+1731     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"BONESDIR"}, 5)) \{
+1732         adjust\_prefix(bufp, \hyperlink{decl_8h_aba3fb3d62d1d9f21f0dbe9b8f5c1a380}{BONESPREFIX});
+1733     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"DATADIR"}, 4)) \{
+1734         adjust\_prefix(bufp, \hyperlink{decl_8h_abfb64c53121af5c8aa066c106cbd8f05}{DATAPREFIX});
+1735     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"SCOREDIR"}, 4)) \{
+1736         adjust\_prefix(bufp, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX});
+1737     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"LOCKDIR"}, 4)) \{
+1738         adjust\_prefix(bufp, \hyperlink{decl_8h_ab34725ee75fd5fcf782cd33cfffa8601}{LOCKPREFIX});
+1739     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"CONFIGDIR"}, 4)) \{
+1740         adjust\_prefix(bufp, \hyperlink{decl_8h_a24387f32d3efee89779069c19b1aa57b}{CONFIGPREFIX});
+1741     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"TROUBLEDIR"}, 4)) \{
+1742         adjust\_prefix(bufp, \hyperlink{decl_8h_a6b14f7f6b6facb74a457b1d5829a6ff8}{TROUBLEPREFIX});
+1743 \textcolor{preprocessor}{#else }\textcolor{comment}{/*NOCWD\_ASSUMPTIONS*/}\textcolor{preprocessor}{}
+1744 \textcolor{preprocessor}{# ifdef MICRO}
+1745     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"HACKDIR"}, 4)) \{
+1746         (void) strncpy(\hyperlink{micro_8h_aed5ba32479b0e56d7f035745433e6927}{hackdir}, bufp, \hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN}-1);
+1747 \textcolor{preprocessor}{#  ifdef MFLOPPY}
+1748     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"RAMDISK"}, 3)) \{
+1749                 \textcolor{comment}{/* The following ifdef is NOT in the wrong}
+1750 \textcolor{comment}{                 * place.  For now, we accept and silently}
+1751 \textcolor{comment}{                 * ignore RAMDISK */}
+1752 \textcolor{preprocessor}{#   ifndef AMIGA}
+1753         (void) strncpy(\hyperlink{files_8c_a990c7ebedced28a5aed95716a5cb9549}{tmp\_ramdisk}, bufp, \hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN}-1);
+1754 \textcolor{preprocessor}{#   endif}
+1755 \textcolor{preprocessor}{#  endif}
+1756     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"LEVELS"}, 4)) \{
+1757         (void) strncpy(\hyperlink{files_8c_a65190e4c66c9c6deafd8db02040deb17}{tmp\_levels}, bufp, \hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN}-1);
+1758 
+1759     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"SAVE"}, 4)) \{
+1760 \textcolor{preprocessor}{#  ifdef MFLOPPY}
+1761         \textcolor{keyword}{extern}  \textcolor{keywordtype}{int} saveprompt;
+1762 \textcolor{preprocessor}{#  endif}
+1763         \textcolor{keywordtype}{char} *ptr;
+1764         \textcolor{keywordflow}{if} ((ptr = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(bufp, \textcolor{charliteral}{';'})) != 0) \{
+1765             *ptr = \textcolor{charliteral}{'\(\backslash\)0'};
+1766 \textcolor{preprocessor}{#  ifdef MFLOPPY}
+1767             \textcolor{keywordflow}{if} (*(ptr+1) == \textcolor{charliteral}{'n'} || *(ptr+1) == \textcolor{charliteral}{'N'}) \{
+1768                 saveprompt = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1769             \}
+1770 \textcolor{preprocessor}{#  endif}
+1771         \}
+1772 \textcolor{preprocessor}{# ifdef MFLOPPY}
+1773         \textcolor{keywordflow}{else}
+1774             saveprompt = \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.asksavedisk;
+1775 \textcolor{preprocessor}{# endif}
+1776 
+1777         (void) strncpy(SAVEP, bufp, \hyperlink{files_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{SAVESIZE}-1);
+1778         \hyperlink{pcsys_8c_a4b6e1f672cf36868b04539762e206898}{append\_slash}(SAVEP);
+1779 \textcolor{preprocessor}{# endif }\textcolor{comment}{/* MICRO */}\textcolor{preprocessor}{}
+1780 \textcolor{preprocessor}{#endif }\textcolor{comment}{/*NOCWD\_ASSUMPTIONS*/}\textcolor{preprocessor}{}
+1781 
+1782     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"NAME"}, 4)) \{
+1783         (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, bufp, \hyperlink{global_8h_a06d346f470496500184b39a3c9c4df9d}{PL\_NSIZ}-1);
+1784         \hyperlink{role_8c_aa0498399050c03eb7ddd757e2d7f320e}{plnamesuffix}();
+1785     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"ROLE"}, 4) ||
+1786            \hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"CHARACTER"}, 4)) \{
+1787         \textcolor{keywordflow}{if} ((len = \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(bufp)) >= 0)
+1788             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = len;
+1789     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"DOGNAME"}, 3)) \{
+1790         (void) strncpy(\hyperlink{decl_8h_ab64f8282cf9d62a155171c4933bae836}{dogname}, bufp, \hyperlink{global_8h_a3ae8e8034f6e3d87dd1925f45090003f}{PL\_PSIZ}-1);
+1791     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"CATNAME"}, 3)) \{
+1792         (void) strncpy(\hyperlink{decl_8h_abe9c62489eff9d0ec264f2bbe4b3c47d}{catname}, bufp, \hyperlink{global_8h_a3ae8e8034f6e3d87dd1925f45090003f}{PL\_PSIZ}-1);
+1793 
+1794     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"BOULDER"}, 3)) \{
+1795         (void) \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\_uchars}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, bufp, &\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a13b4941aee2fefcb8d1d6a24b77396a3}{bouldersym}, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE},
+1796                   1, \textcolor{stringliteral}{"BOULDER"});
+1797     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"GRAPHICS"}, 4)) \{
+1798         len = \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\_uchars}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, bufp, translate, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},
+1799                  \hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{MAXPCHARS}, \textcolor{stringliteral}{"GRAPHICS"});
+1800         \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\_graphics}(translate, len, \hyperlink{rm_8h_a472435b302b91eba97d406b38399506f}{MAXPCHARS}, 0);
+1801     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"DUNGEON"}, 4)) \{
+1802         len = \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\_uchars}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, bufp, translate, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},
+1803                  \hyperlink{rm_8h_ad49f1d80d0905f7c7b9c6633c1695129}{MAXDCHARS}, \textcolor{stringliteral}{"DUNGEON"});
+1804         \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\_graphics}(translate, len, \hyperlink{rm_8h_ad49f1d80d0905f7c7b9c6633c1695129}{MAXDCHARS}, 0);
+1805     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"TRAPS"}, 4)) \{
+1806         len = \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\_uchars}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, bufp, translate, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},
+1807                  \hyperlink{rm_8h_a38ad8917d8c614254da5202288f34ee8}{MAXTCHARS}, \textcolor{stringliteral}{"TRAPS"});
+1808         \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\_graphics}(translate, len, \hyperlink{rm_8h_a38ad8917d8c614254da5202288f34ee8}{MAXTCHARS}, 
+      \hyperlink{rm_8h_ad49f1d80d0905f7c7b9c6633c1695129}{MAXDCHARS});
+1809     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"EFFECTS"}, 4)) \{
+1810         len = \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\_uchars}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, bufp, translate, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},
+1811                  \hyperlink{rm_8h_ab080e86ad5b933b421ca50fdb56e9a11}{MAXECHARS}, \textcolor{stringliteral}{"EFFECTS"});
+1812         \hyperlink{drawing_8c_ac1021c8b486ebefcaf96867d83779ae7}{assign\_graphics}(translate, len, \hyperlink{rm_8h_ab080e86ad5b933b421ca50fdb56e9a11}{MAXECHARS}, 
+      \hyperlink{rm_8h_ad49f1d80d0905f7c7b9c6633c1695129}{MAXDCHARS}+\hyperlink{rm_8h_a38ad8917d8c614254da5202288f34ee8}{MAXTCHARS});
+1813 
+1814     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"OBJECTS"}, 3)) \{
+1815         \textcolor{comment}{/* oc\_syms[0] is the RANDOM object, unused */}
+1816         (void) \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\_uchars}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, bufp, &(\hyperlink{decl_8h_a56fccf5eb894981c31e2e5e3a99abf12}{oc\_syms}[1]), 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE},
+1817                     \hyperlink{objclass_8h_af51133138bfb718b55aaa7f29711a10a}{MAXOCLASSES}-1, \textcolor{stringliteral}{"OBJECTS"});
+1818     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"MONSTERS"}, 3)) \{
+1819         \textcolor{comment}{/* monsyms[0] is unused */}
+1820         (void) \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\_uchars}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, bufp, &(\hyperlink{decl_8h_a1a4e60e91ff456eebe6d55281f01f852}{monsyms}[1]), 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE},
+1821                     \hyperlink{monsym_8h_a8c6bb361baecfba17240e1e0af655e1b}{MAXMCLASSES}-1, \textcolor{stringliteral}{"MONSTERS"});
+1822     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"WARNINGS"}, 5)) \{
+1823         (void) \hyperlink{files_8c_afc71a29ef8f894ecbc35f3152b6b8618}{get\_uchars}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, bufp, translate, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},
+1824                     \hyperlink{decl_8h_aeee8b486e8dc54c672bc3af9eb3ef68d}{WARNCOUNT}, \textcolor{stringliteral}{"WARNINGS"});
+1825         \hyperlink{options_8c_ae308f5efe4442e7970c9fae975211d29}{assign\_warnings}(translate);
+1826 \textcolor{preprocessor}{#ifdef WIZARD}
+1827     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"WIZKIT"}, 6)) \{
+1828         (void) strncpy(wizkit, bufp, WIZKIT\_MAX-1);
+1829 \textcolor{preprocessor}{#endif}
+1830 \textcolor{preprocessor}{#ifdef AMIGA}
+1831     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"FONT"}, 4)) \{
+1832         \textcolor{keywordtype}{char} *t;
+1833 
+1834         \textcolor{keywordflow}{if}( t = strchr( \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}+5, \textcolor{charliteral}{':'} ) )
+1835         \{
+1836             *t = 0;
+1837             \hyperlink{winfuncs_8c_a626a95e77f3432e0ed9eb6e21193fdbf}{amii\_set\_text\_font}( \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}+5, atoi( t + 1 ) );
+1838             *t = \textcolor{charliteral}{':'};
+1839         \}
+1840     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"PATH"}, 4)) \{
+1841         (void) strncpy(\hyperlink{amidos_8c_af77cc8dab27f9104708772362097679e}{PATH}, bufp, \hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN}-1);
+1842     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"DEPTH"}, 5)) \{
+1843         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \hyperlink{winext_8h_ae3cfaa8053fd2f089c9fe1ba90289e98}{amii\_numcolors};
+1844         \textcolor{keywordtype}{int} val = atoi( bufp );
+1845         amii\_numcolors = 1L << \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}( \hyperlink{amiconf_8h_a50267d552ca6f788254032e40046b770}{DEPTH}, val );
+1846     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"DRIPENS"}, 7)) \{
+1847         \textcolor{keywordtype}{int} i, val;
+1848         \textcolor{keywordtype}{char} *t;
+1849         \textcolor{keywordflow}{for} (i = 0, t = strtok(bufp, \textcolor{stringliteral}{",/"}); t != (\textcolor{keywordtype}{char} *)0;
+1850                 i < 20 && (t = strtok((\textcolor{keywordtype}{char}*)0, \textcolor{stringliteral}{",/"})), ++i) \{
+1851             sscanf(t, \textcolor{stringliteral}{"%d"}, &val );
+1852             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.amii\_dripens[i] = val;
+1853         \}
+1854     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"SCREENMODE"}, 10 )) \{
+1855         \textcolor{keyword}{extern} \textcolor{keywordtype}{long} \hyperlink{winext_8h_adb4cf3b576bf85b4faa561cc99b62e84}{amii\_scrnmode};
+1856         \textcolor{keywordflow}{if} (!stricmp(bufp,\textcolor{stringliteral}{"req"}))
+1857             amii\_scrnmode = 0xffffffff; \textcolor{comment}{/* Requester */}
+1858         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( sscanf(bufp, \textcolor{stringliteral}{"%x"}, &amii\_scrnmode) != 1 )
+1859             amii\_scrnmode = 0;
+1860     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"MSGPENS"}, 7)) \{
+1861         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \hyperlink{winext_8h_acc9bd89041e1021df5e8d898dda9968c}{amii\_msgAPen}, \hyperlink{winext_8h_ab8d29ceb31e5059cc2430e47bfba87c8}{amii\_msgBPen};
+1862         \textcolor{keywordtype}{char} *t = strtok(bufp, \textcolor{stringliteral}{",/"});
+1863         \textcolor{keywordflow}{if}( t )
+1864         \{
+1865             sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_msgAPen);
+1866             \textcolor{keywordflow}{if}( t = strtok((\textcolor{keywordtype}{char}*)0, \textcolor{stringliteral}{",/"}) )
+1867                 sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_msgBPen);
+1868         \}
+1869     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"TEXTPENS"}, 8)) \{
+1870         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \hyperlink{winext_8h_a87c9b725a8d1a308419408002c9eed2d}{amii\_textAPen}, \hyperlink{winext_8h_a9ba6c6ce5bc8ca526739e615566abde0}{amii\_textBPen};
+1871         \textcolor{keywordtype}{char} *t = strtok(bufp, \textcolor{stringliteral}{",/"});
+1872         \textcolor{keywordflow}{if}( t )
+1873         \{
+1874             sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_textAPen);
+1875             \textcolor{keywordflow}{if}( t = strtok((\textcolor{keywordtype}{char}*)0, \textcolor{stringliteral}{",/"}) )
+1876                 sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_textBPen);
+1877         \}
+1878     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"MENUPENS"}, 8)) \{
+1879         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \hyperlink{winext_8h_a14ab17c151206a4245022490c76255ec}{amii\_menuAPen}, \hyperlink{winext_8h_a26ac45dc44f3d41edc95bc99e0b788d8}{amii\_menuBPen};
+1880         \textcolor{keywordtype}{char} *t = strtok(bufp, \textcolor{stringliteral}{",/"});
+1881         \textcolor{keywordflow}{if}( t )
+1882         \{
+1883             sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_menuAPen);
+1884             \textcolor{keywordflow}{if}( t = strtok((\textcolor{keywordtype}{char}*)0, \textcolor{stringliteral}{",/"}) )
+1885                 sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_menuBPen);
+1886         \}
+1887     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"STATUSPENS"}, 10)) \{
+1888         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \hyperlink{winext_8h_abd477ff7ec6eba516c641ea5ae9af420}{amii\_statAPen}, \hyperlink{winext_8h_aacd31bf4b410f0502df1519ddb6822ab}{amii\_statBPen};
+1889         \textcolor{keywordtype}{char} *t = strtok(bufp, \textcolor{stringliteral}{",/"});
+1890         \textcolor{keywordflow}{if}( t )
+1891         \{
+1892             sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_statAPen);
+1893             \textcolor{keywordflow}{if}( t = strtok((\textcolor{keywordtype}{char}*)0, \textcolor{stringliteral}{",/"}) )
+1894                 sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_statBPen);
+1895         \}
+1896     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"OTHERPENS"}, 9)) \{
+1897         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \hyperlink{winext_8h_a0d0a78803f21bcbdb86d788acde92972}{amii\_otherAPen}, \hyperlink{winext_8h_a111dca2a2ad69484b4c949424caa4ffa}{amii\_otherBPen};
+1898         \textcolor{keywordtype}{char} *t = strtok(bufp, \textcolor{stringliteral}{",/"});
+1899         \textcolor{keywordflow}{if}( t )
+1900         \{
+1901             sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_otherAPen);
+1902             \textcolor{keywordflow}{if}( t = strtok((\textcolor{keywordtype}{char}*)0, \textcolor{stringliteral}{",/"}) )
+1903                 sscanf(t, \textcolor{stringliteral}{"%d"}, &amii\_otherBPen);
+1904         \}
+1905     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"PENS"}, 4)) \{
+1906         \textcolor{keyword}{extern} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} \hyperlink{winext_8h_a46e6dbfbaf847bf2f317972ba86aaed3}{amii\_init\_map}[ \hyperlink{amiconf_8h_a551015331d3f91ae1ca3cb425e24e5ea}{AMII\_MAXCOLORS} ];
+1907         \textcolor{keywordtype}{int} i;
+1908         \textcolor{keywordtype}{char} *t;
+1909 
+1910         \textcolor{keywordflow}{for} (i = 0, t = strtok(bufp, \textcolor{stringliteral}{",/"});
+1911             i < \hyperlink{amiconf_8h_a551015331d3f91ae1ca3cb425e24e5ea}{AMII\_MAXCOLORS} && t != (\textcolor{keywordtype}{char} *)0;
+1912             t = strtok((\textcolor{keywordtype}{char} *)0, \textcolor{stringliteral}{",/"}), ++i)
+1913         \{
+1914             sscanf(t, \textcolor{stringliteral}{"%hx"}, &amii\_init\_map[i]);
+1915         \}
+1916         \hyperlink{amiconf_8h_a283ffb5445c8e641b119bfde0d9d19cd}{amii\_setpens}( \hyperlink{winext_8h_ae3cfaa8053fd2f089c9fe1ba90289e98}{amii\_numcolors} = i );
+1917     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"FGPENS"}, 6)) \{
+1918         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} foreg[ \hyperlink{amiconf_8h_a551015331d3f91ae1ca3cb425e24e5ea}{AMII\_MAXCOLORS} ];
+1919         \textcolor{keywordtype}{int} i;
+1920         \textcolor{keywordtype}{char} *t;
+1921 
+1922         \textcolor{keywordflow}{for} (i = 0, t = strtok(bufp, \textcolor{stringliteral}{",/"});
+1923             i < \hyperlink{amiconf_8h_a551015331d3f91ae1ca3cb425e24e5ea}{AMII\_MAXCOLORS} && t != (\textcolor{keywordtype}{char} *)0;
+1924             t = strtok((\textcolor{keywordtype}{char} *)0, \textcolor{stringliteral}{",/"}), ++i)
+1925         \{
+1926             sscanf(t, \textcolor{stringliteral}{"%d"}, &foreg[i]);
+1927         \}
+1928     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"BGPENS"}, 6)) \{
+1929         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} backg[ \hyperlink{amiconf_8h_a551015331d3f91ae1ca3cb425e24e5ea}{AMII\_MAXCOLORS} ];
+1930         \textcolor{keywordtype}{int} i;
+1931         \textcolor{keywordtype}{char} *t;
+1932 
+1933         \textcolor{keywordflow}{for} (i = 0, t = strtok(bufp, \textcolor{stringliteral}{",/"});
+1934             i < \hyperlink{amiconf_8h_a551015331d3f91ae1ca3cb425e24e5ea}{AMII\_MAXCOLORS} && t != (\textcolor{keywordtype}{char} *)0;
+1935             t = strtok((\textcolor{keywordtype}{char} *)0, \textcolor{stringliteral}{",/"}), ++i)
+1936         \{
+1937             sscanf(t, \textcolor{stringliteral}{"%d"}, &backg[i]);
+1938         \}
+1939 \textcolor{preprocessor}{#endif}
+1940 \textcolor{preprocessor}{#ifdef USER\_SOUNDS}
+1941     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"SOUNDDIR"}, 8)) \{
+1942         sounddir = (\textcolor{keywordtype}{char} *)\hyperlink{wceconf_8h_a9254b089d435892385cf14d0ab4a7a2d}{strdup}(bufp);
+1943     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"SOUND"}, 5)) \{
+1944         add\_sound\_mapping(bufp);
+1945 \textcolor{preprocessor}{#endif}
+1946 \textcolor{preprocessor}{#ifdef QT\_GRAPHICS}
+1947     \textcolor{comment}{/* These should move to wc\_ options */}
+1948     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"QT\_TILEWIDTH"}, 12)) \{
+1949         \textcolor{keyword}{extern} \textcolor{keywordtype}{char} *qt\_tilewidth;
+1950         \textcolor{keywordflow}{if} (qt\_tilewidth == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})   
+1951             qt\_tilewidth=(\textcolor{keywordtype}{char} *)\hyperlink{wceconf_8h_a9254b089d435892385cf14d0ab4a7a2d}{strdup}(bufp);
+1952     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"QT\_TILEHEIGHT"}, 13)) \{
+1953         \textcolor{keyword}{extern} \textcolor{keywordtype}{char} *qt\_tileheight;
+1954         \textcolor{keywordflow}{if} (qt\_tileheight == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})  
+1955             qt\_tileheight=(\textcolor{keywordtype}{char} *)\hyperlink{wceconf_8h_a9254b089d435892385cf14d0ab4a7a2d}{strdup}(bufp);
+1956     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"QT\_FONTSIZE"}, 11)) \{
+1957         \textcolor{keyword}{extern} \textcolor{keywordtype}{char} *qt\_fontsize;
+1958         \textcolor{keywordflow}{if} (qt\_fontsize == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+1959             qt\_fontsize=(\textcolor{keywordtype}{char} *)\hyperlink{wceconf_8h_a9254b089d435892385cf14d0ab4a7a2d}{strdup}(bufp);
+1960     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{files_8c_ab97d09030bff045aa8764d88794fa60c}{match\_varname}(\hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}, \textcolor{stringliteral}{"QT\_COMPACT"}, 10)) \{
+1961         \textcolor{keyword}{extern} \textcolor{keywordtype}{int} qt\_compact\_mode;
+1962         qt\_compact\_mode = atoi(bufp);
+1963 \textcolor{preprocessor}{#endif}
+1964     \} \textcolor{keywordflow}{else}
+1965         \textcolor{keywordflow}{return} 0;
+1966     \textcolor{keywordflow}{return} 1;
+1967 \}
+\end{DoxyCode}
+\hypertarget{files_8c_aaa0f282ea883ea93fed8d94240db280e}{\index{files.\+c@{files.\+c}!read\+\_\+config\+\_\+file@{read\+\_\+config\+\_\+file}}
+\index{read\+\_\+config\+\_\+file@{read\+\_\+config\+\_\+file}!files.\+c@{files.\+c}}
+\subsubsection[{read\+\_\+config\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}void read\+\_\+config\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_aaa0f282ea883ea93fed8d94240db280e}
+
+
+Definition at line 1979 of file files.\+c.
+
+
+
+References bones, buf, B\+U\+F\+S\+Z, fopen\+\_\+config\+\_\+file(), fp, levels, parse\+\_\+config\+\_\+line(), P\+A\+T\+H\+L\+E\+N, permbones, ramdisk, set\+\_\+duplicate\+\_\+opt\+\_\+detection(), Strcpy, tmp\+\_\+levels, tmp\+\_\+ramdisk, T\+R\+U\+E, and wait\+\_\+synch.
+
+
+
+Referenced by initoptions().
+
+
+\begin{DoxyCode}
+1981 \{
+1982 \textcolor{preprocessor}{#define tmp\_levels  (char *)0}
+1983 \textcolor{preprocessor}{#define tmp\_ramdisk (char *)0}
+1984 
+1985 \textcolor{preprocessor}{#if defined(MICRO) || defined(WIN32)}
+1986 \textcolor{preprocessor}{#undef tmp\_levels}
+1987     \textcolor{keywordtype}{char}    \hyperlink{files_8c_a65190e4c66c9c6deafd8db02040deb17}{tmp\_levels}[\hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN}];
+1988 \textcolor{preprocessor}{# ifdef MFLOPPY}
+1989 \textcolor{preprocessor}{#  ifndef AMIGA}
+1990 \textcolor{preprocessor}{#undef tmp\_ramdisk}
+1991     \textcolor{keywordtype}{char}    \hyperlink{files_8c_a990c7ebedced28a5aed95716a5cb9549}{tmp\_ramdisk}[\hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN}];
+1992 \textcolor{preprocessor}{#  endif}
+1993 \textcolor{preprocessor}{# endif}
+1994 \textcolor{preprocessor}{#endif}
+1995     \textcolor{keywordtype}{char}    \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[4*\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1996     FILE    *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+1997 
+1998     \textcolor{keywordflow}{if} (!(fp = \hyperlink{files_8c_afc3340d5bf405ebdc287cce5dbca86fc}{fopen\_config\_file}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}))) \textcolor{keywordflow}{return};
+1999 
+2000 \textcolor{preprocessor}{#if defined(MICRO) || defined(WIN32)}
+2001 \textcolor{preprocessor}{# ifdef MFLOPPY}
+2002 \textcolor{preprocessor}{#  ifndef AMIGA}
+2003     tmp\_ramdisk[0] = 0;
+2004 \textcolor{preprocessor}{#  endif}
+2005 \textcolor{preprocessor}{# endif}
+2006     tmp\_levels[0] = 0;
+2007 \textcolor{preprocessor}{#endif}
+2008     \textcolor{comment}{/* begin detection of duplicate configfile options */}
+2009     \hyperlink{options_8c_aff94ec69fedef756de50d3a4a086a8b8}{set\_duplicate\_opt\_detection}(1);
+2010 
+2011     \textcolor{keywordflow}{while} (fgets(buf, 4*\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}, fp)) \{
+2012         \textcolor{keywordflow}{if} (!\hyperlink{files_8c_abe144d1a3ceeef7f0b8912a9cfc284a7}{parse\_config\_line}(fp, buf, tmp\_ramdisk, tmp\_levels)) \{
+2013             raw\_printf(\textcolor{stringliteral}{"Bad option line:  \(\backslash\)"%.50s\(\backslash\)""}, buf);
+2014             \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+2015         \}
+2016     \}
+2017     (void) fclose(fp);
+2018     
+2019     \textcolor{comment}{/* turn off detection of duplicate configfile options */}
+2020     \hyperlink{options_8c_aff94ec69fedef756de50d3a4a086a8b8}{set\_duplicate\_opt\_detection}(0);
+2021 
+2022 \textcolor{preprocessor}{#if defined(MICRO) && !defined(NOCWD\_ASSUMPTIONS)}
+2023     \textcolor{comment}{/* should be superseded by fqn\_prefix[] */}
+2024 \textcolor{preprocessor}{# ifdef MFLOPPY}
+2025     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{micro_8h_a0d528958f3541dc5e9e27829e3b53403}{permbones}, tmp\_levels);
+2026 \textcolor{preprocessor}{#  ifndef AMIGA}
+2027     \textcolor{keywordflow}{if} (tmp\_ramdisk[0]) \{
+2028         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels}, tmp\_ramdisk);
+2029         \textcolor{keywordflow}{if} (strcmp(\hyperlink{micro_8h_a0d528958f3541dc5e9e27829e3b53403}{permbones}, \hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels}))       \textcolor{comment}{/* if not identical */}
+2030             \hyperlink{micro_8h_a6c33dd83e1df00f65369a3d422b4bc25}{ramdisk} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+2031     \} \textcolor{keywordflow}{else}
+2032 \textcolor{preprocessor}{#  endif }\textcolor{comment}{/* AMIGA */}\textcolor{preprocessor}{}
+2033         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels}, tmp\_levels);
+2034 
+2035     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{bones}, \hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels});
+2036 \textcolor{preprocessor}{# endif }\textcolor{comment}{/* MFLOPPY */}\textcolor{preprocessor}{}
+2037 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* MICRO */}\textcolor{preprocessor}{}
+2038     \textcolor{keywordflow}{return};
+2039 \}
+\end{DoxyCode}
+\hypertarget{files_8c_af780b8c38357751a8a60624825b8e2d8}{\index{files.\+c@{files.\+c}!restore\+\_\+saved\+\_\+game@{restore\+\_\+saved\+\_\+game}}
+\index{restore\+\_\+saved\+\_\+game@{restore\+\_\+saved\+\_\+game}!files.\+c@{files.\+c}}
+\subsubsection[{restore\+\_\+saved\+\_\+game}]{\setlength{\rightskip}{0pt plus 5cm}int restore\+\_\+saved\+\_\+game (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_af780b8c38357751a8a60624825b8e2d8}
+
+
+Definition at line 919 of file files.\+c.
+
+
+
+References close(), delete\+\_\+savefile(), fqname(), open\+\_\+savefile(), S\+A\+V\+E\+F, S\+A\+V\+E\+P\+R\+E\+F\+I\+X, set\+\_\+savefile\+\_\+name(), uncompress(), and uptodate().
+
+
+
+Referenced by M\+A\+I\+N(), and main().
+
+
+\begin{DoxyCode}
+920 \{
+921     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_save;
+922     \textcolor{keywordtype}{int} fd;
+923 
+924     \hyperlink{files_8c_a6d746be0f6526c7549d1192d39ffc0ac}{set\_savefile\_name}();
+925 \textcolor{preprocessor}{#ifdef MFLOPPY}
+926     \textcolor{keywordflow}{if} (!saveDiskPrompt(1))
+927         \textcolor{keywordflow}{return} -1;
+928 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* MFLOPPY */}\textcolor{preprocessor}{}
+929     fq\_save = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 0);
+930 
+931     \hyperlink{files_8c_a7cf705b08e7bab7c245b81f60f1a8c76}{uncompress}(fq\_save);
+932     \textcolor{keywordflow}{if} ((fd = \hyperlink{files_8c_a4bf980fee09182324515fb62eb918d29}{open\_savefile}()) < 0) \textcolor{keywordflow}{return} fd;
+933 
+934     \textcolor{keywordflow}{if} (!\hyperlink{version_8c_a058fe6d05cab8d612e8f622186b83693}{uptodate}(fd, fq\_save)) \{
+935         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd),  fd = -1;
+936         (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+937     \}
+938     \textcolor{keywordflow}{return} fd;
+939 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a458de6506a95af0124cf3fa9d3334d29}{\index{files.\+c@{files.\+c}!set\+\_\+bonesfile\+\_\+name@{set\+\_\+bonesfile\+\_\+name}}
+\index{set\+\_\+bonesfile\+\_\+name@{set\+\_\+bonesfile\+\_\+name}!files.\+c@{files.\+c}}
+\subsubsection[{set\+\_\+bonesfile\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} char$\ast$ set\+\_\+bonesfile\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file, }
+\item[{{\bf d\+\_\+level} $\ast$}]{lev}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a458de6506a95af0124cf3fa9d3334d29}
+
+
+Definition at line 610 of file files.\+c.
+
+
+
+References s\+\_\+level\+::boneid, dungeon\+::boneid, d\+\_\+level\+::dlevel, d\+\_\+level\+::dnum, dungeons, eos(), Role\+::filecode, Sprintf, Strcat, and urole.
+
+
+
+Referenced by commit\+\_\+bonesfile(), create\+\_\+bonesfile(), delete\+\_\+bonesfile(), and open\+\_\+bonesfile().
+
+
+\begin{DoxyCode}
+613 \{
+614     \hyperlink{structs__level}{s\_level} *sptr;
+615     \textcolor{keywordtype}{char} *dptr;
+616 
+617     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(file, \textcolor{stringliteral}{"bon%c%s"}, \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[lev->\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_a105405e0dbaba92c0de41def0513b280}{boneid},
+618             In\_quest(lev) ? \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a34fefa6544afd2b36d6deeb9b6fa054f}{filecode} : \textcolor{stringliteral}{"0"});
+619     dptr = \hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(file);
+620     \textcolor{keywordflow}{if} ((sptr = Is\_special(lev)) != 0)
+621         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(dptr, \textcolor{stringliteral}{".%c"}, sptr->\hyperlink{structs__level_a440fc05f49167454dedf1b64d814222e}{boneid});
+622     \textcolor{keywordflow}{else}
+623         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(dptr, \textcolor{stringliteral}{".%d"}, lev->\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel});
+624 \textcolor{preprocessor}{#ifdef VMS}
+625     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(dptr, \textcolor{stringliteral}{";1"});
+626 \textcolor{preprocessor}{#endif}
+627     \textcolor{keywordflow}{return}(dptr-2);
+628 \}
+\end{DoxyCode}
+\hypertarget{files_8c_aab33495a803a6b549ec55e9a8f2e65fe}{\index{files.\+c@{files.\+c}!set\+\_\+bonestemp\+\_\+name@{set\+\_\+bonestemp\+\_\+name}}
+\index{set\+\_\+bonestemp\+\_\+name@{set\+\_\+bonestemp\+\_\+name}!files.\+c@{files.\+c}}
+\subsubsection[{set\+\_\+bonestemp\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} char$\ast$ set\+\_\+bonestemp\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_aab33495a803a6b549ec55e9a8f2e65fe}
+
+
+Definition at line 637 of file files.\+c.
+
+
+
+References eos(), lock, rindex, Sprintf, and Strcat.
+
+
+
+Referenced by commit\+\_\+bonesfile(), and create\+\_\+bonesfile().
+
+
+\begin{DoxyCode}
+638 \{
+639     \textcolor{keywordtype}{char} *tf;
+640 
+641     tf = \hyperlink{beconf_8h_a8c35ae4e83034731f6aecfb34c883ecf}{rindex}(\hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock}, \textcolor{charliteral}{'.'});
+642     \textcolor{keywordflow}{if} (!tf) tf = \hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(\hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock});
+643     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(tf, \textcolor{stringliteral}{".bn"});
+644 \textcolor{preprocessor}{#ifdef VMS}
+645     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(tf, \textcolor{stringliteral}{";1"});
+646 \textcolor{preprocessor}{#endif}
+647     \textcolor{keywordflow}{return} \hyperlink{files_8c_ae04ab999efcef49d21671afaa547c511}{lock};
+648 \}
+\end{DoxyCode}
+\hypertarget{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{\index{files.\+c@{files.\+c}!set\+\_\+levelfile\+\_\+name@{set\+\_\+levelfile\+\_\+name}}
+\index{set\+\_\+levelfile\+\_\+name@{set\+\_\+levelfile\+\_\+name}!files.\+c@{files.\+c}}
+\subsubsection[{set\+\_\+levelfile\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+levelfile\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{file, }
+\item[{int}]{lev}
+\end{DoxyParamCaption}
+)}}\label{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}
+
+
+Definition at line 406 of file files.\+c.
+
+
+
+References eos(), rindex, Sprintf, and Strcat.
+
+
+
+Referenced by create\+\_\+levelfile(), delete\+\_\+levelfile(), eraseoldlocks(), getlock(), open\+\_\+levelfile(), and veryold().
+
+
+\begin{DoxyCode}
+409 \{
+410     \textcolor{keywordtype}{char} *tf;
+411 
+412     tf = \hyperlink{beconf_8h_a8c35ae4e83034731f6aecfb34c883ecf}{rindex}(file, \textcolor{charliteral}{'.'});
+413     \textcolor{keywordflow}{if} (!tf) tf = \hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(file);
+414     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(tf, \textcolor{stringliteral}{".%d"}, lev);
+415 \textcolor{preprocessor}{#ifdef VMS}
+416     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(tf, \textcolor{stringliteral}{";1"});
+417 \textcolor{preprocessor}{#endif}
+418     \textcolor{keywordflow}{return};
+419 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a6d746be0f6526c7549d1192d39ffc0ac}{\index{files.\+c@{files.\+c}!set\+\_\+savefile\+\_\+name@{set\+\_\+savefile\+\_\+name}}
+\index{set\+\_\+savefile\+\_\+name@{set\+\_\+savefile\+\_\+name}!files.\+c@{files.\+c}}
+\subsubsection[{set\+\_\+savefile\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+savefile\+\_\+name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a6d746be0f6526c7549d1192d39ffc0ac}
+
+
+Definition at line 784 of file files.\+c.
+
+
+
+References B\+U\+F\+S\+Z, F\+I\+L\+E\+N\+A\+M\+E, fname\+\_\+encode(), get\+\_\+username(), getuid(), P\+A\+T\+H\+L\+E\+N, plname, regularize, S\+A\+V\+E\+F, Sprintf, Strcat, and Strcpy.
+
+
+
+Referenced by process\+\_\+openfile(), and restore\+\_\+saved\+\_\+game().
+
+
+\begin{DoxyCode}
+785 \{
+786 \textcolor{preprocessor}{#if defined(WIN32)}
+787     \textcolor{keywordtype}{char} fnamebuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}], encodedfnamebuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+788 \textcolor{preprocessor}{#endif}
+789 \textcolor{preprocessor}{#ifdef VMS}
+790     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \textcolor{stringliteral}{"[.save]%d%s"}, \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}(), \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+791     \hyperlink{ntconf_8h_adc4c38ffb2c4115152dc0c517d808b7b}{regularize}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}+7);
+792     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \textcolor{stringliteral}{";1"});
+793 \textcolor{preprocessor}{#else}
+794 \textcolor{preprocessor}{# if defined(MICRO)}
+795     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, SAVEP);
+796 \textcolor{preprocessor}{#  ifdef AMIGA}
+797     strncat(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, bbs\_id, \hyperlink{ntconf_8h_a306ffcae7edd4e8e4f5779ad8359ee1c}{PATHLEN});
+798 \textcolor{preprocessor}{#  endif}
+799     \{
+800         \textcolor{keywordtype}{int} i = strlen(SAVEP);
+801 \textcolor{preprocessor}{#  ifdef AMIGA}
+802         \textcolor{comment}{/* plname has to share space with SAVEP and ".sav" */}
+803         (void)strncat(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \hyperlink{ntconf_8h_a8de29f7c8bbf1a81cc6e71ac602032d3}{FILENAME} - i - 4);
+804 \textcolor{preprocessor}{#  else}
+805         (void)strncat(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, 8);
+806 \textcolor{preprocessor}{#  endif}
+807         \hyperlink{ntconf_8h_adc4c38ffb2c4115152dc0c517d808b7b}{regularize}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}+i);
+808     \}
+809     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \textcolor{stringliteral}{".sav"});
+810 \textcolor{preprocessor}{# else}
+811 \textcolor{preprocessor}{#  if defined(WIN32)}
+812     \textcolor{comment}{/* Obtain the name of the logged on user and incorporate}
+813 \textcolor{comment}{     * it into the name. */}
+814     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(fnamebuf, \textcolor{stringliteral}{"%s-%s"}, \hyperlink{celib_8c_a86e206e4bc30dcec97c2707fccb70494}{get\_username}(0), \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+815     (void)\hyperlink{files_8c_a57ce4a5da10f2f166ae37e2ee0c53834}{fname\_encode}(\textcolor{stringliteral}{"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\_-."},
+816                 \textcolor{charliteral}{'%'}, fnamebuf, encodedfnamebuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ});
+817     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \textcolor{stringliteral}{"%s.NetHack-saved-game"}, encodedfnamebuf);
+818 \textcolor{preprocessor}{#  else}
+819     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}, \textcolor{stringliteral}{"save/%d%s"}, (\textcolor{keywordtype}{int})\hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}(), \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+820     \hyperlink{ntconf_8h_adc4c38ffb2c4115152dc0c517d808b7b}{regularize}(\hyperlink{files_8c_aca32af58776f2f9debd2610ae4517b98}{SAVEF}+5); \textcolor{comment}{/* avoid . or / in name */}
+821 \textcolor{preprocessor}{#  endif }\textcolor{comment}{/* WIN32 */}\textcolor{preprocessor}{}
+822 \textcolor{preprocessor}{# endif }\textcolor{comment}{/* MICRO */}\textcolor{preprocessor}{}
+823 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* VMS   */}\textcolor{preprocessor}{}
+824 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a7cf705b08e7bab7c245b81f60f1a8c76}{\index{files.\+c@{files.\+c}!uncompress@{uncompress}}
+\index{uncompress@{uncompress}!files.\+c@{files.\+c}}
+\subsubsection[{uncompress}]{\setlength{\rightskip}{0pt plus 5cm}void uncompress (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_a7cf705b08e7bab7c245b81f60f1a8c76}
+
+
+Definition at line 1227 of file files.\+c.
+
+
+
+References T\+R\+U\+E.
+
+
+
+Referenced by dosave0(), open\+\_\+bonesfile(), and restore\+\_\+saved\+\_\+game().
+
+
+\begin{DoxyCode}
+1229 \{
+1230 \textcolor{preprocessor}{#ifndef COMPRESS}
+1231 \textcolor{preprocessor}{#if (defined(macintosh) && (defined(\_\_SC\_\_) || defined(\_\_MRC\_\_))) || defined(\_\_MWERKS\_\_)}
+1232 \textcolor{preprocessor}{# pragma unused(filename)}
+1233 \textcolor{preprocessor}{#endif}
+1234 \textcolor{preprocessor}{#else}
+1235     docompress\_file(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1236 \textcolor{preprocessor}{#endif}
+1237 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{\index{files.\+c@{files.\+c}!unlock\+\_\+file@{unlock\+\_\+file}}
+\index{unlock\+\_\+file@{unlock\+\_\+file}!files.\+c@{files.\+c}}
+\subsubsection[{unlock\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}void unlock\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{filename}
+\end{DoxyParamCaption}
+) const}}\label{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}
+
+
+Definition at line 1411 of file files.\+c.
+
+
+
+References B\+U\+F\+S\+Z, Close, close(), Delete\+File, fqname(), H\+U\+P, L\+O\+C\+K\+P\+R\+E\+F\+I\+X, make\+\_\+lockname(), and unlink().
+
+
+
+Referenced by getlock(), and topten().
+
+
+\begin{DoxyCode}
+1416 \{
+1417     \textcolor{keywordtype}{char} locknambuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+1418     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *lockname;
+1419 
+1420     \textcolor{keywordflow}{if} (\hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting} == 1) \{
+1421         lockname = \hyperlink{files_8c_adc4f3e6ce447da39b375f0e3cd9a1a2f}{make\_lockname}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, locknambuf);
+1422 \textcolor{preprocessor}{#ifndef NO\_FILE\_LINKS   }\textcolor{comment}{/* LOCKDIR should be subsumed by LOCKPREFIX */}\textcolor{preprocessor}{}
+1423         lockname = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(lockname, \hyperlink{decl_8h_ab34725ee75fd5fcf782cd33cfffa8601}{LOCKPREFIX}, 2);
+1424 \textcolor{preprocessor}{#endif}
+1425 
+1426 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS)}
+1427         \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(lockname) < 0)
+1428             \hyperlink{files_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} raw\_printf(\textcolor{stringliteral}{"Can't unlink %s."}, lockname);
+1429 \textcolor{preprocessor}{# ifdef NO\_FILE\_LINKS}
+1430         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(lockfd);
+1431 \textcolor{preprocessor}{# endif}
+1432 
+1433 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* UNIX || VMS */}\textcolor{preprocessor}{}
+1434 
+1435 \textcolor{preprocessor}{#if defined(AMIGA) || defined(WIN32) || defined(MSDOS)}
+1436         \textcolor{keywordflow}{if} (lockptr) \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(lockptr);
+1437         \hyperlink{wceconf_8h_a9b1e7a754e6345a80a02d08fc24ab195}{DeleteFile}(lockname);
+1438         lockptr = 0;
+1439 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* AMIGA || WIN32 || MSDOS */}\textcolor{preprocessor}{}
+1440     \}
+1441 
+1442     \hyperlink{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{nesting}--;
+1443 \}
+\end{DoxyCode}
+\hypertarget{files_8c_a645bbb3b1ee441272fe6ca6d801979a6}{\index{files.\+c@{files.\+c}!validate\+\_\+prefix\+\_\+locations@{validate\+\_\+prefix\+\_\+locations}}
+\index{validate\+\_\+prefix\+\_\+locations@{validate\+\_\+prefix\+\_\+locations}!files.\+c@{files.\+c}}
+\subsubsection[{validate\+\_\+prefix\+\_\+locations}]{\setlength{\rightskip}{0pt plus 5cm}int validate\+\_\+prefix\+\_\+locations (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{reasonbuf}
+\end{DoxyParamCaption}
+)}}\label{files_8c_a645bbb3b1ee441272fe6ca6d801979a6}
+
+
+Definition at line 307 of file files.\+c.
+
+
+
+References B\+U\+F\+S\+Z, C\+O\+N\+F\+I\+G\+P\+R\+E\+F\+I\+X, D\+A\+T\+A\+P\+R\+E\+F\+I\+X, errno, filename, fp, fqn\+\_\+prefix, fqname(), paniclog(), P\+R\+E\+F\+I\+X\+\_\+\+C\+O\+U\+N\+T, Sprintf, Strcat, and unlink().
+
+
+\begin{DoxyCode}
+309 \{
+310 \textcolor{preprocessor}{#if defined(NOCWD\_ASSUMPTIONS)}
+311     FILE *\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp};
+312     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename};
+313     \textcolor{keywordtype}{int} prefcnt, failcount = 0;
+314     \textcolor{keywordtype}{char} panicbuf1[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}], panicbuf2[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}], *details;
+315 
+316     \textcolor{keywordflow}{if} (reasonbuf) reasonbuf[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+317     \textcolor{keywordflow}{for} (prefcnt = 1; prefcnt < \hyperlink{decl_8h_a3bf139eac32300928561d583e1c01433}{PREFIX\_COUNT}; prefcnt++) \{
+318         \textcolor{comment}{/* don't test writing to configdir or datadir; they're readonly */}
+319         \textcolor{keywordflow}{if} (prefcnt == \hyperlink{decl_8h_a24387f32d3efee89779069c19b1aa57b}{CONFIGPREFIX} || prefcnt == \hyperlink{decl_8h_abfb64c53121af5c8aa066c106cbd8f05}{DATAPREFIX}) \textcolor{keywordflow}{continue};
+320         filename = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\textcolor{stringliteral}{"validate"}, prefcnt, 3);
+321         \textcolor{keywordflow}{if} ((fp = fopen(filename, \textcolor{stringliteral}{"w"}))) \{
+322             fclose(fp);
+323             (void) \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(filename);
+324         \} \textcolor{keywordflow}{else} \{
+325             \textcolor{keywordflow}{if} (reasonbuf) \{
+326                 \textcolor{keywordflow}{if} (failcount) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(reasonbuf,\textcolor{stringliteral}{", "});
+327                 \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(reasonbuf, fqn\_prefix\_names[prefcnt]);
+328             \}
+329             \textcolor{comment}{/* the paniclog entry gets the value of errno as well */}
+330             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(panicbuf1,\textcolor{stringliteral}{"Invalid %s"}, fqn\_prefix\_names[prefcnt]);
+331 \textcolor{preprocessor}{#if defined (NHSTDC) && !defined(NOTSTDC)}
+332             \textcolor{keywordflow}{if} (!(details = strerror(\hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno})))
+333 \textcolor{preprocessor}{#endif}
+334             details = \textcolor{stringliteral}{""};
+335             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(panicbuf2,\textcolor{stringliteral}{"\(\backslash\)"%s\(\backslash\)", (%d) %s"},
+336                 \hyperlink{decl_8h_ad11e533b359d37f0ff5138169c3d3268}{fqn\_prefix}[prefcnt], \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno}, details);
+337             \hyperlink{files_8c_ac4f32c4433a1d09114823b45c45f32c3}{paniclog}(panicbuf1, panicbuf2);
+338             failcount++;
+339         \}   
+340     \}
+341     \textcolor{keywordflow}{if} (failcount)
+342         \textcolor{keywordflow}{return} 0;
+343     \textcolor{keywordflow}{else}
+344 \textcolor{preprocessor}{#endif}
+345     \textcolor{keywordflow}{return} 1;
+346 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{files_8c_a2f969fbc0e4886ed7141c90431e764bb}{\index{files.\+c@{files.\+c}!bones@{bones}}
+\index{bones@{bones}!files.\+c@{files.\+c}}
+\subsubsection[{bones}]{\setlength{\rightskip}{0pt plus 5cm}char bones\mbox{[}$\,$\mbox{]} = \char`\"{}bonesnn.\+xxx\char`\"{}}}\label{files_8c_a2f969fbc0e4886ed7141c90431e764bb}
+
+
+Definition at line 60 of file files.\+c.
+
+
+
+Referenced by commit\+\_\+bonesfile(), compress\+\_\+bonesfile(), create\+\_\+bonesfile(), delete\+\_\+bonesfile(), getbones(), open\+\_\+bonesfile(), read\+\_\+config\+\_\+file(), and savebones().
+
+\hypertarget{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}{\index{files.\+c@{files.\+c}!configfile@{configfile}}
+\index{configfile@{configfile}!files.\+c@{files.\+c}}
+\subsubsection[{configfile}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ configfile}}\label{files_8c_a96c35cbdacdefc35ba65d4e2f2991dac}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+=
+
+
+
+
+
+
+
+
+
+            \textcolor{stringliteral}{"NetHack.cnf"}
+\end{DoxyCode}
+
+
+Definition at line 1450 of file files.\+c.
+
+\hypertarget{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{\index{files.\+c@{files.\+c}!errno@{errno}}
+\index{errno@{errno}!files.\+c@{files.\+c}}
+\subsubsection[{errno}]{\setlength{\rightskip}{0pt plus 5cm}int errno}}\label{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}
+
+
+Definition at line 345 of file celib.\+c.
+
+
+
+Referenced by bitmap\+\_\+to\+\_\+img(), c\+\_\+\+\_\+translate(), create\+\_\+bonesfile(), create\+\_\+levelfile(), fopen\+\_\+config\+\_\+file(), getlock(), gettty(), lock\+\_\+file(), open\+\_\+levelfile(), Read\+Image\+Files(), restore\+\_\+savefile(), setctty(), validate\+\_\+prefix\+\_\+locations(), and vms\+\_\+open().
+
+\hypertarget{files_8c_ae04ab999efcef49d21671afaa547c511}{\index{files.\+c@{files.\+c}!lock@{lock}}
+\index{lock@{lock}!files.\+c@{files.\+c}}
+\subsubsection[{lock}]{\setlength{\rightskip}{0pt plus 5cm}char lock\mbox{[}{\bf P\+L\+\_\+\+N\+S\+I\+Z}+14\mbox{]} = \char`\"{}1lock\char`\"{}}}\label{files_8c_ae04ab999efcef49d21671afaa547c511}
+
+
+Definition at line 61 of file files.\+c.
+
+
+
+Referenced by create\+\_\+bonesfile(), create\+\_\+levelfile(), delete\+\_\+levelfile(), open\+\_\+levelfile(), and set\+\_\+bonestemp\+\_\+name().
+
+\hypertarget{files_8c_a125b94ea95930405fd4922ff183722a8}{\index{files.\+c@{files.\+c}!n\+\_\+dgns@{n\+\_\+dgns}}
+\index{n\+\_\+dgns@{n\+\_\+dgns}!files.\+c@{files.\+c}}
+\subsubsection[{n\+\_\+dgns}]{\setlength{\rightskip}{0pt plus 5cm}int n\+\_\+dgns}}\label{files_8c_a125b94ea95930405fd4922ff183722a8}
+
+
+Referenced by mk\+\_\+knox\+\_\+portal().
+
+\hypertarget{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}{\index{files.\+c@{files.\+c}!nesting@{nesting}}
+\index{nesting@{nesting}!files.\+c@{files.\+c}}
+\subsubsection[{nesting}]{\setlength{\rightskip}{0pt plus 5cm}int nesting = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{files_8c_a37e0f72aa876d090c0ab7df5b2c175ab}
+
+
+Definition at line 1244 of file files.\+c.
+
+\hypertarget{files_8c_aca32af58776f2f9debd2610ae4517b98}{\index{files.\+c@{files.\+c}!S\+A\+V\+E\+F@{S\+A\+V\+E\+F}}
+\index{S\+A\+V\+E\+F@{S\+A\+V\+E\+F}!files.\+c@{files.\+c}}
+\subsubsection[{S\+A\+V\+E\+F}]{\setlength{\rightskip}{0pt plus 5cm}char S\+A\+V\+E\+F\mbox{[}{\bf S\+A\+V\+E\+S\+I\+Z\+E}\mbox{]}}}\label{files_8c_aca32af58776f2f9debd2610ae4517b98}
+
+
+Definition at line 91 of file files.\+c.
+
+
+
+Referenced by create\+\_\+savefile(), delete\+\_\+savefile(), open\+\_\+savefile(), restore\+\_\+saved\+\_\+game(), and set\+\_\+savefile\+\_\+name().
+

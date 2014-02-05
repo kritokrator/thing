@@ -1,0 +1,2553 @@
+\hypertarget{mklev_8c}{\section{nethack/src/mklev.c File Reference}
+\label{mklev_8c}\index{nethack/src/mklev.\+c@{nethack/src/mklev.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mklev_8c_afe38d1a663276b805ea798a6967ed01a}{create\+\_\+vault}()~\hyperlink{sp__lev_8c_aed0bf1587841aa8f663dfde599226f82}{create\+\_\+room}(-\/1, -\/1, 2, 2, -\/1, -\/1, \hyperlink{mkroom_8h_ab75d7f5a330f45915bd3794809ef1609}{V\+A\+U\+L\+T}, \hyperlink{xpm2img_8c_aa8cecfc5c5c054d2875c03e77b7be15d}{T\+R\+U\+E})
+\item 
+\#define \hyperlink{mklev_8c_afc0055a1064c70f4555437f37a6511c4}{init\+\_\+vault}()~\hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\+\_\+x} = -\/1
+\item 
+\#define \hyperlink{mklev_8c_ac8fc861019a87642b0bbeb1846721868}{do\+\_\+vault}()~(\hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\+\_\+x} != -\/1)
+\item 
+\#define \hyperlink{mklev_8c_a21b0b9981b1a998412365ddc5b1f48b6}{x\+\_\+maze\+\_\+min}~2
+\item 
+\#define \hyperlink{mklev_8c_a9136921ae7bf399bd780c5afd292c21e}{y\+\_\+maze\+\_\+min}~2
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a70159bdd0ed976f2da564f83fac6dc15}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a6baed0938a6b6b75f0c94c5bfbf7a1c7}{mkfount},(int, struct \hyperlink{structmkroom}{mkroom} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a869ea56e9b51a021bfdebdb4c13ab54e}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_ac7177ef1c90aa06bed85e8a7a7a2c412}{mkaltar},(struct \hyperlink{structmkroom}{mkroom} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a212a171bffbec6ec6785af4b261d5e44}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a1bb1d28dc0376f890a46334a9100ff2a}{mkgrave},(struct \hyperlink{structmkroom}{mkroom} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_af1c01a7a592c1d6ffe4a6a7f170f718f}{N\+D\+E\+C\+L} (\hyperlink{mklev_8c_a94c65f35c69c79d853fcdd482a8a5fcf}{makevtele})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a0e3098a807a9506d7d7434b4faed4312}{N\+D\+E\+C\+L} (\hyperlink{mklev_8c_abcacc8cebc3b0da7a7805f771ada5373}{clear\+\_\+level\+\_\+structures})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_ab748c47776a39cd19a7f50d5c5efe32a}{N\+D\+E\+C\+L} (\hyperlink{mklev_8c_a79a1ed27123fbf3b02a0bc4c68f48e55}{makelevel})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a6355b96b6f12c1eff758bbe6e594783f}{N\+D\+E\+C\+L} (\hyperlink{mklev_8c_ac01d62bb96b0e4eed16a51d333ad88e4}{mineralize})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mklev_8c_a7f3a68154d2ea805386baadcbe46ee4f}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a1d333492f73c50bbcfebaae3404b6a3a}{bydoor},(\hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct \hyperlink{structmkroom}{mkroom} $\ast$ \hyperlink{mklev_8c_a5eb0ded349800253a24d49833ece9233}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a34c9ab4b8c83ec76fb8abf6c4ce3e4c6}{find\+\_\+branch\+\_\+room},(\hyperlink{structcoord}{coord} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct \hyperlink{structmkroom}{mkroom} $\ast$ \hyperlink{mklev_8c_a9d08c9c2012b688986ac2426255396ec}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a268a2ea8e1a8b94da6088d00fe56e6a0}{pos\+\_\+to\+\_\+room},(\hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mklev_8c_a3a2408cbf17cc82568d4ca95c0eb903d}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a0d57e3f7405301bb203abb2ef3c07f90}{place\+\_\+niche},(struct \hyperlink{structmkroom}{mkroom} $\ast$, int $\ast$, int $\ast$, int $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a28903366a37ee3906c73284caafd7a95}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a976f96908f482af6a4d57832f9516b5b}{makeniche},(int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_aa762d9c743f2cc527a4375fd910811bf}{N\+D\+E\+C\+L} (\hyperlink{mklev_8c_a6f6f03fe79bd80457df9f53ac0a1c1b1}{make\+\_\+niches})
+\item 
+\hyperlink{hack_8h_ac0f6cfba4138e5e6a773d15a80ea82ff}{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R} int \hyperlink{mklev_8c_aa13d06534db5b1385340b4920e9384ad}{F\+D\+E\+C\+L} (\hyperlink{hack_8h_ad75e8899353ffe8067a181faee54fac7}{C\+F\+D\+E\+C\+L\+S\+P\+E\+C} \hyperlink{mklev_8c_ae5cacaa7ce18b847b302ba12aa19eaca}{do\+\_\+comp},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{tradstdc_8h_a27b7ef107ad7591f7cd3100aae6c5f6c}{genericptr}, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{tradstdc_8h_a27b7ef107ad7591f7cd3100aae6c5f6c}{genericptr}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a47ad1ab4af692ea705f6d5d9bce967a8}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a3b67a3bd1b1b05cfef75459157352d8d}{dosdoor},(\hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, struct \hyperlink{structmkroom}{mkroom} $\ast$, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_ae74efc3f47446aa260323ad8d8686281}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join},(int, int, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a0befea1ffd94158dd4e2fa58e80e5fb5}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_ab782042f5fed2a1e6c68ebc3fde5cd2b}{do\+\_\+room\+\_\+or\+\_\+subroom},(struct \hyperlink{structmkroom}{mkroom} $\ast$, int, int, int, int, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, \hyperlink{wingem1_8c_aee989e2c39503870922ec51a2267f345}{S\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a25ad1baf4af5abe0c1d2d28b28fe9512}{N\+D\+E\+C\+L} (\hyperlink{mklev_8c_a7237aa33ada3ea0b00fbf64a775b58c3}{makerooms})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a1377aae09ff63232b1771bf0cb0e7baf}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos},(\hyperlink{structcoord}{coord} $\ast$, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_a511a1b3de0a2d672ae79cd2f6b68b73f}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}{mkinvpos},(\hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mklev_8c_afbb44b0168e3a462b107dc53609c7181}{F\+D\+E\+C\+L} (\hyperlink{mklev_8c_a61186da5657cd45b240388c37c1c5ef8}{mk\+\_\+knox\+\_\+portal},(\hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_ac0f6cfba4138e5e6a773d15a80ea82ff}{S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R} int \hyperlink{hack_8h_ad75e8899353ffe8067a181faee54fac7}{C\+F\+D\+E\+C\+L\+S\+P\+E\+C} \hyperlink{mklev_8c_ae5cacaa7ce18b847b302ba12aa19eaca}{do\+\_\+comp} (\hyperlink{tradstdc_8h_a27b7ef107ad7591f7cd3100aae6c5f6c}{genericptr} vx, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{tradstdc_8h_a27b7ef107ad7591f7cd3100aae6c5f6c}{genericptr} vy) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos} (\hyperlink{structcoord}{coord} $\ast$cc, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} xl, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} yl, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} xh, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} yh)
+\item 
+void \hyperlink{mklev_8c_ae00f5b38164c3c9c9b5c0de3734d6a22}{sort\+\_\+rooms} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_ab782042f5fed2a1e6c68ebc3fde5cd2b}{do\+\_\+room\+\_\+or\+\_\+subroom} (struct \hyperlink{structmkroom}{mkroom} $\ast$croom, int lowx, int lowy, int hix, int hiy, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} lit, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} rtype, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} special, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} is\+\_\+room)
+\item 
+void \hyperlink{mklev_8c_a5bfd1137aab85b0e7ee01c7c008e2cd6}{add\+\_\+room} (int lowx, int lowy, int hix, int hiy, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} lit, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} rtype, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} special)
+\item 
+void \hyperlink{mklev_8c_ad24a54764d74447379182186886ec193}{add\+\_\+subroom} (struct \hyperlink{structmkroom}{mkroom} $\ast$proom, int lowx, int lowy, int hix, int hiy, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} lit, \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} rtype, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} special)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_a7237aa33ada3ea0b00fbf64a775b58c3}{makerooms} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join} (int a, int b, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} nxcor)
+\item 
+void \hyperlink{mklev_8c_a38cd064f4323a74d0ba4b94ce68b4fa3}{makecorridors} ()
+\item 
+void \hyperlink{mklev_8c_abfbeba318d849971ade63038b45c638e}{add\+\_\+door} (int x, int y, struct \hyperlink{structmkroom}{mkroom} $\ast$aroom)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_a3b67a3bd1b1b05cfef75459157352d8d}{dosdoor} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, struct \hyperlink{structmkroom}{mkroom} $\ast$aroom, int \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type})
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mklev_8c_a0d57e3f7405301bb203abb2ef3c07f90}{place\+\_\+niche} (struct \hyperlink{structmkroom}{mkroom} $\ast$aroom, int $\ast$dy, int $\ast$xx, int $\ast$yy)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_a976f96908f482af6a4d57832f9516b5b}{makeniche} (int trap\+\_\+type)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_a6f6f03fe79bd80457df9f53ac0a1c1b1}{make\+\_\+niches} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_a94c65f35c69c79d853fcdd482a8a5fcf}{makevtele} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_abcacc8cebc3b0da7a7805f771ada5373}{clear\+\_\+level\+\_\+structures} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_a79a1ed27123fbf3b02a0bc4c68f48e55}{makelevel} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_ac01d62bb96b0e4eed16a51d333ad88e4}{mineralize} ()
+\item 
+void \hyperlink{mklev_8c_a51844224bcabf52180033918d8915a34}{mklev} ()
+\item 
+void \hyperlink{mklev_8c_ac3aecaa5e9dbd24cb58763276451439c}{topologize} (struct \hyperlink{structmkroom}{mkroom} $\ast$croom)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct \hyperlink{structmkroom}{mkroom} $\ast$ \hyperlink{mklev_8c_a34c9ab4b8c83ec76fb8abf6c4ce3e4c6}{find\+\_\+branch\+\_\+room} (\hyperlink{structcoord}{coord} $\ast$mp)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct \hyperlink{structmkroom}{mkroom} $\ast$ \hyperlink{mklev_8c_a268a2ea8e1a8b94da6088d00fe56e6a0}{pos\+\_\+to\+\_\+room} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y)
+\item 
+void \hyperlink{mklev_8c_a77b4c8d2c8e5ac7d368634024d7e88b2}{place\+\_\+branch} (\hyperlink{structbranch}{branch} $\ast$br, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mklev_8c_a1d333492f73c50bbcfebaae3404b6a3a}{bydoor} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y)
+\item 
+int \hyperlink{mklev_8c_a00f6047f9a090c068598aa919e2dba4e}{okdoor} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y)
+\item 
+void \hyperlink{mklev_8c_a247dfa812802b040068d040791f999f4}{dodoor} (int x, int y, struct \hyperlink{structmkroom}{mkroom} $\ast$aroom)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y)
+\item 
+void \hyperlink{mklev_8c_af2ceccec0c6f12db9dafcbb68b5d8b9a}{mktrap} (int num, int mazeflag, struct \hyperlink{structmkroom}{mkroom} $\ast$croom, \hyperlink{structcoord}{coord} $\ast$\hyperlink{structtm}{tm})
+\item 
+void \hyperlink{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}{mkstairs} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, char up, struct \hyperlink{structmkroom}{mkroom} $\ast$croom)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_a6baed0938a6b6b75f0c94c5bfbf7a1c7}{mkfount} (int mazeflag, struct \hyperlink{structmkroom}{mkroom} $\ast$croom)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_ac7177ef1c90aa06bed85e8a7a7a2c412}{mkaltar} (struct \hyperlink{structmkroom}{mkroom} $\ast$croom)
+\item 
+static void \hyperlink{mklev_8c_a1bb1d28dc0376f890a46334a9100ff2a}{mkgrave} (struct \hyperlink{structmkroom}{mkroom} $\ast$croom)
+\item 
+void \hyperlink{mklev_8c_a52e44ae3de7a3d9a5160dc8233886ab3}{mkinvokearea} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}{mkinvpos} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, int dist)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mklev_8c_a61186da5657cd45b240388c37c1c5ef8}{mk\+\_\+knox\+\_\+portal} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} \hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\+\_\+x}
+\item 
+static \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} \hyperlink{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{vault\+\_\+y}
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mklev_8c_aa85eddb8a29fb1dec88970233311effa}{goldseen}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mklev_8c_a607aaf2a81698be0d8164a4abaf43f8a}{made\+\_\+branch}
+\item 
+static \hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{mklev_8c_abf0e6a0288242cd2969b399a7ec2d65a}{trap\+\_\+engravings} \mbox{[}\hyperlink{trap_8h_a6ecfd62de48aada48010c4fc52beb908}{T\+R\+A\+P\+N\+U\+M}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{mklev_8c_afe38d1a663276b805ea798a6967ed01a}{\index{mklev.\+c@{mklev.\+c}!create\+\_\+vault@{create\+\_\+vault}}
+\index{create\+\_\+vault@{create\+\_\+vault}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{create\+\_\+vault}]{\setlength{\rightskip}{0pt plus 5cm}\#define create\+\_\+vault(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf create\+\_\+room}(-\/1, -\/1, 2, 2, -\/1, -\/1, {\bf V\+A\+U\+L\+T}, {\bf T\+R\+U\+E})}}\label{mklev_8c_afe38d1a663276b805ea798a6967ed01a}
+
+
+Definition at line 49 of file mklev.\+c.
+
+
+
+Referenced by makelevel(), and makerooms().
+
+\hypertarget{mklev_8c_ac8fc861019a87642b0bbeb1846721868}{\index{mklev.\+c@{mklev.\+c}!do\+\_\+vault@{do\+\_\+vault}}
+\index{do\+\_\+vault@{do\+\_\+vault}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{do\+\_\+vault}]{\setlength{\rightskip}{0pt plus 5cm}\#define do\+\_\+vault(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~({\bf vault\+\_\+x} != -\/1)}}\label{mklev_8c_ac8fc861019a87642b0bbeb1846721868}
+
+
+Definition at line 51 of file mklev.\+c.
+
+
+
+Referenced by makelevel().
+
+\hypertarget{mklev_8c_afc0055a1064c70f4555437f37a6511c4}{\index{mklev.\+c@{mklev.\+c}!init\+\_\+vault@{init\+\_\+vault}}
+\index{init\+\_\+vault@{init\+\_\+vault}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{init\+\_\+vault}]{\setlength{\rightskip}{0pt plus 5cm}\#define init\+\_\+vault(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~{\bf vault\+\_\+x} = -\/1}}\label{mklev_8c_afc0055a1064c70f4555437f37a6511c4}
+
+
+Definition at line 50 of file mklev.\+c.
+
+
+
+Referenced by clear\+\_\+level\+\_\+structures().
+
+\hypertarget{mklev_8c_a21b0b9981b1a998412365ddc5b1f48b6}{\index{mklev.\+c@{mklev.\+c}!x\+\_\+maze\+\_\+min@{x\+\_\+maze\+\_\+min}}
+\index{x\+\_\+maze\+\_\+min@{x\+\_\+maze\+\_\+min}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{x\+\_\+maze\+\_\+min}]{\setlength{\rightskip}{0pt plus 5cm}\#define x\+\_\+maze\+\_\+min~2}}\label{mklev_8c_a21b0b9981b1a998412365ddc5b1f48b6}
+
+
+Definition at line 1415 of file mklev.\+c.
+
+
+
+Referenced by mkinvpos().
+
+\hypertarget{mklev_8c_a9136921ae7bf399bd780c5afd292c21e}{\index{mklev.\+c@{mklev.\+c}!y\+\_\+maze\+\_\+min@{y\+\_\+maze\+\_\+min}}
+\index{y\+\_\+maze\+\_\+min@{y\+\_\+maze\+\_\+min}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{y\+\_\+maze\+\_\+min}]{\setlength{\rightskip}{0pt plus 5cm}\#define y\+\_\+maze\+\_\+min~2}}\label{mklev_8c_a9136921ae7bf399bd780c5afd292c21e}
+
+
+Definition at line 1416 of file mklev.\+c.
+
+
+
+Referenced by mkinvpos().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{mklev_8c_abfbeba318d849971ade63038b45c638e}{\index{mklev.\+c@{mklev.\+c}!add\+\_\+door@{add\+\_\+door}}
+\index{add\+\_\+door@{add\+\_\+door}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{add\+\_\+door}]{\setlength{\rightskip}{0pt plus 5cm}void add\+\_\+door (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{struct {\bf mkroom} $\ast$}]{aroom}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_abfbeba318d849971ade63038b45c638e}
+
+
+Definition at line 351 of file mklev.\+c.
+
+
+
+References mkroom\+::doorct, doorindex, doors, mkroom\+::fdoor, mkroom\+::hx, coord\+::x, and coord\+::y.
+
+
+
+Referenced by create\+\_\+door(), create\+\_\+secret\+\_\+door(), dosdoor(), and load\+\_\+maze().
+
+
+\begin{DoxyCode}
+354 \{
+355     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *broom;
+356     \textcolor{keyword}{register} \textcolor{keywordtype}{int} tmp;
+357 
+358     aroom->\hyperlink{structmkroom_af3299bfffb84e2a7cd1a07b4de7c1b53}{doorct}++;
+359     broom = aroom+1;
+360     \textcolor{keywordflow}{if}(broom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} < 0)
+361         tmp = \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex};
+362     \textcolor{keywordflow}{else}
+363         \textcolor{keywordflow}{for}(tmp = \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex}; tmp > broom->\hyperlink{structmkroom_ae40f76bfb5e37b9315e11abc5517b9d4}{fdoor}; tmp--)
+364             \hyperlink{mkroom_8h_a2f0608010228278f7299277b3a67d492}{doors}[tmp] = \hyperlink{mkroom_8h_a2f0608010228278f7299277b3a67d492}{doors}[tmp-1];
+365     \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex}++;
+366     \hyperlink{mkroom_8h_a2f0608010228278f7299277b3a67d492}{doors}[tmp].\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = x;
+367     \hyperlink{mkroom_8h_a2f0608010228278f7299277b3a67d492}{doors}[tmp].\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = y;
+368     \textcolor{keywordflow}{for}( ; broom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} >= 0; broom++) broom->\hyperlink{structmkroom_ae40f76bfb5e37b9315e11abc5517b9d4}{fdoor}++;
+369 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a5bfd1137aab85b0e7ee01c7c008e2cd6}{\index{mklev.\+c@{mklev.\+c}!add\+\_\+room@{add\+\_\+room}}
+\index{add\+\_\+room@{add\+\_\+room}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{add\+\_\+room}]{\setlength{\rightskip}{0pt plus 5cm}void add\+\_\+room (
+\begin{DoxyParamCaption}
+\item[{int}]{lowx, }
+\item[{int}]{lowy, }
+\item[{int}]{hix, }
+\item[{int}]{hiy, }
+\item[{{\bf boolean}}]{lit, }
+\item[{{\bf schar}}]{rtype, }
+\item[{{\bf boolean}}]{special}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a5bfd1137aab85b0e7ee01c7c008e2cd6}
+
+
+Definition at line 191 of file mklev.\+c.
+
+
+
+References do\+\_\+room\+\_\+or\+\_\+subroom(), mkroom\+::hx, nroom, rooms, and T\+R\+U\+E.
+
+
+
+Referenced by create\+\_\+room(), join\+\_\+map(), load\+\_\+maze(), and makelevel().
+
+
+\begin{DoxyCode}
+196 \{
+197     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom;
+198 
+199     croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}];
+200     \hyperlink{mklev_8c_ab782042f5fed2a1e6c68ebc3fde5cd2b}{do\_room\_or\_subroom}(croom, lowx, lowy, hix, hiy, lit,
+201                         \hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype}, special, (\textcolor{keywordtype}{boolean}) \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+202     croom++;
+203     croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} = -1;
+204     \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}++;
+205 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_ad24a54764d74447379182186886ec193}{\index{mklev.\+c@{mklev.\+c}!add\+\_\+subroom@{add\+\_\+subroom}}
+\index{add\+\_\+subroom@{add\+\_\+subroom}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{add\+\_\+subroom}]{\setlength{\rightskip}{0pt plus 5cm}void add\+\_\+subroom (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mkroom} $\ast$}]{proom, }
+\item[{int}]{lowx, }
+\item[{int}]{lowy, }
+\item[{int}]{hix, }
+\item[{int}]{hiy, }
+\item[{{\bf boolean}}]{lit, }
+\item[{{\bf schar}}]{rtype, }
+\item[{{\bf boolean}}]{special}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ad24a54764d74447379182186886ec193}
+
+
+Definition at line 208 of file mklev.\+c.
+
+
+
+References do\+\_\+room\+\_\+or\+\_\+subroom(), F\+A\+L\+S\+E, mkroom\+::hx, nsubroom, and subrooms.
+
+
+
+Referenced by create\+\_\+subroom().
+
+
+\begin{DoxyCode}
+214 \{
+215     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom;
+216 
+217     croom = &\hyperlink{mkroom_8h_a2e0cf582d6940f97c67c8ef051f42ad7}{subrooms}[\hyperlink{decl_8h_ad3fae90c5f0a894ccda2c1811e609e70}{nsubroom}];
+218     \hyperlink{mklev_8c_ab782042f5fed2a1e6c68ebc3fde5cd2b}{do\_room\_or\_subroom}(croom, lowx, lowy, hix, hiy, lit,
+219                         \hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype}, special, (\textcolor{keywordtype}{boolean}) \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+220     proom->\hyperlink{structmkroom_ae0365d286660d2b39729c3e7a2c4dc66}{sbrooms}[proom->\hyperlink{structmkroom_ad45b51274d899541dc61dfa169e06ffb}{nsubrooms}++] = croom;
+221     croom++;
+222     croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} = -1;
+223     \hyperlink{decl_8h_ad3fae90c5f0a894ccda2c1811e609e70}{nsubroom}++;
+224 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a1d333492f73c50bbcfebaae3404b6a3a}{\index{mklev.\+c@{mklev.\+c}!bydoor@{bydoor}}
+\index{bydoor@{bydoor}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{bydoor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} bydoor (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a1d333492f73c50bbcfebaae3404b6a3a}
+
+
+Definition at line 1118 of file mklev.\+c.
+
+
+
+References F\+A\+L\+S\+E, I\+S\+\_\+\+D\+O\+O\+R, levl, S\+D\+O\+O\+R, and T\+R\+U\+E.
+
+
+
+Referenced by mkaltar(), mkfount(), mkgrave(), and okdoor().
+
+
+\begin{DoxyCode}
+1120 \{
+1121     \textcolor{keyword}{register} \textcolor{keywordtype}{int} typ;
+1122 
+1123     \textcolor{keywordflow}{if} (isok(x+1, y)) \{
+1124         typ = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x+1][y].typ;
+1125         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(typ) || typ == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1126     \}
+1127     \textcolor{keywordflow}{if} (isok(x-1, y)) \{
+1128         typ = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x-1][y].typ;
+1129         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(typ) || typ == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1130     \}
+1131     \textcolor{keywordflow}{if} (isok(x, y+1)) \{
+1132         typ = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y+1].typ;
+1133         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(typ) || typ == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1134     \}
+1135     \textcolor{keywordflow}{if} (isok(x, y-1)) \{
+1136         typ = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y-1].typ;
+1137         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(typ) || typ == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1138     \}
+1139     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1140 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_abcacc8cebc3b0da7a7805f771ada5373}{\index{mklev.\+c@{mklev.\+c}!clear\+\_\+level\+\_\+structures@{clear\+\_\+level\+\_\+structures}}
+\index{clear\+\_\+level\+\_\+structures@{clear\+\_\+level\+\_\+structures}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{clear\+\_\+level\+\_\+structures}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void clear\+\_\+level\+\_\+structures (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_abcacc8cebc3b0da7a7805f771ada5373}
+
+
+Definition at line 543 of file mklev.\+c.
+
+
+
+References dlevel\+\_\+t\+::buriedobjlist, clear\+\_\+regions(), cmap\+\_\+to\+\_\+glyph, C\+O\+L\+N\+O, dlevel\+\_\+t\+::damagelist, doorindex, F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, mkroom\+::hx, init\+\_\+rect(), init\+\_\+vault, level, levl, dlevel\+\_\+t\+::monlist, dlevel\+\_\+t\+::monsters, levelflags\+::nfountains, nroom, levelflags\+::nsinks, nsubroom, dlevel\+\_\+t\+::objects, dlevel\+\_\+t\+::objlist, rooms, R\+O\+W\+N\+O, S\+\_\+stone, sstairs, subrooms, stairway\+::sx, stairway\+::sy, xdnladder, xdnstair, xupladder, xupstair, ydnladder, ydnstair, yupladder, and yupstair.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+544 \{
+545     \textcolor{keyword}{static} \textcolor{keyword}{struct }\hyperlink{structrm}{rm} zerorm = \{ \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\_to\_glyph}(\hyperlink{rm_8h_a342b42eb0fe3236adbc700b6e725d781}{S\_stone}),
+546                         0, 0, 0, 0, 0, 0, 0, 0 \};
+547     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x,y;
+548     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *lev;
+549 
+550     \textcolor{keywordflow}{for}(x=0; x<\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; x++) \{
+551         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][0];
+552         \textcolor{keywordflow}{for}(y=0; y<\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; y++) \{
+553         *lev++ = zerorm;
+554 \textcolor{preprocessor}{#ifdef MICROPORT\_BUG}
+555         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ac128f805d01d7746b499596dd3b92a53}{objects}[x][y] = (\textcolor{keyword}{struct }\hyperlink{structobj}{obj} *)0;
+556         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_abe8e54209520b4c30e1c8a5364ff1457}{monsters}[x][y] = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)0;
+557 \textcolor{preprocessor}{#endif}
+558         \}
+559     \}
+560 \textcolor{preprocessor}{#ifndef MICROPORT\_BUG}
+561     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ac128f805d01d7746b499596dd3b92a53}{objects}, 0, \textcolor{keyword}{sizeof}(
+      \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ac128f805d01d7746b499596dd3b92a53}{objects}));
+562     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_abe8e54209520b4c30e1c8a5364ff1457}{monsters}, 0, \textcolor{keyword}{sizeof}(
+      \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_abe8e54209520b4c30e1c8a5364ff1457}{monsters}));
+563 \textcolor{preprocessor}{#endif}
+564     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_afee783efef1938e1008410cd3e182f2f}{objlist} = (\textcolor{keyword}{struct }\hyperlink{structobj}{obj} *)0;
+565     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a3f47ab569a36a0574eb4363915fe2fae}{buriedobjlist} = (\textcolor{keyword}{struct }\hyperlink{structobj}{obj} *)0;
+566     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a775d40e9ce8233f0079bc9c0af234fa1}{monlist} = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *)0;
+567     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_a32cc1062d668db12f8f02ff2ea0d3fcd}{damagelist} = (\textcolor{keyword}{struct }\hyperlink{structdamage}{damage} *)0;
+568 
+569     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.\hyperlink{structlevelflags_a7f3dc00cbb7517b44e77ef3156d05521}{nfountains} = 0;
+570     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.\hyperlink{structlevelflags_a1d908af257704f05dbaae0b1c69ed24d}{nsinks} = 0;
+571     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_shop = 0;
+572     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_vault = 0;
+573     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_zoo = 0;
+574     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_court = 0;
+575     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_morgue = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.graveyard = 0;
+576     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_beehive = 0;
+577     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_barracks = 0;
+578     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_temple = 0;
+579     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_swamp = 0;
+580     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport = 0;
+581     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.hardfloor = 0;
+582     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.nommap = 0;
+583     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.hero\_memory = 1;
+584     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.shortsighted = 0;
+585     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.arboreal = 0;
+586     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev = 0;
+587     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_cavernous\_lev = 0;
+588 
+589     \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} = 0;
+590     \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[0].\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} = -1;
+591     \hyperlink{decl_8h_ad3fae90c5f0a894ccda2c1811e609e70}{nsubroom} = 0;
+592     \hyperlink{mkroom_8h_a2e0cf582d6940f97c67c8ef051f42ad7}{subrooms}[0].\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} = -1;
+593     \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex} = 0;
+594     \hyperlink{rect_8c_a9526fe4de97cfba085d3f5decd11a2e5}{init\_rect}();
+595     \hyperlink{mklev_8c_afc0055a1064c70f4555437f37a6511c4}{init\_vault}();
+596     \hyperlink{decl_8h_a55486e08c2be9501e6817ca2a19e4d66}{xdnstair} = \hyperlink{decl_8h_a3b86b85dda8af8bff9c5ea84bcc7a52a}{ydnstair} = \hyperlink{decl_8h_a6ddff041cb808902b66e0b7196f03e00}{xupstair} = \hyperlink{decl_8h_a26867130b8519f38c26a8b28b4df9ac0}{yupstair} = 0;
+597     \hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs}.\hyperlink{structstairway_af8a3fe0724bfd9702ad9aae6aa2aa850}{sx} = \hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs}.\hyperlink{structstairway_a782c2bebca97b67e6299d2d5f8c2844f}{sy} = 0;
+598     \hyperlink{decl_8h_a852b49ce12ba3e86a4924db9cb7e1eaa}{xdnladder} = \hyperlink{decl_8h_a4aa07a23b5b834e25b8b243f69c6473f}{ydnladder} = \hyperlink{decl_8h_a2d4548b0c42db4ef8ba1bc9621542da3}{xupladder} = \hyperlink{decl_8h_aa40db270d30fecdd58e8e47cc855936e}{yupladder} = 0;
+599     \hyperlink{mklev_8c_a607aaf2a81698be0d8164a4abaf43f8a}{made\_branch} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+600     \hyperlink{region_8c_a1234948d428a2fc1c045dac58f9a2737}{clear\_regions}();
+601 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_ae5cacaa7ce18b847b302ba12aa19eaca}{\index{mklev.\+c@{mklev.\+c}!do\+\_\+comp@{do\+\_\+comp}}
+\index{do\+\_\+comp@{do\+\_\+comp}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{do\+\_\+comp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R} int {\bf C\+F\+D\+E\+C\+L\+S\+P\+E\+C} do\+\_\+comp (
+\begin{DoxyParamCaption}
+\item[{{\bf genericptr}}]{vx, }
+\item[{{\bf const} {\bf genericptr}}]{vy}
+\end{DoxyParamCaption}
+) const}}\label{mklev_8c_ae5cacaa7ce18b847b302ba12aa19eaca}
+
+
+Definition at line 59 of file mklev.\+c.
+
+
+
+References mkroom\+::lx.
+
+
+\begin{DoxyCode}
+62 \{
+63 \textcolor{preprocessor}{#ifdef LINT}
+64 \textcolor{comment}{/* lint complains about possible pointer alignment problems, but we know}
+65 \textcolor{comment}{   that vx and vy are always properly aligned. Hence, the following}
+66 \textcolor{comment}{   bogus definition:}
+67 \textcolor{comment}{*/}
+68     \textcolor{keywordflow}{return} (vx == vy) ? 0 : -1;
+69 \textcolor{preprocessor}{#else}
+70     \textcolor{keyword}{register} \textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *x, *y;
+71 
+72     x = (\textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *)vx;
+73     y = (\textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *)vy;
+74     \textcolor{keywordflow}{if}(x->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} < y->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}) \textcolor{keywordflow}{return}(-1);
+75     \textcolor{keywordflow}{return}(x->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} > y->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx});
+76 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* LINT */}\textcolor{preprocessor}{}
+77 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_ab782042f5fed2a1e6c68ebc3fde5cd2b}{\index{mklev.\+c@{mklev.\+c}!do\+\_\+room\+\_\+or\+\_\+subroom@{do\+\_\+room\+\_\+or\+\_\+subroom}}
+\index{do\+\_\+room\+\_\+or\+\_\+subroom@{do\+\_\+room\+\_\+or\+\_\+subroom}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{do\+\_\+room\+\_\+or\+\_\+subroom}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void do\+\_\+room\+\_\+or\+\_\+subroom (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mkroom} $\ast$}]{croom, }
+\item[{int}]{lowx, }
+\item[{int}]{lowy, }
+\item[{int}]{hix, }
+\item[{int}]{hiy, }
+\item[{{\bf boolean}}]{lit, }
+\item[{{\bf schar}}]{rtype, }
+\item[{{\bf boolean}}]{special, }
+\item[{{\bf boolean}}]{is\+\_\+room}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ab782042f5fed2a1e6c68ebc3fde5cd2b}
+
+
+Definition at line 118 of file mklev.\+c.
+
+
+
+References B\+L\+C\+O\+R\+N\+E\+R, B\+R\+C\+O\+R\+N\+E\+R, C\+O\+L\+N\+O, doorindex, F\+A\+L\+S\+E, H\+W\+A\+L\+L, levl, max, R\+O\+O\+M, R\+O\+W\+N\+O, T\+L\+C\+O\+R\+N\+E\+R, T\+R\+C\+O\+R\+N\+E\+R, V\+W\+A\+L\+L, and wallification().
+
+
+
+Referenced by add\+\_\+room(), and add\+\_\+subroom().
+
+
+\begin{DoxyCode}
+126 \{
+127     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x, y;
+128     \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *lev;
+129 
+130     \textcolor{comment}{/* locations might bump level edges in wall-less rooms */}
+131     \textcolor{comment}{/* add/subtract 1 to allow for edge locations */}
+132     \textcolor{keywordflow}{if}(!lowx) lowx++;
+133     \textcolor{keywordflow}{if}(!lowy) lowy++;
+134     \textcolor{keywordflow}{if}(hix >= \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) hix = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-2;
+135     \textcolor{keywordflow}{if}(hiy >= \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1) hiy = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-2;
+136 
+137     \textcolor{keywordflow}{if}(lit) \{
+138         \textcolor{keywordflow}{for}(x = lowx-1; x <= hix+1; x++) \{
+139             lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][\hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(lowy-1,0)];
+140             \textcolor{keywordflow}{for}(y = lowy-1; y <= hiy+1; y++)
+141                 lev++->lit = 1;
+142         \}
+143         croom->\hyperlink{structmkroom_a3c07fba081cb449add4c4cc858541b16}{rlit} = 1;
+144     \} \textcolor{keywordflow}{else}
+145         croom->\hyperlink{structmkroom_a3c07fba081cb449add4c4cc858541b16}{rlit} = 0;
+146 
+147     croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} = lowx;
+148     croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} = hix;
+149     croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly} = lowy;
+150     croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy} = hiy;
+151     croom->\hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype} = rtype;
+152     croom->\hyperlink{structmkroom_af3299bfffb84e2a7cd1a07b4de7c1b53}{doorct} = 0;
+153     \textcolor{comment}{/* if we're not making a vault, doorindex will still be 0}
+154 \textcolor{comment}{     * if we are, we'll have problems adding niches to the previous room}
+155 \textcolor{comment}{     * unless fdoor is at least doorindex}
+156 \textcolor{comment}{     */}
+157     croom->\hyperlink{structmkroom_ae40f76bfb5e37b9315e11abc5517b9d4}{fdoor} = \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex};
+158     croom->\hyperlink{structmkroom_a394c3dd48b7fc60e0098c41afde6d6e8}{irregular} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+159 
+160     croom->\hyperlink{structmkroom_ad45b51274d899541dc61dfa169e06ffb}{nsubrooms} = 0;
+161     croom->\hyperlink{structmkroom_ae0365d286660d2b39729c3e7a2c4dc66}{sbrooms}[0] = (\textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *) 0;
+162     \textcolor{keywordflow}{if} (!special) \{
+163         \textcolor{keywordflow}{for}(x = lowx-1; x <= hix+1; x++)
+164         \textcolor{keywordflow}{for}(y = lowy-1; y <= hiy+1; y += (hiy-lowy+2)) \{
+165             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = \hyperlink{rm_8h_a3fcd4705d7b0ac05a88302170fcc58f5}{HWALL};
+166             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].horizontal = 1;  \textcolor{comment}{/* For open/secret doors. */}
+167         \}
+168         \textcolor{keywordflow}{for}(x = lowx-1; x <= hix+1; x += (hix-lowx+2))
+169         \textcolor{keywordflow}{for}(y = lowy; y <= hiy; y++) \{
+170             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = \hyperlink{rm_8h_a9a3afc2fb445bb43a1776de4ebe9852e}{VWALL};
+171             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].horizontal = 0;  \textcolor{comment}{/* For open/secret doors. */}
+172         \}
+173         \textcolor{keywordflow}{for}(x = lowx; x <= hix; x++) \{
+174         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][lowy];
+175         \textcolor{keywordflow}{for}(y = lowy; y <= hiy; y++)
+176             lev++->typ = \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM};
+177         \}
+178         \textcolor{keywordflow}{if} (is\_room) \{
+179         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[lowx-1][lowy-1].typ = \hyperlink{rm_8h_ade633f6a4bac3d7c501e28d15c536d3d}{TLCORNER};
+180         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[hix+1][lowy-1].typ = \hyperlink{rm_8h_adc954c30dd37b0942000262623e9c76e}{TRCORNER};
+181         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[lowx-1][hiy+1].typ = \hyperlink{rm_8h_a8e1e6f2e3453c3dd85fbc6f5a54c8c34}{BLCORNER};
+182         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[hix+1][hiy+1].typ = \hyperlink{rm_8h_a653f37db17c18d0f1f4f76ae3063b124}{BRCORNER};
+183         \} \textcolor{keywordflow}{else} \{    \textcolor{comment}{/* a subroom */}
+184         \hyperlink{mkmaze_8c_ae15934086870601facb65acfbf4fe03e}{wallification}(lowx-1, lowy-1, hix+1, hiy+1);
+185         \}
+186     \}
+187 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a247dfa812802b040068d040791f999f4}{\index{mklev.\+c@{mklev.\+c}!dodoor@{dodoor}}
+\index{dodoor@{dodoor}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{dodoor}]{\setlength{\rightskip}{0pt plus 5cm}void dodoor (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{struct {\bf mkroom} $\ast$}]{aroom}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a247dfa812802b040068d040791f999f4}
+
+
+Definition at line 1154 of file mklev.\+c.
+
+
+
+References D\+O\+O\+R, doorindex, D\+O\+O\+R\+M\+A\+X, dosdoor(), and S\+D\+O\+O\+R.
+
+
+
+Referenced by join().
+
+
+\begin{DoxyCode}
+1157 \{
+1158     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex} >= \hyperlink{global_8h_a7213d21e4bbb1af3d5e0588552e0f22c}{DOORMAX}) \{
+1159         impossible(\textcolor{stringliteral}{"DOORMAX exceeded?"});
+1160         \textcolor{keywordflow}{return};
+1161     \}
+1162 
+1163     \hyperlink{mklev_8c_a3b67a3bd1b1b05cfef75459157352d8d}{dosdoor}(x,y,aroom,rn2(8) ? \hyperlink{rm_8h_aa19093eb0aa5c5af9c27464ae8f0d2de}{DOOR} : \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR});
+1164 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a3b67a3bd1b1b05cfef75459157352d8d}{\index{mklev.\+c@{mklev.\+c}!dosdoor@{dosdoor}}
+\index{dosdoor@{dosdoor}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{dosdoor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void dosdoor (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{struct {\bf mkroom} $\ast$}]{aroom, }
+\item[{int}]{type}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a3b67a3bd1b1b05cfef75459157352d8d}
+
+
+Definition at line 372 of file mklev.\+c.
+
+
+
+References add\+\_\+door(), D\+\_\+\+C\+L\+O\+S\+E\+D, D\+\_\+\+I\+S\+O\+P\+E\+N, D\+\_\+\+L\+O\+C\+K\+E\+D, D\+\_\+\+N\+O\+D\+O\+O\+R, D\+\_\+\+T\+R\+A\+P\+P\+E\+D, D\+O\+O\+R, doormask, F\+A\+L\+S\+E, G\+\_\+\+G\+O\+N\+E, I\+S\+\_\+\+W\+A\+L\+L, levl, mvitals\+::mvflags, N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S, S\+\_\+\+M\+I\+M\+I\+C, S\+H\+O\+P\+B\+A\+S\+E, T\+R\+U\+E, and type.
+
+
+
+Referenced by dodoor(), and makeniche().
+
+
+\begin{DoxyCode}
+376 \{
+377     \textcolor{keywordtype}{boolean} shdoor = ((*in\_rooms(x, y, \hyperlink{mkroom_8h_a925701a88c7ed0db502cfac9d8fbcf9e}{SHOPBASE}))? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+378 
+379     \textcolor{keywordflow}{if}(!\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ)) \textcolor{comment}{/* avoid SDOORs on already made doors */}
+380         \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} = \hyperlink{rm_8h_aa19093eb0aa5c5af9c27464ae8f0d2de}{DOOR};
+381     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+382     \textcolor{keywordflow}{if}(\hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type} == \hyperlink{rm_8h_aa19093eb0aa5c5af9c27464ae8f0d2de}{DOOR}) \{
+383         \textcolor{keywordflow}{if}(!rn2(3)) \{      \textcolor{comment}{/* is it a locked door, closed, or a doorway? */}
+384         \textcolor{keywordflow}{if}(!rn2(5))
+385             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_a745655ee52d1819ea5216d98e685f933}{doormask} = \hyperlink{rm_8h_a2b0c9bae4b5dacb4bf4dcd784655c55d}{D\_ISOPEN};
+386         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!rn2(6))
+387             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_a745655ee52d1819ea5216d98e685f933}{doormask} = \hyperlink{rm_8h_a0996530515217dfd9f5e12878cb1dc8b}{D\_LOCKED};
+388         \textcolor{keywordflow}{else}
+389             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask = \hyperlink{rm_8h_a65f9ce7db71ac3d4c13edfe69732ec9a}{D\_CLOSED};
+390 
+391         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_a745655ee52d1819ea5216d98e685f933}{doormask} != \hyperlink{rm_8h_a2b0c9bae4b5dacb4bf4dcd784655c55d}{D\_ISOPEN} && !shdoor &&
+392             level\_difficulty() >= 5 && !rn2(25))
+393             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_a745655ee52d1819ea5216d98e685f933}{doormask} |= \hyperlink{rm_8h_a8e6ade17f05acca6896948b28917e3d2}{D\_TRAPPED};
+394         \} \textcolor{keywordflow}{else}
+395 \textcolor{preprocessor}{#ifdef STUPID}
+396         \textcolor{keywordflow}{if} (shdoor)
+397             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask = \hyperlink{rm_8h_a2b0c9bae4b5dacb4bf4dcd784655c55d}{D\_ISOPEN};
+398         \textcolor{keywordflow}{else}
+399             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask = \hyperlink{rm_8h_a69d5ca6801252b3e635889365d7b9d28}{D\_NODOOR};
+400 \textcolor{preprocessor}{#else}
+401         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask = (shdoor ? \hyperlink{rm_8h_a2b0c9bae4b5dacb4bf4dcd784655c55d}{D\_ISOPEN} : \hyperlink{rm_8h_a69d5ca6801252b3e635889365d7b9d28}{D\_NODOOR});
+402 \textcolor{preprocessor}{#endif}
+403         \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_a745655ee52d1819ea5216d98e685f933}{doormask} & \hyperlink{rm_8h_a8e6ade17f05acca6896948b28917e3d2}{D\_TRAPPED}) \{
+404         \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp;
+405 
+406         \textcolor{keywordflow}{if} (level\_difficulty() >= 9 && !rn2(5) &&
+407            !((\hyperlink{structmvitals}{mvitals}[PM\_SMALL\_MIMIC].\hyperlink{structmvitals_a51369b55e24dc02d3f5768b8f5b01381}{mvflags} & \hyperlink{monflag_8h_ad600313e20617adbf44819cf9707971a}{G\_GONE}) &&
+408              (\hyperlink{structmvitals}{mvitals}[PM\_LARGE\_MIMIC].mvflags & \hyperlink{monflag_8h_ad600313e20617adbf44819cf9707971a}{G\_GONE}) &&
+409              (\hyperlink{structmvitals}{mvitals}[PM\_GIANT\_MIMIC].\hyperlink{structmvitals_a51369b55e24dc02d3f5768b8f5b01381}{mvflags} & \hyperlink{monflag_8h_ad600313e20617adbf44819cf9707971a}{G\_GONE}))) \{
+410             \textcolor{comment}{/* make a mimic instead */}
+411             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask = \hyperlink{rm_8h_a69d5ca6801252b3e635889365d7b9d28}{D\_NODOOR};
+412             mtmp = makemon(mkclass(\hyperlink{monsym_8h_ad8b9f73f4b42e8250eb5a69a12482436}{S\_MIMIC},0), x, y, \hyperlink{hack_8h_ae449582f467baa0da531a6ea116a18f2}{NO\_MM\_FLAGS});
+413             \textcolor{keywordflow}{if} (mtmp)
+414             set\_mimic\_sym(mtmp);
+415         \}
+416         \}
+417         \textcolor{comment}{/* newsym(x,y); */}
+418     \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{/* SDOOR */}
+419         \textcolor{keywordflow}{if}(shdoor || !rn2(5))   \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask = \hyperlink{rm_8h_a0996530515217dfd9f5e12878cb1dc8b}{D\_LOCKED};
+420         \textcolor{keywordflow}{else}            \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask = \hyperlink{rm_8h_a65f9ce7db71ac3d4c13edfe69732ec9a}{D\_CLOSED};
+421 
+422         \textcolor{keywordflow}{if}(!shdoor && level\_difficulty() >= 4 && !rn2(20))
+423             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].doormask |= \hyperlink{rm_8h_a8e6ade17f05acca6896948b28917e3d2}{D\_TRAPPED};
+424     \}
+425 
+426     \hyperlink{mklev_8c_abfbeba318d849971ade63038b45c638e}{add\_door}(x,y,aroom);
+427 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a70159bdd0ed976f2da564f83fac6dc15}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mkfount}}]{, }
+\item[{(int, struct {\bf mkroom} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a70159bdd0ed976f2da564f83fac6dc15}
+\hypertarget{mklev_8c_a869ea56e9b51a021bfdebdb4c13ab54e}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mkaltar}}]{, }
+\item[{(struct {\bf mkroom} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a869ea56e9b51a021bfdebdb4c13ab54e}
+\hypertarget{mklev_8c_a212a171bffbec6ec6785af4b261d5e44}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mkgrave}}]{, }
+\item[{(struct {\bf mkroom} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a212a171bffbec6ec6785af4b261d5e44}
+\hypertarget{mklev_8c_a7f3a68154d2ea805386baadcbe46ee4f}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf bydoor}}]{, }
+\item[{({\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a7f3a68154d2ea805386baadcbe46ee4f}
+\hypertarget{mklev_8c_a5eb0ded349800253a24d49833ece9233}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct {\bf mkroom}$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf find\+\_\+branch\+\_\+room}}]{, }
+\item[{({\bf coord} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a5eb0ded349800253a24d49833ece9233}
+\hypertarget{mklev_8c_a9d08c9c2012b688986ac2426255396ec}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} struct {\bf mkroom}$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf pos\+\_\+to\+\_\+room}}]{, }
+\item[{({\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a9d08c9c2012b688986ac2426255396ec}
+\hypertarget{mklev_8c_a3a2408cbf17cc82568d4ca95c0eb903d}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf place\+\_\+niche}}]{, }
+\item[{(struct {\bf mkroom} $\ast$, int $\ast$, int $\ast$, int $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a3a2408cbf17cc82568d4ca95c0eb903d}
+\hypertarget{mklev_8c_a28903366a37ee3906c73284caafd7a95}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf makeniche}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a28903366a37ee3906c73284caafd7a95}
+\hypertarget{mklev_8c_aa13d06534db5b1385340b4920e9384ad}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+P\+T\+R} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf C\+F\+D\+E\+C\+L\+S\+P\+E\+C}}]{do\+\_\+comp, }
+\item[{({\bf const} {\bf genericptr}, {\bf const} {\bf genericptr})}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_aa13d06534db5b1385340b4920e9384ad}
+\hypertarget{mklev_8c_a47ad1ab4af692ea705f6d5d9bce967a8}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf dosdoor}}]{, }
+\item[{({\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, struct {\bf mkroom} $\ast$, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a47ad1ab4af692ea705f6d5d9bce967a8}
+\hypertarget{mklev_8c_ae74efc3f47446aa260323ad8d8686281}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf join}}]{, }
+\item[{(int, int, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ae74efc3f47446aa260323ad8d8686281}
+\hypertarget{mklev_8c_a0befea1ffd94158dd4e2fa58e80e5fb5}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf do\+\_\+room\+\_\+or\+\_\+subroom}}]{, }
+\item[{(struct {\bf mkroom} $\ast$, int, int, int, int, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, {\bf S\+C\+H\+A\+R\+\_\+\+P}, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a0befea1ffd94158dd4e2fa58e80e5fb5}
+\hypertarget{mklev_8c_a1377aae09ff63232b1771bf0cb0e7baf}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf finddpos}}]{, }
+\item[{({\bf coord} $\ast$, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a1377aae09ff63232b1771bf0cb0e7baf}
+\hypertarget{mklev_8c_a511a1b3de0a2d672ae79cd2f6b68b73f}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mkinvpos}}]{, }
+\item[{({\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a511a1b3de0a2d672ae79cd2f6b68b73f}
+\hypertarget{mklev_8c_afbb44b0168e3a462b107dc53609c7181}{\index{mklev.\+c@{mklev.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mk\+\_\+knox\+\_\+portal}}]{, }
+\item[{({\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_afbb44b0168e3a462b107dc53609c7181}
+\hypertarget{mklev_8c_a34c9ab4b8c83ec76fb8abf6c4ce3e4c6}{\index{mklev.\+c@{mklev.\+c}!find\+\_\+branch\+\_\+room@{find\+\_\+branch\+\_\+room}}
+\index{find\+\_\+branch\+\_\+room@{find\+\_\+branch\+\_\+room}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{find\+\_\+branch\+\_\+room}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct {\bf mkroom}$\ast$ find\+\_\+branch\+\_\+room (
+\begin{DoxyParamCaption}
+\item[{{\bf coord} $\ast$}]{mp}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a34c9ab4b8c83ec76fb8abf6c4ce3e4c6}
+
+
+Definition at line 1016 of file mklev.\+c.
+
+
+
+References C\+O\+R\+R, dnstairs\+\_\+room, levl, mazexy(), nroom, occupied(), O\+R\+O\+O\+M, R\+O\+O\+M, rooms, mkroom\+::rtype, and upstairs\+\_\+room.
+
+
+
+Referenced by place\+\_\+branch().
+
+
+\begin{DoxyCode}
+1018 \{
+1019     \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom = 0;
+1020 
+1021     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} == 0) \{
+1022     \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(mp);       \textcolor{comment}{/* already verifies location */}
+1023     \} \textcolor{keywordflow}{else} \{
+1024     \textcolor{comment}{/* not perfect - there may be only one stairway */}
+1025     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} > 2) \{
+1026         \textcolor{keywordtype}{int} tryct = 0;
+1027 
+1028         \textcolor{keywordflow}{do}
+1029         croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[rn2(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom})];
+1030         \textcolor{keywordflow}{while}((croom == \hyperlink{mkroom_8h_a3eba79e690418711a769e373c4ef239a}{dnstairs\_room} || croom == \hyperlink{mkroom_8h_ad0620a0a6e35627605ad83d527c992ac}{upstairs\_room} ||
+1031           croom->\hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype} != \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}) && (++tryct < 100));
+1032     \} \textcolor{keywordflow}{else}
+1033         croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[rn2(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom})];
+1034 
+1035     \textcolor{keywordflow}{do} \{
+1036         \textcolor{keywordflow}{if} (!somexy(croom, mp))
+1037         impossible(\textcolor{stringliteral}{"Can't place branch!"});
+1038     \} \textcolor{keywordflow}{while}(\hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(mp->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, mp->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}) ||
+1039         (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[mp->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][mp->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].typ != \hyperlink{rm_8h_aeffd57885964c3a9a5c3ce0f81c06339}{CORR} && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[mp->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][mp->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].typ != 
+      \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM}));
+1040     \}
+1041     \textcolor{keywordflow}{return} croom;
+1042 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{\index{mklev.\+c@{mklev.\+c}!finddpos@{finddpos}}
+\index{finddpos@{finddpos}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{finddpos}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void finddpos (
+\begin{DoxyParamCaption}
+\item[{{\bf coord} $\ast$}]{cc, }
+\item[{{\bf xchar}}]{xl, }
+\item[{{\bf xchar}}]{yl, }
+\item[{{\bf xchar}}]{xh, }
+\item[{{\bf xchar}}]{yh}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}
+
+
+Definition at line 80 of file mklev.\+c.
+
+
+
+References I\+S\+\_\+\+D\+O\+O\+R, levl, okdoor(), S\+D\+O\+O\+R, and coord\+::x.
+
+
+
+Referenced by join(), and place\+\_\+niche().
+
+
+\begin{DoxyCode}
+83 \{
+84     \textcolor{keyword}{register} \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, y;
+85 
+86     x = (xl == xh) ? xl : (xl + rn2(xh-xl+1));
+87     y = (yl == yh) ? yl : (yl + rn2(yh-yl+1));
+88     \textcolor{keywordflow}{if}(\hyperlink{mklev_8c_a00f6047f9a090c068598aa919e2dba4e}{okdoor}(x, y))
+89         \textcolor{keywordflow}{goto} gotit;
+90 
+91     \textcolor{keywordflow}{for}(x = xl; x <= xh; x++) \textcolor{keywordflow}{for}(y = yl; y <= yh; y++)
+92         \textcolor{keywordflow}{if}(\hyperlink{mklev_8c_a00f6047f9a090c068598aa919e2dba4e}{okdoor}(x, y))
+93             \textcolor{keywordflow}{goto} gotit;
+94 
+95     \textcolor{keywordflow}{for}(x = xl; x <= xh; x++) \textcolor{keywordflow}{for}(y = yl; y <= yh; y++)
+96         \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ) || \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR})
+97             \textcolor{keywordflow}{goto} gotit;
+98     \textcolor{comment}{/* cannot find something reasonable -- strange */}
+99     x = xl;
+100     y = yh;
+101 gotit:
+102     cc->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = x;
+103     cc->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = y;
+104     \textcolor{keywordflow}{return};
+105 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{\index{mklev.\+c@{mklev.\+c}!join@{join}}
+\index{join@{join}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{join}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void join (
+\begin{DoxyParamCaption}
+\item[{int}]{a, }
+\item[{int}]{b, }
+\item[{{\bf boolean}}]{nxcor}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}
+
+
+Definition at line 249 of file mklev.\+c.
+
+
+
+References C\+O\+R\+R, dig\+\_\+corridor(), dodoor(), doorindex, D\+O\+O\+R\+M\+A\+X, finddpos(), dlevel\+\_\+t\+::flags, mkroom\+::hx, mkroom\+::hy, level, levl, mkroom\+::lx, mkroom\+::ly, okdoor(), R\+O\+O\+M, rooms, smeq, S\+T\+O\+N\+E, coord\+::x, and coord\+::y.
+
+
+
+Referenced by makecorridors(), and mkmap().
+
+
+\begin{DoxyCode}
+252 \{
+253     \hyperlink{structcoord}{coord} cc,tt, org, dest;
+254     \textcolor{keyword}{register} \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} tx, ty, xx, yy;
+255     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom, *troom;
+256     \textcolor{keyword}{register} \textcolor{keywordtype}{int} dx, dy;
+257 
+258     croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[a];
+259     troom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[b];
+260 
+261     \textcolor{comment}{/* find positions cc and tt for doors in croom and troom}
+262 \textcolor{comment}{       and direction for a corridor between them */}
+263 
+264     \textcolor{keywordflow}{if}(troom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} < 0 || croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} < 0 || \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex} >= \hyperlink{global_8h_a7213d21e4bbb1af3d5e0588552e0f22c}{DOORMAX}) \textcolor{keywordflow}{return};
+265     \textcolor{keywordflow}{if}(troom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx} > croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}) \{
+266         dx = 1;
+267         dy = 0;
+268         xx = croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}+1;
+269         tx = troom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}-1;
+270         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&cc, xx, croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}, xx, croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy});
+271         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&tt, tx, troom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}, tx, troom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy});
+272     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(troom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy} < croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}) \{
+273         dy = -1;
+274         dx = 0;
+275         yy = croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}-1;
+276         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&cc, croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}, yy, croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}, yy);
+277         ty = troom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy}+1;
+278         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&tt, troom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}, ty, troom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}, ty);
+279     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(troom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} < croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}) \{
+280         dx = -1;
+281         dy = 0;
+282         xx = croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}-1;
+283         tx = troom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}+1;
+284         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&cc, xx, croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}, xx, croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy});
+285         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&tt, tx, troom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}, tx, troom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy});
+286     \} \textcolor{keywordflow}{else} \{
+287         dy = 1;
+288         dx = 0;
+289         yy = croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy}+1;
+290         ty = troom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}-1;
+291         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&cc, croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}, yy, croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}, yy);
+292         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&tt, troom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}, ty, troom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}, ty);
+293     \}
+294     xx = cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+295     yy = cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+296     tx = tt.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} - dx;
+297     ty = tt.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} - dy;
+298     \textcolor{keywordflow}{if}(nxcor && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[xx+dx][yy+dy].typ)
+299         \textcolor{keywordflow}{return};
+300     \textcolor{keywordflow}{if} (\hyperlink{mklev_8c_a00f6047f9a090c068598aa919e2dba4e}{okdoor}(xx,yy) || !nxcor)
+301         \hyperlink{mklev_8c_a247dfa812802b040068d040791f999f4}{dodoor}(xx,yy,croom);
+302 
+303     org.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}  = xx+dx; org.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}  = yy+dy;
+304     dest.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = tx; dest.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = ty;
+305 
+306     \textcolor{keywordflow}{if} (!\hyperlink{sp__lev_8c_ad87ffe1562fb5ae4768446e053f08207}{dig\_corridor}(&org, &dest, nxcor,
+307             \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.arboreal ? \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM} : \hyperlink{rm_8h_aeffd57885964c3a9a5c3ce0f81c06339}{CORR}, \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}))
+308         \textcolor{keywordflow}{return};
+309 
+310     \textcolor{comment}{/* we succeeded in digging the corridor */}
+311     \textcolor{keywordflow}{if} (\hyperlink{mklev_8c_a00f6047f9a090c068598aa919e2dba4e}{okdoor}(tt.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, tt.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}) || !nxcor)
+312         \hyperlink{mklev_8c_a247dfa812802b040068d040791f999f4}{dodoor}(tt.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, tt.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, troom);
+313 
+314     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[a] < \hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[b])
+315         \hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[b] = \hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[a];
+316     \textcolor{keywordflow}{else}
+317         \hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[a] = \hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[b];
+318 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a6f6f03fe79bd80457df9f53ac0a1c1b1}{\index{mklev.\+c@{mklev.\+c}!make\+\_\+niches@{make\+\_\+niches}}
+\index{make\+\_\+niches@{make\+\_\+niches}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{make\+\_\+niches}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void make\+\_\+niches (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a6f6f03fe79bd80457df9f53ac0a1c1b1}
+
+
+Definition at line 513 of file mklev.\+c.
+
+
+
+References F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, level, L\+E\+V\+E\+L\+\_\+\+T\+E\+L\+E\+P, makeniche(), N\+O\+\_\+\+T\+R\+A\+P, nroom, T\+R\+A\+P\+D\+O\+O\+R, u, and you\+::uz.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+514 \{
+515     \textcolor{keyword}{register} \textcolor{keywordtype}{int} ct = rnd((\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}>>1) + 1), dep = depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+516 
+517     \textcolor{keywordtype}{boolean} ltptr = (!\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport && dep > 15),
+518         vamp = (dep > 5 && dep < 25);
+519 
+520     \textcolor{keywordflow}{while}(ct--) \{
+521         \textcolor{keywordflow}{if} (ltptr && !rn2(6)) \{
+522             ltptr = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+523             \hyperlink{mklev_8c_a976f96908f482af6a4d57832f9516b5b}{makeniche}(\hyperlink{trap_8h_a812288857838cc746345ce9e3e7d1368}{LEVEL\_TELEP});
+524         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (vamp && !rn2(6)) \{
+525             vamp = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+526             \hyperlink{mklev_8c_a976f96908f482af6a4d57832f9516b5b}{makeniche}(\hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR});
+527         \} \textcolor{keywordflow}{else}  \hyperlink{mklev_8c_a976f96908f482af6a4d57832f9516b5b}{makeniche}(\hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP});
+528     \}
+529 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a38cd064f4323a74d0ba4b94ce68b4fa3}{\index{mklev.\+c@{mklev.\+c}!makecorridors@{makecorridors}}
+\index{makecorridors@{makecorridors}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{makecorridors}]{\setlength{\rightskip}{0pt plus 5cm}void makecorridors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a38cd064f4323a74d0ba4b94ce68b4fa3}
+
+
+Definition at line 321 of file mklev.\+c.
+
+
+
+References F\+A\+L\+S\+E, join(), nroom, smeq, and T\+R\+U\+E.
+
+
+
+Referenced by create\+\_\+corridor(), and makelevel().
+
+
+\begin{DoxyCode}
+322 \{
+323     \textcolor{keywordtype}{int} a, b, i;
+324     \textcolor{keywordtype}{boolean} \hyperlink{unionany}{any} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+325 
+326     \textcolor{keywordflow}{for}(a = 0; a < \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}-1; a++) \{
+327         \hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join}(a, a+1, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+328         \textcolor{keywordflow}{if}(!rn2(50)) \textcolor{keywordflow}{break}; \textcolor{comment}{/* allow some randomness */}
+329     \}
+330     \textcolor{keywordflow}{for}(a = 0; a < nroom-2; a++)
+331         \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[a] != \hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[a+2])
+332         \hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join}(a, a+2, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+333     \textcolor{keywordflow}{for}(a = 0; any && a < \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}; a++) \{
+334         any = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+335         \textcolor{keywordflow}{for}(b = 0; b < \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}; b++)
+336         \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[a] != \hyperlink{decl_8h_a25cf8516b9fa672c62c208cad05efc7a}{smeq}[b]) \{
+337             \hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join}(a, b, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+338             any = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+339         \}
+340     \}
+341     \textcolor{keywordflow}{if}(nroom > 2)
+342         \textcolor{keywordflow}{for}(i = rn2(nroom) + 4; i; i--) \{
+343         a = rn2(nroom);
+344         b = rn2(nroom-2);
+345         \textcolor{keywordflow}{if}(b >= a) b += 2;
+346         \hyperlink{mklev_8c_aede7cade3426a4fb0f1adab1f72e1c35}{join}(a, b, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+347         \}
+348 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a79a1ed27123fbf3b02a0bc4c68f48e55}{\index{mklev.\+c@{mklev.\+c}!makelevel@{makelevel}}
+\index{makelevel@{makelevel}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{makelevel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void makelevel (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a79a1ed27123fbf3b02a0bc4c68f48e55}
+
+
+Definition at line 604 of file mklev.\+c.
+
+
+
+References abs(), add\+\_\+room(), A\+N\+T\+H\+O\+L\+E, B\+A\+R\+R\+A\+C\+K\+S, B\+E\+E\+H\+I\+V\+E, buf, B\+U\+F\+S\+Z, check\+\_\+room(), clear\+\_\+level\+\_\+structures(), C\+O\+C\+K\+N\+E\+S\+T, C\+O\+U\+R\+T, create\+\_\+vault, monst\+::data, d\+\_\+level\+::dlevel, s\+\_\+level\+::dlevel, d\+\_\+level\+::dnum, do\+\_\+vault, dungeons, F\+A\+L\+S\+E, Role\+::filecode, fill\+\_\+room(), dlevel\+\_\+t\+::flags, G\+\_\+\+G\+O\+N\+E, mkroom\+::hx, I\+S\+\_\+\+F\+U\+R\+N\+I\+T\+U\+R\+E, I\+S\+\_\+\+P\+O\+O\+L, Is\+\_\+rogue\+\_\+level, L\+E\+P\+R\+E\+H\+A\+L\+L, level, levl, mkroom\+::lx, mkroom\+::ly, make\+\_\+niches(), makecorridors(), makemaz(), makerooms(), makevtele(), M\+A\+R\+K, medusa\+\_\+level, mk\+\_\+knox\+\_\+portal(), mkaltar(), mkfount(), mkgrave(), mkstairs(), mktrap(), mons, M\+O\+R\+G\+U\+E, nh\+\_\+getenv(), N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S, nroom, occupied(), oinit(), O\+R\+O\+O\+M, place\+\_\+branch(), s\+\_\+level\+::proto, dungeon\+::proto, rnd\+\_\+rect(), R\+O\+O\+M, rooms, mkroom\+::rtype, S\+H\+O\+P\+B\+A\+S\+E, sort\+\_\+rooms(), Sprintf, Strcat, S\+W\+A\+M\+P, T\+E\+M\+P\+L\+E, T\+R\+U\+E, u, you\+::uhave, urole, you\+::uz, V\+A\+U\+L\+T, W\+E\+B, wiz1\+\_\+level, wizard, and Z\+O\+O.
+
+
+
+Referenced by mklev().
+
+
+\begin{DoxyCode}
+605 \{
+606     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom, *troom;
+607     \textcolor{keyword}{register} \textcolor{keywordtype}{int} tryct;
+608     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x, y;
+609     \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *tmonst;  \textcolor{comment}{/* always put a web with a spider */}
+610     \hyperlink{structbranch}{branch} *branchp;
+611     \textcolor{keywordtype}{int} room\_threshold;
+612 
+613     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_abdaabae046b547407ef448fac3dcc922}{wiz1\_level}.dlevel == 0) init\_dungeons();
+614     \hyperlink{o__init_8c_a524e90921ab3f612ad9dac64f743c2c2}{oinit}();   \textcolor{comment}{/* assign level dependent obj probabilities */}
+615     \hyperlink{mklev_8c_abcacc8cebc3b0da7a7805f771ada5373}{clear\_level\_structures}();
+616 
+617     \{
+618         \textcolor{keyword}{register} \hyperlink{structs__level}{s\_level} *slev = Is\_special(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+619 
+620         \textcolor{comment}{/* check for special levels */}
+621 \textcolor{preprocessor}{#ifdef REINCARNATION}
+622         \textcolor{keywordflow}{if} (slev && !\hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+623 \textcolor{preprocessor}{#else}
+624         \textcolor{keywordflow}{if} (slev)
+625 \textcolor{preprocessor}{#endif}
+626         \{
+627             \hyperlink{mkmaze_8c_a5cb9db8351899421d67a198ad122e7ef}{makemaz}(slev->\hyperlink{structs__level_ab678712bf46b72e78ee0f18119bece65}{proto});
+628             \textcolor{keywordflow}{return};
+629         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_a527450844fa8523e5f8a67a93c2a7db6}{proto}[0]) \{
+630             \hyperlink{mkmaze_8c_a5cb9db8351899421d67a198ad122e7ef}{makemaz}(\textcolor{stringliteral}{""});
+631             \textcolor{keywordflow}{return};
+632         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (In\_mines(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+633             \hyperlink{mkmaze_8c_a5cb9db8351899421d67a198ad122e7ef}{makemaz}(\textcolor{stringliteral}{"minefill"});
+634             \textcolor{keywordflow}{return};
+635         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (In\_quest(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+636             \textcolor{keywordtype}{char}    fillname[9];
+637             \hyperlink{structs__level}{s\_level}  *loc\_lev;
+638 
+639             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(fillname, \textcolor{stringliteral}{"%s-loca"}, \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a34fefa6544afd2b36d6deeb9b6fa054f}{filecode});
+640             loc\_lev = find\_level(fillname);
+641 
+642             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(fillname, \textcolor{stringliteral}{"%s-fil"}, \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a34fefa6544afd2b36d6deeb9b6fa054f}{filecode});
+643             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(fillname,
+644                (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} < loc\_lev->\hyperlink{structs__level_a34833da474dd639dacf93784e2d18db9}{dlevel}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel}) ? \textcolor{stringliteral}{"a"} : \textcolor{stringliteral}{"b"});
+645             \hyperlink{mkmaze_8c_a5cb9db8351899421d67a198ad122e7ef}{makemaz}(fillname);
+646             \textcolor{keywordflow}{return};
+647         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(In\_hell(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) ||
+648           (rn2(5) && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} == \hyperlink{decl_8h_ad834c4abc150f144d9da7641e53cfcde}{medusa\_level}.dnum
+649               && depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) > depth(&\hyperlink{decl_8h_ad834c4abc150f144d9da7641e53cfcde}{medusa\_level}))) \{
+650             \hyperlink{mkmaze_8c_a5cb9db8351899421d67a198ad122e7ef}{makemaz}(\textcolor{stringliteral}{""});
+651             \textcolor{keywordflow}{return};
+652         \}
+653     \}
+654 
+655     \textcolor{comment}{/* otherwise, fall through - it's a "regular" level. */}
+656 
+657 \textcolor{preprocessor}{#ifdef REINCARNATION}
+658     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+659         makeroguerooms();
+660         makerogueghost();
+661     \} \textcolor{keywordflow}{else}
+662 \textcolor{preprocessor}{#endif}
+663         \hyperlink{mklev_8c_a7237aa33ada3ea0b00fbf64a775b58c3}{makerooms}();
+664     \hyperlink{mklev_8c_ae00f5b38164c3c9c9b5c0de3734d6a22}{sort\_rooms}();
+665 
+666     \textcolor{comment}{/* construct stairs (up and down in different rooms if possible) */}
+667     croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[rn2(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom})];
+668     \textcolor{keywordflow}{if} (!Is\_botlevel(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+669          \hyperlink{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}{mkstairs}(somex(croom), somey(croom), 0, croom);    \textcolor{comment}{/* down */}
+670     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} > 1) \{
+671         troom = croom;
+672         croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[rn2(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}-1)];
+673         \textcolor{keywordflow}{if} (croom == troom) croom++;
+674     \}
+675 
+676     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} != 1) \{
+677         \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} sx, sy;
+678         \textcolor{keywordflow}{do} \{
+679         sx = somex(croom);
+680         sy = somey(croom);
+681         \} \textcolor{keywordflow}{while}(\hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(sx, sy));
+682         \hyperlink{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}{mkstairs}(sx, sy, 1, croom); \textcolor{comment}{/* up */}
+683     \}
+684 
+685     branchp = Is\_branchlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});   \textcolor{comment}{/* possible dungeon branch */}
+686     room\_threshold = branchp ? 4 : 3; \textcolor{comment}{/* minimum number of rooms needed}
+687 \textcolor{comment}{                         to allow a random special room */}
+688 \textcolor{preprocessor}{#ifdef REINCARNATION}
+689     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \textcolor{keywordflow}{goto} skip0;
+690 \textcolor{preprocessor}{#endif}
+691     \hyperlink{mklev_8c_a38cd064f4323a74d0ba4b94ce68b4fa3}{makecorridors}();
+692     \hyperlink{mklev_8c_a6f6f03fe79bd80457df9f53ac0a1c1b1}{make\_niches}();
+693 
+694     \textcolor{comment}{/* make a secret treasure vault, not connected to the rest */}
+695     \textcolor{keywordflow}{if}(\hyperlink{mklev_8c_ac8fc861019a87642b0bbeb1846721868}{do\_vault}()) \{
+696         \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} w,h;
+697 \textcolor{preprocessor}{#ifdef DEBUG}
+698         debugpline(\textcolor{stringliteral}{"trying to make a vault..."});
+699 \textcolor{preprocessor}{#endif}
+700         w = 1;
+701         h = 1;
+702         \textcolor{keywordflow}{if} (\hyperlink{sp__lev_8c_a82e8922c853831487f6f175225a5ea46}{check\_room}(&\hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\_x}, &w, &\hyperlink{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{vault\_y}, &h, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE})) \{
+703             fill\_vault:
+704             \hyperlink{mklev_8c_a5bfd1137aab85b0e7ee01c7c008e2cd6}{add\_room}(\hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\_x}, \hyperlink{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{vault\_y}, \hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\_x}+w,
+705                  \hyperlink{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{vault\_y}+h, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{mkroom_8h_ab75d7f5a330f45915bd3794809ef1609}{VAULT}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+706             \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_vault = 1;
+707             ++room\_threshold;
+708             \hyperlink{sp__lev_8c_a4e02bf4c52efa86f7646872d6ef341cb}{fill\_room}(&\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} - 1], \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+709             \hyperlink{mklev_8c_a61186da5657cd45b240388c37c1c5ef8}{mk\_knox\_portal}(\hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\_x}+w, \hyperlink{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{vault\_y}+h);
+710             \textcolor{keywordflow}{if}(!\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport && !rn2(3)) \hyperlink{mklev_8c_a94c65f35c69c79d853fcdd482a8a5fcf}{makevtele}();
+711         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{rect_8c_a08d7614d2af07fb9f31a1744ff3b2295}{rnd\_rect}() && \hyperlink{mklev_8c_afe38d1a663276b805ea798a6967ed01a}{create\_vault}()) \{
+712             \hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\_x} = \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}].\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx};
+713             \hyperlink{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{vault\_y} = \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}].\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly};
+714             \textcolor{keywordflow}{if} (\hyperlink{sp__lev_8c_a82e8922c853831487f6f175225a5ea46}{check\_room}(&\hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\_x}, &w, &\hyperlink{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{vault\_y}, &h, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}))
+715                 \textcolor{keywordflow}{goto} fill\_vault;
+716             \textcolor{keywordflow}{else}
+717                 \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}].\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} = -1;
+718         \}
+719     \}
+720 
+721     \{
+722     \textcolor{keyword}{register} \textcolor{keywordtype}{int} u\_depth = depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+723 
+724 \textcolor{preprocessor}{#ifdef WIZARD}
+725     \textcolor{keywordflow}{if}(\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"SHOPTYPE"})) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_a925701a88c7ed0db502cfac9d8fbcf9e}{SHOPBASE}); \textcolor{keywordflow}{else}
+726 \textcolor{preprocessor}{#endif}
+727     \textcolor{keywordflow}{if} (u\_depth > 1 &&
+728         u\_depth < depth(&\hyperlink{decl_8h_ad834c4abc150f144d9da7641e53cfcde}{medusa\_level}) &&
+729         \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} >= room\_threshold &&
+730         rn2(u\_depth) < 3) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_a925701a88c7ed0db502cfac9d8fbcf9e}{SHOPBASE});
+731     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 4 && !rn2(6)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_a4016e3727499e26b11c82324c0893aa2}{COURT});
+732     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 5 && !rn2(8) &&
+733        !(\hyperlink{structmvitals}{mvitals}[PM\_LEPRECHAUN].mvflags & \hyperlink{monflag_8h_ad600313e20617adbf44819cf9707971a}{G\_GONE})) \hyperlink{structmkroom}{mkroom}(
+      \hyperlink{mkroom_8h_ad77d4f704bf9a226c96de7caf51c5fe0}{LEPREHALL});
+734     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 6 && !rn2(7)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_a1e2090a3604c11b6e73a862a80cb1371}{ZOO});
+735     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 8 && !rn2(5)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_ab8c9e1bea2ae73195887ee67f76acee2}{TEMPLE});
+736     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 9 && !rn2(5) &&
+737        !(\hyperlink{structmvitals}{mvitals}[PM\_KILLER\_BEE].mvflags & G\_GONE)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_aaf8160af3974204bedc1d7486e76aa52}{BEEHIVE});
+738     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 11 && !rn2(6)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_a07dd2b8f8e4a31d28e883854255a85fd}{MORGUE});
+739     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 12 && !rn2(8)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_a310c70d61efe86198ff59a3aed3d6880}{ANTHOLE});
+740     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 14 && !rn2(4) &&
+741        !(\hyperlink{structmvitals}{mvitals}[PM\_SOLDIER].mvflags & G\_GONE)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_ad55903dd4e0d482b9b430d2822c3457a}{BARRACKS});
+742     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 15 && !rn2(6)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_ab02b728edc234e67cedb7b81dfc75958}{SWAMP});
+743     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (u\_depth > 16 && !rn2(8) &&
+744        !(\hyperlink{structmvitals}{mvitals}[PM\_COCKATRICE].mvflags & G\_GONE)) \hyperlink{structmkroom}{mkroom}(\hyperlink{mkroom_8h_af35cbbf65ca587c2a3ee0fc0b309ae85}{COCKNEST});
+745     \}
+746 
+747 \textcolor{preprocessor}{#ifdef REINCARNATION}
+748 skip0:
+749 \textcolor{preprocessor}{#endif}
+750     \textcolor{comment}{/* Place multi-dungeon branch. */}
+751     \hyperlink{mklev_8c_a77b4c8d2c8e5ac7d368634024d7e88b2}{place\_branch}(branchp, 0, 0);
+752 
+753     \textcolor{comment}{/* for each room: put things inside */}
+754     \textcolor{keywordflow}{for}(croom = \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}; croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} > 0; croom++) \{
+755         \textcolor{keywordflow}{if}(croom->\hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype} != \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}) \textcolor{keywordflow}{continue};
+756 
+757         \textcolor{comment}{/* put a sleeping monster inside */}
+758         \textcolor{comment}{/* Note: monster may be on the stairs. This cannot be}
+759 \textcolor{comment}{           avoided: maybe the player fell through a trap door}
+760 \textcolor{comment}{           while a monster was on the stairs. Conclusion:}
+761 \textcolor{comment}{           we have to check for monsters on the stairs anyway. */}
+762 
+763         \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.amulet || !rn2(3)) \{
+764             x = somex(croom); y = somey(croom);
+765             tmonst = makemon((\textcolor{keyword}{struct} \hyperlink{structpermonst}{permonst} *) 0, x,y,\hyperlink{hack_8h_ae449582f467baa0da531a6ea116a18f2}{NO\_MM\_FLAGS});
+766             \textcolor{keywordflow}{if} (tmonst && tmonst->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data} == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_GIANT\_SPIDER] &&
+767                 !\hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(x, y))
+768             (void) maketrap(x, y, \hyperlink{trap_8h_adea8244201fecbc9bef08ab08e99cdf3}{WEB});
+769         \}
+770         \textcolor{comment}{/* put traps and mimics inside */}
+771         \hyperlink{mklev_8c_aa85eddb8a29fb1dec88970233311effa}{goldseen} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+772         x = 8 - (level\_difficulty()/6);
+773         \textcolor{keywordflow}{if} (x <= 1) x = 2;
+774         \textcolor{keywordflow}{while} (!rn2(x))
+775             \hyperlink{mklev_8c_af2ceccec0c6f12db9dafcbb68b5d8b9a}{mktrap}(0,0,croom,(\hyperlink{structcoord}{coord}*)0);
+776         \textcolor{keywordflow}{if} (!\hyperlink{mklev_8c_aa85eddb8a29fb1dec88970233311effa}{goldseen} && !rn2(3))
+777             (\textcolor{keywordtype}{void}) mkgold(0L, somex(croom), somey(croom));
+778 \textcolor{preprocessor}{#ifdef REINCARNATION}
+779         \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \textcolor{keywordflow}{goto} skip\_nonrogue;
+780 \textcolor{preprocessor}{#endif}
+781         \textcolor{keywordflow}{if}(!rn2(10)) \hyperlink{mklev_8c_a6baed0938a6b6b75f0c94c5bfbf7a1c7}{mkfount}(0,croom);
+782 \textcolor{preprocessor}{#ifdef SINKS}
+783         \textcolor{keywordflow}{if}(!rn2(60)) mksink(croom);
+784 \textcolor{preprocessor}{#endif}
+785         \textcolor{keywordflow}{if}(!rn2(60)) \hyperlink{mklev_8c_ac7177ef1c90aa06bed85e8a7a7a2c412}{mkaltar}(croom);
+786         x = 80 - (depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) * 2);
+787         \textcolor{keywordflow}{if} (x < 2) x = 2;
+788         \textcolor{keywordflow}{if}(!rn2(x)) \hyperlink{mklev_8c_a1bb1d28dc0376f890a46334a9100ff2a}{mkgrave}(croom);
+789 
+790         \textcolor{comment}{/* put statues inside */}
+791         \textcolor{keywordflow}{if}(!rn2(20))
+792             (\textcolor{keywordtype}{void}) mkcorpstat(STATUE, (\textcolor{keyword}{struct} \hyperlink{structmonst}{monst} *)0,
+793                       (\textcolor{keyword}{struct} \hyperlink{structpermonst}{permonst} *)0,
+794                       somex(croom), somey(croom), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+795         \textcolor{comment}{/* put box/chest inside;}
+796 \textcolor{comment}{         *  40% chance for at least 1 box, regardless of number}
+797 \textcolor{comment}{         *  of rooms; about 5 - 7.5% for 2 boxes, least likely}
+798 \textcolor{comment}{         *  when few rooms; chance for 3 or more is neglible.}
+799 \textcolor{comment}{         */}
+800         \textcolor{keywordflow}{if}(!rn2(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} * 5 / 2))
+801             (void) mksobj\_at((rn2(3)) ? LARGE\_BOX : CHEST,
+802                      somex(croom), somey(croom), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+803 
+804         \textcolor{comment}{/* maybe make some graffiti */}
+805         \textcolor{keywordflow}{if}(!rn2(27 + 3 * \hyperlink{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}{abs}(depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})))) \{
+806             \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+807             \textcolor{keyword}{const} \textcolor{keywordtype}{char} *mesg = random\_engraving(buf);
+808             \textcolor{keywordflow}{if} (mesg) \{
+809             \textcolor{keywordflow}{do} \{
+810                 x = somex(croom);  y = somey(croom);
+811             \} \textcolor{keywordflow}{while}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ != \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM} && !rn2(40));
+812             \textcolor{keywordflow}{if} (!(\hyperlink{rm_8h_af8646f234f17ac8ab9165330194fa775}{IS\_POOL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ) ||
+813                   \hyperlink{rm_8h_a45d6f42899b65732f3784e37e713773f}{IS\_FURNITURE}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ)))
+814                 make\_engr\_at(x, y, mesg, 0L, \hyperlink{engrave_8h_abeb214368f7f34cff98de9047aa6eb2f}{MARK});
+815             \}
+816         \}
+817 
+818 \textcolor{preprocessor}{#ifdef REINCARNATION}
+819     skip\_nonrogue:
+820 \textcolor{preprocessor}{#endif}
+821         \textcolor{keywordflow}{if}(!rn2(3)) \{
+822             (void) mkobj\_at(0, somex(croom), somey(croom), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+823             tryct = 0;
+824             \textcolor{keywordflow}{while}(!rn2(5)) \{
+825             \textcolor{keywordflow}{if}(++tryct > 100) \{
+826                 impossible(\textcolor{stringliteral}{"tryct overflow4"});
+827                 \textcolor{keywordflow}{break};
+828             \}
+829             (void) mkobj\_at(0, somex(croom), somey(croom), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+830             \}
+831         \}
+832     \}
+833 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a976f96908f482af6a4d57832f9516b5b}{\index{mklev.\+c@{mklev.\+c}!makeniche@{makeniche}}
+\index{makeniche@{makeniche}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{makeniche}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void makeniche (
+\begin{DoxyParamCaption}
+\item[{int}]{trap\+\_\+type}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a976f96908f482af6a4d57832f9516b5b}
+
+
+Definition at line 462 of file mklev.\+c.
+
+
+
+References C\+O\+R\+R, D\+O\+O\+R, mkroom\+::doorct, doorindex, D\+O\+O\+R\+M\+A\+X, dosdoor(), D\+U\+S\+T, F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, H\+O\+L\+E, level, levl, nroom, O\+R\+O\+O\+M, place\+\_\+niche(), R\+O\+C\+K\+T\+R\+A\+P, rooms, mkroom\+::rtype, S\+C\+O\+R\+R, S\+D\+O\+O\+R, T\+R\+A\+P\+D\+O\+O\+R, T\+R\+U\+E, rm\+::typ, u, and you\+::uz.
+
+
+
+Referenced by make\+\_\+niches(), and makevtele().
+
+
+\begin{DoxyCode}
+464 \{
+465     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *aroom;
+466     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *\hyperlink{structrm}{rm};
+467     \textcolor{keyword}{register} \textcolor{keywordtype}{int} vct = 8;
+468     \textcolor{keywordtype}{int} dy, xx, yy;
+469     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *ttmp;
+470 
+471     \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex} < \hyperlink{global_8h_a7213d21e4bbb1af3d5e0588552e0f22c}{DOORMAX})
+472       \textcolor{keywordflow}{while}(vct--) \{
+473         aroom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[rn2(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom})];
+474         \textcolor{keywordflow}{if}(aroom->\hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype} != \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}) \textcolor{keywordflow}{continue};   \textcolor{comment}{/* not an ordinary room */}
+475         \textcolor{keywordflow}{if}(aroom->\hyperlink{structmkroom_af3299bfffb84e2a7cd1a07b4de7c1b53}{doorct} == 1 && rn2(5)) \textcolor{keywordflow}{continue};
+476         \textcolor{keywordflow}{if}(!\hyperlink{mklev_8c_a0d57e3f7405301bb203abb2ef3c07f90}{place\_niche}(aroom,&dy,&xx,&yy)) \textcolor{keywordflow}{continue};
+477 
+478         rm = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[xx][yy+dy];
+479         \textcolor{keywordflow}{if}(trap\_type || !rn2(4)) \{
+480 
+481         rm->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} = \hyperlink{rm_8h_a35e6fdb78f87c982df30c7e9580ad95d}{SCORR};
+482         \textcolor{keywordflow}{if}(trap\_type) \{
+483             \textcolor{keywordflow}{if}((trap\_type == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE} || trap\_type == \hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR})
+484             && !Can\_fall\_thru(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+485             trap\_type = \hyperlink{trap_8h_a8ef04253777645707b7c1df6235b69d6}{ROCKTRAP};
+486             ttmp = maketrap(xx, yy+dy, trap\_type);
+487             \textcolor{keywordflow}{if} (ttmp) \{
+488             \textcolor{keywordflow}{if} (trap\_type != \hyperlink{trap_8h_a8ef04253777645707b7c1df6235b69d6}{ROCKTRAP}) ttmp->once = 1;
+489             \textcolor{keywordflow}{if} (\hyperlink{mklev_8c_abf0e6a0288242cd2969b399a7ec2d65a}{trap\_engravings}[trap\_type]) \{
+490                 make\_engr\_at(xx, yy-dy,
+491                      \hyperlink{mklev_8c_abf0e6a0288242cd2969b399a7ec2d65a}{trap\_engravings}[trap\_type], 0L, \hyperlink{engrave_8h_a3e63df1782f942a7983915aa656b4b2a}{DUST});
+492                 wipe\_engr\_at(xx, yy-dy, 5); \textcolor{comment}{/* age it a little */}
+493             \}
+494             \}
+495         \}
+496         \hyperlink{mklev_8c_a3b67a3bd1b1b05cfef75459157352d8d}{dosdoor}(xx, yy, aroom, \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR});
+497         \} \textcolor{keywordflow}{else} \{
+498         rm->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} = \hyperlink{rm_8h_aeffd57885964c3a9a5c3ce0f81c06339}{CORR};
+499         \textcolor{keywordflow}{if}(rn2(7))
+500             \hyperlink{mklev_8c_a3b67a3bd1b1b05cfef75459157352d8d}{dosdoor}(xx, yy, aroom, rn2(5) ? \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR} : \hyperlink{rm_8h_aa19093eb0aa5c5af9c27464ae8f0d2de}{DOOR});
+501         \textcolor{keywordflow}{else} \{
+502             \textcolor{keywordflow}{if} (!\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport)
+503             (void) mksobj\_at(SCR\_TELEPORTATION,
+504                      xx, yy+dy, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+505             \textcolor{keywordflow}{if} (!rn2(3)) (\textcolor{keywordtype}{void}) mkobj\_at(0, xx, yy+dy, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+506         \}
+507         \}
+508         \textcolor{keywordflow}{return};
+509     \}
+510 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a7237aa33ada3ea0b00fbf64a775b58c3}{\index{mklev.\+c@{mklev.\+c}!makerooms@{makerooms}}
+\index{makerooms@{makerooms}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{makerooms}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void makerooms (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a7237aa33ada3ea0b00fbf64a775b58c3}
+
+
+Definition at line 227 of file mklev.\+c.
+
+
+
+References create\+\_\+room(), create\+\_\+vault, F\+A\+L\+S\+E, mkroom\+::hx, mkroom\+::lx, mkroom\+::ly, M\+A\+X\+N\+R\+O\+F\+R\+O\+O\+M\+S, nroom, O\+R\+O\+O\+M, rnd\+\_\+rect(), rooms, and T\+R\+U\+E.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+228 \{
+229     \textcolor{keywordtype}{boolean} tried\_vault = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+230 
+231     \textcolor{comment}{/* make rooms until satisfied */}
+232     \textcolor{comment}{/* rnd\_rect() will returns 0 if no more rects are available... */}
+233     \textcolor{keywordflow}{while}(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} < \hyperlink{global_8h_ac93f3a160c2f2a9c3d201c505b0a5811}{MAXNROFROOMS} && \hyperlink{rect_8c_a08d7614d2af07fb9f31a1744ff3b2295}{rnd\_rect}()) \{
+234         \textcolor{keywordflow}{if}(\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom} >= (\hyperlink{global_8h_ac93f3a160c2f2a9c3d201c505b0a5811}{MAXNROFROOMS}/6) && rn2(2) && !tried\_vault) \{
+235             tried\_vault = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+236             \textcolor{keywordflow}{if} (\hyperlink{mklev_8c_afe38d1a663276b805ea798a6967ed01a}{create\_vault}()) \{
+237                 \hyperlink{mklev_8c_aae497f717cca42034c1536b950fb427e}{vault\_x} = \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}].\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx};
+238                 \hyperlink{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{vault\_y} = \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}].\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly};
+239                 \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}].\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx} = -1;
+240             \}
+241         \} \textcolor{keywordflow}{else}
+242             \textcolor{keywordflow}{if} (!\hyperlink{sp__lev_8c_aed0bf1587841aa8f663dfde599226f82}{create\_room}(-1, -1, -1, -1, -1, -1, \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}, -1))
+243             \textcolor{keywordflow}{return};
+244     \}
+245     \textcolor{keywordflow}{return};
+246 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a94c65f35c69c79d853fcdd482a8a5fcf}{\index{mklev.\+c@{mklev.\+c}!makevtele@{makevtele}}
+\index{makevtele@{makevtele}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{makevtele}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void makevtele (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a94c65f35c69c79d853fcdd482a8a5fcf}
+
+
+Definition at line 532 of file mklev.\+c.
+
+
+
+References makeniche(), and T\+E\+L\+E\+P\+\_\+\+T\+R\+A\+P.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+533 \{
+534     \hyperlink{mklev_8c_a976f96908f482af6a4d57832f9516b5b}{makeniche}(\hyperlink{trap_8h_ae486eaa74be1dd922e16565d281cf94c}{TELEP\_TRAP});
+535 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_ac01d62bb96b0e4eed16a51d333ad88e4}{\index{mklev.\+c@{mklev.\+c}!mineralize@{mineralize}}
+\index{mineralize@{mineralize}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mineralize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mineralize (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ac01d62bb96b0e4eed16a51d333ad88e4}
+
+
+Definition at line 841 of file mklev.\+c.
+
+
+
+References C\+O\+L\+N\+O, F\+A\+L\+S\+E, s\+\_\+level\+::flags, dlevel\+\_\+t\+::flags, G\+E\+M\+\_\+\+C\+L\+A\+S\+S, In\+\_\+endgame, Is\+\_\+oracle\+\_\+level, Is\+\_\+rogue\+\_\+level, level, levl, M\+O\+A\+T, otmp, obj\+::otyp, obj\+::owt, obj\+::ox, obj\+::oy, P\+O\+O\+L, obj\+::quan, R\+O\+C\+K, R\+O\+W\+N\+O, S\+T\+O\+N\+E, T\+R\+U\+E, u, you\+::uz, W\+\_\+\+N\+O\+N\+D\+I\+G\+G\+A\+B\+L\+E, and wall\+\_\+info.
+
+
+
+Referenced by mklev().
+
+
+\begin{DoxyCode}
+842 \{
+843     \hyperlink{structs__level}{s\_level} *sp;
+844     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+845     \textcolor{keywordtype}{int} goldprob, gemprob, x, y, cnt;
+846 
+847 
+848     \textcolor{comment}{/* Place kelp, except on the plane of water */}
+849     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \textcolor{keywordflow}{return};
+850     \textcolor{keywordflow}{for} (x = 2; x < (\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} - 2); x++)
+851         \textcolor{keywordflow}{for} (y = 1; y < (\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO} - 1); y++)
+852         \textcolor{keywordflow}{if} ((\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_abf0d5c9a865c02bf5cc94e5d5755997c}{POOL} && !rn2(10)) ||
+853             (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a5b1cd0104b71da0833219f0489c357d2}{MOAT} && !rn2(30)))
+854             (void) mksobj\_at(KELP\_FROND, x, y, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+855 
+856     \textcolor{comment}{/* determine if it is even allowed;}
+857 \textcolor{comment}{       almost all special levels are excluded */}
+858     \textcolor{keywordflow}{if} (In\_hell(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) || In\_V\_tower(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) ||
+859 \textcolor{preprocessor}{#ifdef REINCARNATION}
+860         \hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) ||
+861 \textcolor{preprocessor}{#endif}
+862         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.arboreal ||
+863         ((sp = Is\_special(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) != 0 && !\hyperlink{dungeon_8h_a42461d2ea4a087ca8856842e398fd9e6}{Is\_oracle\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.
+      \hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})
+864                     && (!In\_mines(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) || sp->\hyperlink{structs__level_a4be64684499b0c49bc84fafe05f83aff}{flags}.town)
+865         )) \textcolor{keywordflow}{return};
+866 
+867     \textcolor{comment}{/* basic level-related probabilities */}
+868     goldprob = 20 + depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) / 3;
+869     gemprob = goldprob / 4;
+870 
+871     \textcolor{comment}{/* mines have ***MORE*** goodies - otherwise why mine? */}
+872     \textcolor{keywordflow}{if} (In\_mines(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+873         goldprob *= 2;
+874         gemprob *= 3;
+875     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (In\_quest(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+876         goldprob /= 4;
+877         gemprob /= 6;
+878     \}
+879 
+880     \textcolor{comment}{/*}
+881 \textcolor{comment}{     * Seed rock areas with gold and/or gems.}
+882 \textcolor{comment}{     * We use fairly low level object handling to avoid unnecessary}
+883 \textcolor{comment}{     * overhead from placing things in the floor chain prior to burial.}
+884 \textcolor{comment}{     */}
+885     \textcolor{keywordflow}{for} (x = 2; x < (\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} - 2); x++)
+886       \textcolor{keywordflow}{for} (y = 1; y < (\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO} - 1); y++)
+887         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y+1].typ != \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}) \{    \textcolor{comment}{/* <x,y> spot not eligible */}
+888         y += 2;     \textcolor{comment}{/* next two spots aren't eligible either */}
+889         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ != \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}) \{ \textcolor{comment}{/* this spot not eligible */}
+890         y += 1;     \textcolor{comment}{/* next spot isn't eligible either */}
+891         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_aab0cf35169aac941374078adc2ded190}{wall\_info} & \hyperlink{rm_8h_a55ee3cac4981ccaa6d27954589000595}{W\_NONDIGGABLE}) &&
+892           \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y-1].typ   == \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} &&
+893           \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x+1][y-1].typ == \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x-1][y-1].typ == 
+      \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} &&
+894           \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x+1][y].typ   == \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x-1][y].typ   == 
+      \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} &&
+895           \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x+1][y+1].typ == \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x-1][y+1].typ == 
+      \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}) \{
+896         \textcolor{keywordflow}{if} (rn2(1000) < goldprob) \{
+897             \textcolor{keywordflow}{if} ((otmp = mksobj(GOLD\_PIECE, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE})) != 0) \{
+898             otmp->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} = x,  otmp->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} = y;
+899             otmp->\hyperlink{structobj_ad08c0ed1a746fbb52377ecd7e4220578}{quan} = 1L + rnd(goldprob * 3);
+900             otmp->\hyperlink{structobj_a606b1d5b273b814049cc1b1991adfeec}{owt} = weight(otmp);
+901             \textcolor{keywordflow}{if} (!rn2(3)) add\_to\_buried(otmp);
+902             \textcolor{keywordflow}{else} place\_object(otmp, x, y);
+903             \}
+904         \}
+905         \textcolor{keywordflow}{if} (rn2(1000) < gemprob) \{
+906             \textcolor{keywordflow}{for} (cnt = rnd(2 + dunlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) / 3); cnt > 0; cnt--)
+907             \textcolor{keywordflow}{if} ((otmp = mkobj(\hyperlink{objclass_8h_afc09c51ea922e9928f86a51177244796}{GEM\_CLASS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE})) != 0) \{
+908                 \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == \hyperlink{objects_8c_ac1b5af7f6cac1028cbf4a80a05496eea}{ROCK}) \{
+909                 dealloc\_obj(otmp);  \textcolor{comment}{/* discard it */}
+910                 \} \textcolor{keywordflow}{else} \{
+911                 otmp->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} = x,  otmp->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} = y;
+912                 \textcolor{keywordflow}{if} (!rn2(3)) add\_to\_buried(otmp);
+913                 \textcolor{keywordflow}{else} place\_object(otmp, x, y);
+914                 \}
+915             \}
+916         \}
+917         \}
+918 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a61186da5657cd45b240388c37c1c5ef8}{\index{mklev.\+c@{mklev.\+c}!mk\+\_\+knox\+\_\+portal@{mk\+\_\+knox\+\_\+portal}}
+\index{mk\+\_\+knox\+\_\+portal@{mk\+\_\+knox\+\_\+portal}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mk\+\_\+knox\+\_\+portal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mk\+\_\+knox\+\_\+portal (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a61186da5657cd45b240388c37c1c5ef8}
+
+
+Definition at line 1551 of file mklev.\+c.
+
+
+
+References d\+\_\+level\+::dnum, branch\+::end1, branch\+::end2, knox\+\_\+level, medusa\+\_\+level, n\+\_\+dgns, oracle\+\_\+level, place\+\_\+branch(), T\+R\+U\+E, u, you\+::uz, wizard, and W\+I\+Z\+A\+R\+D.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+1553 \{
+1554     \textcolor{keyword}{extern} \textcolor{keywordtype}{int} \hyperlink{files_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns};        \textcolor{comment}{/* from dungeon.c */}
+1555     \hyperlink{structd__level}{d\_level} *source;
+1556     \hyperlink{structbranch}{branch} *br;
+1557     \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} u\_depth;
+1558 
+1559     br = dungeon\_branch(\textcolor{stringliteral}{"Fort Ludios"});
+1560     \textcolor{keywordflow}{if} (on\_level(&\hyperlink{decl_8h_a70cef4760238b669bde4148c9653d774}{knox\_level}, &br->\hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1})) \{
+1561         source = &br->\hyperlink{structbranch_ae943c130ab49b7d1281034ce23e84977}{end2};
+1562     \} \textcolor{keywordflow}{else} \{
+1563         \textcolor{comment}{/* disallow Knox branch on a level with one branch already */}
+1564         \textcolor{keywordflow}{if}(Is\_branchlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+1565         \textcolor{keywordflow}{return};
+1566         source = &br->\hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1};
+1567     \}
+1568 
+1569     \textcolor{comment}{/* Already set or 2/3 chance of deferring until a later level. */}
+1570     \textcolor{keywordflow}{if} (source->\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} < n\_dgns || (rn2(3)
+1571 #ifdef \hyperlink{config_8h_a7d25468f2993889250dd6664a4e6b011}{WIZARD}
+1572                       && !\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}
+1573 #endif
+1574                       )) \textcolor{keywordflow}{return};
+1575 
+1576     \textcolor{keywordflow}{if} (! (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} == \hyperlink{decl_8h_a88d80dae8fd8c7863cc9fd422aa6dc02}{oracle\_level}.dnum        \textcolor{comment}{/* in main dungeon */}
+1577         && !at\_dgn\_entrance(\textcolor{stringliteral}{"The Quest"})    \textcolor{comment}{/* but not Quest's entry */}
+1578         && (u\_depth = depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) > 10    \textcolor{comment}{/* beneath 10 */}
+1579         && u\_depth < depth(&\hyperlink{decl_8h_ad834c4abc150f144d9da7641e53cfcde}{medusa\_level}))) \textcolor{comment}{/* and above Medusa */}
+1580         \textcolor{keywordflow}{return};
+1581 
+1582     \textcolor{comment}{/* Adjust source to be current level and re-insert branch. */}
+1583     *source = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz};
+1584     insert\_branch(br, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1585 
+1586 \textcolor{preprocessor}{#ifdef DEBUG}
+1587     pline(\textcolor{stringliteral}{"Made knox portal."});
+1588 \textcolor{preprocessor}{#endif}
+1589     \hyperlink{mklev_8c_a77b4c8d2c8e5ac7d368634024d7e88b2}{place\_branch}(br, x, y);
+1590 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_ac7177ef1c90aa06bed85e8a7a7a2c412}{\index{mklev.\+c@{mklev.\+c}!mkaltar@{mkaltar}}
+\index{mkaltar@{mkaltar}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mkaltar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mkaltar (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mkroom} $\ast$}]{croom}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ac7177ef1c90aa06bed85e8a7a7a2c412}
+
+
+Definition at line 1353 of file mklev.\+c.
+
+
+
+References A\+\_\+\+L\+A\+W\+F\+U\+L, Align2amask, A\+L\+T\+A\+R, bydoor(), levl, m, occupied(), O\+R\+O\+O\+M, coord\+::x, and coord\+::y.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+1355 \{
+1356     \hyperlink{structcoord}{coord} \hyperlink{muse_8c_a3ff7db235f25673e1fe2b7b1d66d305d}{m};
+1357     \textcolor{keyword}{register} \textcolor{keywordtype}{int} tryct = 0;
+1358     \hyperlink{align_8h_a3e17b7a656899892e425fc89481aa2ab}{aligntyp} al;
+1359 
+1360     \textcolor{keywordflow}{if} (croom->\hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype} != \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}) \textcolor{keywordflow}{return};
+1361 
+1362     \textcolor{keywordflow}{do} \{
+1363         \textcolor{keywordflow}{if}(++tryct > 200) \textcolor{keywordflow}{return};
+1364         \textcolor{keywordflow}{if} (!somexy(croom, &m))
+1365         \textcolor{keywordflow}{return};
+1366     \} \textcolor{keywordflow}{while} (\hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}) || \hyperlink{mklev_8c_a1d333492f73c50bbcfebaae3404b6a3a}{bydoor}(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}));
+1367 
+1368     \textcolor{comment}{/* Put an altar at m.x, m.y */}
+1369     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].typ = \hyperlink{rm_8h_ae560558ed2367969c72e77c084a07ded}{ALTAR};
+1370 
+1371     \textcolor{comment}{/* -1 - A\_CHAOTIC, 0 - A\_NEUTRAL, 1 - A\_LAWFUL */}
+1372     al = rn2((\textcolor{keywordtype}{int})\hyperlink{align_8h_aa21537fe5fcc5cd77de27bc6907ecc6a}{A\_LAWFUL}+2) - 1;
+1373     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].altarmask = \hyperlink{align_8h_af4a9a83eaed30042a87e25ef373b1676}{Align2amask}( al );
+1374 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a6baed0938a6b6b75f0c94c5bfbf7a1c7}{\index{mklev.\+c@{mklev.\+c}!mkfount@{mkfount}}
+\index{mkfount@{mkfount}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mkfount}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mkfount (
+\begin{DoxyParamCaption}
+\item[{int}]{mazeflag, }
+\item[{struct {\bf mkroom} $\ast$}]{croom}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a6baed0938a6b6b75f0c94c5bfbf7a1c7}
+
+
+Definition at line 1306 of file mklev.\+c.
+
+
+
+References bydoor(), dlevel\+\_\+t\+::flags, F\+O\+U\+N\+T\+A\+I\+N, level, levl, m, mazexy(), levelflags\+::nfountains, occupied(), coord\+::x, and coord\+::y.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+1309 \{
+1310     \hyperlink{structcoord}{coord} \hyperlink{muse_8c_a3ff7db235f25673e1fe2b7b1d66d305d}{m};
+1311     \textcolor{keyword}{register} \textcolor{keywordtype}{int} tryct = 0;
+1312 
+1313     \textcolor{keywordflow}{do} \{
+1314         \textcolor{keywordflow}{if}(++tryct > 200) \textcolor{keywordflow}{return};
+1315         \textcolor{keywordflow}{if}(mazeflag)
+1316         \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&m);
+1317         \textcolor{keywordflow}{else}
+1318         \textcolor{keywordflow}{if} (!somexy(croom, &m))
+1319             \textcolor{keywordflow}{return};
+1320     \} \textcolor{keywordflow}{while}(\hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}) || \hyperlink{mklev_8c_a1d333492f73c50bbcfebaae3404b6a3a}{bydoor}(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}));
+1321 
+1322     \textcolor{comment}{/* Put a fountain at m.x, m.y */}
+1323     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].typ = \hyperlink{rm_8h_a88fabf28d6285490fea11089d88167ca}{FOUNTAIN};
+1324     \textcolor{comment}{/* Is it a "blessed" fountain? (affects drinking from fountain) */}
+1325     \textcolor{keywordflow}{if}(!rn2(7)) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].blessedftn = 1;
+1326 
+1327     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.\hyperlink{structlevelflags_a7f3dc00cbb7517b44e77ef3156d05521}{nfountains}++;
+1328 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a1bb1d28dc0376f890a46334a9100ff2a}{\index{mklev.\+c@{mklev.\+c}!mkgrave@{mkgrave}}
+\index{mkgrave@{mkgrave}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mkgrave}]{\setlength{\rightskip}{0pt plus 5cm}static void mkgrave (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mkroom} $\ast$}]{croom}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mklev_8c_a1bb1d28dc0376f890a46334a9100ff2a}
+
+
+Definition at line 1377 of file mklev.\+c.
+
+
+
+References bydoor(), F\+A\+L\+S\+E, m, occupied(), O\+R\+O\+O\+M, otmp, obj\+::ox, obj\+::oy, R\+A\+N\+D\+O\+M\+\_\+\+C\+L\+A\+S\+S, T\+R\+U\+E, coord\+::x, and coord\+::y.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+1379 \{
+1380     \hyperlink{structcoord}{coord} \hyperlink{muse_8c_a3ff7db235f25673e1fe2b7b1d66d305d}{m};
+1381     \textcolor{keyword}{register} \textcolor{keywordtype}{int} tryct = 0;
+1382     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+1383     \textcolor{keywordtype}{boolean} dobell = !rn2(10);
+1384 
+1385 
+1386     \textcolor{keywordflow}{if}(croom->\hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype} != \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}) \textcolor{keywordflow}{return};
+1387 
+1388     \textcolor{keywordflow}{do} \{
+1389         \textcolor{keywordflow}{if}(++tryct > 200) \textcolor{keywordflow}{return};
+1390         \textcolor{keywordflow}{if} (!somexy(croom, &m))
+1391         \textcolor{keywordflow}{return};
+1392     \} \textcolor{keywordflow}{while} (\hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}) || \hyperlink{mklev_8c_a1d333492f73c50bbcfebaae3404b6a3a}{bydoor}(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}));
+1393 
+1394     \textcolor{comment}{/* Put a grave at m.x, m.y */}
+1395     make\_grave(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, dobell ? \textcolor{stringliteral}{"Saved by the bell!"} : (\textcolor{keywordtype}{char} *) 0);
+1396 
+1397     \textcolor{comment}{/* Possibly fill it with objects */}
+1398     \textcolor{keywordflow}{if} (!rn2(3)) (void) mkgold(0L, m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y});
+1399     \textcolor{keywordflow}{for} (tryct = rn2(5); tryct; tryct--) \{
+1400         otmp = mkobj(\hyperlink{objclass_8h_ac72b41688ea83d87d0b4143899a9b0d7}{RANDOM\_CLASS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1401         \textcolor{keywordflow}{if} (!otmp) \textcolor{keywordflow}{return};
+1402         curse(otmp);
+1403         otmp->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} = m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+1404         otmp->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} = m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+1405         add\_to\_buried(otmp);
+1406     \}
+1407 
+1408     \textcolor{comment}{/* Leave a bell, in case we accidentally buried someone alive */}
+1409     \textcolor{keywordflow}{if} (dobell) (void) mksobj\_at(BELL, m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1410     \textcolor{keywordflow}{return};
+1411 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a52e44ae3de7a3d9a5160dc8233886ab3}{\index{mklev.\+c@{mklev.\+c}!mkinvokearea@{mkinvokearea}}
+\index{mkinvokearea@{mkinvokearea}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mkinvokearea}]{\setlength{\rightskip}{0pt plus 5cm}void mkinvokearea (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a52e44ae3de7a3d9a5160dc8233886ab3}
+
+
+Definition at line 1426 of file mklev.\+c.
+
+
+
+References delay\+\_\+output, display\+\_\+nhwindow, flush\+\_\+screen(), inv\+\_\+pos, mkinvpos(), mkstairs(), newsym(), T\+R\+U\+E, u, you\+::ux, you\+::uy, vision\+\_\+full\+\_\+recalc, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, coord\+::x, xmax, xmin, coord\+::y, ymax, and ymin.
+
+
+
+Referenced by deadbook().
+
+
+\begin{DoxyCode}
+1427 \{
+1428     \textcolor{keywordtype}{int} dist;
+1429     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} \hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin} = \hyperlink{decl_8h_a09696ea21f7d27c0a9383568d3cb99f3}{inv\_pos}.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax} = \hyperlink{decl_8h_a09696ea21f7d27c0a9383568d3cb99f3}{inv\_pos}.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+1430     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} \hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin} = \hyperlink{decl_8h_a09696ea21f7d27c0a9383568d3cb99f3}{inv\_pos}.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax} = \hyperlink{decl_8h_a09696ea21f7d27c0a9383568d3cb99f3}{inv\_pos}.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+1431     \textcolor{keyword}{register} \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} i;
+1432 
+1433     pline\_The(\textcolor{stringliteral}{"floor shakes violently under you!"});
+1434     pline\_The(\textcolor{stringliteral}{"walls around you begin to bend and crumble!"});
+1435     \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1436 
+1437     \hyperlink{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}{mkinvpos}(xmin, ymin, 0);        \textcolor{comment}{/* middle, before placing stairs */}
+1438 
+1439     \textcolor{keywordflow}{for}(dist = 1; dist < 7; dist++) \{
+1440     xmin--; \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}++;
+1441 
+1442     \textcolor{comment}{/* top and bottom */}
+1443     \textcolor{keywordflow}{if}(dist != 3) \{ \textcolor{comment}{/* the area is wider that it is high */}
+1444         ymin--; \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}++;
+1445         \textcolor{keywordflow}{for}(i = xmin+1; i < \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}; i++) \{
+1446         \hyperlink{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}{mkinvpos}(i, ymin, dist);
+1447         \hyperlink{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}{mkinvpos}(i, \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}, dist);
+1448         \}
+1449     \}
+1450 
+1451     \textcolor{comment}{/* left and right */}
+1452     \textcolor{keywordflow}{for}(i = ymin; i <= \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}; i++) \{
+1453         \hyperlink{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}{mkinvpos}(xmin, i, dist);
+1454         \hyperlink{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}{mkinvpos}(\hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}, i, dist);
+1455     \}
+1456 
+1457     \hyperlink{display_8c_a47cdbc8092c02ed856defd22a0952aeb}{flush\_screen}(1);    \textcolor{comment}{/* make sure the new glyphs shows up */}
+1458     \hyperlink{winprocs_8h_a52ac0892dec99e42da526fda2126d9e9}{delay\_output}();
+1459     \}
+1460 
+1461     You(\textcolor{stringliteral}{"are standing at the top of a stairwell leading down!"});
+1462     \hyperlink{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}{mkstairs}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, 0, (\textcolor{keyword}{struct} \hyperlink{structmkroom}{mkroom} *)0); \textcolor{comment}{/* down */}
+1463     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+1464     \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 1;   \textcolor{comment}{/* everything changed */}
+1465 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}{\index{mklev.\+c@{mklev.\+c}!mkinvpos@{mkinvpos}}
+\index{mkinvpos@{mkinvpos}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mkinvpos}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mkinvpos (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{int}]{dist}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ac9bfe2533342b8586ca9b03f14f6da64}
+
+
+Definition at line 1471 of file mklev.\+c.
+
+
+
+References C\+O\+U\+L\+D\+\_\+\+S\+E\+E, F\+A\+L\+S\+E, F\+I\+R\+E\+\_\+\+T\+R\+A\+P, I\+N\+\_\+\+S\+I\+G\+H\+T, levl, M\+O\+A\+T, newsym(), otmp, panic(), R\+O\+O\+M, rm\+::seenv, T\+R\+U\+E, rm\+::typ, unblock\+\_\+point(), viz\+\_\+array, within\+\_\+bounded\+\_\+area, x\+\_\+maze\+\_\+max, x\+\_\+maze\+\_\+min, y\+\_\+maze\+\_\+max, and y\+\_\+maze\+\_\+min.
+
+
+
+Referenced by mkinvokearea().
+
+
+\begin{DoxyCode}
+1474 \{
+1475     \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *ttmp;
+1476     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+1477     \textcolor{keywordtype}{boolean} make\_rocks;
+1478     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y];
+1479 
+1480     \textcolor{comment}{/* clip at existing map borders if necessary */}
+1481     \textcolor{keywordflow}{if} (!\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x, y, \hyperlink{mklev_8c_a21b0b9981b1a998412365ddc5b1f48b6}{x\_maze\_min} + 1, 
+      \hyperlink{mklev_8c_a9136921ae7bf399bd780c5afd292c21e}{y\_maze\_min} + 1,
+1482                    \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max} - 1, \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max} - 1)) \{
+1483     \textcolor{comment}{/* only outermost 2 columns and/or rows may be truncated due to edge */}
+1484     \textcolor{keywordflow}{if} (dist < (7 - 2))
+1485         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"mkinvpos: <%d,%d> (%d) off map edge!"}, x, y, dist);
+1486     \textcolor{keywordflow}{return};
+1487     \}
+1488 
+1489     \textcolor{comment}{/* clear traps */}
+1490     \textcolor{keywordflow}{if} ((ttmp = t\_at(x,y)) != 0) deltrap(ttmp);
+1491 
+1492     \textcolor{comment}{/* clear boulders; leave some rocks for non-\{moat|trap\} locations */}
+1493     make\_rocks = (dist != 1 && dist != 4 && dist != 5) ? \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE} : \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1494     \textcolor{keywordflow}{while} ((otmp = sobj\_at(BOULDER, x, y)) != 0) \{
+1495     \textcolor{keywordflow}{if} (make\_rocks) \{
+1496         fracture\_rock(otmp);
+1497         make\_rocks = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};        \textcolor{comment}{/* don't bother with more rocks */}
+1498     \} \textcolor{keywordflow}{else} \{
+1499         obj\_extract\_self(otmp);
+1500         obfree(otmp, (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0);
+1501     \}
+1502     \}
+1503     \hyperlink{vision_8c_ae35bdda13dee95d455874551be850a47}{unblock\_point}(x,y);    \textcolor{comment}{/* make sure vision knows this location is open */}
+1504 
+1505     \textcolor{comment}{/* fake out saved state */}
+1506     lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv} = 0;
+1507     lev->doormask = 0;
+1508     \textcolor{keywordflow}{if}(dist < 6) lev->lit = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1509     lev->waslit = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1510     lev->horizontal = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1511     \hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array}[y][x] = (dist < 6 ) ?
+1512     (\hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT}|\hyperlink{vision_8h_aadb1c17631715d615ce4d6334a7387c5}{COULD\_SEE}) : \textcolor{comment}{/* short-circuit vision recalc */}
+1513     \hyperlink{vision_8h_aadb1c17631715d615ce4d6334a7387c5}{COULD\_SEE};
+1514 
+1515     \textcolor{keywordflow}{switch}(dist) \{
+1516     \textcolor{keywordflow}{case} 1: \textcolor{comment}{/* fire traps */}
+1517     \textcolor{keywordflow}{if} (is\_pool(x,y)) \textcolor{keywordflow}{break};
+1518     lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} = \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM};
+1519     ttmp = maketrap(x, y, \hyperlink{trap_8h_a8b19c33fa520554f2431edb06f02cb69}{FIRE\_TRAP});
+1520     \textcolor{keywordflow}{if} (ttmp) ttmp->tseen = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1521     \textcolor{keywordflow}{break};
+1522     \textcolor{keywordflow}{case} 0: \textcolor{comment}{/* lit room locations */}
+1523     \textcolor{keywordflow}{case} 2:
+1524     \textcolor{keywordflow}{case} 3:
+1525     \textcolor{keywordflow}{case} 6: \textcolor{comment}{/* unlit room locations */}
+1526     lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} = \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM};
+1527     \textcolor{keywordflow}{break};
+1528     \textcolor{keywordflow}{case} 4: \textcolor{comment}{/* pools (aka a wide moat) */}
+1529     \textcolor{keywordflow}{case} 5:
+1530     lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} = \hyperlink{rm_8h_a5b1cd0104b71da0833219f0489c357d2}{MOAT};
+1531     \textcolor{comment}{/* No kelp! */}
+1532     \textcolor{keywordflow}{break};
+1533     \textcolor{keywordflow}{default}:
+1534     impossible(\textcolor{stringliteral}{"mkinvpos called with dist %d"}, dist);
+1535     \textcolor{keywordflow}{break};
+1536     \}
+1537 
+1538     \textcolor{comment}{/* display new value of position; could have a monster/object on it */}
+1539     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(x,y);
+1540 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a51844224bcabf52180033918d8915a34}{\index{mklev.\+c@{mklev.\+c}!mklev@{mklev}}
+\index{mklev@{mklev}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mklev}]{\setlength{\rightskip}{0pt plus 5cm}void mklev (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a51844224bcabf52180033918d8915a34}
+
+
+Definition at line 921 of file mklev.\+c.
+
+
+
+References bound\+\_\+digging(), F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, getbones(), in\+\_\+mklev, level, makelevel(), mineralize(), nroom, rooms, set\+\_\+wall\+\_\+state(), topologize(), and T\+R\+U\+E.
+
+
+\begin{DoxyCode}
+922 \{
+923     \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom;
+924 
+925     \textcolor{keywordflow}{if}(\hyperlink{bones_8c_a3ea0150187f749027ae1c669b60e3fcc}{getbones}()) \textcolor{keywordflow}{return};
+926     \hyperlink{decl_8h_abb694ef5acb9945ca69679a8360df51a}{in\_mklev} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+927     \hyperlink{mklev_8c_a79a1ed27123fbf3b02a0bc4c68f48e55}{makelevel}();
+928     \hyperlink{mkmaze_8c_aec6c86179ba546df6d8f2ebd3b2517d1}{bound\_digging}();
+929     \hyperlink{mklev_8c_ac01d62bb96b0e4eed16a51d333ad88e4}{mineralize}();
+930     \hyperlink{decl_8h_abb694ef5acb9945ca69679a8360df51a}{in\_mklev} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+931     \textcolor{comment}{/* has\_morgue gets cleared once morgue is entered; graveyard stays}
+932 \textcolor{comment}{       set (graveyard might already be set even when has\_morgue is clear}
+933 \textcolor{comment}{       [see fixup\_special()], so don't update it unconditionally) */}
+934     \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_morgue)
+935         \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.graveyard = 1;
+936     \textcolor{keywordflow}{if} (!\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev) \{
+937         \textcolor{keywordflow}{for} (croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[0]; croom != &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}]; croom++)
+938 #ifdef SPECIALIZATION
+939         \hyperlink{mklev_8c_ac3aecaa5e9dbd24cb58763276451439c}{topologize}(croom, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+940 \textcolor{preprocessor}{#else}
+941         \hyperlink{mklev_8c_ac3aecaa5e9dbd24cb58763276451439c}{topologize}(croom);
+942 \textcolor{preprocessor}{#endif}
+943     \}
+944     \hyperlink{display_8c_afd30b2beecc42ef4aef70835b2bb2f9b}{set\_wall\_state}();
+945 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}{\index{mklev.\+c@{mklev.\+c}!mkstairs@{mkstairs}}
+\index{mkstairs@{mkstairs}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mkstairs}]{\setlength{\rightskip}{0pt plus 5cm}void mkstairs (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{char}]{up, }
+\item[{struct {\bf mkroom} $\ast$}]{croom}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}
+
+
+Definition at line 1271 of file mklev.\+c.
+
+
+
+References dnstairs\+\_\+room, L\+A\+\_\+\+D\+O\+W\+N, L\+A\+\_\+\+U\+P, levl, S\+T\+A\+I\+R\+S, u, upstairs\+\_\+room, you\+::uz, xdnstair, xupstair, ydnstair, and yupstair.
+
+
+
+Referenced by create\+\_\+stairs(), load\+\_\+maze(), makelevel(), makemaz(), mkinvokearea(), and put\+\_\+lregion\+\_\+here().
+
+
+\begin{DoxyCode}
+1275 \{
+1276     \textcolor{keywordflow}{if} (!x) \{
+1277         impossible(\textcolor{stringliteral}{"mkstairs:  bogus stair attempt at <%d,%d>"}, x, y);
+1278         \textcolor{keywordflow}{return};
+1279     \}
+1280 
+1281     \textcolor{comment}{/*}
+1282 \textcolor{comment}{     * We can't make a regular stair off an end of the dungeon.  This}
+1283 \textcolor{comment}{     * attempt can happen when a special level is placed at an end and}
+1284 \textcolor{comment}{     * has an up or down stair specified in its description file.}
+1285 \textcolor{comment}{     */}
+1286     \textcolor{keywordflow}{if} ((dunlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) == 1 && up) ||
+1287             (dunlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) == dunlevs\_in\_dungeon(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && !up))
+1288         \textcolor{keywordflow}{return};
+1289 
+1290     \textcolor{keywordflow}{if}(up) \{
+1291         \hyperlink{decl_8h_a6ddff041cb808902b66e0b7196f03e00}{xupstair} = x;
+1292         \hyperlink{decl_8h_a26867130b8519f38c26a8b28b4df9ac0}{yupstair} = y;
+1293         \hyperlink{mkroom_8h_ad0620a0a6e35627605ad83d527c992ac}{upstairs\_room} = croom;
+1294     \} \textcolor{keywordflow}{else} \{
+1295         \hyperlink{decl_8h_a55486e08c2be9501e6817ca2a19e4d66}{xdnstair} = x;
+1296         \hyperlink{decl_8h_a3b86b85dda8af8bff9c5ea84bcc7a52a}{ydnstair} = y;
+1297         \hyperlink{mkroom_8h_a3eba79e690418711a769e373c4ef239a}{dnstairs\_room} = croom;
+1298     \}
+1299 
+1300     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = \hyperlink{rm_8h_a814976bdce7e0d26e78d426fdb6f1b22}{STAIRS};
+1301     \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].ladder = up ? \hyperlink{rm_8h_a1ecf378536cdea01eb37ec943fe1d3df}{LA\_UP} : \hyperlink{rm_8h_a6ae800b588662120096274fda9aa68e2}{LA\_DOWN};
+1302 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_af2ceccec0c6f12db9dafcbb68b5d8b9a}{\index{mklev.\+c@{mklev.\+c}!mktrap@{mktrap}}
+\index{mktrap@{mktrap}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{mktrap}]{\setlength{\rightskip}{0pt plus 5cm}void mktrap (
+\begin{DoxyParamCaption}
+\item[{int}]{num, }
+\item[{int}]{mazeflag, }
+\item[{struct {\bf mkroom} $\ast$}]{croom, }
+\item[{{\bf coord} $\ast$}]{tm}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_af2ceccec0c6f12db9dafcbb68b5d8b9a}
+
+
+Definition at line 1181 of file mklev.\+c.
+
+
+
+References A\+R\+R\+O\+W\+\_\+\+T\+R\+A\+P, B\+E\+A\+R\+\_\+\+T\+R\+A\+P, D\+A\+R\+T\+\_\+\+T\+R\+A\+P, F\+I\+R\+E\+\_\+\+T\+R\+A\+P, dlevel\+\_\+t\+::flags, H\+O\+L\+E, Inhell, Is\+\_\+rogue\+\_\+level, L\+A\+N\+D\+M\+I\+N\+E, level, L\+E\+V\+E\+L\+\_\+\+T\+E\+L\+E\+P, m, M\+A\+G\+I\+C\+\_\+\+P\+O\+R\+T\+A\+L, mazexy(), mons, N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S, N\+O\+\_\+\+T\+R\+A\+P, occupied(), P\+I\+T, P\+O\+L\+Y\+\_\+\+T\+R\+A\+P, R\+O\+C\+K\+T\+R\+A\+P, R\+O\+L\+L\+I\+N\+G\+\_\+\+B\+O\+U\+L\+D\+E\+R\+\_\+\+T\+R\+A\+P, R\+U\+S\+T\+\_\+\+T\+R\+A\+P, S\+L\+P\+\_\+\+G\+A\+S\+\_\+\+T\+R\+A\+P, S\+P\+I\+K\+E\+D\+\_\+\+P\+I\+T, S\+T\+A\+T\+U\+E\+\_\+\+T\+R\+A\+P, T\+E\+L\+E\+P\+\_\+\+T\+R\+A\+P, T\+R\+A\+P\+D\+O\+O\+R, T\+R\+A\+P\+N\+U\+M, u, you\+::uz, W\+E\+B, coord\+::x, and coord\+::y.
+
+
+
+Referenced by create\+\_\+trap(), makelevel(), and makemaz().
+
+
+\begin{DoxyCode}
+1185 \{
+1186     \textcolor{keyword}{register} \textcolor{keywordtype}{int} kind;
+1187     \hyperlink{structcoord}{coord} \hyperlink{muse_8c_a3ff7db235f25673e1fe2b7b1d66d305d}{m};
+1188 
+1189     \textcolor{comment}{/* no traps in pools */}
+1190     \textcolor{keywordflow}{if} (tm && is\_pool(tm->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x},tm->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y})) \textcolor{keywordflow}{return};
+1191 
+1192     \textcolor{keywordflow}{if} (num > 0 && num < \hyperlink{trap_8h_a6ecfd62de48aada48010c4fc52beb908}{TRAPNUM}) \{
+1193         kind = num;
+1194 \textcolor{preprocessor}{#ifdef REINCARNATION}
+1195     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+1196         \textcolor{keywordflow}{switch} (rn2(7)) \{
+1197         \textcolor{keywordflow}{default}: kind = \hyperlink{trap_8h_a8e0f0f3d80f6253a98c39fe9e9ac1a1f}{BEAR\_TRAP}; \textcolor{keywordflow}{break}; \textcolor{comment}{/* 0 */}
+1198         \textcolor{keywordflow}{case} 1: kind = \hyperlink{trap_8h_a89228f7a31077dd7a17056528b9528e5}{ARROW\_TRAP}; \textcolor{keywordflow}{break};
+1199         \textcolor{keywordflow}{case} 2: kind = \hyperlink{trap_8h_ab48e55c415b0b34468d4c16fa610bed1}{DART\_TRAP}; \textcolor{keywordflow}{break};
+1200         \textcolor{keywordflow}{case} 3: kind = \hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR}; \textcolor{keywordflow}{break};
+1201         \textcolor{keywordflow}{case} 4: kind = \hyperlink{trap_8h_af181c9e6602b6432a0bf1a9243808968}{PIT}; \textcolor{keywordflow}{break};
+1202         \textcolor{keywordflow}{case} 5: kind = \hyperlink{trap_8h_ab4a7c85b138221466cb63ff616ba3c25}{SLP\_GAS\_TRAP}; \textcolor{keywordflow}{break};
+1203         \textcolor{keywordflow}{case} 6: kind = \hyperlink{trap_8h_a96cb504faa509217394398b05a304aef}{RUST\_TRAP}; \textcolor{keywordflow}{break};
+1204         \}
+1205 \textcolor{preprocessor}{#endif}
+1206     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a5cd7abaad3082e8a7b2f5ec30e44d2f4}{Inhell} && !rn2(5)) \{
+1207         \textcolor{comment}{/* bias the frequency of fire traps in Gehennom */}
+1208         kind = \hyperlink{trap_8h_a8b19c33fa520554f2431edb06f02cb69}{FIRE\_TRAP};
+1209     \} \textcolor{keywordflow}{else} \{
+1210         \textcolor{keywordtype}{unsigned} lvl = level\_difficulty();
+1211 
+1212         \textcolor{keywordflow}{do} \{
+1213         kind = rnd(\hyperlink{trap_8h_a6ecfd62de48aada48010c4fc52beb908}{TRAPNUM}-1);
+1214         \textcolor{comment}{/* reject "too hard" traps */}
+1215         \textcolor{keywordflow}{switch} (kind) \{
+1216             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a64bfa610e12179ef4bfa46c65166b2fe}{MAGIC\_PORTAL}:
+1217             kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1218             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a215ef29fac2b75e5c816a0398d2c4c52}{ROLLING\_BOULDER\_TRAP}:
+1219             \textcolor{keywordflow}{case} \hyperlink{trap_8h_ab4a7c85b138221466cb63ff616ba3c25}{SLP\_GAS\_TRAP}:
+1220             \textcolor{keywordflow}{if} (lvl < 2) kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1221             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a812288857838cc746345ce9e3e7d1368}{LEVEL\_TELEP}:
+1222             \textcolor{keywordflow}{if} (lvl < 5 || \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport)
+1223                 kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1224             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a813fa80e09de5d455e2af3743a95bad9}{SPIKED\_PIT}:
+1225             \textcolor{keywordflow}{if} (lvl < 5) kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1226             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a275e56d3d619eeccd3deedb281d2a1af}{LANDMINE}:
+1227             \textcolor{keywordflow}{if} (lvl < 6) kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1228             \textcolor{keywordflow}{case} \hyperlink{trap_8h_adea8244201fecbc9bef08ab08e99cdf3}{WEB}:
+1229             \textcolor{keywordflow}{if} (lvl < 7) kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1230             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a608095451436b98ee954855f7661802d}{STATUE\_TRAP}:
+1231             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a8d4a4a1cdb6ac9e6b052f15c68243d9d}{POLY\_TRAP}:
+1232             \textcolor{keywordflow}{if} (lvl < 8) kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1233             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a8b19c33fa520554f2431edb06f02cb69}{FIRE\_TRAP}:
+1234             \textcolor{keywordflow}{if} (!\hyperlink{dungeon_8h_a5cd7abaad3082e8a7b2f5ec30e44d2f4}{Inhell}) kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1235             \textcolor{keywordflow}{case} \hyperlink{trap_8h_ae486eaa74be1dd922e16565d281cf94c}{TELEP\_TRAP}:
+1236             \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport) kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1237             \textcolor{keywordflow}{case} \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE}:
+1238             \textcolor{comment}{/* make these much less often than other traps */}
+1239             \textcolor{keywordflow}{if} (rn2(7)) kind = \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP}; \textcolor{keywordflow}{break};
+1240         \}
+1241         \} \textcolor{keywordflow}{while} (kind == \hyperlink{trap_8h_af68fb09f448cca56bc40378990469a58}{NO\_TRAP});
+1242     \}
+1243 
+1244     \textcolor{keywordflow}{if} ((kind == \hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR} || kind == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE}) && !Can\_fall\_thru(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+1245         kind = \hyperlink{trap_8h_a8ef04253777645707b7c1df6235b69d6}{ROCKTRAP};
+1246 
+1247     \textcolor{keywordflow}{if} (tm)
+1248         m = *tm;
+1249     \textcolor{keywordflow}{else} \{
+1250         \textcolor{keyword}{register} \textcolor{keywordtype}{int} tryct = 0;
+1251         \textcolor{keywordtype}{boolean} avoid\_boulder = (kind == \hyperlink{trap_8h_af181c9e6602b6432a0bf1a9243808968}{PIT} || kind == \hyperlink{trap_8h_a813fa80e09de5d455e2af3743a95bad9}{SPIKED\_PIT} ||
+1252                      kind == \hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR} || kind == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE});
+1253 
+1254         \textcolor{keywordflow}{do} \{
+1255         \textcolor{keywordflow}{if} (++tryct > 200)
+1256             \textcolor{keywordflow}{return};
+1257         \textcolor{keywordflow}{if} (mazeflag)
+1258             \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&m);
+1259         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!somexy(croom,&m))
+1260             \textcolor{keywordflow}{return};
+1261         \} \textcolor{keywordflow}{while} (\hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}) ||
+1262             (avoid\_boulder && sobj\_at(BOULDER, m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y})));
+1263     \}
+1264 
+1265     (void) maketrap(m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, kind);
+1266     \textcolor{keywordflow}{if} (kind == \hyperlink{trap_8h_adea8244201fecbc9bef08ab08e99cdf3}{WEB}) (void) makemon(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_GIANT\_SPIDER],
+1267                         m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{hack_8h_ae449582f467baa0da531a6ea116a18f2}{NO\_MM\_FLAGS});
+1268 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_af1c01a7a592c1d6ffe4a6a7f170f718f}{\index{mklev.\+c@{mklev.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf makevtele}}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_af1c01a7a592c1d6ffe4a6a7f170f718f}
+\hypertarget{mklev_8c_a0e3098a807a9506d7d7434b4faed4312}{\index{mklev.\+c@{mklev.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf clear\+\_\+level\+\_\+structures}}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a0e3098a807a9506d7d7434b4faed4312}
+\hypertarget{mklev_8c_ab748c47776a39cd19a7f50d5c5efe32a}{\index{mklev.\+c@{mklev.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf makelevel}}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ab748c47776a39cd19a7f50d5c5efe32a}
+\hypertarget{mklev_8c_a6355b96b6f12c1eff758bbe6e594783f}{\index{mklev.\+c@{mklev.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mineralize}}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a6355b96b6f12c1eff758bbe6e594783f}
+\hypertarget{mklev_8c_aa762d9c743f2cc527a4375fd910811bf}{\index{mklev.\+c@{mklev.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf make\+\_\+niches}}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_aa762d9c743f2cc527a4375fd910811bf}
+\hypertarget{mklev_8c_a25ad1baf4af5abe0c1d2d28b28fe9512}{\index{mklev.\+c@{mklev.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf makerooms}}]{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a25ad1baf4af5abe0c1d2d28b28fe9512}
+\hypertarget{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{\index{mklev.\+c@{mklev.\+c}!occupied@{occupied}}
+\index{occupied@{occupied}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{occupied}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} occupied (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}
+
+
+Definition at line 1167 of file mklev.\+c.
+
+
+
+References I\+S\+\_\+\+F\+U\+R\+N\+I\+T\+U\+R\+E, and levl.
+
+
+
+Referenced by bad\+\_\+location(), create\+\_\+feature(), find\+\_\+branch\+\_\+room(), makelevel(), makemaz(), mkaltar(), mkfount(), mkgrave(), and mktrap().
+
+
+\begin{DoxyCode}
+1169 \{
+1170     \textcolor{keywordflow}{return}((\textcolor{keywordtype}{boolean})(t\_at(x, y)
+1171         || \hyperlink{rm_8h_a45d6f42899b65732f3784e37e713773f}{IS\_FURNITURE}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ)
+1172         || is\_lava(x,y)
+1173         || is\_pool(x,y)
+1174         || invocation\_pos(x,y)
+1175         ));
+1176 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a00f6047f9a090c068598aa919e2dba4e}{\index{mklev.\+c@{mklev.\+c}!okdoor@{okdoor}}
+\index{okdoor@{okdoor}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{okdoor}]{\setlength{\rightskip}{0pt plus 5cm}int okdoor (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a00f6047f9a090c068598aa919e2dba4e}
+
+
+Definition at line 1144 of file mklev.\+c.
+
+
+
+References bydoor(), doorindex, D\+O\+O\+R\+M\+A\+X, H\+W\+A\+L\+L, levl, and V\+W\+A\+L\+L.
+
+
+
+Referenced by create\+\_\+door(), create\+\_\+secret\+\_\+door(), finddpos(), and join().
+
+
+\begin{DoxyCode}
+1146 \{
+1147     \textcolor{keyword}{register} \textcolor{keywordtype}{boolean} near\_door = \hyperlink{mklev_8c_a1d333492f73c50bbcfebaae3404b6a3a}{bydoor}(x, y);
+1148 
+1149     \textcolor{keywordflow}{return}((\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a3fcd4705d7b0ac05a88302170fcc58f5}{HWALL} || \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a9a3afc2fb445bb43a1776de4ebe9852e}{VWALL}) &&
+1150             \hyperlink{decl_8h_a1982a8fa5c64011b962995dac72b6eff}{doorindex} < \hyperlink{global_8h_a7213d21e4bbb1af3d5e0588552e0f22c}{DOORMAX} && !near\_door);
+1151 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a77b4c8d2c8e5ac7d368634024d7e88b2}{\index{mklev.\+c@{mklev.\+c}!place\+\_\+branch@{place\+\_\+branch}}
+\index{place\+\_\+branch@{place\+\_\+branch}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{place\+\_\+branch}]{\setlength{\rightskip}{0pt plus 5cm}void place\+\_\+branch (
+\begin{DoxyParamCaption}
+\item[{{\bf branch} $\ast$}]{br, }
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a77b4c8d2c8e5ac7d368634024d7e88b2}
+
+
+Definition at line 1060 of file mklev.\+c.
+
+
+
+References B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D1, B\+R\+\_\+\+N\+O\+\_\+\+E\+N\+D2, B\+R\+\_\+\+P\+O\+R\+T\+A\+L, d\+\_\+level\+::dlevel, d\+\_\+level\+::dnum, find\+\_\+branch\+\_\+room(), L\+A\+\_\+\+D\+O\+W\+N, L\+A\+\_\+\+U\+P, levl, m, mkportal(), pos\+\_\+to\+\_\+room(), sstairs, sstairs\+\_\+room, S\+T\+A\+I\+R\+S, stairway\+::sx, stairway\+::sy, stairway\+::tolev, T\+R\+U\+E, u, stairway\+::up, you\+::uz, coord\+::x, and coord\+::y.
+
+
+
+Referenced by makelevel(), makemaz(), mk\+\_\+knox\+\_\+portal(), place\+\_\+lregion(), and put\+\_\+lregion\+\_\+here().
+
+
+\begin{DoxyCode}
+1063 \{
+1064     \hyperlink{structcoord}{coord}        \hyperlink{muse_8c_a3ff7db235f25673e1fe2b7b1d66d305d}{m};
+1065     \hyperlink{structd__level}{d\_level}        *dest;
+1066     \textcolor{keywordtype}{boolean}       make\_stairs;
+1067     \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *br\_room;
+1068 
+1069     \textcolor{comment}{/*}
+1070 \textcolor{comment}{     * Return immediately if there is no branch to make or we have}
+1071 \textcolor{comment}{     * already made one.  This routine can be called twice when}
+1072 \textcolor{comment}{     * a special level is loaded that specifies an SSTAIR location}
+1073 \textcolor{comment}{     * as a favored spot for a branch.}
+1074 \textcolor{comment}{     */}
+1075     \textcolor{keywordflow}{if} (!br || \hyperlink{mklev_8c_a607aaf2a81698be0d8164a4abaf43f8a}{made\_branch}) \textcolor{keywordflow}{return};
+1076 
+1077     \textcolor{keywordflow}{if} (!x) \{   \textcolor{comment}{/* find random coordinates for branch */}
+1078         br\_room = \hyperlink{mklev_8c_a34c9ab4b8c83ec76fb8abf6c4ce3e4c6}{find\_branch\_room}(&m);
+1079         x = m.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+1080         y = m.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+1081     \} \textcolor{keywordflow}{else} \{
+1082         br\_room = \hyperlink{mklev_8c_a268a2ea8e1a8b94da6088d00fe56e6a0}{pos\_to\_room}(x, y);
+1083     \}
+1084 
+1085     \textcolor{keywordflow}{if} (on\_level(&br->\hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1}, &\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+1086         \textcolor{comment}{/* we're on end1 */}
+1087         make\_stairs = br->\hyperlink{structbranch_ada8b57edb359f2fa43429fc63662b385}{type} != \hyperlink{dungeon_8h_aa87ac1a9cff7510713f573dbddff0c41}{BR\_NO\_END1};
+1088         dest = &br->\hyperlink{structbranch_ae943c130ab49b7d1281034ce23e84977}{end2};
+1089     \} \textcolor{keywordflow}{else} \{
+1090         \textcolor{comment}{/* we're on end2 */}
+1091         make\_stairs = br->\hyperlink{structbranch_ada8b57edb359f2fa43429fc63662b385}{type} != \hyperlink{dungeon_8h_aeb3ee576fc92f4899167661b3335f111}{BR\_NO\_END2};
+1092         dest = &br->\hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1};
+1093     \}
+1094 
+1095     \textcolor{keywordflow}{if} (br->\hyperlink{structbranch_ada8b57edb359f2fa43429fc63662b385}{type} == \hyperlink{dungeon_8h_af0d2f515b7dc33373de1aaafb9483541}{BR\_PORTAL}) \{
+1096         \hyperlink{mkmaze_8c_abd2165e241ae67bc0d7999cd8b36a742}{mkportal}(x, y, dest->\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}, dest->\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel});
+1097     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (make\_stairs) \{
+1098         \hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs}.\hyperlink{structstairway_af8a3fe0724bfd9702ad9aae6aa2aa850}{sx} = x;
+1099         \hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs}.\hyperlink{structstairway_a782c2bebca97b67e6299d2d5f8c2844f}{sy} = y;
+1100         \hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs}.\hyperlink{structstairway_a094992532e8ae225101143f2c57d6d1a}{up} = (char) on\_level(&br->\hyperlink{structbranch_a6be8b97f73577e49aed4266f80cd50a7}{end1}, &\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) ?
+1101                         br->\hyperlink{structbranch_aa468bd347d9b729f8a5da2e6096c4f20}{end1\_up} : !br->\hyperlink{structbranch_aa468bd347d9b729f8a5da2e6096c4f20}{end1\_up};
+1102         assign\_level(&\hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs}.\hyperlink{structstairway_a6077e82bcb38b906ea0f10700a4d2273}{tolev}, dest);
+1103         \hyperlink{mkroom_8h_a29b24120f1a35628b567a0e1db9d2dfc}{sstairs\_room} = br\_room;
+1104 
+1105         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].ladder = \hyperlink{decl_8h_ae69b4e2e218b5111c75615131978f33c}{sstairs}.\hyperlink{structstairway_a094992532e8ae225101143f2c57d6d1a}{up} ? \hyperlink{rm_8h_a1ecf378536cdea01eb37ec943fe1d3df}{LA\_UP} : \hyperlink{rm_8h_a6ae800b588662120096274fda9aa68e2}{LA\_DOWN};
+1106         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = \hyperlink{rm_8h_a814976bdce7e0d26e78d426fdb6f1b22}{STAIRS};
+1107     \}
+1108     \textcolor{comment}{/*}
+1109 \textcolor{comment}{     * Set made\_branch to TRUE even if we didn't make a stairwell (i.e.}
+1110 \textcolor{comment}{     * make\_stairs is false) since there is currently only one branch}
+1111 \textcolor{comment}{     * per level, if we failed once, we're going to fail again on the}
+1112 \textcolor{comment}{     * next call.}
+1113 \textcolor{comment}{     */}
+1114     \hyperlink{mklev_8c_a607aaf2a81698be0d8164a4abaf43f8a}{made\_branch} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1115 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a0d57e3f7405301bb203abb2ef3c07f90}{\index{mklev.\+c@{mklev.\+c}!place\+\_\+niche@{place\+\_\+niche}}
+\index{place\+\_\+niche@{place\+\_\+niche}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{place\+\_\+niche}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} place\+\_\+niche (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mkroom} $\ast$}]{aroom, }
+\item[{int $\ast$}]{dy, }
+\item[{int $\ast$}]{xx, }
+\item[{int $\ast$}]{yy}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a0d57e3f7405301bb203abb2ef3c07f90}
+
+
+Definition at line 430 of file mklev.\+c.
+
+
+
+References dd, finddpos(), I\+S\+\_\+\+F\+U\+R\+N\+I\+T\+U\+R\+E, I\+S\+\_\+\+P\+O\+O\+L, levl, S\+T\+O\+N\+E, coord\+::x, and coord\+::y.
+
+
+
+Referenced by makeniche().
+
+
+\begin{DoxyCode}
+433 \{
+434     \hyperlink{structcoord}{coord} \hyperlink{celib_8c_af93f6b4995f5a7949cf616339b3a62b1}{dd};
+435 
+436     \textcolor{keywordflow}{if}(rn2(2)) \{
+437         *dy = 1;
+438         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&dd, aroom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}, aroom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy}+1, aroom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}, aroom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy}+1);
+439     \} \textcolor{keywordflow}{else} \{
+440         *dy = -1;
+441         \hyperlink{mklev_8c_af4af6e83be4b311fef16207ddbb202f3}{finddpos}(&dd, aroom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}, aroom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}-1, aroom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}, aroom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}-1);
+442     \}
+443     *xx = dd.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+444     *yy = dd.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+445     \textcolor{keywordflow}{return}((\textcolor{keywordtype}{boolean})((isok(*xx,*yy+*dy) && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[*xx][*yy+*dy].typ == \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE})
+446         && (isok(*xx,*yy-*dy) && !\hyperlink{rm_8h_af8646f234f17ac8ab9165330194fa775}{IS\_POOL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[*xx][*yy-*dy].typ)
+447                   && !\hyperlink{rm_8h_a45d6f42899b65732f3784e37e713773f}{IS\_FURNITURE}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[*xx][*yy-*dy].typ))));
+448 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_a268a2ea8e1a8b94da6088d00fe56e6a0}{\index{mklev.\+c@{mklev.\+c}!pos\+\_\+to\+\_\+room@{pos\+\_\+to\+\_\+room}}
+\index{pos\+\_\+to\+\_\+room@{pos\+\_\+to\+\_\+room}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{pos\+\_\+to\+\_\+room}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} struct {\bf mkroom}$\ast$ pos\+\_\+to\+\_\+room (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_a268a2ea8e1a8b94da6088d00fe56e6a0}
+
+
+Definition at line 1046 of file mklev.\+c.
+
+
+
+References nroom, and rooms.
+
+
+
+Referenced by place\+\_\+branch().
+
+
+\begin{DoxyCode}
+1048 \{
+1049     \textcolor{keywordtype}{int} i;
+1050     \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *curr;
+1051 
+1052     \textcolor{keywordflow}{for} (curr = \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}, i = 0; i < \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}; curr++, i++)
+1053     \textcolor{keywordflow}{if} (inside\_room(curr, x, y)) \textcolor{keywordflow}{return} curr;;
+1054     \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} \hyperlink{structmkroom}{mkroom} *) 0;
+1055 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_ae00f5b38164c3c9c9b5c0de3734d6a22}{\index{mklev.\+c@{mklev.\+c}!sort\+\_\+rooms@{sort\+\_\+rooms}}
+\index{sort\+\_\+rooms@{sort\+\_\+rooms}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{sort\+\_\+rooms}]{\setlength{\rightskip}{0pt plus 5cm}void sort\+\_\+rooms (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ae00f5b38164c3c9c9b5c0de3734d6a22}
+
+
+Definition at line 108 of file mklev.\+c.
+
+
+
+References nroom, and rooms.
+
+
+
+Referenced by create\+\_\+corridor(), and makelevel().
+
+
+\begin{DoxyCode}
+109 \{
+110 \textcolor{preprocessor}{#if defined(SYSV) || defined(DGUX)}
+111     qsort((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}, (\textcolor{keywordtype}{unsigned})\hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} 
+      \hyperlink{structmkroom}{mkroom}), \hyperlink{mklev_8c_ae5cacaa7ce18b847b302ba12aa19eaca}{do\_comp});
+112 \textcolor{preprocessor}{#else}
+113     qsort((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) rooms, nroom, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structmkroom}{mkroom}), 
+      \hyperlink{mklev_8c_ae5cacaa7ce18b847b302ba12aa19eaca}{do\_comp});
+114 \textcolor{preprocessor}{#endif}
+115 \}
+\end{DoxyCode}
+\hypertarget{mklev_8c_ac3aecaa5e9dbd24cb58763276451439c}{\index{mklev.\+c@{mklev.\+c}!topologize@{topologize}}
+\index{topologize@{topologize}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{topologize}]{\setlength{\rightskip}{0pt plus 5cm}void topologize (
+\begin{DoxyParamCaption}
+\item[{struct {\bf mkroom} $\ast$}]{croom}
+\end{DoxyParamCaption}
+)}}\label{mklev_8c_ac3aecaa5e9dbd24cb58763276451439c}
+
+
+Definition at line 953 of file mklev.\+c.
+
+
+
+References Is\+\_\+rogue\+\_\+level, levl, N\+O\+\_\+\+R\+O\+O\+M, mkroom\+::nsubrooms, O\+R\+O\+O\+M, R\+O\+O\+M\+O\+F\+F\+S\+E\+T, rooms, mkroom\+::rtype, S\+H\+A\+R\+E\+D, T\+R\+U\+E, u, and you\+::uz.
+
+
+
+Referenced by build\+\_\+room(), load\+\_\+maze(), and mklev().
+
+
+\begin{DoxyCode}
+956 \{
+957     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x, y, roomno = (croom - \hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}) + \hyperlink{mkroom_8h_acc0f2416007c594c5d38f980dedc1b68}{ROOMOFFSET};
+958     \textcolor{keyword}{register} \textcolor{keywordtype}{int} lowx = croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}, lowy = croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly};
+959     \textcolor{keyword}{register} \textcolor{keywordtype}{int} hix = croom->\hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx}, hiy = croom->\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy};
+960 \textcolor{preprocessor}{#ifdef SPECIALIZATION}
+961     \textcolor{keyword}{register} \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} \hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype} = croom->\hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype};
+962 \textcolor{preprocessor}{#endif}
+963     \textcolor{keyword}{register} \textcolor{keywordtype}{int} subindex, \hyperlink{structmkroom_ad45b51274d899541dc61dfa169e06ffb}{nsubrooms} = croom->\hyperlink{structmkroom_ad45b51274d899541dc61dfa169e06ffb}{nsubrooms};
+964 
+965     \textcolor{comment}{/* skip the room if already done; i.e. a shop handled out of order */}
+966     \textcolor{comment}{/* also skip if this is non-rectangular (it \_must\_ be done already) */}
+967     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[lowx][lowy].roomno == roomno || croom->\hyperlink{structmkroom_a394c3dd48b7fc60e0098c41afde6d6e8}{irregular})
+968         \textcolor{keywordflow}{return};
+969 \textcolor{preprocessor}{#ifdef SPECIALIZATION}
+970 \textcolor{preprocessor}{# ifdef REINCARNATION}
+971     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+972         do\_ordinary = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};     \textcolor{comment}{/* vision routine helper */}
+973 \textcolor{preprocessor}{# endif}
+974     \textcolor{keywordflow}{if} ((rtype != \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}) || do\_ordinary)
+975 #endif
+976     \{
+977         \textcolor{comment}{/* do innards first */}
+978         \textcolor{keywordflow}{for}(x = lowx; x <= hix; x++)
+979         \textcolor{keywordflow}{for}(y = lowy; y <= hiy; y++)
+980 #ifdef SPECIALIZATION
+981             \textcolor{keywordflow}{if} (rtype == \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM})
+982             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].roomno = \hyperlink{mkroom_8h_ab24ac2be24cb232a8d9ff2e5d32c84cb}{NO\_ROOM};
+983             \textcolor{keywordflow}{else}
+984 \textcolor{preprocessor}{#endif}
+985             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].roomno = roomno;
+986         \textcolor{comment}{/* top and bottom edges */}
+987         \textcolor{keywordflow}{for}(x = lowx-1; x <= hix+1; x++)
+988         \textcolor{keywordflow}{for}(y = lowy-1; y <= hiy+1; y += (hiy-lowy+2)) \{
+989             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].edge = 1;
+990             \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].roomno)
+991             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].roomno = \hyperlink{mkroom_8h_a884c794595c4aa480df9022648c29564}{SHARED};
+992             \textcolor{keywordflow}{else}
+993             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].roomno = roomno;
+994         \}
+995         \textcolor{comment}{/* sides */}
+996         \textcolor{keywordflow}{for}(x = lowx-1; x <= hix+1; x += (hix-lowx+2))
+997         \textcolor{keywordflow}{for}(y = lowy; y <= hiy; y++) \{
+998             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].edge = 1;
+999             \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].roomno)
+1000             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].roomno = \hyperlink{mkroom_8h_a884c794595c4aa480df9022648c29564}{SHARED};
+1001             \textcolor{keywordflow}{else}
+1002             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].roomno = roomno;
+1003         \}
+1004     \}
+1005     \textcolor{comment}{/* subrooms */}
+1006     \textcolor{keywordflow}{for} (subindex = 0; subindex < \hyperlink{structmkroom_ad45b51274d899541dc61dfa169e06ffb}{nsubrooms}; subindex++)
+1007 #ifdef SPECIALIZATION
+1008         \hyperlink{mklev_8c_ac3aecaa5e9dbd24cb58763276451439c}{topologize}(croom->\hyperlink{structmkroom_ae0365d286660d2b39729c3e7a2c4dc66}{sbrooms}[subindex], (rtype != \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}));
+1009 \textcolor{preprocessor}{#else}
+1010         \hyperlink{mklev_8c_ac3aecaa5e9dbd24cb58763276451439c}{topologize}(croom->\hyperlink{structmkroom_ae0365d286660d2b39729c3e7a2c4dc66}{sbrooms}[subindex]);
+1011 \textcolor{preprocessor}{#endif}
+1012 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{mklev_8c_aa85eddb8a29fb1dec88970233311effa}{\index{mklev.\+c@{mklev.\+c}!goldseen@{goldseen}}
+\index{goldseen@{goldseen}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{goldseen}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} goldseen}}\label{mklev_8c_aa85eddb8a29fb1dec88970233311effa}
+
+
+Definition at line 53 of file mklev.\+c.
+
+\hypertarget{mklev_8c_a607aaf2a81698be0d8164a4abaf43f8a}{\index{mklev.\+c@{mklev.\+c}!made\+\_\+branch@{made\+\_\+branch}}
+\index{made\+\_\+branch@{made\+\_\+branch}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{made\+\_\+branch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} made\+\_\+branch\hspace{0.3cm}{\ttfamily [static]}}}\label{mklev_8c_a607aaf2a81698be0d8164a4abaf43f8a}
+
+
+Definition at line 54 of file mklev.\+c.
+
+\hypertarget{mklev_8c_abf0e6a0288242cd2969b399a7ec2d65a}{\index{mklev.\+c@{mklev.\+c}!trap\+\_\+engravings@{trap\+\_\+engravings}}
+\index{trap\+\_\+engravings@{trap\+\_\+engravings}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{trap\+\_\+engravings}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} {\bf const} char$\ast$ trap\+\_\+engravings\mbox{[}{\bf T\+R\+A\+P\+N\+U\+M}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{mklev_8c_abf0e6a0288242cd2969b399a7ec2d65a}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+            (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0,
+            (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0,
+            (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0,
+            
+            \textcolor{stringliteral}{"Vlad was here"}, \textcolor{stringliteral}{"ad aerarium"}, \textcolor{stringliteral}{"ad aerarium"},
+            (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0,
+            (\textcolor{keywordtype}{char} *)0,
+\}
+\end{DoxyCode}
+
+
+Definition at line 451 of file mklev.\+c.
+
+\hypertarget{mklev_8c_aae497f717cca42034c1536b950fb427e}{\index{mklev.\+c@{mklev.\+c}!vault\+\_\+x@{vault\+\_\+x}}
+\index{vault\+\_\+x@{vault\+\_\+x}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{vault\+\_\+x}]{\setlength{\rightskip}{0pt plus 5cm}{\bf xchar} vault\+\_\+x\hspace{0.3cm}{\ttfamily [static]}}}\label{mklev_8c_aae497f717cca42034c1536b950fb427e}
+
+
+Definition at line 52 of file mklev.\+c.
+
+\hypertarget{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}{\index{mklev.\+c@{mklev.\+c}!vault\+\_\+y@{vault\+\_\+y}}
+\index{vault\+\_\+y@{vault\+\_\+y}!mklev.\+c@{mklev.\+c}}
+\subsubsection[{vault\+\_\+y}]{\setlength{\rightskip}{0pt plus 5cm}{\bf xchar} vault\+\_\+y\hspace{0.3cm}{\ttfamily [static]}}}\label{mklev_8c_aeada9d09a44b95d0e7ed15f397e93d60}
+
+
+Definition at line 52 of file mklev.\+c.
+

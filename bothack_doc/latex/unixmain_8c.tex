@@ -1,0 +1,574 @@
+\hypertarget{unixmain_8c}{\section{nethack/sys/unix/unixmain.c File Reference}
+\label{unixmain_8c}\index{nethack/sys/unix/unixmain.\+c@{nethack/sys/unix/unixmain.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+{\ttfamily \#include $<$pwd.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct passwd $\ast$ \hyperlink{unixmain_8c_a5ab61cdbb6f436b16ed27ec0fde564d8}{F\+D\+E\+C\+L} (getpwuid,(int))
+\item 
+struct passwd $\ast$ \hyperlink{unixmain_8c_ab7f96e7c6c32580c31c11f5d119726ac}{F\+D\+E\+C\+L} (getpwnam,(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{unixmain_8c_a7d630f45df03d3cb6d8969aca8828c79}{N\+D\+E\+C\+L} (\hyperlink{vmsmain_8c_acb3878c0525f3bdce2d3faa1d320dbeb}{whoami})
+\item 
+static void \hyperlink{unixmain_8c_a4e2618330bfaf16da0ace1b33d9d8362}{F\+D\+E\+C\+L} (\hyperlink{vmsmain_8c_a987a92f55c7b63b7caa697eb7307f266}{process\+\_\+options},(int, char $\ast$$\ast$))
+\item 
+static void \hyperlink{unixmain_8c_ac0f77e9017ee17cf2ffc0fa15fc1c837}{N\+D\+E\+C\+L} (\hyperlink{vmsmain_8c_aaa3ddf65efbe4146106c12cf1464d917}{wd\+\_\+message})
+\item 
+int \hyperlink{unixmain_8c_afced8478b91af5c169926dfa4426333d}{main} (int argc, argv)
+\item 
+static void \hyperlink{unixmain_8c_a987a92f55c7b63b7caa697eb7307f266}{process\+\_\+options} (int argc, argv)
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{unixmain_8c_a8c8fbba4fd2cc9e90f0b02fe2754a823}{whoami} ()
+\item 
+static void \hyperlink{unixmain_8c_aaa3ddf65efbe4146106c12cf1464d917}{wd\+\_\+message} ()
+\item 
+void \hyperlink{unixmain_8c_a4b6e1f672cf36868b04539762e206898}{append\+\_\+slash} (char $\ast$\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name})
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{unixmain_8c_a4b6e1f672cf36868b04539762e206898}{\index{unixmain.\+c@{unixmain.\+c}!append\+\_\+slash@{append\+\_\+slash}}
+\index{append\+\_\+slash@{append\+\_\+slash}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{append\+\_\+slash}]{\setlength{\rightskip}{0pt plus 5cm}void append\+\_\+slash (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}}\label{unixmain_8c_a4b6e1f672cf36868b04539762e206898}
+
+
+Definition at line 526 of file unixmain.\+c.
+
+
+\begin{DoxyCode}
+528 \{
+529     \textcolor{keywordtype}{char} *ptr;
+530 
+531     \textcolor{keywordflow}{if} (!*\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name})
+532         \textcolor{keywordflow}{return};
+533     ptr = \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name} + (strlen(\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}) - 1);
+534     \textcolor{keywordflow}{if} (*ptr != \textcolor{charliteral}{'/'}) \{
+535         *++ptr = \textcolor{charliteral}{'/'};
+536         *++ptr = \textcolor{charliteral}{'\(\backslash\)0'};
+537     \}
+538     \textcolor{keywordflow}{return};
+539 \}
+\end{DoxyCode}
+\hypertarget{unixmain_8c_a5ab61cdbb6f436b16ed27ec0fde564d8}{\index{unixmain.\+c@{unixmain.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}struct passwd$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{getpwuid}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{unixmain_8c_a5ab61cdbb6f436b16ed27ec0fde564d8}
+\hypertarget{unixmain_8c_ab7f96e7c6c32580c31c11f5d119726ac}{\index{unixmain.\+c@{unixmain.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}struct passwd$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{getpwnam}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{unixmain_8c_ab7f96e7c6c32580c31c11f5d119726ac}
+\hypertarget{unixmain_8c_a4e2618330bfaf16da0ace1b33d9d8362}{\index{unixmain.\+c@{unixmain.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf process\+\_\+options}}]{, }
+\item[{(int, char $\ast$$\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixmain_8c_a4e2618330bfaf16da0ace1b33d9d8362}
+\hypertarget{unixmain_8c_afced8478b91af5c169926dfa4426333d}{\index{unixmain.\+c@{unixmain.\+c}!main@{main}}
+\index{main@{main}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)}}\label{unixmain_8c_afced8478b91af5c169926dfa4426333d}
+
+
+Definition at line 48 of file unixmain.\+c.
+
+
+
+References askname, chdir(), chdirx(), choose\+\_\+windows(), C\+O\+L\+N\+O, compress(), D\+E\+F\+A\+U\+L\+T\+\_\+\+W\+I\+N\+D\+O\+W\+\_\+\+S\+Y\+S, delete\+\_\+savefile(), discover, display\+\_\+file, dlb\+\_\+init, done1(), dorecover(), error(), exit(), E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, F\+A\+L\+S\+E, F\+C\+M\+A\+S\+K, flags, fqname(), free(), getcwd(), getlock(), getuid(), hackpid, hname, iflags, init\+\_\+nhwindows, initoptions(), lock, malloc(), mark\+\_\+synch, flag\+::move, N\+E\+W\+S, instance\+\_\+flags\+::news, nh\+\_\+getenv(), pickup(), pl\+\_\+character, player\+\_\+selection, plname, plnamesuffix(), process\+\_\+options(), prscore(), restore\+\_\+saved\+\_\+game(), R\+O\+W\+N\+O, S\+A\+V\+E\+F, S\+A\+V\+E\+P\+R\+E\+F\+I\+X, S\+I\+G\+\_\+\+R\+E\+T\+\_\+\+T\+Y\+P\+E, Sprintf, Strcpy, T\+R\+U\+E, u, you\+::uhp, umask, vision\+\_\+init(), wd\+\_\+message(), whoami(), wizard, x\+\_\+maze\+\_\+max, y\+\_\+maze\+\_\+max, and yn.
+
+
+\begin{DoxyCode}
+51 \{
+52     \textcolor{keyword}{register} \textcolor{keywordtype}{int} fd;
+53 \textcolor{preprocessor}{#ifdef CHDIR}
+54     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *dir;
+55 \textcolor{preprocessor}{#endif}
+56     \textcolor{keywordtype}{boolean} exact\_username;
+57 
+58 \textcolor{preprocessor}{#if defined(\_\_APPLE\_\_)}
+59     \textcolor{comment}{/* special hack to change working directory to a resource fork when}
+60 \textcolor{comment}{       running from finder --sam */}
+61 \textcolor{preprocessor}{#define MAC\_PATH\_VALUE ".app/Contents/MacOS/"}
+62     \textcolor{keywordtype}{char} mac\_cwd[1024], *mac\_exe = argv[0], *mac\_tmp;
+63     \textcolor{keywordtype}{int} arg0\_len = strlen(mac\_exe), mac\_tmp\_len, mac\_lhs\_len=0;
+64     \hyperlink{wceconf_8h_af201f56d9c65abf2969d9b3371a054c6}{getcwd}(mac\_cwd, 1024);
+65     \textcolor{keywordflow}{if}(mac\_exe[0] == \textcolor{charliteral}{'/'} && !strcmp(mac\_cwd, \textcolor{stringliteral}{"/"})) \{
+66         \textcolor{keywordflow}{if}((mac\_exe = strrchr(mac\_exe, \textcolor{charliteral}{'/'})))
+67         mac\_exe++;
+68         \textcolor{keywordflow}{else}
+69         mac\_exe = argv[0];
+70         mac\_tmp\_len = (strlen(mac\_exe) * 2) + strlen(MAC\_PATH\_VALUE);
+71         \textcolor{keywordflow}{if}(mac\_tmp\_len <= arg0\_len) \{
+72         mac\_tmp = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(mac\_tmp\_len + 1);
+73         sprintf(mac\_tmp, \textcolor{stringliteral}{"%s%s%s"}, mac\_exe, MAC\_PATH\_VALUE, mac\_exe);
+74         \textcolor{keywordflow}{if}(!strcmp(argv[0] + (arg0\_len - mac\_tmp\_len), mac\_tmp)) \{
+75             mac\_lhs\_len = (arg0\_len - mac\_tmp\_len) + strlen(mac\_exe) + 5;
+76             \textcolor{keywordflow}{if}(mac\_lhs\_len > mac\_tmp\_len - 1)
+77             mac\_tmp = realloc(mac\_tmp, mac\_lhs\_len);
+78             strncpy(mac\_tmp, argv[0], mac\_lhs\_len);
+79             mac\_tmp[mac\_lhs\_len] = \textcolor{charliteral}{'\(\backslash\)0'};
+80             \hyperlink{wceconf_8h_ae6d5c38f8d7036c9010142bf4291d5ca}{chdir}(mac\_tmp);
+81         \}
+82         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(mac\_tmp);
+83         \}
+84     \}
+85 \textcolor{preprocessor}{#endif}
+86 
+87     \hyperlink{decl_8h_a723eae5bf45a5d8ecb28dbf26d05bc98}{hname} = argv[0];
+88     \hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid} = getpid();
+89     (void) \hyperlink{vmsunix_8c_ad988592bdd4fffff448195f8a041fc92}{umask}(0777 & ~\hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+90 
+91     \hyperlink{windows_8c_a6879f435c2e64314706d8f2ba946a303}{choose\_windows}(\hyperlink{config_8h_ab27d30612b31fb7333fc40501e15d94c}{DEFAULT\_WINDOW\_SYS});
+92 
+93 \textcolor{preprocessor}{#ifdef CHDIR            }\textcolor{comment}{/* otherwise no chdir() */}\textcolor{preprocessor}{}
+94     \textcolor{comment}{/*}
+95 \textcolor{comment}{     * See if we must change directory to the playground.}
+96 \textcolor{comment}{     * (Perhaps hack runs suid and playground is inaccessible}
+97 \textcolor{comment}{     *  for the player.)}
+98 \textcolor{comment}{     * The environment variable HACKDIR is overridden by a}
+99 \textcolor{comment}{     *  -d command line option (must be the first option given)}
+100 \textcolor{comment}{     */}
+101     dir = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"NETHACKDIR"});
+102     \textcolor{keywordflow}{if} (!dir) dir = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"HACKDIR"});
+103 \textcolor{preprocessor}{#endif}
+104     \textcolor{keywordflow}{if}(argc > 1) \{
+105 \textcolor{preprocessor}{#ifdef CHDIR}
+106         \textcolor{keywordflow}{if} (!strncmp(argv[1], \textcolor{stringliteral}{"-d"}, 2) && argv[1][2] != \textcolor{charliteral}{'e'}) \{
+107         \textcolor{comment}{/* avoid matching "-dec" for DECgraphics; since the man page}
+108 \textcolor{comment}{         * says -d directory, hope nobody's using -desomething\_else}
+109 \textcolor{comment}{         */}
+110         argc--;
+111         argv++;
+112         dir = argv[0]+2;
+113         \textcolor{keywordflow}{if}(*dir == \textcolor{charliteral}{'='} || *dir == \textcolor{charliteral}{':'}) dir++;
+114         \textcolor{keywordflow}{if}(!*dir && argc > 1) \{
+115             argc--;
+116             argv++;
+117             dir = argv[0];
+118         \}
+119         \textcolor{keywordflow}{if}(!*dir)
+120             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Flag -d must be followed by a directory name."});
+121         \}
+122         \textcolor{keywordflow}{if} (argc > 1)
+123 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* CHDIR */}\textcolor{preprocessor}{}
+124 
+125         \textcolor{comment}{/*}
+126 \textcolor{comment}{         * Now we know the directory containing 'record' and}
+127 \textcolor{comment}{         * may do a prscore().  Exclude `-style' - it's a Qt option.}
+128 \textcolor{comment}{         */}
+129         \textcolor{keywordflow}{if} (!strncmp(argv[1], \textcolor{stringliteral}{"-s"}, 2) && strncmp(argv[1], \textcolor{stringliteral}{"-style"}, 6)) \{
+130 \textcolor{preprocessor}{#ifdef CHDIR}
+131         \hyperlink{bemain_8c_a53e222f64a70757b462220929a59eb89}{chdirx}(dir,0);
+132 \textcolor{preprocessor}{#endif}
+133         \hyperlink{topten_8c_a1c335dc4cd97e311acb93aa30107ceaa}{prscore}(argc, argv);
+134         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+135         \}
+136     \}
+137 
+138     \textcolor{comment}{/*}
+139 \textcolor{comment}{     * Change directories before we initialize the window system so}
+140 \textcolor{comment}{     * we can find the tile file.}
+141 \textcolor{comment}{     */}
+142 \textcolor{preprocessor}{#ifdef CHDIR}
+143     \hyperlink{bemain_8c_a53e222f64a70757b462220929a59eb89}{chdirx}(dir,1);
+144 \textcolor{preprocessor}{#endif}
+145 
+146 \textcolor{preprocessor}{#ifdef \_M\_UNIX}
+147     check\_sco\_console();
+148 \textcolor{preprocessor}{#endif}
+149 \textcolor{preprocessor}{#ifdef \_\_linux\_\_}
+150     check\_linux\_console();
+151 \textcolor{preprocessor}{#endif}
+152     \hyperlink{options_8c_a2f4ef6da0d84a10cf334449f652decc9}{initoptions}();
+153     \hyperlink{winprocs_8h_a613c5d847a2df7d7ddca4a1308014964}{init\_nhwindows}(&argc,argv);
+154     exact\_username = \hyperlink{unixmain_8c_a8c8fbba4fd2cc9e90f0b02fe2754a823}{whoami}();
+155 \textcolor{preprocessor}{#ifdef \_M\_UNIX}
+156     init\_sco\_cons();
+157 \textcolor{preprocessor}{#endif}
+158 \textcolor{preprocessor}{#ifdef \_\_linux\_\_}
+159     init\_linux\_cons();
+160 \textcolor{preprocessor}{#endif}
+161 
+162     \textcolor{comment}{/*}
+163 \textcolor{comment}{     * It seems you really want to play.}
+164 \textcolor{comment}{     */}
+165     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} = 1;  \textcolor{comment}{/* prevent RIP on early quits */}
+166     (void) signal(SIGHUP, (\hyperlink{beconf_8h_a1a6cd64290d8bd530aa53c9094ff277d}{SIG\_RET\_TYPE}) hangup);
+167 \textcolor{preprocessor}{#ifdef SIGXCPU}
+168     (void) signal(SIGXCPU, (\hyperlink{beconf_8h_a1a6cd64290d8bd530aa53c9094ff277d}{SIG\_RET\_TYPE}) hangup);
+169 \textcolor{preprocessor}{#endif}
+170 
+171     \hyperlink{unixmain_8c_a987a92f55c7b63b7caa697eb7307f266}{process\_options}(argc, argv); \textcolor{comment}{/* command line options */}
+172 
+173 \textcolor{preprocessor}{#ifdef DEF\_PAGER}
+174     \textcolor{keywordflow}{if}(!(catmore = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"HACKPAGER"})) && !(catmore = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"PAGER"})))
+175         catmore = DEF\_PAGER;
+176 \textcolor{preprocessor}{#endif}
+177 \textcolor{preprocessor}{#ifdef MAIL}
+178     getmailstatus();
+179 \textcolor{preprocessor}{#endif}
+180 \textcolor{preprocessor}{#ifdef WIZARD}
+181     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard})
+182         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"wizard"});
+183     \textcolor{keywordflow}{else}
+184 \textcolor{preprocessor}{#endif}
+185     \textcolor{keywordflow}{if}(!*\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname} || !strncmp(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"player"}, 4)
+186             || !strncmp(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"games"}, 4)) \{
+187         \hyperlink{winprocs_8h_ad24a017e7b5381254a426b4f653881d6}{askname}();
+188     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (exact\_username) \{
+189         \textcolor{comment}{/* guard against user names with hyphens in them */}
+190         \textcolor{keywordtype}{int} len = strlen(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+191         \textcolor{comment}{/* append the current role, if any, so that last dash is ours */}
+192         \textcolor{keywordflow}{if} (++len < \textcolor{keyword}{sizeof} \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})
+193             (void)strncat(strcat(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \textcolor{stringliteral}{"-"}),
+194                       \hyperlink{decl_8h_a053ad248bf641e54a6f7bfb6a8fb9e05}{pl\_character}, \textcolor{keyword}{sizeof} \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname} - len - 1);
+195     \}
+196     \hyperlink{role_8c_aa0498399050c03eb7ddd757e2d7f320e}{plnamesuffix}();     \textcolor{comment}{/* strip suffix from name; calls askname() */}
+197                 \textcolor{comment}{/* again if suffix was whole name */}
+198                 \textcolor{comment}{/* accepts any suffix */}
+199 \textcolor{preprocessor}{#ifdef WIZARD}
+200     \textcolor{keywordflow}{if}(!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \{
+201 \textcolor{preprocessor}{#endif}
+202         \textcolor{comment}{/*}
+203 \textcolor{comment}{         * check for multiple games under the same name}
+204 \textcolor{comment}{         * (if !locknum) or check max nr of players (otherwise)}
+205 \textcolor{comment}{         */}
+206         (void) signal(SIGQUIT,SIG\_IGN);
+207         (void) signal(SIGINT,SIG\_IGN);
+208         \textcolor{keywordflow}{if}(!locknum)
+209             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \textcolor{stringliteral}{"%d%s"}, (\textcolor{keywordtype}{int})\hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}(), \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+210         \hyperlink{bemain_8c_a21738d427cae396cec6f2f009adb29c3}{getlock}();
+211 \textcolor{preprocessor}{#ifdef WIZARD}
+212     \} \textcolor{keywordflow}{else} \{
+213         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \textcolor{stringliteral}{"%d%s"}, (\textcolor{keywordtype}{int})\hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}(), \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname});
+214         \hyperlink{bemain_8c_a21738d427cae396cec6f2f009adb29c3}{getlock}();
+215     \}
+216 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* WIZARD */}\textcolor{preprocessor}{}
+217 
+218     \hyperlink{dlb_8h_af25f20c0b4f30c2b124fbe4f2e54ad3c}{dlb\_init}(); \textcolor{comment}{/* must be before newgame() */}
+219 
+220     \textcolor{comment}{/*}
+221 \textcolor{comment}{     * Initialization of the boundaries of the mazes}
+222 \textcolor{comment}{     * Both boundaries have to be even.}
+223 \textcolor{comment}{     */}
+224     \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max} = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+225     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max} % 2)
+226         \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max}--;
+227     \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max} = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1;
+228     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max} % 2)
+229         \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max}--;
+230 
+231     \textcolor{comment}{/*}
+232 \textcolor{comment}{     *  Initialize the vision system.  This must be before mklev() on a}
+233 \textcolor{comment}{     *  new game or before a level restore on a saved game.}
+234 \textcolor{comment}{     */}
+235     \hyperlink{vision_8c_ae84d85f205596be999ea45113fb8810f}{vision\_init}();
+236 
+237     display\_gamewindows();
+238 
+239     \textcolor{keywordflow}{if} ((fd = \hyperlink{files_8c_af780b8c38357751a8a60624825b8e2d8}{restore\_saved\_game}()) >= 0) \{
+240 \textcolor{preprocessor}{#ifdef WIZARD}
+241         \textcolor{comment}{/* Since wizard is actually flags.debug, restoring might}
+242 \textcolor{comment}{         * overwrite it.}
+243 \textcolor{comment}{         */}
+244         \textcolor{keywordtype}{boolean} remember\_wiz\_mode = \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard};
+245 \textcolor{preprocessor}{#endif}
+246         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_save = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a12ec3caf95cc60603fc1ecc9b7266e48}{SAVEF}, \hyperlink{decl_8h_a70a946c7d1c02b32e83dbc74bc60a0ac}{SAVEPREFIX}, 1);
+247 
+248         (void) chmod(fq\_save,0);    \textcolor{comment}{/* disallow parallel restores */}
+249         (void) signal(SIGINT, (\hyperlink{beconf_8h_a1a6cd64290d8bd530aa53c9094ff277d}{SIG\_RET\_TYPE}) \hyperlink{end_8c_a2082a4dffb6195df4e125aa90a4fe0cd}{done1});
+250 \textcolor{preprocessor}{#ifdef NEWS}
+251         \textcolor{keywordflow}{if}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news}) \{
+252             \hyperlink{winprocs_8h_a9a2d6fa35e52cd43166e411ec33926ef}{display\_file}(\hyperlink{config_8h_adfcdf96482b20ff90defa8fd75b84a7c}{NEWS}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+253             \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}; \textcolor{comment}{/* in case dorecover() fails */}
+254         \}
+255 \textcolor{preprocessor}{#endif}
+256         pline(\textcolor{stringliteral}{"Restoring save file..."});
+257         \hyperlink{winprocs_8h_a72bbad3e5805d71f128c614261fc7ee0}{mark\_synch}(); \textcolor{comment}{/* flush output */}
+258         \textcolor{keywordflow}{if}(!\hyperlink{restore_8c_a4fb439a417b679a962bff63981841e4c}{dorecover}(fd))
+259             \textcolor{keywordflow}{goto} not\_recovered;
+260 \textcolor{preprocessor}{#ifdef WIZARD}
+261         \textcolor{keywordflow}{if}(!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && remember\_wiz\_mode) \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+262 \textcolor{preprocessor}{#endif}
+263         check\_special\_room(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+264         \hyperlink{unixmain_8c_aaa3ddf65efbe4146106c12cf1464d917}{wd\_message}();
+265 
+266         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover} || \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \{
+267             \textcolor{keywordflow}{if}(\hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(\textcolor{stringliteral}{"Do you want to keep the save file?"}) == \textcolor{charliteral}{'n'})
+268                 (void) \hyperlink{files_8c_a848354a4d70a646ed2c6ecf138054110}{delete\_savefile}();
+269             \textcolor{keywordflow}{else} \{
+270                 (void) chmod(fq\_save,\hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK}); \textcolor{comment}{/* back to readable */}
+271                 \hyperlink{files_8c_a972d5467067d99c9406312d01203d690}{compress}(fq\_save);
+272             \}
+273         \}
+274         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae91760a156a6d1949297a53272137325}{move} = 0;
+275     \} \textcolor{keywordflow}{else} \{
+276 not\_recovered:
+277         \hyperlink{winprocs_8h_ac766fbb6f1679d4a7d996e8b0cfc6cea}{player\_selection}();
+278         newgame();
+279         \hyperlink{unixmain_8c_aaa3ddf65efbe4146106c12cf1464d917}{wd\_message}();
+280 
+281         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae91760a156a6d1949297a53272137325}{move} = 0;
+282         set\_wear();
+283         (void) \hyperlink{pickup_8c_ab9fd1f5835d6d35507a05e910e86d862}{pickup}(1);
+284     \}
+285 
+286     moveloop();
+287     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+288     \textcolor{comment}{/*NOTREACHED*/}
+289     \textcolor{keywordflow}{return}(0);
+290 \}
+\end{DoxyCode}
+\hypertarget{unixmain_8c_a7d630f45df03d3cb6d8969aca8828c79}{\index{unixmain.\+c@{unixmain.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf boolean} N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf whoami}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixmain_8c_a7d630f45df03d3cb6d8969aca8828c79}
+\hypertarget{unixmain_8c_ac0f77e9017ee17cf2ffc0fa15fc1c837}{\index{unixmain.\+c@{unixmain.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf wd\+\_\+message}}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixmain_8c_ac0f77e9017ee17cf2ffc0fa15fc1c837}
+\hypertarget{unixmain_8c_a987a92f55c7b63b7caa697eb7307f266}{\index{unixmain.\+c@{unixmain.\+c}!process\+\_\+options@{process\+\_\+options}}
+\index{process\+\_\+options@{process\+\_\+options}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{process\+\_\+options}]{\setlength{\rightskip}{0pt plus 5cm}static void process\+\_\+options (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixmain_8c_a987a92f55c7b63b7caa697eb7307f266}
+
+
+Definition at line 293 of file unixmain.\+c.
+
+
+
+References D\+E\+C\+\_\+\+G\+R\+A\+P\+H\+I\+C\+S, discover, F\+A\+L\+S\+E, flags, getlogin, getuid(), I\+B\+M\+\_\+\+G\+R\+A\+P\+H\+I\+C\+S, iflags, flag\+::initrace, flag\+::initrole, instance\+\_\+flags\+::news, nh\+\_\+getenv(), plname, flag\+::randomall, raw\+\_\+print, str2race(), str2role(), strncmpi(), switch\+\_\+graphics(), T\+R\+U\+E, wizard, and W\+I\+Z\+A\+R\+D.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+296 \{
+297     \textcolor{keywordtype}{int} i;
+298 
+299 
+300     \textcolor{comment}{/*}
+301 \textcolor{comment}{     * Process options.}
+302 \textcolor{comment}{     */}
+303     \textcolor{keywordflow}{while}(argc > 1 && argv[1][0] == \textcolor{charliteral}{'-'})\{
+304         argv++;
+305         argc--;
+306         \textcolor{keywordflow}{switch}(argv[0][1])\{
+307         \textcolor{keywordflow}{case} \textcolor{charliteral}{'D'}:
+308 \textcolor{preprocessor}{#ifdef WIZARD}
+309             \{
+310               \textcolor{keywordtype}{char} *user;
+311               \textcolor{keywordtype}{int} uid;
+312               \textcolor{keyword}{struct }passwd *pw = (\textcolor{keyword}{struct }passwd *)0;
+313 
+314               uid = \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}();
+315               user = \hyperlink{ntconf_8h_a65aec0010f6a05ff8d3777e328da2610}{getlogin}();
+316               \textcolor{keywordflow}{if} (user) \{
+317                   pw = getpwnam(user);
+318                   \textcolor{keywordflow}{if} (pw && (pw->pw\_uid != uid)) pw = 0;
+319               \}
+320               \textcolor{keywordflow}{if} (pw == 0) \{
+321                   user = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"USER"});
+322                   \textcolor{keywordflow}{if} (user) \{
+323                   pw = getpwnam(user);
+324                   \textcolor{keywordflow}{if} (pw && (pw->pw\_uid != uid)) pw = 0;
+325                   \}
+326                   \textcolor{keywordflow}{if} (pw == 0) \{
+327                   pw = getpwuid(uid);
+328                   \}
+329               \}
+330               \textcolor{keywordflow}{if} (pw && !strcmp(pw->pw\_name,\hyperlink{config_8h_a7d25468f2993889250dd6664a4e6b011}{WIZARD})) \{
+331                   \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+332                   \textcolor{keywordflow}{break};
+333               \}
+334             \}
+335             \textcolor{comment}{/* otherwise fall thru to discover */}
+336             wiz\_error\_flag = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+337 \textcolor{preprocessor}{#endif}
+338         \textcolor{keywordflow}{case} \textcolor{charliteral}{'X'}:
+339             \hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+340             \textcolor{keywordflow}{break};
+341 \textcolor{preprocessor}{#ifdef NEWS}
+342         \textcolor{keywordflow}{case} \textcolor{charliteral}{'n'}:
+343             \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a65a361ffd2534ddff433ba62f3dfb579}{news} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+344             \textcolor{keywordflow}{break};
+345 \textcolor{preprocessor}{#endif}
+346         \textcolor{keywordflow}{case} \textcolor{charliteral}{'u'}:
+347             \textcolor{keywordflow}{if}(argv[0][2])
+348               (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, argv[0]+2, \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+349             \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(argc > 1) \{
+350               argc--;
+351               argv++;
+352               (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, argv[0], \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+353             \} \textcolor{keywordflow}{else}
+354                 \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{"Player name expected after -u"});
+355             \textcolor{keywordflow}{break};
+356         \textcolor{keywordflow}{case} \textcolor{charliteral}{'I'}:
+357         \textcolor{keywordflow}{case} \textcolor{charliteral}{'i'}:
+358             \textcolor{keywordflow}{if} (!\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(argv[0]+1, \textcolor{stringliteral}{"IBM"}, 3))
+359                 \hyperlink{drawing_8c_a0ba09dee9ab5e45ff03f6b0bfa0b9f1e}{switch\_graphics}(\hyperlink{rm_8h_a935319051fae1fe5674b6fbb39933733}{IBM\_GRAPHICS});
+360             \textcolor{keywordflow}{break};
+361         \textcolor{comment}{/*  case 'D': */}
+362         \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}:
+363             \textcolor{keywordflow}{if} (!\hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi}(argv[0]+1, \textcolor{stringliteral}{"DEC"}, 3))
+364                 \hyperlink{drawing_8c_a0ba09dee9ab5e45ff03f6b0bfa0b9f1e}{switch\_graphics}(\hyperlink{rm_8h_a09c6675e014eb197a43bc2e26fafb6e5}{DEC\_GRAPHICS});
+365             \textcolor{keywordflow}{break};
+366         \textcolor{keywordflow}{case} \textcolor{charliteral}{'p'}: \textcolor{comment}{/* profession (role) */}
+367             \textcolor{keywordflow}{if} (argv[0][2]) \{
+368                 \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(&argv[0][2])) >= 0)
+369                     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = i;
+370             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc > 1) \{
+371                 argc--;
+372                 argv++;
+373                 \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(argv[0])) >= 0)
+374                     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = i;
+375             \}
+376             \textcolor{keywordflow}{break};
+377         \textcolor{keywordflow}{case} \textcolor{charliteral}{'r'}: \textcolor{comment}{/* race */}
+378             \textcolor{keywordflow}{if} (argv[0][2]) \{
+379                 \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a53f7288b95e8681fa29297e9a569dedd}{str2race}(&argv[0][2])) >= 0)
+380                     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = i;
+381             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (argc > 1) \{
+382                 argc--;
+383                 argv++;
+384                 \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a53f7288b95e8681fa29297e9a569dedd}{str2race}(argv[0])) >= 0)
+385                     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a4c946d68b3e8e39311a0d20be0027a26}{initrace} = i;
+386             \}
+387             \textcolor{keywordflow}{break};
+388         \textcolor{keywordflow}{case} \textcolor{charliteral}{'@'}:
+389             \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a06854edfd7c6649ef7381c7ca1865f85}{randomall} = 1;
+390             \textcolor{keywordflow}{break};
+391         \textcolor{keywordflow}{default}:
+392             \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(&argv[0][1])) >= 0) \{
+393                 \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a3b31f41da5faa08ea53d1e7ddf857088}{initrole} = i;
+394                 \textcolor{keywordflow}{break};
+395             \}
+396             \textcolor{comment}{/* else raw\_printf("Unknown option: %s", *argv); */}
+397         \}
+398     \}
+399 
+400     \textcolor{keywordflow}{if}(argc > 1)
+401         locknum = atoi(argv[1]);
+402 \textcolor{preprocessor}{#ifdef MAX\_NR\_OF\_PLAYERS}
+403     \textcolor{keywordflow}{if}(!locknum || locknum > MAX\_NR\_OF\_PLAYERS)
+404         locknum = MAX\_NR\_OF\_PLAYERS;
+405 \textcolor{preprocessor}{#endif}
+406 \}
+\end{DoxyCode}
+\hypertarget{unixmain_8c_aaa3ddf65efbe4146106c12cf1464d917}{\index{unixmain.\+c@{unixmain.\+c}!wd\+\_\+message@{wd\+\_\+message}}
+\index{wd\+\_\+message@{wd\+\_\+message}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{wd\+\_\+message}]{\setlength{\rightskip}{0pt plus 5cm}static void wd\+\_\+message (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixmain_8c_aaa3ddf65efbe4146106c12cf1464d917}
+
+
+Definition at line 504 of file unixmain.\+c.
+
+
+
+References discover, and W\+I\+Z\+A\+R\+D.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+505 \{
+506 \textcolor{preprocessor}{#ifdef WIZARD}
+507     \textcolor{keywordflow}{if} (wiz\_error\_flag) \{
+508         pline(\textcolor{stringliteral}{"Only user \(\backslash\)"%s\(\backslash\)" may access debug (wizard) mode."},
+509 # ifndef KR1ED
+510             \hyperlink{config_8h_a7d25468f2993889250dd6664a4e6b011}{WIZARD});
+511 \textcolor{preprocessor}{# else}
+512             WIZARD\_NAME);
+513 \textcolor{preprocessor}{# endif}
+514         pline(\textcolor{stringliteral}{"Entering discovery mode instead."});
+515     \} \textcolor{keywordflow}{else}
+516 \textcolor{preprocessor}{#endif}
+517     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover})
+518         You(\textcolor{stringliteral}{"are in non-scoring discovery mode."});
+519 \}
+\end{DoxyCode}
+\hypertarget{unixmain_8c_a8c8fbba4fd2cc9e90f0b02fe2754a823}{\index{unixmain.\+c@{unixmain.\+c}!whoami@{whoami}}
+\index{whoami@{whoami}!unixmain.\+c@{unixmain.\+c}}
+\subsubsection[{whoami}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf boolean} whoami (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixmain_8c_a8c8fbba4fd2cc9e90f0b02fe2754a823}
+
+
+Definition at line 467 of file unixmain.\+c.
+
+
+
+References F\+A\+L\+S\+E, getlogin, nh\+\_\+getenv(), plname, and T\+R\+U\+E.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+467          \{
+468     \textcolor{comment}{/*}
+469 \textcolor{comment}{     * Who am i? Algorithm: 1. Use name as specified in NETHACKOPTIONS}
+470 \textcolor{comment}{     *          2. Use $USER or $LOGNAME    (if 1. fails)}
+471 \textcolor{comment}{     *          3. Use getlogin()       (if 2. fails)}
+472 \textcolor{comment}{     * The resulting name is overridden by command line options.}
+473 \textcolor{comment}{     * If everything fails, or if the resulting name is some generic}
+474 \textcolor{comment}{     * account like "games", "play", "player", "hack" then eventually}
+475 \textcolor{comment}{     * we'll ask him.}
+476 \textcolor{comment}{     * Note that we trust the user here; it is possible to play under}
+477 \textcolor{comment}{     * somebody else's name.}
+478 \textcolor{comment}{     */}
+479     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *s;
+480 
+481     \textcolor{keywordflow}{if} (*\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+482     \textcolor{keywordflow}{if}(\textcolor{comment}{/* !*plname && */} (s = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"USER"})))
+483         (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, s, \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+484     \textcolor{keywordflow}{if}(!*\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname} && (s = \hyperlink{options_8c_a5f6df715fbbfe6e4ee9c64f6a28b0987}{nh\_getenv}(\textcolor{stringliteral}{"LOGNAME"})))
+485         (\textcolor{keywordtype}{void}) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, s, \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+486     \textcolor{keywordflow}{if}(!*\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname} && (s = \hyperlink{ntconf_8h_a65aec0010f6a05ff8d3777e328da2610}{getlogin}()))
+487         (void) strncpy(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, s, \textcolor{keyword}{sizeof}(\hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname})-1);
+488     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+489 \}
+\end{DoxyCode}

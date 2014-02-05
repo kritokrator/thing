@@ -1,0 +1,2288 @@
+\hypertarget{mkmaze_8c}{\section{nethack/src/mkmaze.c File Reference}
+\label{mkmaze_8c}\index{nethack/src/mkmaze.\+c@{nethack/src/mkmaze.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}sp\+\_\+lev.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lev.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mkmaze_8c_a21b0b9981b1a998412365ddc5b1f48b6}{x\+\_\+maze\+\_\+min}~2
+\item 
+\#define \hyperlink{mkmaze_8c_a9136921ae7bf399bd780c5afd292c21e}{y\+\_\+maze\+\_\+min}~2
+\item 
+\#define \hyperlink{mkmaze_8c_a0b544aded64309d6c45d9fdc7dd3d336}{I\+N\+V\+P\+O\+S\+\_\+\+X\+\_\+\+M\+A\+R\+G\+I\+N}~(6 -\/ 2)
+\item 
+\#define \hyperlink{mkmaze_8c_adf90dcfc42886f332469ac18fd3d3015}{I\+N\+V\+P\+O\+S\+\_\+\+Y\+\_\+\+M\+A\+R\+G\+I\+N}~(5 -\/ 2)
+\item 
+\#define \hyperlink{mkmaze_8c_a59c9a6676695d5a4a081d261c6386ae9}{I\+N\+V\+P\+O\+S\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E}~11
+\item 
+\#define \hyperlink{mkmaze_8c_a24ac627a7839caecddfc66f1d46033f0}{register}
+\item 
+\#define \hyperlink{mkmaze_8c_a38ceaace482a91189ceb981d88a4dfb2}{C\+O\+N\+S\+\_\+\+O\+B\+J}~0
+\item 
+\#define \hyperlink{mkmaze_8c_a40a3860c2f032c55154d09fbdf5f39fd}{C\+O\+N\+S\+\_\+\+M\+O\+N}~1
+\item 
+\#define \hyperlink{mkmaze_8c_ad6ec38fbbbc72d7ebe40b26672c53232}{C\+O\+N\+S\+\_\+\+H\+E\+R\+O}~2
+\item 
+\#define \hyperlink{mkmaze_8c_a1ab7b1e8684607b22d66ff9bffd12444}{C\+O\+N\+S\+\_\+\+T\+R\+A\+P}~3
+\item 
+\#define \hyperlink{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}{bxmin}~(\hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin} + 1)
+\item 
+\#define \hyperlink{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}{bymin}~(\hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin} + 1)
+\item 
+\#define \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax}~(\hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax} -\/ 1)
+\item 
+\#define \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax}~(\hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax} -\/ 1)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_af398afa4da9211da096badc78b7ac703}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_a1d3aa30361e246927ef133000b32ef1c}{iswall},(int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_a44dff8aad19148ec37b6ff30623d46b1}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\+\_\+or\+\_\+stone},(int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_a5367946f42d8ccd1b9692f4e6f8eec4f}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\+\_\+solid},(int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{mkmaze_8c_ab9b7508843555bc0fa7ff287bf7383c5}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_a9656f0240f848c13697fdf03dc44190f}{extend\+\_\+spine},(int\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int, int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_a44e232b3c966467d5405d6d28648ca7f}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_a1f4a6bd3eb1c632fadaf884b976842a8}{okay},(int, int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmaze_8c_aa6528ff7fa367a57d3b61fa91a1133cf}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_aeee2a4503ec34c13bc03b7133c2d02e5}{maze0xy},(\hyperlink{structcoord}{coord} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_aea7ca1124c78c3e8b4cb433f3087e7f8}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_a9ac136fd214cd6e9917790a95ff09aff}{put\+\_\+lregion\+\_\+here},(\hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_abea04566e20888dd08f477de5f4b9289}{X\+C\+H\+A\+R\+\_\+\+P}, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, \hyperlink{structd__level}{d\+\_\+level} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmaze_8c_a4798822e0dce56513ab20d93c8057205}{N\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_a24d824873b27b8d16e305dd0c51004de}{fixup\+\_\+special})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmaze_8c_af54becb2299bda2400aa5d427bcdc5bb}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move},(int $\ast$, int $\ast$, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmaze_8c_a5890098436c9bdc0f9abec7868f93b5b}{N\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_ac5f008d968e6fe506a29a08bcc67386c}{setup\+\_\+waterlevel})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmaze_8c_acb5dcb51961c5604bc6c88dbce31c348}{N\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_afae4adca3797789edab036b40637c9a3}{unsetup\+\_\+waterlevel})
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_a1d3aa30361e246927ef133000b32ef1c}{iswall} (int x, int y)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\+\_\+or\+\_\+stone} (int x, int y)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\+\_\+solid} (int x, int y)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{mkmaze_8c_a9656f0240f848c13697fdf03dc44190f}{extend\+\_\+spine} (locale, int wall\+\_\+there, int dx, int dy)
+\item 
+void \hyperlink{mkmaze_8c_ae15934086870601facb65acfbf4fe03e}{wallification} (int x1, int y1, int x2, int y2)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_a1f4a6bd3eb1c632fadaf884b976842a8}{okay} (int x, int y, int dir)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmaze_8c_aeee2a4503ec34c13bc03b7133c2d02e5}{maze0xy} (\hyperlink{structcoord}{coord} $\ast$cc)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_a3970a619329ce2bfa30cfb2e9ab5de09}{bad\+\_\+location} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} lx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} ly, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} hx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} hy)
+\item 
+void \hyperlink{mkmaze_8c_a4240ac2044985f4c4c8856cd558c3ed5}{place\+\_\+lregion} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} lx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} ly, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} hx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} hy, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} nlx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} nly, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} nhx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} nhy, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} rtype, \hyperlink{structd__level}{d\+\_\+level} $\ast$lev)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_a9ac136fd214cd6e9917790a95ff09aff}{put\+\_\+lregion\+\_\+here} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} nlx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} nly, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} nhx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} nhy, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} rtype, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} oneshot, \hyperlink{structd__level}{d\+\_\+level} $\ast$lev)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmaze_8c_a24d824873b27b8d16e305dd0c51004de}{fixup\+\_\+special} ()
+\item 
+void \hyperlink{mkmaze_8c_a5cb9db8351899421d67a198ad122e7ef}{makemaz} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$s)
+\item 
+void \hyperlink{mkmaze_8c_a2d61d045fcb05a76cc0e437959d4b3e0}{walkfrom} (int x, int y)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move} (int $\ast$x, int $\ast$y, int dir)
+\item 
+void \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy} (\hyperlink{structcoord}{coord} $\ast$cc)
+\item 
+void \hyperlink{mkmaze_8c_aec6c86179ba546df6d8f2ebd3b2517d1}{bound\+\_\+digging} ()
+\item 
+void \hyperlink{mkmaze_8c_abd2165e241ae67bc0d7999cd8b36a742}{mkportal} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} todnum, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} todlevel)
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmaze_8c_a29b387461844edbe589f2c98c50a1171}{N\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_ab2e2a812f8e7b5044d54c217f9c36bd0}{set\+\_\+wportal})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmaze_8c_a42ded68d9ff8cd53d7f3d42f68a9e32a}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_aaa0c86a2b82701e39d4d99aff0f6f089}{mk\+\_\+bubble},(int, int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{mkmaze_8c_a736ce1c32c0f23bd5142cdc0727b0906}{F\+D\+E\+C\+L} (\hyperlink{mkmaze_8c_a64838861e4c183278ee905e1b13b8c07}{mv\+\_\+bubble},(struct \hyperlink{structbubble}{bubble} $\ast$, int, int, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+void \hyperlink{mkmaze_8c_a540977be6c10fea290b747cc6237d9c8}{movebubbles} ()
+\item 
+void \hyperlink{mkmaze_8c_a8e38077d7f36046af213dfba0001c00a}{water\+\_\+friction} ()
+\item 
+void \hyperlink{mkmaze_8c_abf535e619c60a8876cdd8fb4781d4414}{save\+\_\+waterlevel} (int fd, int mode)
+\item 
+void \hyperlink{mkmaze_8c_a71fbe52a27f516be2677b7def3bbaf2d}{restore\+\_\+waterlevel} (int fd)
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{mkmaze_8c_adad4bb182bbd559a90b10a009ce20a1f}{waterbody\+\_\+name} (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} x, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} y)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmaze_8c_ab2e2a812f8e7b5044d54c217f9c36bd0}{set\+\_\+wportal} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmaze_8c_ac5f008d968e6fe506a29a08bcc67386c}{setup\+\_\+waterlevel} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmaze_8c_afae4adca3797789edab036b40637c9a3}{unsetup\+\_\+waterlevel} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmaze_8c_aaa0c86a2b82701e39d4d99aff0f6f089}{mk\+\_\+bubble} (int x, int y, int n)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{mkmaze_8c_a64838861e4c183278ee905e1b13b8c07}{mv\+\_\+bubble} (struct \hyperlink{structbubble}{bubble} $\ast$b, int dx, int dy, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} ini)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{mkmaze_8c_a8a8cfd6f51acd4c0a227a5332be69227}{lev\+\_\+message}
+\item 
+\hyperlink{structlev__region}{lev\+\_\+region} $\ast$ \hyperlink{mkmaze_8c_a5195d0e282f5603843e4a384e9995caa}{lregions}
+\item 
+int \hyperlink{mkmaze_8c_a1f90034b6a3d7de0cba06ae8960de3ea}{num\+\_\+lregions}
+\item 
+static \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{mkmaze_8c_a7287ebb27b3607eb789bec545b583b55}{was\+\_\+waterlevel}
+\item 
+static struct \hyperlink{structbubble}{bubble} $\ast$ \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles}
+\item 
+static struct \hyperlink{structbubble}{bubble} $\ast$ \hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles}
+\item 
+static struct \hyperlink{structtrap}{trap} $\ast$ \hyperlink{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}{wportal}
+\item 
+static int \hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin}
+\item 
+static int \hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin}
+\item 
+static int \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}
+\item 
+static int \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{\index{mkmaze.\+c@{mkmaze.\+c}!bxmax@{bxmax}}
+\index{bxmax@{bxmax}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{bxmax}]{\setlength{\rightskip}{0pt plus 5cm}\#define bxmax~({\bf xmax} -\/ 1)}}\label{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}
+
+
+Definition at line 926 of file mkmaze.\+c.
+
+
+
+Referenced by mk\+\_\+bubble(), mv\+\_\+bubble(), and setup\+\_\+waterlevel().
+
+\hypertarget{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}{\index{mkmaze.\+c@{mkmaze.\+c}!bxmin@{bxmin}}
+\index{bxmin@{bxmin}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{bxmin}]{\setlength{\rightskip}{0pt plus 5cm}\#define bxmin~({\bf xmin} + 1)}}\label{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}
+
+
+Definition at line 924 of file mkmaze.\+c.
+
+
+
+Referenced by mv\+\_\+bubble(), and setup\+\_\+waterlevel().
+
+\hypertarget{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{\index{mkmaze.\+c@{mkmaze.\+c}!bymax@{bymax}}
+\index{bymax@{bymax}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{bymax}]{\setlength{\rightskip}{0pt plus 5cm}\#define bymax~({\bf ymax} -\/ 1)}}\label{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}
+
+
+Definition at line 927 of file mkmaze.\+c.
+
+
+
+Referenced by mk\+\_\+bubble(), mv\+\_\+bubble(), and setup\+\_\+waterlevel().
+
+\hypertarget{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}{\index{mkmaze.\+c@{mkmaze.\+c}!bymin@{bymin}}
+\index{bymin@{bymin}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{bymin}]{\setlength{\rightskip}{0pt plus 5cm}\#define bymin~({\bf ymin} + 1)}}\label{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}
+
+
+Definition at line 925 of file mkmaze.\+c.
+
+
+
+Referenced by mv\+\_\+bubble(), and setup\+\_\+waterlevel().
+
+\hypertarget{mkmaze_8c_ad6ec38fbbbc72d7ebe40b26672c53232}{\index{mkmaze.\+c@{mkmaze.\+c}!C\+O\+N\+S\+\_\+\+H\+E\+R\+O@{C\+O\+N\+S\+\_\+\+H\+E\+R\+O}}
+\index{C\+O\+N\+S\+\_\+\+H\+E\+R\+O@{C\+O\+N\+S\+\_\+\+H\+E\+R\+O}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{C\+O\+N\+S\+\_\+\+H\+E\+R\+O}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+N\+S\+\_\+\+H\+E\+R\+O~2}}\label{mkmaze_8c_ad6ec38fbbbc72d7ebe40b26672c53232}
+
+
+Definition at line 916 of file mkmaze.\+c.
+
+
+
+Referenced by movebubbles(), and mv\+\_\+bubble().
+
+\hypertarget{mkmaze_8c_a40a3860c2f032c55154d09fbdf5f39fd}{\index{mkmaze.\+c@{mkmaze.\+c}!C\+O\+N\+S\+\_\+\+M\+O\+N@{C\+O\+N\+S\+\_\+\+M\+O\+N}}
+\index{C\+O\+N\+S\+\_\+\+M\+O\+N@{C\+O\+N\+S\+\_\+\+M\+O\+N}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{C\+O\+N\+S\+\_\+\+M\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+N\+S\+\_\+\+M\+O\+N~1}}\label{mkmaze_8c_a40a3860c2f032c55154d09fbdf5f39fd}
+
+
+Definition at line 915 of file mkmaze.\+c.
+
+
+
+Referenced by movebubbles(), and mv\+\_\+bubble().
+
+\hypertarget{mkmaze_8c_a38ceaace482a91189ceb981d88a4dfb2}{\index{mkmaze.\+c@{mkmaze.\+c}!C\+O\+N\+S\+\_\+\+O\+B\+J@{C\+O\+N\+S\+\_\+\+O\+B\+J}}
+\index{C\+O\+N\+S\+\_\+\+O\+B\+J@{C\+O\+N\+S\+\_\+\+O\+B\+J}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{C\+O\+N\+S\+\_\+\+O\+B\+J}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+N\+S\+\_\+\+O\+B\+J~0}}\label{mkmaze_8c_a38ceaace482a91189ceb981d88a4dfb2}
+
+
+Definition at line 914 of file mkmaze.\+c.
+
+
+
+Referenced by movebubbles(), and mv\+\_\+bubble().
+
+\hypertarget{mkmaze_8c_a1ab7b1e8684607b22d66ff9bffd12444}{\index{mkmaze.\+c@{mkmaze.\+c}!C\+O\+N\+S\+\_\+\+T\+R\+A\+P@{C\+O\+N\+S\+\_\+\+T\+R\+A\+P}}
+\index{C\+O\+N\+S\+\_\+\+T\+R\+A\+P@{C\+O\+N\+S\+\_\+\+T\+R\+A\+P}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{C\+O\+N\+S\+\_\+\+T\+R\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+N\+S\+\_\+\+T\+R\+A\+P~3}}\label{mkmaze_8c_a1ab7b1e8684607b22d66ff9bffd12444}
+
+
+Definition at line 917 of file mkmaze.\+c.
+
+
+
+Referenced by movebubbles(), and mv\+\_\+bubble().
+
+\hypertarget{mkmaze_8c_a59c9a6676695d5a4a081d261c6386ae9}{\index{mkmaze.\+c@{mkmaze.\+c}!I\+N\+V\+P\+O\+S\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E@{I\+N\+V\+P\+O\+S\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E}}
+\index{I\+N\+V\+P\+O\+S\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E@{I\+N\+V\+P\+O\+S\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{I\+N\+V\+P\+O\+S\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+V\+P\+O\+S\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E~11}}\label{mkmaze_8c_a59c9a6676695d5a4a081d261c6386ae9}
+
+
+Referenced by makemaz().
+
+\hypertarget{mkmaze_8c_a0b544aded64309d6c45d9fdc7dd3d336}{\index{mkmaze.\+c@{mkmaze.\+c}!I\+N\+V\+P\+O\+S\+\_\+\+X\+\_\+\+M\+A\+R\+G\+I\+N@{I\+N\+V\+P\+O\+S\+\_\+\+X\+\_\+\+M\+A\+R\+G\+I\+N}}
+\index{I\+N\+V\+P\+O\+S\+\_\+\+X\+\_\+\+M\+A\+R\+G\+I\+N@{I\+N\+V\+P\+O\+S\+\_\+\+X\+\_\+\+M\+A\+R\+G\+I\+N}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{I\+N\+V\+P\+O\+S\+\_\+\+X\+\_\+\+M\+A\+R\+G\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+V\+P\+O\+S\+\_\+\+X\+\_\+\+M\+A\+R\+G\+I\+N~(6 -\/ 2)}}\label{mkmaze_8c_a0b544aded64309d6c45d9fdc7dd3d336}
+
+
+Referenced by makemaz().
+
+\hypertarget{mkmaze_8c_adf90dcfc42886f332469ac18fd3d3015}{\index{mkmaze.\+c@{mkmaze.\+c}!I\+N\+V\+P\+O\+S\+\_\+\+Y\+\_\+\+M\+A\+R\+G\+I\+N@{I\+N\+V\+P\+O\+S\+\_\+\+Y\+\_\+\+M\+A\+R\+G\+I\+N}}
+\index{I\+N\+V\+P\+O\+S\+\_\+\+Y\+\_\+\+M\+A\+R\+G\+I\+N@{I\+N\+V\+P\+O\+S\+\_\+\+Y\+\_\+\+M\+A\+R\+G\+I\+N}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{I\+N\+V\+P\+O\+S\+\_\+\+Y\+\_\+\+M\+A\+R\+G\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+V\+P\+O\+S\+\_\+\+Y\+\_\+\+M\+A\+R\+G\+I\+N~(5 -\/ 2)}}\label{mkmaze_8c_adf90dcfc42886f332469ac18fd3d3015}
+
+
+Referenced by makemaz().
+
+\hypertarget{mkmaze_8c_a24ac627a7839caecddfc66f1d46033f0}{\index{mkmaze.\+c@{mkmaze.\+c}!register@{register}}
+\index{register@{register}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{register}]{\setlength{\rightskip}{0pt plus 5cm}\#define register}}\label{mkmaze_8c_a24ac627a7839caecddfc66f1d46033f0}
+
+
+Definition at line 912 of file mkmaze.\+c.
+
+\hypertarget{mkmaze_8c_a21b0b9981b1a998412365ddc5b1f48b6}{\index{mkmaze.\+c@{mkmaze.\+c}!x\+\_\+maze\+\_\+min@{x\+\_\+maze\+\_\+min}}
+\index{x\+\_\+maze\+\_\+min@{x\+\_\+maze\+\_\+min}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{x\+\_\+maze\+\_\+min}]{\setlength{\rightskip}{0pt plus 5cm}\#define x\+\_\+maze\+\_\+min~2}}\label{mkmaze_8c_a21b0b9981b1a998412365ddc5b1f48b6}
+
+
+Referenced by makemaz().
+
+\hypertarget{mkmaze_8c_a9136921ae7bf399bd780c5afd292c21e}{\index{mkmaze.\+c@{mkmaze.\+c}!y\+\_\+maze\+\_\+min@{y\+\_\+maze\+\_\+min}}
+\index{y\+\_\+maze\+\_\+min@{y\+\_\+maze\+\_\+min}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{y\+\_\+maze\+\_\+min}]{\setlength{\rightskip}{0pt plus 5cm}\#define y\+\_\+maze\+\_\+min~2}}\label{mkmaze_8c_a9136921ae7bf399bd780c5afd292c21e}
+
+
+Referenced by makemaz().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{mkmaze_8c_a3970a619329ce2bfa30cfb2e9ab5de09}{\index{mkmaze.\+c@{mkmaze.\+c}!bad\+\_\+location@{bad\+\_\+location}}
+\index{bad\+\_\+location@{bad\+\_\+location}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{bad\+\_\+location}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} bad\+\_\+location (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{{\bf xchar}}]{lx, }
+\item[{{\bf xchar}}]{ly, }
+\item[{{\bf xchar}}]{hx, }
+\item[{{\bf xchar}}]{hy}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a3970a619329ce2bfa30cfb2e9ab5de09}
+
+
+Definition at line 225 of file mkmaze.\+c.
+
+
+
+References A\+I\+R, C\+O\+R\+R, dlevel\+\_\+t\+::flags, level, levl, occupied(), R\+O\+O\+M, rm\+::typ, and within\+\_\+bounded\+\_\+area.
+
+
+
+Referenced by put\+\_\+lregion\+\_\+here().
+
+
+\begin{DoxyCode}
+228 \{
+229     \textcolor{keywordflow}{return}((\textcolor{keywordtype}{boolean})(\hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(x, y) ||
+230        \hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x,y, \hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx},\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}, \hyperlink{structmkroom_a1b738b591a7735add2af6d918c556543}{hx},\hyperlink{structmkroom_aa767bcbf6e0de868bba6d2a1c7e7182e}{hy}) ||
+231        !((\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_aeffd57885964c3a9a5c3ce0f81c06339}{CORR} && \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev) ||
+232            \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM} || \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ == \hyperlink{rm_8h_a9c9ed176f84de328afaf7f514ded7df3}{AIR})));
+233 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_aec6c86179ba546df6d8f2ebd3b2517d1}{\index{mkmaze.\+c@{mkmaze.\+c}!bound\+\_\+digging@{bound\+\_\+digging}}
+\index{bound\+\_\+digging@{bound\+\_\+digging}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{bound\+\_\+digging}]{\setlength{\rightskip}{0pt plus 5cm}void bound\+\_\+digging (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_aec6c86179ba546df6d8f2ebd3b2517d1}
+
+
+Definition at line 797 of file mkmaze.\+c.
+
+
+
+References C\+O\+L\+N\+O, F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, Is\+\_\+earthlevel, I\+S\+\_\+\+W\+A\+L\+L, level, levl, R\+O\+W\+N\+O, S\+T\+O\+N\+E, T\+R\+U\+E, rm\+::typ, u, you\+::uz, W\+\_\+\+N\+O\+N\+D\+I\+G\+G\+A\+B\+L\+E, xmax, xmin, ymax, and ymin.
+
+
+
+Referenced by mklev().
+
+
+\begin{DoxyCode}
+808 \{
+809     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x,y;
+810     \textcolor{keyword}{register} \textcolor{keywordtype}{unsigned} typ;
+811     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *lev;
+812     \textcolor{keywordtype}{boolean} found, nonwall;
+813     \textcolor{keywordtype}{int} \hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin},\hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax},\hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin},\hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax};
+814 
+815     \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_aa4eaf851320108eeaacde06ca61fe041}{Is\_earthlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \textcolor{keywordflow}{return}; \textcolor{comment}{/* everything diggable here */}
+816 
+817     found = nonwall = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+818     \textcolor{keywordflow}{for}(xmin=0; !found; xmin++) \{
+819         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin}][0];
+820         \textcolor{keywordflow}{for}(y=0; y<=\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1; y++, lev++) \{
+821             typ = lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ};
+822             \textcolor{keywordflow}{if}(typ != \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}) \{
+823                 found = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+824                 \textcolor{keywordflow}{if}(!\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(typ)) nonwall = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+825             \}
+826         \}
+827     \}
+828     xmin -= (nonwall || !\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev) ? 2 : 1;
+829     \textcolor{keywordflow}{if} (xmin < 0) xmin = 0;
+830 
+831     found = nonwall = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+832     \textcolor{keywordflow}{for}(xmax=\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1; !found; xmax--) \{
+833         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}][0];
+834         \textcolor{keywordflow}{for}(y=0; y<=\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1; y++, lev++) \{
+835             typ = lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ};
+836             \textcolor{keywordflow}{if}(typ != \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}) \{
+837                 found = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+838                 \textcolor{keywordflow}{if}(!\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(typ)) nonwall = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+839             \}
+840         \}
+841     \}
+842     xmax += (nonwall || !\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev) ? 2 : 1;
+843     \textcolor{keywordflow}{if} (xmax >= \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) xmax = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+844 
+845     found = nonwall = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+846     \textcolor{keywordflow}{for}(ymin=0; !found; ymin++) \{
+847         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin}][\hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin}];
+848         \textcolor{keywordflow}{for}(x=xmin; x<=\hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}; x++, lev += \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) \{
+849             typ = lev->typ;
+850             \textcolor{keywordflow}{if}(typ != \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}) \{
+851                 found = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+852                 \textcolor{keywordflow}{if}(!\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(typ)) nonwall = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+853             \}
+854         \}
+855     \}
+856     ymin -= (nonwall || !\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev) ? 2 : 1;
+857 
+858     found = nonwall = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+859     \textcolor{keywordflow}{for}(ymax=\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1; !found; ymax--) \{
+860         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin}][\hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}];
+861         \textcolor{keywordflow}{for}(x=xmin; x<=\hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}; x++, lev += \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) \{
+862             typ = lev->typ;
+863             \textcolor{keywordflow}{if}(typ != \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE}) \{
+864                 found = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+865                 \textcolor{keywordflow}{if}(!\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(typ)) nonwall = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+866             \}
+867         \}
+868     \}
+869     ymax += (nonwall || !\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev) ? 2 : 1;
+870 
+871     \textcolor{keywordflow}{for} (x = 0; x < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; x++)
+872       \textcolor{keywordflow}{for} (y = 0; y < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; y++)
+873         \textcolor{keywordflow}{if} (y <= ymin || y >= ymax || x <= xmin || x >= xmax) \{
+874 \textcolor{preprocessor}{#ifdef DCC30\_BUG}
+875         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y];
+876         lev->wall\_info |= \hyperlink{rm_8h_a55ee3cac4981ccaa6d27954589000595}{W\_NONDIGGABLE};
+877 \textcolor{preprocessor}{#else}
+878         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].wall\_info |= \hyperlink{rm_8h_a55ee3cac4981ccaa6d27954589000595}{W\_NONDIGGABLE};
+879 \textcolor{preprocessor}{#endif}
+880         \}
+881 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a9656f0240f848c13697fdf03dc44190f}{\index{mkmaze.\+c@{mkmaze.\+c}!extend\+\_\+spine@{extend\+\_\+spine}}
+\index{extend\+\_\+spine@{extend\+\_\+spine}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{extend\+\_\+spine}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int extend\+\_\+spine (
+\begin{DoxyParamCaption}
+\item[{locale}]{, }
+\item[{int}]{wall\+\_\+there, }
+\item[{int}]{dx, }
+\item[{int}]{dy}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a9656f0240f848c13697fdf03dc44190f}
+
+
+Definition at line 82 of file mkmaze.\+c.
+
+
+
+Referenced by wallification().
+
+
+\begin{DoxyCode}
+85 \{
+86     \textcolor{keywordtype}{int} spine, nx, ny;
+87 
+88     nx = 1 + dx;
+89     ny = 1 + dy;
+90 
+91     \textcolor{keywordflow}{if} (wall\_there) \{   \textcolor{comment}{/* wall in that direction */}
+92     \textcolor{keywordflow}{if} (dx) \{
+93         \textcolor{keywordflow}{if} (locale[ 1][0] && locale[ 1][2] && \textcolor{comment}{/* EW are wall/stone */}
+94         locale[nx][0] && locale[nx][2]) \{ \textcolor{comment}{/* diag are wall/stone */}
+95         spine = 0;
+96         \} \textcolor{keywordflow}{else} \{
+97         spine = 1;
+98         \}
+99     \} \textcolor{keywordflow}{else} \{    \textcolor{comment}{/* dy */}
+100         \textcolor{keywordflow}{if} (locale[0][ 1] && locale[2][ 1] && \textcolor{comment}{/* NS are wall/stone */}
+101         locale[0][ny] && locale[2][ny]) \{ \textcolor{comment}{/* diag are wall/stone */}
+102         spine = 0;
+103         \} \textcolor{keywordflow}{else} \{
+104         spine = 1;
+105         \}
+106     \}
+107     \} \textcolor{keywordflow}{else} \{
+108     spine = 0;
+109     \}
+110 
+111     \textcolor{keywordflow}{return} spine;
+112 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_af398afa4da9211da096badc78b7ac703}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf iswall}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_af398afa4da9211da096badc78b7ac703}
+\hypertarget{mkmaze_8c_a44dff8aad19148ec37b6ff30623d46b1}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf iswall\+\_\+or\+\_\+stone}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a44dff8aad19148ec37b6ff30623d46b1}
+\hypertarget{mkmaze_8c_a5367946f42d8ccd1b9692f4e6f8eec4f}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf is\+\_\+solid}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a5367946f42d8ccd1b9692f4e6f8eec4f}
+\hypertarget{mkmaze_8c_ab9b7508843555bc0fa7ff287bf7383c5}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf extend\+\_\+spine}}]{, }
+\item[{(int\mbox{[}3\mbox{]}\mbox{[}3\mbox{]}, int, int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_ab9b7508843555bc0fa7ff287bf7383c5}
+\hypertarget{mkmaze_8c_a44e232b3c966467d5405d6d28648ca7f}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf okay}}]{, }
+\item[{(int, int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a44e232b3c966467d5405d6d28648ca7f}
+\hypertarget{mkmaze_8c_aa6528ff7fa367a57d3b61fa91a1133cf}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf maze0xy}}]{, }
+\item[{({\bf coord} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_aa6528ff7fa367a57d3b61fa91a1133cf}
+\hypertarget{mkmaze_8c_aea7ca1124c78c3e8b4cb433f3087e7f8}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf put\+\_\+lregion\+\_\+here}}]{, }
+\item[{({\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf X\+C\+H\+A\+R\+\_\+\+P}, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, {\bf d\+\_\+level} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_aea7ca1124c78c3e8b4cb433f3087e7f8}
+\hypertarget{mkmaze_8c_af54becb2299bda2400aa5d427bcdc5bb}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf move}}]{, }
+\item[{(int $\ast$, int $\ast$, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_af54becb2299bda2400aa5d427bcdc5bb}
+\hypertarget{mkmaze_8c_a42ded68d9ff8cd53d7f3d42f68a9e32a}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mk\+\_\+bubble}}]{, }
+\item[{(int, int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a42ded68d9ff8cd53d7f3d42f68a9e32a}
+\hypertarget{mkmaze_8c_a736ce1c32c0f23bd5142cdc0727b0906}{\index{mkmaze.\+c@{mkmaze.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mv\+\_\+bubble}}]{, }
+\item[{(struct {\bf bubble} $\ast$, int, int, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a736ce1c32c0f23bd5142cdc0727b0906}
+\hypertarget{mkmaze_8c_a24d824873b27b8d16e305dd0c51004de}{\index{mkmaze.\+c@{mkmaze.\+c}!fixup\+\_\+special@{fixup\+\_\+special}}
+\index{fixup\+\_\+special@{fixup\+\_\+special}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{fixup\+\_\+special}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void fixup\+\_\+special (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a24d824873b27b8d16e305dd0c51004de}
+
+
+Definition at line 334 of file mkmaze.\+c.
+
+
+
+References obj\+::corpsenm, create\+\_\+secret\+\_\+door(), lev\+\_\+region\+::delarea, d\+\_\+level\+::dlevel, s\+\_\+level\+::dlevel, dndest, F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, fmon, free(), goodpos(), dest\+\_\+area\+::hx, dest\+\_\+area\+::hy, In\+\_\+sokoban, lev\+\_\+region\+::inarea, index(), Is\+\_\+knox, Is\+\_\+medusa\+\_\+level, Is\+\_\+sanctum, Is\+\_\+stronghold, Is\+\_\+waterlevel, Is\+\_\+wiz1\+\_\+level, L\+A\+N\+D\+M\+I\+N\+E, lev\+\_\+message, level, L\+R\+\_\+\+B\+R\+A\+N\+C\+H, L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R, L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E, L\+R\+\_\+\+P\+O\+R\+T\+A\+L, L\+R\+\_\+\+T\+E\+L\+E, L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R, L\+R\+\_\+\+U\+P\+T\+E\+L\+E, lregions, mkroom\+::lx, dest\+\_\+area\+::lx, mkroom\+::ly, dest\+\_\+area\+::ly, mons, M\+O\+R\+G\+U\+E, M\+R\+\_\+\+S\+T\+O\+N\+E, dest\+\_\+area\+::nhx, dest\+\_\+area\+::nhy, dest\+\_\+area\+::nlx, dest\+\_\+area\+::nly, monst\+::nmon, num\+\_\+lregions, orcus\+\_\+level, O\+R\+O\+O\+M, otmp, obj\+::owt, place\+\_\+lregion(), pm\+\_\+resistance, rn1, lev\+\_\+region\+::rname, Role\+\_\+if, rooms, mkroom\+::rtype, lev\+\_\+region\+::rtype, setup\+\_\+waterlevel(), sokoban\+\_\+detect(), S\+P\+I\+K\+E\+D\+\_\+\+P\+I\+T, str\+\_\+or\+\_\+len\+::str, T\+E\+M\+P\+L\+E, T\+R\+U\+E, u, unsetup\+\_\+waterlevel(), updest, you\+::uz, W\+\_\+\+A\+N\+Y, W\+\_\+\+E\+A\+S\+T, W\+\_\+\+S\+O\+U\+T\+H, W\+\_\+\+W\+E\+S\+T, lev\+\_\+region\+::x1, lev\+\_\+region\+::x2, lev\+\_\+region\+::y1, and lev\+\_\+region\+::y2.
+
+
+
+Referenced by makemaz().
+
+
+\begin{DoxyCode}
+335 \{
+336     \textcolor{keyword}{register} \hyperlink{structlev__region}{lev\_region} *r = \hyperlink{mkmaze_8c_a5195d0e282f5603843e4a384e9995caa}{lregions};
+337     \textcolor{keyword}{struct }\hyperlink{structd__level}{d\_level} lev;
+338     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x, y;
+339     \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom;
+340     \textcolor{keywordtype}{boolean} added\_branch = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+341 
+342     \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_a7287ebb27b3607eb789bec545b583b55}{was\_waterlevel}) \{
+343     \hyperlink{mkmaze_8c_a7287ebb27b3607eb789bec545b583b55}{was\_waterlevel} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+344     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uinwater = 0;
+345     \hyperlink{mkmaze_8c_afae4adca3797789edab036b40637c9a3}{unsetup\_waterlevel}();
+346     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+347     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.hero\_memory = 0;
+348     \hyperlink{mkmaze_8c_a7287ebb27b3607eb789bec545b583b55}{was\_waterlevel} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+349     \textcolor{comment}{/* water level is an odd beast - it has to be set up}
+350 \textcolor{comment}{       before calling place\_lregions etc. */}
+351     \hyperlink{mkmaze_8c_ac5f008d968e6fe506a29a08bcc67386c}{setup\_waterlevel}();
+352     \}
+353     \textcolor{keywordflow}{for}(x = 0; x < \hyperlink{mkmaze_8c_a1f90034b6a3d7de0cba06ae8960de3ea}{num\_lregions}; x++, r++) \{
+354     \textcolor{keywordflow}{switch}(r->\hyperlink{structlev__region_a428f47785b096c23eacbf88a37a06825}{rtype}) \{
+355     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_a6f8a1eac67dfe592cb3420a916e7b73d}{LR\_BRANCH}:
+356         added\_branch = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+357         \textcolor{keywordflow}{goto} place\_it;
+358 
+359     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_acd94c3d04514c0962274591a15030d3a}{LR\_PORTAL}:
+360         \textcolor{keywordflow}{if}(*r->\hyperlink{structlev__region_a1ffe181e974927ec122af731747ef8c7}{rname}.\hyperlink{unionstr__or__len_a5e463454e22eb53eaa7b740ebccecfce}{str} >= \textcolor{charliteral}{'0'} && *r->\hyperlink{structlev__region_a1ffe181e974927ec122af731747ef8c7}{rname}.\hyperlink{unionstr__or__len_a5e463454e22eb53eaa7b740ebccecfce}{str} <= \textcolor{charliteral}{'9'}) \{
+361         \textcolor{comment}{/* "chutes and ladders" */}
+362         lev = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz};
+363         lev.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} = atoi(r->\hyperlink{structlev__region_a1ffe181e974927ec122af731747ef8c7}{rname}.\hyperlink{unionstr__or__len_a5e463454e22eb53eaa7b740ebccecfce}{str});
+364         \} \textcolor{keywordflow}{else} \{
+365         \hyperlink{structs__level}{s\_level} *sp = find\_level(r->\hyperlink{structlev__region_a1ffe181e974927ec122af731747ef8c7}{rname}.\hyperlink{unionstr__or__len_a5e463454e22eb53eaa7b740ebccecfce}{str});
+366         lev = sp->\hyperlink{structs__level_a34833da474dd639dacf93784e2d18db9}{dlevel};
+367         \}
+368         \textcolor{comment}{/* fall into... */}
+369 
+370     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_a64f1a66fa9f3adade0c86ef362d4d018}{LR\_UPSTAIR}:
+371     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_a314c06ef53ebfd4f0c3988f67757c8df}{LR\_DOWNSTAIR}:
+372     place\_it:
+373         \hyperlink{mkmaze_8c_a4240ac2044985f4c4c8856cd558c3ed5}{place\_lregion}(r->\hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_af8f82a8cbbd45def87d2d011f90ba84c}{x1}, r->\hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_a518d0af0a741147e9cd90704020f4067}{y1},
+374               r->\hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_aa2cd141352fa638ca035a3336943c568}{x2}, r->\hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_a6a7635569e2568f1c75e97ff9db7f655}{y2},
+375               r->\hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_af8f82a8cbbd45def87d2d011f90ba84c}{x1}, r->\hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_a518d0af0a741147e9cd90704020f4067}{y1},
+376               r->\hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_aa2cd141352fa638ca035a3336943c568}{x2}, r->\hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_a6a7635569e2568f1c75e97ff9db7f655}{y2},
+377               r->\hyperlink{structlev__region_a428f47785b096c23eacbf88a37a06825}{rtype}, &lev);
+378         \textcolor{keywordflow}{break};
+379 
+380     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_a078bcb75520369d825c84931e908db10}{LR\_TELE}:
+381     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_aa0536b8dd5dbecb8f0f26f4b20bb1315}{LR\_UPTELE}:
+382     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_aa5328e9f839b405d36d66f75e7fcbbf8}{LR\_DOWNTELE}:
+383         \textcolor{comment}{/* save the region outlines for goto\_level() */}
+384         \textcolor{keywordflow}{if}(r->\hyperlink{structlev__region_a428f47785b096c23eacbf88a37a06825}{rtype} == \hyperlink{dungeon_8h_a078bcb75520369d825c84931e908db10}{LR\_TELE} || r->\hyperlink{structlev__region_a428f47785b096c23eacbf88a37a06825}{rtype} == \hyperlink{dungeon_8h_aa0536b8dd5dbecb8f0f26f4b20bb1315}{LR\_UPTELE}) \{
+385             \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a5932983ba18a545f7aec082d215a39ec}{lx} = r->\hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_af8f82a8cbbd45def87d2d011f90ba84c}{x1}; \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3788f34449db2f679cda4d9d6c42ba7a}{ly} = r->
+      \hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_a518d0af0a741147e9cd90704020f4067}{y1};
+386             \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a53be01202be5ffa69a363b5310e17517}{hx} = r->\hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_aa2cd141352fa638ca035a3336943c568}{x2}; \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a49f5641f3f9a1fd5dc7a99e965ff68a1}{hy} = r->
+      \hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_a6a7635569e2568f1c75e97ff9db7f655}{y2};
+387             \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx} = r->\hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_af8f82a8cbbd45def87d2d011f90ba84c}{x1}; \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly} = r->
+      \hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_a518d0af0a741147e9cd90704020f4067}{y1};
+388             \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx} = r->\hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_aa2cd141352fa638ca035a3336943c568}{x2}; \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy} = r->
+      \hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_a6a7635569e2568f1c75e97ff9db7f655}{y2};
+389         \}
+390         \textcolor{keywordflow}{if}(r->\hyperlink{structlev__region_a428f47785b096c23eacbf88a37a06825}{rtype} == \hyperlink{dungeon_8h_a078bcb75520369d825c84931e908db10}{LR\_TELE} || r->\hyperlink{structlev__region_a428f47785b096c23eacbf88a37a06825}{rtype} == \hyperlink{dungeon_8h_aa5328e9f839b405d36d66f75e7fcbbf8}{LR\_DOWNTELE}) \{
+391             \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a5932983ba18a545f7aec082d215a39ec}{lx} = r->\hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_af8f82a8cbbd45def87d2d011f90ba84c}{x1}; \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3788f34449db2f679cda4d9d6c42ba7a}{ly} = r->
+      \hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_a518d0af0a741147e9cd90704020f4067}{y1};
+392             \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a53be01202be5ffa69a363b5310e17517}{hx} = r->\hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_aa2cd141352fa638ca035a3336943c568}{x2}; \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a49f5641f3f9a1fd5dc7a99e965ff68a1}{hy} = r->
+      \hyperlink{structlev__region_ae7cf45ca96c972e2dc4821fec42896ad}{inarea}.\hyperlink{structlev__region_a6a7635569e2568f1c75e97ff9db7f655}{y2};
+393             \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx} = r->\hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_af8f82a8cbbd45def87d2d011f90ba84c}{x1}; \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly} = r->
+      \hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_a518d0af0a741147e9cd90704020f4067}{y1};
+394             \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx} = r->\hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_aa2cd141352fa638ca035a3336943c568}{x2}; \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy} = r->
+      \hyperlink{structlev__region_abc20c12592d79932eb0140707d140671}{delarea}.\hyperlink{structlev__region_a6a7635569e2568f1c75e97ff9db7f655}{y2};
+395         \}
+396         \textcolor{comment}{/* place\_lregion gets called from goto\_level() */}
+397         \textcolor{keywordflow}{break};
+398     \}
+399 
+400     \textcolor{keywordflow}{if} (r->\hyperlink{structlev__region_a1ffe181e974927ec122af731747ef8c7}{rname}.\hyperlink{unionstr__or__len_a5e463454e22eb53eaa7b740ebccecfce}{str}) \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) r->\hyperlink{structlev__region_a1ffe181e974927ec122af731747ef8c7}{rname}.
+      \hyperlink{unionstr__or__len_a5e463454e22eb53eaa7b740ebccecfce}{str}),  r->\hyperlink{structlev__region_a1ffe181e974927ec122af731747ef8c7}{rname}.\hyperlink{unionstr__or__len_a5e463454e22eb53eaa7b740ebccecfce}{str} = 0;
+401     \}
+402 
+403     \textcolor{comment}{/* place dungeon branch if not placed above */}
+404     \textcolor{keywordflow}{if} (!added\_branch && Is\_branchlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+405     \hyperlink{mkmaze_8c_a4240ac2044985f4c4c8856cd558c3ed5}{place\_lregion}(0,0,0,0,0,0,0,0,\hyperlink{dungeon_8h_a6f8a1eac67dfe592cb3420a916e7b73d}{LR\_BRANCH},(\hyperlink{structd__level}{d\_level} *)0);
+406     \}
+407 
+408     \textcolor{comment}{/* KMH -- Sokoban levels */}
+409     \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_ad19541d30218e5f3834c01d42bb381e2}{In\_sokoban}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+410         \hyperlink{detect_8c_a6208a524bbc5d637bcaa36dcc63a1ec8}{sokoban\_detect}();
+411 
+412     \textcolor{comment}{/* Still need to add some stuff to level file */}
+413     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a577154aa517f59b492b3443a753c7a9a}{Is\_medusa\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+414     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+415     \textcolor{keywordtype}{int} tryct;
+416 
+417     croom = &\hyperlink{mkroom_8h_a45030df62e6451e79233760364dca9e1}{rooms}[0]; \textcolor{comment}{/* only one room on the medusa level */}
+418     \textcolor{keywordflow}{for} (tryct = rnd(4); tryct; tryct--) \{
+419         x = somex(croom); y = somey(croom);
+420         \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, y, (\textcolor{keyword}{struct} \hyperlink{structmonst}{monst} *)0, 0)) \{
+421         otmp = mk\_tt\_object(STATUE, x, y);
+422         \textcolor{keywordflow}{while} (otmp && (poly\_when\_stoned(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[otmp->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm}]) ||
+423                 \hyperlink{mondata_8h_a17cf7d4bd486ef41147798b0eee91b89}{pm\_resistance}(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[otmp->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm}],
+      \hyperlink{monflag_8h_a3bbf7e73ae67577a889b02d1dce86b89}{MR\_STONE}))) \{
+424             otmp->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm} = rndmonnum();
+425             otmp->\hyperlink{structobj_a606b1d5b273b814049cc1b1991adfeec}{owt} = weight(otmp);
+426         \}
+427         \}
+428     \}
+429 
+430     \textcolor{keywordflow}{if} (rn2(2))
+431         otmp = mk\_tt\_object(STATUE, somex(croom), somey(croom));
+432     \textcolor{keywordflow}{else} \textcolor{comment}{/* Medusa statues don't contain books */}
+433         otmp = mkcorpstat(STATUE, (\textcolor{keyword}{struct} \hyperlink{structmonst}{monst} *)0, (\textcolor{keyword}{struct} \hyperlink{structpermonst}{permonst} *)0,
+434                   somex(croom), somey(croom), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+435     \textcolor{keywordflow}{if} (otmp) \{
+436         \textcolor{keywordflow}{while} (\hyperlink{mondata_8h_a17cf7d4bd486ef41147798b0eee91b89}{pm\_resistance}(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[otmp->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm}],
+      \hyperlink{monflag_8h_a3bbf7e73ae67577a889b02d1dce86b89}{MR\_STONE})
+437            || poly\_when\_stoned(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[otmp->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm}])) \{
+438         otmp->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm} = rndmonnum();
+439         otmp->\hyperlink{structobj_a606b1d5b273b814049cc1b1991adfeec}{owt} = weight(otmp);
+440         \}
+441     \}
+442     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_a1becf680e42d9be2052e23faf1010c46}{Is\_wiz1\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+443     croom = search\_special(\hyperlink{mkroom_8h_a07dd2b8f8e4a31d28e883854255a85fd}{MORGUE});
+444 
+445     \hyperlink{sp__lev_8c_a8fdba0dd9aca405c0bfa964c90b3f4d4}{create\_secret\_door}(croom, \hyperlink{sp__lev_8h_af7883dbd7a068246a1596614dbe13b96}{W\_SOUTH}|\hyperlink{sp__lev_8h_a0733adeaa8b46ec5f371a7bfe4e79cdb}{W\_EAST}|
+      \hyperlink{sp__lev_8h_a59a97200f26ccd6a0426bb2f6384c226}{W\_WEST});
+446     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_a91a7bc143ab22db0e11c5f8233af9be9}{Is\_knox}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+447     \textcolor{comment}{/* using an unfilled morgue for rm id */}
+448     croom = search\_special(\hyperlink{mkroom_8h_a07dd2b8f8e4a31d28e883854255a85fd}{MORGUE});
+449     \textcolor{comment}{/* avoid inappropriate morgue-related messages */}
+450     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.graveyard = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.has\_morgue = 0;
+451     croom->\hyperlink{structmkroom_a0ad2dc1a7e0527610e96e830b2cad471}{rtype} = \hyperlink{mkroom_8h_a24fe7e4ef6dbb56e7d2570a7ac640d71}{OROOM}; \textcolor{comment}{/* perhaps it should be set to VAULT? */}
+452     \textcolor{comment}{/* stock the main vault */}
+453     \textcolor{keywordflow}{for}(x = croom->\hyperlink{structmkroom_afbd368ef987a49bd9ea830f2019a565f}{lx}; x <= croom->hx; x++)
+454         \textcolor{keywordflow}{for}(y = croom->\hyperlink{structmkroom_af60defeaae679cf06715a5b645e0d8b8}{ly}; y <= croom->hy; y++) \{
+455         (void) mkgold((\textcolor{keywordtype}{long}) \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(300, 600), x, y);
+456         \textcolor{keywordflow}{if} (!rn2(3) && !is\_pool(x,y))
+457             (\textcolor{keywordtype}{void})maketrap(x, y, rn2(3) ? \hyperlink{trap_8h_a275e56d3d619eeccd3deedb281d2a1af}{LANDMINE} : \hyperlink{trap_8h_a813fa80e09de5d455e2af3743a95bad9}{SPIKED\_PIT});
+458         \}
+459     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{you_8h_a6087f5b8605964c19078b777da740258}{Role\_if}(PM\_PRIEST) && In\_quest(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+460     \textcolor{comment}{/* less chance for undead corpses (lured from lower morgues) */}
+461     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.graveyard = 1;
+462     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2985e445d6e532cc0d8e6ba93f5058fd}{Is\_stronghold}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+463     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.graveyard = 1;
+464     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{dungeon_8h_a59e2a0655c98162235eb90f2108fc3ee}{Is\_sanctum}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+465     croom = search\_special(\hyperlink{mkroom_8h_ab8c9e1bea2ae73195887ee67f76acee2}{TEMPLE});
+466 
+467     \hyperlink{sp__lev_8c_a8fdba0dd9aca405c0bfa964c90b3f4d4}{create\_secret\_door}(croom, \hyperlink{sp__lev_8h_a1e002c054dd4c560deb033b6e1bad08b}{W\_ANY});
+468     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(on\_level(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}, &\hyperlink{decl_8h_a0c1983d433d6142c1e1efa47ba866a7e}{orcus\_level})) \{
+469        \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp, *mtmp2;
+470 
+471        \textcolor{comment}{/* it's a ghost town, get rid of shopkeepers */}
+472         \textcolor{keywordflow}{for}(mtmp = \hyperlink{rm_8h_a9b7eba07f916406d6d62f5f82d273e40}{fmon}; mtmp; mtmp = mtmp2) \{
+473             mtmp2 = mtmp->\hyperlink{structmonst_a4c4bcdcf3c4ec4a85313ade9f9c27b72}{nmon};
+474             \textcolor{keywordflow}{if}(mtmp->isshk) mongone(mtmp);
+475         \}
+476     \}
+477 
+478     \textcolor{keywordflow}{if}(\hyperlink{mkmaze_8c_a8a8cfd6f51acd4c0a227a5332be69227}{lev\_message}) \{
+479     \textcolor{keywordtype}{char} *str, *nl;
+480     \textcolor{keywordflow}{for}(str = \hyperlink{mkmaze_8c_a8a8cfd6f51acd4c0a227a5332be69227}{lev\_message}; (nl = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(str, \textcolor{charliteral}{'\(\backslash\)n'})) != 0; str = nl+1) \{
+481         *nl = \textcolor{charliteral}{'\(\backslash\)0'};
+482         pline(\textcolor{stringliteral}{"%s"}, str);
+483     \}
+484     \textcolor{keywordflow}{if}(*str)
+485         pline(\textcolor{stringliteral}{"%s"}, str);
+486     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{mkmaze_8c_a8a8cfd6f51acd4c0a227a5332be69227}{lev\_message});
+487     \hyperlink{mkmaze_8c_a8a8cfd6f51acd4c0a227a5332be69227}{lev\_message} = 0;
+488     \}
+489 
+490     \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_a5195d0e282f5603843e4a384e9995caa}{lregions})
+491     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{mkmaze_8c_a5195d0e282f5603843e4a384e9995caa}{lregions}),  \hyperlink{mkmaze_8c_a5195d0e282f5603843e4a384e9995caa}{lregions} = 0;
+492     num\_lregions = 0;
+493 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{\index{mkmaze.\+c@{mkmaze.\+c}!is\+\_\+solid@{is\+\_\+solid}}
+\index{is\+\_\+solid@{is\+\_\+solid}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{is\+\_\+solid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} is\+\_\+solid (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}
+
+
+Definition at line 56 of file mkmaze.\+c.
+
+
+
+References I\+S\+\_\+\+S\+T\+W\+A\+L\+L, and levl.
+
+
+
+Referenced by wallification().
+
+
+\begin{DoxyCode}
+58 \{
+59     \textcolor{keywordflow}{return} (!isok(x,y) || \hyperlink{rm_8h_adeca168807e617d1a199f722556a49ea}{IS\_STWALL}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ));
+60 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a1d3aa30361e246927ef133000b32ef1c}{\index{mkmaze.\+c@{mkmaze.\+c}!iswall@{iswall}}
+\index{iswall@{iswall}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{iswall}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} iswall (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a1d3aa30361e246927ef133000b32ef1c}
+
+
+Definition at line 29 of file mkmaze.\+c.
+
+
+
+References F\+A\+L\+S\+E, I\+R\+O\+N\+B\+A\+R\+S, I\+S\+\_\+\+D\+O\+O\+R, I\+S\+\_\+\+W\+A\+L\+L, levl, S\+D\+O\+O\+R, and type.
+
+
+
+Referenced by wallification().
+
+
+\begin{DoxyCode}
+31 \{
+32     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+33 
+34     \textcolor{keywordflow}{if} (!isok(x,y)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+35     type = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ;
+36     \textcolor{keywordflow}{return} (\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(type) || \hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(type) ||
+37         type == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR} || type == \hyperlink{rm_8h_a07f57c69899f8f8d0746fea20d262022}{IRONBARS});
+38 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{\index{mkmaze.\+c@{mkmaze.\+c}!iswall\+\_\+or\+\_\+stone@{iswall\+\_\+or\+\_\+stone}}
+\index{iswall\+\_\+or\+\_\+stone@{iswall\+\_\+or\+\_\+stone}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{iswall\+\_\+or\+\_\+stone}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} iswall\+\_\+or\+\_\+stone (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}
+
+
+Definition at line 41 of file mkmaze.\+c.
+
+
+
+References I\+R\+O\+N\+B\+A\+R\+S, I\+S\+\_\+\+D\+O\+O\+R, I\+S\+\_\+\+W\+A\+L\+L, levl, S\+D\+O\+O\+R, S\+T\+O\+N\+E, T\+R\+U\+E, and type.
+
+
+
+Referenced by wallification().
+
+
+\begin{DoxyCode}
+43 \{
+44     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+45 
+46     \textcolor{comment}{/* out of bounds = stone */}
+47     \textcolor{keywordflow}{if} (!isok(x,y)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+48 
+49     type = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ;
+50     \textcolor{keywordflow}{return} (type == \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} || \hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(type) || \hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(type) ||
+51         type == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR} || type == \hyperlink{rm_8h_a07f57c69899f8f8d0746fea20d262022}{IRONBARS});
+52 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a5cb9db8351899421d67a198ad122e7ef}{\index{mkmaze.\+c@{mkmaze.\+c}!makemaz@{makemaz}}
+\index{makemaz@{makemaz}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{makemaz}]{\setlength{\rightskip}{0pt plus 5cm}void makemaz (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a5cb9db8351899421d67a198ad122e7ef}
+
+
+Definition at line 496 of file mkmaze.\+c.
+
+
+
+References abs(), d\+\_\+level\+::dnum, dungeons, F\+A\+L\+S\+E, fixup\+\_\+special(), dlevel\+\_\+t\+::flags, G\+E\+M\+\_\+\+C\+L\+A\+S\+S, getenv, H\+W\+A\+L\+L, index(), inv\+\_\+pos, I\+N\+V\+P\+O\+S\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E, I\+N\+V\+P\+O\+S\+\_\+\+X\+\_\+\+M\+A\+R\+G\+I\+N, I\+N\+V\+P\+O\+S\+\_\+\+Y\+\_\+\+M\+A\+R\+G\+I\+N, L\+E\+V\+\_\+\+E\+X\+T, level, levl, load\+\_\+special(), maze0xy(), mazexy(), mkstairs(), mktrap(), mm, mons, N\+O\+\_\+\+M\+M\+\_\+\+F\+L\+A\+G\+S, occupied(), panic(), place\+\_\+branch(), dungeon\+::proto, rindex, rn1, s\+\_\+level\+::rndlevs, S\+P\+A\+C\+E\+\_\+\+P\+O\+S, Sprintf, S\+T\+O\+N\+E, Strcat, Strcpy, T\+R\+U\+E, u, you\+::uz, walkfrom(), wallification(), wizard, coord\+::x, x\+\_\+maze\+\_\+max, x\+\_\+maze\+\_\+min, xupstair, coord\+::y, y\+\_\+maze\+\_\+max, y\+\_\+maze\+\_\+min, and yupstair.
+
+
+
+Referenced by makelevel().
+
+
+\begin{DoxyCode}
+498 \{
+499     \textcolor{keywordtype}{int} x,y;
+500     \textcolor{keywordtype}{char} protofile[20];
+501     \hyperlink{structs__level}{s\_level}  *sp = Is\_special(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+502     \hyperlink{structcoord}{coord} \hyperlink{celib_8c_a378f364ce8f01015f43ce168ea8afd39}{mm};
+503 
+504     \textcolor{keywordflow}{if}(*s) \{
+505         \textcolor{keywordflow}{if}(sp && sp->\hyperlink{structs__level_acad52c1c9c746baa47b9447bd7faa28f}{rndlevs}) \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(protofile, \textcolor{stringliteral}{"%s-%d"}, s,
+506                         rnd((\textcolor{keywordtype}{int}) sp->\hyperlink{structs__level_acad52c1c9c746baa47b9447bd7faa28f}{rndlevs}));
+507         \textcolor{keywordflow}{else}         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(protofile, s);
+508     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(*(\hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_a527450844fa8523e5f8a67a93c2a7db6}{proto})) \{
+509         \textcolor{keywordflow}{if}(dunlevs\_in\_dungeon(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) > 1) \{
+510         \textcolor{keywordflow}{if}(sp && sp->\hyperlink{structs__level_acad52c1c9c746baa47b9447bd7faa28f}{rndlevs})
+511              \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(protofile, \textcolor{stringliteral}{"%s%d-%d"}, \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].
+      \hyperlink{structdungeon_a527450844fa8523e5f8a67a93c2a7db6}{proto},
+512                         dunlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}),
+513                         rnd((\textcolor{keywordtype}{int}) sp->\hyperlink{structs__level_acad52c1c9c746baa47b9447bd7faa28f}{rndlevs}));
+514         \textcolor{keywordflow}{else} \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(protofile, \textcolor{stringliteral}{"%s%d"}, \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].
+      \hyperlink{structdungeon_a527450844fa8523e5f8a67a93c2a7db6}{proto},
+515                         dunlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}));
+516         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(sp && sp->\hyperlink{structs__level_acad52c1c9c746baa47b9447bd7faa28f}{rndlevs}) \{
+517              \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(protofile, \textcolor{stringliteral}{"%s-%d"}, \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].
+      \hyperlink{structdungeon_a527450844fa8523e5f8a67a93c2a7db6}{proto},
+518                         rnd((\textcolor{keywordtype}{int}) sp->\hyperlink{structs__level_acad52c1c9c746baa47b9447bd7faa28f}{rndlevs}));
+519         \} \textcolor{keywordflow}{else} \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(protofile, \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_a527450844fa8523e5f8a67a93c2a7db6}{proto});
+520 
+521     \} \textcolor{keywordflow}{else} \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(protofile, \textcolor{stringliteral}{""});
+522 
+523 \textcolor{preprocessor}{#ifdef WIZARD}
+524     \textcolor{comment}{/* SPLEVTYPE format is "level-choice,level-choice"... */}
+525     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && *protofile && sp && sp->\hyperlink{structs__level_acad52c1c9c746baa47b9447bd7faa28f}{rndlevs}) \{
+526         \textcolor{keywordtype}{char} *ep = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"SPLEVTYPE"});   \textcolor{comment}{/* not nh\_getenv */}
+527         \textcolor{keywordflow}{if} (ep) \{
+528         \textcolor{comment}{/* rindex always succeeds due to code in prior block */}
+529         \textcolor{keywordtype}{int} len = (\hyperlink{beconf_8h_a8c35ae4e83034731f6aecfb34c883ecf}{rindex}(protofile, \textcolor{charliteral}{'-'}) - protofile) + 1;
+530 
+531         \textcolor{keywordflow}{while} (ep && *ep) \{
+532             \textcolor{keywordflow}{if} (!strncmp(ep, protofile, len)) \{
+533             \textcolor{keywordtype}{int} pick = atoi(ep + len);
+534             \textcolor{comment}{/* use choice only if valid */}
+535             \textcolor{keywordflow}{if} (pick > 0 && pick <= (\textcolor{keywordtype}{int}) sp->\hyperlink{structs__level_acad52c1c9c746baa47b9447bd7faa28f}{rndlevs})
+536                 \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(protofile + len, \textcolor{stringliteral}{"%d"}, pick);
+537             \textcolor{keywordflow}{break};
+538             \} \textcolor{keywordflow}{else} \{
+539             ep = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(ep, \textcolor{charliteral}{','});
+540             \textcolor{keywordflow}{if} (ep) ++ep;
+541             \}
+542         \}
+543         \}
+544     \}
+545 \textcolor{preprocessor}{#endif}
+546 
+547     \textcolor{keywordflow}{if}(*protofile) \{
+548         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(protofile, \hyperlink{global_8h_a76b7f1728321b300865cd7f8a45dff74}{LEV\_EXT});
+549         \textcolor{keywordflow}{if}(\hyperlink{sp__lev_8c_aecd77c8d5219946f49e15b9b741fec4c}{load\_special}(protofile)) \{
+550         \hyperlink{mkmaze_8c_a24d824873b27b8d16e305dd0c51004de}{fixup\_special}();
+551         \textcolor{comment}{/* some levels can end up with monsters}
+552 \textcolor{comment}{           on dead mon list, including light source monsters */}
+553         dmonsfree();
+554         \textcolor{keywordflow}{return}; \textcolor{comment}{/* no mazification right now */}
+555         \}
+556         impossible(\textcolor{stringliteral}{"Couldn't load \(\backslash\)"%s\(\backslash\)" - making a maze."}, protofile);
+557     \}
+558 
+559     \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.is\_maze\_lev = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+560 
+561 \textcolor{preprocessor}{#ifndef WALLIFIED\_MAZE}
+562     \textcolor{keywordflow}{for}(x = 2; x < \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max}; x++)
+563         \textcolor{keywordflow}{for}(y = 2; y < \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max}; y++)
+564             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE};
+565 \textcolor{preprocessor}{#else}
+566     \textcolor{keywordflow}{for}(x = 2; x <= \hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max}; x++)
+567         \textcolor{keywordflow}{for}(y = 2; y <= \hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max}; y++)
+568             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ = ((x % 2) && (y % 2)) ? \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE} : \hyperlink{rm_8h_a3fcd4705d7b0ac05a88302170fcc58f5}{HWALL};
+569 \textcolor{preprocessor}{#endif}
+570 
+571     \hyperlink{mkmaze_8c_aeee2a4503ec34c13bc03b7133c2d02e5}{maze0xy}(&mm);
+572     \hyperlink{mkmaze_8c_a2d61d045fcb05a76cc0e437959d4b3e0}{walkfrom}((\textcolor{keywordtype}{int}) mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, (\textcolor{keywordtype}{int}) mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y});
+573     \textcolor{comment}{/* put a boulder at the maze center */}
+574     (void) mksobj\_at(BOULDER, (\textcolor{keywordtype}{int}) mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, (int) mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+575 
+576 \textcolor{preprocessor}{#ifdef WALLIFIED\_MAZE}
+577     \hyperlink{mkmaze_8c_ae15934086870601facb65acfbf4fe03e}{wallification}(2, 2, x\_maze\_max, y\_maze\_max);
+578 \textcolor{preprocessor}{#endif}
+579     \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&mm);
+580     \hyperlink{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}{mkstairs}(mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, 1, (\textcolor{keyword}{struct} \hyperlink{structmkroom}{mkroom} *)0);        \textcolor{comment}{/* up */}
+581     \textcolor{keywordflow}{if} (!Invocation\_lev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+582         \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&mm);
+583         \hyperlink{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}{mkstairs}(mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, 0, (\textcolor{keyword}{struct} \hyperlink{structmkroom}{mkroom} *)0);    \textcolor{comment}{/* down */}
+584     \} \textcolor{keywordflow}{else} \{    \textcolor{comment}{/* choose "vibrating square" location */}
+585 \textcolor{preprocessor}{#define x\_maze\_min 2}
+586 \textcolor{preprocessor}{#define y\_maze\_min 2}
+587         \textcolor{comment}{/*}
+588 \textcolor{comment}{         * Pick a position where the stairs down to Moloch's Sanctum}
+589 \textcolor{comment}{         * level will ultimately be created.  At that time, an area}
+590 \textcolor{comment}{         * will be altered:  walls removed, moat and traps generated,}
+591 \textcolor{comment}{         * boulders destroyed.  The position picked here must ensure}
+592 \textcolor{comment}{         * that that invocation area won't extend off the map.}
+593 \textcolor{comment}{         *}
+594 \textcolor{comment}{         * We actually allow up to 2 squares around the usual edge of}
+595 \textcolor{comment}{         * the area to get truncated; see mkinvokearea(mklev.c).}
+596 \textcolor{comment}{         */}
+597 \textcolor{preprocessor}{#define INVPOS\_X\_MARGIN (6 - 2)}
+598 \textcolor{preprocessor}{#define INVPOS\_Y\_MARGIN (5 - 2)}
+599 \textcolor{preprocessor}{#define INVPOS\_DISTANCE 11}
+600         \textcolor{keywordtype}{int} x\_range = x\_maze\_max - \hyperlink{mkmaze_8c_a21b0b9981b1a998412365ddc5b1f48b6}{x\_maze\_min} - 2*\hyperlink{mkmaze_8c_a0b544aded64309d6c45d9fdc7dd3d336}{INVPOS\_X\_MARGIN} - 1,
+601         y\_range = y\_maze\_max - \hyperlink{mkmaze_8c_a9136921ae7bf399bd780c5afd292c21e}{y\_maze\_min} - 2*\hyperlink{mkmaze_8c_adf90dcfc42886f332469ac18fd3d3015}{INVPOS\_Y\_MARGIN} - 1;
+602 
+603 \textcolor{preprocessor}{#ifdef DEBUG}
+604         \textcolor{keywordflow}{if} (x\_range <= INVPOS\_X\_MARGIN || y\_range <= INVPOS\_Y\_MARGIN ||
+605            (x\_range * y\_range) <= (\hyperlink{mkmaze_8c_a59c9a6676695d5a4a081d261c6386ae9}{INVPOS\_DISTANCE} * 
+      \hyperlink{mkmaze_8c_a59c9a6676695d5a4a081d261c6386ae9}{INVPOS\_DISTANCE}))
+606         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"inv\_pos: maze is too small! (%d x %d)"},
+607               x\_maze\_max, y\_maze\_max);
+608 \textcolor{preprocessor}{#endif}
+609         \hyperlink{decl_8h_a09696ea21f7d27c0a9383568d3cb99f3}{inv\_pos}.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = \hyperlink{decl_8h_a09696ea21f7d27c0a9383568d3cb99f3}{inv\_pos}.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = 0; \textcolor{comment}{/*\{occupied() => invocation\_pos()\}*/}
+610         \textcolor{keywordflow}{do} \{
+611         x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(x\_range, \hyperlink{mkmaze_8c_a21b0b9981b1a998412365ddc5b1f48b6}{x\_maze\_min} + INVPOS\_X\_MARGIN + 1);
+612         y = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(y\_range, \hyperlink{mkmaze_8c_a9136921ae7bf399bd780c5afd292c21e}{y\_maze\_min} + INVPOS\_Y\_MARGIN + 1);
+613         \textcolor{comment}{/* we don't want it to be too near the stairs, nor}
+614 \textcolor{comment}{           to be on a spot that's already in use (wall|trap) */}
+615         \} \textcolor{keywordflow}{while} (x == \hyperlink{decl_8h_a6ddff041cb808902b66e0b7196f03e00}{xupstair} || y == \hyperlink{decl_8h_a26867130b8519f38c26a8b28b4df9ac0}{yupstair} ||  \textcolor{comment}{/*(direct line)*/}
+616              \hyperlink{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}{abs}(x - \hyperlink{decl_8h_a6ddff041cb808902b66e0b7196f03e00}{xupstair}) == \hyperlink{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}{abs}(y - \hyperlink{decl_8h_a26867130b8519f38c26a8b28b4df9ac0}{yupstair}) ||
+617              distmin(x, y, \hyperlink{decl_8h_a6ddff041cb808902b66e0b7196f03e00}{xupstair}, \hyperlink{decl_8h_a26867130b8519f38c26a8b28b4df9ac0}{yupstair}) <= INVPOS\_DISTANCE ||
+618              !\hyperlink{rm_8h_ac9ef44b0b0d338f7af72c2cd86fb3fa3}{SPACE\_POS}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ) || \hyperlink{mklev_8c_a6d2eb7d66d955a58567e29162cc8e371}{occupied}(x, y));
+619         \hyperlink{decl_8h_a09696ea21f7d27c0a9383568d3cb99f3}{inv\_pos}.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = x;
+620         \hyperlink{decl_8h_a09696ea21f7d27c0a9383568d3cb99f3}{inv\_pos}.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = y;
+621 \textcolor{preprocessor}{#undef INVPOS\_X\_MARGIN}
+622 \textcolor{preprocessor}{#undef INVPOS\_Y\_MARGIN}
+623 \textcolor{preprocessor}{#undef INVPOS\_DISTANCE}
+624 \textcolor{preprocessor}{#undef x\_maze\_min}
+625 \textcolor{preprocessor}{#undef y\_maze\_min}
+626     \}
+627 
+628     \textcolor{comment}{/* place branch stair or portal */}
+629     \hyperlink{mklev_8c_a77b4c8d2c8e5ac7d368634024d7e88b2}{place\_branch}(Is\_branchlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}), 0, 0);
+630 
+631     \textcolor{keywordflow}{for}(x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(8,11); x; x--) \{
+632         \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&mm);
+633         (void) mkobj\_at(rn2(2) ? \hyperlink{objclass_8h_afc09c51ea922e9928f86a51177244796}{GEM\_CLASS} : 0, mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+634     \}
+635     \textcolor{keywordflow}{for}(x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(10,2); x; x--) \{
+636         \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&mm);
+637         (void) mksobj\_at(BOULDER, mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+638     \}
+639     \textcolor{keywordflow}{for} (x = rn2(3); x; x--) \{
+640         \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&mm);
+641         (void) makemon(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_MINOTAUR], mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{hack_8h_ae449582f467baa0da531a6ea116a18f2}{NO\_MM\_FLAGS});
+642     \}
+643     \textcolor{keywordflow}{for}(x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(5,7); x; x--) \{
+644         \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&mm);
+645         (void) makemon((\textcolor{keyword}{struct} \hyperlink{structpermonst}{permonst} *) 0, mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{hack_8h_ae449582f467baa0da531a6ea116a18f2}{NO\_MM\_FLAGS});
+646     \}
+647     \textcolor{keywordflow}{for}(x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(6,7); x; x--) \{
+648         \hyperlink{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{mazexy}(&mm);
+649         (void) mkgold(0L,mm.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x},mm.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y});
+650     \}
+651     \textcolor{keywordflow}{for}(x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(6,7); x; x--)
+652         \hyperlink{mklev_8c_af2ceccec0c6f12db9dafcbb68b5d8b9a}{mktrap}(0,1,(\textcolor{keyword}{struct} \hyperlink{structmkroom}{mkroom} *) 0, (\hyperlink{structcoord}{coord}*) 0);
+653 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_aeee2a4503ec34c13bc03b7133c2d02e5}{\index{mkmaze.\+c@{mkmaze.\+c}!maze0xy@{maze0xy}}
+\index{maze0xy@{maze0xy}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{maze0xy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void maze0xy (
+\begin{DoxyParamCaption}
+\item[{{\bf coord}	$\ast$}]{cc}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_aeee2a4503ec34c13bc03b7133c2d02e5}
+
+
+Definition at line 210 of file mkmaze.\+c.
+
+
+
+References coord\+::x, x\+\_\+maze\+\_\+max, and y\+\_\+maze\+\_\+max.
+
+
+
+Referenced by makemaz().
+
+
+\begin{DoxyCode}
+212 \{
+213     cc->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = 3 + 2*rn2((\hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max}>>1) - 1);
+214     cc->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = 3 + 2*rn2((\hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max}>>1) - 1);
+215     \textcolor{keywordflow}{return};
+216 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}{\index{mkmaze.\+c@{mkmaze.\+c}!mazexy@{mazexy}}
+\index{mazexy@{mazexy}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{mazexy}]{\setlength{\rightskip}{0pt plus 5cm}void mazexy (
+\begin{DoxyParamCaption}
+\item[{{\bf coord}	$\ast$}]{cc}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a23f25acb10e89f41ef27d8b25be79c9b}
+
+
+Definition at line 759 of file mkmaze.\+c.
+
+
+
+References C\+O\+R\+R, levl, panic(), R\+O\+O\+M, W\+A\+L\+L\+I\+F\+I\+E\+D\+\_\+\+M\+A\+Z\+E, coord\+::x, x\+\_\+maze\+\_\+max, and y\+\_\+maze\+\_\+max.
+
+
+
+Referenced by find\+\_\+branch\+\_\+room(), getlev(), makemaz(), mkfount(), and mktrap().
+
+
+\begin{DoxyCode}
+762 \{
+763     \textcolor{keywordtype}{int} cpt=0;
+764 
+765     \textcolor{keywordflow}{do} \{
+766         cc->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = 3 + 2*rn2((\hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max}>>1) - 1);
+767         cc->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = 3 + 2*rn2((\hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max}>>1) - 1);
+768         cpt++;
+769     \} \textcolor{keywordflow}{while} (cpt < 100 && \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[cc->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][cc->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].typ !=
+770 #ifdef \hyperlink{config_8h_a16e5ab1eb4b857e564695c6d4ce5d483}{WALLIFIED\_MAZE}
+771          \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM}
+772 #\textcolor{keywordflow}{else}
+773          \hyperlink{rm_8h_aeffd57885964c3a9a5c3ce0f81c06339}{CORR}
+774 #endif
+775         );
+776     \textcolor{keywordflow}{if} (cpt >= 100) \{
+777         \textcolor{keyword}{register} \textcolor{keywordtype}{int} x, y;
+778         \textcolor{comment}{/* last try */}
+779         \textcolor{keywordflow}{for} (x = 0; x < (x\_maze\_max>>1) - 1; x++)
+780             \textcolor{keywordflow}{for} (y = 0; y < (y\_maze\_max>>1) - 1; y++) \{
+781             cc->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = 3 + 2 * x;
+782             cc->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = 3 + 2 * y;
+783             \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[cc->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}][cc->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}].typ ==
+784 #ifdef \hyperlink{config_8h_a16e5ab1eb4b857e564695c6d4ce5d483}{WALLIFIED\_MAZE}
+785                 \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM}
+786 #\textcolor{keywordflow}{else}
+787                 \hyperlink{rm_8h_aeffd57885964c3a9a5c3ce0f81c06339}{CORR}
+788 #endif
+789                ) \textcolor{keywordflow}{return};
+790             \}
+791         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"mazexy: can't find a place!"});
+792     \}
+793     \textcolor{keywordflow}{return};
+794 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_aaa0c86a2b82701e39d4d99aff0f6f089}{\index{mkmaze.\+c@{mkmaze.\+c}!mk\+\_\+bubble@{mk\+\_\+bubble}}
+\index{mk\+\_\+bubble@{mk\+\_\+bubble}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{mk\+\_\+bubble}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mk\+\_\+bubble (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_aaa0c86a2b82701e39d4d99aff0f6f089}
+
+
+Definition at line 1228 of file mkmaze.\+c.
+
+
+
+References alloc(), bubble\+::bm, bxmax, bymax, bubble\+::cons, bubble\+::dx, bubble\+::dy, ebubbles, mv\+\_\+bubble(), bubble\+::next, bubble\+::prev, S\+I\+Z\+E, T\+R\+U\+E, bubble\+::x, and bubble\+::y.
+
+
+
+Referenced by setup\+\_\+waterlevel().
+
+
+\begin{DoxyCode}
+1230 \{
+1231     \textcolor{comment}{/*}
+1232 \textcolor{comment}{     * These bit masks make visually pleasing bubbles on a normal aspect}
+1233 \textcolor{comment}{     * 25x80 terminal, which naturally results in them being mathematically}
+1234 \textcolor{comment}{     * anything but symmetric.  For this reason they cannot be computed}
+1235 \textcolor{comment}{     * in situ, either.  The first two elements tell the dimensions of}
+1236 \textcolor{comment}{     * the bubble's bounding box.}
+1237 \textcolor{comment}{     */}
+1238     \textcolor{keyword}{static} \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar}
+1239         bm2[] = \{2,1,0x3\},
+1240         bm3[] = \{3,2,0x7,0x7\},
+1241         bm4[] = \{4,3,0x6,0xf,0x6\},
+1242         bm5[] = \{5,3,0xe,0x1f,0xe\},
+1243         bm6[] = \{6,4,0x1e,0x3f,0x3f,0x1e\},
+1244         bm7[] = \{7,4,0x3e,0x7f,0x7f,0x3e\},
+1245         bm8[] = \{8,4,0x7e,0xff,0xff,0x7e\},
+1246         *bmask[] = \{bm2,bm3,bm4,bm5,bm6,bm7,bm8\};
+1247 
+1248     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *b;
+1249 
+1250     \textcolor{keywordflow}{if} (\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} >= \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax} || \hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} >= \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax}) \textcolor{keywordflow}{return};
+1251     \textcolor{keywordflow}{if} (n >= \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}(bmask)) \{
+1252         impossible(\textcolor{stringliteral}{"n too large (mk\_bubble)"});
+1253         n = \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE}(bmask) - 1;
+1254     \}
+1255     b = (\textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structbubble}{bubble}));
+1256     \textcolor{keywordflow}{if} ((\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} + (\textcolor{keywordtype}{int}) bmask[n][0] - 1) > \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax}) \hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} = \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax} - bmask[n][0] + 1;
+1257     \textcolor{keywordflow}{if} ((\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} + (\textcolor{keywordtype}{int}) bmask[n][1] - 1) > \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax}) \hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} = \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax} - bmask[n][1] + 1;
+1258     b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} = \hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x};
+1259     b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} = \hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y};
+1260     b->\hyperlink{structbubble_aef4c454d2300774393c58a14a5f78988}{dx} = 1 - rn2(3);
+1261     b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy} = 1 - rn2(3);
+1262     b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm} = bmask[n];
+1263     b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons} = 0;
+1264     \textcolor{keywordflow}{if} (!\hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles}) \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles} = b;
+1265     \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles}) \{
+1266         \hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles}->\hyperlink{structbubble_aef7d34c1e66aa80b038a11a71a06898b}{next} = b;
+1267         b->\hyperlink{structbubble_a6c2ce0302072585c0362738cbe484c13}{prev} = \hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles};
+1268     \}
+1269     \textcolor{keywordflow}{else}
+1270         b->\hyperlink{structbubble_a6c2ce0302072585c0362738cbe484c13}{prev} = (\textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *)0;
+1271     b->\hyperlink{structbubble_aef7d34c1e66aa80b038a11a71a06898b}{next} =  (\textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *)0;
+1272     \hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles} = b;
+1273     \hyperlink{mkmaze_8c_a64838861e4c183278ee905e1b13b8c07}{mv\_bubble}(b,0,0,\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1274 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_abd2165e241ae67bc0d7999cd8b36a742}{\index{mkmaze.\+c@{mkmaze.\+c}!mkportal@{mkportal}}
+\index{mkportal@{mkportal}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{mkportal}]{\setlength{\rightskip}{0pt plus 5cm}void mkportal (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{{\bf xchar}}]{todnum, }
+\item[{{\bf xchar}}]{todlevel}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_abd2165e241ae67bc0d7999cd8b36a742}
+
+
+Definition at line 884 of file mkmaze.\+c.
+
+
+
+References d\+\_\+level\+::dlevel, d\+\_\+level\+::dnum, trap\+::dst, dungeons, and M\+A\+G\+I\+C\+\_\+\+P\+O\+R\+T\+A\+L.
+
+
+
+Referenced by place\+\_\+branch(), and put\+\_\+lregion\+\_\+here().
+
+
+\begin{DoxyCode}
+886 \{
+887     \textcolor{comment}{/* a portal "trap" must be matched by a */}
+888     \textcolor{comment}{/* portal in the destination dungeon/dlevel */}
+889     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *ttmp = maketrap(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{trap_8h_a64bfa610e12179ef4bfa46c65166b2fe}{MAGIC\_PORTAL});
+890 
+891     \textcolor{keywordflow}{if} (!ttmp) \{
+892         impossible(\textcolor{stringliteral}{"portal on top of portal??"});
+893         \textcolor{keywordflow}{return};
+894     \}
+895 \textcolor{preprocessor}{#ifdef DEBUG}
+896     pline(\textcolor{stringliteral}{"mkportal: at (%d,%d), to %s, level %d"},
+897         \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[todnum].dname, todlevel);
+898 \textcolor{preprocessor}{#endif}
+899     ttmp->\hyperlink{structtrap_a7f0184c96889b0dfba889dbb18a06828}{dst}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} = todnum;
+900     ttmp->\hyperlink{structtrap_a7f0184c96889b0dfba889dbb18a06828}{dst}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} = todlevel;
+901     \textcolor{keywordflow}{return};
+902 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{\index{mkmaze.\+c@{mkmaze.\+c}!move@{move}}
+\index{move@{move}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{move}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void move (
+\begin{DoxyParamCaption}
+\item[{int $\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{int}]{dir}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}
+
+
+Definition at line 745 of file mkmaze.\+c.
+
+
+
+References panic().
+
+
+
+Referenced by okay(), and walkfrom().
+
+
+\begin{DoxyCode}
+748 \{
+749     \textcolor{keywordflow}{switch}(dir)\{
+750         \textcolor{keywordflow}{case} 0: --(*y); \textcolor{keywordflow}{break};
+751         \textcolor{keywordflow}{case} 1: (*x)++; \textcolor{keywordflow}{break};
+752         \textcolor{keywordflow}{case} 2: (*y)++; \textcolor{keywordflow}{break};
+753         \textcolor{keywordflow}{case} 3: --(*x); \textcolor{keywordflow}{break};
+754         \textcolor{keywordflow}{default}: \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"move: bad direction"});
+755     \}
+756 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a540977be6c10fea290b747cc6237d9c8}{\index{mkmaze.\+c@{mkmaze.\+c}!movebubbles@{movebubbles}}
+\index{movebubbles@{movebubbles}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{movebubbles}]{\setlength{\rightskip}{0pt plus 5cm}void movebubbles (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a540977be6c10fea290b747cc6237d9c8}
+
+
+Definition at line 934 of file mkmaze.\+c.
+
+
+
+References alloc(), block\+\_\+point(), bubble\+::bm, cmap\+\_\+to\+\_\+glyph, bubble\+::cons, C\+O\+N\+S\+\_\+\+H\+E\+R\+O, C\+O\+N\+S\+\_\+\+M\+O\+N, C\+O\+N\+S\+\_\+\+O\+B\+J, C\+O\+N\+S\+\_\+\+T\+R\+A\+P, bubble\+::dx, bubble\+::dy, F\+A\+L\+S\+E, level, levl, container\+::list, m\+\_\+at, M\+O\+N\+\_\+\+A\+T, mv\+\_\+bubble(), monst\+::mx, monst\+::my, newsym(), container\+::next, bubble\+::next, O\+B\+J\+\_\+\+A\+T, dlevel\+\_\+t\+::objects, olist, otmp, obj\+::ox, obj\+::oy, panic(), placebc(), bubble\+::prev, Punished, remove\+\_\+monster, remove\+\_\+worm(), S\+\_\+water, set\+\_\+wportal(), u, unplacebc(), you\+::ux, you\+::uy, vision\+\_\+full\+\_\+recalc, vision\+\_\+recalc(), W\+A\+T\+E\+R, container\+::what, container\+::x, bubble\+::x, container\+::y, and bubble\+::y.
+
+
+\begin{DoxyCode}
+935 \{
+936     \textcolor{keyword}{static} \textcolor{keywordtype}{boolean} up;
+937     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *b;
+938     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}, \hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}, i, j;
+939     \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *btrap;
+940     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keyword}{struct }\hyperlink{structrm}{rm} water\_pos =
+941         \{ \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\_to\_glyph}(\hyperlink{rm_8h_ac0869946494dcbd6263431120d15c0df}{S\_water}), \hyperlink{rm_8h_a5c3fbf45abc4ee50d118d87aecfee212}{WATER}, 0, 0, 0, 0, 0, 0, 0 \};
+942 
+943     \textcolor{comment}{/* set up the portal the first time bubbles are moved */}
+944     \textcolor{keywordflow}{if} (!\hyperlink{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}{wportal}) \hyperlink{mkmaze_8c_ab2e2a812f8e7b5044d54c217f9c36bd0}{set\_wportal}();
+945 
+946     \hyperlink{vision_8c_a07b3acbfcca75497c31df8d8aee1ca53}{vision\_recalc}(2);
+947     \textcolor{comment}{/* keep attached ball&chain separate from bubble objects */}
+948     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_ad76daf081117eb579839073bebe92b45}{Punished}) \hyperlink{ball_8c_a5596cf2bf4f23320ff7738af699100dc}{unplacebc}();
+949 
+950     \textcolor{comment}{/*}
+951 \textcolor{comment}{     * Pick up everything inside of a bubble then fill all bubble}
+952 \textcolor{comment}{     * locations.}
+953 \textcolor{comment}{     */}
+954 
+955     \textcolor{keywordflow}{for} (b = up ? \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles} : \hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles}; b; b = up ? b->\hyperlink{structbubble_aef7d34c1e66aa80b038a11a71a06898b}{next} : b->
+      \hyperlink{structbubble_a6c2ce0302072585c0362738cbe484c13}{prev}) \{
+956         \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons}) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"movebubbles: cons != null"});
+957         \textcolor{keywordflow}{for} (i = 0, x = b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}; i < (\textcolor{keywordtype}{int}) b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[0]; i++, x++)
+958         \textcolor{keywordflow}{for} (j = 0, y = b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}; j < (\textcolor{keywordtype}{int}) b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[1]; j++, y++)
+959             \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[j + 2] & (1 << i)) \{
+960             \textcolor{keywordflow}{if} (!isok(x,y)) \{
+961                 impossible(\textcolor{stringliteral}{"movebubbles: bad pos (%d,%d)"}, x,y);
+962                 \textcolor{keywordflow}{continue};
+963             \}
+964 
+965             \textcolor{comment}{/* pick up objects, monsters, hero, and traps */}
+966             \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a8c5e05f917fa75d3b54c8c5045d6665b}{OBJ\_AT}(x,y)) \{
+967                 \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{lev__yacc_8c_a33f9fd742e948f0c40d8661f76a0d250}{olist} = (\textcolor{keyword}{struct }\hyperlink{structobj}{obj} *) 0, *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+968                 \textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *cons = (\textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *)
+969                 \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structcontainer}{container}));
+970 
+971                 \textcolor{keywordflow}{while} ((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp} = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ac128f805d01d7746b499596dd3b92a53}{objects}[x][y]) != 0) \{
+972                 remove\_object(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp});
+973                 \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox} = \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy} = 0;
+974                 \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->nexthere = \hyperlink{lev__yacc_8c_a33f9fd742e948f0c40d8661f76a0d250}{olist};
+975                 olist = \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+976                 \}
+977 
+978                 cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x} = \hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x};
+979                 cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y} = \hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y};
+980                 cons->\hyperlink{structcontainer_af31e1bce3abf7ac6d89534c778ed8f26}{what} = \hyperlink{mkmaze_8c_a38ceaace482a91189ceb981d88a4dfb2}{CONS\_OBJ};
+981                 cons->\hyperlink{structcontainer_a0289aa4e01fe8f9377cc4c47acc4f8c8}{list} = (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) olist;
+982                 cons->\hyperlink{structcontainer_aa7dd898e9e1df84d3f1e647cbc76f266}{next} = b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons};
+983                 b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons} = cons;
+984             \}
+985             \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a17ef631151b987fd582fca76a429c08a}{MON\_AT}(x,y)) \{
+986                 \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mon = \hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(x,y);
+987                 \textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *cons = (\textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *)
+988                 \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structcontainer}{container}));
+989 
+990                 cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x} = \hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x};
+991                 cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y} = \hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y};
+992                 cons->\hyperlink{structcontainer_af31e1bce3abf7ac6d89534c778ed8f26}{what} = \hyperlink{mkmaze_8c_a40a3860c2f032c55154d09fbdf5f39fd}{CONS\_MON};
+993                 cons->\hyperlink{structcontainer_a0289aa4e01fe8f9377cc4c47acc4f8c8}{list} = (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) mon;
+994 
+995                 cons->\hyperlink{structcontainer_aa7dd898e9e1df84d3f1e647cbc76f266}{next} = b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons};
+996                 b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons} = cons;
+997 
+998                 \textcolor{keywordflow}{if}(mon->wormno)
+999                 \hyperlink{worm_8c_ae053c352f0b044f150234f457e7b0a1f}{remove\_worm}(mon);
+1000                 \textcolor{keywordflow}{else}
+1001                 \hyperlink{rm_8h_a8b498c0777a4cf5d9894ab76cb6a520e}{remove\_monster}(x, y);
+1002 
+1003                 \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(x,y);  \textcolor{comment}{/* clean up old position */}
+1004                 mon->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx} = mon->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my} = 0;
+1005             \}
+1006             \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow && x == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} && y == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) \{
+1007                 \textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *cons = (\textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *)
+1008                 \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structcontainer}{container}));
+1009 
+1010                 cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x} = \hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x};
+1011                 cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y} = \hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y};
+1012                 cons->\hyperlink{structcontainer_af31e1bce3abf7ac6d89534c778ed8f26}{what} = \hyperlink{mkmaze_8c_ad6ec38fbbbc72d7ebe40b26672c53232}{CONS\_HERO};
+1013                 cons->\hyperlink{structcontainer_a0289aa4e01fe8f9377cc4c47acc4f8c8}{list} = (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) 0;
+1014 
+1015                 cons->\hyperlink{structcontainer_aa7dd898e9e1df84d3f1e647cbc76f266}{next} = b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons};
+1016                 b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons} = cons;
+1017             \}
+1018             \textcolor{keywordflow}{if} ((btrap = t\_at(x,y)) != 0) \{
+1019                 \textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *cons = (\textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *)
+1020                 \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structcontainer}{container}));
+1021 
+1022                 cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x} = \hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x};
+1023                 cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y} = \hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y};
+1024                 cons->\hyperlink{structcontainer_af31e1bce3abf7ac6d89534c778ed8f26}{what} = \hyperlink{mkmaze_8c_a1ab7b1e8684607b22d66ff9bffd12444}{CONS\_TRAP};
+1025                 cons->\hyperlink{structcontainer_a0289aa4e01fe8f9377cc4c47acc4f8c8}{list} = (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) btrap;
+1026 
+1027                 cons->\hyperlink{structcontainer_aa7dd898e9e1df84d3f1e647cbc76f266}{next} = b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons};
+1028                 b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons} = cons;
+1029             \}
+1030 
+1031             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x}][\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y}] = water\_pos;
+1032             \hyperlink{vision_8c_ae985a63b19aa1a0a81fa91b46972e27e}{block\_point}(x,y);
+1033             \}
+1034     \}
+1035 
+1036     \textcolor{comment}{/*}
+1037 \textcolor{comment}{     * Every second time traverse down.  This is because otherwise}
+1038 \textcolor{comment}{     * all the junk that changes owners when bubbles overlap}
+1039 \textcolor{comment}{     * would eventually end up in the last bubble in the chain.}
+1040 \textcolor{comment}{     */}
+1041 
+1042     up = !up;
+1043     \textcolor{keywordflow}{for} (b = up ? \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles} : \hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles}; b; b = up ? b->\hyperlink{structbubble_aef7d34c1e66aa80b038a11a71a06898b}{next} : b->
+      \hyperlink{structbubble_a6c2ce0302072585c0362738cbe484c13}{prev}) \{
+1044         \textcolor{keyword}{register} \textcolor{keywordtype}{int} rx = rn2(3), ry = rn2(3);
+1045 
+1046         \hyperlink{mkmaze_8c_a64838861e4c183278ee905e1b13b8c07}{mv\_bubble}(b,b->\hyperlink{structbubble_aef4c454d2300774393c58a14a5f78988}{dx} + 1 - (!b->\hyperlink{structbubble_aef4c454d2300774393c58a14a5f78988}{dx} ? rx : (rx ? 1 : 0)),
+1047                 b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy} + 1 - (!b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy} ? ry : (ry ? 1 : 0)),
+1048                 \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1049     \}
+1050 
+1051     \textcolor{comment}{/* put attached ball&chain back */}
+1052     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_ad76daf081117eb579839073bebe92b45}{Punished}) \hyperlink{ball_8c_ae38eff6ef477a64e08d48e372e5dc406}{placebc}();
+1053     \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 1;
+1054 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a64838861e4c183278ee905e1b13b8c07}{\index{mkmaze.\+c@{mkmaze.\+c}!mv\+\_\+bubble@{mv\+\_\+bubble}}
+\index{mv\+\_\+bubble@{mv\+\_\+bubble}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{mv\+\_\+bubble}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mv\+\_\+bubble (
+\begin{DoxyParamCaption}
+\item[{struct {\bf bubble} $\ast$}]{b, }
+\item[{int}]{dx, }
+\item[{int}]{dy, }
+\item[{{\bf boolean}}]{ini}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a64838861e4c183278ee905e1b13b8c07}
+
+
+Definition at line 1285 of file mkmaze.\+c.
+
+
+
+References A\+I\+R, bxmax, bxmin, bymax, bymin, C\+O\+N\+S\+\_\+\+H\+E\+R\+O, C\+O\+N\+S\+\_\+\+M\+O\+N, C\+O\+N\+S\+\_\+\+O\+B\+J, C\+O\+N\+S\+\_\+\+T\+R\+A\+P, free(), levl, container\+::list, m\+\_\+at, M\+O\+N\+\_\+\+A\+T, newsym(), container\+::next, olist, otmp, T\+R\+U\+E, trap\+::tx, trap\+::ty, u, unblock\+\_\+point(), you\+::ux, you\+::uy, container\+::what, container\+::x, bubble\+::x, container\+::y, and bubble\+::y.
+
+
+
+Referenced by mk\+\_\+bubble(), movebubbles(), and restore\+\_\+waterlevel().
+
+
+\begin{DoxyCode}
+1289 \{
+1290     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x}, \hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y}, i, j, colli = 0;
+1291     \textcolor{keyword}{struct }\hyperlink{structcontainer}{container} *cons, *ctemp;
+1292 
+1293     \textcolor{comment}{/* move bubble */}
+1294     \textcolor{keywordflow}{if} (dx < -1 || dx > 1 || dy < -1 || dy > 1) \{
+1295         \textcolor{comment}{/* pline("mv\_bubble: dx = %d, dy = %d", dx, dy); */}
+1296         dx = sgn(dx);
+1297         dy = sgn(dy);
+1298     \}
+1299 
+1300     \textcolor{comment}{/*}
+1301 \textcolor{comment}{     * collision with level borders?}
+1302 \textcolor{comment}{     *  1 = horizontal border, 2 = vertical, 3 = corner}
+1303 \textcolor{comment}{     */}
+1304     \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} <= \hyperlink{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}{bxmin}) colli |= 2;
+1305     \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} <= \hyperlink{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}{bymin}) colli |= 1;
+1306     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) (b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} + b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[0] - 1) >= \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax}) colli |= 2;
+1307     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) (b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} + b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[1] - 1) >= \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax}) colli |= 1;
+1308 
+1309     \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} < \hyperlink{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}{bxmin}) \{
+1310         pline(\textcolor{stringliteral}{"bubble xmin: x = %d, xmin = %d"}, b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}, \hyperlink{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}{bxmin});
+1311         b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} = \hyperlink{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}{bxmin};
+1312     \}
+1313     \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} < \hyperlink{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}{bymin}) \{
+1314         pline(\textcolor{stringliteral}{"bubble ymin: y = %d, ymin = %d"}, b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}, \hyperlink{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}{bymin});
+1315         b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} = \hyperlink{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}{bymin};
+1316     \}
+1317     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) (b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} + b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[0] - 1) > \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax}) \{
+1318         pline(\textcolor{stringliteral}{"bubble xmax: x = %d, xmax = %d"},
+1319             b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} + b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[0] - 1, \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax});
+1320         b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} = \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax} - b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[0] + 1;
+1321     \}
+1322     \textcolor{keywordflow}{if} ((\textcolor{keywordtype}{int}) (b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} + b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[1] - 1) > \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax}) \{
+1323         pline(\textcolor{stringliteral}{"bubble ymax: y = %d, ymax = %d"},
+1324             b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} + b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[1] - 1, \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax});
+1325         b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} = \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax} - b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[1] + 1;
+1326     \}
+1327 
+1328     \textcolor{comment}{/* bounce if we're trying to move off the border */}
+1329     \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} == \hyperlink{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}{bxmin} && dx < 0) dx = -dx;
+1330     \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} + b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[0] - 1 == \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax} && dx > 0) dx = -dx;
+1331     \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} == \hyperlink{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}{bymin} && dy < 0) dy = -dy;
+1332     \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} + b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[1] - 1 == \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax} && dy > 0) dy = -dy;
+1333 
+1334     b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x} += dx;
+1335     b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y} += dy;
+1336 
+1337     \textcolor{comment}{/* void positions inside bubble */}
+1338 
+1339     \textcolor{keywordflow}{for} (i = 0, x = b->\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}; i < (\textcolor{keywordtype}{int}) b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[0]; i++, x++)
+1340         \textcolor{keywordflow}{for} (j = 0, y = b->\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}; j < (\textcolor{keywordtype}{int}) b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[1]; j++, y++)
+1341         \textcolor{keywordflow}{if} (b->\hyperlink{structbubble_aa4c214358b89b914833d9e4b840d4a17}{bm}[j + 2] & (1 << i)) \{
+1342             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x}][\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y}].typ = \hyperlink{rm_8h_a9c9ed176f84de328afaf7f514ded7df3}{AIR};
+1343             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x}][\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y}].lit = 1;
+1344             \hyperlink{vision_8c_ae35bdda13dee95d455874551be850a47}{unblock\_point}(x,y);
+1345         \}
+1346 
+1347     \textcolor{comment}{/* replace contents of bubble */}
+1348     \textcolor{keywordflow}{for} (cons = b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons}; cons; cons = ctemp) \{
+1349         ctemp = cons->\hyperlink{structcontainer_aa7dd898e9e1df84d3f1e647cbc76f266}{next};
+1350         cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x} += dx;
+1351         cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y} += dy;
+1352 
+1353         \textcolor{keywordflow}{switch}(cons->\hyperlink{structcontainer_af31e1bce3abf7ac6d89534c778ed8f26}{what}) \{
+1354         \textcolor{keywordflow}{case} \hyperlink{mkmaze_8c_a38ceaace482a91189ceb981d88a4dfb2}{CONS\_OBJ}: \{
+1355             \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{lev__yacc_8c_a33f9fd742e948f0c40d8661f76a0d250}{olist}, *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+1356 
+1357             \textcolor{keywordflow}{for} (olist=(\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)cons->\hyperlink{structcontainer_a0289aa4e01fe8f9377cc4c47acc4f8c8}{list}; olist; olist=otmp) \{
+1358             otmp = olist->nexthere;
+1359             place\_object(olist, cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x}, cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y});
+1360             \}
+1361             \textcolor{keywordflow}{break};
+1362         \}
+1363 
+1364         \textcolor{keywordflow}{case} \hyperlink{mkmaze_8c_a40a3860c2f032c55154d09fbdf5f39fd}{CONS\_MON}: \{
+1365             \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mon = (\textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *) cons->\hyperlink{structcontainer_a0289aa4e01fe8f9377cc4c47acc4f8c8}{list};
+1366             (\textcolor{keywordtype}{void}) mnearto(mon, cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x}, cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1367             \textcolor{keywordflow}{break};
+1368         \}
+1369 
+1370         \textcolor{keywordflow}{case} \hyperlink{mkmaze_8c_ad6ec38fbbbc72d7ebe40b26672c53232}{CONS\_HERO}: \{
+1371             \textcolor{keywordtype}{int} ux0 = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, uy0 = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+1372 
+1373             \textcolor{comment}{/* change u.ux0 and u.uy0? */}
+1374             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} = cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x};
+1375             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} = cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y};
+1376             \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(ux0, uy0); \textcolor{comment}{/* clean up old position */}
+1377 
+1378             \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a17ef631151b987fd582fca76a429c08a}{MON\_AT}(cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x}, cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y})) \{
+1379                 mnexto(\hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x},cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y}));
+1380             \}
+1381             \textcolor{keywordflow}{break};
+1382         \}
+1383 
+1384         \textcolor{keywordflow}{case} \hyperlink{mkmaze_8c_a1ab7b1e8684607b22d66ff9bffd12444}{CONS\_TRAP}: \{
+1385             \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *btrap = (\textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *) cons->\hyperlink{structcontainer_a0289aa4e01fe8f9377cc4c47acc4f8c8}{list};
+1386             btrap->\hyperlink{structtrap_a8a3d31070852119ee66c8662b0c883c7}{tx} = cons->\hyperlink{structcontainer_a085a03de28c9473865182201317c2a27}{x};
+1387             btrap->\hyperlink{structtrap_a579c4f0e2d31e3657c930d6741737b20}{ty} = cons->\hyperlink{structcontainer_a74c8505c048acb675a74441c1c3ccd61}{y};
+1388             \textcolor{keywordflow}{break};
+1389         \}
+1390 
+1391         \textcolor{keywordflow}{default}:
+1392             impossible(\textcolor{stringliteral}{"mv\_bubble: unknown bubble contents"});
+1393             \textcolor{keywordflow}{break};
+1394         \}
+1395         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})cons);
+1396     \}
+1397     b->\hyperlink{structbubble_ac3bc5856e3a28ea2e9249acd52019757}{cons} = 0;
+1398 
+1399     \textcolor{comment}{/* boing? */}
+1400 
+1401     \textcolor{keywordflow}{switch} (colli) \{
+1402         \textcolor{keywordflow}{case} 1: b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy} = -b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy}; \textcolor{keywordflow}{break};
+1403         \textcolor{keywordflow}{case} 3: b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy} = -b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy}; \textcolor{comment}{/* fall through */}
+1404         \textcolor{keywordflow}{case} 2: b->\hyperlink{structbubble_aef4c454d2300774393c58a14a5f78988}{dx} = -b->\hyperlink{structbubble_aef4c454d2300774393c58a14a5f78988}{dx}; \textcolor{keywordflow}{break};
+1405         \textcolor{keywordflow}{default}:
+1406         \textcolor{comment}{/* sometimes alter direction for fun anyway}
+1407 \textcolor{comment}{           (higher probability for stationary bubbles) */}
+1408         \textcolor{keywordflow}{if} (!ini && ((b->\hyperlink{structbubble_aef4c454d2300774393c58a14a5f78988}{dx} || b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy}) ? !rn2(20) : !rn2(5))) \{
+1409             b->\hyperlink{structbubble_aef4c454d2300774393c58a14a5f78988}{dx} = 1 - rn2(3);
+1410             b->\hyperlink{structbubble_ad0d5443c4c0c8774ee7acbb3a2a654b7}{dy} = 1 - rn2(3);
+1411         \}
+1412     \}
+1413 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a4798822e0dce56513ab20d93c8057205}{\index{mkmaze.\+c@{mkmaze.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf fixup\+\_\+special}}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a4798822e0dce56513ab20d93c8057205}
+\hypertarget{mkmaze_8c_a5890098436c9bdc0f9abec7868f93b5b}{\index{mkmaze.\+c@{mkmaze.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf setup\+\_\+waterlevel}}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a5890098436c9bdc0f9abec7868f93b5b}
+\hypertarget{mkmaze_8c_acb5dcb51961c5604bc6c88dbce31c348}{\index{mkmaze.\+c@{mkmaze.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf unsetup\+\_\+waterlevel}}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_acb5dcb51961c5604bc6c88dbce31c348}
+\hypertarget{mkmaze_8c_a29b387461844edbe589f2c98c50a1171}{\index{mkmaze.\+c@{mkmaze.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf set\+\_\+wportal}}]{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a29b387461844edbe589f2c98c50a1171}
+\hypertarget{mkmaze_8c_a1f4a6bd3eb1c632fadaf884b976842a8}{\index{mkmaze.\+c@{mkmaze.\+c}!okay@{okay}}
+\index{okay@{okay}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{okay}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} okay (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{int}]{dir}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a1f4a6bd3eb1c632fadaf884b976842a8}
+
+
+Definition at line 198 of file mkmaze.\+c.
+
+
+
+References F\+A\+L\+S\+E, levl, move(), T\+R\+U\+E, rm\+::typ, x\+\_\+maze\+\_\+max, and y\+\_\+maze\+\_\+max.
+
+
+
+Referenced by Create\+Dialog(), Edit\+Clipping(), Edit\+Color(), and walkfrom().
+
+
+\begin{DoxyCode}
+201 \{
+202     \hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move}(&\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x},&\hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y},dir);
+203     \hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move}(&\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x},&\hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y},dir);
+204     \textcolor{keywordflow}{if}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}<3 || y<3 || x>\hyperlink{decl_8h_a5a8f3e210dcf5e1b8319f220200f7e91}{x\_maze\_max} || \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}>\hyperlink{decl_8h_a148ae7e81a85b4cab11815530f82da17}{y\_maze\_max} || \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[
+      \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}][\hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}].typ != 0)
+205         \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+206     \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+207 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a4240ac2044985f4c4c8856cd558c3ed5}{\index{mkmaze.\+c@{mkmaze.\+c}!place\+\_\+lregion@{place\+\_\+lregion}}
+\index{place\+\_\+lregion@{place\+\_\+lregion}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{place\+\_\+lregion}]{\setlength{\rightskip}{0pt plus 5cm}void place\+\_\+lregion (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{lx, }
+\item[{{\bf xchar}}]{ly, }
+\item[{{\bf xchar}}]{hx, }
+\item[{{\bf xchar}}]{hy, }
+\item[{{\bf xchar}}]{nlx, }
+\item[{{\bf xchar}}]{nly, }
+\item[{{\bf xchar}}]{nhx, }
+\item[{{\bf xchar}}]{nhy, }
+\item[{{\bf xchar}}]{rtype, }
+\item[{{\bf d\+\_\+level}	$\ast$}]{lev}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a4240ac2044985f4c4c8856cd558c3ed5}
+
+
+Definition at line 238 of file mkmaze.\+c.
+
+
+
+References C\+O\+L\+N\+O, L\+R\+\_\+\+B\+R\+A\+N\+C\+H, nroom, place\+\_\+branch(), put\+\_\+lregion\+\_\+here(), rn1, R\+O\+W\+N\+O, T\+R\+U\+E, u, and you\+::uz.
+
+
+
+Referenced by fixup\+\_\+special().
+
+
+\begin{DoxyCode}
+243 \{
+244     \textcolor{keywordtype}{int} trycnt;
+245     \textcolor{keywordtype}{boolean} oneshot;
+246     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y};
+247 
+248     \textcolor{keywordflow}{if}(!lx) \{ \textcolor{comment}{/* default to whole level */}
+249     \textcolor{comment}{/*}
+250 \textcolor{comment}{     * if there are rooms and this a branch, let place\_branch choose}
+251 \textcolor{comment}{     * the branch location (to avoid putting branches in corridors).}
+252 \textcolor{comment}{     */}
+253     \textcolor{keywordflow}{if}(rtype == \hyperlink{dungeon_8h_a6f8a1eac67dfe592cb3420a916e7b73d}{LR\_BRANCH} && \hyperlink{decl_8h_a5f1394ad444ca9a0b5e47123e8c454d9}{nroom}) \{
+254         \hyperlink{mklev_8c_a77b4c8d2c8e5ac7d368634024d7e88b2}{place\_branch}(Is\_branchlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}), 0, 0);
+255         \textcolor{keywordflow}{return};
+256     \}
+257 
+258     lx = 1; hx = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+259     ly = 1; hy = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1;
+260     \}
+261 
+262     \textcolor{comment}{/* first a probabilistic approach */}
+263 
+264     oneshot = (lx == hx && ly == hy);
+265     \textcolor{keywordflow}{for} (trycnt = 0; trycnt < 200; trycnt++) \{
+266     x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}((hx - lx) + 1, lx);
+267     y = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}((hy - ly) + 1, ly);
+268     \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_a9ac136fd214cd6e9917790a95ff09aff}{put\_lregion\_here}(x,y,nlx,nly,nhx,nhy,rtype,oneshot,lev))
+269         \textcolor{keywordflow}{return};
+270     \}
+271 
+272     \textcolor{comment}{/* then a deterministic one */}
+273 
+274     oneshot = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+275     \textcolor{keywordflow}{for} (x = lx; x <= hx; x++)
+276     \textcolor{keywordflow}{for} (y = ly; y <= hy; y++)
+277         \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_a9ac136fd214cd6e9917790a95ff09aff}{put\_lregion\_here}(x,y,nlx,nly,nhx,nhy,rtype,oneshot,lev))
+278         \textcolor{keywordflow}{return};
+279 
+280     impossible(\textcolor{stringliteral}{"Couldn't place lregion type %d!"}, rtype);
+281 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a9ac136fd214cd6e9917790a95ff09aff}{\index{mkmaze.\+c@{mkmaze.\+c}!put\+\_\+lregion\+\_\+here@{put\+\_\+lregion\+\_\+here}}
+\index{put\+\_\+lregion\+\_\+here@{put\+\_\+lregion\+\_\+here}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{put\+\_\+lregion\+\_\+here}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} put\+\_\+lregion\+\_\+here (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y, }
+\item[{{\bf xchar}}]{nlx, }
+\item[{{\bf xchar}}]{nly, }
+\item[{{\bf xchar}}]{nhx, }
+\item[{{\bf xchar}}]{nhy, }
+\item[{{\bf xchar}}]{rtype, }
+\item[{{\bf boolean}}]{oneshot, }
+\item[{{\bf d\+\_\+level} $\ast$}]{lev}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a9ac136fd214cd6e9917790a95ff09aff}
+
+
+Definition at line 284 of file mkmaze.\+c.
+
+
+
+References bad\+\_\+location(), d\+\_\+level\+::dlevel, d\+\_\+level\+::dnum, F\+A\+L\+S\+E, L\+R\+\_\+\+B\+R\+A\+N\+C\+H, L\+R\+\_\+\+D\+O\+W\+N\+S\+T\+A\+I\+R, L\+R\+\_\+\+D\+O\+W\+N\+T\+E\+L\+E, L\+R\+\_\+\+P\+O\+R\+T\+A\+L, L\+R\+\_\+\+T\+E\+L\+E, L\+R\+\_\+\+U\+P\+S\+T\+A\+I\+R, L\+R\+\_\+\+U\+P\+T\+E\+L\+E, m\+\_\+at, M\+A\+G\+I\+C\+\_\+\+P\+O\+R\+T\+A\+L, mkportal(), mkstairs(), M\+O\+N\+\_\+\+A\+T, place\+\_\+branch(), rloc(), T\+R\+U\+E, u, and you\+::uz.
+
+
+
+Referenced by place\+\_\+lregion().
+
+
+\begin{DoxyCode}
+290 \{
+291     \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_a3970a619329ce2bfa30cfb2e9ab5de09}{bad\_location}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, nlx, nly, nhx, nhy)) \{
+292     \textcolor{keywordflow}{if} (!oneshot) \{
+293         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};      \textcolor{comment}{/* caller should try again */}
+294     \} \textcolor{keywordflow}{else} \{
+295         \textcolor{comment}{/* Must make do with the only location possible;}
+296 \textcolor{comment}{           avoid failure due to a misplaced trap.}
+297 \textcolor{comment}{           It might still fail if there's a dungeon feature here. */}
+298         \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *t = t\_at(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x},\hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y});
+299 
+300         \textcolor{keywordflow}{if} (t && t->ttyp != \hyperlink{trap_8h_a64bfa610e12179ef4bfa46c65166b2fe}{MAGIC\_PORTAL}) deltrap(t);
+301         \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_a3970a619329ce2bfa30cfb2e9ab5de09}{bad\_location}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, nlx, nly, nhx, nhy)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+302     \}
+303     \}
+304     \textcolor{keywordflow}{switch} (rtype) \{
+305     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_a078bcb75520369d825c84931e908db10}{LR\_TELE}:
+306     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_aa0536b8dd5dbecb8f0f26f4b20bb1315}{LR\_UPTELE}:
+307     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_aa5328e9f839b405d36d66f75e7fcbbf8}{LR\_DOWNTELE}:
+308     \textcolor{comment}{/* "something" means the player in this case */}
+309     \textcolor{keywordflow}{if}(\hyperlink{rm_8h_a17ef631151b987fd582fca76a429c08a}{MON\_AT}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y})) \{
+310         \textcolor{comment}{/* move the monster if no choice, or just try again */}
+311         \textcolor{keywordflow}{if}(oneshot) (void) \hyperlink{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}{rloc}(\hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x},\hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+312         \textcolor{keywordflow}{else} \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+313     \}
+314     u\_on\_newpos(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y});
+315     \textcolor{keywordflow}{break};
+316     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_acd94c3d04514c0962274591a15030d3a}{LR\_PORTAL}:
+317     \hyperlink{mkmaze_8c_abd2165e241ae67bc0d7999cd8b36a742}{mkportal}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, lev->\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}, lev->\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel});
+318     \textcolor{keywordflow}{break};
+319     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_a314c06ef53ebfd4f0c3988f67757c8df}{LR\_DOWNSTAIR}:
+320     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_a64f1a66fa9f3adade0c86ef362d4d018}{LR\_UPSTAIR}:
+321     \hyperlink{mklev_8c_a17be6d5832c5764f4c77e0d3ae9f507b}{mkstairs}(\hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, (\textcolor{keywordtype}{char})rtype, (\textcolor{keyword}{struct} \hyperlink{structmkroom}{mkroom} *)0);
+322     \textcolor{keywordflow}{break};
+323     \textcolor{keywordflow}{case} \hyperlink{dungeon_8h_a6f8a1eac67dfe592cb3420a916e7b73d}{LR\_BRANCH}:
+324     \hyperlink{mklev_8c_a77b4c8d2c8e5ac7d368634024d7e88b2}{place\_branch}(Is\_branchlev(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}), \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y});
+325     \textcolor{keywordflow}{break};
+326     \}
+327     \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+328 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a71fbe52a27f516be2677b7def3bbaf2d}{\index{mkmaze.\+c@{mkmaze.\+c}!restore\+\_\+waterlevel@{restore\+\_\+waterlevel}}
+\index{restore\+\_\+waterlevel@{restore\+\_\+waterlevel}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{restore\+\_\+waterlevel}]{\setlength{\rightskip}{0pt plus 5cm}void restore\+\_\+waterlevel (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a71fbe52a27f516be2677b7def3bbaf2d}
+
+
+Definition at line 1114 of file mkmaze.\+c.
+
+
+
+References alloc(), Is\+\_\+waterlevel, mread(), mv\+\_\+bubble(), bubble\+::next, bubble\+::prev, set\+\_\+wportal(), T\+R\+U\+E, u, and you\+::uz.
+
+
+
+Referenced by restgamestate().
+
+
+\begin{DoxyCode}
+1116 \{
+1117     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *b = (\textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *)0, *btmp;
+1118     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+1119     \textcolor{keywordtype}{int} n;
+1120 
+1121     \textcolor{keywordflow}{if} (!\hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \textcolor{keywordflow}{return};
+1122 
+1123     \hyperlink{mkmaze_8c_ab2e2a812f8e7b5044d54c217f9c36bd0}{set\_wportal}();
+1124     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&n,\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+1125     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin},\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+1126     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin},\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+1127     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax},\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+1128     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax},\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+1129     \textcolor{keywordflow}{for} (i = 0; i < n; i++) \{
+1130         btmp = b;
+1131         b = (\textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *)\hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structbubble}{bubble}));
+1132         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd,(\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})b,\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structbubble}{bubble}));
+1133         \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles}) \{
+1134             btmp->next = b;
+1135             b->prev = btmp;
+1136         \} \textcolor{keywordflow}{else} \{
+1137             \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles} = b;
+1138             b->\hyperlink{structbubble_a6c2ce0302072585c0362738cbe484c13}{prev} = (\textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *)0;
+1139         \}
+1140         \hyperlink{mkmaze_8c_a64838861e4c183278ee905e1b13b8c07}{mv\_bubble}(b,0,0,\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+1141     \}
+1142     \hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles} = b;
+1143     b->\hyperlink{structbubble_aef7d34c1e66aa80b038a11a71a06898b}{next} = (\textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *)0;
+1144     \hyperlink{mkmaze_8c_a7287ebb27b3607eb789bec545b583b55}{was\_waterlevel} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1145 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_abf535e619c60a8876cdd8fb4781d4414}{\index{mkmaze.\+c@{mkmaze.\+c}!save\+\_\+waterlevel@{save\+\_\+waterlevel}}
+\index{save\+\_\+waterlevel@{save\+\_\+waterlevel}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{save\+\_\+waterlevel}]{\setlength{\rightskip}{0pt plus 5cm}void save\+\_\+waterlevel (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_abf535e619c60a8876cdd8fb4781d4414}
+
+
+Definition at line 1091 of file mkmaze.\+c.
+
+
+
+References bwrite(), Is\+\_\+waterlevel, bubble\+::next, perform\+\_\+bwrite, release\+\_\+data, u, unsetup\+\_\+waterlevel(), and you\+::uz.
+
+
+
+Referenced by savegamestate().
+
+
+\begin{DoxyCode}
+1093 \{
+1094     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *b;
+1095 
+1096     \textcolor{keywordflow}{if} (!\hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \textcolor{keywordflow}{return};
+1097 
+1098     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode)) \{
+1099         \textcolor{keywordtype}{int} n = 0;
+1100         \textcolor{keywordflow}{for} (b = \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles}; b; b = b->\hyperlink{structbubble_aef7d34c1e66aa80b038a11a71a06898b}{next}) ++n;
+1101         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&n, \textcolor{keyword}{sizeof} (\textcolor{keywordtype}{int}));
+1102         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin}, \textcolor{keyword}{sizeof} (\textcolor{keywordtype}{int}));
+1103         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin}, \textcolor{keyword}{sizeof} (\textcolor{keywordtype}{int}));
+1104         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}, \textcolor{keyword}{sizeof} (\textcolor{keywordtype}{int}));
+1105         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&\hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}, \textcolor{keyword}{sizeof} (\textcolor{keywordtype}{int}));
+1106         \textcolor{keywordflow}{for} (b = \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles}; b; b = b->\hyperlink{structbubble_aef7d34c1e66aa80b038a11a71a06898b}{next})
+1107         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})b, \textcolor{keyword}{sizeof} (\textcolor{keyword}{struct} \hyperlink{structbubble}{bubble}));
+1108     \}
+1109     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode))
+1110         \hyperlink{mkmaze_8c_afae4adca3797789edab036b40637c9a3}{unsetup\_waterlevel}();
+1111 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_ab2e2a812f8e7b5044d54c217f9c36bd0}{\index{mkmaze.\+c@{mkmaze.\+c}!set\+\_\+wportal@{set\+\_\+wportal}}
+\index{set\+\_\+wportal@{set\+\_\+wportal}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{set\+\_\+wportal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void set\+\_\+wportal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_ab2e2a812f8e7b5044d54c217f9c36bd0}
+
+
+Definition at line 1176 of file mkmaze.\+c.
+
+
+
+References ftrap, M\+A\+G\+I\+C\+\_\+\+P\+O\+R\+T\+A\+L, trap\+::ntrap, and wportal.
+
+
+
+Referenced by movebubbles(), and restore\+\_\+waterlevel().
+
+
+\begin{DoxyCode}
+1177 \{
+1178     \textcolor{comment}{/* there better be only one magic portal on water level... */}
+1179     \textcolor{keywordflow}{for} (\hyperlink{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}{wportal} = \hyperlink{trap_8h_a442e327ae9fbb5d15e2df82e488de313}{ftrap}; \hyperlink{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}{wportal}; \hyperlink{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}{wportal} = \hyperlink{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}{wportal}->
+      \hyperlink{structtrap_aef8ea4650dce701fde7f7f3e1310c892}{ntrap})
+1180         \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}{wportal}->ttyp == \hyperlink{trap_8h_a64bfa610e12179ef4bfa46c65166b2fe}{MAGIC\_PORTAL}) \textcolor{keywordflow}{return};
+1181     impossible(\textcolor{stringliteral}{"set\_wportal(): no portal!"});
+1182 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_ac5f008d968e6fe506a29a08bcc67386c}{\index{mkmaze.\+c@{mkmaze.\+c}!setup\+\_\+waterlevel@{setup\+\_\+waterlevel}}
+\index{setup\+\_\+waterlevel@{setup\+\_\+waterlevel}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{setup\+\_\+waterlevel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void setup\+\_\+waterlevel (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_ac5f008d968e6fe506a29a08bcc67386c}
+
+
+Definition at line 1185 of file mkmaze.\+c.
+
+
+
+References bxmax, bxmin, bymax, bymin, cmap\+\_\+to\+\_\+glyph, rm\+::glyph, levl, mk\+\_\+bubble(), S\+\_\+water, xmax, and ymax.
+
+
+
+Referenced by fixup\+\_\+special().
+
+
+\begin{DoxyCode}
+1186 \{
+1187     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}, \hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y};
+1188     \textcolor{keyword}{register} \textcolor{keywordtype}{int} xskip, yskip;
+1189     \textcolor{keyword}{register} \textcolor{keywordtype}{int} water\_glyph = \hyperlink{display_8h_a77e69d3b11c3296576f840c9d11ae8fb}{cmap\_to\_glyph}(\hyperlink{rm_8h_ac0869946494dcbd6263431120d15c0df}{S\_water});
+1190 
+1191     \textcolor{comment}{/* ouch, hardcoded... */}
+1192 
+1193     \hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin} = 3;
+1194     \hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin} = 1;
+1195     \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax} = 78;
+1196     \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax} = 20;
+1197 
+1198     \textcolor{comment}{/* set hero's memory to water */}
+1199 
+1200     \textcolor{keywordflow}{for} (x = \hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin}; x <= \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}; x++)
+1201         \textcolor{keywordflow}{for} (y = \hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin}; y <= \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}; y++)
+1202             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].glyph = water\_glyph;
+1203 
+1204     \textcolor{comment}{/* make bubbles */}
+1205 
+1206     xskip = 10 + rn2(10);
+1207     yskip = 4 + rn2(4);
+1208     \textcolor{keywordflow}{for} (x = \hyperlink{mkmaze_8c_aa530e423e006206f3bbc2e0261de566b}{bxmin}; x <= \hyperlink{mkmaze_8c_a3acfbbe8addcaf206a54fb864d7752d4}{bxmax}; x += xskip)
+1209         \textcolor{keywordflow}{for} (y = \hyperlink{mkmaze_8c_a76a3028126fecc4dcca911d96c048d5c}{bymin}; y <= \hyperlink{mkmaze_8c_a2cfb9504df3d9092c1788479d7f859b0}{bymax}; y += yskip)
+1210             \hyperlink{mkmaze_8c_aaa0c86a2b82701e39d4d99aff0f6f089}{mk\_bubble}(x,y,rn2(7));
+1211 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_afae4adca3797789edab036b40637c9a3}{\index{mkmaze.\+c@{mkmaze.\+c}!unsetup\+\_\+waterlevel@{unsetup\+\_\+waterlevel}}
+\index{unsetup\+\_\+waterlevel@{unsetup\+\_\+waterlevel}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{unsetup\+\_\+waterlevel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void unsetup\+\_\+waterlevel (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_afae4adca3797789edab036b40637c9a3}
+
+
+Definition at line 1214 of file mkmaze.\+c.
+
+
+
+References free(), and bubble\+::next.
+
+
+
+Referenced by fixup\+\_\+special(), and save\+\_\+waterlevel().
+
+
+\begin{DoxyCode}
+1215 \{
+1216     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *b, *bb;
+1217 
+1218     \textcolor{comment}{/* free bubbles */}
+1219 
+1220     \textcolor{keywordflow}{for} (b = \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles}; b; b = bb) \{
+1221         bb = b->\hyperlink{structbubble_aef7d34c1e66aa80b038a11a71a06898b}{next};
+1222         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})b);
+1223     \}
+1224     \hyperlink{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{bbubbles} = \hyperlink{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{ebubbles} = (\textcolor{keyword}{struct }\hyperlink{structbubble}{bubble} *)0;
+1225 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a2d61d045fcb05a76cc0e437959d4b3e0}{\index{mkmaze.\+c@{mkmaze.\+c}!walkfrom@{walkfrom}}
+\index{walkfrom@{walkfrom}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{walkfrom}]{\setlength{\rightskip}{0pt plus 5cm}void walkfrom (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a2d61d045fcb05a76cc0e437959d4b3e0}
+
+
+Definition at line 710 of file mkmaze.\+c.
+
+
+
+References C\+O\+R\+R, I\+S\+\_\+\+D\+O\+O\+R, levl, move(), okay(), and R\+O\+O\+M.
+
+
+
+Referenced by load\+\_\+maze(), and makemaz().
+
+
+\begin{DoxyCode}
+712 \{
+713     \textcolor{keyword}{register} \textcolor{keywordtype}{int} q,a,dir;
+714     \textcolor{keywordtype}{int} \hyperlink{mkmap_8c_aaa9c965f217c74e89ad9347cfe31e086}{dirs}[4];
+715 
+716     \textcolor{keywordflow}{if}(!\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}][\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}].typ)) \{
+717         \textcolor{comment}{/* might still be on edge of MAP, so don't overwrite */}
+718 \textcolor{preprocessor}{#ifndef WALLIFIED\_MAZE}
+719         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}][\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}].typ = \hyperlink{rm_8h_aeffd57885964c3a9a5c3ce0f81c06339}{CORR};
+720 \textcolor{preprocessor}{#else}
+721         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}][\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}].typ = \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM};
+722 \textcolor{preprocessor}{#endif}
+723         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}][\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}].flags = 0;
+724     \}
+725 
+726     \textcolor{keywordflow}{while}(1) \{
+727         q = 0;
+728         \textcolor{keywordflow}{for}(a = 0; a < 4; a++)
+729             \textcolor{keywordflow}{if}(\hyperlink{mkmaze_8c_a1f4a6bd3eb1c632fadaf884b976842a8}{okay}(\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x},\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y},a)) dirs[q++]= a;
+730         \textcolor{keywordflow}{if}(!q) \textcolor{keywordflow}{return};
+731         dir = dirs[rn2(q)];
+732         \hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move}(&\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x},&\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y},dir);
+733 \textcolor{preprocessor}{#ifndef WALLIFIED\_MAZE}
+734         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}][\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}].typ = \hyperlink{rm_8h_aeffd57885964c3a9a5c3ce0f81c06339}{CORR};
+735 \textcolor{preprocessor}{#else}
+736         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x}][\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y}].typ = \hyperlink{rm_8h_ae635489e987ae17a3bf884376cc2fe34}{ROOM};
+737 \textcolor{preprocessor}{#endif}
+738         \hyperlink{mkmaze_8c_afbfca34474b80a947d3adb8e82b7fa0c}{move}(&\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x},&\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y},dir);
+739         \hyperlink{mkmaze_8c_a2d61d045fcb05a76cc0e437959d4b3e0}{walkfrom}(\hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x},\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y});
+740     \}
+741 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_ae15934086870601facb65acfbf4fe03e}{\index{mkmaze.\+c@{mkmaze.\+c}!wallification@{wallification}}
+\index{wallification@{wallification}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{wallification}]{\setlength{\rightskip}{0pt plus 5cm}void wallification (
+\begin{DoxyParamCaption}
+\item[{int}]{x1, }
+\item[{int}]{y1, }
+\item[{int}]{x2, }
+\item[{int}]{y2}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_ae15934086870601facb65acfbf4fe03e}
+
+
+Definition at line 121 of file mkmaze.\+c.
+
+
+
+References B\+L\+C\+O\+R\+N\+E\+R, B\+R\+C\+O\+R\+N\+E\+R, C\+O\+L\+N\+O, C\+R\+O\+S\+S\+W\+A\+L\+L, D\+B\+W\+A\+L\+L, extend\+\_\+spine(), H\+W\+A\+L\+L, is\+\_\+solid(), I\+S\+\_\+\+W\+A\+L\+L, iswall(), iswall\+\_\+or\+\_\+stone(), levl, panic(), R\+O\+W\+N\+O, S\+T\+O\+N\+E, T\+D\+W\+A\+L\+L, T\+L\+C\+O\+R\+N\+E\+R, T\+L\+W\+A\+L\+L, T\+R\+C\+O\+R\+N\+E\+R, T\+R\+W\+A\+L\+L, T\+U\+W\+A\+L\+L, rm\+::typ, type, and V\+W\+A\+L\+L.
+
+
+
+Referenced by do\+\_\+room\+\_\+or\+\_\+subroom(), load\+\_\+maze(), and makemaz().
+
+
+\begin{DoxyCode}
+123 \{
+124     \hyperlink{config_8h_a65f85814a8290f9797005d3b28e7e5fc}{uchar} \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+125     \textcolor{keyword}{register} \textcolor{keywordtype}{int} \hyperlink{structbubble_af7f9c88684a8f0b39df119b869f43daa}{x},\hyperlink{structbubble_a5e49635e037d6587bfa6b7f977b0d77c}{y};
+126     \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *lev;
+127     \textcolor{keywordtype}{int} bits;
+128     \textcolor{keywordtype}{int} locale[3][3];   \textcolor{comment}{/* rock or wall status surrounding positions */}
+129     \textcolor{comment}{/*}
+130 \textcolor{comment}{     * Value 0 represents a free-standing wall.  It could be anything,}
+131 \textcolor{comment}{     * so even though this table says VWALL, we actually leave whatever}
+132 \textcolor{comment}{     * typ was there alone.}
+133 \textcolor{comment}{     */}
+134     \textcolor{keyword}{static} \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} spine\_array[16] = \{
+135         \hyperlink{rm_8h_a9a3afc2fb445bb43a1776de4ebe9852e}{VWALL}, \hyperlink{rm_8h_a3fcd4705d7b0ac05a88302170fcc58f5}{HWALL},     \hyperlink{rm_8h_a3fcd4705d7b0ac05a88302170fcc58f5}{HWALL},     \hyperlink{rm_8h_a3fcd4705d7b0ac05a88302170fcc58f5}{HWALL},
+136         \hyperlink{rm_8h_a9a3afc2fb445bb43a1776de4ebe9852e}{VWALL}, \hyperlink{rm_8h_adc954c30dd37b0942000262623e9c76e}{TRCORNER},   \hyperlink{rm_8h_ade633f6a4bac3d7c501e28d15c536d3d}{TLCORNER},   \hyperlink{rm_8h_ab847e2347534eeb83217f5b36815b88d}{TDWALL},
+137         \hyperlink{rm_8h_a9a3afc2fb445bb43a1776de4ebe9852e}{VWALL}, \hyperlink{rm_8h_a653f37db17c18d0f1f4f76ae3063b124}{BRCORNER},   \hyperlink{rm_8h_a8e1e6f2e3453c3dd85fbc6f5a54c8c34}{BLCORNER},   \hyperlink{rm_8h_a618fa341dec5d9aeb5ac67deb7011d29}{TUWALL},
+138         \hyperlink{rm_8h_a9a3afc2fb445bb43a1776de4ebe9852e}{VWALL}, \hyperlink{rm_8h_abec53816dd76f979866fbb2926b7af64}{TLWALL},       \hyperlink{rm_8h_a9290fa8691acb3539d3381fec0e4b24a}{TRWALL},       \hyperlink{rm_8h_ac2a0c94b5722b98d84af548563e71d2f}{CROSSWALL}
+139     \};
+140 
+141     \textcolor{comment}{/* sanity check on incoming variables */}
+142     \textcolor{keywordflow}{if} (x1<0 || x2>=\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} || x1>x2 || y1<0 || y2>=\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO} || y1>y2)
+143         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"wallification: bad bounds (%d,%d) to (%d,%d)"},x1,y1,x2,y2);
+144 
+145     \textcolor{comment}{/* Step 1: change walls surrounded by rock to rock. */}
+146     \textcolor{keywordflow}{for}(x = x1; x <= x2; x++)
+147         \textcolor{keywordflow}{for}(y = y1; y <= y2; y++) \{
+148         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y];
+149         type = lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ};
+150         \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(type) && type != \hyperlink{rm_8h_a289c10e08bd622348cd155d70012bf39}{DBWALL}) \{
+151             \textcolor{keywordflow}{if} (\hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\_solid}(x-1,y-1) &&
+152             \hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\_solid}(x-1,y  ) &&
+153             \hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\_solid}(x-1,y+1) &&
+154             \hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\_solid}(x,  y-1) &&
+155             \hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\_solid}(x,  y+1) &&
+156             \hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\_solid}(x+1,y-1) &&
+157             \hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\_solid}(x+1,y  ) &&
+158             \hyperlink{mkmaze_8c_ae6be10cc7c1aa223a957b320b5e36d18}{is\_solid}(x+1,y+1))
+159             lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} = \hyperlink{rm_8h_a3a50d6c3dd0fbb5b801d6efe0279d267}{STONE};
+160         \}
+161         \}
+162 
+163     \textcolor{comment}{/*}
+164 \textcolor{comment}{     * Step 2: set the correct wall type.  We can't combine steps}
+165 \textcolor{comment}{     * 1 and 2 into a single sweep because we depend on knowing if}
+166 \textcolor{comment}{     * the surrounding positions are stone.}
+167 \textcolor{comment}{     */}
+168     \textcolor{keywordflow}{for}(x = x1; x <= x2; x++)
+169         \textcolor{keywordflow}{for}(y = y1; y <= y2; y++) \{
+170         lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y];
+171         type = lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ};
+172         \textcolor{keywordflow}{if} ( !(\hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(type) && type != \hyperlink{rm_8h_a289c10e08bd622348cd155d70012bf39}{DBWALL})) \textcolor{keywordflow}{continue};
+173 
+174         \textcolor{comment}{/* set the locations TRUE if rock or wall or out of bounds */}
+175         locale[0][0] = \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\_or\_stone}(x-1,y-1);
+176         locale[1][0] = \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\_or\_stone}(  x,y-1);
+177         locale[2][0] = \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\_or\_stone}(x+1,y-1);
+178 
+179         locale[0][1] = \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\_or\_stone}(x-1,  y);
+180         locale[2][1] = \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\_or\_stone}(x+1,  y);
+181 
+182         locale[0][2] = \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\_or\_stone}(x-1,y+1);
+183         locale[1][2] = \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\_or\_stone}(  x,y+1);
+184         locale[2][2] = \hyperlink{mkmaze_8c_ad5f5bd96f1a3b9acbc5c5d1f922f7b53}{iswall\_or\_stone}(x+1,y+1);
+185 
+186         \textcolor{comment}{/* determine if wall should extend to each direction NSEW */}
+187         bits =    (\hyperlink{mkmaze_8c_a9656f0240f848c13697fdf03dc44190f}{extend\_spine}(locale, \hyperlink{mkmaze_8c_a1d3aa30361e246927ef133000b32ef1c}{iswall}(x,y-1),  0, -1) << 3)
+188             | (\hyperlink{mkmaze_8c_a9656f0240f848c13697fdf03dc44190f}{extend\_spine}(locale, \hyperlink{mkmaze_8c_a1d3aa30361e246927ef133000b32ef1c}{iswall}(x,y+1),  0,  1) << 2)
+189             | (\hyperlink{mkmaze_8c_a9656f0240f848c13697fdf03dc44190f}{extend\_spine}(locale, \hyperlink{mkmaze_8c_a1d3aa30361e246927ef133000b32ef1c}{iswall}(x+1,y),  1,  0) << 1)
+190             |  \hyperlink{mkmaze_8c_a9656f0240f848c13697fdf03dc44190f}{extend\_spine}(locale, \hyperlink{mkmaze_8c_a1d3aa30361e246927ef133000b32ef1c}{iswall}(x-1,y), -1,  0);
+191 
+192         \textcolor{comment}{/* don't change typ if wall is free-standing */}
+193         \textcolor{keywordflow}{if} (bits) lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} = spine\_array[bits];
+194         \}
+195 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_a8e38077d7f36046af213dfba0001c00a}{\index{mkmaze.\+c@{mkmaze.\+c}!water\+\_\+friction@{water\+\_\+friction}}
+\index{water\+\_\+friction@{water\+\_\+friction}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{water\+\_\+friction}]{\setlength{\rightskip}{0pt plus 5cm}void water\+\_\+friction (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_a8e38077d7f36046af213dfba0001c00a}
+
+
+Definition at line 1058 of file mkmaze.\+c.
+
+
+
+References you\+::dx, you\+::dy, F\+A\+L\+S\+E, Swimming, T\+R\+U\+E, u, you\+::ux, you\+::uy, container\+::x, and container\+::y.
+
+
+\begin{DoxyCode}
+1059 \{
+1060     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x, y, dx, dy;
+1061     \textcolor{keyword}{register} \textcolor{keywordtype}{boolean} eff = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1062 
+1063     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a61bd9ba6b784ba8d7cce139c6c02e4c3}{Swimming} && rn2(4))
+1064         \textcolor{keywordflow}{return};     \textcolor{comment}{/* natural swimmers have advantage */}
+1065 
+1066     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} && !rn2(!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} ? 3 : 6)) \{    \textcolor{comment}{/* 1/3 chance or half that */}
+1067         \textcolor{comment}{/* cancel delta x and choose an arbitrary delta y value */}
+1068         x = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+1069         \textcolor{keywordflow}{do} \{
+1070             dy = rn2(3) - 1;        \textcolor{comment}{/* -1, 0, 1 */}
+1071             y = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} + dy;
+1072         \} \textcolor{keywordflow}{while} (dy && (!isok(x,y) || !is\_pool(x,y)));
+1073         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} = 0;
+1074         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} = dy;
+1075         eff = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1076     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} && !rn2(!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} ? 3 : 5)) \{ \textcolor{comment}{/* 1/3 or 1/5*(5/6) */}
+1077         \textcolor{comment}{/* cancel delta y and choose an arbitrary delta x value */}
+1078         y = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+1079         \textcolor{keywordflow}{do} \{
+1080             dx = rn2(3) - 1;        \textcolor{comment}{/* -1 .. 1 */}
+1081             x = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} + dx;
+1082         \} \textcolor{keywordflow}{while} (dx && (!isok(x,y) || !is\_pool(x,y)));
+1083         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a80d068cfe5c15ae06e6f152be40a716f}{dy} = 0;
+1084         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a0b53da9e296cbebbc3dc2fc6ade21aeb}{dx} = dx;
+1085         eff = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1086     \}
+1087     \textcolor{keywordflow}{if} (eff) pline(\textcolor{stringliteral}{"Water turbulence affects your movements."});
+1088 \}
+\end{DoxyCode}
+\hypertarget{mkmaze_8c_adad4bb182bbd559a90b10a009ce20a1f}{\index{mkmaze.\+c@{mkmaze.\+c}!waterbody\+\_\+name@{waterbody\+\_\+name}}
+\index{waterbody\+\_\+name@{waterbody\+\_\+name}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{waterbody\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ waterbody\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{{\bf xchar}}]{x, }
+\item[{{\bf xchar}}]{y}
+\end{DoxyParamCaption}
+)}}\label{mkmaze_8c_adad4bb182bbd559a90b10a009ce20a1f}
+
+
+Definition at line 1147 of file mkmaze.\+c.
+
+
+
+References D\+B\+\_\+\+I\+C\+E, D\+B\+\_\+\+M\+O\+A\+T, D\+B\+\_\+\+U\+N\+D\+E\+R, D\+R\+A\+W\+B\+R\+I\+D\+G\+E\+\_\+\+U\+P, drawbridgemask, I\+C\+E, Is\+\_\+juiblex\+\_\+level, Is\+\_\+medusa\+\_\+level, Is\+\_\+waterlevel, levl, P\+O\+O\+L, rm\+::typ, u, you\+::uz, and W\+A\+T\+E\+R.
+
+
+\begin{DoxyCode}
+1149 \{
+1150     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *lev;
+1151     \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} ltyp;
+1152 
+1153     \textcolor{keywordflow}{if} (!isok(x,y))
+1154         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"drink"};     \textcolor{comment}{/* should never happen */}
+1155     lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y];
+1156     ltyp = lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ};
+1157 
+1158     \textcolor{keywordflow}{if} (is\_lava(x,y))
+1159         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"lava"};
+1160     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ltyp == \hyperlink{rm_8h_ae41036839f2ae39cee0898016a723674}{ICE} ||
+1161          (ltyp == \hyperlink{rm_8h_ac5e808217d90789d8256825e8989d859}{DRAWBRIDGE\_UP} &&
+1162           (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].\hyperlink{rm_8h_a6b7808a09b7e51072b0029abaeea7327}{drawbridgemask} & \hyperlink{rm_8h_a4b833266091da4a31a81b968531120ec}{DB\_UNDER}) == 
+      \hyperlink{rm_8h_a1d78a2581340714cd826545f1fea2df5}{DB\_ICE}))
+1163         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"ice"};
+1164     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (((ltyp != \hyperlink{rm_8h_abf0d5c9a865c02bf5cc94e5d5755997c}{POOL}) && (ltyp != \hyperlink{rm_8h_a5c3fbf45abc4ee50d118d87aecfee212}{WATER}) &&
+1165       !\hyperlink{dungeon_8h_a577154aa517f59b492b3443a753c7a9a}{Is\_medusa\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && !\hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&
+      \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && !\hyperlink{dungeon_8h_a555fa418a5292a6dfb5bcaaf73f4a6ae}{Is\_juiblex\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) ||
+1166        (ltyp == \hyperlink{rm_8h_ac5e808217d90789d8256825e8989d859}{DRAWBRIDGE\_UP} && (\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].drawbridgemask & DB\_UNDER) == 
+      \hyperlink{rm_8h_ac3e7705030e57e1fb884fdec185647c3}{DB\_MOAT}))
+1167         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"moat"};
+1168     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((ltyp != \hyperlink{rm_8h_abf0d5c9a865c02bf5cc94e5d5755997c}{POOL}) && (ltyp != \hyperlink{rm_8h_a5c3fbf45abc4ee50d118d87aecfee212}{WATER}) && \hyperlink{dungeon_8h_a555fa418a5292a6dfb5bcaaf73f4a6ae}{Is\_juiblex\_level}(&
+      \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+1169         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"swamp"};
+1170     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (ltyp == \hyperlink{rm_8h_abf0d5c9a865c02bf5cc94e5d5755997c}{POOL})
+1171         \textcolor{keywordflow}{return} \textcolor{stringliteral}{"pool of water"};
+1172     \textcolor{keywordflow}{else} \textcolor{keywordflow}{return} \textcolor{stringliteral}{"water"};
+1173 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{mkmaze_8c_af186599708e7f17f027466e17bff98a2}{\index{mkmaze.\+c@{mkmaze.\+c}!bbubbles@{bbubbles}}
+\index{bbubbles@{bbubbles}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{bbubbles}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf bubble}$\ast$ bbubbles\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmaze_8c_af186599708e7f17f027466e17bff98a2}
+
+
+Definition at line 919 of file mkmaze.\+c.
+
+\hypertarget{mkmaze_8c_af22faed49022c3f12db3223b3d667609}{\index{mkmaze.\+c@{mkmaze.\+c}!ebubbles@{ebubbles}}
+\index{ebubbles@{ebubbles}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{ebubbles}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf bubble} $\ast$ ebubbles\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmaze_8c_af22faed49022c3f12db3223b3d667609}
+
+
+Definition at line 919 of file mkmaze.\+c.
+
+
+
+Referenced by mk\+\_\+bubble().
+
+\hypertarget{mkmaze_8c_a8a8cfd6f51acd4c0a227a5332be69227}{\index{mkmaze.\+c@{mkmaze.\+c}!lev\+\_\+message@{lev\+\_\+message}}
+\index{lev\+\_\+message@{lev\+\_\+message}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{lev\+\_\+message}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ lev\+\_\+message}}\label{mkmaze_8c_a8a8cfd6f51acd4c0a227a5332be69227}
+
+
+Definition at line 94 of file sp\+\_\+lev.\+c.
+
+
+
+Referenced by fixup\+\_\+special().
+
+\hypertarget{mkmaze_8c_a5195d0e282f5603843e4a384e9995caa}{\index{mkmaze.\+c@{mkmaze.\+c}!lregions@{lregions}}
+\index{lregions@{lregions}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{lregions}]{\setlength{\rightskip}{0pt plus 5cm}{\bf lev\+\_\+region}$\ast$ lregions}}\label{mkmaze_8c_a5195d0e282f5603843e4a384e9995caa}
+
+
+Definition at line 95 of file sp\+\_\+lev.\+c.
+
+
+
+Referenced by fixup\+\_\+special(), load\+\_\+maze(), and store\+\_\+part().
+
+\hypertarget{mkmaze_8c_a1f90034b6a3d7de0cba06ae8960de3ea}{\index{mkmaze.\+c@{mkmaze.\+c}!num\+\_\+lregions@{num\+\_\+lregions}}
+\index{num\+\_\+lregions@{num\+\_\+lregions}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{num\+\_\+lregions}]{\setlength{\rightskip}{0pt plus 5cm}int num\+\_\+lregions}}\label{mkmaze_8c_a1f90034b6a3d7de0cba06ae8960de3ea}
+
+
+Definition at line 96 of file sp\+\_\+lev.\+c.
+
+
+
+Referenced by fixup\+\_\+special().
+
+\hypertarget{mkmaze_8c_a7287ebb27b3607eb789bec545b583b55}{\index{mkmaze.\+c@{mkmaze.\+c}!was\+\_\+waterlevel@{was\+\_\+waterlevel}}
+\index{was\+\_\+waterlevel@{was\+\_\+waterlevel}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{was\+\_\+waterlevel}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} was\+\_\+waterlevel\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmaze_8c_a7287ebb27b3607eb789bec545b583b55}
+
+
+Definition at line 330 of file mkmaze.\+c.
+
+\hypertarget{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}{\index{mkmaze.\+c@{mkmaze.\+c}!wportal@{wportal}}
+\index{wportal@{wportal}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{wportal}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf trap}$\ast$ wportal\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmaze_8c_aa53309a3d893253111ffdcc23ff5a5a5}
+
+
+Definition at line 921 of file mkmaze.\+c.
+
+
+
+Referenced by set\+\_\+wportal().
+
+\hypertarget{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{\index{mkmaze.\+c@{mkmaze.\+c}!xmax@{xmax}}
+\index{xmax@{xmax}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{xmax}]{\setlength{\rightskip}{0pt plus 5cm}int xmax\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}
+
+
+Definition at line 922 of file mkmaze.\+c.
+
+
+
+Referenced by bound\+\_\+digging(), enexto\+\_\+core(), mkinvokearea(), and setup\+\_\+waterlevel().
+
+\hypertarget{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{\index{mkmaze.\+c@{mkmaze.\+c}!xmin@{xmin}}
+\index{xmin@{xmin}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{xmin}]{\setlength{\rightskip}{0pt plus 5cm}int xmin\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmaze_8c_a883020d4284bd039cbac9574b896c948}
+
+
+Definition at line 922 of file mkmaze.\+c.
+
+
+
+Referenced by bound\+\_\+digging(), enexto\+\_\+core(), and mkinvokearea().
+
+\hypertarget{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{\index{mkmaze.\+c@{mkmaze.\+c}!ymax@{ymax}}
+\index{ymax@{ymax}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{ymax}]{\setlength{\rightskip}{0pt plus 5cm}int ymax\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}
+
+
+Definition at line 922 of file mkmaze.\+c.
+
+
+
+Referenced by bound\+\_\+digging(), check\+\_\+room(), enexto\+\_\+core(), mkinvokearea(), and setup\+\_\+waterlevel().
+
+\hypertarget{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{\index{mkmaze.\+c@{mkmaze.\+c}!ymin@{ymin}}
+\index{ymin@{ymin}!mkmaze.\+c@{mkmaze.\+c}}
+\subsubsection[{ymin}]{\setlength{\rightskip}{0pt plus 5cm}int ymin\hspace{0.3cm}{\ttfamily [static]}}}\label{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}
+
+
+Definition at line 922 of file mkmaze.\+c.
+
+
+
+Referenced by bound\+\_\+digging(), enexto\+\_\+core(), and mkinvokearea().
+

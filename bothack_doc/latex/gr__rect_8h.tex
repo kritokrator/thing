@@ -1,0 +1,289 @@
+\hypertarget{gr__rect_8h}{\section{nethack/win/gem/gr\+\_\+rect.h File Reference}
+\label{gr__rect_8h}\index{nethack/win/gem/gr\+\_\+rect.\+h@{nethack/win/gem/gr\+\_\+rect.\+h}}
+}
+{\ttfamily \#include $<$e\+\_\+gem.\+h$>$}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdirty__rect}{dirty\+\_\+rect}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structdirty__rect}{dirty\+\_\+rect} $\ast$ \hyperlink{gr__rect_8h_ad8faef8bd2ee2a3a506296d70adcc3a3}{new\+\_\+dirty\+\_\+rect} (int \hyperlink{structsize}{size})
+\item 
+void \hyperlink{gr__rect_8h_ac45c7049e3287d647b55d589d123ec7f}{delete\+\_\+dirty\+\_\+rect} (\hyperlink{structdirty__rect}{dirty\+\_\+rect} $\ast$this)
+\item 
+int \hyperlink{gr__rect_8h_a9604e1664cb01321dc4bf63f9a20b394}{add\+\_\+dirty\+\_\+rect} (\hyperlink{structdirty__rect}{dirty\+\_\+rect} $\ast$dr, G\+R\+E\+C\+T $\ast$area)
+\item 
+int \hyperlink{gr__rect_8h_a254a0bddc24fb78b7dbaaa81b514bc19}{get\+\_\+dirty\+\_\+rect} (\hyperlink{structdirty__rect}{dirty\+\_\+rect} $\ast$dr, G\+R\+E\+C\+T $\ast$area)
+\item 
+int \hyperlink{gr__rect_8h_af13886f179bd089214939015c621ac91}{clear\+\_\+dirty\+\_\+rect} (\hyperlink{structdirty__rect}{dirty\+\_\+rect} $\ast$dr)
+\item 
+int \hyperlink{gr__rect_8h_ab87754efa2918837a7ead58dfc69a96d}{resize\+\_\+dirty\+\_\+rect} (\hyperlink{structdirty__rect}{dirty\+\_\+rect} $\ast$dr, int new\+\_\+size)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gr__rect_8h_a9604e1664cb01321dc4bf63f9a20b394}{\index{gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}!add\+\_\+dirty\+\_\+rect@{add\+\_\+dirty\+\_\+rect}}
+\index{add\+\_\+dirty\+\_\+rect@{add\+\_\+dirty\+\_\+rect}!gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}}
+\subsubsection[{add\+\_\+dirty\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}int add\+\_\+dirty\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{{\bf dirty\+\_\+rect} $\ast$}]{dr, }
+\item[{G\+R\+E\+C\+T $\ast$}]{area}
+\end{DoxyParamCaption}
+)}}\label{gr__rect_8h_a9604e1664cb01321dc4bf63f9a20b394}
+
+
+Definition at line 40 of file gr\+\_\+rect.\+c.
+
+
+
+References cost(), F\+A\+L\+S\+E, gc\+\_\+area(), gc\+\_\+combine(), gc\+\_\+inside(), gc\+\_\+touch(), dirty\+\_\+rect\+::max, dirty\+\_\+rect\+::rects, T\+R\+U\+E, and dirty\+\_\+rect\+::used.
+
+
+
+Referenced by mar\+\_\+add\+\_\+status\+\_\+str(), and mar\+\_\+display\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+40                                               \{
+41     \textcolor{keywordtype}{int} cursor;
+42     \textcolor{keywordtype}{long} lowestcost=9999999L;
+43     \textcolor{keywordtype}{int} cheapest=-1;
+44     \textcolor{keywordtype}{int} cheapestmerge1=-1;
+45     \textcolor{keywordtype}{int} cheapestmerge2=-1;
+46     \textcolor{keywordtype}{int} merge1;
+47     \textcolor{keywordtype}{int} merge2;
+48     \textcolor{keywordflow}{for} (cursor=0; cursor<dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}; cursor++) \{
+49         \textcolor{keywordflow}{if} (\hyperlink{gr__rect_8c_a3b7188920e69756cbd32908a1d8217d1}{gc\_inside}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cursor],area)) \{
+50             \textcolor{comment}{/* Wholly contained already. */}
+51             \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+52         \}
+53     \}
+54     \textcolor{keywordflow}{for} (cursor=0; cursor<dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}; cursor++) \{
+55         \textcolor{keywordflow}{if} (\hyperlink{gr__rect_8c_a76261a34e98d44cefd725ef249dd6c9d}{gc\_touch}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cursor],area)) \{
+56             GRECT larger=dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cursor];
+57             \textcolor{keywordtype}{long} \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost};
+58             \hyperlink{gr__rect_8c_a00366f76dc4f432ab3bc9e001d947538}{gc\_combine}(&larger,area);
+59             cost=\hyperlink{gr__rect_8c_a15205d99e26e080d3ae13b9ebdc9228b}{gc\_area}(&larger)-\hyperlink{gr__rect_8c_a15205d99e26e080d3ae13b9ebdc9228b}{gc\_area}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cursor]);
+60             \textcolor{keywordflow}{if} (cost < lowestcost) \{
+61                 \textcolor{keywordtype}{int} bad=\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE},c;
+62                 \textcolor{keywordflow}{for} (c=0; c<dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used} && !bad; c++) \{
+63                     bad=\hyperlink{gr__rect_8c_a76261a34e98d44cefd725ef249dd6c9d}{gc\_touch}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[c],&larger) && c!=cursor;
+64                 \}
+65                 \textcolor{keywordflow}{if} (!bad) \{
+66                     cheapest=cursor;
+67                     lowestcost=\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost};
+68                 \}
+69             \}
+70         \}
+71     \}
+72     \textcolor{keywordflow}{if} (cheapest>=0) \{
+73         \hyperlink{gr__rect_8c_a00366f76dc4f432ab3bc9e001d947538}{gc\_combine}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cheapest],area);
+74         \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+75     \}
+76     \textcolor{keywordflow}{if} (dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used} < dr->\hyperlink{structdirty__rect_ab03dbe7d4c0d1b17671721e81998a6f8}{max}) \{
+77         dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}++]=*area;
+78         \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+79     \}
+80     \textcolor{comment}{// Do cheapest of:}
+81     \textcolor{comment}{//  add to closest cluster}
+82     \textcolor{comment}{//  do cheapest cluster merge, add to new cluster}
+83     lowestcost=9999999L;
+84     cheapest=-1;
+85     \textcolor{keywordflow}{for} (cursor=0; cursor<dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}; cursor++) \{
+86         GRECT larger=dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cursor];
+87         \textcolor{keywordtype}{long} \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost};
+88         \hyperlink{gr__rect_8c_a00366f76dc4f432ab3bc9e001d947538}{gc\_combine}(&larger,area);
+89         cost=\hyperlink{gr__rect_8c_a15205d99e26e080d3ae13b9ebdc9228b}{gc\_area}(&larger)-\hyperlink{gr__rect_8c_a15205d99e26e080d3ae13b9ebdc9228b}{gc\_area}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cursor]);
+90         \textcolor{keywordflow}{if} (cost < lowestcost) \{
+91             \textcolor{keywordtype}{int} bad=\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, c;
+92             \textcolor{keywordflow}{for} (c=0; c<dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used} && !bad; c++) \{
+93                 bad=\hyperlink{gr__rect_8c_a76261a34e98d44cefd725ef249dd6c9d}{gc\_touch}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[c],&larger) && c!=cursor;
+94             \}
+95             \textcolor{keywordflow}{if} (!bad) \{
+96                 cheapest=cursor;
+97                 lowestcost=\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost};
+98             \}
+99         \}
+100     \}
+101     \textcolor{comment}{// XXX could make an heuristic guess as to whether we}
+102     \textcolor{comment}{// XXX need to bother looking for a cheap merge.}
+103     \textcolor{keywordflow}{for} (merge1=0; merge1<dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}; merge1++) \{
+104         \textcolor{keywordflow}{for} (merge2=0; merge2<dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}; merge2++) \{
+105             \textcolor{keywordflow}{if} (merge1!=merge2) \{
+106                 GRECT larger=dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[merge1];
+107                 \textcolor{keywordtype}{long} \hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost};
+108                 \hyperlink{gr__rect_8c_a00366f76dc4f432ab3bc9e001d947538}{gc\_combine}(&larger,&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[merge2]);
+109                 cost=\hyperlink{gr__rect_8c_a15205d99e26e080d3ae13b9ebdc9228b}{gc\_area}(&larger)-\hyperlink{gr__rect_8c_a15205d99e26e080d3ae13b9ebdc9228b}{gc\_area}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[merge1])-
+      \hyperlink{gr__rect_8c_a15205d99e26e080d3ae13b9ebdc9228b}{gc\_area}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[merge2]);
+110                 \textcolor{keywordflow}{if} (cost < lowestcost) \{
+111                     \textcolor{keywordtype}{int} bad=\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, c;
+112                     \textcolor{keywordflow}{for} (c=0; c<dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used} && !bad; c++) \{
+113                         bad=\hyperlink{gr__rect_8c_a76261a34e98d44cefd725ef249dd6c9d}{gc\_touch}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[c],&larger) && c!=cursor;
+114                     \}
+115                     \textcolor{keywordflow}{if} (!bad) \{
+116                         cheapestmerge1=merge1;
+117                         cheapestmerge2=merge2;
+118                         lowestcost=\hyperlink{write_8c_aaf2152e1481c26add921563dc560f4ae}{cost};
+119                     \}
+120                 \}
+121             \}
+122         \}
+123     \}
+124     \textcolor{keywordflow}{if} (cheapestmerge1>=0) \{
+125         \hyperlink{gr__rect_8c_a00366f76dc4f432ab3bc9e001d947538}{gc\_combine}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cheapestmerge1],&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cheapestmerge2]);
+126         dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cheapestmerge2]=dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}-1];
+127         dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}-1]=*area;
+128     \} \textcolor{keywordflow}{else} \{
+129         \hyperlink{gr__rect_8c_a00366f76dc4f432ab3bc9e001d947538}{gc\_combine}(&dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[cheapest],area);
+130     \}
+131     \textcolor{comment}{// NB: clusters do not intersect (or intersection will}
+132     \textcolor{comment}{//   overwrite).  This is a result of the above algorithm,}
+133     \textcolor{comment}{//   given the assumption that (x,y) are ordered topleft}
+134     \textcolor{comment}{//   to bottomright.}
+135     \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+136 \}
+\end{DoxyCode}
+\hypertarget{gr__rect_8h_af13886f179bd089214939015c621ac91}{\index{gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}!clear\+\_\+dirty\+\_\+rect@{clear\+\_\+dirty\+\_\+rect}}
+\index{clear\+\_\+dirty\+\_\+rect@{clear\+\_\+dirty\+\_\+rect}!gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}}
+\subsubsection[{clear\+\_\+dirty\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}int clear\+\_\+dirty\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{{\bf dirty\+\_\+rect} $\ast$}]{dr}
+\end{DoxyParamCaption}
+)}}\label{gr__rect_8h_af13886f179bd089214939015c621ac91}
+
+
+Definition at line 143 of file gr\+\_\+rect.\+c.
+
+
+
+References T\+R\+U\+E, and dirty\+\_\+rect\+::used.
+
+
+\begin{DoxyCode}
+143                                     \{
+144     \textcolor{keywordflow}{if}(dr)
+145         dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}=0;
+146     \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+147 \}
+\end{DoxyCode}
+\hypertarget{gr__rect_8h_ac45c7049e3287d647b55d589d123ec7f}{\index{gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}!delete\+\_\+dirty\+\_\+rect@{delete\+\_\+dirty\+\_\+rect}}
+\index{delete\+\_\+dirty\+\_\+rect@{delete\+\_\+dirty\+\_\+rect}!gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}}
+\subsubsection[{delete\+\_\+dirty\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}void delete\+\_\+dirty\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{{\bf dirty\+\_\+rect} $\ast$}]{this}
+\end{DoxyParamCaption}
+)}}\label{gr__rect_8h_ac45c7049e3287d647b55d589d123ec7f}
+
+
+Definition at line 25 of file gr\+\_\+rect.\+c.
+
+
+
+References free(), max, and N\+U\+L\+L.
+
+
+\begin{DoxyCode}
+25                                         \{
+26     \textcolor{keywordflow}{if}(\textcolor{keyword}{this}==\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+27         \textcolor{keywordflow}{return};
+28     \textcolor{keywordflow}{if}(this->rects)
+29         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(this->rects);
+30     \textcolor{comment}{/* In case the Pointer is reused wrongly */}
+31     this->rects=\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+32     this->\hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}=0;
+33     this->used=0;
+34     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\textcolor{keyword}{this});
+35 \}
+\end{DoxyCode}
+\hypertarget{gr__rect_8h_a254a0bddc24fb78b7dbaaa81b514bc19}{\index{gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}!get\+\_\+dirty\+\_\+rect@{get\+\_\+dirty\+\_\+rect}}
+\index{get\+\_\+dirty\+\_\+rect@{get\+\_\+dirty\+\_\+rect}!gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}}
+\subsubsection[{get\+\_\+dirty\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+dirty\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{{\bf dirty\+\_\+rect} $\ast$}]{dr, }
+\item[{G\+R\+E\+C\+T $\ast$}]{area}
+\end{DoxyParamCaption}
+)}}\label{gr__rect_8h_a254a0bddc24fb78b7dbaaa81b514bc19}
+
+
+Definition at line 137 of file gr\+\_\+rect.\+c.
+
+
+
+References F\+A\+L\+S\+E, dirty\+\_\+rect\+::max, N\+U\+L\+L, dirty\+\_\+rect\+::rects, T\+R\+U\+E, and dirty\+\_\+rect\+::used.
+
+
+
+Referenced by mar\+\_\+display\+\_\+nhwindow().
+
+
+\begin{DoxyCode}
+137                                               \{
+138     \textcolor{keywordflow}{if}(dr==\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} || area==\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} || dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}==\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} || dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}<=0 || dr->
+      \hyperlink{structdirty__rect_ab03dbe7d4c0d1b17671721e81998a6f8}{max}<=0)
+139         \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+140     *area=dr->\hyperlink{structdirty__rect_ab889243f2328956531a30bb3a01ac8e4}{rects}[--dr->\hyperlink{structdirty__rect_a67a9616d0e36086f65c7bf272fc3ebe4}{used}];
+141     \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+142 \}
+\end{DoxyCode}
+\hypertarget{gr__rect_8h_ad8faef8bd2ee2a3a506296d70adcc3a3}{\index{gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}!new\+\_\+dirty\+\_\+rect@{new\+\_\+dirty\+\_\+rect}}
+\index{new\+\_\+dirty\+\_\+rect@{new\+\_\+dirty\+\_\+rect}!gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}}
+\subsubsection[{new\+\_\+dirty\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}{\bf dirty\+\_\+rect}$\ast$ new\+\_\+dirty\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{int}]{size}
+\end{DoxyParamCaption}
+)}}\label{gr__rect_8h_ad8faef8bd2ee2a3a506296d70adcc3a3}
+
+
+Definition at line 10 of file gr\+\_\+rect.\+c.
+
+
+
+References free(), and N\+U\+L\+L.
+
+
+
+Referenced by mar\+\_\+create\+\_\+window().
+
+
+\begin{DoxyCode}
+10                                     \{
+11     \hyperlink{structdirty__rect}{dirty\_rect} *\textcolor{keyword}{new}=\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+12     \textcolor{keywordflow}{if}(\hyperlink{structsize}{size}>0)\{
+13         \textcolor{keyword}{new}=(\hyperlink{structdirty__rect}{dirty\_rect} *)calloc(1L,\textcolor{keyword}{sizeof}(\hyperlink{structdirty__rect}{dirty\_rect}));
+14         \textcolor{keywordflow}{if}(\textcolor{keyword}{new})\{
+15             \textcolor{keyword}{new}->rects=(GRECT *)calloc((\textcolor{keywordtype}{long})\hyperlink{structsize}{size},\textcolor{keyword}{sizeof}(GRECT));
+16             \textcolor{keywordflow}{if}(new->rects==\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})\{
+17                 \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(\textcolor{keyword}{new});
+18                 \textcolor{keywordflow}{return}(\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+19             \}
+20             \textcolor{keyword}{new}->max=\hyperlink{structsize}{size};
+21         \}
+22     \}
+23     \textcolor{keywordflow}{return}(\textcolor{keyword}{new});
+24 \}
+\end{DoxyCode}
+\hypertarget{gr__rect_8h_ab87754efa2918837a7ead58dfc69a96d}{\index{gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}!resize\+\_\+dirty\+\_\+rect@{resize\+\_\+dirty\+\_\+rect}}
+\index{resize\+\_\+dirty\+\_\+rect@{resize\+\_\+dirty\+\_\+rect}!gr\+\_\+rect.\+h@{gr\+\_\+rect.\+h}}
+\subsubsection[{resize\+\_\+dirty\+\_\+rect}]{\setlength{\rightskip}{0pt plus 5cm}int resize\+\_\+dirty\+\_\+rect (
+\begin{DoxyParamCaption}
+\item[{{\bf dirty\+\_\+rect} $\ast$}]{dr, }
+\item[{int}]{new\+\_\+size}
+\end{DoxyParamCaption}
+)}}\label{gr__rect_8h_ab87754efa2918837a7ead58dfc69a96d}
+
+
+Definition at line 148 of file gr\+\_\+rect.\+c.
+
+
+
+References F\+A\+L\+S\+E.
+
+
+\begin{DoxyCode}
+148                                                   \{
+149     \textcolor{keywordflow}{return}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+150 \}
+\end{DoxyCode}

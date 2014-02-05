@@ -1,0 +1,412 @@
+\hypertarget{exper_8c}{\section{nethack/src/exper.c File Reference}
+\label{exper_8c}\index{nethack/src/exper.\+c@{nethack/src/exper.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} long \hyperlink{exper_8c_a5b67014aba3732d7aa2ab4f4efee7115}{F\+D\+E\+C\+L} (\hyperlink{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{newuexp},(int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{exper_8c_aa8ab2e85ae60d315637c5bd98c1f84e5}{F\+D\+E\+C\+L} (\hyperlink{exper_8c_a5ea88796da389de503828f87486798c4}{enermod},(int))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} long \hyperlink{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{newuexp} (int lev)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{exper_8c_a5ea88796da389de503828f87486798c4}{enermod} (int en)
+\item 
+int \hyperlink{exper_8c_acfdafdd736651b31082b67e302a654c8}{experience} (struct	\hyperlink{structmonst}{monst} $\ast$mtmp, int nk)
+\item 
+void \hyperlink{exper_8c_a9329872dddc434fcb74c82d125b5d567}{more\+\_\+experienced} (int exp, int rexp)
+\item 
+void \hyperlink{exper_8c_ad6e8547d2db17f406f69a00909ee3a57}{losexp} (char $\ast$drainer) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+void \hyperlink{exper_8c_a5faffa80cf70dbe30462874d67a3c582}{newexplevel} ()
+\item 
+void \hyperlink{exper_8c_a85c58829a5a5a36f4ebcdf191ab3871c}{pluslvl} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} incr)
+\item 
+long \hyperlink{exper_8c_a8fafb670b7117507363e0ad93141ab7f}{rndexp} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} gaining)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{exper_8c_a5ea88796da389de503828f87486798c4}{\index{exper.\+c@{exper.\+c}!enermod@{enermod}}
+\index{enermod@{enermod}!exper.\+c@{exper.\+c}}
+\subsubsection[{enermod}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int enermod (
+\begin{DoxyParamCaption}
+\item[{int}]{en}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_a5ea88796da389de503828f87486798c4}
+
+
+Definition at line 20 of file exper.\+c.
+
+
+
+References Role\+\_\+switch.
+
+
+
+Referenced by losexp(), and pluslvl().
+
+
+\begin{DoxyCode}
+22 \{
+23     \textcolor{keywordflow}{switch} (\hyperlink{you_8h_a4e9c08c02937a7b0216c1ebdd3a3255d}{Role\_switch}) \{
+24     \textcolor{keywordflow}{case} PM\_PRIEST:
+25     \textcolor{keywordflow}{case} PM\_WIZARD:
+26         \textcolor{keywordflow}{return}(2 * en);
+27     \textcolor{keywordflow}{case} PM\_HEALER:
+28     \textcolor{keywordflow}{case} PM\_KNIGHT:
+29         \textcolor{keywordflow}{return}((3 * en) / 2);
+30     \textcolor{keywordflow}{case} PM\_BARBARIAN:
+31     \textcolor{keywordflow}{case} PM\_VALKYRIE:
+32         \textcolor{keywordflow}{return}((3 * en) / 4);
+33     \textcolor{keywordflow}{default}:
+34         \textcolor{keywordflow}{return} (en);
+35     \}
+36 \}
+\end{DoxyCode}
+\hypertarget{exper_8c_acfdafdd736651b31082b67e302a654c8}{\index{exper.\+c@{exper.\+c}!experience@{experience}}
+\index{experience@{experience}!exper.\+c@{exper.\+c}}
+\subsubsection[{experience}]{\setlength{\rightskip}{0pt plus 5cm}int experience (
+\begin{DoxyParamCaption}
+\item[{struct	{\bf monst} $\ast$}]{mtmp, }
+\item[{int}]{nk}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_acfdafdd736651b31082b67e302a654c8}
+
+
+Definition at line 39 of file exper.\+c.
+
+
+
+References attack\+::aatyp, A\+D\+\_\+\+B\+L\+N\+D, A\+D\+\_\+\+D\+R\+L\+I, A\+D\+\_\+\+P\+H\+Y\+S, A\+D\+\_\+\+S\+L\+I\+M, A\+D\+\_\+\+S\+T\+O\+N, A\+D\+\_\+\+W\+R\+A\+P, attack\+::adtyp, Amphibious, A\+T\+\_\+\+B\+U\+T\+T, A\+T\+\_\+\+M\+A\+G\+C, A\+T\+\_\+\+W\+E\+A\+P, attack\+::damd, attack\+::damn, extra\+\_\+nasty, find\+\_\+mac(), permonst\+::mattk, permonst\+::mlet, permonst\+::mmove, mons, N\+A\+T\+T\+K, N\+O\+R\+M\+A\+L\+\_\+\+S\+P\+E\+E\+D, and S\+\_\+\+E\+E\+L.
+
+
+\begin{DoxyCode}
+45 \{
+46     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *ptr = mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data};
+47     \textcolor{keywordtype}{int} i, tmp, tmp2;
+48 
+49     tmp = 1 + mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev} * mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev};
+50 
+51 \textcolor{comment}{/*  For higher ac values, give extra experience */}
+52     \textcolor{keywordflow}{if} ((i = \hyperlink{worn_8c_a03e1b53b51c959a61e4c205e65d1095a}{find\_mac}(mtmp)) < 3) tmp += (7 - i) * ((i < 0) ? 2 : 1);
+53 
+54 \textcolor{comment}{/*  For very fast monsters, give extra experience */}
+55     \textcolor{keywordflow}{if} (ptr->\hyperlink{structpermonst_a939712c539eb16cf6cb51e58ae1c12b0}{mmove} > \hyperlink{permonst_8h_a9309d15f17c3a7c7885a8ad2fbe3fc5f}{NORMAL\_SPEED})
+56         tmp += (ptr->\hyperlink{structpermonst_a939712c539eb16cf6cb51e58ae1c12b0}{mmove} > (3*\hyperlink{permonst_8h_a9309d15f17c3a7c7885a8ad2fbe3fc5f}{NORMAL\_SPEED}/2)) ? 5 : 3;
+57 
+58 \textcolor{comment}{/*  For each "special" attack type give extra experience */}
+59     \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{permonst_8h_af9119a416b08e0f343f33a0a7a945e93}{NATTK}; i++) \{
+60 
+61         tmp2 = ptr->\hyperlink{structpermonst_a8a558cbb5f8985df95bffa4439856374}{mattk}[i].\hyperlink{structattack_a0836728d155c969f6b43814c6a200ccd}{aatyp};
+62         \textcolor{keywordflow}{if}(tmp2 > \hyperlink{monattk_8h_a3920c85a3766d32754a057931a6db631}{AT\_BUTT}) \{
+63 
+64         \textcolor{keywordflow}{if}(tmp2 == \hyperlink{monattk_8h_a6db6784344c2424d385f6b460f0c029f}{AT\_WEAP}) tmp += 5;
+65         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(tmp2 == \hyperlink{monattk_8h_aae08f3175f1d778d2656ec379266fc49}{AT\_MAGC}) tmp += 10;
+66         \textcolor{keywordflow}{else} tmp += 3;
+67         \}
+68     \}
+69 
+70 \textcolor{comment}{/*  For each "special" damage type give extra experience */}
+71     \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{permonst_8h_af9119a416b08e0f343f33a0a7a945e93}{NATTK}; i++) \{
+72         tmp2 = ptr->\hyperlink{structpermonst_a8a558cbb5f8985df95bffa4439856374}{mattk}[i].\hyperlink{structattack_a14286742d9dc1310f5c4852432264080}{adtyp};
+73         \textcolor{keywordflow}{if}(tmp2 > \hyperlink{monattk_8h_a9191d6bf636e5ada34fa9169ecaa4d9a}{AD\_PHYS} && tmp2 < \hyperlink{monattk_8h_a0b9368a6808378c4d573541efff21cb6}{AD\_BLND}) tmp += 2*mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev};
+74         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}((tmp2 == \hyperlink{monattk_8h_a4c57ec4f6d96ffb69d5dd9ec95a2197b}{AD\_DRLI}) || (tmp2 == \hyperlink{monattk_8h_acd88c8b5dc08b255aa9a34768f7efb7c}{AD\_STON}) ||
+75                 (tmp2 == \hyperlink{monattk_8h_ac8d7fd38687725720d5bc472ebd22f9b}{AD\_SLIM})) tmp += 50;
+76         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(tmp != \hyperlink{monattk_8h_a9191d6bf636e5ada34fa9169ecaa4d9a}{AD\_PHYS}) tmp += mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev};
+77         \textcolor{comment}{/* extra heavy damage bonus */}
+78         \textcolor{keywordflow}{if}((\textcolor{keywordtype}{int})(ptr->\hyperlink{structpermonst_a8a558cbb5f8985df95bffa4439856374}{mattk}[i].\hyperlink{structattack_ac2b210543d1c0d0db89106b7d5f9ee00}{damd} * ptr->\hyperlink{structpermonst_a8a558cbb5f8985df95bffa4439856374}{mattk}[i].\hyperlink{structattack_abf8c529d3dc814dcbe98780aaa9a9194}{damn}) > 23)
+79         tmp += mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev};
+80         \textcolor{keywordflow}{if} (tmp2 == \hyperlink{monattk_8h_abd3282c6d3cf3a04bc06ebdc9e8a34ef}{AD\_WRAP} && ptr->\hyperlink{structpermonst_ab402dbf1bed9d0e595a2b3da6558da92}{mlet} == \hyperlink{monsym_8h_a07cd4c997171ec30fbe1376341a26160}{S\_EEL} && !\hyperlink{youprop_8h_a9548394b21eb11623766623de475b335}{Amphibious})
+81         tmp += 1000;
+82     \}
+83 
+84 \textcolor{comment}{/*  For certain "extra nasty" monsters, give even more */}
+85     \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_a43a56f8da67bffad8570befaef4cb528}{extra\_nasty}(ptr)) tmp += (7 * mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev});
+86 
+87 \textcolor{comment}{/*  For higher level monsters, an additional bonus is given */}
+88     \textcolor{keywordflow}{if}(mtmp->\hyperlink{structmonst_a80ec1118166ea76d347e47d088bd1f7c}{m\_lev} > 8) tmp += 50;
+89 
+90 \textcolor{preprocessor}{#ifdef MAIL}
+91     \textcolor{comment}{/* Mail daemons put up no fight. */}
+92     \textcolor{keywordflow}{if}(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data} == &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_MAIL\_DAEMON]) tmp = 1;
+93 \textcolor{preprocessor}{#endif}
+94 
+95     \textcolor{keywordflow}{return}(tmp);
+96 \}
+\end{DoxyCode}
+\hypertarget{exper_8c_a5b67014aba3732d7aa2ab4f4efee7115}{\index{exper.\+c@{exper.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!exper.\+c@{exper.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} long F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf newuexp}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_a5b67014aba3732d7aa2ab4f4efee7115}
+\hypertarget{exper_8c_aa8ab2e85ae60d315637c5bd98c1f84e5}{\index{exper.\+c@{exper.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!exper.\+c@{exper.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf enermod}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_aa8ab2e85ae60d315637c5bd98c1f84e5}
+\hypertarget{exper_8c_ad6e8547d2db17f406f69a00909ee3a57}{\index{exper.\+c@{exper.\+c}!losexp@{losexp}}
+\index{losexp@{losexp}!exper.\+c@{exper.\+c}}
+\subsubsection[{losexp}]{\setlength{\rightskip}{0pt plus 5cm}void losexp (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{drainer}
+\end{DoxyParamCaption}
+) const}}\label{exper_8c_ad6e8547d2db17f406f69a00909ee3a57}
+
+
+Definition at line 114 of file exper.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, A\+C\+U\+R\+R, flag\+::botl, D\+I\+E\+D, done, Role\+::enadv, Race\+::enadv, enermod(), flags, Goodbye(), Role\+Advance\+::hifix, Role\+Advance\+::hirnd, K\+I\+L\+L\+E\+D\+\_\+\+B\+Y, killer, killer\+\_\+format, Role\+Advance\+::lofix, Role\+Advance\+::lornd, newuexp(), N\+O\+N\+\_\+\+P\+M, rn1, u, you\+::uen, you\+::uenmax, you\+::uexp, you\+::uhp, you\+::uhpmax, you\+::ulevel, urace, urole, Role\+::xlev, and youmonst.
+
+
+
+Referenced by angrygods().
+
+
+\begin{DoxyCode}
+116 \{
+117     \textcolor{keyword}{register} \textcolor{keywordtype}{int} num;
+118 
+119 \textcolor{preprocessor}{#ifdef WIZARD}
+120     \textcolor{comment}{/* override life-drain resistance when handling an explicit}
+121 \textcolor{comment}{       wizard mode request to reduce level; never fatal though */}
+122     \textcolor{keywordflow}{if} (drainer && !strcmp(drainer, \textcolor{stringliteral}{"#levelchange"}))
+123         drainer = 0;
+124     \textcolor{keywordflow}{else}
+125 \textcolor{preprocessor}{#endif}
+126         \textcolor{keywordflow}{if} (resists\_drli(&\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst})) \textcolor{keywordflow}{return};
+127 
+128     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} > 1) \{
+129         pline(\textcolor{stringliteral}{"%s level %d."}, \hyperlink{role_8c_a121ab51c3cdb138dddd6d9bfde8b636f}{Goodbye}(), \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel}--);
+130         \textcolor{comment}{/* remove intrinsic abilities */}
+131         adjabil(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} + 1, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel});
+132         reset\_rndmonst(\hyperlink{permonst_8h_a6485376b5cfc1627d2c68fcb98432cb0}{NON\_PM});   \textcolor{comment}{/* new monster selection */}
+133     \} \textcolor{keywordflow}{else} \{
+134         \textcolor{keywordflow}{if} (drainer) \{
+135             \hyperlink{decl_8h_a0a94810d03a0bf68b371c6b1a1a4a905}{killer\_format} = \hyperlink{decl_8h_a0b77d6f094070ee1d9900156357f6f62}{KILLED\_BY};
+136             \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer} = drainer;
+137             \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(\hyperlink{hack_8h_a945602f8a7d9cde22e2502ffb5c51f58}{DIED});
+138         \}
+139         \textcolor{comment}{/* no drainer or lifesaved */}
+140         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} = 0;
+141     \}
+142     num = newhp();
+143     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax} -= num;
+144     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax} < 1) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax} = 1;
+145     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} -= num;
+146     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} < 1) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} = 1;
+147     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} > \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax}) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax};
+148 
+149     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} < \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a5628cbf5b1b658077beb6563cf3dd460}{xlev})
+150         num = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}((\textcolor{keywordtype}{int})\hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS})/2 + \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2d3cca1a7a810a18e8ed147b51be5e2f}{enadv}.\hyperlink{structRoleAdvance_a1e4f4dd4e5f7aa4ee3311999d99b3f47}{lornd} + 
+      \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_ad94f1e078415a0f0a5633b2522042ad2}{enadv}.\hyperlink{structRoleAdvance_a1e4f4dd4e5f7aa4ee3311999d99b3f47}{lornd},
+151             \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2d3cca1a7a810a18e8ed147b51be5e2f}{enadv}.\hyperlink{structRoleAdvance_ac38bf662d53d443f26f8c65775e39f12}{lofix} + \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_ad94f1e078415a0f0a5633b2522042ad2}{enadv}.\hyperlink{structRoleAdvance_ac38bf662d53d443f26f8c65775e39f12}{lofix});
+152     \textcolor{keywordflow}{else}
+153         num = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}((\textcolor{keywordtype}{int})\hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS})/2 + \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2d3cca1a7a810a18e8ed147b51be5e2f}{enadv}.\hyperlink{structRoleAdvance_a6132e0002a06dea2c67661308488772f}{hirnd} + 
+      \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_ad94f1e078415a0f0a5633b2522042ad2}{enadv}.\hyperlink{structRoleAdvance_a6132e0002a06dea2c67661308488772f}{hirnd},
+154             \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2d3cca1a7a810a18e8ed147b51be5e2f}{enadv}.\hyperlink{structRoleAdvance_aefc639bb4ba64fcedc2cb8a8d8824ea0}{hifix} + \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_ad94f1e078415a0f0a5633b2522042ad2}{enadv}.\hyperlink{structRoleAdvance_aefc639bb4ba64fcedc2cb8a8d8824ea0}{hifix});
+155     num = \hyperlink{exper_8c_a5ea88796da389de503828f87486798c4}{enermod}(num);      \textcolor{comment}{/* M. Stephenson */}
+156     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aed246159794c7c780aeea2aca5adabe8}{uenmax} -= num;
+157     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aed246159794c7c780aeea2aca5adabe8}{uenmax} < 0) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aed246159794c7c780aeea2aca5adabe8}{uenmax} = 0;
+158     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} -= num;
+159     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} < 0) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} = 0;
+160     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} > \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aed246159794c7c780aeea2aca5adabe8}{uenmax}) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aed246159794c7c780aeea2aca5adabe8}{uenmax};
+161 
+162     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} > 0)
+163         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} = \hyperlink{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{newuexp}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel}) - 1;
+164     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+165 \}
+\end{DoxyCode}
+\hypertarget{exper_8c_a9329872dddc434fcb74c82d125b5d567}{\index{exper.\+c@{exper.\+c}!more\+\_\+experienced@{more\+\_\+experienced}}
+\index{more\+\_\+experienced@{more\+\_\+experienced}!exper.\+c@{exper.\+c}}
+\subsubsection[{more\+\_\+experienced}]{\setlength{\rightskip}{0pt plus 5cm}void more\+\_\+experienced (
+\begin{DoxyParamCaption}
+\item[{int}]{exp, }
+\item[{int}]{rexp}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_a9329872dddc434fcb74c82d125b5d567}
+
+
+Definition at line 99 of file exper.\+c.
+
+
+
+References flag\+::beginner, flag\+::botl, flags, Role\+\_\+if, u, you\+::uexp, and you\+::urexp.
+
+
+
+Referenced by doconsult().
+
+
+\begin{DoxyCode}
+101 \{
+102     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} += exp;
+103     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac096bd7eef66e6d79962d6e9848071df}{urexp} += 4*exp + rexp;
+104     \textcolor{keywordflow}{if}(exp
+105 #ifdef SCORE\_ON\_BOTL
+106        || \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.showscore
+107 #endif
+108        ) \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+109     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac096bd7eef66e6d79962d6e9848071df}{urexp} >= (\hyperlink{you_8h_a6087f5b8605964c19078b777da740258}{Role\_if}(PM\_WIZARD) ? 1000 : 2000))
+110         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ac488811edaec9208018e9abb54679274}{beginner} = 0;
+111 \}
+\end{DoxyCode}
+\hypertarget{exper_8c_a5faffa80cf70dbe30462874d67a3c582}{\index{exper.\+c@{exper.\+c}!newexplevel@{newexplevel}}
+\index{newexplevel@{newexplevel}!exper.\+c@{exper.\+c}}
+\subsubsection[{newexplevel}]{\setlength{\rightskip}{0pt plus 5cm}void newexplevel (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_a5faffa80cf70dbe30462874d67a3c582}
+
+
+Definition at line 174 of file exper.\+c.
+
+
+
+References M\+A\+X\+U\+L\+E\+V, newuexp(), pluslvl(), T\+R\+U\+E, u, you\+::uexp, and you\+::ulevel.
+
+
+
+Referenced by doconsult().
+
+
+\begin{DoxyCode}
+175 \{
+176     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} < \hyperlink{global_8h_aaa4bacb3e5383df368bf5c824bdd0087}{MAXULEV} && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} >= \hyperlink{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{newuexp}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.
+      \hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel}))
+177         \hyperlink{exper_8c_a85c58829a5a5a36f4ebcdf191ab3871c}{pluslvl}(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+178 \}
+\end{DoxyCode}
+\hypertarget{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{\index{exper.\+c@{exper.\+c}!newuexp@{newuexp}}
+\index{newuexp@{newuexp}!exper.\+c@{exper.\+c}}
+\subsubsection[{newuexp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} long newuexp (
+\begin{DoxyParamCaption}
+\item[{int}]{lev}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}
+
+
+Definition at line 11 of file exper.\+c.
+
+
+
+Referenced by losexp(), newexplevel(), pluslvl(), and rndexp().
+
+
+\begin{DoxyCode}
+13 \{
+14     \textcolor{keywordflow}{if} (lev < 10) \textcolor{keywordflow}{return} (10L * (1L << lev));
+15     \textcolor{keywordflow}{if} (lev < 20) \textcolor{keywordflow}{return} (10000L * (1L << (lev - 10)));
+16     \textcolor{keywordflow}{return} (10000000L * ((\textcolor{keywordtype}{long})(lev - 19)));
+17 \}
+\end{DoxyCode}
+\hypertarget{exper_8c_a85c58829a5a5a36f4ebcdf191ab3871c}{\index{exper.\+c@{exper.\+c}!pluslvl@{pluslvl}}
+\index{pluslvl@{pluslvl}!exper.\+c@{exper.\+c}}
+\subsubsection[{pluslvl}]{\setlength{\rightskip}{0pt plus 5cm}void pluslvl (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{incr}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_a85c58829a5a5a36f4ebcdf191ab3871c}
+
+
+Definition at line 181 of file exper.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, A\+C\+U\+R\+R, flag\+::botl, Role\+::enadv, Race\+::enadv, enermod(), flags, Role\+Advance\+::hifix, Role\+Advance\+::hirnd, Role\+Advance\+::lofix, Role\+Advance\+::lornd, M\+A\+X\+U\+L\+E\+V, you\+::mh, you\+::mhmax, newuexp(), N\+O\+N\+\_\+\+P\+M, rn1, u, you\+::uen, you\+::uenmax, you\+::uexp, you\+::uhp, you\+::uhpmax, you\+::ulevel, you\+::ulevelmax, Upolyd, urace, urole, and Role\+::xlev.
+
+
+
+Referenced by newexplevel(), and pleased().
+
+
+\begin{DoxyCode}
+183 \{       \textcolor{comment}{/*  (false for potion of gain level)      */}
+184     \textcolor{keyword}{register} \textcolor{keywordtype}{int} num;
+185 
+186     \textcolor{keywordflow}{if} (!incr) You\_feel(\textcolor{stringliteral}{"more experienced."});
+187     num = newhp();
+188     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax} += num;
+189     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp} += num;
+190     \textcolor{keywordflow}{if} (\hyperlink{you_8h_ab869582031082f2c352b374dc0e0c3b3}{Upolyd}) \{
+191         num = rnd(8);
+192         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ad0eb213f6299ffa1529fc7864003a044}{mhmax} += num;
+193         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2106fda1b357aa3395703a3abff426f8}{mh} += num;
+194     \}
+195     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} < \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a5628cbf5b1b658077beb6563cf3dd460}{xlev})
+196         num = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}((\textcolor{keywordtype}{int})\hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS})/2 + \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2d3cca1a7a810a18e8ed147b51be5e2f}{enadv}.\hyperlink{structRoleAdvance_a1e4f4dd4e5f7aa4ee3311999d99b3f47}{lornd} + 
+      \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_ad94f1e078415a0f0a5633b2522042ad2}{enadv}.\hyperlink{structRoleAdvance_a1e4f4dd4e5f7aa4ee3311999d99b3f47}{lornd},
+197             \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2d3cca1a7a810a18e8ed147b51be5e2f}{enadv}.\hyperlink{structRoleAdvance_ac38bf662d53d443f26f8c65775e39f12}{lofix} + \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_ad94f1e078415a0f0a5633b2522042ad2}{enadv}.\hyperlink{structRoleAdvance_ac38bf662d53d443f26f8c65775e39f12}{lofix});
+198     \textcolor{keywordflow}{else}
+199         num = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}((\textcolor{keywordtype}{int})\hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS})/2 + \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2d3cca1a7a810a18e8ed147b51be5e2f}{enadv}.\hyperlink{structRoleAdvance_a6132e0002a06dea2c67661308488772f}{hirnd} + 
+      \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_ad94f1e078415a0f0a5633b2522042ad2}{enadv}.\hyperlink{structRoleAdvance_a6132e0002a06dea2c67661308488772f}{hirnd},
+200             \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a2d3cca1a7a810a18e8ed147b51be5e2f}{enadv}.\hyperlink{structRoleAdvance_aefc639bb4ba64fcedc2cb8a8d8824ea0}{hifix} + \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_ad94f1e078415a0f0a5633b2522042ad2}{enadv}.\hyperlink{structRoleAdvance_aefc639bb4ba64fcedc2cb8a8d8824ea0}{hifix});
+201     num = \hyperlink{exper_8c_a5ea88796da389de503828f87486798c4}{enermod}(num);  \textcolor{comment}{/* M. Stephenson */}
+202     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aed246159794c7c780aeea2aca5adabe8}{uenmax} += num;
+203     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} += num;
+204     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} < \hyperlink{global_8h_aaa4bacb3e5383df368bf5c824bdd0087}{MAXULEV}) \{
+205         \textcolor{keywordflow}{if} (incr) \{
+206         \textcolor{keywordtype}{long} tmp = \hyperlink{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{newuexp}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} + 1);
+207         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} >= tmp) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} = tmp - 1;
+208         \} \textcolor{keywordflow}{else} \{
+209         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} = \hyperlink{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{newuexp}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel});
+210         \}
+211         ++\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel};
+212         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a4ef7d6892966c8f8250e2d675bc1de05}{ulevelmax} < \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel}) \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a4ef7d6892966c8f8250e2d675bc1de05}{ulevelmax} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.
+      \hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel};
+213         pline(\textcolor{stringliteral}{"Welcome to experience level %d."}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel});
+214         adjabil(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} - 1, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel});  \textcolor{comment}{/* give new intrinsics */}
+215         reset\_rndmonst(\hyperlink{permonst_8h_a6485376b5cfc1627d2c68fcb98432cb0}{NON\_PM});       \textcolor{comment}{/* new monster selection */}
+216     \}
+217     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+218 \}
+\end{DoxyCode}
+\hypertarget{exper_8c_a8fafb670b7117507363e0ad93141ab7f}{\index{exper.\+c@{exper.\+c}!rndexp@{rndexp}}
+\index{rndexp@{rndexp}!exper.\+c@{exper.\+c}}
+\subsubsection[{rndexp}]{\setlength{\rightskip}{0pt plus 5cm}long rndexp (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{gaining}
+\end{DoxyParamCaption}
+)}}\label{exper_8c_a8fafb670b7117507363e0ad93141ab7f}
+
+
+Definition at line 224 of file exper.\+c.
+
+
+
+References L\+A\+R\+G\+E\+S\+T\+\_\+\+I\+N\+T, M\+A\+X\+U\+L\+E\+V, newuexp(), u, you\+::uexp, and you\+::ulevel.
+
+
+\begin{DoxyCode}
+226 \{
+227     \textcolor{keywordtype}{long} minexp, maxexp, diff, factor, result;
+228 
+229     minexp = (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} == 1) ? 0L : \hyperlink{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{newuexp}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} - 1);
+230     maxexp = \hyperlink{exper_8c_a4bed469e97bb0bf5f179ee816bb7c21d}{newuexp}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel});
+231     diff = maxexp - minexp,  factor = 1L;
+232     \textcolor{comment}{/* make sure that `diff' is an argument which rn2() can handle */}
+233     \textcolor{keywordflow}{while} (diff >= (\textcolor{keywordtype}{long})\hyperlink{global_8h_a7e80c139c01102183d2a57d61b5d2d8a}{LARGEST\_INT})
+234         diff /= 2L,  factor *= 2L;
+235     result = minexp + factor * (long)rn2((\textcolor{keywordtype}{int})diff);
+236     \textcolor{comment}{/* 3.4.1:  if already at level 30, add to current experience}
+237 \textcolor{comment}{       points rather than to threshold needed to reach the current}
+238 \textcolor{comment}{       level; otherwise blessed potions of gain level can result}
+239 \textcolor{comment}{       in lowering the experience points instead of raising them */}
+240     if (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.ulevel == \hyperlink{global_8h_aaa4bacb3e5383df368bf5c824bdd0087}{MAXULEV} && gaining) \{
+241         result += (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp} - minexp);
+242         \textcolor{comment}{/* avoid wrapping (over 400 blessed potions needed for that...) */}
+243         \textcolor{keywordflow}{if} (result < \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp}) result = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a113c432a2a47b28f746f9455907487}{uexp};
+244     \}
+245     \textcolor{keywordflow}{return} result;
+246 \}
+\end{DoxyCode}

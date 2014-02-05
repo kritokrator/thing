@@ -1,0 +1,2332 @@
+\hypertarget{vision_8c}{\section{nethack/src/vision.c File Reference}
+\label{vision_8c}\index{nethack/src/vision.\+c@{nethack/src/vision.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{vision_8c_ac26db4b03887fbc86becaab3cd49e1cd}{sign}(z)~((z) $<$ 0 ? -\/1 \+: ((z) ? 1 \+: 0 ))
+\item 
+\#define \hyperlink{vision_8c_a4ae2103f40acbf0bb4cc4ae429caea2d}{v\+\_\+abs}(z)~((z) $<$ 0 ? -\/(z) \+: (z))	/$\ast$ don't use \hyperlink{amidos_8c_a196e7f007a501cf9d0907cb2bab0b622}{abs} -\/-\/ it may exist $\ast$/
+\item 
+\#define \hyperlink{vision_8c_a9b3cfba7858e26fbc42f9d651d82d891}{new\+\_\+angle}(lev, sv, row, col)~($\ast$sv)
+\item 
+\#define \hyperlink{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{set\+\_\+cs}(rowp, col)~(rowp\mbox{[}col\mbox{]} = \hyperlink{vision_8h_aadb1c17631715d615ce4d6334a7387c5}{C\+O\+U\+L\+D\+\_\+\+S\+E\+E})
+\item 
+\#define \hyperlink{vision_8c_a772157f5840ecf49e2a0f20f2d67d7a8}{good\+\_\+row}(z)~((z) $>$= 0 \&\& (z) $<$ \hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O})
+\item 
+\#define \hyperlink{vision_8c_a9e153dd6d599eaf10892ee62b546b20e}{set\+\_\+min}(z)~if ($\ast$row\+\_\+min $>$ (z)) $\ast$row\+\_\+min = (z)
+\item 
+\#define \hyperlink{vision_8c_a76777bea7e5e2a6cf66f30e622d483c0}{set\+\_\+max}(z)~if ($\ast$row\+\_\+max $<$ (z)) $\ast$row\+\_\+max = (z)
+\item 
+\#define \hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\+\_\+clear}(row, col)~\hyperlink{vision_8c_a8bcfd56d798bbcfa3c43448c53701833}{viz\+\_\+clear\+\_\+rows}\mbox{[}row\mbox{]}\mbox{[}col\mbox{]}
+\item 
+\#define \hyperlink{vision_8c_a985d5617cad68acf1de06bb571eb13d9}{q1\+\_\+path}(sy, sx, y, x, dummy)~result = \hyperlink{vision_8c_a1b9aa133bbfbb99ba3fa24a204996b8c}{\+\_\+q1\+\_\+path}(sy,sx,y,x)
+\item 
+\#define \hyperlink{vision_8c_a286fb4ac5b0f8926cc9dcc9a108f64af}{q2\+\_\+path}(sy, sx, y, x, dummy)~result = \hyperlink{vision_8c_a22679d4a5477713070c76406820da59f}{\+\_\+q2\+\_\+path}(sy,sx,y,x)
+\item 
+\#define \hyperlink{vision_8c_a5e7b44ca61e21798ef5024ae3ec9d123}{q3\+\_\+path}(sy, sx, y, x, dummy)~result = \hyperlink{vision_8c_a4e2f55d18bafe3036a3dc1c8306c3efa}{\+\_\+q3\+\_\+path}(sy,sx,y,x)
+\item 
+\#define \hyperlink{vision_8c_a02b23109e724df5085a014b91638554c}{q4\+\_\+path}(sy, sx, y, x, dummy)~result = \hyperlink{vision_8c_a366fbf4cdfb909f7145b8a2c3ca5da72}{\+\_\+q4\+\_\+path}(sy,sx,y,x)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{vision_8c_a2dcf995e9a65fc0d369acb3d2dfe248b}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_acbd419bf020bf62b46e62d1a4611bf08}{fill\+\_\+point},(int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{vision_8c_ac709ee6e4d90d86c1fdd2ff735682f4a}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_aa26f53369e0fd58b98c56847d73a7b71}{dig\+\_\+point},(int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{vision_8c_ab1ba363d1c45afa71f8e52bdc182cdba}{N\+D\+E\+C\+L} (\hyperlink{vision_8c_a8f0c6633c121569dc82035080879d7f5}{view\+\_\+init})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{vision_8c_a8dcbb311a0188347e8b5e6c5d319893e}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_a0080aedab7d81113da562cc7cf4b29cb}{view\+\_\+from},(int, int, char $\ast$$\ast$, char $\ast$, char $\ast$, int, void($\ast$)(int, int, \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t}), \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{vision_8c_abd994796a775e2bb61049a0d67f6e08f}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_a7183e9c4c5c4c87947fd3a4c8a1e62d0}{get\+\_\+unused\+\_\+cs},(char $\ast$$\ast$$\ast$, char $\ast$$\ast$, char $\ast$$\ast$))
+\item 
+void \hyperlink{vision_8c_ae84d85f205596be999ea45113fb8810f}{vision\+\_\+init} ()
+\item 
+int \hyperlink{vision_8c_a80edeba01340113e1d35f39debfd42a3}{does\+\_\+block} (int x, int y, struct \hyperlink{structrm}{rm} $\ast$lev)
+\item 
+void \hyperlink{vision_8c_afcf29bf260885b9a629e98aee388d622}{vision\+\_\+reset} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{vision_8c_a7183e9c4c5c4c87947fd3a4c8a1e62d0}{get\+\_\+unused\+\_\+cs} (char $\ast$$\ast$$\ast$rows, char $\ast$$\ast$rmin, char $\ast$$\ast$rmax)
+\item 
+void \hyperlink{vision_8c_a07b3acbfcca75497c31df8d8aee1ca53}{vision\+\_\+recalc} (int control)
+\item 
+void \hyperlink{vision_8c_ae985a63b19aa1a0a81fa91b46972e27e}{block\+\_\+point} (int x, int y)
+\item 
+void \hyperlink{vision_8c_ae35bdda13dee95d455874551be850a47}{unblock\+\_\+point} (int x, int y)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{vision_8c_aa26f53369e0fd58b98c56847d73a7b71}{dig\+\_\+point} (int row, int col)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{vision_8c_acbd419bf020bf62b46e62d1a4611bf08}{fill\+\_\+point} (int row, int col)
+\item 
+static void \hyperlink{vision_8c_a1801f69755419c52de507273fed6bd81}{F\+D\+E\+C\+L} (($\ast$vis\+\_\+func),(int, int, \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{vision_8c_afe75c773cb280ee768b6e139bca68c5e}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_a1b9aa133bbfbb99ba3fa24a204996b8c}{\+\_\+q1\+\_\+path},(int, int, int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{vision_8c_a2fc0c448b329a92102f114ac555c3f94}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_a22679d4a5477713070c76406820da59f}{\+\_\+q2\+\_\+path},(int, int, int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{vision_8c_ac16623a753857f46c67872552cbea7be}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_a4e2f55d18bafe3036a3dc1c8306c3efa}{\+\_\+q3\+\_\+path},(int, int, int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{vision_8c_af187c15937e0d14ac406d125de2edcb8}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_a366fbf4cdfb909f7145b8a2c3ca5da72}{\+\_\+q4\+\_\+path},(int, int, int, int))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{vision_8c_a1b9aa133bbfbb99ba3fa24a204996b8c}{\+\_\+q1\+\_\+path} (int srow, int scol, int y2, int x2)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{vision_8c_a366fbf4cdfb909f7145b8a2c3ca5da72}{\+\_\+q4\+\_\+path} (int srow, int scol, int y2, int x2)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{vision_8c_a22679d4a5477713070c76406820da59f}{\+\_\+q2\+\_\+path} (int srow, int scol, int y2, int x2)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{vision_8c_a4e2f55d18bafe3036a3dc1c8306c3efa}{\+\_\+q3\+\_\+path} (int srow, int scol, int y2, int x2)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{vision_8c_abb1ad1d4fce194af2ab0d66dc0fb0660}{clear\+\_\+path} (int col1, int row1, int col2, int row2)
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{vision_8c_a00ff5ea9319c630d2f899646788df2d4}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_a13f8f397ecdfd5bb1b81174d263350cc}{right\+\_\+side},(int, int, int, char $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{vision_8c_a563585c1b16c31397c7a0d71d76f4a36}{F\+D\+E\+C\+L} (\hyperlink{vision_8c_ae57f2f3b3ee8b095cefb1b2816e5ac3b}{left\+\_\+side},(int, int, int, char $\ast$))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{vision_8c_a8f0c6633c121569dc82035080879d7f5}{view\+\_\+init} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{vision_8c_a13f8f397ecdfd5bb1b81174d263350cc}{right\+\_\+side} (int row, int left, int right\+\_\+mark, char $\ast$limits)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{vision_8c_ae57f2f3b3ee8b095cefb1b2816e5ac3b}{left\+\_\+side} (int row, int left\+\_\+mark, int right, char $\ast$limits)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{vision_8c_a0080aedab7d81113da562cc7cf4b29cb}{view\+\_\+from} (void \hyperlink{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}{F\+D\+E\+C\+L}(($\ast$func) int, void \hyperlink{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}{F\+D\+E\+C\+L}(($\ast$func) int, char $\ast$$\ast$loc\+\_\+cs\+\_\+rows, char $\ast$left\+\_\+most, char $\ast$right\+\_\+most, void \hyperlink{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}{F\+D\+E\+C\+L}(($\ast$func) int, func, \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t} arg)
+\item 
+void \hyperlink{vision_8c_a1fafbadf4ed6faed2c37e05893ba273e}{do\+\_\+clear\+\_\+area} (void \hyperlink{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}{F\+D\+E\+C\+L}(($\ast$func) int, void \hyperlink{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}{F\+D\+E\+C\+L}(($\ast$func) int, void \hyperlink{winX_8c_acfd941ef401a2bb9395c6f2b7ec34fd2}{F\+D\+E\+C\+L}(($\ast$func) int, func, \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t} arg)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{vision_8c_a10839665811ba95bf038f967c35e0831}{circle\+\_\+data} \mbox{[}$\,$\mbox{]}
+\item 
+char \hyperlink{vision_8c_a87ffc73f681c9b3b2d1c07b3e6189059}{circle\+\_\+start} \mbox{[}$\,$\mbox{]}
+\item 
+char $\ast$ \hyperlink{vision_8c_ae4ba3e2382673d04367ee2a46dd737ab}{viz\+\_\+rmin}
+\item 
+char $\ast$ \hyperlink{vision_8c_ab718bba1eabd255d10f30ab7881e6022}{viz\+\_\+rmax}
+\item 
+static char \hyperlink{vision_8c_a5bb24a7c839748da5178aa236006613c}{could\+\_\+see} \mbox{[}2\mbox{]}\mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}\mbox{[}\hyperlink{gnmap_8c_a308dbfcc29f5a427c0315f3cbf03c3ed}{C\+O\+L\+N\+O}\mbox{]}
+\item 
+static char $\ast$ \hyperlink{vision_8c_ae80b2d6fea2472db2cd1d5e3a824214d}{cs\+\_\+rows0} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}
+\item 
+static char $\ast$ \hyperlink{vision_8c_ae7f926990ea4aade6fc1ecd211d31021}{cs\+\_\+rows1} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}
+\item 
+static char \hyperlink{vision_8c_a149cab8e278af3f23daeb48f03985a17}{cs\+\_\+rmin0} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}
+\item 
+static char \hyperlink{vision_8c_ada4703efc8c5055c3167438170006755}{cs\+\_\+rmax0} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}
+\item 
+static char \hyperlink{vision_8c_aa4e5bafbb0f9055761ba45ba430e3678}{cs\+\_\+rmin1} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}
+\item 
+static char \hyperlink{vision_8c_ace6d96d36c70a8c6355f57cfdf28670f}{cs\+\_\+rmax1} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}
+\item 
+static char \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\+\_\+clear} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}\mbox{[}\hyperlink{gnmap_8c_a308dbfcc29f5a427c0315f3cbf03c3ed}{C\+O\+L\+N\+O}\mbox{]}
+\item 
+static char $\ast$ \hyperlink{vision_8c_a8bcfd56d798bbcfa3c43448c53701833}{viz\+\_\+clear\+\_\+rows} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}
+\item 
+static char \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\+\_\+ptrs} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}\mbox{[}\hyperlink{gnmap_8c_a308dbfcc29f5a427c0315f3cbf03c3ed}{C\+O\+L\+N\+O}\mbox{]}
+\item 
+static char \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\+\_\+ptrs} \mbox{[}\hyperlink{gnmap_8c_a9cce134868d97b23c35bcf1ff4a343d8}{R\+O\+W\+N\+O}\mbox{]}\mbox{[}\hyperlink{gnmap_8c_a308dbfcc29f5a427c0315f3cbf03c3ed}{C\+O\+L\+N\+O}\mbox{]}
+\item 
+static int \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\+\_\+row}
+\item 
+static int \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\+\_\+col}
+\item 
+static int \hyperlink{vision_8c_abc16e65f240ed0c8f3e876e8732c0a33}{step}
+\item 
+static char $\ast$$\ast$ \hyperlink{vision_8c_a7b7300c0c959d6658a2a9d99cb24bff6}{cs\+\_\+rows}
+\item 
+static char $\ast$ \hyperlink{vision_8c_a57a5a42da6ad4e94befb8e5edb85119e}{cs\+\_\+left}
+\item 
+static char $\ast$ \hyperlink{vision_8c_a98f41c6a876948c2e5313c2ea4cc5a64}{cs\+\_\+right}
+\item 
+static \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t} \hyperlink{vision_8c_a21e51d9280fedab4c269f36be8665279}{varg}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{vision_8c_a772157f5840ecf49e2a0f20f2d67d7a8}{\index{vision.\+c@{vision.\+c}!good\+\_\+row@{good\+\_\+row}}
+\index{good\+\_\+row@{good\+\_\+row}!vision.\+c@{vision.\+c}}
+\subsubsection[{good\+\_\+row}]{\setlength{\rightskip}{0pt plus 5cm}\#define good\+\_\+row(
+\begin{DoxyParamCaption}
+\item[{}]{z}
+\end{DoxyParamCaption}
+)~((z) $>$= 0 \&\& (z) $<$ {\bf R\+O\+W\+N\+O})}}\label{vision_8c_a772157f5840ecf49e2a0f20f2d67d7a8}
+
+
+Definition at line 1094 of file vision.\+c.
+
+
+
+Referenced by left\+\_\+side(), and right\+\_\+side().
+
+\hypertarget{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{\index{vision.\+c@{vision.\+c}!is\+\_\+clear@{is\+\_\+clear}}
+\index{is\+\_\+clear@{is\+\_\+clear}!vision.\+c@{vision.\+c}}
+\subsubsection[{is\+\_\+clear}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+clear(
+\begin{DoxyParamCaption}
+\item[{}]{row, }
+\item[{}]{col}
+\end{DoxyParamCaption}
+)~{\bf viz\+\_\+clear\+\_\+rows}\mbox{[}row\mbox{]}\mbox{[}col\mbox{]}}}\label{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}
+
+
+Definition at line 1097 of file vision.\+c.
+
+
+
+Referenced by \+\_\+q1\+\_\+path(), \+\_\+q2\+\_\+path(), \+\_\+q3\+\_\+path(), \+\_\+q4\+\_\+path(), left\+\_\+side(), right\+\_\+side(), and view\+\_\+from().
+
+\hypertarget{vision_8c_a9b3cfba7858e26fbc42f9d651d82d891}{\index{vision.\+c@{vision.\+c}!new\+\_\+angle@{new\+\_\+angle}}
+\index{new\+\_\+angle@{new\+\_\+angle}!vision.\+c@{vision.\+c}}
+\subsubsection[{new\+\_\+angle}]{\setlength{\rightskip}{0pt plus 5cm}\#define new\+\_\+angle(
+\begin{DoxyParamCaption}
+\item[{}]{lev, }
+\item[{}]{sv, }
+\item[{}]{row, }
+\item[{}]{col}
+\end{DoxyParamCaption}
+)~($\ast$sv)}}\label{vision_8c_a9b3cfba7858e26fbc42f9d651d82d891}
+
+
+Definition at line 442 of file vision.\+c.
+
+
+
+Referenced by vision\+\_\+recalc().
+
+\hypertarget{vision_8c_a985d5617cad68acf1de06bb571eb13d9}{\index{vision.\+c@{vision.\+c}!q1\+\_\+path@{q1\+\_\+path}}
+\index{q1\+\_\+path@{q1\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{q1\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}\#define q1\+\_\+path(
+\begin{DoxyParamCaption}
+\item[{}]{sy, }
+\item[{}]{sx, }
+\item[{}]{y, }
+\item[{}]{x, }
+\item[{}]{dummy}
+\end{DoxyParamCaption}
+)~result = {\bf \+\_\+q1\+\_\+path}(sy,sx,y,x)}}\label{vision_8c_a985d5617cad68acf1de06bb571eb13d9}
+
+
+Definition at line 1311 of file vision.\+c.
+
+
+
+Referenced by clear\+\_\+path(), and right\+\_\+side().
+
+\hypertarget{vision_8c_a286fb4ac5b0f8926cc9dcc9a108f64af}{\index{vision.\+c@{vision.\+c}!q2\+\_\+path@{q2\+\_\+path}}
+\index{q2\+\_\+path@{q2\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{q2\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}\#define q2\+\_\+path(
+\begin{DoxyParamCaption}
+\item[{}]{sy, }
+\item[{}]{sx, }
+\item[{}]{y, }
+\item[{}]{x, }
+\item[{}]{dummy}
+\end{DoxyParamCaption}
+)~result = {\bf \+\_\+q2\+\_\+path}(sy,sx,y,x)}}\label{vision_8c_a286fb4ac5b0f8926cc9dcc9a108f64af}
+
+
+Definition at line 1312 of file vision.\+c.
+
+
+
+Referenced by clear\+\_\+path(), and left\+\_\+side().
+
+\hypertarget{vision_8c_a5e7b44ca61e21798ef5024ae3ec9d123}{\index{vision.\+c@{vision.\+c}!q3\+\_\+path@{q3\+\_\+path}}
+\index{q3\+\_\+path@{q3\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{q3\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}\#define q3\+\_\+path(
+\begin{DoxyParamCaption}
+\item[{}]{sy, }
+\item[{}]{sx, }
+\item[{}]{y, }
+\item[{}]{x, }
+\item[{}]{dummy}
+\end{DoxyParamCaption}
+)~result = {\bf \+\_\+q3\+\_\+path}(sy,sx,y,x)}}\label{vision_8c_a5e7b44ca61e21798ef5024ae3ec9d123}
+
+
+Definition at line 1313 of file vision.\+c.
+
+
+
+Referenced by clear\+\_\+path(), and left\+\_\+side().
+
+\hypertarget{vision_8c_a02b23109e724df5085a014b91638554c}{\index{vision.\+c@{vision.\+c}!q4\+\_\+path@{q4\+\_\+path}}
+\index{q4\+\_\+path@{q4\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{q4\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}\#define q4\+\_\+path(
+\begin{DoxyParamCaption}
+\item[{}]{sy, }
+\item[{}]{sx, }
+\item[{}]{y, }
+\item[{}]{x, }
+\item[{}]{dummy}
+\end{DoxyParamCaption}
+)~result = {\bf \+\_\+q4\+\_\+path}(sy,sx,y,x)}}\label{vision_8c_a02b23109e724df5085a014b91638554c}
+
+
+Definition at line 1314 of file vision.\+c.
+
+
+
+Referenced by clear\+\_\+path(), and right\+\_\+side().
+
+\hypertarget{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{\index{vision.\+c@{vision.\+c}!set\+\_\+cs@{set\+\_\+cs}}
+\index{set\+\_\+cs@{set\+\_\+cs}!vision.\+c@{vision.\+c}}
+\subsubsection[{set\+\_\+cs}]{\setlength{\rightskip}{0pt plus 5cm}\#define set\+\_\+cs(
+\begin{DoxyParamCaption}
+\item[{}]{rowp, }
+\item[{}]{col}
+\end{DoxyParamCaption}
+)~(rowp\mbox{[}col\mbox{]} = {\bf C\+O\+U\+L\+D\+\_\+\+S\+E\+E})}}\label{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}
+
+
+Definition at line 1093 of file vision.\+c.
+
+
+
+Referenced by left\+\_\+side(), right\+\_\+side(), and view\+\_\+from().
+
+\hypertarget{vision_8c_a76777bea7e5e2a6cf66f30e622d483c0}{\index{vision.\+c@{vision.\+c}!set\+\_\+max@{set\+\_\+max}}
+\index{set\+\_\+max@{set\+\_\+max}!vision.\+c@{vision.\+c}}
+\subsubsection[{set\+\_\+max}]{\setlength{\rightskip}{0pt plus 5cm}\#define set\+\_\+max(
+\begin{DoxyParamCaption}
+\item[{}]{z}
+\end{DoxyParamCaption}
+)~if ($\ast$row\+\_\+max $<$ (z)) $\ast$row\+\_\+max = (z)}}\label{vision_8c_a76777bea7e5e2a6cf66f30e622d483c0}
+
+
+Definition at line 1096 of file vision.\+c.
+
+
+
+Referenced by left\+\_\+side(), and right\+\_\+side().
+
+\hypertarget{vision_8c_a9e153dd6d599eaf10892ee62b546b20e}{\index{vision.\+c@{vision.\+c}!set\+\_\+min@{set\+\_\+min}}
+\index{set\+\_\+min@{set\+\_\+min}!vision.\+c@{vision.\+c}}
+\subsubsection[{set\+\_\+min}]{\setlength{\rightskip}{0pt plus 5cm}\#define set\+\_\+min(
+\begin{DoxyParamCaption}
+\item[{}]{z}
+\end{DoxyParamCaption}
+)~if ($\ast$row\+\_\+min $>$ (z)) $\ast$row\+\_\+min = (z)}}\label{vision_8c_a9e153dd6d599eaf10892ee62b546b20e}
+
+
+Definition at line 1095 of file vision.\+c.
+
+
+
+Referenced by left\+\_\+side(), and right\+\_\+side().
+
+\hypertarget{vision_8c_ac26db4b03887fbc86becaab3cd49e1cd}{\index{vision.\+c@{vision.\+c}!sign@{sign}}
+\index{sign@{sign}!vision.\+c@{vision.\+c}}
+\subsubsection[{sign}]{\setlength{\rightskip}{0pt plus 5cm}\#define sign(
+\begin{DoxyParamCaption}
+\item[{}]{z}
+\end{DoxyParamCaption}
+)~((z) $<$ 0 ? -\/1 \+: ((z) ? 1 \+: 0 ))}}\label{vision_8c_ac26db4b03887fbc86becaab3cd49e1cd}
+
+
+Definition at line 109 of file vision.\+c.
+
+
+
+Referenced by vision\+\_\+recalc().
+
+\hypertarget{vision_8c_a4ae2103f40acbf0bb4cc4ae429caea2d}{\index{vision.\+c@{vision.\+c}!v\+\_\+abs@{v\+\_\+abs}}
+\index{v\+\_\+abs@{v\+\_\+abs}!vision.\+c@{vision.\+c}}
+\subsubsection[{v\+\_\+abs}]{\setlength{\rightskip}{0pt plus 5cm}\#define v\+\_\+abs(
+\begin{DoxyParamCaption}
+\item[{}]{z}
+\end{DoxyParamCaption}
+)~((z) $<$ 0 ? -\/(z) \+: (z))	/$\ast$ don't use {\bf abs} -\/-\/ it may exist $\ast$/}}\label{vision_8c_a4ae2103f40acbf0bb4cc4ae429caea2d}
+
+
+Definition at line 110 of file vision.\+c.
+
+
+
+Referenced by do\+\_\+clear\+\_\+area(), and vision\+\_\+recalc().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{vision_8c_a1b9aa133bbfbb99ba3fa24a204996b8c}{\index{vision.\+c@{vision.\+c}!\+\_\+q1\+\_\+path@{\+\_\+q1\+\_\+path}}
+\index{\+\_\+q1\+\_\+path@{\+\_\+q1\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{\+\_\+q1\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \+\_\+q1\+\_\+path (
+\begin{DoxyParamCaption}
+\item[{int}]{srow, }
+\item[{int}]{scol, }
+\item[{int}]{y2, }
+\item[{int}]{x2}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a1b9aa133bbfbb99ba3fa24a204996b8c}
+
+
+Definition at line 1320 of file vision.\+c.
+
+
+
+References is\+\_\+clear.
+
+
+\begin{DoxyCode}
+1322 \{
+1323     \textcolor{keywordtype}{int} dx, dy;
+1324     \textcolor{keyword}{register} \textcolor{keywordtype}{int} k, err, x, y, dxs, dys;
+1325 
+1326     x  = scol;      y  = srow;
+1327     dx = x2 - x;    dy = y - y2;
+1328 
+1329     dxs = dx << 1;     \textcolor{comment}{/* save the shifted values */}
+1330     dys = dy << 1;
+1331     \textcolor{keywordflow}{if} (dy > dx) \{
+1332     err = dxs - dy;
+1333 
+1334     \textcolor{keywordflow}{for} (k = dy-1; k; k--) \{
+1335         \textcolor{keywordflow}{if} (err >= 0) \{
+1336         x++;
+1337         err -= dys;
+1338         \}
+1339         y--;
+1340         err += dxs;
+1341         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(y,x)) \textcolor{keywordflow}{return} 0; \textcolor{comment}{/* blocked */}
+1342     \}
+1343     \} \textcolor{keywordflow}{else} \{
+1344     err = dys - dx;
+1345 
+1346     \textcolor{keywordflow}{for} (k = dx-1; k; k--) \{
+1347         \textcolor{keywordflow}{if} (err >= 0) \{
+1348         y--;
+1349         err -= dxs;
+1350         \}
+1351         x++;
+1352         err += dys;
+1353         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(y,x)) \textcolor{keywordflow}{return} 0;\textcolor{comment}{/* blocked */}
+1354     \}
+1355     \}
+1356 
+1357     \textcolor{keywordflow}{return} 1;
+1358 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a22679d4a5477713070c76406820da59f}{\index{vision.\+c@{vision.\+c}!\+\_\+q2\+\_\+path@{\+\_\+q2\+\_\+path}}
+\index{\+\_\+q2\+\_\+path@{\+\_\+q2\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{\+\_\+q2\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \+\_\+q2\+\_\+path (
+\begin{DoxyParamCaption}
+\item[{int}]{srow, }
+\item[{int}]{scol, }
+\item[{int}]{y2, }
+\item[{int}]{x2}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a22679d4a5477713070c76406820da59f}
+
+
+Definition at line 1408 of file vision.\+c.
+
+
+
+References is\+\_\+clear.
+
+
+\begin{DoxyCode}
+1410 \{
+1411     \textcolor{keywordtype}{int} dx, dy;
+1412     \textcolor{keyword}{register} \textcolor{keywordtype}{int} k, err, x, y, dxs, dys;
+1413 
+1414     x  = scol;      y  = srow;
+1415     dx = x - x2;    dy = y - y2;
+1416 
+1417     dxs = dx << 1;     \textcolor{comment}{/* save the shifted values */}
+1418     dys = dy << 1;
+1419     \textcolor{keywordflow}{if} (dy > dx) \{
+1420     err = dxs - dy;
+1421 
+1422     \textcolor{keywordflow}{for} (k = dy-1; k; k--) \{
+1423         \textcolor{keywordflow}{if} (err >= 0) \{
+1424         x--;
+1425         err -= dys;
+1426         \}
+1427         y--;
+1428         err += dxs;
+1429         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(y,x)) \textcolor{keywordflow}{return} 0; \textcolor{comment}{/* blocked */}
+1430     \}
+1431     \} \textcolor{keywordflow}{else} \{
+1432     err = dys - dx;
+1433 
+1434     \textcolor{keywordflow}{for} (k = dx-1; k; k--) \{
+1435         \textcolor{keywordflow}{if} (err >= 0) \{
+1436         y--;
+1437         err -= dxs;
+1438         \}
+1439         x--;
+1440         err += dys;
+1441         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(y,x)) \textcolor{keywordflow}{return} 0;\textcolor{comment}{/* blocked */}
+1442     \}
+1443     \}
+1444 
+1445     \textcolor{keywordflow}{return} 1;
+1446 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a4e2f55d18bafe3036a3dc1c8306c3efa}{\index{vision.\+c@{vision.\+c}!\+\_\+q3\+\_\+path@{\+\_\+q3\+\_\+path}}
+\index{\+\_\+q3\+\_\+path@{\+\_\+q3\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{\+\_\+q3\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \+\_\+q3\+\_\+path (
+\begin{DoxyParamCaption}
+\item[{int}]{srow, }
+\item[{int}]{scol, }
+\item[{int}]{y2, }
+\item[{int}]{x2}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a4e2f55d18bafe3036a3dc1c8306c3efa}
+
+
+Definition at line 1452 of file vision.\+c.
+
+
+
+References is\+\_\+clear.
+
+
+\begin{DoxyCode}
+1454 \{
+1455     \textcolor{keywordtype}{int} dx, dy;
+1456     \textcolor{keyword}{register} \textcolor{keywordtype}{int} k, err, x, y, dxs, dys;
+1457 
+1458     x  = scol;      y  = srow;
+1459     dx = x - x2;    dy = y2 - y;
+1460 
+1461     dxs = dx << 1;     \textcolor{comment}{/* save the shifted values */}
+1462     dys = dy << 1;
+1463     \textcolor{keywordflow}{if} (dy > dx) \{
+1464     err = dxs - dy;
+1465 
+1466     \textcolor{keywordflow}{for} (k = dy-1; k; k--) \{
+1467         \textcolor{keywordflow}{if} (err >= 0) \{
+1468         x--;
+1469         err -= dys;
+1470         \}
+1471         y++;
+1472         err += dxs;
+1473         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(y,x)) \textcolor{keywordflow}{return} 0; \textcolor{comment}{/* blocked */}
+1474     \}
+1475     \} \textcolor{keywordflow}{else} \{
+1476     err = dys - dx;
+1477 
+1478     \textcolor{keywordflow}{for} (k = dx-1; k; k--) \{
+1479         \textcolor{keywordflow}{if} (err >= 0) \{
+1480         y++;
+1481         err -= dxs;
+1482         \}
+1483         x--;
+1484         err += dys;
+1485         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(y,x)) \textcolor{keywordflow}{return} 0;\textcolor{comment}{/* blocked */}
+1486     \}
+1487     \}
+1488 
+1489     \textcolor{keywordflow}{return} 1;
+1490 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a366fbf4cdfb909f7145b8a2c3ca5da72}{\index{vision.\+c@{vision.\+c}!\+\_\+q4\+\_\+path@{\+\_\+q4\+\_\+path}}
+\index{\+\_\+q4\+\_\+path@{\+\_\+q4\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{\+\_\+q4\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \+\_\+q4\+\_\+path (
+\begin{DoxyParamCaption}
+\item[{int}]{srow, }
+\item[{int}]{scol, }
+\item[{int}]{y2, }
+\item[{int}]{x2}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a366fbf4cdfb909f7145b8a2c3ca5da72}
+
+
+Definition at line 1364 of file vision.\+c.
+
+
+
+References is\+\_\+clear.
+
+
+\begin{DoxyCode}
+1366 \{
+1367     \textcolor{keywordtype}{int} dx, dy;
+1368     \textcolor{keyword}{register} \textcolor{keywordtype}{int} k, err, x, y, dxs, dys;
+1369 
+1370     x  = scol;      y  = srow;
+1371     dx = x2 - x;    dy = y2 - y;
+1372 
+1373     dxs = dx << 1;     \textcolor{comment}{/* save the shifted values */}
+1374     dys = dy << 1;
+1375     \textcolor{keywordflow}{if} (dy > dx) \{
+1376     err = dxs - dy;
+1377 
+1378     \textcolor{keywordflow}{for} (k = dy-1; k; k--) \{
+1379         \textcolor{keywordflow}{if} (err >= 0) \{
+1380         x++;
+1381         err -= dys;
+1382         \}
+1383         y++;
+1384         err += dxs;
+1385         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(y,x)) \textcolor{keywordflow}{return} 0; \textcolor{comment}{/* blocked */}
+1386     \}
+1387     \} \textcolor{keywordflow}{else} \{
+1388     err = dys - dx;
+1389 
+1390     \textcolor{keywordflow}{for} (k = dx-1; k; k--) \{
+1391         \textcolor{keywordflow}{if} (err >= 0) \{
+1392         y++;
+1393         err -= dxs;
+1394         \}
+1395         x++;
+1396         err += dys;
+1397         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(y,x)) \textcolor{keywordflow}{return} 0;\textcolor{comment}{/* blocked */}
+1398     \}
+1399     \}
+1400 
+1401     \textcolor{keywordflow}{return} 1;
+1402 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_ae985a63b19aa1a0a81fa91b46972e27e}{\index{vision.\+c@{vision.\+c}!block\+\_\+point@{block\+\_\+point}}
+\index{block\+\_\+point@{block\+\_\+point}!vision.\+c@{vision.\+c}}
+\subsubsection[{block\+\_\+point}]{\setlength{\rightskip}{0pt plus 5cm}void block\+\_\+point (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_ae985a63b19aa1a0a81fa91b46972e27e}
+
+
+Definition at line 818 of file vision.\+c.
+
+
+
+References fill\+\_\+point(), vision\+\_\+full\+\_\+recalc, and viz\+\_\+array.
+
+
+
+Referenced by create\+\_\+monster(), movebubbles(), and set\+\_\+mimic\+\_\+blocking().
+
+
+\begin{DoxyCode}
+820 \{
+821     \hyperlink{vision_8c_acbd419bf020bf62b46e62d1a4611bf08}{fill\_point}(y,x);
+822 
+823     \textcolor{comment}{/* recalc light sources here? */}
+824 
+825     \textcolor{comment}{/*}
+826 \textcolor{comment}{     * We have to do a full vision recalculation if we "could see" the}
+827 \textcolor{comment}{     * location.  Why? Suppose some monster opened a way so that the}
+828 \textcolor{comment}{     * hero could see a lit room.  However, the position of the opening}
+829 \textcolor{comment}{     * was out of night-vision range of the hero.  Suddenly the hero should}
+830 \textcolor{comment}{     * see the lit room.}
+831 \textcolor{comment}{     */}
+832     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array}[y][x]) \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 1;
+833 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_abb1ad1d4fce194af2ab0d66dc0fb0660}{\index{vision.\+c@{vision.\+c}!clear\+\_\+path@{clear\+\_\+path}}
+\index{clear\+\_\+path@{clear\+\_\+path}!vision.\+c@{vision.\+c}}
+\subsubsection[{clear\+\_\+path}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} clear\+\_\+path (
+\begin{DoxyParamCaption}
+\item[{int}]{col1, }
+\item[{int}]{row1, }
+\item[{int}]{col2, }
+\item[{int}]{row2}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_abb1ad1d4fce194af2ab0d66dc0fb0660}
+
+
+Definition at line 1502 of file vision.\+c.
+
+
+
+References q1\+\_\+path, q2\+\_\+path, q3\+\_\+path, and q4\+\_\+path.
+
+
+\begin{DoxyCode}
+1504 \{
+1505     \textcolor{keywordtype}{int} result;
+1506 
+1507     \textcolor{keywordflow}{if}(col1 < col2) \{
+1508     \textcolor{keywordflow}{if}(row1 > row2) \{
+1509         \hyperlink{vision_8c_a985d5617cad68acf1de06bb571eb13d9}{q1\_path}(row1,col1,row2,col2,cleardone);
+1510     \} \textcolor{keywordflow}{else} \{
+1511         \hyperlink{vision_8c_a02b23109e724df5085a014b91638554c}{q4\_path}(row1,col1,row2,col2,cleardone);
+1512     \}
+1513     \} \textcolor{keywordflow}{else} \{
+1514     \textcolor{keywordflow}{if}(row1 > row2) \{
+1515         \hyperlink{vision_8c_a286fb4ac5b0f8926cc9dcc9a108f64af}{q2\_path}(row1,col1,row2,col2,cleardone);
+1516     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(row1 == row2 && col1 == col2) \{
+1517         result = 1;
+1518     \} \textcolor{keywordflow}{else} \{
+1519         \hyperlink{vision_8c_a5e7b44ca61e21798ef5024ae3ec9d123}{q3\_path}(row1,col1,row2,col2,cleardone);
+1520     \}
+1521     \}
+1522 \textcolor{preprocessor}{#ifdef MACRO\_CPATH}
+1523 cleardone:
+1524 \textcolor{preprocessor}{#endif}
+1525     \textcolor{keywordflow}{return}((\textcolor{keywordtype}{boolean})result);
+1526 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_aa26f53369e0fd58b98c56847d73a7b71}{\index{vision.\+c@{vision.\+c}!dig\+\_\+point@{dig\+\_\+point}}
+\index{dig\+\_\+point@{dig\+\_\+point}!vision.\+c@{vision.\+c}}
+\subsubsection[{dig\+\_\+point}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void dig\+\_\+point (
+\begin{DoxyParamCaption}
+\item[{int}]{row, }
+\item[{int}]{col}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_aa26f53369e0fd58b98c56847d73a7b71}
+
+
+Definition at line 901 of file vision.\+c.
+
+
+
+References C\+O\+L\+N\+O, left\+\_\+ptrs, right\+\_\+ptrs, and viz\+\_\+clear.
+
+
+
+Referenced by unblock\+\_\+point().
+
+
+\begin{DoxyCode}
+903 \{
+904     \textcolor{keywordtype}{int} i;
+905 
+906     \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col]) \textcolor{keywordflow}{return};       \textcolor{comment}{/* already done */}
+907 
+908     \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col] = 1;
+909 
+910     \textcolor{comment}{/*}
+911 \textcolor{comment}{     * Boundary cases first.}
+912 \textcolor{comment}{     */}
+913     \textcolor{keywordflow}{if} (col == 0) \{             \textcolor{comment}{/* left edge */}
+914     \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][1]) \{
+915         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][0] = \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][1];
+916     \} \textcolor{keywordflow}{else} \{
+917         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][0] = 1;
+918         \textcolor{keywordflow}{for} (i = 1; i <= \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][1]; i++)
+919         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = 1;
+920     \}
+921     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (col == (\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1)) \{     \textcolor{comment}{/* right edge */}
+922 
+923     \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-2]) \{
+924         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1] = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-2];
+925     \} \textcolor{keywordflow}{else} \{
+926         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1] = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-2;
+927         \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-2]; i < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1; i++)
+928         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][i] = COLNO-2;
+929     \}
+930     \}
+931 
+932     \textcolor{comment}{/*}
+933 \textcolor{comment}{     * At this point, we know we aren't on the boundaries.}
+934 \textcolor{comment}{     */}
+935     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col-1] && \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col+1]) \{
+936     \textcolor{comment}{/* Both sides clear */}
+937     \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1]; i <= col; i++) \{
+938         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][i]) \textcolor{keywordflow}{continue};  \textcolor{comment}{/* catch non-end case */}
+939         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][i] = \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col+1];
+940     \}
+941     \textcolor{keywordflow}{for} (i = col; i <= \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col+1]; i++) \{
+942         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][i]) \textcolor{keywordflow}{continue};  \textcolor{comment}{/* catch non-end case */}
+943         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1];
+944     \}
+945 
+946     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col-1]) \{
+947     \textcolor{comment}{/* Left side clear, right side blocked. */}
+948     \textcolor{keywordflow}{for} (i = col+1; i <= \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col+1]; i++)
+949         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = col+1;
+950 
+951     \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1]; i <= col; i++) \{
+952         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][i]) \textcolor{keywordflow}{continue};  \textcolor{comment}{/* catch non-end case */}
+953         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][i] = col+1;
+954     \}
+955     \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col] = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1];
+956 
+957     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col+1]) \{
+958     \textcolor{comment}{/* Right side clear, left side blocked. */}
+959     \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1]; i < col; i++)
+960         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][i] = col-1;
+961 
+962     \textcolor{keywordflow}{for} (i = col; i <= \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col+1]; i++) \{
+963         \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][i]) \textcolor{keywordflow}{continue};  \textcolor{comment}{/* catch non-end case */}
+964         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = col-1;
+965     \}
+966     \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col] = \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col+1];
+967 
+968     \} \textcolor{keywordflow}{else} \{
+969     \textcolor{comment}{/* Both sides blocked */}
+970     \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1]; i < col; i++)
+971         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][i] = col-1;
+972 
+973     \textcolor{keywordflow}{for} (i = col+1; i <= \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col+1]; i++)
+974         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = col+1;
+975 
+976     \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col]  = col-1;
+977     \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col] = col+1;
+978     \}
+979 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a1fafbadf4ed6faed2c37e05893ba273e}{\index{vision.\+c@{vision.\+c}!do\+\_\+clear\+\_\+area@{do\+\_\+clear\+\_\+area}}
+\index{do\+\_\+clear\+\_\+area@{do\+\_\+clear\+\_\+area}!vision.\+c@{vision.\+c}}
+\subsubsection[{do\+\_\+clear\+\_\+area}]{\setlength{\rightskip}{0pt plus 5cm}void do\+\_\+clear\+\_\+area (
+\begin{DoxyParamCaption}
+\item[{void {\bf F\+D\+E\+C\+L}(($\ast$func)}]{int, }
+\item[{void {\bf F\+D\+E\+C\+L}(($\ast$func)}]{int, }
+\item[{void {\bf F\+D\+E\+C\+L}(($\ast$func)}]{int, }
+\item[{func}]{, }
+\item[{{\bf genericptr\+\_\+t}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a1fafbadf4ed6faed2c37e05893ba273e}
+
+
+Definition at line 2590 of file vision.\+c.
+
+
+
+References circle\+\_\+ptr, C\+O\+L\+N\+O, couldsee, M\+A\+X\+\_\+\+R\+A\+D\+I\+U\+S, offset, panic(), R\+O\+W\+N\+O, u, you\+::ux, you\+::uy, v\+\_\+abs, view\+\_\+from(), vision\+\_\+full\+\_\+recalc, and vision\+\_\+recalc().
+
+
+
+Referenced by dogushforth(), findit(), and openit().
+
+
+\begin{DoxyCode}
+2594 \{
+2595     \textcolor{comment}{/* If not centered on hero, do the hard work of figuring the area */}
+2596     \textcolor{keywordflow}{if} (scol != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} || srow != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy})
+2597         \hyperlink{vision_8c_a0080aedab7d81113da562cc7cf4b29cb}{view\_from}(srow, scol, (\textcolor{keywordtype}{char} **)0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0,
+2598                             range, func, arg);
+2599     \textcolor{keywordflow}{else} \{
+2600         \textcolor{keyword}{register} \textcolor{keywordtype}{int} x;
+2601         \textcolor{keywordtype}{int} y, min\_x, max\_x, max\_y, \hyperlink{Window_8c_a6313d4fad4381a8c1cd37bac963cec12}{offset};
+2602         \textcolor{keywordtype}{char} *limits;
+2603 
+2604         \textcolor{keywordflow}{if} (range > \hyperlink{vision_8h_a7b18b821e397ef6bf1502bc41462d630}{MAX\_RADIUS} || range < 1)
+2605         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"do\_clear\_area:  illegal range %d"}, range);
+2606         \textcolor{keywordflow}{if}(\hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc})
+2607         \hyperlink{vision_8c_a07b3acbfcca75497c31df8d8aee1ca53}{vision\_recalc}(0);  \textcolor{comment}{/* recalc vision if dirty */}
+2608         limits = \hyperlink{vision_8h_a11548ac4cdc9184a0256947bcc0324e6}{circle\_ptr}(range);
+2609         \textcolor{keywordflow}{if} ((max\_y = (srow + range)) >= \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}) max\_y = \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1;
+2610         \textcolor{keywordflow}{if} ((y = (srow - range)) < 0) y = 0;
+2611         \textcolor{keywordflow}{for} (; y <= max\_y; y++) \{
+2612         offset = limits[\hyperlink{vision_8c_a4ae2103f40acbf0bb4cc4ae429caea2d}{v\_abs}(y-srow)];
+2613         \textcolor{keywordflow}{if}((min\_x = (scol - offset)) < 0) min\_x = 0;
+2614         \textcolor{keywordflow}{if}((max\_x = (scol + offset)) >= \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) max\_x = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+2615         \textcolor{keywordflow}{for} (x = min\_x; x <= max\_x; x++)
+2616             \textcolor{keywordflow}{if} (\hyperlink{vision_8h_abe44ac4ddfdaed9498f4b1a9afc10ebd}{couldsee}(x, y))
+2617             (*func)(x, y, arg);
+2618         \}
+2619     \}
+2620 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a80edeba01340113e1d35f39debfd42a3}{\index{vision.\+c@{vision.\+c}!does\+\_\+block@{does\+\_\+block}}
+\index{does\+\_\+block@{does\+\_\+block}!vision.\+c@{vision.\+c}}
+\subsubsection[{does\+\_\+block}]{\setlength{\rightskip}{0pt plus 5cm}int does\+\_\+block (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{struct {\bf rm}    $\ast$}]{lev}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a80edeba01340113e1d35f39debfd42a3}
+
+
+Definition at line 158 of file vision.\+c.
+
+
+
+References C\+L\+O\+U\+D, D\+\_\+\+C\+L\+O\+S\+E\+D, D\+\_\+\+L\+O\+C\+K\+E\+D, D\+\_\+\+T\+R\+A\+P\+P\+E\+D, I\+S\+\_\+\+D\+O\+O\+R, I\+S\+\_\+\+R\+O\+C\+K, level, M\+\_\+\+A\+P\+\_\+\+F\+U\+R\+N\+I\+T\+U\+R\+E, M\+\_\+\+A\+P\+\_\+\+O\+B\+J\+E\+C\+T, monst\+::m\+\_\+ap\+\_\+type, m\+\_\+at, monst\+::mappearance, M\+O\+A\+T, dlevel\+\_\+t\+::objects, obj\+::otyp, S\+\_\+hcdoor, S\+\_\+vcdoor, See\+\_\+invisible, T\+R\+E\+E, Underwater, and W\+A\+T\+E\+R.
+
+
+
+Referenced by create\+\_\+monster(), and vision\+\_\+reset().
+
+
+\begin{DoxyCode}
+161 \{
+162     \textcolor{keyword}{struct }\hyperlink{structobj}{obj}   *\hyperlink{structobj}{obj};
+163     \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mon;
+164 
+165     \textcolor{comment}{/* Features that block . . */}
+166     \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a041df081d95aacdcbf31a3bbfdd36e0e}{IS\_ROCK}(lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ}) || lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} == \hyperlink{rm_8h_abf5b8fbbeb8255336e401a15a80214a8}{TREE} || (\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(lev->
+      \hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ}) &&
+167                 (lev->doormask & (\hyperlink{rm_8h_a65f9ce7db71ac3d4c13edfe69732ec9a}{D\_CLOSED}|\hyperlink{rm_8h_a0996530515217dfd9f5e12878cb1dc8b}{D\_LOCKED}|\hyperlink{rm_8h_a8e6ade17f05acca6896948b28917e3d2}{D\_TRAPPED}) )))
+168     \textcolor{keywordflow}{return} 1;
+169 
+170     \textcolor{keywordflow}{if} (lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} == \hyperlink{rm_8h_a3ad8406dabd3873689181ce17236586b}{CLOUD} || lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} == \hyperlink{rm_8h_a5c3fbf45abc4ee50d118d87aecfee212}{WATER} ||
+171             (lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} == \hyperlink{rm_8h_a5b1cd0104b71da0833219f0489c357d2}{MOAT} && \hyperlink{youprop_8h_a2eb59bdcba2c368fefd253bfcdaa3673}{Underwater}))
+172     \textcolor{keywordflow}{return} 1;
+173 
+174     \textcolor{comment}{/* Boulders block light. */}
+175     \textcolor{keywordflow}{for} (obj = \hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ac128f805d01d7746b499596dd3b92a53}{objects}[x][y]; obj; obj = obj->nexthere)
+176     \textcolor{keywordflow}{if} (obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == BOULDER) \textcolor{keywordflow}{return} 1;
+177 
+178     \textcolor{comment}{/* Mimics mimicing a door or boulder block light. */}
+179     \textcolor{keywordflow}{if} ((mon = \hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(x,y)) && (!mon->minvis || \hyperlink{youprop_8h_ae00ea7702fa1870643d604364b0640c7}{See\_invisible}) &&
+180       ((mon->\hyperlink{structmonst_aab8fc9a0be90b4db8333b09487e2620c}{m\_ap\_type} == \hyperlink{monst_8h_a3470d5a82b5711ec2b38fb153c3eab2f}{M\_AP\_FURNITURE} &&
+181       (mon->\hyperlink{structmonst_a60ba74caeb4e779b7ccdb99150823bb9}{mappearance} == \hyperlink{rm_8h_aa2fb4b079e394b211180b9a57cff39ac}{S\_hcdoor} || mon->\hyperlink{structmonst_a60ba74caeb4e779b7ccdb99150823bb9}{mappearance} == 
+      \hyperlink{rm_8h_a48b567f0b941ec718d04a736f71da55f}{S\_vcdoor})) ||
+182       (mon->\hyperlink{structmonst_aab8fc9a0be90b4db8333b09487e2620c}{m\_ap\_type} == \hyperlink{monst_8h_a398e3dada51d63d91d8d9a6fb3f90c62}{M\_AP\_OBJECT} && mon->\hyperlink{structmonst_a60ba74caeb4e779b7ccdb99150823bb9}{mappearance} == BOULDER)))
+183     \textcolor{keywordflow}{return} 1;
+184 
+185     \textcolor{keywordflow}{return} 0;
+186 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a2dcf995e9a65fc0d369acb3d2dfe248b}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf fill\+\_\+point}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a2dcf995e9a65fc0d369acb3d2dfe248b}
+
+
+Referenced by vision\+\_\+recalc().
+
+\hypertarget{vision_8c_ac709ee6e4d90d86c1fdd2ff735682f4a}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf dig\+\_\+point}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_ac709ee6e4d90d86c1fdd2ff735682f4a}
+\hypertarget{vision_8c_a8dcbb311a0188347e8b5e6c5d319893e}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf view\+\_\+from}}]{, }
+\item[{(int, int, char $\ast$$\ast$, char $\ast$, char $\ast$, int, void($\ast$)(int, int, {\bf genericptr\+\_\+t}), {\bf genericptr\+\_\+t})}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a8dcbb311a0188347e8b5e6c5d319893e}
+\hypertarget{vision_8c_abd994796a775e2bb61049a0d67f6e08f}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf get\+\_\+unused\+\_\+cs}}]{, }
+\item[{(char $\ast$$\ast$$\ast$, char $\ast$$\ast$, char $\ast$$\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_abd994796a775e2bb61049a0d67f6e08f}
+\hypertarget{vision_8c_a1801f69755419c52de507273fed6bd81}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{$\ast$}]{vis\+\_\+func, }
+\item[{(int, int, {\bf genericptr\+\_\+t})}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a1801f69755419c52de507273fed6bd81}
+\hypertarget{vision_8c_afe75c773cb280ee768b6e139bca68c5e}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf \+\_\+q1\+\_\+path}}]{, }
+\item[{(int, int, int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_afe75c773cb280ee768b6e139bca68c5e}
+\hypertarget{vision_8c_a2fc0c448b329a92102f114ac555c3f94}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf \+\_\+q2\+\_\+path}}]{, }
+\item[{(int, int, int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a2fc0c448b329a92102f114ac555c3f94}
+\hypertarget{vision_8c_ac16623a753857f46c67872552cbea7be}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf \+\_\+q3\+\_\+path}}]{, }
+\item[{(int, int, int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_ac16623a753857f46c67872552cbea7be}
+\hypertarget{vision_8c_af187c15937e0d14ac406d125de2edcb8}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf \+\_\+q4\+\_\+path}}]{, }
+\item[{(int, int, int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_af187c15937e0d14ac406d125de2edcb8}
+\hypertarget{vision_8c_a00ff5ea9319c630d2f899646788df2d4}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf right\+\_\+side}}]{, }
+\item[{(int, int, int, char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a00ff5ea9319c630d2f899646788df2d4}
+\hypertarget{vision_8c_a563585c1b16c31397c7a0d71d76f4a36}{\index{vision.\+c@{vision.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf left\+\_\+side}}]{, }
+\item[{(int, int, int, char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a563585c1b16c31397c7a0d71d76f4a36}
+\hypertarget{vision_8c_acbd419bf020bf62b46e62d1a4611bf08}{\index{vision.\+c@{vision.\+c}!fill\+\_\+point@{fill\+\_\+point}}
+\index{fill\+\_\+point@{fill\+\_\+point}!vision.\+c@{vision.\+c}}
+\subsubsection[{fill\+\_\+point}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void fill\+\_\+point (
+\begin{DoxyParamCaption}
+\item[{int}]{row, }
+\item[{int}]{col}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_acbd419bf020bf62b46e62d1a4611bf08}
+
+
+Definition at line 982 of file vision.\+c.
+
+
+
+References C\+O\+L\+N\+O, left\+\_\+ptrs, right\+\_\+ptrs, and viz\+\_\+clear.
+
+
+
+Referenced by block\+\_\+point().
+
+
+\begin{DoxyCode}
+984 \{
+985     \textcolor{keywordtype}{int} i;
+986 
+987     \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col]) \textcolor{keywordflow}{return};
+988 
+989     \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col] = 0;
+990 
+991     \textcolor{keywordflow}{if} (col == 0) \{
+992     \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][1]) \{           \textcolor{comment}{/* adjacent is clear */}
+993         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][0] = 0;
+994     \} \textcolor{keywordflow}{else} \{
+995         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][0] = \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][1];
+996         \textcolor{keywordflow}{for} (i = 1; i <= \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][1]; i++)
+997         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = 0;
+998     \}
+999     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (col == \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) \{
+1000     \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-2]) \{        \textcolor{comment}{/* adjacent is clear */}
+1001         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1] = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+1002     \} \textcolor{keywordflow}{else} \{
+1003         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1] = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-2];
+1004         \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-2]; i < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1; i++)
+1005         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][i] = COLNO-1;
+1006     \}
+1007     \}
+1008 
+1009     \textcolor{comment}{/*}
+1010 \textcolor{comment}{     * Else we know that we are not on an edge.}
+1011 \textcolor{comment}{     */}
+1012     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col-1] && \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col+1]) \{
+1013     \textcolor{comment}{/* Both sides clear */}
+1014     \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1]+1; i <= col; i++)
+1015         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][i] = col;
+1016 
+1017     \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1])        \textcolor{comment}{/* catch the end case */}
+1018         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][0] = col;
+1019 
+1020     \textcolor{keywordflow}{for} (i = col; i < \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][col+1]; i++)
+1021         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = col;
+1022 
+1023     \textcolor{keywordflow}{if} (right\_ptrs[row][col+1] == \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) \textcolor{comment}{/* catch the end case */}
+1024         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1] = col;
+1025 
+1026     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col-1]) \{
+1027     \textcolor{comment}{/* Left side clear, right side blocked. */}
+1028     \textcolor{keywordflow}{for} (i = col; i <= right\_ptrs[row][col+1]; i++)
+1029         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = col;
+1030 
+1031     \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1]+1; i < col; i++)
+1032         right\_ptrs[row][i] = col;
+1033 
+1034     \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1])        \textcolor{comment}{/* catch the end case */}
+1035         right\_ptrs[row][i] = col;
+1036 
+1037     right\_ptrs[row][col] = right\_ptrs[row][col+1];
+1038 
+1039     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col+1]) \{
+1040     \textcolor{comment}{/* Right side clear, left side blocked. */}
+1041     \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1]; i <= col; i++)
+1042         right\_ptrs[row][i] = col;
+1043 
+1044     \textcolor{keywordflow}{for} (i = col+1; i < right\_ptrs[row][col+1]; i++)
+1045         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = col;
+1046 
+1047     \textcolor{keywordflow}{if} (right\_ptrs[row][col+1] == \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) \textcolor{comment}{/* catch the end case */}
+1048         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = col;
+1049 
+1050     \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col] = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1];
+1051 
+1052     \} \textcolor{keywordflow}{else} \{
+1053     \textcolor{comment}{/* Both sides blocked */}
+1054     \textcolor{keywordflow}{for} (i = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1]; i <= col; i++)
+1055         right\_ptrs[row][i] = right\_ptrs[row][col+1];
+1056 
+1057     \textcolor{keywordflow}{for} (i = col; i <= right\_ptrs[row][col+1]; i++)
+1058         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][i] = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][col-1];
+1059     \}
+1060 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a7183e9c4c5c4c87947fd3a4c8a1e62d0}{\index{vision.\+c@{vision.\+c}!get\+\_\+unused\+\_\+cs@{get\+\_\+unused\+\_\+cs}}
+\index{get\+\_\+unused\+\_\+cs@{get\+\_\+unused\+\_\+cs}!vision.\+c@{vision.\+c}}
+\subsubsection[{get\+\_\+unused\+\_\+cs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void get\+\_\+unused\+\_\+cs (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$$\ast$}]{rows, }
+\item[{char $\ast$$\ast$}]{rmin, }
+\item[{char $\ast$$\ast$}]{rmax}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a7183e9c4c5c4c87947fd3a4c8a1e62d0}
+
+
+Definition at line 257 of file vision.\+c.
+
+
+
+References C\+O\+L\+N\+O, cs\+\_\+rmax0, cs\+\_\+rmax1, cs\+\_\+rmin0, cs\+\_\+rmin1, cs\+\_\+rows0, cs\+\_\+rows1, R\+O\+W\+N\+O, and viz\+\_\+array.
+
+
+
+Referenced by vision\+\_\+recalc().
+
+
+\begin{DoxyCode}
+260 \{
+261     \textcolor{keyword}{register} \textcolor{keywordtype}{int}  row;
+262     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *nrmin, *nrmax;
+263 
+264     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array} == \hyperlink{vision_8c_ae80b2d6fea2472db2cd1d5e3a824214d}{cs\_rows0}) \{
+265     *rows = \hyperlink{vision_8c_ae7f926990ea4aade6fc1ecd211d31021}{cs\_rows1};
+266     *rmin = \hyperlink{vision_8c_aa4e5bafbb0f9055761ba45ba430e3678}{cs\_rmin1};
+267     *rmax = \hyperlink{vision_8c_ace6d96d36c70a8c6355f57cfdf28670f}{cs\_rmax1};
+268     \} \textcolor{keywordflow}{else} \{
+269     *rows = \hyperlink{vision_8c_ae80b2d6fea2472db2cd1d5e3a824214d}{cs\_rows0};
+270     *rmin = \hyperlink{vision_8c_a149cab8e278af3f23daeb48f03985a17}{cs\_rmin0};
+271     *rmax = \hyperlink{vision_8c_ada4703efc8c5055c3167438170006755}{cs\_rmax0};
+272     \}
+273 
+274     \textcolor{comment}{/* return an initialized, unused work area */}
+275     nrmin = *rmin;
+276     nrmax = *rmax;
+277 
+278     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})**rows, 0, \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}*\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO});  \textcolor{comment}{/* we see nothing */}
+279     \textcolor{keywordflow}{for} (row = 0; row < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; row++) \{        \textcolor{comment}{/* set row min & max */}
+280     *nrmin++ = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+281     *nrmax++ = 0;
+282     \}
+283 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_ae57f2f3b3ee8b095cefb1b2816e5ac3b}{\index{vision.\+c@{vision.\+c}!left\+\_\+side@{left\+\_\+side}}
+\index{left\+\_\+side@{left\+\_\+side}!vision.\+c@{vision.\+c}}
+\subsubsection[{left\+\_\+side}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void left\+\_\+side (
+\begin{DoxyParamCaption}
+\item[{int}]{row, }
+\item[{int}]{left\+\_\+mark, }
+\item[{int}]{right, }
+\item[{char $\ast$}]{limits}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_ae57f2f3b3ee8b095cefb1b2816e5ac3b}
+
+
+Definition at line 2373 of file vision.\+c.
+
+
+
+References good\+\_\+row, is\+\_\+clear, left\+\_\+ptrs, q2\+\_\+path, q3\+\_\+path, set\+\_\+cs, set\+\_\+max, set\+\_\+min, step, and varg.
+
+
+
+Referenced by view\+\_\+from().
+
+
+\begin{DoxyCode}
+2376 \{
+2377     \textcolor{keywordtype}{int}       left, left\_edge, nrow, deeper, result;
+2378     \textcolor{keyword}{register} \textcolor{keywordtype}{int}  i;
+2379     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *rowp;
+2380     \textcolor{keywordtype}{char}      *row\_min, *row\_max;
+2381     \textcolor{keywordtype}{int}       lim\_min;
+2382 
+2383 \textcolor{preprocessor}{#ifdef GCC\_WARN}
+2384     rowp = row\_min = row\_max = 0;
+2385 \textcolor{preprocessor}{#endif}
+2386     nrow    = row+\hyperlink{vision_8c_abc16e65f240ed0c8f3e876e8732c0a33}{step};
+2387     deeper  = \hyperlink{vision_8c_a772157f5840ecf49e2a0f20f2d67d7a8}{good\_row}(nrow) && (!limits || (*limits >= *(limits+1)));
+2388     \textcolor{keywordflow}{if}(!vis\_func) \{
+2389     rowp    = \hyperlink{vision_8c_a7b7300c0c959d6658a2a9d99cb24bff6}{cs\_rows}[row];
+2390     row\_min = &\hyperlink{vision_8c_a57a5a42da6ad4e94befb8e5edb85119e}{cs\_left}[row];
+2391     row\_max = &\hyperlink{vision_8c_a98f41c6a876948c2e5313c2ea4cc5a64}{cs\_right}[row];
+2392     \}
+2393     \textcolor{keywordflow}{if}(limits) \{
+2394     lim\_min = \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col} - *limits;
+2395     \textcolor{keywordflow}{if}(lim\_min < 0) lim\_min = 0;
+2396     \textcolor{keywordflow}{if}(left\_mark < lim\_min) left\_mark = lim\_min;
+2397     limits++; \textcolor{comment}{/* prepare for next row */}
+2398     \} \textcolor{keywordflow}{else}
+2399     lim\_min = 0;
+2400 
+2401     \textcolor{keywordflow}{while} (right >= left\_mark) \{
+2402     left\_edge = \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[row][right];
+2403     \textcolor{keywordflow}{if}(left\_edge < lim\_min) left\_edge = lim\_min;
+2404 
+2405     \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(row,right)) \{
+2406         \textcolor{comment}{/* Jump to the far side of a stone wall. */}
+2407         \textcolor{keywordflow}{if} (left\_edge < left\_mark) \{
+2408         \textcolor{comment}{/* Maybe see more (kludge). */}
+2409         left\_edge = \hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(row-step,left\_mark) ?
+2410                             left\_mark-1 : left\_mark;
+2411         \}
+2412         \textcolor{keywordflow}{if}(vis\_func) \{
+2413         \textcolor{keywordflow}{for} (i = left\_edge; i <= right; i++) (*vis\_func)(i, row, \hyperlink{vision_8c_a21e51d9280fedab4c269f36be8665279}{varg});
+2414         \} \textcolor{keywordflow}{else} \{
+2415         \textcolor{keywordflow}{for} (i = left\_edge; i <= right; i++) \hyperlink{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{set\_cs}(rowp,i);
+2416         \hyperlink{vision_8c_a9e153dd6d599eaf10892ee62b546b20e}{set\_min}(left\_edge); \hyperlink{vision_8c_a76777bea7e5e2a6cf66f30e622d483c0}{set\_max}(right);
+2417         \}
+2418         right = left\_edge - 1; \textcolor{comment}{/* no limit check necessary */}
+2419         \textcolor{keywordflow}{continue};
+2420     \}
+2421 
+2422     \textcolor{keywordflow}{if} (right != \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}) \{
+2423         \textcolor{comment}{/* Find the right side. */}
+2424         \textcolor{keywordflow}{for} (; right >= left\_edge; right--) \{
+2425         \textcolor{keywordflow}{if} (step < 0) \{
+2426             \hyperlink{vision_8c_a286fb4ac5b0f8926cc9dcc9a108f64af}{q2\_path}(\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row},\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col},row,right,lside1);
+2427         \} \textcolor{keywordflow}{else} \{
+2428             \hyperlink{vision_8c_a5e7b44ca61e21798ef5024ae3ec9d123}{q3\_path}(\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row},\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col},row,right,lside1);
+2429         \}
+2430 lside1:                 \textcolor{comment}{/* used if q?\_path() is a macro */}
+2431         \textcolor{keywordflow}{if} (result) \textcolor{keywordflow}{break};
+2432         \}
+2433 
+2434         \textcolor{comment}{/* Check for boundary conditions. */}
+2435         \textcolor{keywordflow}{if} (right < lim\_min) \textcolor{keywordflow}{return};
+2436         \textcolor{keywordflow}{if} (right == lim\_min) \{
+2437         \textcolor{keywordflow}{if}(vis\_func) (*vis\_func)(lim\_min, row, \hyperlink{vision_8c_a21e51d9280fedab4c269f36be8665279}{varg});
+2438         \textcolor{keywordflow}{else} \{
+2439             \hyperlink{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{set\_cs}(rowp,lim\_min);
+2440             \hyperlink{vision_8c_a9e153dd6d599eaf10892ee62b546b20e}{set\_min}(lim\_min);
+2441         \}
+2442         \textcolor{keywordflow}{return};
+2443         \}
+2444         \textcolor{comment}{/* Check if we can see any spots in the opening. */}
+2445         \textcolor{keywordflow}{if} (right <= left\_edge) \{
+2446         right = left\_edge;
+2447         \textcolor{keywordflow}{continue};
+2448         \}
+2449     \}
+2450 
+2451     \textcolor{comment}{/* Find the left side. */}
+2452     \textcolor{keywordflow}{if} (left\_mark > left\_edge) \{
+2453         \textcolor{keywordflow}{for} (left = left\_mark; left >= left\_edge; --left) \{
+2454         \textcolor{keywordflow}{if} (step < 0) \{
+2455             \hyperlink{vision_8c_a286fb4ac5b0f8926cc9dcc9a108f64af}{q2\_path}(\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row},\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col},row,left,lside2);
+2456         \} \textcolor{keywordflow}{else} \{
+2457             \hyperlink{vision_8c_a5e7b44ca61e21798ef5024ae3ec9d123}{q3\_path}(\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row},\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col},row,left,lside2);
+2458         \}
+2459 lside2:                 \textcolor{comment}{/* used if q?\_path() is a macro */}
+2460         \textcolor{keywordflow}{if} (!result) \textcolor{keywordflow}{break};
+2461         \}
+2462         left++; \textcolor{comment}{/* get rid of the last decrement */}
+2463     \}
+2464     \textcolor{keywordflow}{else}
+2465         left = left\_edge;
+2466 
+2467     \textcolor{keywordflow}{if} (left <= right) \{
+2468         \textcolor{comment}{/* An ugly special case. */}
+2469         \textcolor{keywordflow}{if} (left == right && right == \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col} &&
+2470                 \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col} > 0 && !\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(row,\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}-1))
+2471         left = \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}-1;
+2472 
+2473         \textcolor{keywordflow}{if}(left < lim\_min) left = lim\_min;
+2474         \textcolor{keywordflow}{if}(vis\_func)
+2475         \textcolor{keywordflow}{for} (i = left; i <= right; i++) (*vis\_func)(i, row, \hyperlink{vision_8c_a21e51d9280fedab4c269f36be8665279}{varg});
+2476         \textcolor{keywordflow}{else} \{
+2477         \textcolor{keywordflow}{for} (i = left; i <= right; i++) \hyperlink{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{set\_cs}(rowp,i);
+2478         \hyperlink{vision_8c_a9e153dd6d599eaf10892ee62b546b20e}{set\_min}(left);      \hyperlink{vision_8c_a76777bea7e5e2a6cf66f30e622d483c0}{set\_max}(right);
+2479         \}
+2480 
+2481         \textcolor{comment}{/* Recurse */}
+2482         \textcolor{keywordflow}{if} (deeper) \hyperlink{vision_8c_ae57f2f3b3ee8b095cefb1b2816e5ac3b}{left\_side}(nrow,left,right,limits);
+2483         right = left - 1; \textcolor{comment}{/* no limit check necessary */}
+2484     \}
+2485     \}
+2486 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_ab1ba363d1c45afa71f8e52bdc182cdba}{\index{vision.\+c@{vision.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!vision.\+c@{vision.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf view\+\_\+init}}]{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_ab1ba363d1c45afa71f8e52bdc182cdba}
+\hypertarget{vision_8c_a13f8f397ecdfd5bb1b81174d263350cc}{\index{vision.\+c@{vision.\+c}!right\+\_\+side@{right\+\_\+side}}
+\index{right\+\_\+side@{right\+\_\+side}!vision.\+c@{vision.\+c}}
+\subsubsection[{right\+\_\+side}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void right\+\_\+side (
+\begin{DoxyParamCaption}
+\item[{int}]{row, }
+\item[{int}]{left, }
+\item[{int}]{right\+\_\+mark, }
+\item[{char $\ast$}]{limits}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a13f8f397ecdfd5bb1b81174d263350cc}
+
+
+Definition at line 2191 of file vision.\+c.
+
+
+
+References C\+O\+L\+N\+O, good\+\_\+row, is\+\_\+clear, q1\+\_\+path, q4\+\_\+path, right\+\_\+ptrs, set\+\_\+cs, set\+\_\+max, set\+\_\+min, step, and varg.
+
+
+
+Referenced by view\+\_\+from().
+
+
+\begin{DoxyCode}
+2196 \{
+2197     \textcolor{keywordtype}{int}       right;    \textcolor{comment}{/* right limit of "could see" */}
+2198     \textcolor{keywordtype}{int}       right\_edge;   \textcolor{comment}{/* right edge of an opening */}
+2199     \textcolor{keywordtype}{int}       nrow;     \textcolor{comment}{/* new row (calculate once) */}
+2200     \textcolor{keywordtype}{int}       deeper;   \textcolor{comment}{/* if TRUE, call self as needed */}
+2201     \textcolor{keywordtype}{int}       result;   \textcolor{comment}{/* set by q?\_path() */}
+2202     \textcolor{keyword}{register} \textcolor{keywordtype}{int}  i;        \textcolor{comment}{/* loop counter */}
+2203     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *rowp;    \textcolor{comment}{/* row optimization */}
+2204     \textcolor{keywordtype}{char}      *row\_min; \textcolor{comment}{/* left most  [used by macro set\_min()] */}
+2205     \textcolor{keywordtype}{char}      *row\_max; \textcolor{comment}{/* right most [used by macro set\_max()] */}
+2206     \textcolor{keywordtype}{int}       lim\_max;  \textcolor{comment}{/* right most limit of circle */}
+2207 
+2208 \textcolor{preprocessor}{#ifdef GCC\_WARN}
+2209     rowp = row\_min = row\_max = 0;
+2210 \textcolor{preprocessor}{#endif}
+2211     nrow    = row + \hyperlink{vision_8c_abc16e65f240ed0c8f3e876e8732c0a33}{step};
+2212     \textcolor{comment}{/*}
+2213 \textcolor{comment}{     * Can go deeper if the row is in bounds and the next row is within}
+2214 \textcolor{comment}{     * the circle's limit.  We tell the latter by checking to see if the next}
+2215 \textcolor{comment}{     * limit value is the start of a new circle radius (meaning we depend}
+2216 \textcolor{comment}{     * on the structure of circle\_data[]).}
+2217 \textcolor{comment}{     */}
+2218     deeper  = \hyperlink{vision_8c_a772157f5840ecf49e2a0f20f2d67d7a8}{good\_row}(nrow) && (!limits || (*limits >= *(limits+1)));
+2219     \textcolor{keywordflow}{if}(!vis\_func) \{
+2220     rowp    = \hyperlink{vision_8c_a7b7300c0c959d6658a2a9d99cb24bff6}{cs\_rows}[row];  \textcolor{comment}{/* optimization */}
+2221     row\_min = &\hyperlink{vision_8c_a57a5a42da6ad4e94befb8e5edb85119e}{cs\_left}[row];
+2222     row\_max = &\hyperlink{vision_8c_a98f41c6a876948c2e5313c2ea4cc5a64}{cs\_right}[row];
+2223     \}
+2224     \textcolor{keywordflow}{if}(limits) \{
+2225     lim\_max = \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col} + *limits;
+2226     \textcolor{keywordflow}{if}(lim\_max > \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) lim\_max = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+2227     \textcolor{keywordflow}{if}(right\_mark > lim\_max) right\_mark = lim\_max;
+2228     limits++; \textcolor{comment}{/* prepare for next row */}
+2229     \} \textcolor{keywordflow}{else}
+2230     lim\_max = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+2231 
+2232     \textcolor{keywordflow}{while} (left <= right\_mark) \{
+2233     right\_edge = \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[row][left];
+2234     \textcolor{keywordflow}{if}(right\_edge > lim\_max) right\_edge = lim\_max;
+2235 
+2236     \textcolor{keywordflow}{if} (!\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(row,left)) \{
+2237         \textcolor{comment}{/*}
+2238 \textcolor{comment}{         * Jump to the far side of a stone wall.  We can set all}
+2239 \textcolor{comment}{         * the points in between as seen.}
+2240 \textcolor{comment}{         *}
+2241 \textcolor{comment}{         * If the right edge goes beyond the right mark, check to see}
+2242 \textcolor{comment}{         * how much we can see.}
+2243 \textcolor{comment}{         */}
+2244         \textcolor{keywordflow}{if} (right\_edge > right\_mark) \{
+2245         \textcolor{comment}{/*}
+2246 \textcolor{comment}{         * If the mark on the previous row was a clear position,}
+2247 \textcolor{comment}{         * the odds are that we can actually see part of the wall}
+2248 \textcolor{comment}{         * beyond the mark on this row.  If so, then see one beyond}
+2249 \textcolor{comment}{         * the mark.  Otherwise don't.  This is a kludge so corners}
+2250 \textcolor{comment}{         * with an adjacent doorway show up in nethack.}
+2251 \textcolor{comment}{         */}
+2252         right\_edge = \hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(row-step,right\_mark) ?
+2253                             right\_mark+1 : right\_mark;
+2254         \}
+2255         \textcolor{keywordflow}{if}(vis\_func) \{
+2256         \textcolor{keywordflow}{for} (i = left; i <= right\_edge; i++) (*vis\_func)(i, row, \hyperlink{vision_8c_a21e51d9280fedab4c269f36be8665279}{varg});
+2257         \} \textcolor{keywordflow}{else} \{
+2258         \textcolor{keywordflow}{for} (i = left; i <= right\_edge; i++) \hyperlink{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{set\_cs}(rowp,i);
+2259         \hyperlink{vision_8c_a9e153dd6d599eaf10892ee62b546b20e}{set\_min}(left);      \hyperlink{vision_8c_a76777bea7e5e2a6cf66f30e622d483c0}{set\_max}(right\_edge);
+2260         \}
+2261         left = right\_edge + 1; \textcolor{comment}{/* no limit check necessary */}
+2262         \textcolor{keywordflow}{continue};
+2263     \}
+2264 
+2265     \textcolor{comment}{/* No checking needed if our left side is the start column. */}
+2266     \textcolor{keywordflow}{if} (left != \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}) \{
+2267         \textcolor{comment}{/*}
+2268 \textcolor{comment}{         * Find the left side.  Move right until we can see it or we run}
+2269 \textcolor{comment}{         * into a wall.}
+2270 \textcolor{comment}{         */}
+2271         \textcolor{keywordflow}{for} (; left <= right\_edge; left++) \{
+2272         \textcolor{keywordflow}{if} (step < 0) \{
+2273             \hyperlink{vision_8c_a985d5617cad68acf1de06bb571eb13d9}{q1\_path}(\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row},\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col},row,left,rside1);
+2274         \} \textcolor{keywordflow}{else} \{
+2275             \hyperlink{vision_8c_a02b23109e724df5085a014b91638554c}{q4\_path}(\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row},\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col},row,left,rside1);
+2276         \}
+2277 rside1:                 \textcolor{comment}{/* used if q?\_path() is a macro */}
+2278         \textcolor{keywordflow}{if} (result) \textcolor{keywordflow}{break};
+2279         \}
+2280 
+2281         \textcolor{comment}{/*}
+2282 \textcolor{comment}{         * Check for boundary conditions.  We *need* check (2) to break}
+2283 \textcolor{comment}{         * an infinite loop where:}
+2284 \textcolor{comment}{         *}
+2285 \textcolor{comment}{         *      left == right\_edge == right\_mark == lim\_max.}
+2286 \textcolor{comment}{         *}
+2287 \textcolor{comment}{         */}
+2288         \textcolor{keywordflow}{if} (left > lim\_max) \textcolor{keywordflow}{return}; \textcolor{comment}{/* check (1) */}
+2289         \textcolor{keywordflow}{if} (left == lim\_max) \{  \textcolor{comment}{/* check (2) */}
+2290         \textcolor{keywordflow}{if}(vis\_func) (*vis\_func)(lim\_max, row, \hyperlink{vision_8c_a21e51d9280fedab4c269f36be8665279}{varg});
+2291         \textcolor{keywordflow}{else} \{
+2292             \hyperlink{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{set\_cs}(rowp,lim\_max);
+2293             \hyperlink{vision_8c_a76777bea7e5e2a6cf66f30e622d483c0}{set\_max}(lim\_max);
+2294         \}
+2295         \textcolor{keywordflow}{return};
+2296         \}
+2297         \textcolor{comment}{/*}
+2298 \textcolor{comment}{         * Check if we can see any spots in the opening.  We might}
+2299 \textcolor{comment}{         * (left == right\_edge) or might not (left == right\_edge+1) have}
+2300 \textcolor{comment}{         * been able to see the far wall.  Make sure we *can* see the}
+2301 \textcolor{comment}{         * wall (remember, we can see the spot above/below this one)}
+2302 \textcolor{comment}{         * by backing up.}
+2303 \textcolor{comment}{         */}
+2304         \textcolor{keywordflow}{if} (left >= right\_edge) \{
+2305         left = right\_edge;  \textcolor{comment}{/* for the case left == right\_edge+1 */}
+2306         \textcolor{keywordflow}{continue};
+2307         \}
+2308     \}
+2309 
+2310     \textcolor{comment}{/*}
+2311 \textcolor{comment}{     * Find the right side.  If the marker from the previous row is}
+2312 \textcolor{comment}{     * closer than the edge on this row, then we have to check}
+2313 \textcolor{comment}{     * how far we can see around the corner (under the overhang).  Stop}
+2314 \textcolor{comment}{     * at the first non-visible spot or we actually hit the far wall.}
+2315 \textcolor{comment}{     *}
+2316 \textcolor{comment}{     * Otherwise, we know we can see the right edge of the current row.}
+2317 \textcolor{comment}{     *}
+2318 \textcolor{comment}{     * This must be a strict less than so that we can always see a}
+2319 \textcolor{comment}{     * horizontal wall, even if it is adjacent to us.}
+2320 \textcolor{comment}{     */}
+2321     \textcolor{keywordflow}{if} (right\_mark < right\_edge) \{
+2322         \textcolor{keywordflow}{for} (right = right\_mark; right <= right\_edge; right++) \{
+2323         \textcolor{keywordflow}{if} (step < 0) \{
+2324             \hyperlink{vision_8c_a985d5617cad68acf1de06bb571eb13d9}{q1\_path}(\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row},\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col},row,right,rside2);
+2325         \} \textcolor{keywordflow}{else} \{
+2326             \hyperlink{vision_8c_a02b23109e724df5085a014b91638554c}{q4\_path}(\hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row},\hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col},row,right,rside2);
+2327         \}
+2328 rside2:                 \textcolor{comment}{/* used if q?\_path() is a macro */}
+2329         \textcolor{keywordflow}{if} (!result) \textcolor{keywordflow}{break};
+2330         \}
+2331         --right;    \textcolor{comment}{/* get rid of the last increment */}
+2332     \}
+2333     \textcolor{keywordflow}{else}
+2334         right = right\_edge;
+2335 
+2336     \textcolor{comment}{/*}
+2337 \textcolor{comment}{     * We have the range that we want.  Set the bits.  Note that}
+2338 \textcolor{comment}{     * there is no else --- we no longer handle splinters.}
+2339 \textcolor{comment}{     */}
+2340     \textcolor{keywordflow}{if} (left <= right) \{
+2341         \textcolor{comment}{/*}
+2342 \textcolor{comment}{         * An ugly special case.  If you are adjacent to a vertical wall}
+2343 \textcolor{comment}{         * and it has a break in it, then the right mark is set to be}
+2344 \textcolor{comment}{         * start\_col.  We *want* to be able to see adjacent vertical}
+2345 \textcolor{comment}{         * walls, so we have to set it back.}
+2346 \textcolor{comment}{         */}
+2347         \textcolor{keywordflow}{if} (left == right && left == \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col} &&
+2348             \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col} < (\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) && !\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(row,
+      \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}+1))
+2349         right = \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col}+1;
+2350 
+2351         \textcolor{keywordflow}{if}(right > lim\_max) right = lim\_max;
+2352         \textcolor{comment}{/* set the bits */}
+2353         \textcolor{keywordflow}{if}(vis\_func)
+2354         \textcolor{keywordflow}{for} (i = left; i <= right; i++) (*vis\_func)(i, row, \hyperlink{vision_8c_a21e51d9280fedab4c269f36be8665279}{varg});
+2355         \textcolor{keywordflow}{else} \{
+2356         \textcolor{keywordflow}{for} (i = left; i <= right; i++) \hyperlink{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{set\_cs}(rowp,i);
+2357         \hyperlink{vision_8c_a9e153dd6d599eaf10892ee62b546b20e}{set\_min}(left);      \hyperlink{vision_8c_a76777bea7e5e2a6cf66f30e622d483c0}{set\_max}(right);
+2358         \}
+2359 
+2360         \textcolor{comment}{/* recursive call for next finger of light */}
+2361         \textcolor{keywordflow}{if} (deeper) \hyperlink{vision_8c_a13f8f397ecdfd5bb1b81174d263350cc}{right\_side}(nrow,left,right,limits);
+2362         left = right + 1; \textcolor{comment}{/* no limit check necessary */}
+2363     \}
+2364     \}
+2365 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_ae35bdda13dee95d455874551be850a47}{\index{vision.\+c@{vision.\+c}!unblock\+\_\+point@{unblock\+\_\+point}}
+\index{unblock\+\_\+point@{unblock\+\_\+point}!vision.\+c@{vision.\+c}}
+\subsubsection[{unblock\+\_\+point}]{\setlength{\rightskip}{0pt plus 5cm}void unblock\+\_\+point (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_ae35bdda13dee95d455874551be850a47}
+
+
+Definition at line 841 of file vision.\+c.
+
+
+
+References dig\+\_\+point(), vision\+\_\+full\+\_\+recalc, and viz\+\_\+array.
+
+
+
+Referenced by do\+\_\+earthquake(), dokick(), dosearch0(), findone(), mkinvpos(), mv\+\_\+bubble(), openone(), set\+\_\+mimic\+\_\+blocking(), show\+\_\+map\+\_\+spot(), and use\+\_\+defensive().
+
+
+\begin{DoxyCode}
+843 \{
+844     \hyperlink{vision_8c_aa26f53369e0fd58b98c56847d73a7b71}{dig\_point}(y,x);
+845 
+846     \textcolor{comment}{/* recalc light sources here? */}
+847 
+848     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array}[y][x]) \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 1;
+849 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a0080aedab7d81113da562cc7cf4b29cb}{\index{vision.\+c@{vision.\+c}!view\+\_\+from@{view\+\_\+from}}
+\index{view\+\_\+from@{view\+\_\+from}!vision.\+c@{vision.\+c}}
+\subsubsection[{view\+\_\+from}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void view\+\_\+from (
+\begin{DoxyParamCaption}
+\item[{void {\bf F\+D\+E\+C\+L}(($\ast$func)}]{int, }
+\item[{void {\bf F\+D\+E\+C\+L}(($\ast$func)}]{int, }
+\item[{char $\ast$$\ast$}]{loc\+\_\+cs\+\_\+rows, }
+\item[{char $\ast$}]{left\+\_\+most, }
+\item[{char $\ast$}]{right\+\_\+most, }
+\item[{void {\bf F\+D\+E\+C\+L}(($\ast$func)}]{int, }
+\item[{func}]{, }
+\item[{{\bf genericptr\+\_\+t}}]{arg}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a0080aedab7d81113da562cc7cf4b29cb}
+
+
+Definition at line 2495 of file vision.\+c.
+
+
+
+References circle\+\_\+ptr, C\+O\+L\+N\+O, is\+\_\+clear, left\+\_\+ptrs, left\+\_\+side(), M\+A\+X\+\_\+\+R\+A\+D\+I\+U\+S, panic(), right\+\_\+ptrs, right\+\_\+side(), R\+O\+W\+N\+O, and set\+\_\+cs.
+
+
+
+Referenced by do\+\_\+clear\+\_\+area(), and vision\+\_\+recalc().
+
+
+\begin{DoxyCode}
+2503 \{
+2504     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;     \textcolor{comment}{/* loop counter */}
+2505     \textcolor{keywordtype}{char}         *rowp;     \textcolor{comment}{/* optimization for setting could\_see */}
+2506     \textcolor{keywordtype}{int}      nrow;      \textcolor{comment}{/* the next row */}
+2507     \textcolor{keywordtype}{int}      left;      \textcolor{comment}{/* the left-most visible column */}
+2508     \textcolor{keywordtype}{int}      right;     \textcolor{comment}{/* the right-most visible column */}
+2509     \textcolor{keywordtype}{char}     *limits;   \textcolor{comment}{/* range limit for next row */}
+2510 
+2511     \textcolor{comment}{/* Set globals for q?\_path(), left\_side(), and right\_side() to use. */}
+2512     \hyperlink{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{start\_col} = scol;
+2513     \hyperlink{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{start\_row} = srow;
+2514     \hyperlink{vision_8c_a7b7300c0c959d6658a2a9d99cb24bff6}{cs\_rows}   = loc\_cs\_rows; \textcolor{comment}{/* 'could see' rows */}
+2515     \hyperlink{vision_8c_a57a5a42da6ad4e94befb8e5edb85119e}{cs\_left}   = left\_most;
+2516     \hyperlink{vision_8c_a98f41c6a876948c2e5313c2ea4cc5a64}{cs\_right}  = right\_most;
+2517     vis\_func = func;
+2518     \hyperlink{vision_8c_a21e51d9280fedab4c269f36be8665279}{varg} = arg;
+2519 
+2520     \textcolor{comment}{/*}
+2521 \textcolor{comment}{     * Determine extent of sight on the starting row.}
+2522 \textcolor{comment}{     */}
+2523     \textcolor{keywordflow}{if} (\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(srow,scol)) \{
+2524     left =  \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[srow][scol];
+2525     right = \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[srow][scol];
+2526     \} \textcolor{keywordflow}{else} \{
+2527     \textcolor{comment}{/*}
+2528 \textcolor{comment}{     * When in stone, you can only see your adjacent squares, unless}
+2529 \textcolor{comment}{     * you are on an array boundary or a stone/clear boundary.}
+2530 \textcolor{comment}{     */}
+2531     left  = (!scol) ? 0 :
+2532         (\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(srow,scol-1) ? \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs}[srow][scol-1] : scol-1);
+2533     right = (scol == \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) ? \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1 :
+2534         (\hyperlink{vision_8c_a1b5db16530bce36c4a6ed1edf9cd5a39}{is\_clear}(srow,scol+1) ? \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[srow][scol+1] : scol+1);
+2535     \}
+2536 
+2537     \textcolor{keywordflow}{if}(range) \{
+2538     \textcolor{keywordflow}{if}(range > \hyperlink{vision_8h_a7b18b821e397ef6bf1502bc41462d630}{MAX\_RADIUS} || range < 1)
+2539         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"view\_from called with range %d"}, range);
+2540     limits = \hyperlink{vision_8h_a11548ac4cdc9184a0256947bcc0324e6}{circle\_ptr}(range) + 1; \textcolor{comment}{/* start at next row */}
+2541     \textcolor{keywordflow}{if}(left < scol - range) left = scol - range;
+2542     \textcolor{keywordflow}{if}(right > scol + range) right = scol + range;
+2543     \} \textcolor{keywordflow}{else}
+2544     limits = (\textcolor{keywordtype}{char}*) 0;
+2545 
+2546     \textcolor{keywordflow}{if}(func) \{
+2547     \textcolor{keywordflow}{for} (i = left; i <= right; i++) (*func)(i, srow, arg);
+2548     \} \textcolor{keywordflow}{else} \{
+2549     \textcolor{comment}{/* Row pointer optimization. */}
+2550     rowp = \hyperlink{vision_8c_a7b7300c0c959d6658a2a9d99cb24bff6}{cs\_rows}[srow];
+2551 
+2552     \textcolor{comment}{/* We know that we can see our row. */}
+2553     \textcolor{keywordflow}{for} (i = left; i <= right; i++) \hyperlink{vision_8c_a2950e6cc53a56302ce5e23635e632a6f}{set\_cs}(rowp,i);
+2554     \hyperlink{vision_8c_a57a5a42da6ad4e94befb8e5edb85119e}{cs\_left}[srow]  = left;
+2555     \hyperlink{vision_8c_a98f41c6a876948c2e5313c2ea4cc5a64}{cs\_right}[srow] = right;
+2556     \}
+2557 
+2558     \textcolor{comment}{/*}
+2559 \textcolor{comment}{     * Check what could be seen in quadrants.  We need to check for valid}
+2560 \textcolor{comment}{     * rows here, since we don't do it in the routines right\_side() and}
+2561 \textcolor{comment}{     * left\_side() [ugliness to remove extra routine calls].}
+2562 \textcolor{comment}{     */}
+2563     \textcolor{keywordflow}{if} ( (nrow = srow+1) < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO} ) \{   \textcolor{comment}{/* move down */}
+2564     \hyperlink{vision_8c_abc16e65f240ed0c8f3e876e8732c0a33}{step} =  1;
+2565     \textcolor{keywordflow}{if} (scol < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) \hyperlink{vision_8c_a13f8f397ecdfd5bb1b81174d263350cc}{right\_side}(nrow, scol, right, limits);
+2566     \textcolor{keywordflow}{if} (scol)       \hyperlink{vision_8c_ae57f2f3b3ee8b095cefb1b2816e5ac3b}{left\_side} (nrow, left,  scol, limits);
+2567     \}
+2568 
+2569     \textcolor{keywordflow}{if} ( (nrow = srow-1) >= 0 ) \{   \textcolor{comment}{/* move up */}
+2570     \hyperlink{vision_8c_abc16e65f240ed0c8f3e876e8732c0a33}{step} = -1;
+2571     \textcolor{keywordflow}{if} (scol < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1) \hyperlink{vision_8c_a13f8f397ecdfd5bb1b81174d263350cc}{right\_side}(nrow, scol, right, limits);
+2572     \textcolor{keywordflow}{if} (scol)       \hyperlink{vision_8c_ae57f2f3b3ee8b095cefb1b2816e5ac3b}{left\_side} (nrow, left,  scol, limits);
+2573     \}
+2574 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a8f0c6633c121569dc82035080879d7f5}{\index{vision.\+c@{vision.\+c}!view\+\_\+init@{view\+\_\+init}}
+\index{view\+\_\+init@{view\+\_\+init}!vision.\+c@{vision.\+c}}
+\subsubsection[{view\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void view\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a8f0c6633c121569dc82035080879d7f5}
+
+
+Definition at line 2182 of file vision.\+c.
+
+
+
+Referenced by vision\+\_\+init().
+
+
+\begin{DoxyCode}
+2183 \{
+2184 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_ae84d85f205596be999ea45113fb8810f}{\index{vision.\+c@{vision.\+c}!vision\+\_\+init@{vision\+\_\+init}}
+\index{vision\+\_\+init@{vision\+\_\+init}!vision.\+c@{vision.\+c}}
+\subsubsection[{vision\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void vision\+\_\+init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_ae84d85f205596be999ea45113fb8810f}
+
+
+Definition at line 121 of file vision.\+c.
+
+
+
+References could\+\_\+see, cs\+\_\+rmax0, cs\+\_\+rmin0, cs\+\_\+rows0, cs\+\_\+rows1, R\+O\+W\+N\+O, view\+\_\+init(), vision\+\_\+full\+\_\+recalc, viz\+\_\+array, viz\+\_\+clear, viz\+\_\+clear\+\_\+rows, viz\+\_\+rmax, and viz\+\_\+rmin.
+
+
+
+Referenced by M\+A\+I\+N(), and main().
+
+
+\begin{DoxyCode}
+122 \{
+123     \textcolor{keywordtype}{int} i;
+124 
+125     \textcolor{comment}{/* Set up the pointers. */}
+126     \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; i++) \{
+127     \hyperlink{vision_8c_ae80b2d6fea2472db2cd1d5e3a824214d}{cs\_rows0}[i] = \hyperlink{vision_8c_a5bb24a7c839748da5178aa236006613c}{could\_see}[0][i];
+128     \hyperlink{vision_8c_ae7f926990ea4aade6fc1ecd211d31021}{cs\_rows1}[i] = \hyperlink{vision_8c_a5bb24a7c839748da5178aa236006613c}{could\_see}[1][i];
+129     \hyperlink{vision_8c_a8bcfd56d798bbcfa3c43448c53701833}{viz\_clear\_rows}[i] = \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[i];
+130     \}
+131 
+132     \textcolor{comment}{/* Start out with cs0 as our current array */}
+133     \hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array} = \hyperlink{vision_8c_ae80b2d6fea2472db2cd1d5e3a824214d}{cs\_rows0};
+134     \hyperlink{vision_8c_ae4ba3e2382673d04367ee2a46dd737ab}{viz\_rmin}  = \hyperlink{vision_8c_a149cab8e278af3f23daeb48f03985a17}{cs\_rmin0};
+135     \hyperlink{vision_8c_ab718bba1eabd255d10f30ab7881e6022}{viz\_rmax}  = \hyperlink{vision_8c_ada4703efc8c5055c3167438170006755}{cs\_rmax0};
+136 
+137     \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 0;
+138     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{vision_8c_a5bb24a7c839748da5178aa236006613c}{could\_see}, 0, \textcolor{keyword}{sizeof}(
+      \hyperlink{vision_8c_a5bb24a7c839748da5178aa236006613c}{could\_see}));
+139 
+140     \textcolor{comment}{/* Initialize the vision algorithm (currently C or D). */}
+141     \hyperlink{vision_8c_a8f0c6633c121569dc82035080879d7f5}{view\_init}();
+142 
+143 \textcolor{preprocessor}{#ifdef VISION\_TABLES}
+144     \textcolor{comment}{/* Note:  this initializer doesn't do anything except guarantee that}
+145 \textcolor{comment}{          we're linked properly.}
+146 \textcolor{comment}{    */}
+147     vis\_tab\_init();
+148 \textcolor{preprocessor}{#endif}
+149 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_a07b3acbfcca75497c31df8d8aee1ca53}{\index{vision.\+c@{vision.\+c}!vision\+\_\+recalc@{vision\+\_\+recalc}}
+\index{vision\+\_\+recalc@{vision\+\_\+recalc}!vision.\+c@{vision.\+c}}
+\subsubsection[{vision\+\_\+recalc}]{\setlength{\rightskip}{0pt plus 5cm}void vision\+\_\+recalc (
+\begin{DoxyParamCaption}
+\item[{int}]{control}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_a07b3acbfcca75497c31df8d8aee1ca53}
+
+
+Definition at line 492 of file vision.\+c.
+
+
+
+References Blind, circle\+\_\+ptr, C\+O\+L\+N\+O, C\+O\+U\+L\+D\+\_\+\+S\+E\+E, F\+D\+E\+C\+L(), get\+\_\+unused\+\_\+cs(), iflags, in\+\_\+mklev, I\+N\+\_\+\+S\+I\+G\+H\+T, I\+S\+\_\+\+D\+O\+O\+R, Is\+\_\+rogue\+\_\+level, I\+S\+\_\+\+W\+A\+L\+L, Is\+\_\+waterlevel, levl, max, min, new\+\_\+angle, newsym(), you\+::nv\+\_\+range, sinfo\+::panicking, program\+\_\+state, R\+O\+W\+N\+O, S\+D\+O\+O\+R, rm\+::seenv, seenv\+\_\+matrix, sign, S\+V\+A\+L\+L, T\+E\+M\+P\+\_\+\+L\+I\+T, T\+T\+\_\+\+P\+I\+T, rm\+::typ, u, Underwater, you\+::utrap, you\+::utraptype, you\+::ux, you\+::uy, you\+::uz, v\+\_\+abs, view\+\_\+from(), vision\+\_\+full\+\_\+recalc, instance\+\_\+flags\+::vision\+\_\+inited, viz\+\_\+array, viz\+\_\+clear, viz\+\_\+rmax, viz\+\_\+rmin, and you\+::xray\+\_\+range.
+
+
+
+Referenced by do\+\_\+clear\+\_\+area(), docrt(), dosave0(), hurtle\+\_\+step(), movebubbles(), parseoptions(), and teleds().
+
+
+\begin{DoxyCode}
+494 \{
+495     \textcolor{keywordtype}{char} **temp\_array;  \textcolor{comment}{/* points to the old vision array */}
+496     \textcolor{keywordtype}{char} **next\_array;  \textcolor{comment}{/* points to the new vision array */}
+497     \textcolor{keywordtype}{char} *next\_row; \textcolor{comment}{/* row pointer for the new array */}
+498     \textcolor{keywordtype}{char} *old\_row;  \textcolor{comment}{/* row pointer for the old array */}
+499     \textcolor{keywordtype}{char} *next\_rmin;    \textcolor{comment}{/* min pointer for the new array */}
+500     \textcolor{keywordtype}{char} *next\_rmax;    \textcolor{comment}{/* max pointer for the new array */}
+501     \textcolor{keywordtype}{char} *ranges;   \textcolor{comment}{/* circle ranges -- used for xray & night vision */}
+502     \textcolor{keywordtype}{int} row;        \textcolor{comment}{/* row counter (outer loop)  */}
+503     \textcolor{keywordtype}{int} start, stop;    \textcolor{comment}{/* inner loop starting/stopping index */}
+504     \textcolor{keywordtype}{int} dx, dy;     \textcolor{comment}{/* one step from a lit door or lit wall (see below) */}
+505     \textcolor{keyword}{register} \textcolor{keywordtype}{int} col;   \textcolor{comment}{/* inner loop counter */}
+506     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *lev;  \textcolor{comment}{/* pointer to current pos */}
+507     \textcolor{keyword}{struct }\hyperlink{structrm}{rm} *flev;  \textcolor{comment}{/* pointer to position in "front" of current pos */}
+508     \textcolor{keyword}{extern} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \hyperlink{display_8c_ab305833b5e361287ef704c02565aad89}{seenv\_matrix}[3][3];    \textcolor{comment}{/* from display.c */}
+509     \textcolor{keyword}{static} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} colbump[\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}+1]; \textcolor{comment}{/* cols to bump sv */}
+510     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} *sv;              \textcolor{comment}{/* ptr to seen angle bits */}
+511     \textcolor{keywordtype}{int} oldseenv;               \textcolor{comment}{/* previous seenv value */}
+512 
+513     \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 0;           \textcolor{comment}{/* reset flag */}
+514     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_abb694ef5acb9945ca69679a8360df51a}{in\_mklev} || !\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a61d68e3b4f194bab370620301c0cb7d9}{vision\_inited}) \textcolor{keywordflow}{return};
+515 
+516 \textcolor{preprocessor}{#ifdef GCC\_WARN}
+517     row = 0;
+518 \textcolor{preprocessor}{#endif}
+519 
+520     \textcolor{comment}{/*}
+521 \textcolor{comment}{     * Either the light sources have been taken care of, or we must}
+522 \textcolor{comment}{     * recalculate them here.}
+523 \textcolor{comment}{     */}
+524 
+525     \textcolor{comment}{/* Get the unused could see, row min, and row max arrays. */}
+526     \hyperlink{vision_8c_a7183e9c4c5c4c87947fd3a4c8a1e62d0}{get\_unused\_cs}(&next\_array, &next\_rmin, &next\_rmax);
+527 
+528     \textcolor{comment}{/* You see nothing, nothing can see you --- if swallowed or refreshing. */}
+529     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow || control == 2) \{
+530     \textcolor{comment}{/* do nothing -- get\_unused\_cs() nulls out the new work area */}
+531 
+532     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+533     \textcolor{comment}{/*}
+534 \textcolor{comment}{     * Calculate the could\_see array even when blind so that monsters}
+535 \textcolor{comment}{     * can see you, even if you can't see them.  Note that the current}
+536 \textcolor{comment}{     * setup allows:}
+537 \textcolor{comment}{     *}
+538 \textcolor{comment}{     *  + Monsters to see with the "new" vision, even on the rogue}
+539 \textcolor{comment}{     *    level.}
+540 \textcolor{comment}{     *}
+541 \textcolor{comment}{     *  + Monsters can see you even when you're in a pit.}
+542 \textcolor{comment}{     */}
+543     \hyperlink{vision_8c_a0080aedab7d81113da562cc7cf4b29cb}{view\_from}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, next\_array, next\_rmin, next\_rmax,
+544         0, (\textcolor{keywordtype}{void} \hyperlink{vision_8c_a2dcf995e9a65fc0d369acb3d2dfe248b}{FDECL}((*),(\textcolor{keywordtype}{int},\textcolor{keywordtype}{int},\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})))0, (
+      \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})0);
+545 
+546     \textcolor{comment}{/*}
+547 \textcolor{comment}{     * Our own version of the update loop below.  We know we can't see}
+548 \textcolor{comment}{     * anything, so we only need update positions we used to be able}
+549 \textcolor{comment}{     * to see.}
+550 \textcolor{comment}{     */}
+551     temp\_array = \hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array};    \textcolor{comment}{/* set viz\_array so newsym() will work */}
+552     \hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array} = next\_array;
+553 
+554     \textcolor{keywordflow}{for} (row = 0; row < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; row++) \{
+555         old\_row = temp\_array[row];
+556 
+557         \textcolor{comment}{/* Find the min and max positions on the row. */}
+558         start = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{vision_8c_ae4ba3e2382673d04367ee2a46dd737ab}{viz\_rmin}[row], next\_rmin[row]);
+559         stop  = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(\hyperlink{vision_8c_ab718bba1eabd255d10f30ab7881e6022}{viz\_rmax}[row], next\_rmax[row]);
+560 
+561         \textcolor{keywordflow}{for} (col = start; col <= stop; col++)
+562         \textcolor{keywordflow}{if} (old\_row[col] & \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT}) \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(col,row);
+563     \}
+564 
+565     \textcolor{comment}{/* skip the normal update loop */}
+566     \textcolor{keywordflow}{goto} skip;
+567     \}
+568 \textcolor{preprocessor}{#ifdef REINCARNATION}
+569     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2732117523c8540638daf4315dda16b9}{Is\_rogue\_level}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+570     rogue\_vision(next\_array,next\_rmin,next\_rmax);
+571     \}
+572 \textcolor{preprocessor}{#endif}
+573     \textcolor{keywordflow}{else} \{
+574     \textcolor{keywordtype}{int} has\_night\_vision = 1;   \textcolor{comment}{/* hero has night vision */}
+575 
+576     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a2eb59bdcba2c368fefd253bfcdaa3673}{Underwater} && !\hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+577         \textcolor{comment}{/*}
+578 \textcolor{comment}{         * The hero is under water.  Only see surrounding locations if}
+579 \textcolor{comment}{         * they are also underwater.  This overrides night vision but}
+580 \textcolor{comment}{         * does not override x-ray vision.}
+581 \textcolor{comment}{         */}
+582         has\_night\_vision = 0;
+583 
+584         \textcolor{keywordflow}{for} (row = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}-1; row <= \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}+1; row++)
+585         \textcolor{keywordflow}{for} (col = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}-1; col <= \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}+1; col++) \{
+586             \textcolor{keywordflow}{if} (!isok(col,row) || !is\_pool(col,row)) \textcolor{keywordflow}{continue};
+587 
+588             next\_rmin[row] = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(next\_rmin[row], col);
+589             next\_rmax[row] = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(next\_rmax[row], col);
+590             next\_array[row][col] = \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT} | \hyperlink{vision_8h_aadb1c17631715d615ce4d6334a7387c5}{COULD\_SEE};
+591         \}
+592     \}
+593 
+594     \textcolor{comment}{/* if in a pit, just update for immediate locations */}
+595     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1753632ed4b3b8dea40466c1c92fce19}{utraptype} == \hyperlink{you_8h_aea6a4ea47e82cae080755cd9c3ed8b9a}{TT\_PIT}) \{
+596         \textcolor{keywordflow}{for} (row = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}-1; row <= \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}+1; row++) \{
+597         \textcolor{keywordflow}{if} (row < 0) \textcolor{keywordflow}{continue};  \textcolor{keywordflow}{if} (row >= ROWNO) \textcolor{keywordflow}{break};
+598 
+599         next\_rmin[row] = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(      0, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} - 1);
+600         next\_rmax[row] = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} + 1);
+601         next\_row = next\_array[row];
+602 
+603         \textcolor{keywordflow}{for}(col=next\_rmin[row]; col <= next\_rmax[row]; col++)
+604             next\_row[col] = \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT} | \hyperlink{vision_8h_aadb1c17631715d615ce4d6334a7387c5}{COULD\_SEE};
+605         \}
+606     \} \textcolor{keywordflow}{else}
+607         \hyperlink{vision_8c_a0080aedab7d81113da562cc7cf4b29cb}{view\_from}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, next\_array, next\_rmin, next\_rmax,
+608         0, (\textcolor{keywordtype}{void} \hyperlink{vision_8c_a2dcf995e9a65fc0d369acb3d2dfe248b}{FDECL}((*),(\textcolor{keywordtype}{int},\textcolor{keywordtype}{int},\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})))0, (
+      \hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})0);
+609 
+610     \textcolor{comment}{/*}
+611 \textcolor{comment}{     * Set the IN\_SIGHT bit for xray and night vision.}
+612 \textcolor{comment}{     */}
+613     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range} >= 0) \{
+614         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range}) \{
+615         ranges = \hyperlink{vision_8h_a11548ac4cdc9184a0256947bcc0324e6}{circle\_ptr}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range});
+616 
+617         \textcolor{keywordflow}{for} (row = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}-\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range}; row <= \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}+\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range}; row++) \{
+618             \textcolor{keywordflow}{if} (row < 0) \textcolor{keywordflow}{continue};  \textcolor{keywordflow}{if} (row >= ROWNO) \textcolor{keywordflow}{break};
+619             dy = \hyperlink{vision_8c_a4ae2103f40acbf0bb4cc4ae429caea2d}{v\_abs}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}-row);   next\_row = next\_array[row];
+620 
+621             start = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(      0, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} - ranges[dy]);
+622             stop  = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} + ranges[dy]);
+623 
+624             \textcolor{keywordflow}{for} (col = start; col <= stop; col++) \{
+625             \textcolor{keywordtype}{char} old\_row\_val = next\_row[col];
+626             next\_row[col] |= \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT};
+627             oldseenv = \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[col][row].seenv;
+628             \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[col][row].seenv = \hyperlink{rm_8h_a7371c7cf9793ebc9f7b14bc8a0309abc}{SVALL};  \textcolor{comment}{/* see all! */}
+629             \textcolor{comment}{/* Update if previously not in sight or new angle. */}
+630             \textcolor{keywordflow}{if} (!(old\_row\_val & \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT}) || oldseenv != \hyperlink{rm_8h_a7371c7cf9793ebc9f7b14bc8a0309abc}{SVALL})
+631                 \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(col,row);
+632             \}
+633 
+634             next\_rmin[row] = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(start, next\_rmin[row]);
+635             next\_rmax[row] = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(stop, next\_rmax[row]);
+636         \}
+637 
+638         \} \textcolor{keywordflow}{else} \{    \textcolor{comment}{/* range is 0 */}
+639         next\_array[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}] |= \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT};
+640         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}].seenv = \hyperlink{rm_8h_a7371c7cf9793ebc9f7b14bc8a0309abc}{SVALL};
+641         next\_rmin[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}] = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, next\_rmin[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}]);
+642         next\_rmax[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}] = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, next\_rmax[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}]);
+643         \}
+644     \}
+645 
+646     \textcolor{keywordflow}{if} (has\_night\_vision && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2f16ef4e943639c15ba3f8a9701267d2}{xray\_range} < \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae113edf3224fab48b8169fb457f26166}{nv\_range}) \{
+647         \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae113edf3224fab48b8169fb457f26166}{nv\_range}) \{ \textcolor{comment}{/* range is 0 */}
+648         next\_array[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}] |= \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT};
+649         \hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}][\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}].seenv = \hyperlink{rm_8h_a7371c7cf9793ebc9f7b14bc8a0309abc}{SVALL};
+650         next\_rmin[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}] = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, next\_rmin[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}]);
+651         next\_rmax[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}] = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, next\_rmax[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}]);
+652         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae113edf3224fab48b8169fb457f26166}{nv\_range} > 0) \{
+653         ranges = \hyperlink{vision_8h_a11548ac4cdc9184a0256947bcc0324e6}{circle\_ptr}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae113edf3224fab48b8169fb457f26166}{nv\_range});
+654 
+655         \textcolor{keywordflow}{for} (row = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}-\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae113edf3224fab48b8169fb457f26166}{nv\_range}; row <= \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}+\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ae113edf3224fab48b8169fb457f26166}{nv\_range}; row++) \{
+656             \textcolor{keywordflow}{if} (row < 0) \textcolor{keywordflow}{continue};  \textcolor{keywordflow}{if} (row >= ROWNO) \textcolor{keywordflow}{break};
+657             dy = \hyperlink{vision_8c_a4ae2103f40acbf0bb4cc4ae429caea2d}{v\_abs}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}-row);   next\_row = next\_array[row];
+658 
+659             start = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(      0, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} - ranges[dy]);
+660             stop  = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} + ranges[dy]);
+661 
+662             \textcolor{keywordflow}{for} (col = start; col <= stop; col++)
+663             \textcolor{keywordflow}{if} (next\_row[col]) next\_row[col] |= \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT};
+664 
+665             next\_rmin[row] = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(start, next\_rmin[row]);
+666             next\_rmax[row] = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(stop, next\_rmax[row]);
+667         \}
+668         \}
+669     \}
+670     \}
+671 
+672     \textcolor{comment}{/* Set the correct bits for all light sources. */}
+673     do\_light\_sources(next\_array);
+674 
+675 
+676     \textcolor{comment}{/*}
+677 \textcolor{comment}{     * Make the viz\_array the new array so that cansee() will work correctly.}
+678 \textcolor{comment}{     */}
+679     temp\_array = \hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array};
+680     \hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array} = next\_array;
+681 
+682     \textcolor{comment}{/*}
+683 \textcolor{comment}{     * The main update loop.  Here we do two things:}
+684 \textcolor{comment}{     *}
+685 \textcolor{comment}{     *      + Set the IN\_SIGHT bit for places that we could see and are lit.}
+686 \textcolor{comment}{     *      + Reset changed places.}
+687 \textcolor{comment}{     *}
+688 \textcolor{comment}{     * There is one thing that make deciding what the hero can see}
+689 \textcolor{comment}{     * difficult:}
+690 \textcolor{comment}{     *}
+691 \textcolor{comment}{     *  1.  Directional lighting.  Items that block light create problems.}
+692 \textcolor{comment}{     *      The worst offenders are doors.  Suppose a door to a lit room}
+693 \textcolor{comment}{     *      is closed.  It is lit on one side, but not on the other.  How}
+694 \textcolor{comment}{     *      do you know?  You have to check the closest adjacent position.}
+695 \textcolor{comment}{     *      Even so, that is not entirely correct.  But it seems close}
+696 \textcolor{comment}{     *      enough for now.}
+697 \textcolor{comment}{     */}
+698     colbump[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}] = colbump[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}+1] = 1;
+699     \textcolor{keywordflow}{for} (row = 0; row < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; row++) \{
+700     dy = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} - row;                dy = \hyperlink{vision_8c_ac26db4b03887fbc86becaab3cd49e1cd}{sign}(dy);
+701     next\_row = next\_array[row];     old\_row = temp\_array[row];
+702 
+703     \textcolor{comment}{/* Find the min and max positions on the row. */}
+704     start = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{vision_8c_ae4ba3e2382673d04367ee2a46dd737ab}{viz\_rmin}[row], next\_rmin[row]);
+705     stop  = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(\hyperlink{vision_8c_ab718bba1eabd255d10f30ab7881e6022}{viz\_rmax}[row], next\_rmax[row]);
+706     lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[start][row];
+707 
+708     sv = &seenv\_matrix[dy+1][start < \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} ? 0 : (start > \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} ? 2:1)];
+709 
+710     \textcolor{keywordflow}{for} (col = start; col <= stop;
+711                 lev += \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}, sv += (int) colbump[++col]) \{
+712         \textcolor{keywordflow}{if} (next\_row[col] & \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT}) \{
+713         \textcolor{comment}{/*}
+714 \textcolor{comment}{         * We see this position because of night- or xray-vision.}
+715 \textcolor{comment}{         */}
+716         oldseenv = lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv};
+717         lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv} |= \hyperlink{vision_8c_a9b3cfba7858e26fbc42f9d651d82d891}{new\_angle}(lev,sv,row,col); \textcolor{comment}{/* update seen angle */}
+718 
+719         \textcolor{comment}{/* Update pos if previously not in sight or new angle. */}
+720         \textcolor{keywordflow}{if} ( !(old\_row[col] & IN\_SIGHT) || oldseenv != lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv})
+721             \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(col,row);
+722         \}
+723 
+724         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((next\_row[col] & \hyperlink{vision_8h_aadb1c17631715d615ce4d6334a7387c5}{COULD\_SEE})
+725                 && (lev->lit || (next\_row[col] & \hyperlink{vision_8h_a8516c54e8479243535c81e359b816ea1}{TEMP\_LIT}))) \{
+726         \textcolor{comment}{/*}
+727 \textcolor{comment}{         * We see this position because it is lit.}
+728 \textcolor{comment}{         */}
+729         \textcolor{keywordflow}{if} ((\hyperlink{rm_8h_a44de5677b6310b3b96cad756e24b59d9}{IS\_DOOR}(lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ}) || lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ} == \hyperlink{rm_8h_a03fd0fa1e0dbd19ea38dff0c79e656a5}{SDOOR} ||
+730              \hyperlink{rm_8h_a6bd7f45ec1e1ccd558d188e16a566208}{IS\_WALL}(lev->\hyperlink{structrm_aa144ade377ba175f037c4e637329d4dc}{typ})) && !\hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[row][col]) \{
+731             \textcolor{comment}{/*}
+732 \textcolor{comment}{             * Make sure doors, walls, boulders or mimics don't show up}
+733 \textcolor{comment}{             * at the end of dark hallways.  We do this by checking}
+734 \textcolor{comment}{             * the adjacent position.  If it is lit, then we can see}
+735 \textcolor{comment}{             * the door or wall, otherwise we can't.}
+736 \textcolor{comment}{             */}
+737             dx = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} - col; dx = \hyperlink{vision_8c_ac26db4b03887fbc86becaab3cd49e1cd}{sign}(dx);
+738             flev = &(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[col+dx][row+dy]);
+739             \textcolor{keywordflow}{if} (flev->lit || next\_array[row+dy][col+dx] & TEMP\_LIT) \{
+740             next\_row[col] |= \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT};  \textcolor{comment}{/* we see it */}
+741 
+742             oldseenv = lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv};
+743             lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv} |= \hyperlink{vision_8c_a9b3cfba7858e26fbc42f9d651d82d891}{new\_angle}(lev,sv,row,col);
+744 
+745             \textcolor{comment}{/* Update pos if previously not in sight or new angle.*/}
+746             \textcolor{keywordflow}{if} (!(old\_row[col] & IN\_SIGHT) || oldseenv!=lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv})
+747                 \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(col,row);
+748             \} \textcolor{keywordflow}{else}
+749             \textcolor{keywordflow}{goto} not\_in\_sight;  \textcolor{comment}{/* we don't see it */}
+750 
+751         \} \textcolor{keywordflow}{else} \{
+752             next\_row[col] |= \hyperlink{vision_8h_a3dfc1f262a872b4787aa8fbe68864c6b}{IN\_SIGHT};  \textcolor{comment}{/* we see it */}
+753 
+754             oldseenv = lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv};
+755             lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv} |= \hyperlink{vision_8c_a9b3cfba7858e26fbc42f9d651d82d891}{new\_angle}(lev,sv,row,col);
+756 
+757             \textcolor{comment}{/* Update pos if previously not in sight or new angle. */}
+758             \textcolor{keywordflow}{if} ( !(old\_row[col] & IN\_SIGHT) || oldseenv != lev->\hyperlink{structrm_a34555313c127be5f736123f994cb1770}{seenv})
+759             \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(col,row);
+760         \}
+761         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((next\_row[col] & COULD\_SEE) && lev->waslit) \{
+762         \textcolor{comment}{/*}
+763 \textcolor{comment}{         * If we make it here, the hero \_could see\_ the location,}
+764 \textcolor{comment}{         * but doesn't see it (location is not lit).}
+765 \textcolor{comment}{         * However, the hero \_remembers\_ it as lit (waslit is true).}
+766 \textcolor{comment}{         * The hero can now see that it is not lit, so change waslit}
+767 \textcolor{comment}{         * and update the location.}
+768 \textcolor{comment}{         */}
+769         lev->waslit = 0; \textcolor{comment}{/* remember lit condition */}
+770         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(col,row);
+771         \}
+772         \textcolor{comment}{/*}
+773 \textcolor{comment}{         * At this point we know that the row position is *not* in normal}
+774 \textcolor{comment}{         * sight.  That is, the position is could be seen, but is dark}
+775 \textcolor{comment}{         * or LOS is just plain blocked.}
+776 \textcolor{comment}{         *}
+777 \textcolor{comment}{         * Update the position if:}
+778 \textcolor{comment}{         * o If the old one *was* in sight.  We may need to clean up}
+779 \textcolor{comment}{         *   the glyph -- E.g. darken room spot, etc.}
+780 \textcolor{comment}{         * o If we now could see the location (yet the location is not}
+781 \textcolor{comment}{         *   lit), but previously we couldn't see the location, or vice}
+782 \textcolor{comment}{         *   versa.  Update the spot because there there may be an infared}
+783 \textcolor{comment}{         *   monster there.}
+784 \textcolor{comment}{         */}
+785         \textcolor{keywordflow}{else} \{
+786 not\_in\_sight:
+787         \textcolor{keywordflow}{if} ((old\_row[col] & IN\_SIGHT)
+788             || ((next\_row[col] & COULD\_SEE)
+789                 ^ (old\_row[col] & COULD\_SEE)))
+790             \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(col,row);
+791         \}
+792 
+793     \} \textcolor{comment}{/* end for col . . */}
+794     \}   \textcolor{comment}{/* end for row . .  */}
+795     colbump[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}] = colbump[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}+1] = 0;
+796 
+797 skip:
+798     \textcolor{comment}{/* This newsym() caused a crash delivering msg about failure to open}
+799 \textcolor{comment}{     * dungeon file init\_dungeons() -> panic() -> done(11) ->}
+800 \textcolor{comment}{     * vision\_recalc(2) -> newsym() -> crash!  u.ux and u.uy are 0 and}
+801 \textcolor{comment}{     * program\_state.panicking == 1 under those circumstances}
+802 \textcolor{comment}{     */}
+803     \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.\hyperlink{structsinfo_abf3b0c7bbd74f57595e53ab0eadd30e9}{panicking})
+804     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});     \textcolor{comment}{/* Make sure the hero shows up! */}
+805 
+806     \textcolor{comment}{/* Set the new min and max pointers. */}
+807     \hyperlink{vision_8c_ae4ba3e2382673d04367ee2a46dd737ab}{viz\_rmin}  = next\_rmin;
+808     \hyperlink{vision_8c_ab718bba1eabd255d10f30ab7881e6022}{viz\_rmax} = next\_rmax;
+809 \}
+\end{DoxyCode}
+\hypertarget{vision_8c_afcf29bf260885b9a629e98aee388d622}{\index{vision.\+c@{vision.\+c}!vision\+\_\+reset@{vision\+\_\+reset}}
+\index{vision\+\_\+reset@{vision\+\_\+reset}!vision.\+c@{vision.\+c}}
+\subsubsection[{vision\+\_\+reset}]{\setlength{\rightskip}{0pt plus 5cm}void vision\+\_\+reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{vision_8c_afcf29bf260885b9a629e98aee388d622}
+
+
+Definition at line 195 of file vision.\+c.
+
+
+
+References C\+O\+L\+N\+O, could\+\_\+see, cs\+\_\+rmax0, cs\+\_\+rmin0, cs\+\_\+rows0, does\+\_\+block(), iflags, I\+S\+\_\+\+R\+O\+C\+K, left\+\_\+ptrs, levl, right\+\_\+ptrs, R\+O\+W\+N\+O, T\+R\+U\+E, vision\+\_\+full\+\_\+recalc, instance\+\_\+flags\+::vision\+\_\+inited, viz\+\_\+array, viz\+\_\+clear, viz\+\_\+rmax, and viz\+\_\+rmin.
+
+
+
+Referenced by dorecover().
+
+
+\begin{DoxyCode}
+196 \{
+197     \textcolor{keywordtype}{int} y;
+198     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x, i, dig\_left, block;
+199     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structrm}{rm}    *lev;
+200 
+201     \textcolor{comment}{/* Start out with cs0 as our current array */}
+202     \hyperlink{decl_8h_a011ba0e5242f4afd2abbc3e2729c4622}{viz\_array} = \hyperlink{vision_8c_ae80b2d6fea2472db2cd1d5e3a824214d}{cs\_rows0};
+203     \hyperlink{vision_8c_ae4ba3e2382673d04367ee2a46dd737ab}{viz\_rmin}  = \hyperlink{vision_8c_a149cab8e278af3f23daeb48f03985a17}{cs\_rmin0};
+204     \hyperlink{vision_8c_ab718bba1eabd255d10f30ab7881e6022}{viz\_rmax}  = \hyperlink{vision_8c_ada4703efc8c5055c3167438170006755}{cs\_rmax0};
+205 
+206     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{vision_8c_a5bb24a7c839748da5178aa236006613c}{could\_see}, 0, \textcolor{keyword}{sizeof}(
+      \hyperlink{vision_8c_a5bb24a7c839748da5178aa236006613c}{could\_see}));
+207 
+208     \textcolor{comment}{/* Reset the pointers and clear so that we have a "full" dungeon. */}
+209     (void) memset((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear},        0, \textcolor{keyword}{sizeof}(
+      \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}));
+210 
+211     \textcolor{comment}{/* Dig the level */}
+212     \textcolor{keywordflow}{for} (y = 0; y < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; y++) \{
+213     dig\_left = 0;
+214     block = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};   \textcolor{comment}{/* location (0,y) is always stone; it's !isok() */}
+215     lev = &\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[1][y];
+216     \textcolor{keywordflow}{for} (x = 1; x < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; x++, lev += \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO})
+217         \textcolor{keywordflow}{if} (block != (\hyperlink{rm_8h_a041df081d95aacdcbf31a3bbfdd36e0e}{IS\_ROCK}(lev->typ) || \hyperlink{vision_8c_a80edeba01340113e1d35f39debfd42a3}{does\_block}(x,y,lev))) \{
+218         \textcolor{keywordflow}{if}(block) \{
+219             \textcolor{keywordflow}{for}(i=dig\_left; i<x; i++) \{
+220             \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs} [y][i] = dig\_left;
+221             \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[y][i] = x-1;
+222             \}
+223         \} \textcolor{keywordflow}{else} \{
+224             i = dig\_left;
+225             \textcolor{keywordflow}{if}(dig\_left) dig\_left--; \textcolor{comment}{/* point at first blocked point */}
+226             \textcolor{keywordflow}{for}(; i<x; i++) \{
+227             \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs} [y][i] = dig\_left;
+228             \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[y][i] = x;
+229             \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[y][i] = 1;
+230             \}
+231         \}
+232         dig\_left = x;
+233         block = !block;
+234         \}
+235     \textcolor{comment}{/* handle right boundary; almost identical for blocked/unblocked */}
+236     i = dig\_left;
+237     \textcolor{keywordflow}{if}(!block && dig\_left) dig\_left--; \textcolor{comment}{/* point at first blocked point */}
+238     \textcolor{keywordflow}{for}(; i<\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}; i++) \{
+239         \hyperlink{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{left\_ptrs} [y][i] = dig\_left;
+240         \hyperlink{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{right\_ptrs}[y][i] = (COLNO-1);
+241         \hyperlink{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{viz\_clear}[y][i] = !block;
+242     \}
+243     \}
+244 
+245     \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a61d68e3b4f194bab370620301c0cb7d9}{vision\_inited} = 1;    \textcolor{comment}{/* vision is ready */}
+246     \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 1;   \textcolor{comment}{/* we want to run vision\_recalc() */}
+247 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{vision_8c_a10839665811ba95bf038f967c35e0831}{\index{vision.\+c@{vision.\+c}!circle\+\_\+data@{circle\+\_\+data}}
+\index{circle\+\_\+data@{circle\+\_\+data}!vision.\+c@{vision.\+c}}
+\subsubsection[{circle\+\_\+data}]{\setlength{\rightskip}{0pt plus 5cm}char circle\+\_\+data\mbox{[}$\,$\mbox{]}}}\label{vision_8c_a10839665811ba95bf038f967c35e0831}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+     1, 1,
+     2, 2, 1,
+     3, 3, 2, 1,
+     4, 4, 4, 3, 2,
+     5, 5, 5, 4, 3, 2,
+     6, 6, 6, 5, 5, 4, 2,
+     7, 7, 7, 6, 6, 5, 4, 2,
+     8, 8, 8, 7, 7, 6, 6, 4, 2,
+     9, 9, 9, 9, 8, 8, 7, 6, 5, 3,
+    10,10,10,10, 9, 9, 8, 7, 6, 5, 3,
+    11,11,11,11,10,10, 9, 9, 8, 7, 5, 3,
+    12,12,12,12,11,11,10,10, 9, 8, 7, 5, 3,
+    13,13,13,13,12,12,12,11,10,10, 9, 7, 6, 3,
+    14,14,14,14,13,13,13,12,12,11,10, 9, 8, 6, 3,
+    15,15,15,15,14,14,14,13,13,12,11,10, 9, 8, 6, 3,
+ 16 
+\}
+\end{DoxyCode}
+
+
+Definition at line 25 of file vision.\+c.
+
+\hypertarget{vision_8c_a87ffc73f681c9b3b2d1c07b3e6189059}{\index{vision.\+c@{vision.\+c}!circle\+\_\+start@{circle\+\_\+start}}
+\index{circle\+\_\+start@{circle\+\_\+start}!vision.\+c@{vision.\+c}}
+\subsubsection[{circle\+\_\+start}]{\setlength{\rightskip}{0pt plus 5cm}char circle\+\_\+start\mbox{[}$\,$\mbox{]}}}\label{vision_8c_a87ffc73f681c9b3b2d1c07b3e6189059}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+      0,    
+    0,
+      2,
+      5,
+      9,
+     14,
+     20,
+     27,
+     35,
+     44,
+     54,
+     65,
+     77,
+     90,
+    104,
+    119,
+\}
+\end{DoxyCode}
+
+
+Definition at line 48 of file vision.\+c.
+
+\hypertarget{vision_8c_a5bb24a7c839748da5178aa236006613c}{\index{vision.\+c@{vision.\+c}!could\+\_\+see@{could\+\_\+see}}
+\index{could\+\_\+see@{could\+\_\+see}!vision.\+c@{vision.\+c}}
+\subsubsection[{could\+\_\+see}]{\setlength{\rightskip}{0pt plus 5cm}char could\+\_\+see\mbox{[}2\mbox{]}\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\mbox{[}{\bf C\+O\+L\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a5bb24a7c839748da5178aa236006613c}
+
+
+Definition at line 86 of file vision.\+c.
+
+
+
+Referenced by vision\+\_\+init(), and vision\+\_\+reset().
+
+\hypertarget{vision_8c_a57a5a42da6ad4e94befb8e5edb85119e}{\index{vision.\+c@{vision.\+c}!cs\+\_\+left@{cs\+\_\+left}}
+\index{cs\+\_\+left@{cs\+\_\+left}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+left}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ cs\+\_\+left\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a57a5a42da6ad4e94befb8e5edb85119e}
+
+
+Definition at line 1074 of file vision.\+c.
+
+\hypertarget{vision_8c_a98f41c6a876948c2e5313c2ea4cc5a64}{\index{vision.\+c@{vision.\+c}!cs\+\_\+right@{cs\+\_\+right}}
+\index{cs\+\_\+right@{cs\+\_\+right}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+right}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ cs\+\_\+right\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a98f41c6a876948c2e5313c2ea4cc5a64}
+
+
+Definition at line 1075 of file vision.\+c.
+
+\hypertarget{vision_8c_ada4703efc8c5055c3167438170006755}{\index{vision.\+c@{vision.\+c}!cs\+\_\+rmax0@{cs\+\_\+rmax0}}
+\index{cs\+\_\+rmax0@{cs\+\_\+rmax0}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+rmax0}]{\setlength{\rightskip}{0pt plus 5cm}char cs\+\_\+rmax0\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_ada4703efc8c5055c3167438170006755}
+
+
+Definition at line 88 of file vision.\+c.
+
+
+
+Referenced by get\+\_\+unused\+\_\+cs(), vision\+\_\+init(), and vision\+\_\+reset().
+
+\hypertarget{vision_8c_ace6d96d36c70a8c6355f57cfdf28670f}{\index{vision.\+c@{vision.\+c}!cs\+\_\+rmax1@{cs\+\_\+rmax1}}
+\index{cs\+\_\+rmax1@{cs\+\_\+rmax1}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+rmax1}]{\setlength{\rightskip}{0pt plus 5cm}char cs\+\_\+rmax1\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_ace6d96d36c70a8c6355f57cfdf28670f}
+
+
+Definition at line 89 of file vision.\+c.
+
+
+
+Referenced by get\+\_\+unused\+\_\+cs().
+
+\hypertarget{vision_8c_a149cab8e278af3f23daeb48f03985a17}{\index{vision.\+c@{vision.\+c}!cs\+\_\+rmin0@{cs\+\_\+rmin0}}
+\index{cs\+\_\+rmin0@{cs\+\_\+rmin0}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+rmin0}]{\setlength{\rightskip}{0pt plus 5cm}char cs\+\_\+rmin0\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a149cab8e278af3f23daeb48f03985a17}
+
+
+Definition at line 88 of file vision.\+c.
+
+
+
+Referenced by get\+\_\+unused\+\_\+cs(), vision\+\_\+init(), and vision\+\_\+reset().
+
+\hypertarget{vision_8c_aa4e5bafbb0f9055761ba45ba430e3678}{\index{vision.\+c@{vision.\+c}!cs\+\_\+rmin1@{cs\+\_\+rmin1}}
+\index{cs\+\_\+rmin1@{cs\+\_\+rmin1}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+rmin1}]{\setlength{\rightskip}{0pt plus 5cm}char cs\+\_\+rmin1\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_aa4e5bafbb0f9055761ba45ba430e3678}
+
+
+Definition at line 89 of file vision.\+c.
+
+
+
+Referenced by get\+\_\+unused\+\_\+cs().
+
+\hypertarget{vision_8c_a7b7300c0c959d6658a2a9d99cb24bff6}{\index{vision.\+c@{vision.\+c}!cs\+\_\+rows@{cs\+\_\+rows}}
+\index{cs\+\_\+rows@{cs\+\_\+rows}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+rows}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ cs\+\_\+rows\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a7b7300c0c959d6658a2a9d99cb24bff6}
+
+
+Definition at line 1073 of file vision.\+c.
+
+\hypertarget{vision_8c_ae80b2d6fea2472db2cd1d5e3a824214d}{\index{vision.\+c@{vision.\+c}!cs\+\_\+rows0@{cs\+\_\+rows0}}
+\index{cs\+\_\+rows0@{cs\+\_\+rows0}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+rows0}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ cs\+\_\+rows0\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_ae80b2d6fea2472db2cd1d5e3a824214d}
+
+
+Definition at line 87 of file vision.\+c.
+
+
+
+Referenced by get\+\_\+unused\+\_\+cs(), vision\+\_\+init(), and vision\+\_\+reset().
+
+\hypertarget{vision_8c_ae7f926990ea4aade6fc1ecd211d31021}{\index{vision.\+c@{vision.\+c}!cs\+\_\+rows1@{cs\+\_\+rows1}}
+\index{cs\+\_\+rows1@{cs\+\_\+rows1}!vision.\+c@{vision.\+c}}
+\subsubsection[{cs\+\_\+rows1}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ cs\+\_\+rows1\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_ae7f926990ea4aade6fc1ecd211d31021}
+
+
+Definition at line 87 of file vision.\+c.
+
+
+
+Referenced by get\+\_\+unused\+\_\+cs(), and vision\+\_\+init().
+
+\hypertarget{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}{\index{vision.\+c@{vision.\+c}!left\+\_\+ptrs@{left\+\_\+ptrs}}
+\index{left\+\_\+ptrs@{left\+\_\+ptrs}!vision.\+c@{vision.\+c}}
+\subsubsection[{left\+\_\+ptrs}]{\setlength{\rightskip}{0pt plus 5cm}char left\+\_\+ptrs\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\mbox{[}{\bf C\+O\+L\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a6ae0da9ca69c3049f1f139b1b2aa5d72}
+
+
+Definition at line 94 of file vision.\+c.
+
+
+
+Referenced by dig\+\_\+point(), fill\+\_\+point(), left\+\_\+side(), view\+\_\+from(), and vision\+\_\+reset().
+
+\hypertarget{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}{\index{vision.\+c@{vision.\+c}!right\+\_\+ptrs@{right\+\_\+ptrs}}
+\index{right\+\_\+ptrs@{right\+\_\+ptrs}!vision.\+c@{vision.\+c}}
+\subsubsection[{right\+\_\+ptrs}]{\setlength{\rightskip}{0pt plus 5cm}char right\+\_\+ptrs\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\mbox{[}{\bf C\+O\+L\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a5d7a4d24f1b0a3c12792ce25bd4eecf0}
+
+
+Definition at line 95 of file vision.\+c.
+
+
+
+Referenced by dig\+\_\+point(), fill\+\_\+point(), right\+\_\+side(), view\+\_\+from(), and vision\+\_\+reset().
+
+\hypertarget{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}{\index{vision.\+c@{vision.\+c}!start\+\_\+col@{start\+\_\+col}}
+\index{start\+\_\+col@{start\+\_\+col}!vision.\+c@{vision.\+c}}
+\subsubsection[{start\+\_\+col}]{\setlength{\rightskip}{0pt plus 5cm}int start\+\_\+col\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a63c4d0daa0d56e2f02020aa859e9e97b}
+
+
+Definition at line 1071 of file vision.\+c.
+
+
+
+Referenced by map\+\_\+exposed(), and map\+\_\+update().
+
+\hypertarget{vision_8c_a33be987753ff2c435cd1a34e26e7b363}{\index{vision.\+c@{vision.\+c}!start\+\_\+row@{start\+\_\+row}}
+\index{start\+\_\+row@{start\+\_\+row}!vision.\+c@{vision.\+c}}
+\subsubsection[{start\+\_\+row}]{\setlength{\rightskip}{0pt plus 5cm}int start\+\_\+row\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a33be987753ff2c435cd1a34e26e7b363}
+
+
+Definition at line 1070 of file vision.\+c.
+
+
+
+Referenced by map\+\_\+exposed(), and map\+\_\+update().
+
+\hypertarget{vision_8c_abc16e65f240ed0c8f3e876e8732c0a33}{\index{vision.\+c@{vision.\+c}!step@{step}}
+\index{step@{step}!vision.\+c@{vision.\+c}}
+\subsubsection[{step}]{\setlength{\rightskip}{0pt plus 5cm}int step\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_abc16e65f240ed0c8f3e876e8732c0a33}
+
+
+Definition at line 1072 of file vision.\+c.
+
+
+
+Referenced by left\+\_\+side(), and right\+\_\+side().
+
+\hypertarget{vision_8c_a21e51d9280fedab4c269f36be8665279}{\index{vision.\+c@{vision.\+c}!varg@{varg}}
+\index{varg@{varg}!vision.\+c@{vision.\+c}}
+\subsubsection[{varg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf genericptr\+\_\+t} varg\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a21e51d9280fedab4c269f36be8665279}
+
+
+Definition at line 1078 of file vision.\+c.
+
+
+
+Referenced by left\+\_\+side(), and right\+\_\+side().
+
+\hypertarget{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}{\index{vision.\+c@{vision.\+c}!viz\+\_\+clear@{viz\+\_\+clear}}
+\index{viz\+\_\+clear@{viz\+\_\+clear}!vision.\+c@{vision.\+c}}
+\subsubsection[{viz\+\_\+clear}]{\setlength{\rightskip}{0pt plus 5cm}char viz\+\_\+clear\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\mbox{[}{\bf C\+O\+L\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a8369ec98b829a5ab57aeaac905bc4c8d}
+
+
+Definition at line 91 of file vision.\+c.
+
+
+
+Referenced by dig\+\_\+point(), fill\+\_\+point(), vision\+\_\+init(), vision\+\_\+recalc(), and vision\+\_\+reset().
+
+\hypertarget{vision_8c_a8bcfd56d798bbcfa3c43448c53701833}{\index{vision.\+c@{vision.\+c}!viz\+\_\+clear\+\_\+rows@{viz\+\_\+clear\+\_\+rows}}
+\index{viz\+\_\+clear\+\_\+rows@{viz\+\_\+clear\+\_\+rows}!vision.\+c@{vision.\+c}}
+\subsubsection[{viz\+\_\+clear\+\_\+rows}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ viz\+\_\+clear\+\_\+rows\mbox{[}{\bf R\+O\+W\+N\+O}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{vision_8c_a8bcfd56d798bbcfa3c43448c53701833}
+
+
+Definition at line 92 of file vision.\+c.
+
+
+
+Referenced by vision\+\_\+init().
+
+\hypertarget{vision_8c_ab718bba1eabd255d10f30ab7881e6022}{\index{vision.\+c@{vision.\+c}!viz\+\_\+rmax@{viz\+\_\+rmax}}
+\index{viz\+\_\+rmax@{viz\+\_\+rmax}!vision.\+c@{vision.\+c}}
+\subsubsection[{viz\+\_\+rmax}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ viz\+\_\+rmax}}\label{vision_8c_ab718bba1eabd255d10f30ab7881e6022}
+
+
+Definition at line 80 of file vision.\+c.
+
+
+
+Referenced by vision\+\_\+init(), vision\+\_\+recalc(), and vision\+\_\+reset().
+
+\hypertarget{vision_8c_ae4ba3e2382673d04367ee2a46dd737ab}{\index{vision.\+c@{vision.\+c}!viz\+\_\+rmin@{viz\+\_\+rmin}}
+\index{viz\+\_\+rmin@{viz\+\_\+rmin}!vision.\+c@{vision.\+c}}
+\subsubsection[{viz\+\_\+rmin}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ viz\+\_\+rmin}}\label{vision_8c_ae4ba3e2382673d04367ee2a46dd737ab}
+
+
+Definition at line 80 of file vision.\+c.
+
+
+
+Referenced by vision\+\_\+init(), vision\+\_\+recalc(), and vision\+\_\+reset().
+

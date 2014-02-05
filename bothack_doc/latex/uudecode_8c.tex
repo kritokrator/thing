@@ -1,0 +1,292 @@
+\hypertarget{uudecode_8c}{\section{nethack/sys/share/uudecode.c File Reference}
+\label{uudecode_8c}\index{nethack/sys/share/uudecode.\+c@{nethack/sys/share/uudecode.\+c}}
+}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$pwd.\+h$>$}\\*
+{\ttfamily \#include $<$sys/types.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{D\+E\+C}(c)~(((c) -\/ ' ') \& 077)
+\item 
+\#define \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{N\+U\+L\+L}~0
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{uudecode_8c_aa5b31d72f1f70639fabd29e9becdf98d}{decode} (F\+I\+L\+E $\ast$, F\+I\+L\+E $\ast$)
+\item 
+static void \hyperlink{uudecode_8c_a04e70c25d24c4f46b1b99d40ff020577}{outdec} (char $\ast$, F\+I\+L\+E $\ast$, int)
+\item 
+int \hyperlink{uudecode_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\item 
+char $\ast$ \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index} (char $\ast$sp, char c)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static char \hyperlink{uudecode_8c_a3f92c583a33e634211ed1dd1dcd8eb0b}{sccsid} \mbox{[}$\,$\mbox{]} = \char`\"{}@(\#)uudecode.\+c 5.\+5 (Berkeley) 7/6/88\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{\index{uudecode.\+c@{uudecode.\+c}!D\+E\+C@{D\+E\+C}}
+\index{D\+E\+C@{D\+E\+C}!uudecode.\+c@{uudecode.\+c}}
+\subsubsection[{D\+E\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+C(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~(((c) -\/ ' ') \& 077)}}\label{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}
+
+
+Definition at line 83 of file uudecode.\+c.
+
+
+
+Referenced by decode(), and outdec().
+
+\hypertarget{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{\index{uudecode.\+c@{uudecode.\+c}!N\+U\+L\+L@{N\+U\+L\+L}}
+\index{N\+U\+L\+L@{N\+U\+L\+L}!uudecode.\+c@{uudecode.\+c}}
+\subsubsection[{N\+U\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+U\+L\+L~0}}\label{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}
+
+
+Definition at line 238 of file uudecode.\+c.
+
+
+
+Referenced by decode(), index(), and main().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{uudecode_8c_aa5b31d72f1f70639fabd29e9becdf98d}{\index{uudecode.\+c@{uudecode.\+c}!decode@{decode}}
+\index{decode@{decode}!uudecode.\+c@{uudecode.\+c}}
+\subsubsection[{decode}]{\setlength{\rightskip}{0pt plus 5cm}void decode (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{in, }
+\item[{F\+I\+L\+E $\ast$}]{out}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{uudecode_8c_aa5b31d72f1f70639fabd29e9becdf98d}
+
+
+Definition at line 175 of file uudecode.\+c.
+
+
+
+References buf, D\+E\+C, exit(), N\+U\+L\+L, outdec(), and printf.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+178 \{
+179     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[80];
+180     \textcolor{keywordtype}{char} *bp;
+181     \textcolor{keywordtype}{int} n, i, expected;
+182 
+183     \textcolor{keywordflow}{for} (;;) \{
+184         \textcolor{comment}{/* for each input line */}
+185         \textcolor{keywordflow}{if} (fgets(buf, \textcolor{keyword}{sizeof} buf, \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}) == \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+186             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Short file\(\backslash\)n"});
+187             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(10);
+188         \}
+189         n = \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{DEC}(buf[0]);
+190         \textcolor{keywordflow}{if} ((n <= 0) || (buf[0] == \textcolor{charliteral}{'\(\backslash\)n'}))
+191             \textcolor{keywordflow}{break};
+192 
+193         \textcolor{comment}{/* Calculate expected # of chars and pad if necessary */}
+194         expected = ((n+2)/3)<<2;
+195         \textcolor{keywordflow}{for} (i = strlen(buf)-1; i <= expected; i++) buf[i] = \textcolor{charliteral}{' '};
+196 
+197         bp = &buf[1];
+198         \textcolor{keywordflow}{while} (n > 0) \{
+199             \hyperlink{uudecode_8c_a04e70c25d24c4f46b1b99d40ff020577}{outdec}(bp, out, n);
+200             bp += 4;
+201             n -= 3;
+202         \}
+203     \}
+204 \}
+\end{DoxyCode}
+\hypertarget{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{\index{uudecode.\+c@{uudecode.\+c}!index@{index}}
+\index{index@{index}!uudecode.\+c@{uudecode.\+c}}
+\subsubsection[{index}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ index (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{sp, }
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}}\label{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}
+
+
+Definition at line 242 of file uudecode.\+c.
+
+
+
+References N\+U\+L\+L.
+
+
+
+Referenced by algn\+\_\+key(), allow\+\_\+category(), append\+\_\+text\+\_\+buffer(), Apple\+Event\+Handler(), autopick(), change\+\_\+inv\+\_\+order(), checkfile(), choose\+\_\+classes\+\_\+menu(), collect\+\_\+obj\+\_\+classes(), dodiscovered(), Do\+Extension(), dowhatdoes\+\_\+core(), ec\+\_\+key(), escapes(), fixup\+\_\+special(), fname\+\_\+encode(), fopen\+\_\+datafile(), fopen\+\_\+xpm\+\_\+file(), gend\+\_\+key(), get\+\_\+feature\+\_\+notice\+\_\+ver(), getrumor(), getspell(), gnome\+\_\+yn\+\_\+function(), impact\+\_\+drop(), initoptions(), is\+\_\+worn\+\_\+by\+\_\+type(), kick\+\_\+object(), Layout\+Cmd\+Window(), main(), Main\+Wnd\+Proc(), makemaz(), map\+\_\+menu\+\_\+cmd(), match\+\_\+optname(), menu\+\_\+key(), mswin\+\_\+color\+\_\+from\+\_\+string(), mswin\+\_\+yn\+\_\+function(), nhcmdset\+\_\+get(), nhcmdset\+\_\+get\+\_\+name(), outentry(), outoracle(), parse\+\_\+config\+\_\+line(), parseoptions(), pick\+\_\+obj(), pickup(), plnamesuffix(), prompt\+\_\+for\+\_\+player\+\_\+selection(), prscore(), ps\+\_\+key(), query\+\_\+classes(), race\+\_\+key(), regularize(), rloco(), score\+\_\+wanted(), set\+Combo\+Box\+Value(), ship\+\_\+object(), should\+\_\+query\+\_\+disclose\+\_\+option(), string\+\_\+for\+\_\+opt(), tc\+\_\+field(), tc\+\_\+find(), tc\+\_\+name(), tc\+\_\+store(), tgetstr(), throwit(), tparam(), use\+\_\+crystal\+\_\+ball(), vms\+\_\+creat(), X11\+\_\+select\+\_\+menu(), X11\+\_\+yn\+\_\+function(), yn\+\_\+key(), and yyparse().
+
+
+\begin{DoxyCode}
+244 \{
+245     \textcolor{keywordflow}{do} \{
+246         \textcolor{keywordflow}{if} (*sp == c)
+247             \textcolor{keywordflow}{return}(sp);
+248     \} \textcolor{keywordflow}{while} (*sp++);
+249     \textcolor{keywordflow}{return}(\hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+250 \}
+\end{DoxyCode}
+\hypertarget{uudecode_8c_a3c04138a5bfe5d72780bb7e82a18e627}{\index{uudecode.\+c@{uudecode.\+c}!main@{main}}
+\index{main@{main}!uudecode.\+c@{uudecode.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{uudecode_8c_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 85 of file uudecode.\+c.
+
+
+
+References buf, decode(), exit(), in, index(), N\+U\+L\+L, perror, printf, and stdin.
+
+
+\begin{DoxyCode}
+88 \{
+89     FILE *\hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}, *out;
+90     \textcolor{keywordtype}{int} mode;
+91     \textcolor{keywordtype}{char} dest[128];
+92     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[80];
+93 
+94     \textcolor{comment}{/* optional input arg */}
+95     \textcolor{keywordflow}{if} (argc > 1) \{
+96         \textcolor{keywordflow}{if} ((in = fopen(argv[1], \textcolor{stringliteral}{"r"})) == \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+97             \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(argv[1]);
+98             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(1);
+99         \}
+100         argv++; argc--;
+101     \} \textcolor{keywordflow}{else}
+102         in = \hyperlink{lev__lex_8h_aaca70138f0cb63ddb026921afc635179}{stdin};
+103 
+104     \textcolor{keywordflow}{if} (argc != 1) \{
+105         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Usage: uudecode [infile]\(\backslash\)n"});
+106         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(2);
+107     \}
+108 
+109     \textcolor{comment}{/* search for header line */}
+110     \textcolor{keywordflow}{for} (;;) \{
+111         \textcolor{keywordflow}{if} (fgets(buf, \textcolor{keyword}{sizeof} buf, in) == \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+112             fprintf(stderr, \textcolor{stringliteral}{"No begin line\(\backslash\)n"});
+113             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(3);
+114         \}
+115         \textcolor{keywordflow}{if} (strncmp(buf, \textcolor{stringliteral}{"begin "}, 6) == 0)
+116             \textcolor{keywordflow}{break};
+117     \}
+118     (void)sscanf(buf, \textcolor{stringliteral}{"begin %o %s"}, &mode, dest);
+119 
+120 \textcolor{preprocessor}{#if !defined(MSDOS) && !defined(VMS) && !defined(WIN32)}
+121     \textcolor{comment}{/* handle ~user/file format */}
+122     \textcolor{keywordflow}{if} (dest[0] == \textcolor{charliteral}{'~'}) \{
+123         \textcolor{keywordtype}{char} *sl;
+124         \textcolor{keyword}{struct }passwd *getpwnam();
+125         \textcolor{keyword}{struct }passwd *user;
+126         \textcolor{keywordtype}{char} dnbuf[100], *\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(), *strcat(), *strcpy();
+127 
+128         sl = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(dest, \textcolor{charliteral}{'/'});
+129         \textcolor{keywordflow}{if} (sl == \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+130             fprintf(stderr, \textcolor{stringliteral}{"Illegal ~user\(\backslash\)n"});
+131             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(3);
+132         \}
+133         *sl++ = 0;
+134         user = getpwnam(dest+1);
+135         \textcolor{keywordflow}{if} (user == \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+136             fprintf(stderr, \textcolor{stringliteral}{"No such user as %s\(\backslash\)n"}, dest);
+137             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(4);
+138         \}
+139         strcpy(dnbuf, user->pw\_dir);
+140         strcat(dnbuf, \textcolor{stringliteral}{"/"});
+141         strcat(dnbuf, sl);
+142         strcpy(dest, dnbuf);
+143     \}
+144 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* !defined(MSDOS) && !defined(VMS) */}\textcolor{preprocessor}{}
+145 
+146     \textcolor{comment}{/* create output file */}
+147 \textcolor{preprocessor}{#if defined(MSDOS) || defined(WIN32)}
+148     out = fopen(dest, \textcolor{stringliteral}{"wb"});    \textcolor{comment}{/* Binary file */}
+149 \textcolor{preprocessor}{#else}
+150     out = fopen(dest, \textcolor{stringliteral}{"w"});
+151 \textcolor{preprocessor}{#endif}
+152     \textcolor{keywordflow}{if} (out == \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}) \{
+153         \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(dest);
+154         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(4);
+155     \}
+156 \textcolor{preprocessor}{#if !defined(MSDOS) && !defined(VMS) && !defined(WIN32) }\textcolor{comment}{/* i.e., UNIX */}\textcolor{preprocessor}{}
+157     chmod(dest, mode);
+158 \textcolor{preprocessor}{#endif}
+159 
+160     \hyperlink{uudecode_8c_aa5b31d72f1f70639fabd29e9becdf98d}{decode}(in, out);
+161 
+162     \textcolor{keywordflow}{if} (fgets(buf, \textcolor{keyword}{sizeof} buf, in) == \hyperlink{uudecode_8c_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} || strcmp(buf, \textcolor{stringliteral}{"end\(\backslash\)n"})) \{
+163         fprintf(stderr, \textcolor{stringliteral}{"No end line\(\backslash\)n"});
+164         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(5);
+165     \}
+166     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(0);
+167     \textcolor{comment}{/*NOTREACHED*/}
+168     \textcolor{keywordflow}{return} 0;
+169 \}
+\end{DoxyCode}
+\hypertarget{uudecode_8c_a04e70c25d24c4f46b1b99d40ff020577}{\index{uudecode.\+c@{uudecode.\+c}!outdec@{outdec}}
+\index{outdec@{outdec}!uudecode.\+c@{uudecode.\+c}}
+\subsubsection[{outdec}]{\setlength{\rightskip}{0pt plus 5cm}void outdec (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{p, }
+\item[{F\+I\+L\+E $\ast$}]{f, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{uudecode_8c_a04e70c25d24c4f46b1b99d40ff020577}
+
+
+Definition at line 213 of file uudecode.\+c.
+
+
+
+References D\+E\+C.
+
+
+
+Referenced by decode().
+
+
+\begin{DoxyCode}
+217 \{
+218     \textcolor{keywordtype}{int} c1, c2, c3;
+219 
+220     c1 = \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{DEC}(*p) << 2 | \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{DEC}(p[1]) >> 4;
+221     c2 = \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{DEC}(p[1]) << 4 | \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{DEC}(p[2]) >> 2;
+222     c3 = \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{DEC}(p[2]) << 6 | \hyperlink{uudecode_8c_a0848aaca7393c9e99c112bd2b458a935}{DEC}(p[3]);
+223     \textcolor{keywordflow}{if} (n >= 1)
+224         putc(c1, f);
+225     \textcolor{keywordflow}{if} (n >= 2)
+226         putc(c2, f);
+227     \textcolor{keywordflow}{if} (n >= 3)
+228         putc(c3, f);
+229 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{uudecode_8c_a3f92c583a33e634211ed1dd1dcd8eb0b}{\index{uudecode.\+c@{uudecode.\+c}!sccsid@{sccsid}}
+\index{sccsid@{sccsid}!uudecode.\+c@{uudecode.\+c}}
+\subsubsection[{sccsid}]{\setlength{\rightskip}{0pt plus 5cm}char sccsid\mbox{[}$\,$\mbox{]} = \char`\"{}@(\#)uudecode.\+c 5.\+5 (Berkeley) 7/6/88\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{uudecode_8c_a3f92c583a33e634211ed1dd1dcd8eb0b}
+
+
+Definition at line 43 of file uudecode.\+c.
+

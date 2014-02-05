@@ -1,0 +1,382 @@
+\hypertarget{dlb__main_8c}{\section{nethack/util/dlb\+\_\+main.c File Reference}
+\label{dlb__main_8c}\index{nethack/util/dlb\+\_\+main.\+c@{nethack/util/dlb\+\_\+main.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{dlb__main_8c_a90bec3a4cbc20c171d8135a8eb931830}{F\+D\+E\+C\+L} (\hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit},(int))
+\item 
+int \hyperlink{dlb__main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main} (int argc, char $\ast$$\ast$argv)
+\item 
+static void \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit} (int retcd)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{dlb__main_8c_a90bec3a4cbc20c171d8135a8eb931830}{\index{dlb\+\_\+main.\+c@{dlb\+\_\+main.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!dlb\+\_\+main.\+c@{dlb\+\_\+main.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf xexit}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{dlb__main_8c_a90bec3a4cbc20c171d8135a8eb931830}
+\hypertarget{dlb__main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{\index{dlb\+\_\+main.\+c@{dlb\+\_\+main.\+c}!main@{main}}
+\index{main@{main}!dlb\+\_\+main.\+c@{dlb\+\_\+main.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{dlb__main_8c_a3c04138a5bfe5d72780bb7e82a18e627}
+
+
+Definition at line 179 of file dlb\+\_\+main.\+c.
+
+
+
+References alloc(), B\+U\+F\+S\+I\+Z, chdir(), close(), eos(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, F\+A\+L\+S\+E, F\+C\+M\+A\+S\+K, F\+I\+L\+E\+N\+A\+M\+E\+\_\+\+C\+M\+P, fname, free(), getcwd(), lseek(), O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+R\+D\+O\+N\+L\+Y, O\+\_\+\+R\+D\+W\+R, O\+\_\+\+T\+R\+U\+N\+C, O\+\_\+\+W\+R\+O\+N\+L\+Y, open(), printf, read(), S\+E\+E\+K\+\_\+\+E\+N\+D, S\+E\+E\+K\+\_\+\+S\+E\+T, Strcpy, T\+R\+U\+E, vms\+\_\+basename(), write(), and xexit().
+
+
+\begin{DoxyCode}
+182 \{
+183 \textcolor{preprocessor}{#ifdef DLB}
+184 \textcolor{preprocessor}{#ifdef DLBLIB}
+185     \textcolor{keywordtype}{int} i, r;
+186     \textcolor{keywordtype}{int} ap=2;               \textcolor{comment}{/* argument pointer */}
+187     \textcolor{keywordtype}{int} cp;             \textcolor{comment}{/* command pointer */}
+188     \textcolor{keywordtype}{int} iseen=0, fseen=0, verbose=0;    \textcolor{comment}{/* flags */}
+189     \textcolor{keywordtype}{char} action=\textcolor{charliteral}{' '};
+190     library lib;
+191 
+192     \textcolor{keywordflow}{if} (argc > 0 && argv[0] && *argv[0]) progname = argv[0];
+193 \textcolor{preprocessor}{#ifdef VMS}
+194     progname = \hyperlink{vmsfiles_8c_ae5c864896564867dcf8863e716b90e44}{vms\_basename}(progname);
+195 \textcolor{preprocessor}{#endif}
+196 
+197     \textcolor{keywordflow}{if} (argc<2) \{
+198     usage();
+199     \textcolor{comment}{/* doesn't return */}
+200     \}
+201 
+202     \textcolor{keywordflow}{for}(cp=0;argv[1][cp];cp++)\{
+203     \textcolor{keywordflow}{switch}(argv[1][cp])\{
+204         \textcolor{keywordflow}{default}:
+205         usage();    \textcolor{comment}{/* doesn't return */}
+206         \textcolor{keywordflow}{case} \textcolor{charliteral}{'-'}:   \textcolor{comment}{/* silently ignore */}
+207         \textcolor{keywordflow}{break};
+208         \textcolor{keywordflow}{case} \textcolor{charliteral}{'?'}:
+209         \textcolor{keywordflow}{case} \textcolor{charliteral}{'h'}:
+210         verbose\_help();
+211         \textcolor{keywordflow}{break};
+212         \textcolor{keywordflow}{case} \textcolor{charliteral}{'I'}:
+213         \textcolor{keywordflow}{if} (ap == argc) usage();
+214         list\_file=argv[ap++];
+215         \textcolor{keywordflow}{if}(iseen)
+216             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Warning: multiple I options.  Previous ignored.\(\backslash\)n"});
+217         iseen=1;
+218         \textcolor{keywordflow}{break};
+219         \textcolor{keywordflow}{case} \textcolor{charliteral}{'f'}:
+220         \textcolor{keywordflow}{if} (ap == argc) usage();
+221         library\_file=argv[ap++];
+222         \textcolor{keywordflow}{if}(fseen)
+223             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Warning: multiple f options.  Previous ignored.\(\backslash\)n"});
+224         fseen=1;
+225         \textcolor{keywordflow}{break};
+226         \textcolor{keywordflow}{case} \textcolor{charliteral}{'C'}:
+227         \textcolor{keywordflow}{if} (ap == argc) usage();
+228 \textcolor{preprocessor}{#ifdef AMIGA}
+229         \textcolor{keywordflow}{if}(!\hyperlink{wceconf_8h_af201f56d9c65abf2969d9b3371a054c6}{getcwd}(origdir,\textcolor{keyword}{sizeof}(origdir)))\{
+230             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't get current directory.\(\backslash\)n"});
+231             \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+232         \}
+233 \textcolor{preprocessor}{#endif}
+234         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_ae6d5c38f8d7036c9010142bf4291d5ca}{chdir}(argv[ap++]))\{
+235             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't chdir to %s\(\backslash\)n"},argv[--ap]);
+236             \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+237         \}
+238         \textcolor{keywordflow}{break};
+239         \textcolor{keywordflow}{case} \textcolor{charliteral}{'v'}:
+240         verbose=1;
+241         \textcolor{keywordflow}{break};
+242         \textcolor{keywordflow}{case} \textcolor{charliteral}{'t'}:
+243         \textcolor{keywordflow}{case} \textcolor{charliteral}{'c'}:
+244         \textcolor{keywordflow}{case} \textcolor{charliteral}{'x'}:
+245         \textcolor{keywordflow}{if}(action != \textcolor{charliteral}{' '})\{
+246             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Only one of t,x,c may be specified.\(\backslash\)n"});
+247             usage();
+248         \}
+249         action=argv[1][cp];
+250         \textcolor{keywordflow}{break};
+251     \}
+252     \}
+253 
+254     \textcolor{keywordflow}{if}(argv[ap] && iseen)\{
+255     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Too many arguments.\(\backslash\)n"});
+256     \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+257     \}
+258 
+259     \textcolor{keywordflow}{switch}(action)\{
+260     \textcolor{keywordflow}{default}:
+261     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Internal error - action.\(\backslash\)n"});
+262     \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+263     \textcolor{keywordflow}{break};
+264     \textcolor{keywordflow}{case} \textcolor{charliteral}{'t'}:           \textcolor{comment}{/* list archive */}
+265     \textcolor{keywordflow}{if} (!open\_library(library\_file, &lib)) \{
+266         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't open dlb file\(\backslash\)n"});
+267         \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+268     \}
+269 
+270     \textcolor{keywordflow}{for} (i = 0; i < lib.nentries; i++) \{
+271         \textcolor{keywordflow}{if} (verbose)
+272         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%-14s %6ld %6ld\(\backslash\)n"},
+273             lib.dir[i].fname, lib.dir[i].foffset, lib.dir[i].fsize);
+274         \textcolor{keywordflow}{else}
+275         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%s\(\backslash\)n"}, lib.dir[i].fname);
+276     \}
+277 
+278     \textcolor{keywordflow}{if} (verbose)
+279         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Revision:%ld  File count:%ld  String size:%ld\(\backslash\)n"},
+280         lib.rev, lib.nentries, lib.strsize);
+281 
+282     close\_library(&lib);
+283     \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+284 
+285     \textcolor{keywordflow}{case} \textcolor{charliteral}{'x'}: \{         \textcolor{comment}{/* extract archive contents */}
+286     \textcolor{keywordtype}{int} f, n;
+287     \textcolor{keywordtype}{long} remainder, total\_read;
+288     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{wceconf_8h_a72a591cf0a96cf23c63df5c78712dabe}{BUFSIZ}];
+289 
+290     \textcolor{keywordflow}{if} (!open\_library(library\_file, &lib)) \{
+291         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't open dlb file\(\backslash\)n"});
+292         \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+293     \}
+294 
+295     \textcolor{keywordflow}{for} (i = 0; i < lib.nentries; i++) \{
+296         \textcolor{keywordflow}{if} (argv[ap]) \{
+297         \textcolor{comment}{/* if files are listed, see if current is wanted */}
+298         \textcolor{keywordtype}{int} c;
+299         \textcolor{keywordflow}{for} (c = ap; c < argc; c++)
+300             \textcolor{keywordflow}{if} (!\hyperlink{amiconf_8h_a41718744cc96e38d26cab525ce5a8fb8}{FILENAME\_CMP}(lib.dir[i].fname, argv[c])) \textcolor{keywordflow}{break};
+301         \textcolor{keywordflow}{if} (c == argc) \textcolor{keywordflow}{continue};    \textcolor{comment}{/* skip */}
+302         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{amiconf_8h_a41718744cc96e38d26cab525ce5a8fb8}{FILENAME\_CMP}(lib.dir[i].fname, DLB\_DIRECTORY)) \{
+303         \textcolor{comment}{/*}
+304 \textcolor{comment}{         * Don't extract the directory unless the user}
+305 \textcolor{comment}{         * specifically asks for it.}
+306 \textcolor{comment}{         *}
+307 \textcolor{comment}{         * Perhaps we should never extract the directory???}
+308 \textcolor{comment}{         */}
+309         \textcolor{keywordflow}{continue};
+310         \}
+311         fseek(lib.fdata, lib.dir[i].foffset, \hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET});
+312 
+313         f = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(lib.dir[i].fname, \hyperlink{fcntl_8h_a11b644a8526139c4cc1850dac1271ced}{O\_WRONLY}|\hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC}|\hyperlink{amiconf_8h_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}|
+      \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}, 0640);
+314         \textcolor{keywordflow}{if} (f < 0) \{
+315         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't create '%s'\(\backslash\)n"}, lib.dir[i].fname);
+316         \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+317         \}
+318 
+319         \textcolor{comment}{/* read chunks from library and write them out */}
+320         total\_read = 0;
+321         \textcolor{keywordflow}{do} \{
+322         remainder = lib.dir[i].fsize - total\_read;
+323         \textcolor{keywordflow}{if} (remainder > (\textcolor{keywordtype}{long}) \textcolor{keyword}{sizeof}(buf))
+324             r = (int) \textcolor{keyword}{sizeof}(buf);
+325         \textcolor{keywordflow}{else}
+326             r = remainder;
+327 
+328         n = fread(buf, 1, r, lib.fdata);
+329         \textcolor{keywordflow}{if} (n != r) \{
+330             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Read Error in '%s'\(\backslash\)n"}, lib.dir[i].fname);
+331             \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+332         \}
+333         \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(f, buf, n) != n) \{
+334             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Write Error in '%s'\(\backslash\)n"}, lib.dir[i].fname);
+335             \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+336         \}
+337 
+338         total\_read += n;
+339         \} \textcolor{keywordflow}{while} (total\_read != lib.dir[i].fsize);
+340 
+341         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(f);
+342 
+343         \textcolor{keywordflow}{if} (verbose) \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"x %s\(\backslash\)n"}, lib.dir[i].fname);
+344     \}
+345 
+346     close\_library(&lib);
+347     \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+348     \}
+349 
+350     \textcolor{keywordflow}{case} \textcolor{charliteral}{'c'}:           \textcolor{comment}{/* create archive */}
+351     \{
+352     libdir ld[MAX\_DLB\_FILES];
+353     \textcolor{keywordtype}{char} buf[\hyperlink{wceconf_8h_a72a591cf0a96cf23c63df5c78712dabe}{BUFSIZ}];
+354     \textcolor{keywordtype}{int} fd, out, nfiles = 0;
+355     \textcolor{keywordtype}{long} dir\_size, slen, flen, fsiz;
+356     \textcolor{keywordtype}{boolean} rewrite\_directory = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+357 
+358     \textcolor{comment}{/*}
+359 \textcolor{comment}{     * Get names from either/both an argv list and a file}
+360 \textcolor{comment}{     * list.  This does not do any duplicate checking}
+361 \textcolor{comment}{     */}
+362 
+363     \textcolor{comment}{/* get file name in argv list */}
+364     \textcolor{keywordflow}{if} (argv[ap]) \{
+365         \textcolor{keywordflow}{for} ( ; ap < argc; ap++, nfiles++) \{
+366         \textcolor{keywordflow}{if} (nfiles >= MAX\_DLB\_FILES) \{
+367             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Too many dlb files!  Stopping at %d.\(\backslash\)n"},
+368                                 MAX\_DLB\_FILES);
+369             \textcolor{keywordflow}{break};
+370         \}
+371         ld[nfiles].fname = (\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(strlen(argv[ap]) + 1);
+372         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(ld[nfiles].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname}, argv[ap]);
+373         \}
+374     \}
+375 
+376     \textcolor{keywordflow}{if} (iseen) \{
+377         \textcolor{comment}{/* want to do a list file */}
+378         FILE *list = fopen(list\_file, \textcolor{stringliteral}{"r"});
+379         \textcolor{keywordflow}{if} (!list) \{
+380         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't open %s\(\backslash\)n"},list\_file);
+381         \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+382         \}
+383 
+384         \textcolor{comment}{/* get file names, one per line */}
+385         \textcolor{keywordflow}{for} ( ; fgets(buf, \textcolor{keyword}{sizeof}(buf), list); nfiles++) \{
+386         \textcolor{keywordflow}{if} (nfiles >= MAX\_DLB\_FILES) \{
+387             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Too many dlb files!  Stopping at %d.\(\backslash\)n"},
+388                                 MAX\_DLB\_FILES);
+389             \textcolor{keywordflow}{break};
+390         \}
+391         *(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(buf)-1) = \textcolor{charliteral}{'\(\backslash\)0'};    \textcolor{comment}{/* strip newline */}
+392         ld[nfiles].fname = (\textcolor{keywordtype}{char} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(strlen(buf) + 1);
+393         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(ld[nfiles].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname}, buf);
+394         \}
+395         fclose(list);
+396     \}
+397 
+398     \textcolor{keywordflow}{if} (nfiles == 0) \{
+399         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"No files to archive\(\backslash\)n"});
+400         \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+401     \}
+402 
+403 
+404     \textcolor{comment}{/*}
+405 \textcolor{comment}{     * Get file sizes and name string length.  Don't include}
+406 \textcolor{comment}{     * the directory information yet.}
+407 \textcolor{comment}{     */}
+408     \textcolor{keywordflow}{for} (i = 0, slen = 0, flen = 0; i < nfiles; i++) \{
+409         fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname}, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY}|\hyperlink{amiconf_8h_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, 0);
+410         \textcolor{keywordflow}{if} (fd < 0) \{
+411         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't open %s\(\backslash\)n"}, ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname});
+412         \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+413         \}
+414         ld[i].fsize = \hyperlink{wceconf_8h_a0f6bb896aa39f599bf81b462f2ca563f}{lseek}(fd, 0, \hyperlink{dlb_8h_ad2a2e6c114780c3071efd24f16c7f7d8}{SEEK\_END});
+415         ld[i].foffset = flen;
+416 
+417         slen += strlen(ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname});   \textcolor{comment}{/* don't add null (yet) */}
+418         flen += ld[i].fsize;
+419         \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+420     \}
+421 
+422     \textcolor{comment}{/* open output file */}
+423     out = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(library\_file, \hyperlink{fcntl_8h_abb0586253488ee61072b73557eeb873b}{O\_RDWR}|\hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC}|\hyperlink{amiconf_8h_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}|
+      \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+424     \textcolor{keywordflow}{if} (out < 0) \{
+425         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't open %s for output\(\backslash\)n"}, library\_file);
+426         \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+427     \}
+428 
+429     \textcolor{comment}{/* caculate directory size */}
+430     dir\_size = 40           \textcolor{comment}{/* header line (see below) */}
+431            + ((nfiles+1)*11)    \textcolor{comment}{/* handling+file offset+SP+newline */}
+432            + slen+strlen(DLB\_DIRECTORY); \textcolor{comment}{/* file names */}
+433 
+434     \textcolor{comment}{/* write directory */}
+435     write\_dlb\_directory(out, nfiles, ld, slen, dir\_size, flen);
+436 
+437     flen = 0L;
+438     \textcolor{comment}{/* write each file */}
+439     \textcolor{keywordflow}{for} (i = 0; i < nfiles; i++) \{
+440         fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname}, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY}|\hyperlink{amiconf_8h_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY}, 0);
+441         \textcolor{keywordflow}{if} (fd < 0) \{
+442         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Can't open input file '%s'\(\backslash\)n"}, ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname});
+443         \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+444         \}
+445         \textcolor{keywordflow}{if} (verbose) \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%s\(\backslash\)n"},ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname});
+446 
+447         fsiz = 0L;
+448         \textcolor{keywordflow}{while} ((r = \hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(fd, buf, \textcolor{keyword}{sizeof} buf)) != 0) \{
+449         \textcolor{keywordflow}{if} (r == -1) \{
+450             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Read Error in '%s'\(\backslash\)n"}, ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname});
+451             \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+452         \}
+453         \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(out, buf, r) != r) \{
+454             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"Write Error in '%s'\(\backslash\)n"}, ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname});
+455             \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+456         \}
+457         fsiz += r;
+458         \}
+459         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+460         \textcolor{keywordflow}{if} (fsiz != ld[i].fsize) rewrite\_directory = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+461         \textcolor{comment}{/* in case directory rewrite is needed */}
+462         ld[i].fsize = fsiz;
+463         ld[i].foffset = flen;
+464         flen += fsiz;
+465     \}
+466 
+467     \textcolor{keywordflow}{if} (rewrite\_directory) \{
+468         \textcolor{keywordflow}{if} (verbose) \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"(rewriting dlb directory info)\(\backslash\)n"});
+469         (void) \hyperlink{wceconf_8h_a0f6bb896aa39f599bf81b462f2ca563f}{lseek}(out, 0, \hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET});    \textcolor{comment}{/* rewind */}
+470         write\_dlb\_directory(out, nfiles, ld, slen, dir\_size, flen);
+471     \}
+472 
+473     \textcolor{keywordflow}{for} (i = 0; i < nfiles; i++)
+474         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) ld[i].\hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname}),  ld[i].fname = 0;
+475 
+476     (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(out);
+477     \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+478     \}
+479     \}
+480 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* DLBLIB */}\textcolor{preprocessor}{}
+481 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* DLB */}\textcolor{preprocessor}{}
+482 
+483     \hyperlink{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{xexit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+484     \textcolor{comment}{/*NOTREACHED*/}
+485     \textcolor{keywordflow}{return} 0;
+486 \}
+\end{DoxyCode}
+\hypertarget{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}{\index{dlb\+\_\+main.\+c@{dlb\+\_\+main.\+c}!xexit@{xexit}}
+\index{xexit@{xexit}!dlb\+\_\+main.\+c@{dlb\+\_\+main.\+c}}
+\subsubsection[{xexit}]{\setlength{\rightskip}{0pt plus 5cm}static void xexit (
+\begin{DoxyParamCaption}
+\item[{int}]{retcd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{dlb__main_8c_a7b460e0ea3ab2933f30b6a77c99ec4fb}
+
+
+Definition at line 526 of file dlb\+\_\+main.\+c.
+
+
+
+References chdir(), and exit().
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+528 \{
+529 \textcolor{preprocessor}{#ifdef DLB}
+530 \textcolor{preprocessor}{#ifdef AMIGA}
+531     \textcolor{keywordflow}{if} (origdir[0]) \hyperlink{wceconf_8h_ae6d5c38f8d7036c9010142bf4291d5ca}{chdir}(origdir);
+532 \textcolor{preprocessor}{#endif}
+533 \textcolor{preprocessor}{#endif}
+534     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(retcd);
+535 \}
+\end{DoxyCode}

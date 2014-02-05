@@ -1,0 +1,326 @@
+\hypertarget{gnstatus_8h}{\section{nethack/win/gnome/gnstatus.h File Reference}
+\label{gnstatus_8h}\index{nethack/win/gnome/gnstatus.\+h@{nethack/win/gnome/gnstatus.\+h}}
+}
+{\ttfamily \#include $<$gnome.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Gtk\+Widget $\ast$ \hyperlink{gnstatus_8h_a3cd181358a93514e2460e0efd67284c8}{ghack\+\_\+init\+\_\+status\+\_\+window} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gnstatus_8h_a3cd181358a93514e2460e0efd67284c8}{\index{gnstatus.\+h@{gnstatus.\+h}!ghack\+\_\+init\+\_\+status\+\_\+window@{ghack\+\_\+init\+\_\+status\+\_\+window}}
+\index{ghack\+\_\+init\+\_\+status\+\_\+window@{ghack\+\_\+init\+\_\+status\+\_\+window}!gnstatus.\+h@{gnstatus.\+h}}
+\subsubsection[{ghack\+\_\+init\+\_\+status\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}Gtk\+Widget$\ast$ ghack\+\_\+init\+\_\+status\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{gnstatus_8h_a3cd181358a93514e2460e0efd67284c8}
+
+
+Definition at line 146 of file gnstatus.\+c.
+
+
+
+References A\+\_\+\+N\+E\+U\+T\+R\+A\+L, ac\+Label, align\+Label, align\+Pix, big\+Green\+Style, big\+Red\+Style, big\+Style, blind\+\_\+xpm, blind\+Label, blind\+Pix, cha\+\_\+xpm, cha\+Label, cha\+Pix, cns\+\_\+xpm, color\+\_\+green, color\+\_\+red, confu\+Label, confu\+Pix, confused\+\_\+xpm, con\+Label, con\+Pix, dex\+\_\+xpm, dex\+Label, dex\+Pix, dgn\+Level\+Label, encumb\+Label, encumb\+Pix, exp\+Label, F\+A\+L\+S\+E, ghack\+\_\+delay(), ghack\+\_\+fade\+\_\+highlighting(), ghack\+\_\+status\+\_\+window\+\_\+clear(), ghack\+\_\+status\+\_\+window\+\_\+cursor\+\_\+to(), ghack\+\_\+status\+\_\+window\+\_\+put\+\_\+string(), gold\+Label, green\+Style, hallu\+\_\+xpm, hallu\+Label, hallu\+Pix, hp\+Label, hunger\+Label, hunger\+Pix, hungry\+\_\+xpm, int\+\_\+xpm, int\+Label, int\+Pix, last\+A\+C, last\+Alignment, last\+Au, last\+Blind, last\+Cha, last\+Con, last\+Conf, last\+Depth, last\+Dex, last\+Encumb, last\+Exp, last\+Halu, last\+H\+P, last\+Hungr, last\+Int, last\+Level, last\+M\+H\+P, last\+M\+P\+O\+W, last\+P\+O\+W, last\+Sick, last\+Str, last\+Stun, last\+Wis, levl\+Label, neutral\+\_\+xpm, normal\+Style, N\+U\+L\+L, pow\+Label, red\+Style, score\+Label, sick\+\_\+fp\+\_\+xpm, sick\+Label, sick\+Pix, slt\+\_\+enc\+\_\+xpm, stat\+Table, str\+\_\+xpm, str\+Label, str\+Pix, stun\+Label, stunned\+\_\+xpm, stun\+Pix, time\+Label, title\+Label, T\+R\+U\+E, wis\+\_\+xpm, wis\+Label, and wis\+Pix.
+
+
+
+Referenced by gnome\+\_\+create\+\_\+nhwindow\+\_\+by\+\_\+id().
+
+
+\begin{DoxyCode}
+147 \{
+148     GtkWidget *horizSep0, *horizSep1, *horizSep2, *horizSep3;
+149     GtkWidget *statsHBox, *strVBox, *dexVBox, *intVBox, *statHBox;
+150     GtkWidget *wisVBox, *conVBox, *chaVBox;
+151     GtkWidget *alignVBox, *hungerVBox, *sickVBox, *blindVBox;
+152     GtkWidget *stunVBox, *halluVBox, *confuVBox, *encumbVBox;
+153    
+154     \textcolor{comment}{/* Set up a (ridiculous) initial state */}
+155     \hyperlink{gnstatus_8c_a5ac9cf845dbd4a20496dcd927dbb8b2d}{lastDepth} = 9999;
+156     \hyperlink{gnstatus_8c_a4e010e2355e32b5df09498e90c7eadc4}{lastStr} = 9999;
+157     \hyperlink{gnstatus_8c_afad3664b2936359a9e1fb1f641bf8ec6}{lastInt} = 9999;
+158     \hyperlink{gnstatus_8c_a108024c6714872e469e2f98a5f3a0567}{lastWis} = 9999;
+159     \hyperlink{gnstatus_8c_a67caa285a2b669dd74b01ba96a2f4869}{lastDex} = 9999;
+160     \hyperlink{gnstatus_8c_a90cc5ded093961d6b2bf832588f4ee62}{lastCon} = 9999;
+161     \hyperlink{gnstatus_8c_a1686beec2351ecd3fde6e6333088cca7}{lastCha} = 9999;
+162     \hyperlink{gnstatus_8c_a6d8cd40fa92376b8ce0cf209813b8d64}{lastAu} = 9999;
+163     \hyperlink{gnstatus_8c_a55820a98c1ff0a89cf4c8bde894a4373}{lastHP} = 9999;
+164     \hyperlink{gnstatus_8c_a7fa08908852f7e31f2682d3c8e4d0094}{lastMHP} = 9999;
+165     \hyperlink{gnstatus_8c_aab20359fa043b7ff18b3e3555aaed8c7}{lastLevel} = 9999;
+166     \hyperlink{gnstatus_8c_a34d917961bdd69f5e083a30b35344934}{lastPOW} = 9999;
+167     \hyperlink{gnstatus_8c_ad24d9b4878f9edcb7c4d06e8601759a5}{lastMPOW} = 9999;
+168     \hyperlink{gnstatus_8c_a9831be3ee1abf8a3860a41a502691a51}{lastAC} = 9999;
+169     \hyperlink{gnstatus_8c_aaaeb5714c3df13049ec3d48d45ed12f2}{lastExp} = 9999;
+170     \hyperlink{gnstatus_8c_ab489e98b45c50eb6cf081e88ea5b432a}{lastAlignment} = \hyperlink{align_8h_a58fee99b3a5a5db767e86d4c6705c9a1}{A\_NEUTRAL};  \textcolor{comment}{/* start off guessing neutral */}
+171     \hyperlink{gnstatus_8c_a607eafdca3c608df32b8632300262e65}{lastHungr} = 9999;
+172     \hyperlink{gnstatus_8c_a773457ba4513207f4d4e5782fbcf4f9f}{lastConf} = 9999;
+173     \hyperlink{gnstatus_8c_a879a940130270d6133fc0f2b3ca80f82}{lastBlind} = 9999;
+174     \hyperlink{gnstatus_8c_a128ae514d01a33595d680b4ca5de81f9}{lastStun} = 9999;
+175     \hyperlink{gnstatus_8c_a165e71fe84086f35f81645e164b07b95}{lastHalu} = 9999;
+176     \hyperlink{gnstatus_8c_a61c786817d53aed8c494d2ad024a4edf}{lastSick} = 9999;
+177     \hyperlink{gnstatus_8c_adb6e408a5d36bd2b3b0fe4441dab31b7}{lastEncumb} = 9999;
+178 
+179     \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable} = gtk\_table\_new( 10, 8, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+180     gtk\_table\_set\_row\_spacings( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), 1);
+181     gtk\_table\_set\_col\_spacings( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), 1);
+182 
+183 
+184     \textcolor{comment}{/* Begin the first row of the table -- the title */}
+185     \hyperlink{gnstatus_8c_a942dee67d5c35bc953c959f1dbfa58e4}{titleLabel} = gtk\_label\_new( \_(\textcolor{stringliteral}{"GnomeHack!"})); 
+186     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_a942dee67d5c35bc953c959f1dbfa58e4}{titleLabel}, 
+187         0, 8, 0, 1, GTK\_FILL, 0, 0, 0);
+188     \textcolor{keywordflow}{if} (!\hyperlink{gnstatus_8c_a54255017f3d00f00a279122f5955be6e}{normalStyle})
+189       \hyperlink{gnstatus_8c_a54255017f3d00f00a279122f5955be6e}{normalStyle} = gtk\_style\_copy (
+190             gtk\_widget\_get\_style (GTK\_WIDGET (\hyperlink{gnstatus_8c_a942dee67d5c35bc953c959f1dbfa58e4}{titleLabel})));
+191 
+192     \textcolor{comment}{/* Set up some styles to draw stuff with */}
+193     \textcolor{keywordflow}{if} (!\hyperlink{gnstatus_8c_aff16e22e7edd66fa051c30e536d23de1}{redStyle}) \{
+194       g\_assert (\hyperlink{gnstatus_8c_a5aa642b971de5eca60fe92370f5c5543}{greenStyle} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+195       g\_assert (\hyperlink{gnstatus_8c_a2a29c5b35af0126b4a78468eb6446355}{bigStyle} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+196       g\_assert (\hyperlink{gnstatus_8c_a0f311f17b9159799c45c49e3aa8f8b98}{bigRedStyle} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+197       g\_assert (\hyperlink{gnstatus_8c_ac988a2ddec25e5e42d9bfe3c28d43da9}{bigGreenStyle} == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+198 
+199       \hyperlink{gnstatus_8c_a5aa642b971de5eca60fe92370f5c5543}{greenStyle} = gtk\_style\_copy (\hyperlink{gnstatus_8c_a54255017f3d00f00a279122f5955be6e}{normalStyle});
+200       \hyperlink{gnstatus_8c_aff16e22e7edd66fa051c30e536d23de1}{redStyle} = gtk\_style\_copy (\hyperlink{gnstatus_8c_a54255017f3d00f00a279122f5955be6e}{normalStyle});
+201       \hyperlink{gnstatus_8c_a0f311f17b9159799c45c49e3aa8f8b98}{bigRedStyle} = gtk\_style\_copy (\hyperlink{gnstatus_8c_a54255017f3d00f00a279122f5955be6e}{normalStyle});
+202       \hyperlink{gnstatus_8c_ac988a2ddec25e5e42d9bfe3c28d43da9}{bigGreenStyle} = gtk\_style\_copy (\hyperlink{gnstatus_8c_a54255017f3d00f00a279122f5955be6e}{normalStyle});
+203       \hyperlink{gnstatus_8c_a2a29c5b35af0126b4a78468eb6446355}{bigStyle} = gtk\_style\_copy (\hyperlink{gnstatus_8c_a54255017f3d00f00a279122f5955be6e}{normalStyle});
+204 
+205       \hyperlink{gnstatus_8c_a5aa642b971de5eca60fe92370f5c5543}{greenStyle}->fg[GTK\_STATE\_NORMAL] = \hyperlink{gnstatus_8c_af87ef2c5780041d7fee2f931646ee519}{color\_green};
+206       \hyperlink{gnstatus_8c_aff16e22e7edd66fa051c30e536d23de1}{redStyle}->fg[GTK\_STATE\_NORMAL] = \hyperlink{gnstatus_8c_a3f2ac0935255dd0189992e2269226bf0}{color\_red};
+207       \hyperlink{gnstatus_8c_a0f311f17b9159799c45c49e3aa8f8b98}{bigRedStyle}->fg[GTK\_STATE\_NORMAL] = \hyperlink{gnstatus_8c_a3f2ac0935255dd0189992e2269226bf0}{color\_red};
+208       \hyperlink{gnstatus_8c_ac988a2ddec25e5e42d9bfe3c28d43da9}{bigGreenStyle}->fg[GTK\_STATE\_NORMAL] = \hyperlink{gnstatus_8c_af87ef2c5780041d7fee2f931646ee519}{color\_green};
+209 
+210       gdk\_font\_unref (\hyperlink{gnstatus_8c_a0f311f17b9159799c45c49e3aa8f8b98}{bigRedStyle}->font);
+211       gdk\_font\_unref (\hyperlink{gnstatus_8c_ac988a2ddec25e5e42d9bfe3c28d43da9}{bigGreenStyle}->font);
+212       \hyperlink{gnstatus_8c_a0f311f17b9159799c45c49e3aa8f8b98}{bigRedStyle}->font = gdk\_font\_load(\textcolor{stringliteral}{"-misc-fixed-*-*-*-*-20-*-*-*-*-*-*-*"});
+213       \hyperlink{gnstatus_8c_ac988a2ddec25e5e42d9bfe3c28d43da9}{bigGreenStyle}->font = gdk\_font\_load(\textcolor{stringliteral}{"-misc-fixed-*-*-*-*-20-*-*-*-*-*-*-*"});
+214 
+215       gdk\_font\_unref (\hyperlink{gnstatus_8c_a2a29c5b35af0126b4a78468eb6446355}{bigStyle}->font);
+216       \hyperlink{gnstatus_8c_a2a29c5b35af0126b4a78468eb6446355}{bigStyle}->font = gdk\_font\_load (\textcolor{stringliteral}{"-misc-fixed-*-*-*-*-20-*-*-*-*-*-*-*"});
+217     \}
+218     gtk\_widget\_set\_style (GTK\_WIDGET (\hyperlink{gnstatus_8c_a942dee67d5c35bc953c959f1dbfa58e4}{titleLabel}), \hyperlink{gnstatus_8c_a2a29c5b35af0126b4a78468eb6446355}{bigStyle});
+219     
+220     \textcolor{comment}{/* Begin the second row */}
+221     \hyperlink{gnstatus_8c_ac93fc2cece24aa4c9d5ac940d4b307e6}{dgnLevelLabel} = gtk\_label\_new (\_ (\textcolor{stringliteral}{"Nethack for Gnome"})); 
+222     gtk\_table\_attach (GTK\_TABLE (\hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_ac93fc2cece24aa4c9d5ac940d4b307e6}{dgnLevelLabel}, 
+223         0, 8, 1, 2, GTK\_FILL, 0, 0, 0);
+224     gtk\_widget\_set\_style (GTK\_WIDGET (\hyperlink{gnstatus_8c_ac93fc2cece24aa4c9d5ac940d4b307e6}{dgnLevelLabel}), \hyperlink{gnstatus_8c_a2a29c5b35af0126b4a78468eb6446355}{bigStyle});
+225     
+226     \textcolor{comment}{/* Begin the third row */}
+227     horizSep0 = gtk\_hseparator\_new (); 
+228     gtk\_table\_attach (GTK\_TABLE (\hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), horizSep0, 
+229         0, 8, 2, 3, GTK\_FILL, GTK\_FILL, 0, 0);
+230 
+231 
+232     \textcolor{comment}{/* Begin the fourth row */}
+233     statsHBox = gtk\_hbox\_new (\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 0);
+234 
+235     strVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+236     \hyperlink{gnstatus_8c_ad423f4aefb122c427553803664880f9a}{strPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_a514a8d3c2d12befeabd0d2215f0bc751}{str\_xpm});
+237     \hyperlink{gnstatus_8c_a700dc306bc07f8216845f4d90405cf36}{strLabel} = gtk\_label\_new( \textcolor{stringliteral}{"STR: "});
+238     gtk\_box\_pack\_start (GTK\_BOX (strVBox), \hyperlink{gnstatus_8c_ad423f4aefb122c427553803664880f9a}{strPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+239     gtk\_box\_pack\_start (GTK\_BOX (strVBox), \hyperlink{gnstatus_8c_a700dc306bc07f8216845f4d90405cf36}{strLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+240     gtk\_box\_pack\_start (GTK\_BOX(statsHBox), GTK\_WIDGET(strVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+241 
+242     dexVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+243     \hyperlink{gnstatus_8c_a2b60e68e54959ec539b23e1cbb1c24e0}{dexPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_a9011f42448e0f873e59a0dc51b630912}{dex\_xpm});
+244     \hyperlink{gnstatus_8c_a1d9ff5a7a776e5a87b95a0652590f459}{dexLabel} = gtk\_label\_new( \textcolor{stringliteral}{"DEX: "});
+245     gtk\_box\_pack\_start (GTK\_BOX (dexVBox), \hyperlink{gnstatus_8c_a2b60e68e54959ec539b23e1cbb1c24e0}{dexPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+246     gtk\_box\_pack\_start (GTK\_BOX (dexVBox), \hyperlink{gnstatus_8c_a1d9ff5a7a776e5a87b95a0652590f459}{dexLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+247     gtk\_box\_pack\_start (GTK\_BOX(statsHBox), GTK\_WIDGET(dexVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+248 
+249     conVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+250     \hyperlink{gnstatus_8c_a78657ff457aec2ba7fb10fd2e379a503}{conPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_ae2d67509c1a4cdaa8a342dee47c37afc}{cns\_xpm});
+251     \hyperlink{gnstatus_8c_aeb46f0094de0cebe41f4c68a92f4be0c}{conLabel} = gtk\_label\_new( \textcolor{stringliteral}{"CON: "});
+252     gtk\_box\_pack\_start (GTK\_BOX (conVBox), \hyperlink{gnstatus_8c_a78657ff457aec2ba7fb10fd2e379a503}{conPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+253     gtk\_box\_pack\_start (GTK\_BOX (conVBox), \hyperlink{gnstatus_8c_aeb46f0094de0cebe41f4c68a92f4be0c}{conLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+254     gtk\_box\_pack\_start (GTK\_BOX(statsHBox), GTK\_WIDGET(conVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+255 
+256     intVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+257     \hyperlink{gnstatus_8c_a15ad230143aaee615176327af2804254}{intPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_ac64ec0a15e29aff94d5d1fbbe61322c2}{int\_xpm});
+258     \hyperlink{gnstatus_8c_a4bcfdf559971df1508abd2ab06662416}{intLabel} = gtk\_label\_new( \textcolor{stringliteral}{"INT: "});
+259     gtk\_box\_pack\_start (GTK\_BOX (intVBox), \hyperlink{gnstatus_8c_a15ad230143aaee615176327af2804254}{intPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+260     gtk\_box\_pack\_start (GTK\_BOX (intVBox), \hyperlink{gnstatus_8c_a4bcfdf559971df1508abd2ab06662416}{intLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+261     gtk\_box\_pack\_start (GTK\_BOX(statsHBox), GTK\_WIDGET(intVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+262 
+263 
+264     wisVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+265     \hyperlink{gnstatus_8c_a73cf403ec26f0ac8d02e2c67426c1aee}{wisPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_a068277e70f62842fd87644a68571dd8a}{wis\_xpm});
+266     \hyperlink{gnstatus_8c_a755a70997112eee25eb20d2854a47f28}{wisLabel} = gtk\_label\_new( \textcolor{stringliteral}{"WIS: "});
+267     gtk\_box\_pack\_start (GTK\_BOX (wisVBox), \hyperlink{gnstatus_8c_a73cf403ec26f0ac8d02e2c67426c1aee}{wisPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+268     gtk\_box\_pack\_start (GTK\_BOX (wisVBox), \hyperlink{gnstatus_8c_a755a70997112eee25eb20d2854a47f28}{wisLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+269     gtk\_box\_pack\_start (GTK\_BOX(statsHBox), GTK\_WIDGET(wisVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+270 
+271 
+272     chaVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+273     \hyperlink{gnstatus_8c_aba637079096a286f831612f606292f9f}{chaPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_ad338a4b3a5393261b7ae299a6b512c1d}{cha\_xpm});
+274     \hyperlink{gnstatus_8c_a0291582a6003f612eb96599122089481}{chaLabel} = gtk\_label\_new( \textcolor{stringliteral}{"CHA: "});
+275     gtk\_box\_pack\_start (GTK\_BOX (chaVBox), \hyperlink{gnstatus_8c_aba637079096a286f831612f606292f9f}{chaPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+276     gtk\_box\_pack\_start (GTK\_BOX (chaVBox), \hyperlink{gnstatus_8c_a0291582a6003f612eb96599122089481}{chaLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+277     gtk\_box\_pack\_start (GTK\_BOX(statsHBox), GTK\_WIDGET(chaVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+278     
+279     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}),  GTK\_WIDGET(statsHBox), 
+280         0, 8, 3, 4, GTK\_FILL, 0, 0, 0);
+281 
+282     \textcolor{comment}{/* Begin the fifth row */}
+283     horizSep1 = gtk\_hseparator\_new(); 
+284     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), horizSep1, 
+285         0, 8, 4, 5, GTK\_FILL, GTK\_FILL, 0, 0);
+286 
+287     \textcolor{comment}{/* Begin the sixth row */}
+288     \hyperlink{gnstatus_8c_a67c547d9f7f3970516a2c4d9ff9f933c}{hpLabel} = gtk\_label\_new( \textcolor{stringliteral}{"HP: "});
+289     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_a67c547d9f7f3970516a2c4d9ff9f933c}{hpLabel}, 
+290         0, 1, 5, 6, GTK\_FILL, 0, 0, 0);
+291     
+292     \hyperlink{gnstatus_8c_a4273bb299a33949174accc0b105d64aa}{acLabel} = gtk\_label\_new( \textcolor{stringliteral}{"AC: "});
+293     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_a4273bb299a33949174accc0b105d64aa}{acLabel}, 
+294         2, 3, 5, 6, GTK\_FILL, 0, 0, 0);
+295     
+296     \hyperlink{gnstatus_8c_a954a7ec3f0b231b25dafee78d40d625a}{powLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Power: "});
+297     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_a954a7ec3f0b231b25dafee78d40d625a}{powLabel}, 
+298         4, 5, 5, 6, GTK\_FILL, 0, 0, 0);
+299     
+300     \hyperlink{gnstatus_8c_adf1f50982a357fe346f4aaa56b9c4ddc}{goldLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Au: "});
+301     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_adf1f50982a357fe346f4aaa56b9c4ddc}{goldLabel}, 
+302         6, 7, 5, 6, GTK\_FILL, 0, 0, 0);
+303     
+304 
+305     \textcolor{comment}{/* Begin the seventh row */}
+306     horizSep2 = gtk\_hseparator\_new(); 
+307     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), horizSep2, 
+308         0, 8, 6, 7, GTK\_FILL, GTK\_FILL, 0, 0);
+309 
+310     
+311     \textcolor{comment}{/* Begin the eigth row */}
+312     \hyperlink{gnstatus_8c_aa25a1451d1524a6fa1e630064abac40e}{levlLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Level: "});
+313     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_aa25a1451d1524a6fa1e630064abac40e}{levlLabel}, 
+314         0, 1, 7, 8, GTK\_FILL, 0, 0, 0);
+315     
+316     \hyperlink{gnstatus_8c_aff0b92e152170cfd647c60aa0b744d5d}{expLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Exp: "});
+317     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_aff0b92e152170cfd647c60aa0b744d5d}{expLabel}, 
+318         2, 3, 7, 8, GTK\_FILL, 0, 0, 0);
+319    
+320     \hyperlink{gnstatus_8c_a1d21d6d5d1e8fb07d2783f38c3a2382b}{timeLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Time: "});
+321     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_a1d21d6d5d1e8fb07d2783f38c3a2382b}{timeLabel}, 
+322         4, 5, 7, 8, GTK\_FILL, 0, 0, 0);
+323     
+324     \hyperlink{gnstatus_8c_ae067b2d6b08b38aa73b035c82d9e14b0}{scoreLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Score: "});
+325     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), \hyperlink{gnstatus_8c_ae067b2d6b08b38aa73b035c82d9e14b0}{scoreLabel}, 
+326         6, 7, 7, 8, GTK\_FILL, 0, 0, 0);
+327     
+328     \textcolor{comment}{/* Begin the ninth row */}
+329     horizSep3 = gtk\_hseparator\_new(); 
+330     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), horizSep3, 
+331         0, 8, 8, 9, GTK\_FILL, GTK\_FILL, 0, 0);
+332     
+333     \textcolor{comment}{/* Begin the tenth and last row */}
+334     statHBox = gtk\_hbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+335 
+336     alignVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+337     \hyperlink{gnstatus_8c_a59f7acb97911778ac79d16d81444323b}{alignPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_a9a38127459338ec4ba0185701fa8aa0b}{neutral\_xpm});
+338     \hyperlink{gnstatus_8c_a11ebd500c6e51d7282479818fe1af665}{alignLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Neutral"});
+339     gtk\_box\_pack\_start (GTK\_BOX (alignVBox), \hyperlink{gnstatus_8c_a59f7acb97911778ac79d16d81444323b}{alignPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+340     gtk\_box\_pack\_start (GTK\_BOX (alignVBox), \hyperlink{gnstatus_8c_a11ebd500c6e51d7282479818fe1af665}{alignLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+341     gtk\_box\_pack\_start (GTK\_BOX(statHBox), GTK\_WIDGET(alignVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+342     
+343     hungerVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+344     \hyperlink{gnstatus_8c_a0c60e0a02dabd8b74b8d4b676eebc40e}{hungerPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_a06071d1da5f55a4e498989d3e9cab853}{hungry\_xpm});
+345     \hyperlink{gnstatus_8c_a97f7c3c9eb7641c1f1a5d20f7d72d621}{hungerLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Hungry"});
+346     gtk\_box\_pack\_start (GTK\_BOX (hungerVBox), \hyperlink{gnstatus_8c_a0c60e0a02dabd8b74b8d4b676eebc40e}{hungerPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+347     gtk\_box\_pack\_start (GTK\_BOX (hungerVBox), \hyperlink{gnstatus_8c_a97f7c3c9eb7641c1f1a5d20f7d72d621}{hungerLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+348     gtk\_box\_pack\_start (GTK\_BOX(statHBox), GTK\_WIDGET(hungerVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+349     
+350     sickVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+351     \hyperlink{gnstatus_8c_abd66ae4a5cdf67fe4e6aacf7958e7955}{sickPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_a48c9a3e36904e7546c3cabc7133297e5}{sick\_fp\_xpm});
+352     \hyperlink{gnstatus_8c_ac8fe72946178e87f7eda0d1fb9328196}{sickLabel} = gtk\_label\_new( \textcolor{stringliteral}{"FoodPois"});
+353     gtk\_box\_pack\_start (GTK\_BOX (sickVBox), \hyperlink{gnstatus_8c_abd66ae4a5cdf67fe4e6aacf7958e7955}{sickPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+354     gtk\_box\_pack\_start (GTK\_BOX (sickVBox), \hyperlink{gnstatus_8c_ac8fe72946178e87f7eda0d1fb9328196}{sickLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+355     gtk\_box\_pack\_start (GTK\_BOX(statHBox), GTK\_WIDGET(sickVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+356     
+357     blindVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+358     \hyperlink{gnstatus_8c_a9f587883d393d01cb75712944cdc5470}{blindPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_abd423b0a3fed524df69ae6b8d737011c}{blind\_xpm});
+359     \hyperlink{gnstatus_8c_ad465d75eda1d4d38a1dfe5d25c23729f}{blindLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Blind"});
+360     gtk\_box\_pack\_start (GTK\_BOX (blindVBox), \hyperlink{gnstatus_8c_a9f587883d393d01cb75712944cdc5470}{blindPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+361     gtk\_box\_pack\_start (GTK\_BOX (blindVBox), \hyperlink{gnstatus_8c_ad465d75eda1d4d38a1dfe5d25c23729f}{blindLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+362     gtk\_box\_pack\_start (GTK\_BOX(statHBox), GTK\_WIDGET(blindVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+363     
+364     stunVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+365     \hyperlink{gnstatus_8c_a241b874d2851d67c3340aad1e17333f5}{stunPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_ad4a8b6322bfa6459ddcd80a61926a5c6}{stunned\_xpm});
+366     \hyperlink{gnstatus_8c_aa5aae876c45bc0d7334cf80b2ee42a2e}{stunLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Stun"});
+367     gtk\_box\_pack\_start (GTK\_BOX (stunVBox), \hyperlink{gnstatus_8c_a241b874d2851d67c3340aad1e17333f5}{stunPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+368     gtk\_box\_pack\_start (GTK\_BOX (stunVBox), \hyperlink{gnstatus_8c_aa5aae876c45bc0d7334cf80b2ee42a2e}{stunLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+369     gtk\_box\_pack\_start (GTK\_BOX(statHBox), GTK\_WIDGET(stunVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+370     
+371     confuVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+372     \hyperlink{gnstatus_8c_a05f6322b0894aa710a6c189691aac4d9}{confuPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_adf4331f2b024495c6ad444e4100ad736}{confused\_xpm});
+373     \hyperlink{gnstatus_8c_a3a9fb5c89929e09503f215ca4e0d6cf4}{confuLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Confused"});
+374     gtk\_box\_pack\_start (GTK\_BOX (confuVBox), \hyperlink{gnstatus_8c_a05f6322b0894aa710a6c189691aac4d9}{confuPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+375     gtk\_box\_pack\_start (GTK\_BOX (confuVBox), \hyperlink{gnstatus_8c_a3a9fb5c89929e09503f215ca4e0d6cf4}{confuLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+376     gtk\_box\_pack\_start (GTK\_BOX(statHBox), GTK\_WIDGET(confuVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+377     
+378     halluVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+379     \hyperlink{gnstatus_8c_ac907f888db5590e640d58e90825be417}{halluPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_a06db2cd47459d54f0769b9a16efff313}{hallu\_xpm});
+380     \hyperlink{gnstatus_8c_a53552f14dd1347610ae38d048613007c}{halluLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Hallu"});
+381     gtk\_box\_pack\_start (GTK\_BOX (halluVBox), \hyperlink{gnstatus_8c_ac907f888db5590e640d58e90825be417}{halluPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+382     gtk\_box\_pack\_start (GTK\_BOX (halluVBox), \hyperlink{gnstatus_8c_a53552f14dd1347610ae38d048613007c}{halluLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+383     gtk\_box\_pack\_start (GTK\_BOX(statHBox), GTK\_WIDGET(halluVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+384     
+385     encumbVBox = gtk\_vbox\_new (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0);
+386     \hyperlink{gnstatus_8c_a4f46f055dc98084b126363f5281c9cff}{encumbPix} =  gnome\_pixmap\_new\_from\_xpm\_d( \hyperlink{qt__xpms_8h_aa665260c2d5625edf2a6c2718e75ec4f}{slt\_enc\_xpm});
+387     \hyperlink{gnstatus_8c_a487d804ee389eb0436fe262d908a124a}{encumbLabel} = gtk\_label\_new( \textcolor{stringliteral}{"Burdened"});
+388     gtk\_box\_pack\_start (GTK\_BOX (encumbVBox), \hyperlink{gnstatus_8c_a4f46f055dc98084b126363f5281c9cff}{encumbPix}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+389     gtk\_box\_pack\_start (GTK\_BOX (encumbVBox), \hyperlink{gnstatus_8c_a487d804ee389eb0436fe262d908a124a}{encumbLabel}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 2);
+390     gtk\_box\_pack\_start (GTK\_BOX(statHBox), GTK\_WIDGET(encumbVBox), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, 
+      \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 2);
+391 
+392     gtk\_table\_attach( GTK\_TABLE( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), GTK\_WIDGET(statHBox), 
+393         0, 8, 9, 10, GTK\_FILL, GTK\_FILL, 0, 0);
+394     
+395     \textcolor{comment}{/* Set up the necessary signals */}
+396     gtk\_signal\_connect (GTK\_OBJECT (\hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), 
+397         \textcolor{stringliteral}{"ghack\_fade\_highlight"}, 
+398         GTK\_SIGNAL\_FUNC (\hyperlink{gnstatus_8c_a4467e0c070cff225f18ba19e3699e81b}{ghack\_fade\_highlighting}), 
+399         \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+400 
+401     gtk\_signal\_connect (GTK\_OBJECT (\hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), 
+402         \textcolor{stringliteral}{"ghack\_putstr"}, 
+403         GTK\_SIGNAL\_FUNC (\hyperlink{gnstatus_8c_a2d3de7c5f9e9ed0404d8a55b9309f4d7}{ghack\_status\_window\_put\_string}), 
+404         \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+405 
+406     gtk\_signal\_connect (GTK\_OBJECT (\hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), 
+407         \textcolor{stringliteral}{"ghack\_clear"}, 
+408         GTK\_SIGNAL\_FUNC (\hyperlink{gnstatus_8c_ad4933b1aad98bddcb06541ee8c9ebf6d}{ghack\_status\_window\_clear}), 
+409         \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+410 
+411     gtk\_signal\_connect (GTK\_OBJECT (\hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), 
+412         \textcolor{stringliteral}{"ghack\_curs"}, 
+413         GTK\_SIGNAL\_FUNC (\hyperlink{gnstatus_8c_ac45dcfbee3a458992fe663d6424eb1a8}{ghack\_status\_window\_cursor\_to}), 
+414         \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+415     gtk\_signal\_connect(GTK\_OBJECT (\hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable}), 
+416         \textcolor{stringliteral}{"gnome\_delay\_output"},
+417         GTK\_SIGNAL\_FUNC(\hyperlink{gnsignal_8c_aa9aeab1b0ef274fa4e2c94a8b085bcb0}{ghack\_delay}), 
+418         \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+419 
+420     \textcolor{comment}{/* Lastly, show the status window and everything in it */}
+421     gtk\_widget\_show\_all( \hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable});
+422 
+423     \textcolor{keywordflow}{return} GTK\_WIDGET(\hyperlink{gnstatus_8c_a7f4f5c07058ac600609a3bf9505f055d}{statTable});
+424 \}
+\end{DoxyCode}

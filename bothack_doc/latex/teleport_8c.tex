@@ -1,0 +1,1825 @@
+\hypertarget{teleport_8c}{\section{nethack/src/teleport.c File Reference}
+\label{teleport_8c}\index{nethack/src/teleport.\+c@{nethack/src/teleport.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{teleport_8c_ad38754952cb6a83fdfac0fb47edb2b5e}{M\+A\+X\+\_\+\+G\+O\+O\+D}~15
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a8a9243af1ff001c525bb22700032ded6}{F\+D\+E\+C\+L} (\hyperlink{teleport_8c_ad8a3540f7cca72aaf47681439f732f5c}{tele\+\_\+jump\+\_\+ok},(int, int, int, int))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a336a0e4347738b154fa5b60a316992ce}{F\+D\+E\+C\+L} (\hyperlink{teleport_8c_a9d7be74a5648721f2ec4a4fa2b7b47e6}{teleok},(int, int, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{teleport_8c_a9961c319a1223639841d77c5e24e908b}{N\+D\+E\+C\+L} (\hyperlink{teleport_8c_ae5c68a851a58917c3bdcdf1dfa0fff60}{vault\+\_\+tele})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a7d18ef1ac91cd21c9fd3deefc7b9eb04}{F\+D\+E\+C\+L} (\hyperlink{teleport_8c_a4c5cf24429f97d12a3ef0572948b9e3c}{rloc\+\_\+pos\+\_\+ok},(int, int, struct \hyperlink{structmonst}{monst} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{teleport_8c_a9e167db82f01728f7779d772121797b0}{F\+D\+E\+C\+L} (\hyperlink{teleport_8c_a55bd995e11acdd3b4492090b3ee10ac3}{mvault\+\_\+tele},(struct \hyperlink{structmonst}{monst} $\ast$))
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos} (int x, int y, struct \hyperlink{structmonst}{monst} $\ast$mtmp, unsigned gpflags)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a61ffc1bbdf6259d46ae8abd0dce3ce31}{enexto} (\hyperlink{structcoord}{coord} $\ast$cc, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} xx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} yy, struct \hyperlink{structpermonst}{permonst} $\ast$mdat)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a09908f1f00f2ed41b117f0207c681b35}{enexto\+\_\+core} (\hyperlink{structcoord}{coord} $\ast$cc, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} xx, \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} yy, struct \hyperlink{structpermonst}{permonst} $\ast$mdat, unsigned entflags)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_ad8a3540f7cca72aaf47681439f732f5c}{tele\+\_\+jump\+\_\+ok} (int x1, int y1, int x2, int y2)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a9d7be74a5648721f2ec4a4fa2b7b47e6}{teleok} (int x, int y, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} trapok)
+\item 
+void \hyperlink{teleport_8c_a89b1c2cc372cf099af51126440f568bb}{teleds} (int nux, int nuy, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} allow\+\_\+drag)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a3d5813b8abc278b8a2f327300701e36a}{safe\+\_\+teleds} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} allow\+\_\+drag)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{teleport_8c_ae5c68a851a58917c3bdcdf1dfa0fff60}{vault\+\_\+tele} ()
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a1449ac7e4f1169157f5720a8500d0cd0}{teleport\+\_\+pet} (struct \hyperlink{structmonst}{monst} $\ast$mtmp, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} force\+\_\+it)
+\item 
+void \hyperlink{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}{tele} ()
+\item 
+int \hyperlink{teleport_8c_af32228ff01274383a3581f87f1239b59}{dotele} ()
+\item 
+void \hyperlink{teleport_8c_a3c44d06befa7de269d94849a8e10db55}{level\+\_\+tele} ()
+\item 
+void \hyperlink{teleport_8c_a608d446f2df8ad1daecc59ab8e09f110}{domagicportal} (struct \hyperlink{structtrap}{trap} $\ast$ttmp)
+\item 
+void \hyperlink{teleport_8c_a47f49937926080580f3f8233c1a971fe}{tele\+\_\+trap} (struct \hyperlink{structtrap}{trap} $\ast$\hyperlink{structtrap}{trap})
+\item 
+void \hyperlink{teleport_8c_a0476db6c25d6b45590ed33ed971624be}{level\+\_\+tele\+\_\+trap} (struct \hyperlink{structtrap}{trap} $\ast$\hyperlink{structtrap}{trap})
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a4c5cf24429f97d12a3ef0572948b9e3c}{rloc\+\_\+pos\+\_\+ok} (int x, int y, struct \hyperlink{structmonst}{monst} $\ast$mtmp)
+\item 
+void \hyperlink{teleport_8c_a3707933b53701ba07bdb94aaf5db0c33}{rloc\+\_\+to} (struct \hyperlink{structmonst}{monst} $\ast$mtmp, int x, int y)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}{rloc} (struct \hyperlink{structmonst}{monst} $\ast$mtmp, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} suppress\+\_\+impossible)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{teleport_8c_a55bd995e11acdd3b4492090b3ee10ac3}{mvault\+\_\+tele} (struct \hyperlink{structmonst}{monst} $\ast$mtmp)
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_ae7a3070a79b803227ad2474af019d5ab}{tele\+\_\+restrict} (struct \hyperlink{structmonst}{monst} $\ast$mon)
+\item 
+void \hyperlink{teleport_8c_aeb44f9a3b462c6816f1d53a89dcfc5fa}{mtele\+\_\+trap} (struct \hyperlink{structmonst}{monst} $\ast$mtmp, struct \hyperlink{structtrap}{trap} $\ast$\hyperlink{structtrap}{trap}, int in\+\_\+sight)
+\item 
+int \hyperlink{teleport_8c_a972a7aa2537e0af404761f52fb14f508}{mlevel\+\_\+tele\+\_\+trap} (struct \hyperlink{structmonst}{monst} $\ast$mtmp, struct \hyperlink{structtrap}{trap} $\ast$\hyperlink{structtrap}{trap}, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} force\+\_\+it, int in\+\_\+sight)
+\item 
+void \hyperlink{teleport_8c_a1e48777d4062f6355d17021253b2f279}{rloco} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{structobj}{obj})
+\item 
+int \hyperlink{teleport_8c_a8be139b4744eb167838a1526806afc83}{random\+\_\+teleport\+\_\+level} ()
+\item 
+\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} \hyperlink{teleport_8c_a3ef4493051966a97cac12d2c52756d04}{u\+\_\+teleport\+\_\+mon} (struct \hyperlink{structmonst}{monst} $\ast$mtmp, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} give\+\_\+feedback)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{teleport_8c_ad38754952cb6a83fdfac0fb47edb2b5e}{\index{teleport.\+c@{teleport.\+c}!M\+A\+X\+\_\+\+G\+O\+O\+D@{M\+A\+X\+\_\+\+G\+O\+O\+D}}
+\index{M\+A\+X\+\_\+\+G\+O\+O\+D@{M\+A\+X\+\_\+\+G\+O\+O\+D}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+G\+O\+O\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+G\+O\+O\+D~15}}\label{teleport_8c_ad38754952cb6a83fdfac0fb47edb2b5e}
+
+
+Referenced by enexto\+\_\+core().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{teleport_8c_a608d446f2df8ad1daecc59ab8e09f110}{\index{teleport.\+c@{teleport.\+c}!domagicportal@{domagicportal}}
+\index{domagicportal@{domagicportal}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{domagicportal}]{\setlength{\rightskip}{0pt plus 5cm}void domagicportal (
+\begin{DoxyParamCaption}
+\item[{struct {\bf trap} $\ast$}]{ttmp}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a608d446f2df8ad1daecc59ab8e09f110}
+
+
+Definition at line 809 of file teleport.\+c.
+
+
+
+References F\+A\+L\+S\+E, In\+\_\+endgame, shudder\+\_\+for\+\_\+moment, u, you\+::uhave, you\+::uz, and you\+::uz0.
+
+
+\begin{DoxyCode}
+811 \{
+812     \textcolor{keyword}{struct }\hyperlink{structd__level}{d\_level} target\_level;
+813 
+814     \textcolor{keywordflow}{if} (!next\_to\_u()) \{
+815         You(\hyperlink{decl_8h_a3ffc60f5f0cf00e20cc2387e8723d4d7}{shudder\_for\_moment});
+816         \textcolor{keywordflow}{return};
+817     \}
+818 
+819     \textcolor{comment}{/* if landed from another portal, do nothing */}
+820     \textcolor{comment}{/* problem: level teleport landing escapes the check */}
+821     \textcolor{keywordflow}{if} (!on\_level(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}, &\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a91637ade745880be0af66e4c0b0ff1c1}{uz0})) \textcolor{keywordflow}{return};
+822 
+823     You(\textcolor{stringliteral}{"activated a magic portal!"});
+824 
+825     \textcolor{comment}{/* prevent the poor shnook, whose amulet was stolen while in}
+826 \textcolor{comment}{     * the endgame, from accidently triggering the portal to the}
+827 \textcolor{comment}{     * next level, and thus losing the game}
+828 \textcolor{comment}{     */}
+829     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.amulet) \{
+830         You\_feel(\textcolor{stringliteral}{"dizzy for a moment, but nothing happens..."});
+831         \textcolor{keywordflow}{return};
+832     \}
+833 
+834     target\_level = ttmp->\hyperlink{structtrap_a7f0184c96889b0dfba889dbb18a06828}{dst};
+835     schedule\_goto(&target\_level, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 1,
+836               \textcolor{stringliteral}{"You feel dizzy for a moment, but the sensation passes."},
+837               (\textcolor{keywordtype}{char} *)0);
+838 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_af32228ff01274383a3581f87f1239b59}{\index{teleport.\+c@{teleport.\+c}!dotele@{dotele}}
+\index{dotele@{dotele}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{dotele}]{\setlength{\rightskip}{0pt plus 5cm}int dotele (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_af32228ff01274383a3581f87f1239b59}
+
+
+Definition at line 456 of file teleport.\+c.
+
+
+
+References A\+\_\+\+S\+T\+R, A\+\_\+\+W\+I\+S, A\+C\+U\+R\+R, flag\+::botl, can\+\_\+teleport, Confusion, monst\+::data, F\+A\+L\+S\+E, flags, newsym(), objects, Role\+\_\+if, shudder\+\_\+for\+\_\+moment, spelleffects(), spl\+\_\+book, tele(), T\+E\+L\+E\+P\+\_\+\+T\+R\+A\+P, Teleportation, T\+R\+U\+E, u, you\+::uen, you\+::uhunger, you\+::ulevel, you\+::ux, you\+::uy, vault\+\_\+tele(), wizard, yn, and youmonst.
+
+
+\begin{DoxyCode}
+457 \{
+458     \textcolor{keyword}{struct }\hyperlink{structtrap}{trap} *\hyperlink{structtrap}{trap};
+459 
+460     trap = t\_at(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+461     \textcolor{keywordflow}{if} (trap && (!trap->tseen || trap->ttyp != \hyperlink{trap_8h_ae486eaa74be1dd922e16565d281cf94c}{TELEP\_TRAP}))
+462         trap = 0;
+463 
+464     \textcolor{keywordflow}{if} (trap) \{
+465         \textcolor{keywordflow}{if} (trap->once) \{
+466             pline(\textcolor{stringliteral}{"This is a vault teleport, usable once only."});
+467             \textcolor{keywordflow}{if} (\hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(\textcolor{stringliteral}{"Jump in?"}) == \textcolor{charliteral}{'n'})
+468                 trap = 0;
+469             \textcolor{keywordflow}{else} \{
+470                 deltrap(trap);
+471                 \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+472             \}
+473         \}
+474         \textcolor{keywordflow}{if} (trap)
+475             You(\textcolor{stringliteral}{"%s onto the teleportation trap."},
+476                 locomotion(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}, \textcolor{stringliteral}{"jump"}));
+477     \}
+478     \textcolor{keywordflow}{if} (!trap) \{
+479         \textcolor{keywordtype}{boolean} castit = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+480         \textcolor{keyword}{register} \textcolor{keywordtype}{int} sp\_no = 0, energy = 0;
+481 
+482         \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a2d6e8c401b93cb4566b7c20254c8d5b7}{Teleportation} || (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel} < (\hyperlink{you_8h_a6087f5b8605964c19078b777da740258}{Role\_if}(PM\_WIZARD) ? 8 : 12)
+483                     && !\hyperlink{mondata_8h_a2625fab363d7462975fcbc0cb394c619}{can\_teleport}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}))) \{
+484         \textcolor{comment}{/* Try to use teleport away spell. */}
+485         \textcolor{keywordflow}{if} (\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[SPE\_TELEPORT\_AWAY].oc\_name\_known && !\hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion})
+486             \textcolor{keywordflow}{for} (sp\_no = 0; sp\_no < MAXSPELL; sp\_no++)
+487             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_af9325d9ee4f093df7271a36cf49d1615}{spl\_book}[sp\_no].sp\_id == SPE\_TELEPORT\_AWAY) \{
+488                 castit = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+489                 \textcolor{keywordflow}{break};
+490             \}
+491 \textcolor{preprocessor}{#ifdef WIZARD}
+492         \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \{
+493 \textcolor{preprocessor}{#endif}
+494             \textcolor{keywordflow}{if} (!castit) \{
+495             \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a2d6e8c401b93cb4566b7c20254c8d5b7}{Teleportation})
+496                 You(\textcolor{stringliteral}{"don't know that spell."});
+497             \textcolor{keywordflow}{else} You(\textcolor{stringliteral}{"are not able to teleport at will."});
+498             \textcolor{keywordflow}{return}(0);
+499             \}
+500 \textcolor{preprocessor}{#ifdef WIZARD}
+501         \}
+502 \textcolor{preprocessor}{#endif}
+503         \}
+504 
+505         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a66fb9624339df35ac2f9f08fdccde6c9}{uhunger} <= 100 || \hyperlink{attrib_8h_ab83869fac11f870c2193469440573f84}{ACURR}(\hyperlink{attrib_8h_ad53430e3d611a366ec4b5c457b4c67f7}{A\_STR}) < 6) \{
+506 \textcolor{preprocessor}{#ifdef WIZARD}
+507         \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \{
+508 \textcolor{preprocessor}{#endif}
+509             You(\textcolor{stringliteral}{"lack the strength %s."},
+510                 castit ? \textcolor{stringliteral}{"for a teleport spell"} : \textcolor{stringliteral}{"to teleport"});
+511             \textcolor{keywordflow}{return} 1;
+512 \textcolor{preprocessor}{#ifdef WIZARD}
+513         \}
+514 \textcolor{preprocessor}{#endif}
+515         \}
+516 
+517         energy = \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[SPE\_TELEPORT\_AWAY].oc\_level * 7 / 2 - 2;
+518         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} <= energy) \{
+519 \textcolor{preprocessor}{#ifdef WIZARD}
+520         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard})
+521             energy = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen};
+522         \textcolor{keywordflow}{else}
+523 \textcolor{preprocessor}{#endif}
+524         \{
+525             You(\textcolor{stringliteral}{"lack the energy %s."},
+526                 castit ? \textcolor{stringliteral}{"for a teleport spell"} : \textcolor{stringliteral}{"to teleport"});
+527             \textcolor{keywordflow}{return} 1;
+528         \}
+529         \}
+530 
+531         \textcolor{keywordflow}{if} (check\_capacity(
+532             \textcolor{stringliteral}{"Your concentration falters from carrying so much."}))
+533         \textcolor{keywordflow}{return} 1;
+534 
+535         \textcolor{keywordflow}{if} (castit) \{
+536         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+537         \textcolor{keywordflow}{if} (\hyperlink{spell_8c_a6cb4b0282f49a4d3cb5ef195ac5ec0ad}{spelleffects}(sp\_no, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}))
+538             \textcolor{keywordflow}{return}(1);
+539         \textcolor{keywordflow}{else}
+540 \textcolor{preprocessor}{#ifdef WIZARD}
+541             \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard})
+542 \textcolor{preprocessor}{#endif}
+543             \textcolor{keywordflow}{return}(0);
+544         \} \textcolor{keywordflow}{else} \{
+545         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3c465c4017dafc312188046dde2fc080}{uen} -= energy;
+546         \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+547         \}
+548     \}
+549 
+550     \textcolor{keywordflow}{if} (next\_to\_u()) \{
+551         \textcolor{keywordflow}{if} (trap && trap->once) \hyperlink{teleport_8c_ae5c68a851a58917c3bdcdf1dfa0fff60}{vault\_tele}();
+552         \textcolor{keywordflow}{else} \hyperlink{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}{tele}();
+553         (void) next\_to\_u();
+554     \} \textcolor{keywordflow}{else} \{
+555         You(\hyperlink{decl_8h_a3ffc60f5f0cf00e20cc2387e8723d4d7}{shudder\_for\_moment});
+556         \textcolor{keywordflow}{return}(0);
+557     \}
+558     \textcolor{keywordflow}{if} (!trap) morehungry(100);
+559     \textcolor{keywordflow}{return}(1);
+560 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a61ffc1bbdf6259d46ae8abd0dce3ce31}{\index{teleport.\+c@{teleport.\+c}!enexto@{enexto}}
+\index{enexto@{enexto}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{enexto}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} enexto (
+\begin{DoxyParamCaption}
+\item[{{\bf coord} $\ast$}]{cc, }
+\item[{{\bf xchar}}]{xx, }
+\item[{{\bf xchar}}]{yy, }
+\item[{struct {\bf permonst} $\ast$}]{mdat}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a61ffc1bbdf6259d46ae8abd0dce3ce31}
+
+
+Definition at line 97 of file teleport.\+c.
+
+
+
+References enexto\+\_\+core().
+
+
+
+Referenced by create\+\_\+monster(), dokick(), precheck(), u\+\_\+teleport\+\_\+mon(), and use\+\_\+defensive().
+
+
+\begin{DoxyCode}
+101 \{
+102     \textcolor{keywordflow}{return} \hyperlink{teleport_8c_a09908f1f00f2ed41b117f0207c681b35}{enexto\_core}(cc, xx, yy, mdat, 0);
+103 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a09908f1f00f2ed41b117f0207c681b35}{\index{teleport.\+c@{teleport.\+c}!enexto\+\_\+core@{enexto\+\_\+core}}
+\index{enexto\+\_\+core@{enexto\+\_\+core}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{enexto\+\_\+core}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} enexto\+\_\+core (
+\begin{DoxyParamCaption}
+\item[{{\bf coord} $\ast$}]{cc, }
+\item[{{\bf xchar}}]{xx, }
+\item[{{\bf xchar}}]{yy, }
+\item[{struct {\bf permonst} $\ast$}]{mdat, }
+\item[{unsigned}]{entflags}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a09908f1f00f2ed41b117f0207c681b35}
+
+
+Definition at line 106 of file teleport.\+c.
+
+
+
+References C\+O\+L\+N\+O, monst\+::data, F\+A\+L\+S\+E, goodpos(), max, M\+A\+X\+\_\+\+G\+O\+O\+D, min, mons, R\+O\+W\+N\+O, T\+R\+U\+E, u, you\+::umonster, coord\+::x, xmax, xmin, coord\+::y, ymax, and ymin.
+
+
+
+Referenced by enexto().
+
+
+\begin{DoxyCode}
+111 \{
+112 \textcolor{preprocessor}{#define MAX\_GOOD 15}
+113     \hyperlink{structcoord}{coord} good[\hyperlink{teleport_8c_ad38754952cb6a83fdfac0fb47edb2b5e}{MAX\_GOOD}], *good\_ptr;
+114     \textcolor{keywordtype}{int} \hyperlink{structtrap_aed25254cf556e3eae09dd98576d98d45}{x}, \hyperlink{structtrap_a3c7f72724bfcd0c4acb2a05ee75064df}{y}, range, i;
+115     \textcolor{keywordtype}{int} \hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin}, \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}, \hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin}, \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax};
+116     \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} fakemon;  \textcolor{comment}{/* dummy monster */}
+117 
+118     \textcolor{keywordflow}{if} (!mdat) \{
+119 \textcolor{preprocessor}{#ifdef DEBUG}
+120     pline(\textcolor{stringliteral}{"enexto() called with mdat==0"});
+121 \textcolor{preprocessor}{#endif}
+122     \textcolor{comment}{/* default to player's original monster type */}
+123     mdat = &\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a52b907b7b60827d63d8a2306e3831479}{umonster}];
+124     \}
+125     fakemon.data = mdat;    \textcolor{comment}{/* set up for goodpos */}
+126     good\_ptr = good;
+127     range = 1;
+128     \textcolor{comment}{/*}
+129 \textcolor{comment}{     * Walk around the border of the square with center (xx,yy) and}
+130 \textcolor{comment}{     * radius range.  Stop when we find at least one valid position.}
+131 \textcolor{comment}{     */}
+132     \textcolor{keywordflow}{do} \{
+133     xmin = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(1, xx-range);
+134     xmax = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1, xx+range);
+135     ymin = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(0, yy-range);
+136     ymax = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}-1, yy+range);
+137 
+138     \textcolor{keywordflow}{for} (x = xmin; x <= \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}; x++)
+139         \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, ymin, &fakemon, entflags)) \{
+140         good\_ptr->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = x;
+141         good\_ptr->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = \hyperlink{mkmaze_8c_a8f91ffd86aa304f2ca807ff84fa2fe87}{ymin} ;
+142         \textcolor{comment}{/* beware of accessing beyond segment boundaries.. */}
+143         \textcolor{keywordflow}{if} (good\_ptr++ == &good[\hyperlink{teleport_8c_ad38754952cb6a83fdfac0fb47edb2b5e}{MAX\_GOOD}-1]) \textcolor{keywordflow}{goto} full;
+144         \}
+145     \textcolor{keywordflow}{for} (x = xmin; x <= \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax}; x++)
+146         \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, ymax, &fakemon, entflags)) \{
+147         good\_ptr->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = x;
+148         good\_ptr->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax} ;
+149         \textcolor{comment}{/* beware of accessing beyond segment boundaries.. */}
+150         \textcolor{keywordflow}{if} (good\_ptr++ == &good[\hyperlink{teleport_8c_ad38754952cb6a83fdfac0fb47edb2b5e}{MAX\_GOOD}-1]) \textcolor{keywordflow}{goto} full;
+151         \}
+152     \textcolor{keywordflow}{for} (y = ymin+1; y < \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}; y++)
+153         \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(xmin, y, &fakemon, entflags)) \{
+154         good\_ptr->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = \hyperlink{mkmaze_8c_a883020d4284bd039cbac9574b896c948}{xmin};
+155         good\_ptr-> y = y ;
+156         \textcolor{comment}{/* beware of accessing beyond segment boundaries.. */}
+157         \textcolor{keywordflow}{if} (good\_ptr++ == &good[\hyperlink{teleport_8c_ad38754952cb6a83fdfac0fb47edb2b5e}{MAX\_GOOD}-1]) \textcolor{keywordflow}{goto} full;
+158         \}
+159     \textcolor{keywordflow}{for} (y = ymin+1; y < \hyperlink{mkmaze_8c_a740732a581a525ffdac6d4124d517d0e}{ymax}; y++)
+160         \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(xmax, y, &fakemon, entflags)) \{
+161         good\_ptr->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = \hyperlink{mkmaze_8c_a3bd9aad0bd6c391604e7a27d57c21d3f}{xmax};
+162         good\_ptr->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = y ;
+163         \textcolor{comment}{/* beware of accessing beyond segment boundaries.. */}
+164         \textcolor{keywordflow}{if} (good\_ptr++ == &good[\hyperlink{teleport_8c_ad38754952cb6a83fdfac0fb47edb2b5e}{MAX\_GOOD}-1]) \textcolor{keywordflow}{goto} full;
+165         \}
+166     range++;
+167 
+168     \textcolor{comment}{/* return if we've grown too big (nothing is valid) */}
+169     \textcolor{keywordflow}{if} (range > \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO} && range > \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+170     \} \textcolor{keywordflow}{while} (good\_ptr == good);
+171 
+172 full:
+173     i = rn2((\textcolor{keywordtype}{int})(good\_ptr - good));
+174     cc->\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = good[i].\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x};
+175     cc->\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = good[i].\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y};
+176     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+177 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a8a9243af1ff001c525bb22700032ded6}{\index{teleport.\+c@{teleport.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf tele\+\_\+jump\+\_\+ok}}]{, }
+\item[{(int, int, int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a8a9243af1ff001c525bb22700032ded6}
+\hypertarget{teleport_8c_a336a0e4347738b154fa5b60a316992ce}{\index{teleport.\+c@{teleport.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf teleok}}]{, }
+\item[{(int, int, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a336a0e4347738b154fa5b60a316992ce}
+\hypertarget{teleport_8c_a7d18ef1ac91cd21c9fd3deefc7b9eb04}{\index{teleport.\+c@{teleport.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf boolean} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf rloc\+\_\+pos\+\_\+ok}}]{, }
+\item[{(int, int, struct {\bf monst} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a7d18ef1ac91cd21c9fd3deefc7b9eb04}
+\hypertarget{teleport_8c_a9e167db82f01728f7779d772121797b0}{\index{teleport.\+c@{teleport.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf mvault\+\_\+tele}}]{, }
+\item[{(struct {\bf monst} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a9e167db82f01728f7779d772121797b0}
+\hypertarget{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{\index{teleport.\+c@{teleport.\+c}!goodpos@{goodpos}}
+\index{goodpos@{goodpos}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{goodpos}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} goodpos (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{unsigned}]{gpflags}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}
+
+
+Definition at line 21 of file teleport.\+c.
+
+
+
+References A\+C\+C\+E\+S\+S\+I\+B\+L\+E, amorphous, Amphibious, monst\+::data, F\+A\+L\+S\+E, Flying, H\+Levitation, is\+\_\+clinger, is\+\_\+flyer, is\+\_\+swimmer, levl, likes\+\_\+lava, m\+\_\+at, permonst\+::mlet, M\+M\+\_\+\+I\+G\+N\+O\+R\+E\+W\+A\+T\+E\+R, N\+U\+L\+L, passes\+\_\+walls, S\+\_\+\+E\+E\+L, S\+T\+E\+E\+D, Swimming, throws\+\_\+rocks, T\+R\+U\+E, u, you\+::ux, you\+::uy, Wwalking, and youmonst.
+
+
+
+Referenced by create\+\_\+mplayers(), enexto\+\_\+core(), fixup\+\_\+special(), kickdmg(), mhurtle\+\_\+step(), mvault\+\_\+tele(), place\+\_\+worm\+\_\+tail\+\_\+randomly(), rloc(), rloc\+\_\+pos\+\_\+ok(), rloco(), and teleok().
+
+
+\begin{DoxyCode}
+25 \{
+26     \textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *mdat = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+27     \textcolor{keywordtype}{boolean} ignorewater = ((gpflags & \hyperlink{hack_8h_ac5c62ebe8a21263fc51903b33c6b186f}{MM\_IGNOREWATER}) != 0);
+28 
+29     \textcolor{keywordflow}{if} (!isok(x, y)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+30 
+31     \textcolor{comment}{/* in many cases, we're trying to create a new monster, which}
+32 \textcolor{comment}{     * can't go on top of the player or any existing monster.}
+33 \textcolor{comment}{     * however, occasionally we are relocating engravings or objects,}
+34 \textcolor{comment}{     * which could be co-located and thus get restricted a bit too much.}
+35 \textcolor{comment}{     * oh well.}
+36 \textcolor{comment}{     */}
+37     \textcolor{keywordflow}{if} (mtmp != &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst} && x == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} && y == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}
+38 #ifdef \hyperlink{config_8h_a0386a3058afaec36a953bb688cf7cf04}{STEED}
+39             && (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed || mtmp != \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed)
+40 \textcolor{preprocessor}{#endif}
+41             )
+42         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+43 
+44     \textcolor{keywordflow}{if} (mtmp) \{
+45         \textcolor{keyword}{struct }\hyperlink{structmonst}{monst} *mtmp2 = \hyperlink{rm_8h_a4d8dddf3df3fad65478980d2c8cbf53c}{m\_at}(x,y);
+46 
+47         \textcolor{comment}{/* Be careful with long worms.  A monster may be placed back in}
+48 \textcolor{comment}{         * its own location.  Normally, if m\_at() returns the same monster}
+49 \textcolor{comment}{         * that we're trying to place, the monster is being placed in its}
+50 \textcolor{comment}{         * own location.  However, that is not correct for worm segments,}
+51 \textcolor{comment}{         * because all the segments of the worm return the same m\_at().}
+52 \textcolor{comment}{         * Actually we overdo the check a little bit--a worm can't be placed}
+53 \textcolor{comment}{         * in its own location, period.  If we just checked for mtmp->mx}
+54 \textcolor{comment}{         * != x || mtmp->my != y, we'd miss the case where we're called}
+55 \textcolor{comment}{         * to place the worm segment and the worm's head is at x,y.}
+56 \textcolor{comment}{         */}
+57         \textcolor{keywordflow}{if} (mtmp2 && (mtmp2 != mtmp || mtmp->wormno))
+58         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+59 
+60         mdat = mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data};
+61         \textcolor{keywordflow}{if} (is\_pool(x,y) && !ignorewater) \{
+62         \textcolor{keywordflow}{if} (mtmp == &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst})
+63             \textcolor{keywordflow}{return} !!(\hyperlink{youprop_8h_a41451603f34a75884b450491f726e54a}{HLevitation} || \hyperlink{youprop_8h_a494ca244ec9dd2bffeb43777d53785e2}{Flying} || \hyperlink{youprop_8h_a8126a4a67b52d15636759a817ec9e1d7}{Wwalking} ||
+64                     \hyperlink{youprop_8h_a61bd9ba6b784ba8d7cce139c6c02e4c3}{Swimming} || \hyperlink{youprop_8h_a9548394b21eb11623766623de475b335}{Amphibious});
+65         \textcolor{keywordflow}{else}    \textcolor{keywordflow}{return} (\hyperlink{mondata_8h_a4407b2600bc3b320829630ed895960c0}{is\_flyer}(mdat) || \hyperlink{mondata_8h_ab8ffd447c2b8217b49848268e2b6493d}{is\_swimmer}(mdat) ||
+66                             \hyperlink{mondata_8h_a5033772c28e21c8fad44f02e4a5eb4e1}{is\_clinger}(mdat));
+67         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mdat->\hyperlink{structpermonst_ab402dbf1bed9d0e595a2b3da6558da92}{mlet} == \hyperlink{monsym_8h_a07cd4c997171ec30fbe1376341a26160}{S\_EEL} && rn2(13) && !ignorewater) \{
+68         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+69         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (is\_lava(x,y)) \{
+70         \textcolor{keywordflow}{if} (mtmp == &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst})
+71             \textcolor{keywordflow}{return} !!\hyperlink{youprop_8h_a41451603f34a75884b450491f726e54a}{HLevitation};
+72         \textcolor{keywordflow}{else}
+73             \textcolor{keywordflow}{return} (\hyperlink{mondata_8h_a4407b2600bc3b320829630ed895960c0}{is\_flyer}(mdat) || \hyperlink{mondata_8h_a764fcf4ead77e4b394306f02ad61c684}{likes\_lava}(mdat));
+74         \}
+75         \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_a42b9f266cafddebd01c657d1e39ae72d}{passes\_walls}(mdat) && may\_passwall(x,y)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+76     \}
+77     \textcolor{keywordflow}{if} (!\hyperlink{rm_8h_a66b14395f9e994a4539968352565bc38}{ACCESSIBLE}(\hyperlink{rm_8h_a8cd681fba60fdedbabfd71a0b4bbfc00}{levl}[x][y].typ)) \{
+78         \textcolor{keywordflow}{if} (!(is\_pool(x,y) && ignorewater)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+79     \}
+80 
+81     \textcolor{keywordflow}{if} (closed\_door(x, y) && (!mdat || !\hyperlink{mondata_8h_ac3d4d869d4c7625a840b9731b591e90b}{amorphous}(mdat)))
+82         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+83     \textcolor{keywordflow}{if} (sobj\_at(BOULDER, x, y) && (!mdat || !\hyperlink{mondata_8h_af1c84d35ae8812186eaf635bc27b37c0}{throws\_rocks}(mdat)))
+84         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+85     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+86 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a3c44d06befa7de269d94849a8e10db55}{\index{teleport.\+c@{teleport.\+c}!level\+\_\+tele@{level\+\_\+tele}}
+\index{level\+\_\+tele@{level\+\_\+tele}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{level\+\_\+tele}]{\setlength{\rightskip}{0pt plus 5cm}void level\+\_\+tele (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a3c44d06befa7de269d94849a8e10db55}
+
+
+Definition at line 564 of file teleport.\+c.
+
+
+
+References buf, B\+U\+F\+S\+Z, Confusion, monst\+::data, dungeon\+::depth\+\_\+start, D\+I\+E\+D, display\+\_\+nhwindow, d\+\_\+level\+::dlevel, d\+\_\+level\+::dnum, done, dungeons, earth\+\_\+level, F\+A\+L\+S\+E, flags, Flying, getlin, In\+\_\+endgame, in\+\_\+mklev, In\+\_\+sokoban, Inhell, invent, Is\+\_\+knox, is\+\_\+silent, killer, killer\+\_\+format, Levitation, medusa\+\_\+level, flag\+::mon\+\_\+moving, N\+O\+\_\+\+K\+I\+L\+L\+E\+R\+\_\+\+P\+R\+E\+F\+I\+X, qstart\+\_\+level, random\+\_\+teleport\+\_\+level(), shudder\+\_\+for\+\_\+moment, Sprintf, Strcat, Strcpy, Stunned, Teleport\+\_\+control, T\+R\+U\+E, u, you\+::uevent, you\+::uhave, uhis, you\+::ushops, you\+::ushops0, you\+::utotype, you\+::ux, you\+::uy, you\+::uz, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, wizard, W\+I\+Z\+A\+R\+D, ynq, and youmonst.
+
+
+
+Referenced by level\+\_\+tele\+\_\+trap().
+
+
+\begin{DoxyCode}
+565 \{
+566     \textcolor{keyword}{register} \textcolor{keywordtype}{int} newlev;
+567     \hyperlink{structd__level}{d\_level} newlevel;
+568     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *escape\_by\_flying = 0;   \textcolor{comment}{/* when surviving dest of -N */}
+569     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+570     \textcolor{keywordtype}{boolean} force\_dest = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+571 
+572     \textcolor{keywordflow}{if} ((\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.amulet || \hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) || \hyperlink{dungeon_8h_ad19541d30218e5f3834c01d42bb381e2}{In\_sokoban}(&
+      \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+573 #ifdef \hyperlink{config_8h_a7d25468f2993889250dd6664a4e6b011}{WIZARD}
+574                         && !\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}
+575 #endif
+576                             ) \{
+577         You\_feel(\textcolor{stringliteral}{"very disoriented for a moment."});
+578         \textcolor{keywordflow}{return};
+579     \}
+580     \textcolor{keywordflow}{if} ((\hyperlink{youprop_8h_ab1830f200ea6041117b499791e5e6324}{Teleport\_control} && !\hyperlink{youprop_8h_afd7fdfec2109113244c347015bab4ad1}{Stunned})
+581 #ifdef \hyperlink{config_8h_a7d25468f2993889250dd6664a4e6b011}{WIZARD}
+582        || \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}
+583 #endif
+584         ) \{
+585         \textcolor{keywordtype}{char} qbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+586         \textcolor{keywordtype}{int} trycnt = 0;
+587 
+588         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(qbuf, \textcolor{stringliteral}{"To what level do you want to teleport?"});
+589         \textcolor{keywordflow}{do} \{
+590         \textcolor{keywordflow}{if} (++trycnt == 2) \{
+591 \textcolor{preprocessor}{#ifdef WIZARD}
+592             \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(qbuf, \textcolor{stringliteral}{" [type a number or ? for a menu]"});
+593             \textcolor{keywordflow}{else}
+594 \textcolor{preprocessor}{#endif}
+595             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(qbuf, \textcolor{stringliteral}{" [type a number]"});
+596         \}
+597         \hyperlink{winprocs_8h_ab09682cb017e224c23b0c4e7989a81a7}{getlin}(qbuf, buf);
+598         \textcolor{keywordflow}{if} (!strcmp(buf,\textcolor{stringliteral}{"\(\backslash\)033"})) \{  \textcolor{comment}{/* cancelled */}
+599             \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion} && rnl(5)) \{
+600             pline(\textcolor{stringliteral}{"Oops..."});
+601             \textcolor{keywordflow}{goto} random\_levtport;
+602             \}
+603             \textcolor{keywordflow}{return};
+604         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strcmp(buf,\textcolor{stringliteral}{"*"})) \{
+605             \textcolor{keywordflow}{goto} random\_levtport;
+606         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a85174462efda5cc2dc2a49a0249801bb}{Confusion} && rnl(5)) \{
+607             pline(\textcolor{stringliteral}{"Oops..."});
+608             \textcolor{keywordflow}{goto} random\_levtport;
+609         \}
+610 \textcolor{preprocessor}{#ifdef WIZARD}
+611         \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && !strcmp(buf,\textcolor{stringliteral}{"?"})) \{
+612             \hyperlink{config_8h_a0fd9ce9d735064461bebfe6037026093}{schar} destlev = 0;
+613             \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} destdnum = 0;
+614 
+615             \textcolor{keywordflow}{if} ((newlev = (\textcolor{keywordtype}{int})print\_dungeon(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, &destlev, &destdnum))) \{
+616             newlevel.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} = destdnum;
+617             newlevel.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} = destlev;
+618             \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&newlevel) && !\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+619                 \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf,
+620                     \textcolor{stringliteral}{"Destination is earth level"});
+621                 \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.amulet) \{
+622                     \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{structobj}{obj};
+623                     obj = mksobj(AMULET\_OF\_YENDOR,
+624                             \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+625                     \textcolor{keywordflow}{if} (obj) \{
+626                         obj = addinv(obj);
+627                         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(buf, \textcolor{stringliteral}{" with the amulet"});
+628                     \}
+629                 \}
+630                 assign\_level(&newlevel, &\hyperlink{decl_8h_ae6fb6eaa6bd911dda422570dec84f467}{earth\_level});
+631                 pline(\textcolor{stringliteral}{"%s."}, buf);
+632             \}
+633             force\_dest = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+634             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{return};
+635         \} \textcolor{keywordflow}{else}
+636 \textcolor{preprocessor}{#endif}
+637         \textcolor{keywordflow}{if} ((newlev = lev\_by\_name(buf)) == 0) newlev = atoi(buf);
+638         \} \textcolor{keywordflow}{while} (!newlev && !digit(buf[0]) &&
+639              (buf[0] != \textcolor{charliteral}{'-'} || !digit(buf[1])) &&
+640              trycnt < 10);
+641 
+642         \textcolor{comment}{/* no dungeon escape via this route */}
+643         \textcolor{keywordflow}{if} (newlev == 0) \{
+644         \textcolor{keywordflow}{if} (trycnt >= 10)
+645             \textcolor{keywordflow}{goto} random\_levtport;
+646         \textcolor{keywordflow}{if} (\hyperlink{hack_8h_a104792d619a60e73407115c00499745e}{ynq}(\textcolor{stringliteral}{"Go to Nowhere.  Are you sure?"}) != \textcolor{charliteral}{'y'}) \textcolor{keywordflow}{return};
+647         You(\textcolor{stringliteral}{"%s in agony as your body begins to warp..."},
+648             \hyperlink{mondata_8h_ab815056260a8ee0db98b4a1ffc5cee54}{is\_silent}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}) ? \textcolor{stringliteral}{"writhe"} : \textcolor{stringliteral}{"scream"});
+649         \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+650         You(\textcolor{stringliteral}{"cease to exist."});
+651         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent}) Your(\textcolor{stringliteral}{"possessions land on the %s with a thud."},
+652                 surface(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}));
+653         \hyperlink{decl_8h_a0a94810d03a0bf68b371c6b1a1a4a905}{killer\_format} = \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX};
+654         \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer} = \textcolor{stringliteral}{"committed suicide"};
+655         \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(\hyperlink{hack_8h_a945602f8a7d9cde22e2502ffb5c51f58}{DIED});
+656         pline(\textcolor{stringliteral}{"An energized cloud of dust begins to coalesce."});
+657         Your(\textcolor{stringliteral}{"body rematerializes%s."}, \hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent} ?
+658             \textcolor{stringliteral}{", and you gather up all your possessions"} : \textcolor{stringliteral}{""});
+659         \textcolor{keywordflow}{return};
+660         \}
+661 
+662         \textcolor{comment}{/* if in Knox and the requested level > 0, stay put.}
+663 \textcolor{comment}{         * we let negative values requests fall into the "heaven" loop.}
+664 \textcolor{comment}{         */}
+665         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a91a7bc143ab22db0e11c5f8233af9be9}{Is\_knox}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && newlev > 0) \{
+666         You(\hyperlink{decl_8h_a3ffc60f5f0cf00e20cc2387e8723d4d7}{shudder\_for\_moment});
+667         \textcolor{keywordflow}{return};
+668         \}
+669         \textcolor{comment}{/* if in Quest, the player sees "Home 1", etc., on the status}
+670 \textcolor{comment}{         * line, instead of the logical depth of the level.  controlled}
+671 \textcolor{comment}{         * level teleport request is likely to be relativized to the}
+672 \textcolor{comment}{         * status line, and consequently it should be incremented to}
+673 \textcolor{comment}{         * the value of the logical depth of the target level.}
+674 \textcolor{comment}{         *}
+675 \textcolor{comment}{         * we let negative values requests fall into the "heaven" loop.}
+676 \textcolor{comment}{         */}
+677         \textcolor{keywordflow}{if} (In\_quest(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && newlev > 0)
+678         newlev = newlev + \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_aad46184797d30fadef5e8428a7717e08}{depth\_start} - 1;
+679     \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{/* involuntary level tele */}
+680  random\_levtport:
+681         newlev = \hyperlink{teleport_8c_a8be139b4744eb167838a1526806afc83}{random\_teleport\_level}();
+682         \textcolor{keywordflow}{if} (newlev == depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+683         You(\hyperlink{decl_8h_a3ffc60f5f0cf00e20cc2387e8723d4d7}{shudder\_for\_moment});
+684         \textcolor{keywordflow}{return};
+685         \}
+686     \}
+687 
+688     \textcolor{keywordflow}{if} (!next\_to\_u()) \{
+689         You(\hyperlink{decl_8h_a3ffc60f5f0cf00e20cc2387e8723d4d7}{shudder\_for\_moment});
+690         \textcolor{keywordflow}{return};
+691     \}
+692 \textcolor{preprocessor}{#ifdef WIZARD}
+693     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{   \textcolor{comment}{/* must already be wizard */}
+694         \textcolor{keywordtype}{int} llimit = dunlevs\_in\_dungeon(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+695 
+696         \textcolor{keywordflow}{if} (newlev >= 0 || newlev <= -llimit) \{
+697         You\_cant(\textcolor{stringliteral}{"get there from here."});
+698         \textcolor{keywordflow}{return};
+699         \}
+700         newlevel.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum};
+701         newlevel.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} = llimit + newlev;
+702         schedule\_goto(&newlevel, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0);
+703         \textcolor{keywordflow}{return};
+704     \}
+705 \textcolor{preprocessor}{#endif}
+706 
+707     \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer} = 0;       \textcolor{comment}{/* still alive, so far... */}
+708 
+709     \textcolor{keywordflow}{if} (newlev < 0 && !force\_dest) \{
+710         \textcolor{keywordflow}{if} (*\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a566d23da377bbabdcc013adc0dbdbf41}{ushops0}) \{
+711             \textcolor{comment}{/* take unpaid inventory items off of shop bills */}
+712             \hyperlink{decl_8h_abb694ef5acb9945ca69679a8360df51a}{in\_mklev} = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};    \textcolor{comment}{/* suppress map update */}
+713             u\_left\_shop(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a566d23da377bbabdcc013adc0dbdbf41}{ushops0}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+714             \textcolor{comment}{/* you're now effectively out of the shop */}
+715             *\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a566d23da377bbabdcc013adc0dbdbf41}{ushops0} = *\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a1bc3b5ca1e5d9957ab3a7f451c069f47}{ushops} = \textcolor{charliteral}{'\(\backslash\)0'};
+716             \hyperlink{decl_8h_abb694ef5acb9945ca69679a8360df51a}{in\_mklev} = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+717         \}
+718         \textcolor{keywordflow}{if} (newlev <= -10) \{
+719             You(\textcolor{stringliteral}{"arrive in heaven."});
+720             verbalize(\textcolor{stringliteral}{"Thou art early, but we'll admit thee."});
+721             \hyperlink{decl_8h_a0a94810d03a0bf68b371c6b1a1a4a905}{killer\_format} = \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX};
+722             \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer} = \textcolor{stringliteral}{"went to heaven prematurely"};
+723         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (newlev == -9) \{
+724             You\_feel(\textcolor{stringliteral}{"deliriously happy. "});
+725             pline(\textcolor{stringliteral}{"(In fact, you're on Cloud 9!) "});
+726             \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+727         \} \textcolor{keywordflow}{else}
+728             You(\textcolor{stringliteral}{"are now high above the clouds..."});
+729 
+730         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer}) \{
+731             ;       \textcolor{comment}{/* arrival in heaven is pending */}
+732         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a3dbdc08291ccd1d6de010d72e4b180fb}{Levitation}) \{
+733             escape\_by\_flying = \textcolor{stringliteral}{"float gently down to earth"};
+734         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a494ca244ec9dd2bffeb43777d53785e2}{Flying}) \{
+735             escape\_by\_flying = \textcolor{stringliteral}{"fly down to the ground"};
+736         \} \textcolor{keywordflow}{else} \{
+737             pline(\textcolor{stringliteral}{"Unfortunately, you don't know how to fly."});
+738             You(\textcolor{stringliteral}{"plummet a few thousand feet to your death."});
+739             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf,
+740               \textcolor{stringliteral}{"teleported out of the dungeon and fell to %s death"},
+741                 \hyperlink{you_8h_af5e5db117ddbf49e1d89a0b69918412b}{uhis}());
+742             \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer} = \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf};
+743             \hyperlink{decl_8h_a0a94810d03a0bf68b371c6b1a1a4a905}{killer\_format} = \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX};
+744         \}
+745     \}
+746 
+747     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer}) \{ \textcolor{comment}{/* the chosen destination was not survivable */}
+748         \hyperlink{structd__level}{d\_level} lsav;
+749 
+750         \textcolor{comment}{/* set specific death location; this also suppresses bones */}
+751         lsav = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}; \textcolor{comment}{/* save current level, see below */}
+752         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} = 0;   \textcolor{comment}{/* main dungeon */}
+753         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} = (newlev <= -10) ? -10 : 0;   \textcolor{comment}{/* heaven or surface */}
+754         \hyperlink{winX_8c_a032589f4f70300762622fd253db008d0}{done}(\hyperlink{hack_8h_a945602f8a7d9cde22e2502ffb5c51f58}{DIED});
+755         \textcolor{comment}{/* can only get here via life-saving (or declining to die in}
+756 \textcolor{comment}{           explore|debug mode); the hero has now left the dungeon... */}
+757         escape\_by\_flying = \textcolor{stringliteral}{"find yourself back on the surface"};
+758         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz} = lsav; \textcolor{comment}{/* restore u.uz so escape code works */}
+759     \}
+760 
+761     \textcolor{comment}{/* calls done(ESCAPED) if newlevel==0 */}
+762     \textcolor{keywordflow}{if} (escape\_by\_flying) \{
+763         You(\textcolor{stringliteral}{"%s."}, escape\_by\_flying);
+764         newlevel.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} = 0;      \textcolor{comment}{/* specify main dungeon */}
+765         newlevel.\hyperlink{structd__level_a7878568dc81a7efd40bea0206dbd109d}{dlevel} = 0;  \textcolor{comment}{/* escape the dungeon */}
+766         \textcolor{comment}{/* [dlevel used to be set to 1, but it doesn't make sense to}
+767 \textcolor{comment}{        teleport out of the dungeon and float or fly down to the}
+768 \textcolor{comment}{        surface but then actually arrive back inside the dungeon] */}
+769     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum} == \hyperlink{decl_8h_ad834c4abc150f144d9da7641e53cfcde}{medusa\_level}.dnum &&
+770         newlev >= \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_aad46184797d30fadef5e8428a7717e08}{depth\_start} +
+771                         dunlevs\_in\_dungeon(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+772 \textcolor{preprocessor}{#ifdef WIZARD}
+773         \textcolor{keywordflow}{if} (!(\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && force\_dest))
+774 \textcolor{preprocessor}{#endif}
+775         find\_hell(&newlevel);
+776     \} \textcolor{keywordflow}{else} \{
+777         \textcolor{comment}{/* if invocation did not yet occur, teleporting into}
+778 \textcolor{comment}{         * the last level of Gehennom is forbidden.}
+779 \textcolor{comment}{         */}
+780 \textcolor{preprocessor}{#ifdef WIZARD}
+781         \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard})
+782 \textcolor{preprocessor}{#endif}
+783         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a5cd7abaad3082e8a7b2f5ec30e44d2f4}{Inhell} && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.invoked &&
+784             newlev >= (\hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_aad46184797d30fadef5e8428a7717e08}{depth\_start} +
+785                     dunlevs\_in\_dungeon(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) - 1)) \{
+786         newlev = \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_aad46184797d30fadef5e8428a7717e08}{depth\_start} +
+787                     dunlevs\_in\_dungeon(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) - 2;
+788         pline(\textcolor{stringliteral}{"Sorry..."});
+789         \}
+790         \textcolor{comment}{/* no teleporting out of quest dungeon */}
+791         \textcolor{keywordflow}{if} (In\_quest(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) && newlev < depth(&\hyperlink{decl_8h_a3ec05aec32af27cb15e824c121b0a938}{qstart\_level}))
+792         newlev = depth(&\hyperlink{decl_8h_a3ec05aec32af27cb15e824c121b0a938}{qstart\_level});
+793         \textcolor{comment}{/* the player thinks of levels purely in logical terms, so}
+794 \textcolor{comment}{         * we must translate newlev to a number relative to the}
+795 \textcolor{comment}{         * current dungeon.}
+796 \textcolor{comment}{         */}
+797 \textcolor{preprocessor}{#ifdef WIZARD}
+798         \textcolor{keywordflow}{if} (!(\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} && force\_dest))
+799 \textcolor{preprocessor}{#endif}
+800         get\_level(&newlevel, newlev);
+801     \}
+802     schedule\_goto(&newlevel, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, 0, (\textcolor{keywordtype}{char} *)0, (\textcolor{keywordtype}{char} *)0);
+803     \textcolor{comment}{/* in case player just read a scroll and is about to be asked to}
+804 \textcolor{comment}{       call it something, we can't defer until the end of the turn */}
+805     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aa5df3aa411cedbc63c8d4f4fed175575}{utotype} && !\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_aefca97315c578e47f6c6cdf06864db9e}{mon\_moving}) deferred\_goto();
+806 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a0476db6c25d6b45590ed33ed971624be}{\index{teleport.\+c@{teleport.\+c}!level\+\_\+tele\+\_\+trap@{level\+\_\+tele\+\_\+trap}}
+\index{level\+\_\+tele\+\_\+trap@{level\+\_\+tele\+\_\+trap}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{level\+\_\+tele\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}void level\+\_\+tele\+\_\+trap (
+\begin{DoxyParamCaption}
+\item[{struct {\bf trap} $\ast$}]{trap}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a0476db6c25d6b45590ed33ed971624be}
+
+
+Definition at line 859 of file teleport.\+c.
+
+
+
+References Antimagic, Blind, monst\+::data, In\+\_\+endgame, level\+\_\+tele(), Levitation, newsym(), shieldeff(), u, you\+::ux, you\+::uy, you\+::uz, and youmonst.
+
+
+\begin{DoxyCode}
+861 \{
+862     You(\textcolor{stringliteral}{"%s onto a level teleport trap!"},
+863               \hyperlink{youprop_8h_a3dbdc08291ccd1d6de010d72e4b180fb}{Levitation} ? (\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)\textcolor{stringliteral}{"float"} :
+864                   locomotion(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}, \textcolor{stringliteral}{"step"}));
+865     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_aaa17c946f184a85fbf104cdb4d55e24e}{Antimagic}) \{
+866         \hyperlink{display_8c_ac89f44ae626d79f05953e503312a939d}{shieldeff}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+867     \}
+868     \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_aaa17c946f184a85fbf104cdb4d55e24e}{Antimagic} || \hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+869         You\_feel(\textcolor{stringliteral}{"a wrenching sensation."});
+870         \textcolor{keywordflow}{return};
+871     \}
+872     \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind})
+873         You(\textcolor{stringliteral}{"are momentarily blinded by a flash of light."});
+874     \textcolor{keywordflow}{else}
+875         You(\textcolor{stringliteral}{"are momentarily disoriented."});
+876     deltrap(trap);
+877     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});  \textcolor{comment}{/* get rid of trap symbol */}
+878     \hyperlink{teleport_8c_a3c44d06befa7de269d94849a8e10db55}{level\_tele}();
+879 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a972a7aa2537e0af404761f52fb14f508}{\index{teleport.\+c@{teleport.\+c}!mlevel\+\_\+tele\+\_\+trap@{mlevel\+\_\+tele\+\_\+trap}}
+\index{mlevel\+\_\+tele\+\_\+trap@{mlevel\+\_\+tele\+\_\+trap}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{mlevel\+\_\+tele\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}int mlevel\+\_\+tele\+\_\+trap (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{struct {\bf trap} $\ast$}]{trap, }
+\item[{{\bf boolean}}]{force\+\_\+it, }
+\item[{int}]{in\+\_\+sight}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a972a7aa2537e0af404761f52fb14f508}
+
+
+Definition at line 1092 of file teleport.\+c.
+
+
+
+References trap\+::dst, H\+O\+L\+E, In\+\_\+endgame, Is\+\_\+stronghold, M\+A\+G\+I\+C\+\_\+\+P\+O\+R\+T\+A\+L, M\+I\+G\+R\+\_\+\+P\+O\+R\+T\+A\+L, M\+I\+G\+R\+\_\+\+R\+A\+N\+D\+O\+M, permonst\+::mlet, random\+\_\+teleport\+\_\+level(), S\+\_\+\+E\+L\+E\+M\+E\+N\+T\+A\+L, teleport\+\_\+pet(), T\+R\+A\+P\+D\+O\+O\+R, u, you\+::ustuck, you\+::uz, and valley\+\_\+level.
+
+
+\begin{DoxyCode}
+1097 \{
+1098     \textcolor{keywordtype}{int} tt = trap->ttyp;
+1099     \textcolor{keyword}{struct }\hyperlink{structpermonst}{permonst} *mptr = mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data};
+1100 
+1101     \textcolor{keywordflow}{if} (mtmp == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck})    \textcolor{comment}{/* probably a vortex */}
+1102         \textcolor{keywordflow}{return} 0;       \textcolor{comment}{/* temporary? kludge */}
+1103     \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a1449ac7e4f1169157f5720a8500d0cd0}{teleport\_pet}(mtmp, force\_it)) \{
+1104         \hyperlink{structd__level}{d\_level} tolevel;
+1105         \textcolor{keywordtype}{int} migrate\_typ = \hyperlink{dungeon_8h_a28e698f1f36ba7c0eeb6a782261e2faf}{MIGR\_RANDOM};
+1106 
+1107         \textcolor{keywordflow}{if} ((tt == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE} || tt == \hyperlink{trap_8h_ab50570a3a3e65ed47edb98c63e355088}{TRAPDOOR})) \{
+1108         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2985e445d6e532cc0d8e6ba93f5058fd}{Is\_stronghold}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+1109             assign\_level(&tolevel, &\hyperlink{decl_8h_a7174a34a59a19f8243ae897749f70fbc}{valley\_level});
+1110         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (Is\_botlevel(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+1111             \textcolor{keywordflow}{if} (in\_sight && trap->tseen)
+1112             pline(\textcolor{stringliteral}{"%s avoids the %s."}, Monnam(mtmp),
+1113             (tt == \hyperlink{trap_8h_a8049ef47c05eee8156bccee8d819c506}{HOLE}) ? \textcolor{stringliteral}{"hole"} : \textcolor{stringliteral}{"trap"});
+1114             \textcolor{keywordflow}{return} 0;
+1115         \} \textcolor{keywordflow}{else} \{
+1116             get\_level(&tolevel, depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) + 1);
+1117         \}
+1118         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (tt == \hyperlink{trap_8h_a64bfa610e12179ef4bfa46c65166b2fe}{MAGIC\_PORTAL}) \{
+1119         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) &&
+1120             (mon\_has\_amulet(mtmp) || is\_home\_elemental(mptr))) \{
+1121             \textcolor{keywordflow}{if} (in\_sight && mptr->\hyperlink{structpermonst_ab402dbf1bed9d0e595a2b3da6558da92}{mlet} != \hyperlink{monsym_8h_a94b7f79df356477345c1ed49f9f6a7cc}{S\_ELEMENTAL}) \{
+1122             pline(\textcolor{stringliteral}{"%s seems to shimmer for a moment."},
+1123                             Monnam(mtmp));
+1124             seetrap(trap);
+1125             \}
+1126             \textcolor{keywordflow}{return} 0;
+1127         \} \textcolor{keywordflow}{else} \{
+1128             assign\_level(&tolevel, &trap->\hyperlink{structtrap_a7f0184c96889b0dfba889dbb18a06828}{dst});
+1129             migrate\_typ = \hyperlink{dungeon_8h_af4a39ed97457ce8b845825c5ab4e49b7}{MIGR\_PORTAL};
+1130         \}
+1131         \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{/* (tt == LEVEL\_TELEP) */}
+1132         \textcolor{keywordtype}{int} nlev;
+1133 
+1134         \textcolor{keywordflow}{if} (mon\_has\_amulet(mtmp) || \hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+1135             \textcolor{keywordflow}{if} (in\_sight)
+1136             pline(\textcolor{stringliteral}{"%s seems very disoriented for a moment."},
+1137                 Monnam(mtmp));
+1138             \textcolor{keywordflow}{return} 0;
+1139         \}
+1140         nlev = \hyperlink{teleport_8c_a8be139b4744eb167838a1526806afc83}{random\_teleport\_level}();
+1141         \textcolor{keywordflow}{if} (nlev == depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) \{
+1142             \textcolor{keywordflow}{if} (in\_sight)
+1143             pline(\textcolor{stringliteral}{"%s shudders for a moment."}, Monnam(mtmp));
+1144             \textcolor{keywordflow}{return} 0;
+1145         \}
+1146         get\_level(&tolevel, nlev);
+1147         \}
+1148 
+1149         \textcolor{keywordflow}{if} (in\_sight) \{
+1150         pline(\textcolor{stringliteral}{"Suddenly, %s disappears out of sight."}, mon\_nam(mtmp));
+1151         seetrap(trap);
+1152         \}
+1153         migrate\_to\_level(mtmp, ledger\_no(&tolevel),
+1154                  migrate\_typ, (\hyperlink{structcoord}{coord} *)0);
+1155         \textcolor{keywordflow}{return} 3;   \textcolor{comment}{/* no longer on this level */}
+1156     \}
+1157     \textcolor{keywordflow}{return} 0;
+1158 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_aeb44f9a3b462c6816f1d53a89dcfc5fa}{\index{teleport.\+c@{teleport.\+c}!mtele\+\_\+trap@{mtele\+\_\+trap}}
+\index{mtele\+\_\+trap@{mtele\+\_\+trap}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{mtele\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}void mtele\+\_\+trap (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{struct {\bf trap} $\ast$}]{trap, }
+\item[{int}]{in\+\_\+sight}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_aeb44f9a3b462c6816f1d53a89dcfc5fa}
+
+
+Definition at line 1061 of file teleport.\+c.
+
+
+
+References canseemon, F\+A\+L\+S\+E, mvault\+\_\+tele(), rloc(), tele\+\_\+restrict(), and teleport\+\_\+pet().
+
+
+\begin{DoxyCode}
+1065 \{
+1066     \textcolor{keywordtype}{char} *monname;
+1067 
+1068     \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_ae7a3070a79b803227ad2474af019d5ab}{tele\_restrict}(mtmp)) \textcolor{keywordflow}{return};
+1069     \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a1449ac7e4f1169157f5720a8500d0cd0}{teleport\_pet}(mtmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE})) \{
+1070         \textcolor{comment}{/* save name with pre-movement visibility */}
+1071         monname = Monnam(mtmp);
+1072 
+1073         \textcolor{comment}{/* Note: don't remove the trap if a vault.  Other-}
+1074 \textcolor{comment}{         * wise the monster will be stuck there, since}
+1075 \textcolor{comment}{         * the guard isn't going to come for it...}
+1076 \textcolor{comment}{         */}
+1077         \textcolor{keywordflow}{if} (trap->once) \hyperlink{teleport_8c_a55bd995e11acdd3b4492090b3ee10ac3}{mvault\_tele}(mtmp);
+1078         \textcolor{keywordflow}{else} (\textcolor{keywordtype}{void}) \hyperlink{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}{rloc}(mtmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1079 
+1080         \textcolor{keywordflow}{if} (in\_sight) \{
+1081         \textcolor{keywordflow}{if} (\hyperlink{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}{canseemon}(mtmp))
+1082             pline(\textcolor{stringliteral}{"%s seems disoriented."}, monname);
+1083         \textcolor{keywordflow}{else}
+1084             pline(\textcolor{stringliteral}{"%s suddenly disappears!"}, monname);
+1085         seetrap(trap);
+1086         \}
+1087     \}
+1088 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a55bd995e11acdd3b4492090b3ee10ac3}{\index{teleport.\+c@{teleport.\+c}!mvault\+\_\+tele@{mvault\+\_\+tele}}
+\index{mvault\+\_\+tele@{mvault\+\_\+tele}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{mvault\+\_\+tele}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void mvault\+\_\+tele (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a55bd995e11acdd3b4492090b3ee10ac3}
+
+
+Definition at line 1033 of file teleport.\+c.
+
+
+
+References F\+A\+L\+S\+E, goodpos(), rloc(), rloc\+\_\+to(), V\+A\+U\+L\+T, coord\+::x, and coord\+::y.
+
+
+
+Referenced by mtele\+\_\+trap().
+
+
+\begin{DoxyCode}
+1035 \{
+1036     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom = search\_special(\hyperlink{mkroom_8h_ab75d7f5a330f45915bd3794809ef1609}{VAULT});
+1037     \hyperlink{structcoord}{coord} c;
+1038 
+1039     \textcolor{keywordflow}{if} (croom && somexy(croom, &c) &&
+1040                 \hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(c.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, c.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, mtmp, 0)) \{
+1041         \hyperlink{teleport_8c_a3707933b53701ba07bdb94aaf5db0c33}{rloc\_to}(mtmp, c.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, c.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y});
+1042         \textcolor{keywordflow}{return};
+1043     \}
+1044     (void) \hyperlink{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}{rloc}(mtmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1045 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a9961c319a1223639841d77c5e24e908b}{\index{teleport.\+c@{teleport.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf vault\+\_\+tele}}]{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a9961c319a1223639841d77c5e24e908b}
+\hypertarget{teleport_8c_a8be139b4744eb167838a1526806afc83}{\index{teleport.\+c@{teleport.\+c}!random\+\_\+teleport\+\_\+level@{random\+\_\+teleport\+\_\+level}}
+\index{random\+\_\+teleport\+\_\+level@{random\+\_\+teleport\+\_\+level}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{random\+\_\+teleport\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}int random\+\_\+teleport\+\_\+level (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a8be139b4744eb167838a1526806afc83}
+
+
+Definition at line 1211 of file teleport.\+c.
+
+
+
+References dungeon\+::depth\+\_\+start, d\+\_\+level\+::dnum, dungeons, Inhell, Is\+\_\+knox, u, you\+::uevent, and you\+::uz.
+
+
+
+Referenced by level\+\_\+tele(), mlevel\+\_\+tele\+\_\+trap(), and use\+\_\+defensive().
+
+
+\begin{DoxyCode}
+1212 \{
+1213     \textcolor{keywordtype}{int} nlev, max\_depth, min\_depth,
+1214         cur\_depth = (int)depth(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+1215 
+1216     \textcolor{keywordflow}{if} (!rn2(5) || \hyperlink{dungeon_8h_a91a7bc143ab22db0e11c5f8233af9be9}{Is\_knox}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+1217         \textcolor{keywordflow}{return} cur\_depth;
+1218 
+1219     \textcolor{comment}{/* What I really want to do is as follows:}
+1220 \textcolor{comment}{     * -- If in a dungeon that goes down, the new level is to be restricted}
+1221 \textcolor{comment}{     *    to [top of parent, bottom of current dungeon]}
+1222 \textcolor{comment}{     * -- If in a dungeon that goes up, the new level is to be restricted}
+1223 \textcolor{comment}{     *    to [top of current dungeon, bottom of parent]}
+1224 \textcolor{comment}{     * -- If in a quest dungeon or similar dungeon entered by portals,}
+1225 \textcolor{comment}{     *    the new level is to be restricted to [top of current dungeon,}
+1226 \textcolor{comment}{     *    bottom of current dungeon]}
+1227 \textcolor{comment}{     * The current behavior is not as sophisticated as that ideal, but is}
+1228 \textcolor{comment}{     * still better what we used to do, which was like this for players}
+1229 \textcolor{comment}{     * but different for monsters for no obvious reason.  Currently, we}
+1230 \textcolor{comment}{     * must explicitly check for special dungeons.  We check for Knox}
+1231 \textcolor{comment}{     * above; endgame is handled in the caller due to its different}
+1232 \textcolor{comment}{     * message ("disoriented").}
+1233 \textcolor{comment}{     * --KAA}
+1234 \textcolor{comment}{     * 3.4.2: explicitly handle quest here too, to fix the problem of}
+1235 \textcolor{comment}{     * monsters sometimes level teleporting out of it into main dungeon.}
+1236 \textcolor{comment}{     * Also prevent monsters reaching the Sanctum prior to invocation.}
+1237 \textcolor{comment}{     */}
+1238     min\_depth = In\_quest(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) ? \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].
+      \hyperlink{structdungeon_aad46184797d30fadef5e8428a7717e08}{depth\_start} : 1;
+1239     max\_depth = dunlevs\_in\_dungeon(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) +
+1240             (\hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum}].\hyperlink{structdungeon_aad46184797d30fadef5e8428a7717e08}{depth\_start} - 1);
+1241     \textcolor{comment}{/* can't reach the Sanctum if the invocation hasn't been performed */}
+1242     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a5cd7abaad3082e8a7b2f5ec30e44d2f4}{Inhell} && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.invoked) max\_depth -= 1;
+1243 
+1244     \textcolor{comment}{/* Get a random value relative to the current dungeon */}
+1245     \textcolor{comment}{/* Range is 1 to current+3, current not counting */}
+1246     nlev = rn2(cur\_depth + 3 - min\_depth) + min\_depth;
+1247     \textcolor{keywordflow}{if} (nlev >= cur\_depth) nlev++;
+1248 
+1249     \textcolor{keywordflow}{if} (nlev > max\_depth) \{
+1250         nlev = max\_depth;
+1251         \textcolor{comment}{/* teleport up if already on bottom */}
+1252         \textcolor{keywordflow}{if} (Is\_botlevel(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) nlev -= rnd(3);
+1253     \}
+1254     \textcolor{keywordflow}{if} (nlev < min\_depth) \{
+1255         nlev = min\_depth;
+1256         \textcolor{keywordflow}{if} (nlev == cur\_depth) \{
+1257             nlev += rnd(3);
+1258             \textcolor{keywordflow}{if} (nlev > max\_depth)
+1259             nlev = max\_depth;
+1260         \}
+1261     \}
+1262     \textcolor{keywordflow}{return} nlev;
+1263 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}{\index{teleport.\+c@{teleport.\+c}!rloc@{rloc}}
+\index{rloc@{rloc}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{rloc}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} rloc (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{{\bf boolean}}]{suppress\+\_\+impossible}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}
+
+
+Definition at line 980 of file teleport.\+c.
+
+
+
+References C\+O\+L\+N\+O, F\+A\+L\+S\+E, goodpos(), rloc\+\_\+pos\+\_\+ok(), rloc\+\_\+to(), rn1, R\+O\+W\+N\+O, tele(), T\+R\+U\+E, u, you\+::ux, you\+::uy, you\+::uz, xdnladder, xupladder, xupstair, ydnladder, yupladder, and yupstair.
+
+
+
+Referenced by demon\+\_\+talk(), gem\+\_\+accept(), mbhitm(), mk\+\_\+mplayer(), mtele\+\_\+trap(), mvault\+\_\+tele(), put\+\_\+lregion\+\_\+here(), u\+\_\+teleport\+\_\+mon(), and use\+\_\+defensive().
+
+
+\begin{DoxyCode}
+983 \{
+984     \textcolor{keyword}{register} \textcolor{keywordtype}{int} x, y, trycount;
+985 
+986 \textcolor{preprocessor}{#ifdef STEED}
+987     \textcolor{keywordflow}{if} (mtmp == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed) \{
+988         \hyperlink{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}{tele}();
+989         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+990     \}
+991 \textcolor{preprocessor}{#endif}
+992 
+993     \textcolor{keywordflow}{if} (mtmp->iswiz && mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}) \{    \textcolor{comment}{/* Wizard, not just arriving */}
+994         \textcolor{keywordflow}{if} (!In\_W\_tower(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, &\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+995         x = \hyperlink{decl_8h_a6ddff041cb808902b66e0b7196f03e00}{xupstair},  y = \hyperlink{decl_8h_a26867130b8519f38c26a8b28b4df9ac0}{yupstair};
+996         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a852b49ce12ba3e86a4924db9cb7e1eaa}{xdnladder})   \textcolor{comment}{/* bottom level of tower */}
+997         x = \hyperlink{decl_8h_a2d4548b0c42db4ef8ba1bc9621542da3}{xupladder},  y = \hyperlink{decl_8h_aa40db270d30fecdd58e8e47cc855936e}{yupladder};
+998         \textcolor{keywordflow}{else}
+999         x = \hyperlink{decl_8h_a852b49ce12ba3e86a4924db9cb7e1eaa}{xdnladder},  y = \hyperlink{decl_8h_a4aa07a23b5b834e25b8b243f69c6473f}{ydnladder};
+1000         \textcolor{comment}{/* if the wiz teleports away to heal, try the up staircase,}
+1001 \textcolor{comment}{           to block the player's escaping before he's healed}
+1002 \textcolor{comment}{           (deliberately use `goodpos' rather than `rloc\_pos\_ok' here) */}
+1003         \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, y, mtmp, 0))
+1004         \textcolor{keywordflow}{goto} found\_xy;
+1005     \}
+1006 
+1007     trycount = 0;
+1008     \textcolor{keywordflow}{do} \{
+1009         x = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-3,2);
+1010         y = rn2(\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO});
+1011         \textcolor{keywordflow}{if} ((trycount < 500) ? \hyperlink{teleport_8c_a4c5cf24429f97d12a3ef0572948b9e3c}{rloc\_pos\_ok}(x, y, mtmp)
+1012                  : \hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, y, mtmp, 0))
+1013         \textcolor{keywordflow}{goto} found\_xy;
+1014     \} \textcolor{keywordflow}{while} (++trycount < 1000);
+1015 
+1016     \textcolor{comment}{/* last ditch attempt to find a good place */}
+1017     \textcolor{keywordflow}{for} (x = 2; x < \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} - 1; x++)
+1018         \textcolor{keywordflow}{for} (y = 0; y < \hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO}; y++)
+1019         \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, y, mtmp, 0))
+1020             \textcolor{keywordflow}{goto} found\_xy;
+1021 
+1022     \textcolor{comment}{/* level either full of monsters or somehow faulty */}
+1023     \textcolor{keywordflow}{if} (!suppress\_impossible)
+1024         impossible(\textcolor{stringliteral}{"rloc(): couldn't relocate monster"});
+1025     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1026 
+1027  found\_xy:
+1028     \hyperlink{teleport_8c_a3707933b53701ba07bdb94aaf5db0c33}{rloc\_to}(mtmp, x, y);
+1029     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1030 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a4c5cf24429f97d12a3ef0572948b9e3c}{\index{teleport.\+c@{teleport.\+c}!rloc\+\_\+pos\+\_\+ok@{rloc\+\_\+pos\+\_\+ok}}
+\index{rloc\+\_\+pos\+\_\+ok@{rloc\+\_\+pos\+\_\+ok}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{rloc\+\_\+pos\+\_\+ok}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} rloc\+\_\+pos\+\_\+ok (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{struct {\bf monst} $\ast$}]{mtmp}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a4c5cf24429f97d12a3ef0572948b9e3c}
+
+
+Definition at line 883 of file teleport.\+c.
+
+
+
+References dndest, F\+A\+L\+S\+E, goodpos(), dest\+\_\+area\+::hx, dest\+\_\+area\+::hy, dest\+\_\+area\+::lx, dest\+\_\+area\+::ly, monst\+::mx, monst\+::my, dest\+\_\+area\+::nhx, dest\+\_\+area\+::nhy, dest\+\_\+area\+::nlx, dest\+\_\+area\+::nly, tele\+\_\+jump\+\_\+ok(), T\+R\+U\+E, u, updest, you\+::uz, and within\+\_\+bounded\+\_\+area.
+
+
+
+Referenced by rloc().
+
+
+\begin{DoxyCode}
+886 \{
+887     \textcolor{keyword}{register} \textcolor{keywordtype}{int} xx, yy;
+888 
+889     \textcolor{keywordflow}{if} (!\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, y, mtmp, 0)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+890     \textcolor{comment}{/*}
+891 \textcolor{comment}{     * Check for restricted areas present in some special levels.}
+892 \textcolor{comment}{     *}
+893 \textcolor{comment}{     * `xx' is current column; if 0, then `yy' will contain flag bits}
+894 \textcolor{comment}{     * rather than row:  bit #0 set => moving upwards; bit #1 set =>}
+895 \textcolor{comment}{     * inside the Wizard's tower.}
+896 \textcolor{comment}{     */}
+897     xx = mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx};
+898     yy = mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my};
+899     \textcolor{keywordflow}{if} (!xx) \{
+900         \textcolor{comment}{/* no current location (migrating monster arrival) */}
+901         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx} && On\_W\_tower\_level(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}))
+902         \textcolor{keywordflow}{return} ((yy & 2) != 0) ^    \textcolor{comment}{/* inside xor not within */}
+903                !\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x, y, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+904                           \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy});
+905         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a5932983ba18a545f7aec082d215a39ec}{lx} && (yy & 1) != 0) \textcolor{comment}{/* moving up */}
+906         \textcolor{keywordflow}{return} (\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x, y, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a5932983ba18a545f7aec082d215a39ec}{lx}, 
+      \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3788f34449db2f679cda4d9d6c42ba7a}{ly},
+907                           \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a53be01202be5ffa69a363b5310e17517}{hx}, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a49f5641f3f9a1fd5dc7a99e965ff68a1}{hy}) &&
+908                (!\hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx} ||
+909             !\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x, y, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+910                            \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy})));
+911         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a5932983ba18a545f7aec082d215a39ec}{lx} && (yy & 1) == 0) \textcolor{comment}{/* moving down */}
+912         \textcolor{keywordflow}{return} (\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x, y, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a5932983ba18a545f7aec082d215a39ec}{lx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3788f34449db2f679cda4d9d6c42ba7a}{ly},
+913                           \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a53be01202be5ffa69a363b5310e17517}{hx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a49f5641f3f9a1fd5dc7a99e965ff68a1}{hy}) &&
+914                (!\hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx} ||
+915             !\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x, y, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+916                            \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy})));
+917     \} \textcolor{keywordflow}{else} \{
+918         \textcolor{comment}{/* current location is <xx,yy> */}
+919         \textcolor{keywordflow}{if} (!\hyperlink{teleport_8c_ad8a3540f7cca72aaf47681439f732f5c}{tele\_jump\_ok}(xx, yy, x, y)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+920     \}
+921     \textcolor{comment}{/* <x,y> is ok */}
+922     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+923 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a3707933b53701ba07bdb94aaf5db0c33}{\index{teleport.\+c@{teleport.\+c}!rloc\+\_\+to@{rloc\+\_\+to}}
+\index{rloc\+\_\+to@{rloc\+\_\+to}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{rloc\+\_\+to}]{\setlength{\rightskip}{0pt plus 5cm}void rloc\+\_\+to (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{int}]{x, }
+\item[{int}]{y}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a3707933b53701ba07bdb94aaf5db0c33}
+
+
+Definition at line 935 of file teleport.\+c.
+
+
+
+References docrt(), newsym(), place\+\_\+monster, place\+\_\+worm\+\_\+tail\+\_\+randomly(), remove\+\_\+monster, remove\+\_\+worm(), u, update\+\_\+monster\+\_\+region(), you\+::ustuck, you\+::ux, and you\+::uy.
+
+
+
+Referenced by mvault\+\_\+tele(), rloc(), and u\+\_\+teleport\+\_\+mon().
+
+
+\begin{DoxyCode}
+938 \{
+939     \textcolor{keyword}{register} \textcolor{keywordtype}{int} oldx = mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, oldy = mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my};
+940     \textcolor{keywordtype}{boolean} resident\_shk = mtmp->isshk && inhishop(mtmp);
+941 
+942     \textcolor{keywordflow}{if} (x == mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx} && y == mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my}) \textcolor{comment}{/* that was easy */}
+943         \textcolor{keywordflow}{return};
+944 
+945     \textcolor{keywordflow}{if} (oldx) \{             \textcolor{comment}{/* "pick up" monster */}
+946         \textcolor{keywordflow}{if} (mtmp->wormno)
+947         \hyperlink{worm_8c_ae053c352f0b044f150234f457e7b0a1f}{remove\_worm}(mtmp);
+948         \textcolor{keywordflow}{else} \{
+949         \hyperlink{rm_8h_a8b498c0777a4cf5d9894ab76cb6a520e}{remove\_monster}(oldx, oldy);
+950         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(oldx, oldy);       \textcolor{comment}{/* update old location */}
+951         \}
+952     \}
+953 
+954     \hyperlink{rm_8h_af46e44dabc00162cdea350fe3dae252b}{place\_monster}(mtmp, x, y);     \textcolor{comment}{/* put monster down */}
+955     \hyperlink{region_8c_a00b2aa38f5d577f959a3c5ce97e8aa5a}{update\_monster\_region}(mtmp);
+956 
+957     \textcolor{keywordflow}{if} (mtmp->wormno)           \textcolor{comment}{/* now put down tail */}
+958         \hyperlink{worm_8c_aa720d031cc0300330fbf45daaa61a260}{place\_worm\_tail\_randomly}(mtmp, x, y);
+959 
+960     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck} == mtmp) \{
+961         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow) \{
+962             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} = x;
+963             \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} = y;
+964             \hyperlink{display_8c_aad46d5a3dee537d403163916114fd463}{docrt}();
+965         \} \textcolor{keywordflow}{else}  \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck} = 0;
+966     \}
+967 
+968     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(x, y);             \textcolor{comment}{/* update new location */}
+969     set\_apparxy(mtmp);          \textcolor{comment}{/* orient monster */}
+970 
+971     \textcolor{comment}{/* shopkeepers will only teleport if you zap them with a wand of}
+972 \textcolor{comment}{       teleportation or if they've been transformed into a jumpy monster;}
+973 \textcolor{comment}{       the latter only happens if you've attacked them with polymorph */}
+974     \textcolor{keywordflow}{if} (resident\_shk && !inhishop(mtmp)) make\_angry\_shk(mtmp, oldx, oldy);
+975 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a1e48777d4062f6355d17021253b2f279}{\index{teleport.\+c@{teleport.\+c}!rloco@{rloco}}
+\index{rloco@{rloco}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{rloco}]{\setlength{\rightskip}{0pt plus 5cm}void rloco (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a1e48777d4062f6355d17021253b2f279}
+
+
+Definition at line 1162 of file teleport.\+c.
+
+
+
+References C\+O\+L\+N\+O, dndest, F\+A\+L\+S\+E, goodpos(), dest\+\_\+area\+::hx, dest\+\_\+area\+::hy, index(), is\+\_\+rider, dest\+\_\+area\+::lx, dest\+\_\+area\+::ly, mons, newsym(), dest\+\_\+area\+::nhx, dest\+\_\+area\+::nhy, dest\+\_\+area\+::nlx, dest\+\_\+area\+::nly, rn1, R\+O\+W\+N\+O, u, you\+::urooms, you\+::ux, you\+::uy, and within\+\_\+bounded\+\_\+area.
+
+
+
+Referenced by obj\+\_\+delivery().
+
+
+\begin{DoxyCode}
+1164 \{
+1165     \textcolor{keyword}{register} \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} tx, ty, otx, oty;
+1166     \textcolor{keywordtype}{boolean} restricted\_fall;
+1167     \textcolor{keywordtype}{int} try\_limit = 4000;
+1168 
+1169     \textcolor{keywordflow}{if} (obj->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == CORPSE && \hyperlink{mondata_8h_ae65c0c7b92cbe7cb6e8550523ef4f175}{is\_rider}(&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[obj->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm}])) \{
+1170         \textcolor{keywordflow}{if} (revive\_corpse(obj)) \textcolor{keywordflow}{return};
+1171     \}
+1172 
+1173     obj\_extract\_self(obj);
+1174     otx = obj->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox};
+1175     oty = obj->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy};
+1176     restricted\_fall = (otx == 0 && \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a5932983ba18a545f7aec082d215a39ec}{lx});
+1177     \textcolor{keywordflow}{do} \{
+1178         tx = \hyperlink{hack_8h_af107ca092682647f298989038020f9c8}{rn1}(\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-3,2);
+1179         ty = rn2(\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO});
+1180         \textcolor{keywordflow}{if} (!--try\_limit) \textcolor{keywordflow}{break};
+1181     \} \textcolor{keywordflow}{while} (!\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(tx, ty, (\textcolor{keyword}{struct} \hyperlink{structmonst}{monst} *)0, 0) ||
+1182         \textcolor{comment}{/* bug: this lacks provision for handling the Wizard's tower */}
+1183          (restricted\_fall &&
+1184           (!\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(tx, ty, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a5932983ba18a545f7aec082d215a39ec}{lx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3788f34449db2f679cda4d9d6c42ba7a}{ly},
+1185                         \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a53be01202be5ffa69a363b5310e17517}{hx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a49f5641f3f9a1fd5dc7a99e965ff68a1}{hy}) ||
+1186            (\hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx} &&
+1187             \hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(tx, ty, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+1188                         \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy})))));
+1189 
+1190     \textcolor{keywordflow}{if} (flooreffects(obj, tx, ty, \textcolor{stringliteral}{"fall"})) \{
+1191         \textcolor{keywordflow}{return};
+1192     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (otx == 0 && oty == 0) \{
+1193         ;   \textcolor{comment}{/* fell through a trap door; no update of old loc needed */}
+1194     \} \textcolor{keywordflow}{else} \{
+1195         \textcolor{keywordflow}{if} (costly\_spot(otx, oty)
+1196           && (!costly\_spot(tx, ty) ||
+1197           !\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(in\_rooms(tx, ty, 0), *in\_rooms(otx, oty, 0)))) \{
+1198         \textcolor{keywordflow}{if} (costly\_spot(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}) &&
+1199                 \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3a44bd4651bae48019fe01f96afc457a}{urooms}, *in\_rooms(otx, oty, 0)))
+1200             addtobill(obj, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1201         \textcolor{keywordflow}{else} (\textcolor{keywordtype}{void})stolen\_value(obj, otx, oty, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1202         \}
+1203         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(otx, oty); \textcolor{comment}{/* update old location */}
+1204     \}
+1205     place\_object(obj, tx, ty);
+1206     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(tx, ty);
+1207 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a3d5813b8abc278b8a2f327300701e36a}{\index{teleport.\+c@{teleport.\+c}!safe\+\_\+teleds@{safe\+\_\+teleds}}
+\index{safe\+\_\+teleds@{safe\+\_\+teleds}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{safe\+\_\+teleds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} safe\+\_\+teleds (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{allow\+\_\+drag}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a3d5813b8abc278b8a2f327300701e36a}
+
+
+Definition at line 336 of file teleport.\+c.
+
+
+
+References C\+O\+L\+N\+O, F\+A\+L\+S\+E, R\+O\+W\+N\+O, teleds(), teleok(), and T\+R\+U\+E.
+
+
+
+Referenced by fix\+\_\+worst\+\_\+trouble(), and tele().
+
+
+\begin{DoxyCode}
+338 \{
+339     \textcolor{keyword}{register} \textcolor{keywordtype}{int} nux, nuy, tcnt = 0;
+340 
+341     \textcolor{keywordflow}{do} \{
+342         nux = rnd(\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1);
+343         nuy = rn2(\hyperlink{global_8h_a9cce134868d97b23c35bcf1ff4a343d8}{ROWNO});
+344     \} \textcolor{keywordflow}{while} (!\hyperlink{teleport_8c_a9d7be74a5648721f2ec4a4fa2b7b47e6}{teleok}(nux, nuy, (\textcolor{keywordtype}{boolean})(tcnt > 200)) && ++tcnt <= 400);
+345 
+346     \textcolor{keywordflow}{if} (tcnt <= 400) \{
+347         \hyperlink{teleport_8c_a89b1c2cc372cf099af51126440f568bb}{teleds}(nux, nuy, allow\_drag);
+348         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+349     \} \textcolor{keywordflow}{else}
+350         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+351 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}{\index{teleport.\+c@{teleport.\+c}!tele@{tele}}
+\index{tele@{tele}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{tele}]{\setlength{\rightskip}{0pt plus 5cm}void tele (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}
+
+
+Definition at line 398 of file teleport.\+c.
+
+
+
+References Blinded, buf, B\+U\+F\+S\+Z, F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, level, safe\+\_\+teleds(), Sprintf, S\+T\+E\+E\+D, Stunned, teleds(), teleok(), Teleport\+\_\+control, T\+R\+U\+E, u, you\+::uhave, you\+::ux, you\+::uy, you\+::uz, wizard, W\+I\+Z\+A\+R\+D, coord\+::x, and coord\+::y.
+
+
+
+Referenced by cursed\+\_\+book(), dosit(), dotele(), mbhitm(), rloc(), tele\+\_\+trap(), and vault\+\_\+tele().
+
+
+\begin{DoxyCode}
+399 \{
+400     \hyperlink{structcoord}{coord} cc;
+401 
+402     \textcolor{comment}{/* Disable teleportation in stronghold && Vlad's Tower */}
+403     \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport) \{
+404 \textcolor{preprocessor}{#ifdef WIZARD}
+405         \textcolor{keywordflow}{if} (!\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}) \{
+406 \textcolor{preprocessor}{#endif}
+407             pline(\textcolor{stringliteral}{"A mysterious force prevents you from teleporting!"});
+408             \textcolor{keywordflow}{return};
+409 \textcolor{preprocessor}{#ifdef WIZARD}
+410         \}
+411 \textcolor{preprocessor}{#endif}
+412     \}
+413 
+414     \textcolor{comment}{/* don't show trap if "Sorry..." */}
+415     \textcolor{keywordflow}{if} (!\hyperlink{youprop_8h_a769ae4ea1360ffb2b8b4679bd129db09}{Blinded}) make\_blinded(0L,\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+416 
+417     \textcolor{keywordflow}{if} ((\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3e83735264e74265e8c8777f73e159fa}{uhave}.amulet || On\_W\_tower\_level(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz})) && !rn2(3)) \{
+418         You\_feel(\textcolor{stringliteral}{"disoriented for a moment."});
+419         \textcolor{keywordflow}{return};
+420     \}
+421     \textcolor{keywordflow}{if} ((\hyperlink{youprop_8h_ab1830f200ea6041117b499791e5e6324}{Teleport\_control} && !\hyperlink{youprop_8h_afd7fdfec2109113244c347015bab4ad1}{Stunned})
+422 #ifdef \hyperlink{config_8h_a7d25468f2993889250dd6664a4e6b011}{WIZARD}
+423                 || \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard}
+424 #endif
+425                     ) \{
+426         \textcolor{keywordflow}{if} (unconscious()) \{
+427         pline(\textcolor{stringliteral}{"Being unconscious, you cannot control your teleport."});
+428         \} \textcolor{keywordflow}{else} \{
+429 \textcolor{preprocessor}{#ifdef STEED}
+430             \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+431             \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed) \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(buf,\textcolor{stringliteral}{" and %s"}, mon\_nam(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed));
+432 \textcolor{preprocessor}{#endif}
+433             pline(\textcolor{stringliteral}{"To what position do you%s want to be teleported?"},
+434 #ifdef \hyperlink{config_8h_a0386a3058afaec36a953bb688cf7cf04}{STEED}
+435                 \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed ? buf :
+436 #endif
+437                \textcolor{stringliteral}{""});
+438             cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+439             cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+440             \textcolor{keywordflow}{if} (getpos(&cc, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, \textcolor{stringliteral}{"the desired position"}) < 0)
+441             \textcolor{keywordflow}{return}; \textcolor{comment}{/* abort */}
+442             \textcolor{comment}{/* possible extensions: introduce a small error if}
+443 \textcolor{comment}{               magic power is low; allow transfer to solid rock */}
+444             \textcolor{keywordflow}{if} (\hyperlink{teleport_8c_a9d7be74a5648721f2ec4a4fa2b7b47e6}{teleok}(cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE})) \{
+445             \hyperlink{teleport_8c_a89b1c2cc372cf099af51126440f568bb}{teleds}(cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y}, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+446             \textcolor{keywordflow}{return};
+447             \}
+448             pline(\textcolor{stringliteral}{"Sorry..."});
+449         \}
+450     \}
+451 
+452     (void) \hyperlink{teleport_8c_a3d5813b8abc278b8a2f327300701e36a}{safe\_teleds}(\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+453 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_ad8a3540f7cca72aaf47681439f732f5c}{\index{teleport.\+c@{teleport.\+c}!tele\+\_\+jump\+\_\+ok@{tele\+\_\+jump\+\_\+ok}}
+\index{tele\+\_\+jump\+\_\+ok@{tele\+\_\+jump\+\_\+ok}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{tele\+\_\+jump\+\_\+ok}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} tele\+\_\+jump\+\_\+ok (
+\begin{DoxyParamCaption}
+\item[{int}]{x1, }
+\item[{int}]{y1, }
+\item[{int}]{x2, }
+\item[{int}]{y2}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_ad8a3540f7cca72aaf47681439f732f5c}
+
+
+Definition at line 185 of file teleport.\+c.
+
+
+
+References dndest, F\+A\+L\+S\+E, dest\+\_\+area\+::nhx, dest\+\_\+area\+::nhy, dest\+\_\+area\+::nlx, dest\+\_\+area\+::nly, T\+R\+U\+E, updest, and within\+\_\+bounded\+\_\+area.
+
+
+
+Referenced by rloc\+\_\+pos\+\_\+ok(), and teleok().
+
+
+\begin{DoxyCode}
+187 \{
+188     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx} > 0) \{
+189         \textcolor{comment}{/* if inside a restricted region, can't teleport outside */}
+190         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x1, y1, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+191                         \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy}) &&
+192         !\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x2, y2, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+193                         \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy}))
+194         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+195         \textcolor{comment}{/* and if outside, can't teleport inside */}
+196         \textcolor{keywordflow}{if} (!\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x1, y1, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+197                         \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy}) &&
+198         \hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x2, y2, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+199                         \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a61b16a7f020775eafcbf288f10c3b76a}{dndest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy}))
+200         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+201     \}
+202     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx} > 0) \{      \textcolor{comment}{/* ditto */}
+203         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x1, y1, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+204                         \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy}) &&
+205         !\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x2, y2, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+206                         \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy}))
+207         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+208         \textcolor{keywordflow}{if} (!\hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x1, y1, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+209                         \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy}) &&
+210         \hyperlink{dungeon_8h_a4a73312ef2a030d533001d3aa2e34224}{within\_bounded\_area}(x2, y2, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a3841cd1351a730acf221e7b4bf12a198}{nlx}, 
+      \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_a1c6b08cac0b134b417e8ef813e2816be}{nly},
+211                         \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_ad1a0692d1789df6ffa4a736f6e70cfed}{nhx}, \hyperlink{decl_8h_a5080b0474fe01e4a42745fb32ba04f70}{updest}.\hyperlink{structdest__area_acf56be5da5eddccf745d70f6b7b8922b}{nhy}))
+212         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+213     \}
+214     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+215 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_ae7a3070a79b803227ad2474af019d5ab}{\index{teleport.\+c@{teleport.\+c}!tele\+\_\+restrict@{tele\+\_\+restrict}}
+\index{tele\+\_\+restrict@{tele\+\_\+restrict}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{tele\+\_\+restrict}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} tele\+\_\+restrict (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mon}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_ae7a3070a79b803227ad2474af019d5ab}
+
+
+Definition at line 1048 of file teleport.\+c.
+
+
+
+References canseemon, F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, level, and T\+R\+U\+E.
+
+
+
+Referenced by demon\+\_\+talk(), gem\+\_\+accept(), mbhitm(), mtele\+\_\+trap(), and use\+\_\+defensive().
+
+
+\begin{DoxyCode}
+1050 \{
+1051     \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport) \{
+1052         \textcolor{keywordflow}{if} (\hyperlink{display_8h_ad75e04a9624fe7ba0e1715ae3a3feb27}{canseemon}(mon))
+1053             pline(\textcolor{stringliteral}{"A mysterious force prevents %s from teleporting!"},
+1054             mon\_nam(mon));
+1055         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1056     \}
+1057     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1058 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a47f49937926080580f3f8233c1a971fe}{\index{teleport.\+c@{teleport.\+c}!tele\+\_\+trap@{tele\+\_\+trap}}
+\index{tele\+\_\+trap@{tele\+\_\+trap}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{tele\+\_\+trap}]{\setlength{\rightskip}{0pt plus 5cm}void tele\+\_\+trap (
+\begin{DoxyParamCaption}
+\item[{struct {\bf trap} $\ast$}]{trap}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a47f49937926080580f3f8233c1a971fe}
+
+
+Definition at line 841 of file teleport.\+c.
+
+
+
+References Antimagic, In\+\_\+endgame, newsym(), shieldeff(), shudder\+\_\+for\+\_\+moment, tele(), u, you\+::ux, you\+::uy, you\+::uz, and vault\+\_\+tele().
+
+
+\begin{DoxyCode}
+843 \{
+844     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}) || \hyperlink{youprop_8h_aaa17c946f184a85fbf104cdb4d55e24e}{Antimagic}) \{
+845         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_aaa17c946f184a85fbf104cdb4d55e24e}{Antimagic})
+846             \hyperlink{display_8c_ac89f44ae626d79f05953e503312a939d}{shieldeff}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});
+847         You\_feel(\textcolor{stringliteral}{"a wrenching sensation."});
+848     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!next\_to\_u()) \{
+849         You(\hyperlink{decl_8h_a3ffc60f5f0cf00e20cc2387e8723d4d7}{shudder\_for\_moment});
+850     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (trap->once) \{
+851         deltrap(trap);
+852         \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy});  \textcolor{comment}{/* get rid of trap symbol */}
+853         \hyperlink{teleport_8c_ae5c68a851a58917c3bdcdf1dfa0fff60}{vault\_tele}();
+854     \} \textcolor{keywordflow}{else}
+855         \hyperlink{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}{tele}();
+856 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a89b1c2cc372cf099af51126440f568bb}{\index{teleport.\+c@{teleport.\+c}!teleds@{teleds}}
+\index{teleds@{teleds}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{teleds}]{\setlength{\rightskip}{0pt plus 5cm}void teleds (
+\begin{DoxyParamCaption}
+\item[{int}]{nux, }
+\item[{int}]{nuy, }
+\item[{{\bf boolean}}]{allow\+\_\+drag}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a89b1c2cc372cf099af51126440f568bb}
+
+
+Definition at line 230 of file teleport.\+c.
+
+
+
+References carried, monst\+::data, docrt(), drag\+\_\+ball(), F\+A\+L\+S\+E, hides\+\_\+under, M\+\_\+\+A\+P\+\_\+\+N\+O\+T\+H\+I\+N\+G, monst\+::m\+\_\+ap\+\_\+type, permonst\+::mlet, move\+\_\+bc(), newsym(), O\+B\+J\+\_\+\+A\+T, O\+B\+J\+\_\+\+F\+R\+E\+E, obj\+::ox, obj\+::oy, placebc(), Punished, S\+\_\+\+E\+E\+L, S\+\_\+\+M\+I\+M\+I\+C, see\+\_\+monsters(), T\+R\+U\+E, u, uball, unplacebc(), update\+\_\+player\+\_\+regions(), you\+::ustuck, you\+::uswldtim, you\+::utrap, you\+::ux, you\+::ux0, you\+::uy, you\+::uy0, vision\+\_\+full\+\_\+recalc, vision\+\_\+recalc(), obj\+::where, and youmonst.
+
+
+
+Referenced by safe\+\_\+teleds(), tele(), and vault\+\_\+tele().
+
+
+\begin{DoxyCode}
+233 \{
+234     \textcolor{keywordtype}{boolean} ball\_active = (\hyperlink{youprop_8h_ad76daf081117eb579839073bebe92b45}{Punished} && \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a57f24060a7aa1c3d2fd02c1c550cb5c6}{where} != 
+      \hyperlink{obj_8h_a1a30035b131908457d0b16db1d194eaa}{OBJ\_FREE}),
+235         ball\_still\_in\_range = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+236 
+237     \textcolor{comment}{/* If they have to move the ball, then drag if allow\_drag is true;}
+238 \textcolor{comment}{     * otherwise they are teleporting, so unplacebc().  }
+239 \textcolor{comment}{     * If they don't have to move the ball, then always "drag" whether or}
+240 \textcolor{comment}{     * not allow\_drag is true, because we are calling that function, not}
+241 \textcolor{comment}{     * to drag, but to move the chain.  *However* there are some dumb}
+242 \textcolor{comment}{     * special cases:}
+243 \textcolor{comment}{     *    0              0}
+244 \textcolor{comment}{     *   \_X  move east       ----->  X\_}
+245 \textcolor{comment}{     *    @               @}
+246 \textcolor{comment}{     * These are permissible if teleporting, but not if dragging.  As a}
+247 \textcolor{comment}{     * result, drag\_ball() needs to know about allow\_drag and might end}
+248 \textcolor{comment}{     * up dragging the ball anyway.  Also, drag\_ball() might find that}
+249 \textcolor{comment}{     * dragging the ball is completely impossible (ball in range but there's}
+250 \textcolor{comment}{     * rock in the way), in which case it teleports the ball on its own.}
+251 \textcolor{comment}{     */}
+252     \textcolor{keywordflow}{if} (ball\_active) \{
+253         \textcolor{keywordflow}{if} (!\hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(\hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}) && distmin(nux, nuy, \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_aac936c7da6b4f1eca0a94f75c242e5cc}{ox}, 
+      \hyperlink{decl_8h_a043dece512e3c566986d7cfabc52d05e}{uball}->\hyperlink{structobj_a72dace5e678b56ae42c3fb19292e5839}{oy}) <= 2)
+254         ball\_still\_in\_range = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}; \textcolor{comment}{/* don't have to move the ball */}
+255         \textcolor{keywordflow}{else} \{
+256         \textcolor{comment}{/* have to move the ball */}
+257         \textcolor{keywordflow}{if} (!allow\_drag || distmin(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, nux, nuy) > 1) \{
+258             \textcolor{comment}{/* we should not have dist > 1 and allow\_drag at the same}
+259 \textcolor{comment}{             * time, but just in case, we must then revert to teleport.}
+260 \textcolor{comment}{             */}
+261             allow\_drag = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+262             \hyperlink{ball_8c_a5596cf2bf4f23320ff7738af699100dc}{unplacebc}();
+263         \}
+264         \}
+265     \}
+266     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a7250d3b13a54b76d846b754a2a6f3fa6}{utrap} = 0;
+267     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck} = 0;
+268     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afe13de7f227dec3c2a5829967934b095}{ux0} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux};
+269     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a9b39ba2afea70f31c1d423f8bdcb25a6}{uy0} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy};
+270 
+271     \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_a37a7b9dfee69b94d8e6946bb04c22874}{hides\_under}(\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}))
+272         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uundetected = \hyperlink{rm_8h_a8c5e05f917fa75d3b54c8c5045d6665b}{OBJ\_AT}(nux, nuy);
+273     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}->\hyperlink{structpermonst_ab402dbf1bed9d0e595a2b3da6558da92}{mlet} == \hyperlink{monsym_8h_a07cd4c997171ec30fbe1376341a26160}{S\_EEL})
+274         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uundetected = is\_pool(nux, nuy);
+275     \textcolor{keywordflow}{else} \{
+276         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uundetected = 0;
+277         \textcolor{comment}{/* mimics stop being unnoticed */}
+278         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}->\hyperlink{structpermonst_ab402dbf1bed9d0e595a2b3da6558da92}{mlet} == \hyperlink{monsym_8h_ad8b9f73f4b42e8250eb5a69a12482436}{S\_MIMIC})
+279             \hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}.\hyperlink{structmonst_aab8fc9a0be90b4db8333b09487e2620c}{m\_ap\_type} = \hyperlink{monst_8h_a58db2fb11cfd7427581d698582b9a386}{M\_AP\_NOTHING};
+280     \}
+281 
+282     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow) \{
+283         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a774f55da1afa57f6bfe3f26908249e35}{uswldtim} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow = 0;
+284         \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_ad76daf081117eb579839073bebe92b45}{Punished} && !ball\_active) \{
+285             \textcolor{comment}{/* ensure ball placement, like unstuck */}
+286             ball\_active = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+287             allow\_drag = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+288         \}
+289         \hyperlink{display_8c_aad46d5a3dee537d403163916114fd463}{docrt}();
+290     \}
+291     \textcolor{keywordflow}{if} (ball\_active) \{
+292         \textcolor{keywordflow}{if} (ball\_still\_in\_range || allow\_drag) \{
+293         \textcolor{keywordtype}{int} bc\_control;
+294         \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} ballx, bally, chainx, chainy;
+295         \textcolor{keywordtype}{boolean} cause\_delay;
+296 
+297         \textcolor{keywordflow}{if} (\hyperlink{ball_8c_a049bb0f6f118be5dba01139ccaea840e}{drag\_ball}(nux, nuy, &bc\_control, &ballx, &bally,
+298                     &chainx, &chainy, &cause\_delay, allow\_drag))
+299             \hyperlink{ball_8c_a89207ef1f0a59f8ce0fbed9f35715816}{move\_bc}(0, bc\_control, ballx, bally, chainx, chainy);
+300         \}
+301     \}
+302     \textcolor{comment}{/* must set u.ux, u.uy after drag\_ball(), which may need to know}
+303 \textcolor{comment}{       the old position if allow\_drag is true... */}
+304     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux} = nux;
+305     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy} = nuy;
+306     fill\_pit(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afe13de7f227dec3c2a5829967934b095}{ux0}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a9b39ba2afea70f31c1d423f8bdcb25a6}{uy0});
+307     \textcolor{keywordflow}{if} (ball\_active) \{
+308         \textcolor{keywordflow}{if} (!ball\_still\_in\_range && !allow\_drag)
+309         \hyperlink{ball_8c_ae38eff6ef477a64e08d48e372e5dc406}{placebc}();
+310     \}
+311     initrack(); \textcolor{comment}{/* teleports mess up tracking monsters without this */}
+312     \hyperlink{region_8c_aa3f81ca2a9d868ca9b8eb54511903561}{update\_player\_regions}();
+313 \textcolor{preprocessor}{#ifdef STEED}
+314     \textcolor{comment}{/* Move your steed, too */}
+315     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed) \{
+316         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed->mx = nux;
+317         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed->my = nuy;
+318     \}
+319 \textcolor{preprocessor}{#endif}
+320     \textcolor{comment}{/*}
+321 \textcolor{comment}{     *  Make sure the hero disappears from the old location.  This will}
+322 \textcolor{comment}{     *  not happen if she is teleported within sight of her previous}
+323 \textcolor{comment}{     *  location.  Force a full vision recalculation because the hero}
+324 \textcolor{comment}{     *  is now in a new location.}
+325 \textcolor{comment}{     */}
+326     \hyperlink{display_8c_a185c6ad6e4c5a6be26a371b9aa17c32e}{newsym}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_afe13de7f227dec3c2a5829967934b095}{ux0},\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a9b39ba2afea70f31c1d423f8bdcb25a6}{uy0});
+327     \hyperlink{display_8c_aa9a8557e452301a77e67c6b9be801775}{see\_monsters}();
+328     \hyperlink{decl_8h_aac4610a050d8202c4412482d90630808}{vision\_full\_recalc} = 1;
+329     nomul(0);
+330     \hyperlink{vision_8c_a07b3acbfcca75497c31df8d8aee1ca53}{vision\_recalc}(0);  \textcolor{comment}{/* vision before effects */}
+331     spoteffects(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+332     invocation\_message();
+333 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a9d7be74a5648721f2ec4a4fa2b7b47e6}{\index{teleport.\+c@{teleport.\+c}!teleok@{teleok}}
+\index{teleok@{teleok}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{teleok}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf boolean} teleok (
+\begin{DoxyParamCaption}
+\item[{int}]{x, }
+\item[{int}]{y, }
+\item[{{\bf boolean}}]{trapok}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a9d7be74a5648721f2ec4a4fa2b7b47e6}
+
+
+Definition at line 218 of file teleport.\+c.
+
+
+
+References F\+A\+L\+S\+E, goodpos(), in\+\_\+out\+\_\+region(), tele\+\_\+jump\+\_\+ok(), T\+R\+U\+E, u, you\+::ux, you\+::uy, and youmonst.
+
+
+
+Referenced by safe\+\_\+teleds(), tele(), and vault\+\_\+tele().
+
+
+\begin{DoxyCode}
+221 \{
+222     \textcolor{keywordflow}{if} (!trapok && t\_at(x, y)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+223     \textcolor{keywordflow}{if} (!\hyperlink{teleport_8c_a6eccfce2bb34ffe646ba537130d622e3}{goodpos}(x, y, &\hyperlink{decl_8h_ad15893dbcb60e2777ae0dfac9f840858}{youmonst}, 0)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+224     \textcolor{keywordflow}{if} (!\hyperlink{teleport_8c_ad8a3540f7cca72aaf47681439f732f5c}{tele\_jump\_ok}(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, x, y)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+225     \textcolor{keywordflow}{if} (!\hyperlink{region_8c_a81f2ad7a49678ddc817ad507962b8d4a}{in\_out\_region}(x, y)) \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+226     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+227 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a1449ac7e4f1169157f5720a8500d0cd0}{\index{teleport.\+c@{teleport.\+c}!teleport\+\_\+pet@{teleport\+\_\+pet}}
+\index{teleport\+\_\+pet@{teleport\+\_\+pet}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{teleport\+\_\+pet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} teleport\+\_\+pet (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{{\bf boolean}}]{force\+\_\+it}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a1449ac7e4f1169157f5720a8500d0cd0}
+
+
+Definition at line 367 of file teleport.\+c.
+
+
+
+References F\+A\+L\+S\+E, otmp, T\+R\+U\+E, and u.
+
+
+
+Referenced by mlevel\+\_\+tele\+\_\+trap(), and mtele\+\_\+trap().
+
+
+\begin{DoxyCode}
+370 \{
+371     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structobj}{obj} *\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+372 
+373 \textcolor{preprocessor}{#ifdef STEED}
+374     \textcolor{keywordflow}{if} (mtmp == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.usteed)
+375         \textcolor{keywordflow}{return} (\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+376 \textcolor{preprocessor}{#endif}
+377 
+378     \textcolor{keywordflow}{if} (mtmp->mleashed) \{
+379         otmp = get\_mleash(mtmp);
+380         \textcolor{keywordflow}{if} (!otmp) \{
+381         impossible(\textcolor{stringliteral}{"%s is leashed, without a leash."}, Monnam(mtmp));
+382         \textcolor{keywordflow}{goto} release\_it;
+383         \}
+384         \textcolor{keywordflow}{if} (otmp->cursed && !force\_it) \{
+385         yelp(mtmp);
+386         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+387         \} \textcolor{keywordflow}{else} \{
+388         Your(\textcolor{stringliteral}{"leash goes slack."});
+389  release\_it:
+390         m\_unleash(mtmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+391         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+392         \}
+393     \}
+394     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+395 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_a3ef4493051966a97cac12d2c52756d04}{\index{teleport.\+c@{teleport.\+c}!u\+\_\+teleport\+\_\+mon@{u\+\_\+teleport\+\_\+mon}}
+\index{u\+\_\+teleport\+\_\+mon@{u\+\_\+teleport\+\_\+mon}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{u\+\_\+teleport\+\_\+mon}]{\setlength{\rightskip}{0pt plus 5cm}{\bf boolean} u\+\_\+teleport\+\_\+mon (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{mtmp, }
+\item[{{\bf boolean}}]{give\+\_\+feedback}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_a3ef4493051966a97cac12d2c52756d04}
+
+
+Definition at line 1268 of file teleport.\+c.
+
+
+
+References enexto(), F\+A\+L\+S\+E, dlevel\+\_\+t\+::flags, is\+\_\+rider, level, rloc(), rloc\+\_\+to(), T\+E\+M\+P\+L\+E, T\+R\+U\+E, u, you\+::ustuck, you\+::ux, you\+::uy, coord\+::x, and coord\+::y.
+
+
+
+Referenced by damageum().
+
+
+\begin{DoxyCode}
+1271 \{
+1272     \hyperlink{structcoord}{coord} cc;
+1273 
+1274     \textcolor{keywordflow}{if} (mtmp->ispriest && *in\_rooms(mtmp->\hyperlink{structmonst_a9bc20171e986845daccff8aafd8b5194}{mx}, mtmp->\hyperlink{structmonst_a0b969d9b6af5b55393f6acfe508c6f08}{my}, \hyperlink{mkroom_8h_ab8c9e1bea2ae73195887ee67f76acee2}{TEMPLE})) \{
+1275         \textcolor{keywordflow}{if} (give\_feedback)
+1276         pline(\textcolor{stringliteral}{"%s resists your magic!"}, Monnam(mtmp));
+1277         \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+1278     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{rm_8h_a721c99bfa099c4225215ba102e91fa39}{level}.\hyperlink{structdlevel__t_ad52c01d015e2456cdae3300848115916}{flags}.noteleport && \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.uswallow && mtmp == \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.
+      \hyperlink{structyou_a774d4dad2da130ec9ed1d2e6c5e0fa80}{ustuck}) \{
+1279         \textcolor{keywordflow}{if} (give\_feedback)
+1280         You(\textcolor{stringliteral}{"are no longer inside %s!"}, mon\_nam(mtmp));
+1281         unstuck(mtmp);
+1282         (void) \hyperlink{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}{rloc}(mtmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1283     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{mondata_8h_ae65c0c7b92cbe7cb6e8550523ef4f175}{is\_rider}(mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}) && rn2(13) &&
+1284            \hyperlink{teleport_8c_a61ffc1bbdf6259d46ae8abd0dce3ce31}{enexto}(&cc, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ace2fd92f7f1a640e45775efe6e5f6cf7}{ux}, \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a8571cf3a9cfc41c3f877d0f56cda11a9}{uy}, mtmp->\hyperlink{structmonst_a5c8369d63f2ae0ca4466258542edecbe}{data}))
+1285         \hyperlink{teleport_8c_a3707933b53701ba07bdb94aaf5db0c33}{rloc\_to}(mtmp, cc.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x}, cc.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y});
+1286     \textcolor{keywordflow}{else}
+1287         (\textcolor{keywordtype}{void}) \hyperlink{teleport_8c_aa6c4370d0e90b61589cd46404ceab176}{rloc}(mtmp, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1288     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+1289 \}
+\end{DoxyCode}
+\hypertarget{teleport_8c_ae5c68a851a58917c3bdcdf1dfa0fff60}{\index{teleport.\+c@{teleport.\+c}!vault\+\_\+tele@{vault\+\_\+tele}}
+\index{vault\+\_\+tele@{vault\+\_\+tele}!teleport.\+c@{teleport.\+c}}
+\subsubsection[{vault\+\_\+tele}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void vault\+\_\+tele (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{teleport_8c_ae5c68a851a58917c3bdcdf1dfa0fff60}
+
+
+Definition at line 354 of file teleport.\+c.
+
+
+
+References F\+A\+L\+S\+E, tele(), teleds(), teleok(), V\+A\+U\+L\+T, coord\+::x, and coord\+::y.
+
+
+
+Referenced by dotele(), and tele\+\_\+trap().
+
+
+\begin{DoxyCode}
+355 \{
+356     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structmkroom}{mkroom} *croom = search\_special(\hyperlink{mkroom_8h_ab75d7f5a330f45915bd3794809ef1609}{VAULT});
+357     \hyperlink{structcoord}{coord} c;
+358 
+359     \textcolor{keywordflow}{if} (croom && somexy(croom, &c) && \hyperlink{teleport_8c_a9d7be74a5648721f2ec4a4fa2b7b47e6}{teleok}(c.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x},c.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y},\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE})) \{
+360         \hyperlink{teleport_8c_a89b1c2cc372cf099af51126440f568bb}{teleds}(c.\hyperlink{structcoord_ac3e93ff628aa19d2888c5f6fa26f430d}{x},c.\hyperlink{structcoord_a2b099692d87f98e4844b615136ca37fb}{y},\hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+361         \textcolor{keywordflow}{return};
+362     \}
+363     \hyperlink{teleport_8c_adc02df4d24975a27c60b0ae356fe63b0}{tele}();
+364 \}
+\end{DoxyCode}

@@ -1,0 +1,109 @@
+\hypertarget{mhcmd_8h}{\section{nethack/sys/wince/mhcmd.h File Reference}
+\label{mhcmd_8h}\index{nethack/sys/wince/mhcmd.\+h@{nethack/sys/wince/mhcmd.\+h}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+H\+W\+N\+D \hyperlink{mhcmd_8h_aee2144b7c7b72d770fdff4bb0f957f50}{mswin\+\_\+init\+\_\+command\+\_\+window} ()
+\item 
+void \hyperlink{mhcmd_8h_afe4b902f057d00e6b697018057d286c6}{mswin\+\_\+command\+\_\+window\+\_\+size} (H\+W\+N\+D hwnd, L\+P\+S\+I\+Z\+E sz)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{mhcmd_8h_afe4b902f057d00e6b697018057d286c6}{\index{mhcmd.\+h@{mhcmd.\+h}!mswin\+\_\+command\+\_\+window\+\_\+size@{mswin\+\_\+command\+\_\+window\+\_\+size}}
+\index{mswin\+\_\+command\+\_\+window\+\_\+size@{mswin\+\_\+command\+\_\+window\+\_\+size}!mhcmd.\+h@{mhcmd.\+h}}
+\subsubsection[{mswin\+\_\+command\+\_\+window\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+command\+\_\+window\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd, }
+\item[{L\+P\+S\+I\+Z\+E}]{sz}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8h_afe4b902f057d00e6b697018057d286c6}
+
+
+Definition at line 446 of file mhcmd.\+c.
+
+
+
+References Calculate\+Cell\+Size(), mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, max, nhcmdlayout\+\_\+columns, nhcmdlayout\+\_\+rows, and S\+I\+Z\+E.
+
+
+
+Referenced by mswin\+\_\+layout\+\_\+main\+\_\+window().
+
+
+\begin{DoxyCode}
+447 \{
+448     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} cell\_size;
+449     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+450     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hwnd, GWL\_USERDATA);
+451     \textcolor{keywordflow}{if}( !data ) \{
+452         sz->cx = sz->cy = 0;
+453     \} \textcolor{keywordflow}{else} \{
+454         \hyperlink{mhcmd_8c_a76dc727c6d3bcad629ae0aa6f614c866}{CalculateCellSize}(hwnd, &cell\_size, sz);
+455         sz->cx = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(
+456                     cell\_size.cx*\hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\_columns}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current})+2*GetSystemMetrics(SM\_CXBORDER),
+457                     sz->cx
+458                     );
+459         sz->cy = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(
+460                     cell\_size.cy*\hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\_rows}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current})+2*GetSystemMetrics(SM\_CYBORDER),
+461                     sz->cy
+462                     );
+463     \}
+464 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8h_aee2144b7c7b72d770fdff4bb0f957f50}{\index{mhcmd.\+h@{mhcmd.\+h}!mswin\+\_\+init\+\_\+command\+\_\+window@{mswin\+\_\+init\+\_\+command\+\_\+window}}
+\index{mswin\+\_\+init\+\_\+command\+\_\+window@{mswin\+\_\+init\+\_\+command\+\_\+window}!mhcmd.\+h@{mhcmd.\+h}}
+\subsubsection[{mswin\+\_\+init\+\_\+command\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}H\+W\+N\+D mswin\+\_\+init\+\_\+command\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8h_aee2144b7c7b72d770fdff4bb0f957f50}
+
+
+Definition at line 416 of file mhcmd.\+c.
+
+
+
+References Get\+N\+H\+App(), N\+U\+L\+L, panic(), register\+\_\+command\+\_\+window\+\_\+class(), and sz\+N\+H\+Cmd\+Window\+Class.
+
+
+
+Referenced by Main\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+416                                   \{
+417     \textcolor{keyword}{static} \textcolor{keywordtype}{int} run\_once = 0;
+418     HWND ret;
+419 
+420     \textcolor{comment}{/* register window class */}
+421     \textcolor{keywordflow}{if}( !run\_once ) \{
+422         \hyperlink{mhcmd_8c_a8df85e83a2ee7c554e66c2025a366c4d}{register\_command\_window\_class}();
+423         run\_once = 1;
+424     \}
+425 
+426     \textcolor{comment}{/* create window */}
+427     ret = CreateWindow(
+428             \hyperlink{mhcmd_8c_ac01ca5e9444edc0d2056c4cdf00db6b8}{szNHCmdWindowClass},       \textcolor{comment}{/* registered class name */}
+429             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},                   \textcolor{comment}{/* window name */}
+430             WS\_CHILD | WS\_CLIPSIBLINGS, \textcolor{comment}{/* window style */}
+431             0,  \textcolor{comment}{/* horizontal position of window - set it later */}
+432             0,  \textcolor{comment}{/* vertical position of window - set it later */}
+433             0,  \textcolor{comment}{/* window width - set it later */}
+434             0,  \textcolor{comment}{/* window height - set it later*/}
+435             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,   \textcolor{comment}{/* handle to parent or owner window */}
+436             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},                   \textcolor{comment}{/* menu handle or child identifier */}
+437             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,       \textcolor{comment}{/* handle to application instance */}
+438             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );                 \textcolor{comment}{/* window-creation data */}
+439     \textcolor{keywordflow}{if}( !ret ) \{
+440         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create command window"});
+441     \}
+442     \textcolor{keywordflow}{return} ret;
+443 \}
+\end{DoxyCode}

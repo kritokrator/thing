@@ -1,0 +1,182 @@
+\hypertarget{winkey_8c}{\section{nethack/sys/amiga/winkey.c File Reference}
+\label{winkey_8c}\index{nethack/sys/amiga/winkey.\+c@{nethack/sys/amiga/winkey.\+c}}
+}
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/windefs.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winext.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}N\+H\+:sys/amiga/winproto.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{winkey_8c_a3b8f16271eb7282e64d824c95d43debb}{amii\+\_\+nh\+\_\+poskey} (int $\ast$x, int $\ast$y, int $\ast$mod)
+\item 
+int \hyperlink{winkey_8c_a4431dafc8081337c402ed7ff782c3de4}{amii\+\_\+nhgetch} ()
+\item 
+void \hyperlink{winkey_8c_aad93c24ea58dfb30984bb97a5ad479f3}{amii\+\_\+get\+\_\+nh\+\_\+event} ()
+\item 
+void \hyperlink{winkey_8c_afaf5347d355ac4af27caba3454fc448a}{amii\+\_\+getret} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{winkey_8c_aad93c24ea58dfb30984bb97a5ad479f3}{\index{winkey.\+c@{winkey.\+c}!amii\+\_\+get\+\_\+nh\+\_\+event@{amii\+\_\+get\+\_\+nh\+\_\+event}}
+\index{amii\+\_\+get\+\_\+nh\+\_\+event@{amii\+\_\+get\+\_\+nh\+\_\+event}!winkey.\+c@{winkey.\+c}}
+\subsubsection[{amii\+\_\+get\+\_\+nh\+\_\+event}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+get\+\_\+nh\+\_\+event (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{winkey_8c_aad93c24ea58dfb30984bb97a5ad479f3}
+
+
+Definition at line 82 of file winkey.\+c.
+
+
+\begin{DoxyCode}
+83 \{
+84     \textcolor{comment}{/* nothing now - later I have no idea.  Is this just a Mac hook? */}
+85 \}
+\end{DoxyCode}
+\hypertarget{winkey_8c_afaf5347d355ac4af27caba3454fc448a}{\index{winkey.\+c@{winkey.\+c}!amii\+\_\+getret@{amii\+\_\+getret}}
+\index{amii\+\_\+getret@{amii\+\_\+getret}!winkey.\+c@{winkey.\+c}}
+\subsubsection[{amii\+\_\+getret}]{\setlength{\rightskip}{0pt plus 5cm}void amii\+\_\+getret (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{winkey_8c_afaf5347d355ac4af27caba3454fc448a}
+
+
+Definition at line 88 of file winkey.\+c.
+
+
+
+References Hack\+Port, raw\+\_\+print, and Window\+Getchar().
+
+
+
+Referenced by Abort().
+
+
+\begin{DoxyCode}
+89 \{
+90     \textcolor{keyword}{register} \textcolor{keywordtype}{int} c;
+91 
+92     \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}( \textcolor{stringliteral}{""} );
+93     \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}( \textcolor{stringliteral}{"Press Return..."} );
+94 
+95     c = 0;
+96 
+97     \textcolor{keywordflow}{while}( c != \textcolor{charliteral}{'\(\backslash\)n'} && c != \textcolor{charliteral}{'\(\backslash\)r'} )
+98     \{
+99     \textcolor{keywordflow}{if}( \hyperlink{winext_8h_a392c49118e04b9257df71fca005829e0}{HackPort} )
+100         c = \hyperlink{winproto_8h_a173d2dc6a888352bb65b7cacd4576308}{WindowGetchar}();
+101     \textcolor{keywordflow}{else}
+102         c = getchar();
+103     \}
+104     \textcolor{keywordflow}{return};
+105 \}
+\end{DoxyCode}
+\hypertarget{winkey_8c_a3b8f16271eb7282e64d824c95d43debb}{\index{winkey.\+c@{winkey.\+c}!amii\+\_\+nh\+\_\+poskey@{amii\+\_\+nh\+\_\+poskey}}
+\index{amii\+\_\+nh\+\_\+poskey@{amii\+\_\+nh\+\_\+poskey}!winkey.\+c@{winkey.\+c}}
+\subsubsection[{amii\+\_\+nh\+\_\+poskey}]{\setlength{\rightskip}{0pt plus 5cm}amii\+\_\+nh\+\_\+poskey (
+\begin{DoxyParamCaption}
+\item[{int$\ast$}]{x, }
+\item[{int $\ast$}]{y, }
+\item[{int $\ast$}]{mod}
+\end{DoxyParamCaption}
+)}}\label{winkey_8c_a3b8f16271eb7282e64d824c95d43debb}
+
+
+Definition at line 9 of file winkey.\+c.
+
+
+
+References amii\+\_\+wins, C\+L\+I\+C\+K\+\_\+1, cursor\+\_\+on(), amii\+\_\+\+Win\+Desc\+::disprows, F\+L\+M\+A\+P\+\_\+\+S\+K\+I\+P, F\+L\+M\+S\+G\+\_\+\+F\+I\+R\+S\+T, W\+E\+V\+E\+N\+T\+::key, lastevent, M\+A\+P\+F\+T\+B\+A\+S\+E\+L\+N, W\+E\+V\+E\+N\+T\+::mouse, mxsize, mysize, panic(), rp, scrollmsg, W\+E\+V\+E\+N\+T\+::type, type, W\+E\+V\+E\+N\+T\+::un, W\+E\+K\+E\+Y, W\+E\+M\+O\+U\+S\+E, W\+E\+U\+N\+K, amii\+\_\+\+Win\+Desc\+::wflags, amii\+\_\+\+Win\+Desc\+::win, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+A\+P, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, and Window\+Getevent().
+
+
+\begin{DoxyCode}
+11 \{
+12     \textcolor{keyword}{struct }\hyperlink{structamii__WinDesc}{amii\_WinDesc} *cw;
+13     \hyperlink{winami_8h_a947974ed96ae99c292b698854e310ebe}{WETYPE} \hyperlink{lev__main_8c_ac765329451135abec74c45e1897abf26}{type};
+14     \textcolor{keyword}{struct }RastPort *\hyperlink{amirip_8c_aa0639b6491ec144930d14703053f32a4}{rp};
+15     \textcolor{keyword}{struct }Window *w;
+16 
+17     \textcolor{keywordflow}{if}( cw = \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}] )
+18     \{
+19     cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} &= ~\hyperlink{winami_8h_a20db85ff854e288c5f3b7c380e6ceb91}{FLMAP\_SKIP};
+20     \textcolor{keywordflow}{if}( \hyperlink{winext_8h_a3b783f5f077454f156585be54b99746b}{scrollmsg} )
+21         cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} |= \hyperlink{winami_8h_af95b04a23fff7c0980bd67ba40e706c3}{FLMSG\_FIRST};
+22     cw->\hyperlink{structamii__WinDesc_ad73ea3210d2bf3840205b8a4b720f13d}{disprows} = 0;
+23     \}
+24 
+25     \textcolor{keywordflow}{if}( \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} && (cw = \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[ \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} ]) && ( w = cw->
+      \hyperlink{structamii__WinDesc_a9835faa4d66643cd889203e26edee8ae}{win} ) )
+26     \{
+27     \hyperlink{winfuncs_8c_ae43c0ee78599c3fa7f2fe2fe4c2b71a1}{cursor\_on}( WIN\_MAP );
+28     \}
+29     \textcolor{keywordflow}{else}
+30     \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}( \textcolor{stringliteral}{"no MAP window opened for nh\_poskey\(\backslash\)n"} );
+31 
+32     rp = w->RPort;
+33 
+34     \textcolor{keywordflow}{while}( 1 )
+35     \{
+36     type = \hyperlink{winproto_8h_a0cf134f2e1ce65f95d4c673c8c03ab2d}{WindowGetevent}( );
+37     \textcolor{keywordflow}{if}( type == \hyperlink{winami_8h_a947974ed96ae99c292b698854e310ebeaf0996b4496d062931ea8d4d9124f585f}{WEMOUSE} )
+38     \{
+39         *mod = \hyperlink{wintype_8h_acaefc3f142237be043fe21977bf19afe}{CLICK\_1};
+40         \textcolor{keywordflow}{if}( \hyperlink{winext_8h_ad7aa01c8c967c217496fa16833727f6c}{lastevent}.\hyperlink{structWEVENT_aa1fde3395f49a17259c056ec58ffc1e9}{un}.\hyperlink{structWEVENT_a28753a26ccd665dcb9d2a253556911ef}{mouse}.qual )
+41         *mod = 0;
+42 
+43         \textcolor{comment}{/* X coordinates are 1 based, Y are 1 based. */}
+44         *x = ( (\hyperlink{winext_8h_ad7aa01c8c967c217496fa16833727f6c}{lastevent}.\hyperlink{structWEVENT_aa1fde3395f49a17259c056ec58ffc1e9}{un}.\hyperlink{structWEVENT_a28753a26ccd665dcb9d2a253556911ef}{mouse}.x - w->BorderLeft) / \hyperlink{winext_8h_afba9a8d2cd024c7010eae489091d11d6}{mxsize} ) + 1;
+45         *y = ( ( \hyperlink{winext_8h_ad7aa01c8c967c217496fa16833727f6c}{lastevent}.\hyperlink{structWEVENT_aa1fde3395f49a17259c056ec58ffc1e9}{un}.\hyperlink{structWEVENT_a28753a26ccd665dcb9d2a253556911ef}{mouse}.y - w->BorderTop - 
+      \hyperlink{windefs_8h_acc4b1cc60331df1087a0e27eaac426c7}{MAPFTBASELN} ) /
+46             \hyperlink{winext_8h_a9703aea67c83633a25beaa737dad2b65}{mysize} ) + 1;
+47 \textcolor{preprocessor}{#ifdef  CLIPPING}
+48         \textcolor{keywordflow}{if}( clipping )
+49         \{
+50         *x += clipx;
+51         *y += clipy;
+52         \}
+53 \textcolor{preprocessor}{#endif}
+54         \textcolor{keywordflow}{return}( 0 );
+55     \}
+56     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}( type == \hyperlink{winami_8h_a947974ed96ae99c292b698854e310ebea04eab5e241ff2fdc5893f123379e58ca}{WEKEY} )
+57     \{
+58         \hyperlink{winext_8h_ad7aa01c8c967c217496fa16833727f6c}{lastevent}.\hyperlink{structWEVENT_a218bdffc41cff7b53f666a9a1f0fd714}{type} = \hyperlink{winami_8h_a947974ed96ae99c292b698854e310ebea534664448b776dc2ec1e4cb468538d14}{WEUNK};
+59         \textcolor{keywordflow}{return}( \hyperlink{winext_8h_ad7aa01c8c967c217496fa16833727f6c}{lastevent}.\hyperlink{structWEVENT_aa1fde3395f49a17259c056ec58ffc1e9}{un}.\hyperlink{structWEVENT_a33aabbd5a0f5cb005e24df8ccc93bf67}{key} );
+60     \}
+61     \}
+62 \}
+\end{DoxyCode}
+\hypertarget{winkey_8c_a4431dafc8081337c402ed7ff782c3de4}{\index{winkey.\+c@{winkey.\+c}!amii\+\_\+nhgetch@{amii\+\_\+nhgetch}}
+\index{amii\+\_\+nhgetch@{amii\+\_\+nhgetch}!winkey.\+c@{winkey.\+c}}
+\subsubsection[{amii\+\_\+nhgetch}]{\setlength{\rightskip}{0pt plus 5cm}int amii\+\_\+nhgetch (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{winkey_8c_a4431dafc8081337c402ed7ff782c3de4}
+
+
+Definition at line 65 of file winkey.\+c.
+
+
+
+References amii\+\_\+wins, cursor\+\_\+on(), F\+L\+M\+A\+P\+\_\+\+S\+K\+I\+P, amii\+\_\+\+Win\+Desc\+::wflags, W\+I\+N\+\_\+\+E\+R\+R, W\+I\+N\+\_\+\+M\+A\+P, W\+I\+N\+\_\+\+M\+E\+S\+S\+A\+G\+E, and Window\+Getchar().
+
+
+\begin{DoxyCode}
+66 \{
+67     \textcolor{keywordtype}{int} ch;
+68     \textcolor{keyword}{struct }\hyperlink{structamii__WinDesc}{amii\_WinDesc} *cw=\hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[\hyperlink{decl_8h_a4a1cc9e693dbdfad3ea32b10ce19f337}{WIN\_MESSAGE}];
+69 
+70     \textcolor{keywordflow}{if}( \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} != \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR} && \hyperlink{winami_8h_a84358fe75628f255a0687acb6e8499de}{amii\_wins}[ \hyperlink{decl_8h_afa1f7dd312c4c1b72afe3d2c8c2af691}{WIN\_MAP} ] )
+71     \{
+72     \hyperlink{winfuncs_8c_ae43c0ee78599c3fa7f2fe2fe4c2b71a1}{cursor\_on}( WIN\_MAP );
+73     \}
+74     \textcolor{keywordflow}{if}(cw)
+75     cw->\hyperlink{structamii__WinDesc_a4400afb6488c6a7b1f70f27ee0371963}{wflags} &= ~\hyperlink{winami_8h_a20db85ff854e288c5f3b7c380e6ceb91}{FLMAP\_SKIP};
+76 
+77     ch = \hyperlink{winproto_8h_a173d2dc6a888352bb65b7cacd4576308}{WindowGetchar}();
+78     \textcolor{keywordflow}{return}( ch );
+79 \}
+\end{DoxyCode}

@@ -1,0 +1,1833 @@
+\hypertarget{dgn__yacc_8c}{\section{nethack/sys/share/dgn\+\_\+yacc.c File Reference}
+\label{dgn__yacc_8c}\index{nethack/sys/share/dgn\+\_\+yacc.\+c@{nethack/sys/share/dgn\+\_\+yacc.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}date.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dgn\+\_\+file.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+union \hyperlink{unionYYSTYPE}{Y\+Y\+S\+T\+Y\+P\+E}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{dgn__yacc_8c_a2c34b9c95205b5c51aaf1ac32c7e144b}{Y\+Y\+B\+Y\+A\+C\+C}~1
+\item 
+\#define \hyperlink{dgn__yacc_8c_a947bc9c2a7333222078026f5b4b9e686}{Y\+Y\+M\+A\+J\+O\+R}~1
+\item 
+\#define \hyperlink{dgn__yacc_8c_af67e28c4dc6e872d7bba379797a5503e}{Y\+Y\+M\+I\+N\+O\+R}~9
+\item 
+\#define \hyperlink{dgn__yacc_8c_a5035d59933b3f5388c44f596145db047}{yyclearin}~(\hyperlink{lev__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}=(-\/1))
+\item 
+\#define \hyperlink{dgn__yacc_8c_a20bf055e53dc4fd5afddfd752a4d1adb}{yyerrok}~(\hyperlink{lev__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{yyerrflag}=0)
+\item 
+\#define \hyperlink{dgn__yacc_8c_a0fcf98a00580996ee8306933f3c4ebd9}{Y\+Y\+R\+E\+C\+O\+V\+E\+R\+I\+N\+G}~(yyerrflag!=0)
+\item 
+\#define \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{Y\+Y\+P\+R\+E\+F\+I\+X}~\char`\"{}yy\char`\"{}
+\item 
+\#define \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(ptr)~\hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t})ptr)
+\item 
+\#define \hyperlink{dgn__yacc_8c_a735563036dced0b7d6cc98f97ea4978b}{E\+R\+R}~(-\/1)
+\item 
+\#define \hyperlink{dgn__yacc_8c_a91d43eadec33c80149f92e5abf5df58c}{I\+N\+T\+E\+G\+E\+R}~257
+\item 
+\#define \hyperlink{dgn__yacc_8c_a6c30cee0e6e9938a4f03024b27ce28a1}{A\+\_\+\+D\+U\+N\+G\+E\+O\+N}~258
+\item 
+\#define \hyperlink{dgn__yacc_8c_a5652aaf0ba5376a02bef5d911095a582}{B\+R\+A\+N\+C\+H}~259
+\item 
+\#define \hyperlink{dgn__yacc_8c_a21117a0b9d435f0548106761532fd43d}{C\+H\+B\+R\+A\+N\+C\+H}~260
+\item 
+\#define \hyperlink{dgn__yacc_8c_a73f717b7aae31163c2a85f67883bf0ed}{L\+E\+V\+E\+L}~261
+\item 
+\#define \hyperlink{dgn__yacc_8c_a053c62527b230cd0fae1bdf87e114603}{R\+N\+D\+L\+E\+V\+E\+L}~262
+\item 
+\#define \hyperlink{dgn__yacc_8c_ae36adb4b8de31d2b0bcf40c80fb237d0}{C\+H\+L\+E\+V\+E\+L}~263
+\item 
+\#define \hyperlink{dgn__yacc_8c_a55ccc324d7ffdd75aa1e64a3ed5d2089}{R\+N\+D\+C\+H\+L\+E\+V\+E\+L}~264
+\item 
+\#define \hyperlink{dgn__yacc_8c_a4f0a59728f32588d2eb4bc41c17b400d}{U\+P\+\_\+\+O\+R\+\_\+\+D\+O\+W\+N}~265
+\item 
+\#define \hyperlink{dgn__yacc_8c_a43bd0338247a8c6327e644f71b42e9b9}{P\+R\+O\+T\+O\+F\+I\+L\+E}~266
+\item 
+\#define \hyperlink{dgn__yacc_8c_a5f024226e6b8e20da1226b39ce384857}{D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N}~267
+\item 
+\#define \hyperlink{dgn__yacc_8c_adad87aea406b463c91bd49da2cd89345}{D\+E\+S\+C\+R\+I\+P\+T\+O\+R}~268
+\item 
+\#define \hyperlink{dgn__yacc_8c_a7070dc41e28a9baf8f9aa005d845ae1b}{L\+E\+V\+E\+L\+D\+E\+S\+C}~269
+\item 
+\#define \hyperlink{dgn__yacc_8c_a450f9d8af07bfe2f313dbe3a78738a5e}{A\+L\+I\+G\+N\+M\+E\+N\+T}~270
+\item 
+\#define \hyperlink{dgn__yacc_8c_ad437dbf4277e8d4ffe7143fe1c012f6d}{L\+E\+V\+A\+L\+I\+G\+N}~271
+\item 
+\#define \hyperlink{dgn__yacc_8c_a7542714e8c7019113b62db816c78d50c}{E\+N\+T\+R\+Y}~272
+\item 
+\#define \hyperlink{dgn__yacc_8c_abdc07ae4385cbd8f3f9d0c20fdd87a4d}{S\+T\+A\+I\+R}~273
+\item 
+\#define \hyperlink{dgn__yacc_8c_a27b13c50f51e7e832a0ceb3961e90c0d}{N\+O\+\_\+\+U\+P}~274
+\item 
+\#define \hyperlink{dgn__yacc_8c_aa0a223cdf1de63a9ebc026b5743e1515}{N\+O\+\_\+\+D\+O\+W\+N}~275
+\item 
+\#define \hyperlink{dgn__yacc_8c_ae001c6e4f3b589ed0ed081bca5611e3f}{P\+O\+R\+T\+A\+L}~276
+\item 
+\#define \hyperlink{dgn__yacc_8c_a0f4d394a3ab4e09bff60f714c66dc5ee}{S\+T\+R\+I\+N\+G}~277
+\item 
+\#define \hyperlink{dgn__yacc_8c_a552f295255821fa7dea11b0237e1d61a}{Y\+Y\+E\+R\+R\+C\+O\+D\+E}~256
+\item 
+\#define \hyperlink{dgn__yacc_8c_a6a5fd192da8bcfe6127b5c2caa6a3813}{Y\+Y\+T\+A\+B\+L\+E\+S\+I\+Z\+E}~363
+\item 
+\#define \hyperlink{dgn__yacc_8c_a6419f3fd69ecb6b7e063410fd4e73b2f}{Y\+Y\+F\+I\+N\+A\+L}~14
+\item 
+\#define \hyperlink{dgn__yacc_8c_a853b3bfad6d2b2ff693dce81182e0c2e}{Y\+Y\+D\+E\+B\+U\+G}~0
+\item 
+\#define \hyperlink{dgn__yacc_8c_aca18f08067065f20624d60a2982ccd81}{Y\+Y\+M\+A\+X\+T\+O\+K\+E\+N}~277
+\item 
+\#define \hyperlink{dgn__yacc_8c_a14bafb0da0fb1a7266eb3dee74a27216}{Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}~500
+\item 
+\#define \hyperlink{dgn__yacc_8c_a14ba2b263c446ffed1c888c4b42ae40c}{Y\+Y\+M\+A\+X\+D\+E\+P\+T\+H}~500
+\item 
+\#define \hyperlink{dgn__yacc_8c_ab2fd1bd814560521ea4775f62809592f}{yystacksize}~\hyperlink{lev__yacc_8c_a14bafb0da0fb1a7266eb3dee74a27216}{Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}
+\item 
+\#define \hyperlink{dgn__yacc_8c_a3bcde0b05b9aa4ec5169092d9d211dbd}{Y\+Y\+A\+B\+O\+R\+T}~goto yyabort
+\item 
+\#define \hyperlink{dgn__yacc_8c_a05b2755f15bf8df4075a0a92f82c8a4a}{Y\+Y\+R\+E\+J\+E\+C\+T}~goto yyabort
+\item 
+\#define \hyperlink{dgn__yacc_8c_aa6c7a65b580c214b2ea832fd7bdd472e}{Y\+Y\+A\+C\+C\+E\+P\+T}~goto yyaccept
+\item 
+\#define \hyperlink{dgn__yacc_8c_af1eef6197be78122699013d0784acc80}{Y\+Y\+E\+R\+R\+O\+R}~goto yyerrlab
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{dgn__yacc_8c_a03665ecd78473b34726d6387c6bfb051}{F\+D\+E\+C\+L} (\hyperlink{lev__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+void \hyperlink{dgn__yacc_8c_ab1eb6fdec1e9f1013e6e44ab16c77578}{F\+D\+E\+C\+L} (\hyperlink{lev__main_8c_ac01192c4b69605e84cc968265d5597a1}{yywarning},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+int \hyperlink{dgn__yacc_8c_a6004596c537d09d441cf62fbf1bb0e12}{N\+D\+E\+C\+L} (\hyperlink{lev__lex_8c_aa40b27ae32d6d1ae7160bd6256e08eb8}{yylex})
+\item 
+int \hyperlink{dgn__yacc_8c_a78c23ba45adf92bd9a69adbe25f11078}{N\+D\+E\+C\+L} (\hyperlink{lev__yacc_8c_acd8617a8f2ac0de8bc1cc032cf449e19}{yyparse})
+\item 
+int \hyperlink{dgn__yacc_8c_aae709e7cd2b4bef67b49dfce3afbe9cb}{F\+D\+E\+C\+L} (\hyperlink{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}{getchain},(char $\ast$))
+\item 
+int \hyperlink{dgn__yacc_8c_a27047d265725d2f8e5ba5de67dbd170f}{N\+D\+E\+C\+L} (\hyperlink{dgn__yacc_8c_a4c12b04629be3be069661a93977b020c}{check\+\_\+dungeon})
+\item 
+int \hyperlink{dgn__yacc_8c_a0849567dcdfab37bc05109510f20c2ea}{N\+D\+E\+C\+L} (\hyperlink{dgn__yacc_8c_a6e83ca158b5a7055a88348746fb082e8}{check\+\_\+branch})
+\item 
+int \hyperlink{dgn__yacc_8c_a59550f51699b11cc5c6e2a39a11845d9}{N\+D\+E\+C\+L} (\hyperlink{dgn__yacc_8c_ac1c23ac303f89515d9a7d8a728b5f3b0}{check\+\_\+level})
+\item 
+void \hyperlink{dgn__yacc_8c_a7950f1f5690c3f17601a804b962f6c6b}{N\+D\+E\+C\+L} (\hyperlink{dgn__yacc_8c_a0ff322ca61132e3bd9c2483af5d7cbca}{init\+\_\+dungeon})
+\item 
+void \hyperlink{dgn__yacc_8c_aa36275f834a8da05fc72cee1ed1cf824}{N\+D\+E\+C\+L} (\hyperlink{dgn__yacc_8c_a9637709488ce085be4fa786b4d5ef00a}{init\+\_\+branch})
+\item 
+void \hyperlink{dgn__yacc_8c_af59fe3128b01eadccdb8621bc6a8e148}{N\+D\+E\+C\+L} (\hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\+\_\+level})
+\item 
+void \hyperlink{dgn__yacc_8c_a07a553d059a6e4a9d752475a6fa0273a}{N\+D\+E\+C\+L} (\hyperlink{dgn__yacc_8c_aafdc89cd2c745486cc7b45e4b4a4811d}{output\+\_\+dgn})
+\item 
+void \hyperlink{dgn__yacc_8c_a0ff322ca61132e3bd9c2483af5d7cbca}{init\+\_\+dungeon} ()
+\item 
+void \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\+\_\+level} ()
+\item 
+void \hyperlink{dgn__yacc_8c_a9637709488ce085be4fa786b4d5ef00a}{init\+\_\+branch} ()
+\item 
+int \hyperlink{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}{getchain} (char $\ast$s)
+\item 
+int \hyperlink{dgn__yacc_8c_a4c12b04629be3be069661a93977b020c}{check\+\_\+dungeon} ()
+\item 
+int \hyperlink{dgn__yacc_8c_ac1c23ac303f89515d9a7d8a728b5f3b0}{check\+\_\+level} ()
+\item 
+int \hyperlink{dgn__yacc_8c_a6e83ca158b5a7055a88348746fb082e8}{check\+\_\+branch} ()
+\item 
+void \hyperlink{dgn__yacc_8c_aafdc89cd2c745486cc7b45e4b4a4811d}{output\+\_\+dgn} ()
+\item 
+int \hyperlink{dgn__yacc_8c_acd8617a8f2ac0de8bc1cc032cf449e19}{yyparse} ()
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static char \hyperlink{dgn__yacc_8c_a07cbc251a9fca1d2ea52241eed2541e5}{yysccsid} \mbox{[}$\,$\mbox{]} = \char`\"{}@(\#)yaccpar 1.\+9 (Berkeley) 02/21/93\char`\"{}
+\item 
+static struct \hyperlink{structcouple}{couple} \hyperlink{dgn__yacc_8c_a61c2e63b29a8e7bb0098743afe3cdef8}{couple}
+\item 
+static struct \hyperlink{structtmpdungeon}{tmpdungeon} \hyperlink{dgn__yacc_8c_a2242d0e7be5d4030fbe271a34cf31386}{tmpdungeon} \mbox{[}\hyperlink{global_8h_a1a21793acfe9387a78ebc2a03178cf02}{M\+A\+X\+D\+U\+N\+G\+E\+O\+N}\mbox{]}
+\item 
+static struct \hyperlink{structtmplevel}{tmplevel} \hyperlink{dgn__yacc_8c_a6f9a595f307e4d4813f193146ed2d396}{tmplevel} \mbox{[}\hyperlink{dgn__file_8h_a243bd3311077ca2be765097094b8236e}{L\+E\+V\+\_\+\+L\+I\+M\+I\+T}\mbox{]}
+\item 
+static struct \hyperlink{structtmpbranch}{tmpbranch} \hyperlink{dgn__yacc_8c_ad9d00d18667338ef9bd25f3212731cd8}{tmpbranch} \mbox{[}\hyperlink{dgn__file_8h_a84ecccc0032848f5c7b4a531c0e48814}{B\+R\+A\+N\+C\+H\+\_\+\+L\+I\+M\+I\+T}\mbox{]}
+\item 
+static int \hyperlink{dgn__yacc_8c_a5ff1edfebb5fd99e2ea6ae67208db69c}{in\+\_\+dungeon} = 0
+\item 
+static int \hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\+\_\+dgns} = -\/1
+\item 
+static int \hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\+\_\+levs} = -\/1
+\item 
+static int \hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\+\_\+brs} = -\/1
+\item 
+int \hyperlink{dgn__yacc_8c_a51c4524d98f03e6f3eed99caf26e5fff}{fatal\+\_\+error}
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{fname}
+\item 
+F\+I\+L\+E $\ast$ \hyperlink{dgn__yacc_8c_a46af646807e0797e72b6e8945e7ea88b}{yyin}
+\item 
+F\+I\+L\+E $\ast$ \hyperlink{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}{yyout}
+\item 
+short \hyperlink{dgn__yacc_8c_afcabf026e4ae167ee9613655afe8c590}{yylhs} \mbox{[}$\,$\mbox{]}
+\item 
+short \hyperlink{dgn__yacc_8c_a881bbe375ebfee03e9b52fdfa5de751b}{yylen} \mbox{[}$\,$\mbox{]}
+\item 
+short \hyperlink{dgn__yacc_8c_a66f0c7b9c09fefb3156d30375f956954}{yydefred} \mbox{[}$\,$\mbox{]}
+\item 
+short \hyperlink{dgn__yacc_8c_aba0350cb62efe685aaf6b9e91f0b2666}{yydgoto} \mbox{[}$\,$\mbox{]}
+\item 
+short \hyperlink{dgn__yacc_8c_abf4a63afef307eb695c512eebde50397}{yysindex} \mbox{[}$\,$\mbox{]}
+\item 
+short \hyperlink{dgn__yacc_8c_a90a3453972609f5a21eaf0c4ebefb3ce}{yyrindex} \mbox{[}$\,$\mbox{]}
+\item 
+short \hyperlink{dgn__yacc_8c_aabd7abb7eea8b4683214a08ac998bc52}{yygindex} \mbox{[}$\,$\mbox{]}
+\item 
+short \hyperlink{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}{yytable} \mbox{[}$\,$\mbox{]}
+\item 
+short \hyperlink{dgn__yacc_8c_a734735ae171a8a3bf7e651343fa35eb2}{yycheck} \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug}
+\item 
+int \hyperlink{dgn__yacc_8c_a0ea9e3b522e448ac462274fe70e1be82}{yynerrs}
+\item 
+int \hyperlink{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{yyerrflag}
+\item 
+int \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}
+\item 
+short $\ast$ \hyperlink{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{yyssp}
+\item 
+\hyperlink{unionYYSTYPE}{Y\+Y\+S\+T\+Y\+P\+E} $\ast$ \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}
+\item 
+\hyperlink{unionYYSTYPE}{Y\+Y\+S\+T\+Y\+P\+E} \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}
+\item 
+\hyperlink{unionYYSTYPE}{Y\+Y\+S\+T\+Y\+P\+E} \hyperlink{dgn__yacc_8c_a539b86ee4bb46824a194f22eb69903d9}{yylval}
+\item 
+short \hyperlink{dgn__yacc_8c_a72d2ec472a3c80a09869f07418f6ab75}{yyss} \mbox{[}\hyperlink{lev__yacc_8c_a14bafb0da0fb1a7266eb3dee74a27216}{Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}\mbox{]}
+\item 
+\hyperlink{unionYYSTYPE}{Y\+Y\+S\+T\+Y\+P\+E} \hyperlink{dgn__yacc_8c_a0d0e0e7e4ae6d7ce3dae18e923bb297b}{yyvs} \mbox{[}\hyperlink{lev__yacc_8c_a14bafb0da0fb1a7266eb3dee74a27216}{Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{dgn__yacc_8c_a6c30cee0e6e9938a4f03024b27ce28a1}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!A\+\_\+\+D\+U\+N\+G\+E\+O\+N@{A\+\_\+\+D\+U\+N\+G\+E\+O\+N}}
+\index{A\+\_\+\+D\+U\+N\+G\+E\+O\+N@{A\+\_\+\+D\+U\+N\+G\+E\+O\+N}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{A\+\_\+\+D\+U\+N\+G\+E\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+\_\+\+D\+U\+N\+G\+E\+O\+N~258}}\label{dgn__yacc_8c_a6c30cee0e6e9938a4f03024b27ce28a1}
+
+
+Definition at line 79 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a450f9d8af07bfe2f313dbe3a78738a5e}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!A\+L\+I\+G\+N\+M\+E\+N\+T@{A\+L\+I\+G\+N\+M\+E\+N\+T}}
+\index{A\+L\+I\+G\+N\+M\+E\+N\+T@{A\+L\+I\+G\+N\+M\+E\+N\+T}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{A\+L\+I\+G\+N\+M\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+L\+I\+G\+N\+M\+E\+N\+T~270}}\label{dgn__yacc_8c_a450f9d8af07bfe2f313dbe3a78738a5e}
+
+
+Definition at line 91 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a5652aaf0ba5376a02bef5d911095a582}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!B\+R\+A\+N\+C\+H@{B\+R\+A\+N\+C\+H}}
+\index{B\+R\+A\+N\+C\+H@{B\+R\+A\+N\+C\+H}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{B\+R\+A\+N\+C\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+R\+A\+N\+C\+H~259}}\label{dgn__yacc_8c_a5652aaf0ba5376a02bef5d911095a582}
+
+
+Definition at line 80 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a21117a0b9d435f0548106761532fd43d}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!C\+H\+B\+R\+A\+N\+C\+H@{C\+H\+B\+R\+A\+N\+C\+H}}
+\index{C\+H\+B\+R\+A\+N\+C\+H@{C\+H\+B\+R\+A\+N\+C\+H}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{C\+H\+B\+R\+A\+N\+C\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+B\+R\+A\+N\+C\+H~260}}\label{dgn__yacc_8c_a21117a0b9d435f0548106761532fd43d}
+
+
+Definition at line 81 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_ae36adb4b8de31d2b0bcf40c80fb237d0}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!C\+H\+L\+E\+V\+E\+L@{C\+H\+L\+E\+V\+E\+L}}
+\index{C\+H\+L\+E\+V\+E\+L@{C\+H\+L\+E\+V\+E\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{C\+H\+L\+E\+V\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+H\+L\+E\+V\+E\+L~263}}\label{dgn__yacc_8c_ae36adb4b8de31d2b0bcf40c80fb237d0}
+
+
+Definition at line 84 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a5f024226e6b8e20da1226b39ce384857}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N@{D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N}}
+\index{D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N@{D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+S\+C\+R\+I\+P\+T\+I\+O\+N~267}}\label{dgn__yacc_8c_a5f024226e6b8e20da1226b39ce384857}
+
+
+Definition at line 88 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_adad87aea406b463c91bd49da2cd89345}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!D\+E\+S\+C\+R\+I\+P\+T\+O\+R@{D\+E\+S\+C\+R\+I\+P\+T\+O\+R}}
+\index{D\+E\+S\+C\+R\+I\+P\+T\+O\+R@{D\+E\+S\+C\+R\+I\+P\+T\+O\+R}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{D\+E\+S\+C\+R\+I\+P\+T\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+E\+S\+C\+R\+I\+P\+T\+O\+R~268}}\label{dgn__yacc_8c_adad87aea406b463c91bd49da2cd89345}
+
+
+Definition at line 89 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a7542714e8c7019113b62db816c78d50c}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!E\+N\+T\+R\+Y@{E\+N\+T\+R\+Y}}
+\index{E\+N\+T\+R\+Y@{E\+N\+T\+R\+Y}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{E\+N\+T\+R\+Y}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+N\+T\+R\+Y~272}}\label{dgn__yacc_8c_a7542714e8c7019113b62db816c78d50c}
+
+
+Definition at line 93 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a735563036dced0b7d6cc98f97ea4978b}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!E\+R\+R@{E\+R\+R}}
+\index{E\+R\+R@{E\+R\+R}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{E\+R\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+R\+R~(-\/1)}}\label{dgn__yacc_8c_a735563036dced0b7d6cc98f97ea4978b}
+
+
+Definition at line 60 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Free@{Free}}
+\index{Free@{Free}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Free}]{\setlength{\rightskip}{0pt plus 5cm}\#define Free(
+\begin{DoxyParamCaption}
+\item[{}]{ptr}
+\end{DoxyParamCaption}
+)~{\bf free}(({\bf genericptr\+\_\+t})ptr)}}\label{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}
+
+
+Definition at line 51 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a91d43eadec33c80149f92e5abf5df58c}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!I\+N\+T\+E\+G\+E\+R@{I\+N\+T\+E\+G\+E\+R}}
+\index{I\+N\+T\+E\+G\+E\+R@{I\+N\+T\+E\+G\+E\+R}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{I\+N\+T\+E\+G\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+T\+E\+G\+E\+R~257}}\label{dgn__yacc_8c_a91d43eadec33c80149f92e5abf5df58c}
+
+
+Definition at line 78 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_ad437dbf4277e8d4ffe7143fe1c012f6d}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!L\+E\+V\+A\+L\+I\+G\+N@{L\+E\+V\+A\+L\+I\+G\+N}}
+\index{L\+E\+V\+A\+L\+I\+G\+N@{L\+E\+V\+A\+L\+I\+G\+N}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{L\+E\+V\+A\+L\+I\+G\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+E\+V\+A\+L\+I\+G\+N~271}}\label{dgn__yacc_8c_ad437dbf4277e8d4ffe7143fe1c012f6d}
+
+
+Definition at line 92 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a73f717b7aae31163c2a85f67883bf0ed}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!L\+E\+V\+E\+L@{L\+E\+V\+E\+L}}
+\index{L\+E\+V\+E\+L@{L\+E\+V\+E\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{L\+E\+V\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+E\+V\+E\+L~261}}\label{dgn__yacc_8c_a73f717b7aae31163c2a85f67883bf0ed}
+
+
+Definition at line 82 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a7070dc41e28a9baf8f9aa005d845ae1b}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!L\+E\+V\+E\+L\+D\+E\+S\+C@{L\+E\+V\+E\+L\+D\+E\+S\+C}}
+\index{L\+E\+V\+E\+L\+D\+E\+S\+C@{L\+E\+V\+E\+L\+D\+E\+S\+C}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{L\+E\+V\+E\+L\+D\+E\+S\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define L\+E\+V\+E\+L\+D\+E\+S\+C~269}}\label{dgn__yacc_8c_a7070dc41e28a9baf8f9aa005d845ae1b}
+
+
+Definition at line 90 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_aa0a223cdf1de63a9ebc026b5743e1515}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+O\+\_\+\+D\+O\+W\+N@{N\+O\+\_\+\+D\+O\+W\+N}}
+\index{N\+O\+\_\+\+D\+O\+W\+N@{N\+O\+\_\+\+D\+O\+W\+N}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+O\+\_\+\+D\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+\_\+\+D\+O\+W\+N~275}}\label{dgn__yacc_8c_aa0a223cdf1de63a9ebc026b5743e1515}
+
+
+Definition at line 96 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a27b13c50f51e7e832a0ceb3961e90c0d}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+O\+\_\+\+U\+P@{N\+O\+\_\+\+U\+P}}
+\index{N\+O\+\_\+\+U\+P@{N\+O\+\_\+\+U\+P}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+O\+\_\+\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+\_\+\+U\+P~274}}\label{dgn__yacc_8c_a27b13c50f51e7e832a0ceb3961e90c0d}
+
+
+Definition at line 95 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_ae001c6e4f3b589ed0ed081bca5611e3f}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!P\+O\+R\+T\+A\+L@{P\+O\+R\+T\+A\+L}}
+\index{P\+O\+R\+T\+A\+L@{P\+O\+R\+T\+A\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{P\+O\+R\+T\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+O\+R\+T\+A\+L~276}}\label{dgn__yacc_8c_ae001c6e4f3b589ed0ed081bca5611e3f}
+
+
+Definition at line 97 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a43bd0338247a8c6327e644f71b42e9b9}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!P\+R\+O\+T\+O\+F\+I\+L\+E@{P\+R\+O\+T\+O\+F\+I\+L\+E}}
+\index{P\+R\+O\+T\+O\+F\+I\+L\+E@{P\+R\+O\+T\+O\+F\+I\+L\+E}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{P\+R\+O\+T\+O\+F\+I\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+R\+O\+T\+O\+F\+I\+L\+E~266}}\label{dgn__yacc_8c_a43bd0338247a8c6327e644f71b42e9b9}
+
+
+Definition at line 87 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a55ccc324d7ffdd75aa1e64a3ed5d2089}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!R\+N\+D\+C\+H\+L\+E\+V\+E\+L@{R\+N\+D\+C\+H\+L\+E\+V\+E\+L}}
+\index{R\+N\+D\+C\+H\+L\+E\+V\+E\+L@{R\+N\+D\+C\+H\+L\+E\+V\+E\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{R\+N\+D\+C\+H\+L\+E\+V\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+N\+D\+C\+H\+L\+E\+V\+E\+L~264}}\label{dgn__yacc_8c_a55ccc324d7ffdd75aa1e64a3ed5d2089}
+
+
+Definition at line 85 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a053c62527b230cd0fae1bdf87e114603}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!R\+N\+D\+L\+E\+V\+E\+L@{R\+N\+D\+L\+E\+V\+E\+L}}
+\index{R\+N\+D\+L\+E\+V\+E\+L@{R\+N\+D\+L\+E\+V\+E\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{R\+N\+D\+L\+E\+V\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+N\+D\+L\+E\+V\+E\+L~262}}\label{dgn__yacc_8c_a053c62527b230cd0fae1bdf87e114603}
+
+
+Definition at line 83 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_abdc07ae4385cbd8f3f9d0c20fdd87a4d}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!S\+T\+A\+I\+R@{S\+T\+A\+I\+R}}
+\index{S\+T\+A\+I\+R@{S\+T\+A\+I\+R}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{S\+T\+A\+I\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+I\+R~273}}\label{dgn__yacc_8c_abdc07ae4385cbd8f3f9d0c20fdd87a4d}
+
+
+Definition at line 94 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a0f4d394a3ab4e09bff60f714c66dc5ee}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!S\+T\+R\+I\+N\+G@{S\+T\+R\+I\+N\+G}}
+\index{S\+T\+R\+I\+N\+G@{S\+T\+R\+I\+N\+G}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{S\+T\+R\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+R\+I\+N\+G~277}}\label{dgn__yacc_8c_a0f4d394a3ab4e09bff60f714c66dc5ee}
+
+
+Definition at line 98 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a4f0a59728f32588d2eb4bc41c17b400d}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!U\+P\+\_\+\+O\+R\+\_\+\+D\+O\+W\+N@{U\+P\+\_\+\+O\+R\+\_\+\+D\+O\+W\+N}}
+\index{U\+P\+\_\+\+O\+R\+\_\+\+D\+O\+W\+N@{U\+P\+\_\+\+O\+R\+\_\+\+D\+O\+W\+N}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{U\+P\+\_\+\+O\+R\+\_\+\+D\+O\+W\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define U\+P\+\_\+\+O\+R\+\_\+\+D\+O\+W\+N~265}}\label{dgn__yacc_8c_a4f0a59728f32588d2eb4bc41c17b400d}
+
+
+Definition at line 86 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a3bcde0b05b9aa4ec5169092d9d211dbd}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+A\+B\+O\+R\+T@{Y\+Y\+A\+B\+O\+R\+T}}
+\index{Y\+Y\+A\+B\+O\+R\+T@{Y\+Y\+A\+B\+O\+R\+T}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+A\+B\+O\+R\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+A\+B\+O\+R\+T~goto yyabort}}\label{dgn__yacc_8c_a3bcde0b05b9aa4ec5169092d9d211dbd}
+
+
+Definition at line 580 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_aa6c7a65b580c214b2ea832fd7bdd472e}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+A\+C\+C\+E\+P\+T@{Y\+Y\+A\+C\+C\+E\+P\+T}}
+\index{Y\+Y\+A\+C\+C\+E\+P\+T@{Y\+Y\+A\+C\+C\+E\+P\+T}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+A\+C\+C\+E\+P\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+A\+C\+C\+E\+P\+T~goto yyaccept}}\label{dgn__yacc_8c_aa6c7a65b580c214b2ea832fd7bdd472e}
+
+
+Definition at line 582 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a2c34b9c95205b5c51aaf1ac32c7e144b}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+B\+Y\+A\+C\+C@{Y\+Y\+B\+Y\+A\+C\+C}}
+\index{Y\+Y\+B\+Y\+A\+C\+C@{Y\+Y\+B\+Y\+A\+C\+C}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+B\+Y\+A\+C\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+B\+Y\+A\+C\+C~1}}\label{dgn__yacc_8c_a2c34b9c95205b5c51aaf1ac32c7e144b}
+
+
+Definition at line 4 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a5035d59933b3f5388c44f596145db047}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyclearin@{yyclearin}}
+\index{yyclearin@{yyclearin}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyclearin}]{\setlength{\rightskip}{0pt plus 5cm}\#define yyclearin~({\bf yychar}=(-\/1))}}\label{dgn__yacc_8c_a5035d59933b3f5388c44f596145db047}
+
+
+Definition at line 7 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a853b3bfad6d2b2ff693dce81182e0c2e}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+D\+E\+B\+U\+G@{Y\+Y\+D\+E\+B\+U\+G}}
+\index{Y\+Y\+D\+E\+B\+U\+G@{Y\+Y\+D\+E\+B\+U\+G}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+D\+E\+B\+U\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+D\+E\+B\+U\+G~0}}\label{dgn__yacc_8c_a853b3bfad6d2b2ff693dce81182e0c2e}
+
+
+Definition at line 244 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a552f295255821fa7dea11b0237e1d61a}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+E\+R\+R\+C\+O\+D\+E@{Y\+Y\+E\+R\+R\+C\+O\+D\+E}}
+\index{Y\+Y\+E\+R\+R\+C\+O\+D\+E@{Y\+Y\+E\+R\+R\+C\+O\+D\+E}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+E\+R\+R\+C\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+E\+R\+R\+C\+O\+D\+E~256}}\label{dgn__yacc_8c_a552f295255821fa7dea11b0237e1d61a}
+
+
+Definition at line 99 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a20bf055e53dc4fd5afddfd752a4d1adb}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyerrok@{yyerrok}}
+\index{yyerrok@{yyerrok}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyerrok}]{\setlength{\rightskip}{0pt plus 5cm}\#define yyerrok~({\bf yyerrflag}=0)}}\label{dgn__yacc_8c_a20bf055e53dc4fd5afddfd752a4d1adb}
+
+
+Definition at line 8 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_af1eef6197be78122699013d0784acc80}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+E\+R\+R\+O\+R@{Y\+Y\+E\+R\+R\+O\+R}}
+\index{Y\+Y\+E\+R\+R\+O\+R@{Y\+Y\+E\+R\+R\+O\+R}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+E\+R\+R\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+E\+R\+R\+O\+R~goto yyerrlab}}\label{dgn__yacc_8c_af1eef6197be78122699013d0784acc80}
+
+
+Definition at line 583 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a6419f3fd69ecb6b7e063410fd4e73b2f}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+F\+I\+N\+A\+L@{Y\+Y\+F\+I\+N\+A\+L}}
+\index{Y\+Y\+F\+I\+N\+A\+L@{Y\+Y\+F\+I\+N\+A\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+F\+I\+N\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+F\+I\+N\+A\+L~14}}\label{dgn__yacc_8c_a6419f3fd69ecb6b7e063410fd4e73b2f}
+
+
+Definition at line 242 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a947bc9c2a7333222078026f5b4b9e686}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+M\+A\+J\+O\+R@{Y\+Y\+M\+A\+J\+O\+R}}
+\index{Y\+Y\+M\+A\+J\+O\+R@{Y\+Y\+M\+A\+J\+O\+R}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+M\+A\+J\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+M\+A\+J\+O\+R~1}}\label{dgn__yacc_8c_a947bc9c2a7333222078026f5b4b9e686}
+
+
+Definition at line 5 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a14ba2b263c446ffed1c888c4b42ae40c}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+M\+A\+X\+D\+E\+P\+T\+H@{Y\+Y\+M\+A\+X\+D\+E\+P\+T\+H}}
+\index{Y\+Y\+M\+A\+X\+D\+E\+P\+T\+H@{Y\+Y\+M\+A\+X\+D\+E\+P\+T\+H}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+M\+A\+X\+D\+E\+P\+T\+H}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+M\+A\+X\+D\+E\+P\+T\+H~500}}\label{dgn__yacc_8c_a14ba2b263c446ffed1c888c4b42ae40c}
+
+
+Definition at line 320 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_aca18f08067065f20624d60a2982ccd81}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+M\+A\+X\+T\+O\+K\+E\+N@{Y\+Y\+M\+A\+X\+T\+O\+K\+E\+N}}
+\index{Y\+Y\+M\+A\+X\+T\+O\+K\+E\+N@{Y\+Y\+M\+A\+X\+T\+O\+K\+E\+N}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+M\+A\+X\+T\+O\+K\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+M\+A\+X\+T\+O\+K\+E\+N~277}}\label{dgn__yacc_8c_aca18f08067065f20624d60a2982ccd81}
+
+
+Definition at line 246 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_af67e28c4dc6e872d7bba379797a5503e}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+M\+I\+N\+O\+R@{Y\+Y\+M\+I\+N\+O\+R}}
+\index{Y\+Y\+M\+I\+N\+O\+R@{Y\+Y\+M\+I\+N\+O\+R}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+M\+I\+N\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+M\+I\+N\+O\+R~9}}\label{dgn__yacc_8c_af67e28c4dc6e872d7bba379797a5503e}
+
+
+Definition at line 6 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+P\+R\+E\+F\+I\+X@{Y\+Y\+P\+R\+E\+F\+I\+X}}
+\index{Y\+Y\+P\+R\+E\+F\+I\+X@{Y\+Y\+P\+R\+E\+F\+I\+X}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+P\+R\+E\+F\+I\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+P\+R\+E\+F\+I\+X~\char`\"{}yy\char`\"{}}}\label{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}
+
+
+Definition at line 10 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a0fcf98a00580996ee8306933f3c4ebd9}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+R\+E\+C\+O\+V\+E\+R\+I\+N\+G@{Y\+Y\+R\+E\+C\+O\+V\+E\+R\+I\+N\+G}}
+\index{Y\+Y\+R\+E\+C\+O\+V\+E\+R\+I\+N\+G@{Y\+Y\+R\+E\+C\+O\+V\+E\+R\+I\+N\+G}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+R\+E\+C\+O\+V\+E\+R\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+R\+E\+C\+O\+V\+E\+R\+I\+N\+G~(yyerrflag!=0)}}\label{dgn__yacc_8c_a0fcf98a00580996ee8306933f3c4ebd9}
+
+
+Definition at line 9 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a05b2755f15bf8df4075a0a92f82c8a4a}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+R\+E\+J\+E\+C\+T@{Y\+Y\+R\+E\+J\+E\+C\+T}}
+\index{Y\+Y\+R\+E\+J\+E\+C\+T@{Y\+Y\+R\+E\+J\+E\+C\+T}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+R\+E\+J\+E\+C\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+R\+E\+J\+E\+C\+T~goto yyabort}}\label{dgn__yacc_8c_a05b2755f15bf8df4075a0a92f82c8a4a}
+
+
+Definition at line 581 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a14bafb0da0fb1a7266eb3dee74a27216}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E@{Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}}
+\index{Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E@{Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E~500}}\label{dgn__yacc_8c_a14bafb0da0fb1a7266eb3dee74a27216}
+
+
+Definition at line 319 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_ab2fd1bd814560521ea4775f62809592f}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yystacksize@{yystacksize}}
+\index{yystacksize@{yystacksize}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yystacksize}]{\setlength{\rightskip}{0pt plus 5cm}\#define yystacksize~{\bf Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}}}\label{dgn__yacc_8c_ab2fd1bd814560521ea4775f62809592f}
+
+
+Definition at line 333 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a6a5fd192da8bcfe6127b5c2caa6a3813}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!Y\+Y\+T\+A\+B\+L\+E\+S\+I\+Z\+E@{Y\+Y\+T\+A\+B\+L\+E\+S\+I\+Z\+E}}
+\index{Y\+Y\+T\+A\+B\+L\+E\+S\+I\+Z\+E@{Y\+Y\+T\+A\+B\+L\+E\+S\+I\+Z\+E}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{Y\+Y\+T\+A\+B\+L\+E\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+Y\+T\+A\+B\+L\+E\+S\+I\+Z\+E~363}}\label{dgn__yacc_8c_a6a5fd192da8bcfe6127b5c2caa6a3813}
+
+
+Definition at line 163 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{dgn__yacc_8c_a6e83ca158b5a7055a88348746fb082e8}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!check\+\_\+branch@{check\+\_\+branch}}
+\index{check\+\_\+branch@{check\+\_\+branch}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{check\+\_\+branch}]{\setlength{\rightskip}{0pt plus 5cm}int check\+\_\+branch (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a6e83ca158b5a7055a88348746fb082e8}
+
+
+Definition at line 494 of file dgn\+\_\+yacc.\+c.
+
+
+
+References tmpbranch\+::chain, n\+\_\+brs, n\+\_\+dgns, name, and yyerror().
+
+
+
+Referenced by yyparse().
+
+
+\begin{DoxyCode}
+495 \{
+496     \textcolor{keywordtype}{int} i;
+497 
+498     \textcolor{keywordflow}{if}(!\hyperlink{dgn__yacc_8c_a5ff1edfebb5fd99e2ea6ae67208db69c}{in\_dungeon}) \{
+499         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Branch defined outside of dungeon."});
+500         \textcolor{keywordflow}{return}(0);
+501     \}
+502 
+503     \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}; i++)
+504         \textcolor{keywordflow}{if}(!strcmp(\hyperlink{structtmpdungeon}{tmpdungeon}[i].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].name)) \{
+505 
+506         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Reverse branching not allowed."});
+507         \textcolor{keywordflow}{return}(0);
+508         \}
+509 
+510     \textcolor{keywordflow}{if}(\hyperlink{structtmpbranch}{tmpbranch}[i].chain == -2) \{
+511 
+512         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Invaild branch chain reference."});
+513         \textcolor{keywordflow}{return}(0);
+514     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{structtmpbranch}{tmpbranch}[i].chain != -1) \{  \textcolor{comment}{/* it is chained */}
+515 
+516         \textcolor{keywordflow}{if}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{structtmpbranch}{tmpbranch}[i].chain].chance != 100) \{
+517         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Branch cannot chain from a probabilistic level."});
+518         \textcolor{keywordflow}{return}(0);
+519         \}
+520     \}
+521     \textcolor{keywordflow}{return}(1);  \textcolor{comment}{/* OK */}
+522 \}
+\end{DoxyCode}
+\hypertarget{dgn__yacc_8c_a4c12b04629be3be069661a93977b020c}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!check\+\_\+dungeon@{check\+\_\+dungeon}}
+\index{check\+\_\+dungeon@{check\+\_\+dungeon}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{check\+\_\+dungeon}]{\setlength{\rightskip}{0pt plus 5cm}int check\+\_\+dungeon (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a4c12b04629be3be069661a93977b020c}
+
+
+Definition at line 415 of file dgn\+\_\+yacc.\+c.
+
+
+
+References couple\+::base, tmpdungeon\+::branches, tmpdungeon\+::lev, tmpbranch\+::lev, n\+\_\+brs, n\+\_\+dgns, name, couple\+::rand, and yyerror().
+
+
+\begin{DoxyCode}
+416 \{
+417     \textcolor{keywordtype}{int} i;
+418 
+419     \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}; i++)
+420         \textcolor{keywordflow}{if}(!strcmp(\hyperlink{structtmpdungeon}{tmpdungeon}[i].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{structtmpdungeon}{tmpdungeon}[n\_dgns].name)) \{
+421         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Duplicate dungeon name."});
+422         \textcolor{keywordflow}{return}(0);
+423         \}
+424 
+425     \textcolor{keywordflow}{if}(n\_dgns)
+426       \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs} - \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a98b40263b4773d613ce8e98598f5924b}{branches}; i++) \{
+427         \textcolor{keywordflow}{if}(!strcmp(\hyperlink{structtmpbranch}{tmpbranch}[i].name, \hyperlink{structtmpdungeon}{tmpdungeon}[n\_dgns].name)) \textcolor{keywordflow}{break};
+428 
+429         \textcolor{keywordflow}{if}(i >= \hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs} - \hyperlink{structtmpdungeon}{tmpdungeon}[n\_dgns].branches) \{
+430         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Dungeon cannot be reached."});
+431         \textcolor{keywordflow}{return}(0);
+432         \}
+433       \}
+434 
+435     \textcolor{keywordflow}{if}(\hyperlink{structtmpdungeon}{tmpdungeon}[n\_dgns].lev.base <= 0 ||
+436        \hyperlink{structtmpdungeon}{tmpdungeon}[n\_dgns].\hyperlink{structtmpdungeon_a8e9878596c73df9c21d64819eab65dad}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} < 0) \{
+437         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Invalid dungeon depth specified."});
+438         \textcolor{keywordflow}{return}(0);
+439     \}
+440     \textcolor{keywordflow}{return}(1);  \textcolor{comment}{/* OK */}
+441 \}
+\end{DoxyCode}
+\hypertarget{dgn__yacc_8c_ac1c23ac303f89515d9a7d8a728b5f3b0}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!check\+\_\+level@{check\+\_\+level}}
+\index{check\+\_\+level@{check\+\_\+level}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{check\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}int check\+\_\+level (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_ac1c23ac303f89515d9a7d8a728b5f3b0}
+
+
+Definition at line 452 of file dgn\+\_\+yacc.\+c.
+
+
+
+References tmpbranch\+::chain, n\+\_\+levs, name, and yyerror().
+
+
+
+Referenced by yyparse().
+
+
+\begin{DoxyCode}
+453 \{
+454     \textcolor{keywordtype}{int} i;
+455 
+456     \textcolor{keywordflow}{if}(!\hyperlink{dgn__yacc_8c_a5ff1edfebb5fd99e2ea6ae67208db69c}{in\_dungeon}) \{
+457         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Level defined outside of dungeon."});
+458         \textcolor{keywordflow}{return}(0);
+459     \}
+460 
+461     \textcolor{keywordflow}{for}(i = 0; i < \hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}; i++)
+462         \textcolor{keywordflow}{if}(!strcmp(\hyperlink{structtmplevel}{tmplevel}[i].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{structtmplevel}{tmplevel}[n\_levs].name)) \{
+463         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Duplicate level name."});
+464         \textcolor{keywordflow}{return}(0);
+465         \}
+466 
+467     \textcolor{keywordflow}{if}(\hyperlink{structtmplevel}{tmplevel}[i].chain == -2) \{
+468         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Invaild level chain reference."});
+469         \textcolor{keywordflow}{return}(0);
+470     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{structtmplevel}{tmplevel}[i].chain != -1) \{    \textcolor{comment}{/* there is a chain */}
+471         \textcolor{comment}{/* KMH -- tmplevel[tmpbranch[i].chain].chance was in error */}
+472         \textcolor{keywordflow}{if}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{structtmplevel}{tmplevel}[i].chain].chance != 100) \{
+473         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Level cannot chain from a probabilistic level."});
+474         \textcolor{keywordflow}{return}(0);
+475         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\hyperlink{structtmplevel}{tmplevel}[i].chain == n\_levs) \{
+476         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"A level cannot chain to itself!"});
+477         \textcolor{keywordflow}{return}(0);
+478         \}
+479     \}
+480     \textcolor{keywordflow}{return}(1);  \textcolor{comment}{/* OK */}
+481 \}
+\end{DoxyCode}
+\hypertarget{dgn__yacc_8c_a03665ecd78473b34726d6387c6bfb051}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf yyerror}}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a03665ecd78473b34726d6387c6bfb051}
+\hypertarget{dgn__yacc_8c_ab1eb6fdec1e9f1013e6e44ab16c77578}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf yywarning}}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_ab1eb6fdec1e9f1013e6e44ab16c77578}
+\hypertarget{dgn__yacc_8c_aae709e7cd2b4bef67b49dfce3afbe9cb}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf getchain}}]{, }
+\item[{(char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_aae709e7cd2b4bef67b49dfce3afbe9cb}
+\hypertarget{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!getchain@{getchain}}
+\index{getchain@{getchain}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{getchain}]{\setlength{\rightskip}{0pt plus 5cm}int getchain (
+\begin{DoxyParamCaption}
+\item[{char	$\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}
+
+
+Definition at line 389 of file dgn\+\_\+yacc.\+c.
+
+
+
+References levels, n\+\_\+dgns, n\+\_\+levs, name, and yyerror().
+
+
+
+Referenced by yyparse().
+
+
+\begin{DoxyCode}
+391 \{
+392     \textcolor{keywordtype}{int} i;
+393 
+394     \textcolor{keywordflow}{if}(strlen(s)) \{
+395 
+396         \textcolor{keywordflow}{for}(i = \hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs} - \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{micro_8h_a49ba94cde67d095e67189e32b6a41286}{levels} + 1; i <= 
+      \hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}; i++)
+397         \textcolor{keywordflow}{if}(!strcmp(\hyperlink{structtmplevel}{tmplevel}[i].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, s)) \textcolor{keywordflow}{return} i;
+398 
+399         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Can't locate the specified chain level."});
+400         \textcolor{keywordflow}{return}(-2);
+401     \}
+402     \textcolor{keywordflow}{return}(-1);
+403 \}
+\end{DoxyCode}
+\hypertarget{dgn__yacc_8c_a9637709488ce085be4fa786b4d5ef00a}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!init\+\_\+branch@{init\+\_\+branch}}
+\index{init\+\_\+branch@{init\+\_\+branch}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{init\+\_\+branch}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+branch (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a9637709488ce085be4fa786b4d5ef00a}
+
+
+Definition at line 375 of file dgn\+\_\+yacc.\+c.
+
+
+
+References couple\+::base, B\+R\+A\+N\+C\+H\+\_\+\+L\+I\+M\+I\+T, tmpbranch\+::chain, exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, tmpbranch\+::lev, n\+\_\+brs, name, couple\+::rand, Strcpy, and yyerror().
+
+
+
+Referenced by yyparse().
+
+
+\begin{DoxyCode}
+376 \{
+377     \textcolor{keywordflow}{if}(++\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs} > \hyperlink{dgn__file_8h_a84ecccc0032848f5c7b4a531c0e48814}{BRANCH\_LIMIT}) \{
+378 
+379         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"FATAL - Too many special levels defined."});
+380         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+381     \}
+382     \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_ac252dc9730d4ec4331c790df34565826}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = 0;
+383     \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_ac252dc9730d4ec4331c790df34565826}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = 0;
+384     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{stringliteral}{""});
+385     \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_ad32129f469c481c8281bc5c6a47b45a0}{chain} = -1;
+386 \}
+\end{DoxyCode}
+\hypertarget{dgn__yacc_8c_a0ff322ca61132e3bd9c2483af5d7cbca}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!init\+\_\+dungeon@{init\+\_\+dungeon}}
+\index{init\+\_\+dungeon@{init\+\_\+dungeon}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{init\+\_\+dungeon}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+dungeon (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a0ff322ca61132e3bd9c2483af5d7cbca}
+
+
+Definition at line 336 of file dgn\+\_\+yacc.\+c.
+
+
+
+References couple\+::base, tmpdungeon\+::branches, tmpdungeon\+::chance, tmpdungeon\+::entry\+\_\+lev, exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, tmpdungeon\+::flags, tmpdungeon\+::lev, tmpdungeon\+::levels, M\+A\+X\+D\+U\+N\+G\+E\+O\+N, n\+\_\+dgns, name, couple\+::rand, and Strcpy.
+
+
+
+Referenced by yyparse().
+
+
+\begin{DoxyCode}
+337 \{
+338     \textcolor{keywordflow}{if}(++\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns} > \hyperlink{global_8h_a1a21793acfe9387a78ebc2a03178cf02}{MAXDUNGEON}) \{
+339         (void) fprintf(stderr, \textcolor{stringliteral}{"FATAL - Too many dungeons (limit: %d).\(\backslash\)n"},
+340             \hyperlink{global_8h_a1a21793acfe9387a78ebc2a03178cf02}{MAXDUNGEON});
+341         (void) fprintf(stderr, \textcolor{stringliteral}{"To increase the limit edit MAXDUNGEON in global.h\(\backslash\)n"});
+342         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+343     \}
+344 
+345     \hyperlink{dgn__yacc_8c_a5ff1edfebb5fd99e2ea6ae67208db69c}{in\_dungeon} = 1;
+346     \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a8e9878596c73df9c21d64819eab65dad}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = 0;
+347     \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a8e9878596c73df9c21d64819eab65dad}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = 0;
+348     \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a694d5229dbc54691792983a89c54717e}{chance} = 100;
+349     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{stringliteral}{""});
+350     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].protoname, \textcolor{stringliteral}{""});
+351     \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a74d4c51688298b07b0f2daa838f219e3}{flags} = 0;
+352     \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels} = 0;
+353     \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a98b40263b4773d613ce8e98598f5924b}{branches} = 0;
+354     \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_aea3606dba7db6efd221b5f87558368f9}{entry\_lev} = 0;
+355 \}
+\end{DoxyCode}
+\hypertarget{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!init\+\_\+level@{init\+\_\+level}}
+\index{init\+\_\+level@{init\+\_\+level}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{init\+\_\+level}]{\setlength{\rightskip}{0pt plus 5cm}void init\+\_\+level (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}
+
+
+Definition at line 358 of file dgn\+\_\+yacc.\+c.
+
+
+
+References couple\+::base, tmplevel\+::chain, tmplevel\+::chance, exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, tmplevel\+::flags, tmplevel\+::lev, L\+E\+V\+\_\+\+L\+I\+M\+I\+T, n\+\_\+levs, name, couple\+::rand, tmplevel\+::rndlevs, Strcpy, and yyerror().
+
+
+
+Referenced by yyparse().
+
+
+\begin{DoxyCode}
+359 \{
+360     \textcolor{keywordflow}{if}(++\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs} > \hyperlink{dgn__file_8h_a243bd3311077ca2be765097094b8236e}{LEV\_LIMIT}) \{
+361 
+362         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"FATAL - Too many special levels defined."});
+363         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+364     \}
+365     \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = 0;
+366     \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = 0;
+367     \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a89b2e83769e060ae5eff2e53d05d5985}{chance} = 100;
+368     \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ae2bb5a646ad20b755997afbab6c5d4c7}{rndlevs} = 0;
+369     \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a29a97121ae74a7520c9580a595a85622}{flags} = 0;
+370     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{stringliteral}{""});
+371     \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a8efe919a644ce455b48622cca29a0cf9}{chain} = -1;
+372 \}
+\end{DoxyCode}
+\hypertarget{dgn__yacc_8c_a6004596c537d09d441cf62fbf1bb0e12}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf yylex}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a6004596c537d09d441cf62fbf1bb0e12}
+\hypertarget{dgn__yacc_8c_a78c23ba45adf92bd9a69adbe25f11078}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf yyparse}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a78c23ba45adf92bd9a69adbe25f11078}
+\hypertarget{dgn__yacc_8c_a27047d265725d2f8e5ba5de67dbd170f}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf check\+\_\+dungeon}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a27047d265725d2f8e5ba5de67dbd170f}
+\hypertarget{dgn__yacc_8c_a0849567dcdfab37bc05109510f20c2ea}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf check\+\_\+branch}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a0849567dcdfab37bc05109510f20c2ea}
+\hypertarget{dgn__yacc_8c_a59550f51699b11cc5c6e2a39a11845d9}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf check\+\_\+level}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a59550f51699b11cc5c6e2a39a11845d9}
+\hypertarget{dgn__yacc_8c_a7950f1f5690c3f17601a804b962f6c6b}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+dungeon}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a7950f1f5690c3f17601a804b962f6c6b}
+\hypertarget{dgn__yacc_8c_aa36275f834a8da05fc72cee1ed1cf824}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+branch}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_aa36275f834a8da05fc72cee1ed1cf824}
+\hypertarget{dgn__yacc_8c_af59fe3128b01eadccdb8621bc6a8e148}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+level}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_af59fe3128b01eadccdb8621bc6a8e148}
+\hypertarget{dgn__yacc_8c_a07a553d059a6e4a9d752475a6fa0273a}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf output\+\_\+dgn}}]{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_a07a553d059a6e4a9d752475a6fa0273a}
+\hypertarget{dgn__yacc_8c_aafdc89cd2c745486cc7b45e4b4a4811d}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!output\+\_\+dgn@{output\+\_\+dgn}}
+\index{output\+\_\+dgn@{output\+\_\+dgn}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{output\+\_\+dgn}]{\setlength{\rightskip}{0pt plus 5cm}void output\+\_\+dgn (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_aafdc89cd2c745486cc7b45e4b4a4811d}
+
+
+Definition at line 541 of file dgn\+\_\+yacc.\+c.
+
+
+
+References tmpdungeon\+::branches, exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, tmpdungeon\+::levels, n\+\_\+dgns, and yyerror().
+
+
+
+Referenced by yyparse().
+
+
+\begin{DoxyCode}
+542 \{
+543     \textcolor{keywordtype}{int} nd, cl = 0, nl = 0,
+544             cb = 0, nb = 0;
+545     \textcolor{keyword}{static} \textcolor{keyword}{struct }\hyperlink{structversion__info}{version\_info} version\_data = \{
+546             VERSION\_NUMBER, VERSION\_FEATURES,
+547             VERSION\_SANITY1, VERSION\_SANITY2
+548     \};
+549 
+550     \textcolor{keywordflow}{if}(++\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns} <= 0) \{
+551         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"FATAL - no dungeons were defined."});
+552         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+553     \}
+554 
+555     \textcolor{keywordflow}{if} (fwrite((\textcolor{keywordtype}{char} *)&version\_data, \textcolor{keyword}{sizeof} version\_data, 1, \hyperlink{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}{yyout}) != 1) \{
+556         \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"FATAL - output failure."});
+557         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+558     \}
+559 
+560     (void) fwrite((\textcolor{keywordtype}{char} *)&\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}, \textcolor{keyword}{sizeof}(int), 1, \hyperlink{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}{yyout});
+561     \textcolor{keywordflow}{for} (nd = 0; nd < \hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}; nd++) \{
+562         (void) fwrite((\textcolor{keywordtype}{char} *)&\hyperlink{structtmpdungeon}{tmpdungeon}[nd], \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct }
+      \hyperlink{structtmpdungeon}{tmpdungeon}),
+563                             1, \hyperlink{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}{yyout});
+564 
+565         nl += \hyperlink{structtmpdungeon}{tmpdungeon}[nd].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels};
+566         \textcolor{keywordflow}{for}(; cl < nl; cl++)
+567         (\textcolor{keywordtype}{void}) fwrite((\textcolor{keywordtype}{char} *)&\hyperlink{structtmplevel}{tmplevel}[cl], \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structtmplevel}{tmplevel}),
+568                             1, \hyperlink{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}{yyout});
+569 
+570         nb += \hyperlink{structtmpdungeon}{tmpdungeon}[nd].\hyperlink{structtmpdungeon_a98b40263b4773d613ce8e98598f5924b}{branches};
+571         \textcolor{keywordflow}{for}(; cb < nb; cb++)
+572         (\textcolor{keywordtype}{void}) fwrite((\textcolor{keywordtype}{char} *)&\hyperlink{structtmpbranch}{tmpbranch}[cb], \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} \hyperlink{structtmpbranch}{tmpbranch}),
+573                             1, \hyperlink{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}{yyout});
+574     \}
+575     \textcolor{comment}{/* apparently necessary for Think C 5.x, otherwise harmless */}
+576     (void) fflush(\hyperlink{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}{yyout});
+577 \}
+\end{DoxyCode}
+\hypertarget{dgn__yacc_8c_acd8617a8f2ac0de8bc1cc032cf449e19}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyparse@{yyparse}}
+\index{yyparse@{yyparse}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyparse}]{\setlength{\rightskip}{0pt plus 5cm}int yyparse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{dgn__yacc_8c_acd8617a8f2ac0de8bc1cc032cf449e19}
+
+
+Definition at line 585 of file dgn\+\_\+yacc.\+c.
+
+
+
+References couple\+::base, tmpdungeon\+::boneschar, tmplevel\+::boneschar, tmpdungeon\+::branches, tmplevel\+::chain, tmpbranch\+::chain, tmpdungeon\+::chance, tmplevel\+::chance, check\+\_\+branch(), check\+\_\+level(), D\+\_\+\+A\+L\+I\+G\+N\+\_\+\+C\+H\+A\+O\+T\+I\+C, tmpdungeon\+::entry\+\_\+lev, tmpdungeon\+::flags, tmplevel\+::flags, Free, getchain(), getenv, Y\+Y\+S\+T\+Y\+P\+E\+::i, init\+\_\+branch(), init\+\_\+dungeon(), init\+\_\+level(), tmpdungeon\+::lev, tmplevel\+::lev, tmpbranch\+::lev, tmpdungeon\+::levels, M\+A\+X\+L\+E\+V\+E\+L, n\+\_\+brs, n\+\_\+dgns, n\+\_\+levs, name, output\+\_\+dgn(), printf, tmpdungeon\+::protoname, couple\+::rand, tmplevel\+::rndlevs, Y\+Y\+S\+T\+Y\+P\+E\+::str, Strcpy, T\+B\+R\+\_\+\+N\+O\+\_\+\+D\+O\+W\+N, T\+B\+R\+\_\+\+N\+O\+\_\+\+U\+P, T\+B\+R\+\_\+\+P\+O\+R\+T\+A\+L, T\+B\+R\+\_\+\+S\+T\+A\+I\+R, T\+O\+W\+N, tmpbranch\+::type, tmpbranch\+::up, yychar, Y\+Y\+E\+R\+R\+C\+O\+D\+E, yyerrflag, yyerror(), Y\+Y\+F\+I\+N\+A\+L, yylex(), yylval, Y\+Y\+M\+A\+X\+T\+O\+K\+E\+N, yynerrs, Y\+Y\+P\+R\+E\+F\+I\+X, yyss, yyssp, yystacksize, Y\+Y\+T\+A\+B\+L\+E\+S\+I\+Z\+E, yyval, yyvs, and yyvsp.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+586 \{
+587     \textcolor{keyword}{register} \textcolor{keywordtype}{int} yym, yyn, yystate;
+588 \textcolor{preprocessor}{#if YYDEBUG}
+589     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *yys;
+590     \textcolor{keyword}{extern} \textcolor{keywordtype}{char} *\hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}();
+591 
+592     \textcolor{keywordflow}{if} ((yys = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"YYDEBUG"})) != 0)
+593     \{
+594         yyn = *yys;
+595         \textcolor{keywordflow}{if} (yyn >= \textcolor{charliteral}{'0'} && yyn <= \textcolor{charliteral}{'9'})
+596             \hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug} = yyn - \textcolor{charliteral}{'0'};
+597     \}
+598 \textcolor{preprocessor}{#endif}
+599 
+600     \hyperlink{dgn__yacc_8c_a0ea9e3b522e448ac462274fe70e1be82}{yynerrs} = 0;
+601     \hyperlink{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{yyerrflag} = 0;
+602     \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} = (-1);
+603 
+604     \hyperlink{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{yyssp} = \hyperlink{dgn__yacc_8c_a72d2ec472a3c80a09869f07418f6ab75}{yyss};
+605     \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp} = \hyperlink{dgn__yacc_8c_a0d0e0e7e4ae6d7ce3dae18e923bb297b}{yyvs};
+606     *\hyperlink{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{yyssp} = yystate = 0;
+607 
+608 yyloop:
+609     \textcolor{keywordflow}{if} ((yyn = \hyperlink{dgn__yacc_8c_a66f0c7b9c09fefb3156d30375f956954}{yydefred}[yystate]) != 0) \textcolor{keywordflow}{goto} yyreduce;
+610     \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} < 0)
+611     \{
+612         \textcolor{keywordflow}{if} ((\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} = \hyperlink{dgn__lex_8c_aa40b27ae32d6d1ae7160bd6256e08eb8}{yylex}()) < 0) \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} = 0;
+613 \textcolor{preprocessor}{#if YYDEBUG}
+614         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+615         \{
+616             yys = 0;
+617             \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} <= \hyperlink{dgn__yacc_8c_aca18f08067065f20624d60a2982ccd81}{YYMAXTOKEN}) yys = yyname[\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}];
+618             \textcolor{keywordflow}{if} (!yys) yys = \textcolor{stringliteral}{"illegal-symbol"};
+619             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: state %d, reading %d (%s)\(\backslash\)n"},
+620                     \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, yystate, \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}, yys);
+621         \}
+622 \textcolor{preprocessor}{#endif}
+623     \}
+624     \textcolor{keywordflow}{if} ((yyn = \hyperlink{dgn__yacc_8c_abf4a63afef307eb695c512eebde50397}{yysindex}[yystate]) != 0 && (yyn += \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}) >= 0 &&
+625             yyn <= \hyperlink{dgn__yacc_8c_a6a5fd192da8bcfe6127b5c2caa6a3813}{YYTABLESIZE} && \hyperlink{dgn__yacc_8c_a734735ae171a8a3bf7e651343fa35eb2}{yycheck}[yyn] == \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar})
+626     \{
+627 \textcolor{preprocessor}{#if YYDEBUG}
+628         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+629             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: state %d, shifting to state %d\(\backslash\)n"},
+630                     \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, yystate, \hyperlink{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}{yytable}[yyn]);
+631 \textcolor{preprocessor}{#endif}
+632         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{yyssp} >= \hyperlink{dgn__yacc_8c_a72d2ec472a3c80a09869f07418f6ab75}{yyss} + \hyperlink{dgn__yacc_8c_ab2fd1bd814560521ea4775f62809592f}{yystacksize} - 1)
+633         \{
+634             \textcolor{keywordflow}{goto} yyoverflow;
+635         \}
+636         *++\hyperlink{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{yyssp} = yystate = \hyperlink{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}{yytable}[yyn];
+637         *++\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp} = \hyperlink{dgn__yacc_8c_a539b86ee4bb46824a194f22eb69903d9}{yylval};
+638         \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} = (-1);
+639         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{yyerrflag} > 0)  --\hyperlink{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{yyerrflag};
+640         \textcolor{keywordflow}{goto} yyloop;
+641     \}
+642     \textcolor{keywordflow}{if} ((yyn = \hyperlink{dgn__yacc_8c_a90a3453972609f5a21eaf0c4ebefb3ce}{yyrindex}[yystate]) != 0 && (yyn += \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}) >= 0 &&
+643             yyn <= \hyperlink{dgn__yacc_8c_a6a5fd192da8bcfe6127b5c2caa6a3813}{YYTABLESIZE} && \hyperlink{dgn__yacc_8c_a734735ae171a8a3bf7e651343fa35eb2}{yycheck}[yyn] == \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar})
+644     \{
+645         yyn = \hyperlink{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}{yytable}[yyn];
+646         \textcolor{keywordflow}{goto} yyreduce;
+647     \}
+648     \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{yyerrflag}) \textcolor{keywordflow}{goto} yyinrecovery;
+649 \textcolor{preprocessor}{#ifdef lint}
+650     \textcolor{keywordflow}{goto} yynewerror;
+651 \textcolor{preprocessor}{#endif}
+652 yynewerror:
+653     \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"syntax error"});
+654 \textcolor{preprocessor}{#ifdef lint}
+655     \textcolor{keywordflow}{goto} yyerrlab;
+656 \textcolor{preprocessor}{#endif}
+657 yyerrlab:
+658     ++\hyperlink{dgn__yacc_8c_a0ea9e3b522e448ac462274fe70e1be82}{yynerrs};
+659 yyinrecovery:
+660     \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{yyerrflag} < 3)
+661     \{
+662         \hyperlink{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{yyerrflag} = 3;
+663         \textcolor{keywordflow}{for} (;;)
+664         \{
+665             \textcolor{keywordflow}{if} ((yyn = \hyperlink{dgn__yacc_8c_abf4a63afef307eb695c512eebde50397}{yysindex}[*\hyperlink{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{yyssp}]) != 0 && (yyn += \hyperlink{dgn__yacc_8c_a552f295255821fa7dea11b0237e1d61a}{YYERRCODE}) >= 0 &&
+666                     yyn <= \hyperlink{dgn__yacc_8c_a6a5fd192da8bcfe6127b5c2caa6a3813}{YYTABLESIZE} && \hyperlink{dgn__yacc_8c_a734735ae171a8a3bf7e651343fa35eb2}{yycheck}[yyn] == 
+      \hyperlink{dgn__yacc_8c_a552f295255821fa7dea11b0237e1d61a}{YYERRCODE})
+667             \{
+668 \textcolor{preprocessor}{#if YYDEBUG}
+669                 \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+670                     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: state %d, error recovery shifting\(\backslash\)}
+671 \textcolor{stringliteral}{ to state %d\(\backslash\)n"}, \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, *yyssp, \hyperlink{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}{yytable}[yyn]);
+672 \textcolor{preprocessor}{#endif}
+673                 \textcolor{keywordflow}{if} (yyssp >= \hyperlink{dgn__yacc_8c_a72d2ec472a3c80a09869f07418f6ab75}{yyss} + \hyperlink{dgn__yacc_8c_ab2fd1bd814560521ea4775f62809592f}{yystacksize} - 1)
+674                 \{
+675                     \textcolor{keywordflow}{goto} yyoverflow;
+676                 \}
+677                 *++yyssp = yystate = \hyperlink{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}{yytable}[yyn];
+678                 *++\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp} = \hyperlink{dgn__yacc_8c_a539b86ee4bb46824a194f22eb69903d9}{yylval};
+679                 \textcolor{keywordflow}{goto} yyloop;
+680             \}
+681             \textcolor{keywordflow}{else}
+682             \{
+683 \textcolor{preprocessor}{#if YYDEBUG}
+684                 \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+685                     \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: error recovery discarding state %d\(\backslash\)n"},
+686                             \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, *yyssp);
+687 \textcolor{preprocessor}{#endif}
+688                 \textcolor{keywordflow}{if} (yyssp <= \hyperlink{dgn__yacc_8c_a72d2ec472a3c80a09869f07418f6ab75}{yyss}) \textcolor{keywordflow}{goto} yyabort;
+689                 --\hyperlink{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{yyssp};
+690                 --\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp};
+691             \}
+692         \}
+693     \}
+694     \textcolor{keywordflow}{else}
+695     \{
+696         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} == 0) \textcolor{keywordflow}{goto} yyabort;
+697 \textcolor{preprocessor}{#if YYDEBUG}
+698         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+699         \{
+700             yys = 0;
+701             \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} <= \hyperlink{dgn__yacc_8c_aca18f08067065f20624d60a2982ccd81}{YYMAXTOKEN}) yys = yyname[\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}];
+702             \textcolor{keywordflow}{if} (!yys) yys = \textcolor{stringliteral}{"illegal-symbol"};
+703             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: state %d, error recovery discards token %d (%s)\(\backslash\)n"},
+704                     \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, yystate, \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}, yys);
+705         \}
+706 \textcolor{preprocessor}{#endif}
+707         \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} = (-1);
+708         \textcolor{keywordflow}{goto} yyloop;
+709     \}
+710 yyreduce:
+711 \textcolor{preprocessor}{#if YYDEBUG}
+712     \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+713         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: state %d, reducing by rule %d (%s)\(\backslash\)n"},
+714                 \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, yystate, yyn, yyrule[yyn]);
+715 \textcolor{preprocessor}{#endif}
+716     yym = \hyperlink{dgn__yacc_8c_a881bbe375ebfee03e9b52fdfa5de751b}{yylen}[yyn];
+717     \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[1-yym];
+718     \textcolor{keywordflow}{switch} (yyn)
+719     \{
+720 \textcolor{keywordflow}{case} 2:
+721 \{
+722             \hyperlink{dgn__yacc_8c_aafdc89cd2c745486cc7b45e4b4a4811d}{output\_dgn}();
+723           \}
+724 \textcolor{keywordflow}{break};
+725 \textcolor{keywordflow}{case} 9:
+726 \{
+727             \hyperlink{dgn__yacc_8c_a0ff322ca61132e3bd9c2483af5d7cbca}{init\_dungeon}();
+728             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].str);
+729             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a1cbe250e384f693cd17e30206eb7e664}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-2].i;
+730             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a8e9878596c73df9c21d64819eab65dad}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.
+      \hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+731             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a8e9878596c73df9c21d64819eab65dad}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.
+      \hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+732             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a694d5229dbc54691792983a89c54717e}{chance} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+733             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].str);
+734           \}
+735 \textcolor{keywordflow}{break};
+736 \textcolor{keywordflow}{case} 10:
+737 \{
+738             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = 0;
+739           \}
+740 \textcolor{keywordflow}{break};
+741 \textcolor{keywordflow}{case} 11:
+742 \{
+743             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+744           \}
+745 \textcolor{keywordflow}{break};
+746 \textcolor{keywordflow}{case} 15:
+747 \{
+748             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_aea3606dba7db6efd221b5f87558368f9}{entry\_lev} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].
+      \hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+749           \}
+750 \textcolor{keywordflow}{break};
+751 \textcolor{keywordflow}{case} 17:
+752 \{
+753             \textcolor{keywordflow}{if}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].i <= \hyperlink{dgn__file_8h_ae625eddbaebb7d42ccd24b93beffb976}{TOWN} || \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].i >= \hyperlink{dgn__file_8h_af5bb3940ed68ad5198d0f71ae20605c4}{D\_ALIGN\_CHAOTIC})
+754                 \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Illegal description - ignoring!"});
+755             \textcolor{keywordflow}{else}
+756                 \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a74d4c51688298b07b0f2daa838f219e3}{flags} |= \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} ;
+757           \}
+758 \textcolor{keywordflow}{break};
+759 \textcolor{keywordflow}{case} 18:
+760 \{
+761             \textcolor{keywordflow}{if}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].i && \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].i < \hyperlink{dgn__file_8h_af5bb3940ed68ad5198d0f71ae20605c4}{D\_ALIGN\_CHAOTIC})
+762                 \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Illegal alignment - ignoring!"});
+763             \textcolor{keywordflow}{else}
+764                 \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a74d4c51688298b07b0f2daa838f219e3}{flags} |= \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} ;
+765           \}
+766 \textcolor{keywordflow}{break};
+767 \textcolor{keywordflow}{case} 19:
+768 \{
+769             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a6c02e2269f8d30a02dfe6987aedc85d2}{protoname}, 
+      \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].str);
+770             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].str);
+771           \}
+772 \textcolor{keywordflow}{break};
+773 \textcolor{keywordflow}{case} 25:
+774 \{
+775             \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\_level}();
+776             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].str);
+777             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_af6b0821a944c4d262aeb8c137d77e246}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-2].i;
+778             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+779             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+780             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels}++;
+781             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].str);
+782           \}
+783 \textcolor{keywordflow}{break};
+784 \textcolor{keywordflow}{case} 26:
+785 \{
+786             \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\_level}();
+787             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+788             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_af6b0821a944c4d262aeb8c137d77e246}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i;
+789             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+790             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+791             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ae2bb5a646ad20b755997afbab6c5d4c7}{rndlevs} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+792             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels}++;
+793             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+794           \}
+795 \textcolor{keywordflow}{break};
+796 \textcolor{keywordflow}{case} 27:
+797 \{
+798             \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\_level}();
+799             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+800             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_af6b0821a944c4d262aeb8c137d77e246}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i;
+801             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+802             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+803             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a89b2e83769e060ae5eff2e53d05d5985}{chance} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+804             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels}++;
+805             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+806           \}
+807 \textcolor{keywordflow}{break};
+808 \textcolor{keywordflow}{case} 28:
+809 \{
+810             \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\_level}();
+811             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].str);
+812             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_af6b0821a944c4d262aeb8c137d77e246}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].i;
+813             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+814             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+815             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a89b2e83769e060ae5eff2e53d05d5985}{chance} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+816             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ae2bb5a646ad20b755997afbab6c5d4c7}{rndlevs} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+817             \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels}++;
+818             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].str);
+819           \}
+820 \textcolor{keywordflow}{break};
+821 \textcolor{keywordflow}{case} 29:
+822 \{
+823             \textcolor{keywordflow}{if}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].i >= \hyperlink{dgn__file_8h_af5bb3940ed68ad5198d0f71ae20605c4}{D\_ALIGN\_CHAOTIC})
+824                 \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Illegal description - ignoring!"});
+825             \textcolor{keywordflow}{else}
+826                 \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a29a97121ae74a7520c9580a595a85622}{flags} |= \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} ;
+827           \}
+828 \textcolor{keywordflow}{break};
+829 \textcolor{keywordflow}{case} 30:
+830 \{
+831             \textcolor{keywordflow}{if}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].i && \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].i < \hyperlink{dgn__file_8h_af5bb3940ed68ad5198d0f71ae20605c4}{D\_ALIGN\_CHAOTIC})
+832                 \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Illegal alignment - ignoring!"});
+833             \textcolor{keywordflow}{else}
+834                 \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a29a97121ae74a7520c9580a595a85622}{flags} |= \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} ;
+835           \}
+836 \textcolor{keywordflow}{break};
+837 \textcolor{keywordflow}{case} 31:
+838 \{
+839             \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\_level}();
+840             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+841             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_af6b0821a944c4d262aeb8c137d77e246}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i;
+842             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a8efe919a644ce455b48622cca29a0cf9}{chain} = \hyperlink{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}{getchain}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-2].str);
+843             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+844             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+845             \textcolor{keywordflow}{if}(!\hyperlink{dgn__yacc_8c_ac1c23ac303f89515d9a7d8a728b5f3b0}{check\_level}()) \hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}--;
+846             \textcolor{keywordflow}{else} \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels}++;
+847             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+848             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-2].str);
+849           \}
+850 \textcolor{keywordflow}{break};
+851 \textcolor{keywordflow}{case} 32:
+852 \{
+853             \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\_level}();
+854             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].str);
+855             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_af6b0821a944c4d262aeb8c137d77e246}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].i;
+856             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a8efe919a644ce455b48622cca29a0cf9}{chain} = \hyperlink{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}{getchain}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].str);
+857             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+858             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+859             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ae2bb5a646ad20b755997afbab6c5d4c7}{rndlevs} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+860             \textcolor{keywordflow}{if}(!\hyperlink{dgn__yacc_8c_ac1c23ac303f89515d9a7d8a728b5f3b0}{check\_level}()) \hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}--;
+861             \textcolor{keywordflow}{else} \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels}++;
+862             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].str);
+863             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].str);
+864           \}
+865 \textcolor{keywordflow}{break};
+866 \textcolor{keywordflow}{case} 33:
+867 \{
+868             \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\_level}();
+869             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].str);
+870             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_af6b0821a944c4d262aeb8c137d77e246}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].i;
+871             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a8efe919a644ce455b48622cca29a0cf9}{chain} = \hyperlink{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}{getchain}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].str);
+872             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+873             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+874             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a89b2e83769e060ae5eff2e53d05d5985}{chance} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+875             \textcolor{keywordflow}{if}(!\hyperlink{dgn__yacc_8c_ac1c23ac303f89515d9a7d8a728b5f3b0}{check\_level}()) \hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}--;
+876             \textcolor{keywordflow}{else} \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels}++;
+877             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].str);
+878             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].str);
+879           \}
+880 \textcolor{keywordflow}{break};
+881 \textcolor{keywordflow}{case} 34:
+882 \{
+883             \hyperlink{dgn__yacc_8c_ab140031bb15222ad7c63ad9504bbbe5c}{init\_level}();
+884             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-6].str);
+885             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_af6b0821a944c4d262aeb8c137d77e246}{boneschar} = (char)\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].i;
+886             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a8efe919a644ce455b48622cca29a0cf9}{chain} = \hyperlink{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}{getchain}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+887             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+888             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ada09b88c0767640ed669ca3c33d4596c}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+889             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_a89b2e83769e060ae5eff2e53d05d5985}{chance} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+890             \hyperlink{structtmplevel}{tmplevel}[\hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}].\hyperlink{structtmplevel_ae2bb5a646ad20b755997afbab6c5d4c7}{rndlevs} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+891             \textcolor{keywordflow}{if}(!\hyperlink{dgn__yacc_8c_ac1c23ac303f89515d9a7d8a728b5f3b0}{check\_level}()) \hyperlink{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{n\_levs}--;
+892             \textcolor{keywordflow}{else} \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_adda9123efc4eaa10d821ff2da2b777dc}{levels}++;
+893             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-6].str);
+894             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+895           \}
+896 \textcolor{keywordflow}{break};
+897 \textcolor{keywordflow}{case} 37:
+898 \{
+899             \hyperlink{dgn__yacc_8c_a9637709488ce085be4fa786b4d5ef00a}{init\_branch}();
+900             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+901             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_ac252dc9730d4ec4331c790df34565826}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+902             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_ac252dc9730d4ec4331c790df34565826}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+903             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_a52ef1847b2633177de412c5e0490c93e}{type} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+904             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_aaf8a1b40b676b026392ab8bd8f91bf87}{up} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+905             \textcolor{keywordflow}{if}(!\hyperlink{dgn__yacc_8c_a6e83ca158b5a7055a88348746fb082e8}{check\_branch}()) \hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}--;
+906             \textcolor{keywordflow}{else} \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a98b40263b4773d613ce8e98598f5924b}{branches}++;
+907             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+908           \}
+909 \textcolor{keywordflow}{break};
+910 \textcolor{keywordflow}{case} 38:
+911 \{
+912             \hyperlink{dgn__yacc_8c_a9637709488ce085be4fa786b4d5ef00a}{init\_branch}();
+913             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(\hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].str);
+914             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_ad32129f469c481c8281bc5c6a47b45a0}{chain} = \hyperlink{dgn__yacc_8c_ac6e7c4463234cc9f76b976740c153558}{getchain}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+915             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_ac252dc9730d4ec4331c790df34565826}{lev}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base};
+916             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_ac252dc9730d4ec4331c790df34565826}{lev}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand};
+917             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_a52ef1847b2633177de412c5e0490c93e}{type} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+918             \hyperlink{structtmpbranch}{tmpbranch}[\hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}].\hyperlink{structtmpbranch_aaf8a1b40b676b026392ab8bd8f91bf87}{up} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+919             \textcolor{keywordflow}{if}(!\hyperlink{dgn__yacc_8c_a6e83ca158b5a7055a88348746fb082e8}{check\_branch}()) \hyperlink{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{n\_brs}--;
+920             \textcolor{keywordflow}{else} \hyperlink{structtmpdungeon}{tmpdungeon}[\hyperlink{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{n\_dgns}].\hyperlink{structtmpdungeon_a98b40263b4773d613ce8e98598f5924b}{branches}++;
+921             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-5].str);
+922             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-4].str);
+923           \}
+924 \textcolor{keywordflow}{break};
+925 \textcolor{keywordflow}{case} 39:
+926 \{
+927             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = \hyperlink{dgn__file_8h_a4257bdf574f9b7dbf4921f116fc7e394}{TBR\_STAIR}; \textcolor{comment}{/* two way stair */}
+928           \}
+929 \textcolor{keywordflow}{break};
+930 \textcolor{keywordflow}{case} 40:
+931 \{
+932             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = \hyperlink{dgn__file_8h_a4257bdf574f9b7dbf4921f116fc7e394}{TBR\_STAIR}; \textcolor{comment}{/* two way stair */}
+933           \}
+934 \textcolor{keywordflow}{break};
+935 \textcolor{keywordflow}{case} 41:
+936 \{
+937             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = \hyperlink{dgn__file_8h_a0986724d945832c686ed47db2c51ce73}{TBR\_NO\_UP}; \textcolor{comment}{/* no up staircase */}
+938           \}
+939 \textcolor{keywordflow}{break};
+940 \textcolor{keywordflow}{case} 42:
+941 \{
+942             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = \hyperlink{dgn__file_8h_aa8d0422f2949b7563e2ecda1d943191f}{TBR\_NO\_DOWN}; \textcolor{comment}{/* no down staircase */}
+943           \}
+944 \textcolor{keywordflow}{break};
+945 \textcolor{keywordflow}{case} 43:
+946 \{
+947             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = \hyperlink{dgn__file_8h_aa5d1dcd559212c0a8d0a6592bfdc2570}{TBR\_PORTAL};   \textcolor{comment}{/* portal connection */}
+948           \}
+949 \textcolor{keywordflow}{break};
+950 \textcolor{keywordflow}{case} 44:
+951 \{
+952             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = 0;  \textcolor{comment}{/* defaults to down */}
+953           \}
+954 \textcolor{keywordflow}{break};
+955 \textcolor{keywordflow}{case} 45:
+956 \{
+957             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+958           \}
+959 \textcolor{keywordflow}{break};
+960 \textcolor{keywordflow}{case} 46:
+961 \{
+962             \textcolor{keywordtype}{char} *p = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[0].\hyperlink{unionYYSTYPE_a5fdd8beefed5a63608bcbcd50aefd1b2}{str};
+963             \textcolor{keywordflow}{if} (strlen(p) != 1) \{
+964                 \textcolor{keywordflow}{if} (strcmp(p, \textcolor{stringliteral}{"none"}) != 0)
+965            \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Bones marker must be a single char, or \(\backslash\)"none\(\backslash\)"!"});
+966                 *p = \textcolor{charliteral}{'\(\backslash\)0'};
+967             \}
+968             \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval}.\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i} = *p;
+969             \hyperlink{dgn__yacc_8c_a0b8e3b7d52eecc10d64e8242fc30c816}{Free}(p);
+970           \}
+971 \textcolor{keywordflow}{break};
+972 \textcolor{keywordflow}{case} 47:
+973 \{
+974             \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i < -\hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL} || \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i > 
+      \hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL}) \{
+975                 \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Abs base out of dlevel range - zeroing!"});
+976                 \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = 0;
+977             \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].i < -1 ||
+978                 ((\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i < 0) ? (\hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL} + \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i + 
+      \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].i + 1) > \hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL} :
+979                     (\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i + \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].i) > \hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL})) \{
+980                 \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Abs range out of dlevel range - zeroing!"});
+981                 \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = 0;
+982             \} \textcolor{keywordflow}{else} \{
+983                 \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+984                 \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+985             \}
+986           \}
+987 \textcolor{keywordflow}{break};
+988 \textcolor{keywordflow}{case} 48:
+989 \{
+990             \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i < -\hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL} || \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].i > 
+      \hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL}) \{
+991                 \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"Rel base out of dlevel range - zeroing!"});
+992                 \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = 0;
+993             \} \textcolor{keywordflow}{else} \{
+994                 \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a55ed9c0c0f404868c036f550ce592876}{base} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-3].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+995                 \hyperlink{structcouple}{couple}.\hyperlink{structcouple_a5fa871982450a8f9ccb49f3b73f471c3}{rand} = \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp}[-1].\hyperlink{unionYYSTYPE_ac818758881756c0236e9c66531f0981b}{i};
+996             \}
+997           \}
+998 \textcolor{keywordflow}{break};
+999     \}
+1000     yyssp -= yym;
+1001     yystate = *\hyperlink{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{yyssp};
+1002     \hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp} -= yym;
+1003     yym = \hyperlink{dgn__yacc_8c_afcabf026e4ae167ee9613655afe8c590}{yylhs}[yyn];
+1004     \textcolor{keywordflow}{if} (yystate == 0 && yym == 0)
+1005     \{
+1006 \textcolor{preprocessor}{#if YYDEBUG}
+1007         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+1008             \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: after reduction, shifting from state 0 to\(\backslash\)}
+1009 \textcolor{stringliteral}{ state %d\(\backslash\)n"}, \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, \hyperlink{dgn__yacc_8c_a6419f3fd69ecb6b7e063410fd4e73b2f}{YYFINAL});
+1010 \textcolor{preprocessor}{#endif}
+1011         yystate = \hyperlink{dgn__yacc_8c_a6419f3fd69ecb6b7e063410fd4e73b2f}{YYFINAL};
+1012         *++yyssp = \hyperlink{dgn__yacc_8c_a6419f3fd69ecb6b7e063410fd4e73b2f}{YYFINAL};
+1013         *++\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp} = \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval};
+1014         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} < 0)
+1015         \{
+1016             \textcolor{keywordflow}{if} ((\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} = \hyperlink{dgn__lex_8c_aa40b27ae32d6d1ae7160bd6256e08eb8}{yylex}()) < 0) \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} = 0;
+1017 \textcolor{preprocessor}{#if YYDEBUG}
+1018             \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+1019             \{
+1020                 yys = 0;
+1021                 \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} <= \hyperlink{dgn__yacc_8c_aca18f08067065f20624d60a2982ccd81}{YYMAXTOKEN}) yys = yyname[\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}];
+1022                 \textcolor{keywordflow}{if} (!yys) yys = \textcolor{stringliteral}{"illegal-symbol"};
+1023                 \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: state %d, reading %d (%s)\(\backslash\)n"},
+1024                         \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, \hyperlink{dgn__yacc_8c_a6419f3fd69ecb6b7e063410fd4e73b2f}{YYFINAL}, \hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar}, yys);
+1025             \}
+1026 \textcolor{preprocessor}{#endif}
+1027         \}
+1028         \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{yychar} == 0) \textcolor{keywordflow}{goto} yyaccept;
+1029         \textcolor{keywordflow}{goto} yyloop;
+1030     \}
+1031     \textcolor{keywordflow}{if} ((yyn = \hyperlink{dgn__yacc_8c_aabd7abb7eea8b4683214a08ac998bc52}{yygindex}[yym]) != 0 && (yyn += yystate) >= 0 &&
+1032             yyn <= \hyperlink{dgn__yacc_8c_a6a5fd192da8bcfe6127b5c2caa6a3813}{YYTABLESIZE} && \hyperlink{dgn__yacc_8c_a734735ae171a8a3bf7e651343fa35eb2}{yycheck}[yyn] == yystate)
+1033         yystate = \hyperlink{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}{yytable}[yyn];
+1034     \textcolor{keywordflow}{else}
+1035         yystate = \hyperlink{dgn__yacc_8c_aba0350cb62efe685aaf6b9e91f0b2666}{yydgoto}[yym];
+1036 \textcolor{preprocessor}{#if YYDEBUG}
+1037     \textcolor{keywordflow}{if} (\hyperlink{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{yydebug})
+1038         \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"%sdebug: after reduction, shifting from state %d \(\backslash\)}
+1039 \textcolor{stringliteral}{to state %d\(\backslash\)n"}, \hyperlink{dgn__yacc_8c_a5cdc33c56664e6df9f5b0a813ac726f2}{YYPREFIX}, *yyssp, yystate);
+1040 \textcolor{preprocessor}{#endif}
+1041     \textcolor{keywordflow}{if} (yyssp >= \hyperlink{dgn__yacc_8c_a72d2ec472a3c80a09869f07418f6ab75}{yyss} + \hyperlink{dgn__yacc_8c_ab2fd1bd814560521ea4775f62809592f}{yystacksize} - 1)
+1042     \{
+1043         \textcolor{keywordflow}{goto} yyoverflow;
+1044     \}
+1045     *++yyssp = yystate;
+1046     *++\hyperlink{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{yyvsp} = \hyperlink{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{yyval};
+1047     \textcolor{keywordflow}{goto} yyloop;
+1048 yyoverflow:
+1049     \hyperlink{dgn__main_8c_a93d4cdd711598f90c5c453a60c2d0ddf}{yyerror}(\textcolor{stringliteral}{"yacc stack overflow"});
+1050 yyabort:
+1051     \textcolor{keywordflow}{return} (1);
+1052 yyaccept:
+1053     \textcolor{keywordflow}{return} (0);
+1054 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{dgn__yacc_8c_a61c2e63b29a8e7bb0098743afe3cdef8}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!couple@{couple}}
+\index{couple@{couple}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{couple}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf couple} {\bf couple}\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_a61c2e63b29a8e7bb0098743afe3cdef8}
+
+
+Definition at line 62 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a51c4524d98f03e6f3eed99caf26e5fff}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!fatal\+\_\+error@{fatal\+\_\+error}}
+\index{fatal\+\_\+error@{fatal\+\_\+error}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{fatal\+\_\+error}]{\setlength{\rightskip}{0pt plus 5cm}int fatal\+\_\+error}}\label{dgn__yacc_8c_a51c4524d98f03e6f3eed99caf26e5fff}
+
+
+Definition at line 38 of file dgn\+\_\+main.\+c.
+
+\hypertarget{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!fname@{fname}}
+\index{fname@{fname}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{fname}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ fname}}\label{dgn__yacc_8c_a6a2fc0c236288b07ce5bd1335ca89fa2}
+
+
+Definition at line 37 of file dgn\+\_\+main.\+c.
+
+
+
+Referenced by amii\+\_\+init\+\_\+nhwindows(), main(), mar\+\_\+gem\+\_\+init(), open(), and unlink().
+
+\hypertarget{dgn__yacc_8c_a5ff1edfebb5fd99e2ea6ae67208db69c}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!in\+\_\+dungeon@{in\+\_\+dungeon}}
+\index{in\+\_\+dungeon@{in\+\_\+dungeon}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{in\+\_\+dungeon}]{\setlength{\rightskip}{0pt plus 5cm}int in\+\_\+dungeon = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_a5ff1edfebb5fd99e2ea6ae67208db69c}
+
+
+Definition at line 67 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!n\+\_\+brs@{n\+\_\+brs}}
+\index{n\+\_\+brs@{n\+\_\+brs}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{n\+\_\+brs}]{\setlength{\rightskip}{0pt plus 5cm}int n\+\_\+brs = -\/1\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_a908c4362b786e86be515c6f29dc0be85}
+
+
+Definition at line 67 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by check\+\_\+branch(), check\+\_\+dungeon(), init\+\_\+branch(), and yyparse().
+
+\hypertarget{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!n\+\_\+dgns@{n\+\_\+dgns}}
+\index{n\+\_\+dgns@{n\+\_\+dgns}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{n\+\_\+dgns}]{\setlength{\rightskip}{0pt plus 5cm}int n\+\_\+dgns = -\/1\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_a125b94ea95930405fd4922ff183722a8}
+
+
+Definition at line 67 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by check\+\_\+branch(), check\+\_\+dungeon(), getchain(), init\+\_\+dungeon(), output\+\_\+dgn(), and yyparse().
+
+\hypertarget{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!n\+\_\+levs@{n\+\_\+levs}}
+\index{n\+\_\+levs@{n\+\_\+levs}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{n\+\_\+levs}]{\setlength{\rightskip}{0pt plus 5cm}int n\+\_\+levs = -\/1\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_a9f67ee30d5b757abbec2a9467e8363e8}
+
+
+Definition at line 67 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by check\+\_\+level(), getchain(), init\+\_\+level(), and yyparse().
+
+\hypertarget{dgn__yacc_8c_ad9d00d18667338ef9bd25f3212731cd8}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!tmpbranch@{tmpbranch}}
+\index{tmpbranch@{tmpbranch}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{tmpbranch}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tmpbranch} {\bf tmpbranch}\mbox{[}{\bf B\+R\+A\+N\+C\+H\+\_\+\+L\+I\+M\+I\+T}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_ad9d00d18667338ef9bd25f3212731cd8}
+
+
+Definition at line 65 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a2242d0e7be5d4030fbe271a34cf31386}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!tmpdungeon@{tmpdungeon}}
+\index{tmpdungeon@{tmpdungeon}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{tmpdungeon}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tmpdungeon} {\bf tmpdungeon}\mbox{[}{\bf M\+A\+X\+D\+U\+N\+G\+E\+O\+N}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_a2242d0e7be5d4030fbe271a34cf31386}
+
+
+Definition at line 63 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a6f9a595f307e4d4813f193146ed2d396}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!tmplevel@{tmplevel}}
+\index{tmplevel@{tmplevel}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{tmplevel}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf tmplevel} {\bf tmplevel}\mbox{[}{\bf L\+E\+V\+\_\+\+L\+I\+M\+I\+T}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_a6f9a595f307e4d4813f193146ed2d396}
+
+
+Definition at line 64 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yychar@{yychar}}
+\index{yychar@{yychar}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yychar}]{\setlength{\rightskip}{0pt plus 5cm}int yychar}}\label{dgn__yacc_8c_a9e2c7c7373b818c86b2df7106a92327c}
+
+
+Definition at line 326 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a734735ae171a8a3bf7e651343fa35eb2}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yycheck@{yycheck}}
+\index{yycheck@{yycheck}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yycheck}]{\setlength{\rightskip}{0pt plus 5cm}short yycheck\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_a734735ae171a8a3bf7e651343fa35eb2}
+
+
+Definition at line 203 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yydebug@{yydebug}}
+\index{yydebug@{yydebug}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yydebug}]{\setlength{\rightskip}{0pt plus 5cm}int yydebug}}\label{dgn__yacc_8c_ab138aa8e11f58bcdcc7134adf240ea8c}
+
+
+Definition at line 323 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a66f0c7b9c09fefb3156d30375f956954}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yydefred@{yydefred}}
+\index{yydefred@{yydefred}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yydefred}]{\setlength{\rightskip}{0pt plus 5cm}short yydefred\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_a66f0c7b9c09fefb3156d30375f956954}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{                                      0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    3,    5,    6,    7,    8,
+   12,   13,   14,   16,   20,   21,   22,   23,   24,   35,
+   36,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    4,    0,    0,    0,    0,    0,
+    0,    0,   19,   17,   29,   18,   30,   15,   46,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,   11,    9,    0,   40,
+   41,   42,   43,    0,    0,    0,    0,    0,    0,    0,
+    0,   45,   37,    0,   27,    0,    0,    0,    0,    0,
+   38,   28,   33,    0,   48,   47,   34,
+\}
+\end{DoxyCode}
+
+
+Definition at line 114 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_aba0350cb62efe685aaf6b9e91f0b2666}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yydgoto@{yydgoto}}
+\index{yydgoto@{yydgoto}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yydgoto}]{\setlength{\rightskip}{0pt plus 5cm}short yydgoto\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_aba0350cb62efe685aaf6b9e91f0b2666}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{                                      14,
+   78,   93,   84,   60,   15,   16,   17,   18,   19,   20,
+   68,   21,   22,   23,   24,   25,   26,   27,   28,   29,
+   70,   30,   31,
+\}
+\end{DoxyCode}
+
+
+Definition at line 127 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyerrflag@{yyerrflag}}
+\index{yyerrflag@{yyerrflag}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyerrflag}]{\setlength{\rightskip}{0pt plus 5cm}int yyerrflag}}\label{dgn__yacc_8c_a21e545865dbcf87cb4c1de2a7da51806}
+
+
+Definition at line 325 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_aabd7abb7eea8b4683214a08ac998bc52}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yygindex@{yygindex}}
+\index{yygindex@{yygindex}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yygindex}]{\setlength{\rightskip}{0pt plus 5cm}short yygindex\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_aabd7abb7eea8b4683214a08ac998bc52}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{                                      0,
+    0,   -6,    4,  -43,    0,   75,    0,    0,    0,    0,
+  -71,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+  -62,    0,    0,
+\}
+\end{DoxyCode}
+
+
+Definition at line 158 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a46af646807e0797e72b6e8945e7ea88b}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyin@{yyin}}
+\index{yyin@{yyin}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyin}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E$\ast$ yyin}}\label{dgn__yacc_8c_a46af646807e0797e72b6e8945e7ea88b}
+\hypertarget{dgn__yacc_8c_a881bbe375ebfee03e9b52fdfa5de751b}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yylen@{yylen}}
+\index{yylen@{yylen}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yylen}]{\setlength{\rightskip}{0pt plus 5cm}short yylen\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_a881bbe375ebfee03e9b52fdfa5de751b}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{                                         2,
+    0,    1,    1,    2,    1,    1,    1,    1,    6,    0,
+    1,    1,    1,    1,    3,    1,    3,    3,    3,    1,
+    1,    1,    1,    1,    6,    7,    7,    8,    3,    3,
+    7,    8,    8,    9,    1,    1,    7,    8,    0,    1,
+    1,    1,    1,    0,    1,    1,    5,    5,
+\}
+\end{DoxyCode}
+
+
+Definition at line 107 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_afcabf026e4ae167ee9613655afe8c590}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yylhs@{yylhs}}
+\index{yylhs@{yylhs}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yylhs}]{\setlength{\rightskip}{0pt plus 5cm}short yylhs\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_afcabf026e4ae167ee9613655afe8c590}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{                                        -1,
+    0,    0,    5,    5,    6,    6,    6,    6,    7,    1,
+    1,    8,    8,    8,   12,   13,   15,   15,   14,   10,
+   10,   10,   10,   10,   16,   16,   17,   17,   18,   18,
+   19,   19,   20,   20,    9,    9,   22,   23,    3,    3,
+    3,    3,    3,    2,    2,    4,   21,   11,
+\}
+\end{DoxyCode}
+
+
+Definition at line 100 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a539b86ee4bb46824a194f22eb69903d9}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yylval@{yylval}}
+\index{yylval@{yylval}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yylval}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Y\+Y\+S\+T\+Y\+P\+E} yylval}}\label{dgn__yacc_8c_a539b86ee4bb46824a194f22eb69903d9}
+
+
+Definition at line 330 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a0ea9e3b522e448ac462274fe70e1be82}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yynerrs@{yynerrs}}
+\index{yynerrs@{yynerrs}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yynerrs}]{\setlength{\rightskip}{0pt plus 5cm}int yynerrs}}\label{dgn__yacc_8c_a0ea9e3b522e448ac462274fe70e1be82}
+
+
+Definition at line 324 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyout@{yyout}}
+\index{yyout@{yyout}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyout}]{\setlength{\rightskip}{0pt plus 5cm}F\+I\+L\+E $\ast$ yyout}}\label{dgn__yacc_8c_a296847b42b0baa62e2af36cb79f3c0eb}
+\hypertarget{dgn__yacc_8c_a90a3453972609f5a21eaf0c4ebefb3ce}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyrindex@{yyrindex}}
+\index{yyrindex@{yyrindex}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyrindex}]{\setlength{\rightskip}{0pt plus 5cm}short yyrindex\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_a90a3453972609f5a21eaf0c4ebefb3ce}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{                                     86,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,   87,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,   16,    0,    1,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,   31,    1,   46,    0,    0,    0,    0,
+    0,    0,    0,   31,    0,   61,   76,    0,    0,    0,
+    0,    0,    0,   91,    0,    0,    0,
+\}
+\end{DoxyCode}
+
+
+Definition at line 145 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a07cbc251a9fca1d2ea52241eed2541e5}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yysccsid@{yysccsid}}
+\index{yysccsid@{yysccsid}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yysccsid}]{\setlength{\rightskip}{0pt plus 5cm}char yysccsid\mbox{[}$\,$\mbox{]} = \char`\"{}@(\#)yaccpar 1.\+9 (Berkeley) 02/21/93\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}}\label{dgn__yacc_8c_a07cbc251a9fca1d2ea52241eed2541e5}
+
+
+Definition at line 2 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_abf4a63afef307eb695c512eebde50397}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yysindex@{yysindex}}
+\index{yysindex@{yysindex}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yysindex}]{\setlength{\rightskip}{0pt plus 5cm}short yysindex\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_abf4a63afef307eb695c512eebde50397}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{                                   -237,
+  -46,  -45,  -44,  -39,  -38,  -30,  -22,  -21,  -20,  -19,
+  -18,  -17,  -16,    0, -237,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0, -262, -234, -233, -232, -230, -229, -228, -227, -217,
+ -216, -215, -214, -202,    0, -221,   -7, -219, -221, -221,
+ -221, -221,    0,    0,    0,    0,    0,    0,    0,   19,
+   20,   21,   -2,   -1, -212, -211, -190, -189, -188, -271,
+   19,   20,   20,   27,   28,   29,    0,    0,   30,    0,
+    0,    0,    0, -193, -271, -182, -180,   19,   19, -179,
+ -178,    0,    0, -193,    0, -177, -176, -175,   42,   43,
+    0,    0,    0, -172,    0,    0,    0,
+\}
+\end{DoxyCode}
+
+
+Definition at line 132 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_a72d2ec472a3c80a09869f07418f6ab75}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyss@{yyss}}
+\index{yyss@{yyss}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyss}]{\setlength{\rightskip}{0pt plus 5cm}short yyss\mbox{[}{\bf Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}\mbox{]}}}\label{dgn__yacc_8c_a72d2ec472a3c80a09869f07418f6ab75}
+
+
+Definition at line 331 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyssp@{yyssp}}
+\index{yyssp@{yyssp}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyssp}]{\setlength{\rightskip}{0pt plus 5cm}short$\ast$ yyssp}}\label{dgn__yacc_8c_a375df81fec51606c238096f77b2966b3}
+
+
+Definition at line 327 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yytable@{yytable}}
+\index{yytable@{yytable}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yytable}]{\setlength{\rightskip}{0pt plus 5cm}short yytable\mbox{[}$\,$\mbox{]}}}\label{dgn__yacc_8c_a7682804618f55311e36c8338425eac69}
+
+
+Definition at line 164 of file dgn\+\_\+yacc.\+c.
+
+\hypertarget{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyval@{yyval}}
+\index{yyval@{yyval}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyval}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Y\+Y\+S\+T\+Y\+P\+E} yyval}}\label{dgn__yacc_8c_adc3142efa45b35470a3521391c1089e6}
+
+
+Definition at line 329 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_a0d0e0e7e4ae6d7ce3dae18e923bb297b}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyvs@{yyvs}}
+\index{yyvs@{yyvs}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyvs}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Y\+Y\+S\+T\+Y\+P\+E} yyvs\mbox{[}{\bf Y\+Y\+S\+T\+A\+C\+K\+S\+I\+Z\+E}\mbox{]}}}\label{dgn__yacc_8c_a0d0e0e7e4ae6d7ce3dae18e923bb297b}
+
+
+Definition at line 332 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+
+\hypertarget{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}{\index{dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}!yyvsp@{yyvsp}}
+\index{yyvsp@{yyvsp}!dgn\+\_\+yacc.\+c@{dgn\+\_\+yacc.\+c}}
+\subsubsection[{yyvsp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Y\+Y\+S\+T\+Y\+P\+E}$\ast$ yyvsp}}\label{dgn__yacc_8c_ac2690837e36be81ec7415edbc7a9a77a}
+
+
+Definition at line 328 of file dgn\+\_\+yacc.\+c.
+
+
+
+Referenced by yyparse().
+

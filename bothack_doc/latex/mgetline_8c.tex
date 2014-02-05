@@ -1,0 +1,166 @@
+\hypertarget{mgetline_8c}{\section{nethack/sys/mac/mgetline.c File Reference}
+\label{mgetline_8c}\index{nethack/sys/mac/mgetline.\+c@{nethack/sys/mac/mgetline.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mactty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macwin.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macpopup.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}func\+\_\+tab.\+h\char`\"{}}\\*
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef Boolean \hyperlink{mgetline_8c_aa4772972176cf15c76be8e569ba912f8}{F\+D\+E\+C\+L} (($\ast$key\+\_\+func),(unsigned char))
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{mgetline_8c_a131fb40a1db83381a07d49e73ccf0496}{N\+D\+E\+C\+L} (extcmd\+\_\+via\+\_\+menu)
+\item 
+int \hyperlink{mgetline_8c_a020575204be12bf93e6d877e4e326832}{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue} (char $\ast$bufp)
+\item 
+static void \hyperlink{mgetline_8c_adbef803140c888811b83ebb7348f9e29}{topl\+\_\+getlin} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$query, char $\ast$bufp, Boolean ext)
+\item 
+void \hyperlink{mgetline_8c_a139b97ca13bfde989fe1639cd94fd72d}{mac\+\_\+getlin} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$query, char $\ast$bufp)
+\item 
+int \hyperlink{mgetline_8c_acfea8917e41311623a1d92ce0ba567c0}{mac\+\_\+get\+\_\+ext\+\_\+cmd} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\hypertarget{mgetline_8c_aa4772972176cf15c76be8e569ba912f8}{\index{mgetline.\+c@{mgetline.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!mgetline.\+c@{mgetline.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}typedef Boolean F\+D\+E\+C\+L(($\ast$key\+\_\+func),(unsigned char))}}\label{mgetline_8c_aa4772972176cf15c76be8e569ba912f8}
+
+
+Definition at line 13 of file mgetline.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{mgetline_8c_a020575204be12bf93e6d877e4e326832}{\index{mgetline.\+c@{mgetline.\+c}!get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue@{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue}}
+\index{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue@{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue}!mgetline.\+c@{mgetline.\+c}}
+\subsubsection[{get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue}]{\setlength{\rightskip}{0pt plus 5cm}int get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{bufp}
+\end{DoxyParamCaption}
+)}}\label{mgetline_8c_a020575204be12bf93e6d877e4e326832}
+
+
+Definition at line 16 of file mgetline.\+c.
+
+
+
+References try\+\_\+key\+\_\+queue().
+
+
+
+Referenced by topl\+\_\+getlin().
+
+
+\begin{DoxyCode}
+16                                       \{
+17     * bufp = 0;
+18     \textcolor{keywordflow}{if} (\hyperlink{macwin_8c_a336b0f4640568ff74f60c3d8b29e8d52}{try\_key\_queue} (bufp)) \{
+19         \textcolor{keywordflow}{while} (* bufp) \{
+20             \textcolor{keywordflow}{if} (* bufp == 10 || * bufp == 13) \{
+21                 * bufp = 0;
+22             \}
+23             bufp ++;
+24         \}
+25         \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+26     \}
+27     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+28 \}
+\end{DoxyCode}
+\hypertarget{mgetline_8c_acfea8917e41311623a1d92ce0ba567c0}{\index{mgetline.\+c@{mgetline.\+c}!mac\+\_\+get\+\_\+ext\+\_\+cmd@{mac\+\_\+get\+\_\+ext\+\_\+cmd}}
+\index{mac\+\_\+get\+\_\+ext\+\_\+cmd@{mac\+\_\+get\+\_\+ext\+\_\+cmd}!mgetline.\+c@{mgetline.\+c}}
+\subsubsection[{mac\+\_\+get\+\_\+ext\+\_\+cmd}]{\setlength{\rightskip}{0pt plus 5cm}int mac\+\_\+get\+\_\+ext\+\_\+cmd (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mgetline_8c_acfea8917e41311623a1d92ce0ba567c0}
+
+
+Definition at line 60 of file mgetline.\+c.
+
+
+
+References B\+U\+F\+S\+Z, ext\+\_\+func\+\_\+tab\+::ef\+\_\+txt, extcmdlist, iflags, and topl\+\_\+getlin().
+
+
+\begin{DoxyCode}
+60                   \{
+61     \textcolor{keywordtype}{char} bufp[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+62     \textcolor{keywordtype}{int} i;
+63 
+64     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.extmenu) \textcolor{keywordflow}{return} extcmd\_via\_menu();
+65     \hyperlink{mgetline_8c_adbef803140c888811b83ebb7348f9e29}{topl\_getlin}(\textcolor{stringliteral}{"# "}, bufp, \textcolor{keyword}{true});
+66     \textcolor{keywordflow}{for} (i = 0; \hyperlink{func__tab_8h_af3a00fc8e4e157bae08471bcc66d46d9}{extcmdlist}[i].\hyperlink{structext__func__tab_a1c6b81a9ba3a70826ea2f1c2eacc089e}{ef\_txt} != (\textcolor{keywordtype}{char} *)0; i++)
+67         \textcolor{keywordflow}{if} (!strcmp(bufp, \hyperlink{func__tab_8h_af3a00fc8e4e157bae08471bcc66d46d9}{extcmdlist}[i].ef\_txt)) \textcolor{keywordflow}{break};
+68     \textcolor{keywordflow}{if} (\hyperlink{func__tab_8h_af3a00fc8e4e157bae08471bcc66d46d9}{extcmdlist}[i].ef\_txt == (\textcolor{keywordtype}{char} *)0) i = -1;    \textcolor{comment}{/* not found */}
+69 
+70     \textcolor{keywordflow}{return} i;
+71 \}
+\end{DoxyCode}
+\hypertarget{mgetline_8c_a139b97ca13bfde989fe1639cd94fd72d}{\index{mgetline.\+c@{mgetline.\+c}!mac\+\_\+getlin@{mac\+\_\+getlin}}
+\index{mac\+\_\+getlin@{mac\+\_\+getlin}!mgetline.\+c@{mgetline.\+c}}
+\subsubsection[{mac\+\_\+getlin}]{\setlength{\rightskip}{0pt plus 5cm}void mac\+\_\+getlin (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{query, }
+\item[{char $\ast$}]{bufp}
+\end{DoxyParamCaption}
+)}}\label{mgetline_8c_a139b97ca13bfde989fe1639cd94fd72d}
+
+
+Definition at line 50 of file mgetline.\+c.
+
+
+
+References topl\+\_\+getlin().
+
+
+\begin{DoxyCode}
+50                                           \{
+51     \hyperlink{mgetline_8c_adbef803140c888811b83ebb7348f9e29}{topl\_getlin} (query, bufp, \textcolor{keyword}{false});
+52 \}
+\end{DoxyCode}
+\hypertarget{mgetline_8c_a131fb40a1db83381a07d49e73ccf0496}{\index{mgetline.\+c@{mgetline.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!mgetline.\+c@{mgetline.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{extcmd\+\_\+via\+\_\+menu}]{}
+\end{DoxyParamCaption}
+)}}\label{mgetline_8c_a131fb40a1db83381a07d49e73ccf0496}
+\hypertarget{mgetline_8c_adbef803140c888811b83ebb7348f9e29}{\index{mgetline.\+c@{mgetline.\+c}!topl\+\_\+getlin@{topl\+\_\+getlin}}
+\index{topl\+\_\+getlin@{topl\+\_\+getlin}!mgetline.\+c@{mgetline.\+c}}
+\subsubsection[{topl\+\_\+getlin}]{\setlength{\rightskip}{0pt plus 5cm}static void topl\+\_\+getlin (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{query, }
+\item[{char $\ast$}]{bufp, }
+\item[{Boolean}]{ext}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mgetline_8c_adbef803140c888811b83ebb7348f9e29}
+
+
+Definition at line 32 of file mgetline.\+c.
+
+
+
+References enter\+\_\+topl\+\_\+mode(), get\+\_\+line\+\_\+from\+\_\+key\+\_\+queue(), leave\+\_\+topl\+\_\+mode(), nhgetch, and topl\+\_\+key().
+
+
+
+Referenced by mac\+\_\+get\+\_\+ext\+\_\+cmd(), and mac\+\_\+getlin().
+
+
+\begin{DoxyCode}
+32                                                         \{
+33     \textcolor{keywordflow}{if} (\hyperlink{mgetline_8c_a020575204be12bf93e6d877e4e326832}{get\_line\_from\_key\_queue} (bufp))
+34         \textcolor{keywordflow}{return};
+35 
+36     \hyperlink{macwin_8c_aa6e33d4f635b32400951988d58316edf}{enter\_topl\_mode}((\textcolor{keywordtype}{char} *) query);
+37     \textcolor{keywordflow}{while} (\hyperlink{macwin_8c_ad44c530babce8818eb2c79e0caa3d441}{topl\_key}(\hyperlink{winprocs_8h_a1d969ae56a87480f9b2497603e32497a}{nhgetch}(), ext))
+38         ;
+39     \hyperlink{macwin_8c_acdf93be14c6dd2032b3d9881423c18dd}{leave\_topl\_mode}(bufp);
+40 \}
+\end{DoxyCode}

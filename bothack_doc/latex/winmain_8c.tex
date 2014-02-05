@@ -1,0 +1,216 @@
+\hypertarget{winmain_8c}{\section{nethack/sys/wince/winmain.c File Reference}
+\label{winmain_8c}\index{nethack/sys/wince/winmain.\+c@{nethack/sys/wince/winmain.\+c}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{winmain_8c_a9993e50593c85529d2765c55200a3c1e}{M\+A\+X\+\_\+\+C\+M\+D\+L\+I\+N\+E\+\_\+\+P\+A\+R\+A\+M}~255
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{winmain_8c_add00fa54b24e648582e7e438c54db20a}{F\+D\+E\+C\+L} (\hyperlink{tile2x11_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main},(int, char $\ast$$\ast$))
+\item 
+static T\+C\+H\+A\+R $\ast$ \hyperlink{winmain_8c_a457d5d88c1b3751a9028e38bcaca36fe}{\+\_\+get\+\_\+cmd\+\_\+arg} (T\+C\+H\+A\+R $\ast$p\+Cmd\+Line)
+\item 
+int A\+P\+I\+E\+N\+T\+R\+Y \hyperlink{winmain_8c_aba10a0c0be1d239beb613ef2ce28c869}{Win\+Main} (H\+I\+N\+S\+T\+A\+N\+C\+E h\+Instance, H\+I\+N\+S\+T\+A\+N\+C\+E h\+Prev\+Instance, L\+P\+W\+S\+T\+R lp\+Cmd\+Line, int n\+Cmd\+Show)
+\item 
+char \hyperlink{winmain_8c_aa30998af60fa0de85b3457cb346c88e6}{lowc} (char c)
+\item 
+int \hyperlink{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{strncmpi} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$s1, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$s2, int n)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{winmain_8c_a9993e50593c85529d2765c55200a3c1e}{\index{winmain.\+c@{winmain.\+c}!M\+A\+X\+\_\+\+C\+M\+D\+L\+I\+N\+E\+\_\+\+P\+A\+R\+A\+M@{M\+A\+X\+\_\+\+C\+M\+D\+L\+I\+N\+E\+\_\+\+P\+A\+R\+A\+M}}
+\index{M\+A\+X\+\_\+\+C\+M\+D\+L\+I\+N\+E\+\_\+\+P\+A\+R\+A\+M@{M\+A\+X\+\_\+\+C\+M\+D\+L\+I\+N\+E\+\_\+\+P\+A\+R\+A\+M}!winmain.\+c@{winmain.\+c}}
+\subsubsection[{M\+A\+X\+\_\+\+C\+M\+D\+L\+I\+N\+E\+\_\+\+P\+A\+R\+A\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+C\+M\+D\+L\+I\+N\+E\+\_\+\+P\+A\+R\+A\+M~255}}\label{winmain_8c_a9993e50593c85529d2765c55200a3c1e}
+
+
+Definition at line 6 of file winmain.\+c.
+
+
+
+Referenced by Win\+Main().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{winmain_8c_a457d5d88c1b3751a9028e38bcaca36fe}{\index{winmain.\+c@{winmain.\+c}!\+\_\+get\+\_\+cmd\+\_\+arg@{\+\_\+get\+\_\+cmd\+\_\+arg}}
+\index{\+\_\+get\+\_\+cmd\+\_\+arg@{\+\_\+get\+\_\+cmd\+\_\+arg}!winmain.\+c@{winmain.\+c}}
+\subsubsection[{\+\_\+get\+\_\+cmd\+\_\+arg}]{\setlength{\rightskip}{0pt plus 5cm}T\+C\+H\+A\+R $\ast$ \+\_\+get\+\_\+cmd\+\_\+arg (
+\begin{DoxyParamCaption}
+\item[{T\+C\+H\+A\+R $\ast$}]{p\+Cmd\+Line}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{winmain_8c_a457d5d88c1b3751a9028e38bcaca36fe}
+
+
+Definition at line 48 of file winmain.\+c.
+
+
+
+References N\+U\+L\+L, and T\+R\+U\+E.
+
+
+
+Referenced by Win\+Main().
+
+
+\begin{DoxyCode}
+49 \{
+50     \textcolor{keyword}{static} TCHAR* pArgs = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+51     TCHAR  *pRetArg;
+52     BOOL   bQuoted;
+53 
+54     \textcolor{keywordflow}{if}( !pCmdLine && !pArgs ) \textcolor{keywordflow}{return} \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+55     \textcolor{keywordflow}{if}( !pArgs ) pArgs = pCmdLine;
+56 
+57     \textcolor{comment}{/* skip whitespace */}
+58     \textcolor{keywordflow}{for}(pRetArg = pArgs; *pRetArg && \_istspace(*pRetArg); pRetArg = CharNext(pRetArg));
+59     \textcolor{keywordflow}{if}( !*pRetArg ) \{
+60         pArgs = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+61         \textcolor{keywordflow}{return} \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+62     \}
+63 
+64     \textcolor{comment}{/* check for quote */}
+65     \textcolor{keywordflow}{if}( *pRetArg==TEXT(\textcolor{charliteral}{'"'}) ) \{
+66         bQuoted = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+67         pRetArg = CharNext(pRetArg);
+68         pArgs = \_tcschr(pRetArg, TEXT(\textcolor{charliteral}{'"'}));
+69     \} \textcolor{keywordflow}{else} \{
+70         \textcolor{comment}{/* skip to whitespace */}
+71         \textcolor{keywordflow}{for}(pArgs = pRetArg; *pArgs && !\_istspace(*pArgs); pArgs = CharNext(pArgs));
+72     \}
+73     
+74     \textcolor{keywordflow}{if}( pArgs && *pArgs ) \{
+75         TCHAR* p;
+76         p = pArgs;
+77         pArgs = CharNext(pArgs);
+78         *p = (TCHAR)0;
+79     \} \textcolor{keywordflow}{else} \{
+80         pArgs = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+81     \}
+82 
+83     \textcolor{keywordflow}{return} pRetArg;
+84 \}
+\end{DoxyCode}
+\hypertarget{winmain_8c_add00fa54b24e648582e7e438c54db20a}{\index{winmain.\+c@{winmain.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!winmain.\+c@{winmain.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf main}}]{, }
+\item[{(int, char $\ast$$\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{winmain_8c_add00fa54b24e648582e7e438c54db20a}
+\hypertarget{winmain_8c_aa30998af60fa0de85b3457cb346c88e6}{\index{winmain.\+c@{winmain.\+c}!lowc@{lowc}}
+\index{lowc@{lowc}!winmain.\+c@{winmain.\+c}}
+\subsubsection[{lowc}]{\setlength{\rightskip}{0pt plus 5cm}char lowc (
+\begin{DoxyParamCaption}
+\item[{char}]{c}
+\end{DoxyParamCaption}
+)}}\label{winmain_8c_aa30998af60fa0de85b3457cb346c88e6}
+
+
+Definition at line 88 of file winmain.\+c.
+
+
+
+Referenced by gend\+\_\+key(), mswin\+\_\+yn\+\_\+function(), parseoptions(), prompt\+\_\+for\+\_\+player\+\_\+selection(), ps\+\_\+key(), race\+\_\+key(), strncmpi(), and yn\+\_\+key().
+
+
+\begin{DoxyCode}
+90 \{
+91     \textcolor{keywordflow}{return}((\textcolor{keywordtype}{char})((\textcolor{charliteral}{'A'} <= c && c <= \textcolor{charliteral}{'Z'}) ? (c | 040) : c));
+92 \}
+\end{DoxyCode}
+\hypertarget{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}{\index{winmain.\+c@{winmain.\+c}!strncmpi@{strncmpi}}
+\index{strncmpi@{strncmpi}!winmain.\+c@{winmain.\+c}}
+\subsubsection[{strncmpi}]{\setlength{\rightskip}{0pt plus 5cm}int strncmpi (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{s1, }
+\item[{{\bf const} char $\ast$}]{s2, }
+\item[{int}]{n}
+\end{DoxyParamCaption}
+)}}\label{winmain_8c_a5dba8f2d62f353a6e27760e54500d3f7}
+
+
+Definition at line 95 of file winmain.\+c.
+
+
+
+References lowc().
+
+
+
+Referenced by assign\+\_\+soundcard(), convert\+\_\+line(), dorecover(), dosave0(), dowrite(), initoptions(), main(), match\+\_\+optname(), mswin\+\_\+get\+\_\+ext\+\_\+cmd(), parseoptions(), process\+\_\+options(), set\+\_\+option\+\_\+mod\+\_\+status(), str2align(), str2gend(), str2race(), str2role(), and topl\+\_\+key().
+
+
+\begin{DoxyCode}
+98 \{                   \textcolor{comment}{/*\{ aka strncasecmp \}*/}
+99     \textcolor{keyword}{register} \textcolor{keywordtype}{char} t1, t2;
+100 
+101     \textcolor{keywordflow}{while} (n--) \{
+102     \textcolor{keywordflow}{if} (!*s2) \textcolor{keywordflow}{return} (*s1 != 0);    \textcolor{comment}{/* s1 >= s2 */}
+103     \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!*s1) \textcolor{keywordflow}{return} -1;   \textcolor{comment}{/* s1  < s2 */}
+104     t1 = \hyperlink{winmain_8c_aa30998af60fa0de85b3457cb346c88e6}{lowc}(*s1++);
+105     t2 = \hyperlink{winmain_8c_aa30998af60fa0de85b3457cb346c88e6}{lowc}(*s2++);
+106     \textcolor{keywordflow}{if} (t1 != t2) \textcolor{keywordflow}{return} (t1 > t2) ? 1 : -1;
+107     \}
+108     \textcolor{keywordflow}{return} 0;               \textcolor{comment}{/* s1 == s2 */}
+109 \}
+\end{DoxyCode}
+\hypertarget{winmain_8c_aba10a0c0be1d239beb613ef2ce28c869}{\index{winmain.\+c@{winmain.\+c}!Win\+Main@{Win\+Main}}
+\index{Win\+Main@{Win\+Main}!winmain.\+c@{winmain.\+c}}
+\subsubsection[{Win\+Main}]{\setlength{\rightskip}{0pt plus 5cm}int A\+P\+I\+E\+N\+T\+R\+Y Win\+Main (
+\begin{DoxyParamCaption}
+\item[{H\+I\+N\+S\+T\+A\+N\+C\+E}]{h\+Instance, }
+\item[{H\+I\+N\+S\+T\+A\+N\+C\+E}]{h\+Prev\+Instance, }
+\item[{L\+P\+W\+S\+T\+R}]{lp\+Cmd\+Line, }
+\item[{int}]{n\+Cmd\+Show}
+\end{DoxyParamCaption}
+)}}\label{winmain_8c_aba10a0c0be1d239beb613ef2ce28c869}
+
+
+Definition at line 11 of file winmain.\+c.
+
+
+
+References \+\_\+get\+\_\+cmd\+\_\+arg(), buf, B\+U\+F\+S\+Z, main(), M\+A\+X\+\_\+\+C\+M\+D\+L\+I\+N\+E\+\_\+\+P\+A\+R\+A\+M, N\+H\+\_\+\+W2\+A, N\+H\+S\+T\+R\+\_\+\+B\+U\+F\+S\+I\+Z\+E, and N\+U\+L\+L.
+
+
+\begin{DoxyCode}
+15 \{
+16     \textcolor{keywordtype}{int} argc;
+17     \textcolor{keywordtype}{char}* argv[\hyperlink{winmain_8c_a9993e50593c85529d2765c55200a3c1e}{MAX\_CMDLINE\_PARAM}];
+18     \textcolor{keywordtype}{size\_t} len;
+19     TCHAR* p;
+20     TCHAR wbuf[\hyperlink{wceconf_8h_a3328d64c4b8744a6e59079303035a040}{NHSTR\_BUFSIZE}];
+21     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{wceconf_8h_a3328d64c4b8744a6e59079303035a040}{NHSTR\_BUFSIZE}];
+22 
+23     \textcolor{comment}{/* get command line parameters */}   
+24     p = \hyperlink{winmain_8c_a457d5d88c1b3751a9028e38bcaca36fe}{\_get\_cmd\_arg}(
+25 #\textcolor{keywordflow}{if} defined(WIN\_CE\_PS2xx) || defined(WIN32\_PLATFORM\_HPCPRO)
+26         lpCmdLine
+27 #\textcolor{keywordflow}{else}
+28         GetCommandLine()
+29 #endif
+30     );
+31     \textcolor{keywordflow}{for}( argc = 1; p && argc<\hyperlink{winmain_8c_a9993e50593c85529d2765c55200a3c1e}{MAX\_CMDLINE\_PARAM}; argc++ ) \{
+32         len = \_tcslen(p);
+33         \textcolor{keywordflow}{if}( len>0 ) \{
+34             argv[argc] = \_strdup( \hyperlink{wceconf_8h_a79324084b45d4a7bc4b8813ddfddad96}{NH\_W2A}(p, buf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}) );
+35         \} \textcolor{keywordflow}{else} \{
+36             argv[argc] = \textcolor{stringliteral}{""};
+37         \}
+38         p = \hyperlink{winmain_8c_a457d5d88c1b3751a9028e38bcaca36fe}{\_get\_cmd\_arg}(\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+39     \}
+40     GetModuleFileName(\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, wbuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ});
+41     argv[0] = \_strdup(\hyperlink{wceconf_8h_a79324084b45d4a7bc4b8813ddfddad96}{NH\_W2A}(wbuf, buf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}));
+42 
+43     \hyperlink{cvtsnd_8c_a1778f258b5c77725a60f77b823328168}{main}(argc, argv);
+44 
+45     \textcolor{keywordflow}{return} 0;
+46 \}
+\end{DoxyCode}

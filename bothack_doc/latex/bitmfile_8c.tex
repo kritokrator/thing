@@ -1,0 +1,499 @@
+\hypertarget{bitmfile_8c}{\section{nethack/win/gem/bitmfile.c File Reference}
+\label{bitmfile_8c}\index{nethack/win/gem/bitmfile.\+c@{nethack/win/gem/bitmfile.\+c}}
+}
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}bitmfile.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structIMG__HEADER}{I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R}
+\item 
+struct \hyperlink{structXIMG__HEADER}{X\+I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{bitmfile_8c_a53f95aa1ff48762b51282dd08837c04d}{I\+M\+G\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+E\+D}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{bitmfile_8h_aa068c7f96c3fdd66282567bcb068db80}{U\+B\+Y\+T\+E} \hyperlink{bitmfile_8c_a0434f7013d7be29249c67617a2776805}{I\+M\+G\+\_\+\+S\+O\+L\+I\+D}
+\item 
+typedef struct \hyperlink{structRGB}{R\+G\+B} \hyperlink{bitmfile_8c_a7d93a40463f23a293b91b9d37bbc7d74}{X\+I\+M\+G\+\_\+\+R\+G\+B}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060}{I\+M\+G\+\_\+\+M\+O\+D\+E} \{ \\*
+\hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060ac157bdf0b85a40d2619cbc8bc1ae5fe2}{N\+O\+N\+E}, 
+\hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060a257557664c7c2f861de9889134278540}{S\+O\+L\+I\+D0}, 
+\hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060aac8f082e584f79023eef1a8c765dec40}{S\+O\+L\+I\+D1}, 
+\hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060ae8243bfd5a1c15cc5fe0f461e98d08b7}{P\+A\+T\+R\+U\+N}, 
+\\*
+\hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060a6bf87fe95736985f2fdd1eae8141f8f2}{B\+I\+T\+S\+T\+R}
+ \}
+\item 
+enum \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121}{X\+I\+M\+G\+\_\+\+C\+O\+L\+M\+O\+D\+E\+L} \{ \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{R\+G\+B} =0, 
+\hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121ab6bb900b0ea0b91d0f90662a2fa07357}{C\+M\+Y} =1, 
+\hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a3dc50ee42df048adbce33598c374253c}{Pantone} =2
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{bitmfile_8c_af74e16aaea2b660ade10c564289bb89b}{bitmap\+\_\+to\+\_\+img} (\hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06a}{F\+I\+L\+E\+\_\+\+T\+Y\+P} typ, int ww, int wh, unsigned int pixw, unsigned int pixh, unsigned int \hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes}, unsigned int colors, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, void($\ast$\hyperlink{xpm2img_8c_a01af01497a1d61b28687de33d72f3f32}{get\+\_\+color})(unsigned int colind, struct \hyperlink{structRGB}{R\+G\+B} $\ast$rgb), void($\ast$\hyperlink{xpm2img_8c_a316727fc42e6c5bb7a61738bce7450d6}{get\+\_\+pixel})(int x, int y, unsigned int $\ast$colind))
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{bitmfile_8c_ad5e49ece578194481d96f14df0df592e}{get\+\_\+file\+\_\+ext} (\hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06a}{F\+I\+L\+E\+\_\+\+T\+Y\+P} typ)
+\item 
+int \hyperlink{bitmfile_8c_a6bc7283882df3d5b3b8d2bfa213601fb}{bitmap\+\_\+to\+\_\+file} (\hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06a}{F\+I\+L\+E\+\_\+\+T\+Y\+P} typ, int ww, int wh, unsigned int pwx, unsigned int pwy, unsigned int \hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes}, unsigned int colors, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, void($\ast$\hyperlink{xpm2img_8c_a01af01497a1d61b28687de33d72f3f32}{get\+\_\+color})(unsigned int colind, struct \hyperlink{structRGB}{R\+G\+B} $\ast$rgb), void($\ast$\hyperlink{xpm2img_8c_a316727fc42e6c5bb7a61738bce7450d6}{get\+\_\+pixel})(int x, int y, unsigned int $\ast$colind))
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{bitmfile_8c_a53f95aa1ff48762b51282dd08837c04d}{\index{bitmfile.\+c@{bitmfile.\+c}!I\+M\+G\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+E\+D@{I\+M\+G\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+E\+D}}
+\index{I\+M\+G\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+E\+D@{I\+M\+G\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+E\+D}!bitmfile.\+c@{bitmfile.\+c}}
+\subsubsection[{I\+M\+G\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+M\+G\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+E\+D}}\label{bitmfile_8c_a53f95aa1ff48762b51282dd08837c04d}
+
+
+Definition at line 21 of file bitmfile.\+c.
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{bitmfile_8c_a0434f7013d7be29249c67617a2776805}{\index{bitmfile.\+c@{bitmfile.\+c}!I\+M\+G\+\_\+\+S\+O\+L\+I\+D@{I\+M\+G\+\_\+\+S\+O\+L\+I\+D}}
+\index{I\+M\+G\+\_\+\+S\+O\+L\+I\+D@{I\+M\+G\+\_\+\+S\+O\+L\+I\+D}!bitmfile.\+c@{bitmfile.\+c}}
+\subsubsection[{I\+M\+G\+\_\+\+S\+O\+L\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf U\+B\+Y\+T\+E} {\bf I\+M\+G\+\_\+\+S\+O\+L\+I\+D}}}\label{bitmfile_8c_a0434f7013d7be29249c67617a2776805}
+
+
+Definition at line 37 of file bitmfile.\+c.
+
+\hypertarget{bitmfile_8c_a7d93a40463f23a293b91b9d37bbc7d74}{\index{bitmfile.\+c@{bitmfile.\+c}!X\+I\+M\+G\+\_\+\+R\+G\+B@{X\+I\+M\+G\+\_\+\+R\+G\+B}}
+\index{X\+I\+M\+G\+\_\+\+R\+G\+B@{X\+I\+M\+G\+\_\+\+R\+G\+B}!bitmfile.\+c@{bitmfile.\+c}}
+\subsubsection[{X\+I\+M\+G\+\_\+\+R\+G\+B}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf R\+G\+B} {\bf X\+I\+M\+G\+\_\+\+R\+G\+B}}}\label{bitmfile_8c_a7d93a40463f23a293b91b9d37bbc7d74}
+
+
+Definition at line 47 of file bitmfile.\+c.
+
+
+
+\subsection{Enumeration Type Documentation}
+\hypertarget{bitmfile_8c_a445295c57124cc31d4578339dbacb060}{\index{bitmfile.\+c@{bitmfile.\+c}!I\+M\+G\+\_\+\+M\+O\+D\+E@{I\+M\+G\+\_\+\+M\+O\+D\+E}}
+\index{I\+M\+G\+\_\+\+M\+O\+D\+E@{I\+M\+G\+\_\+\+M\+O\+D\+E}!bitmfile.\+c@{bitmfile.\+c}}
+\subsubsection[{I\+M\+G\+\_\+\+M\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf I\+M\+G\+\_\+\+M\+O\+D\+E}}}\label{bitmfile_8c_a445295c57124cc31d4578339dbacb060}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{N\+O\+N\+E@{N\+O\+N\+E}!bitmfile.\+c@{bitmfile.\+c}}\index{bitmfile.\+c@{bitmfile.\+c}!N\+O\+N\+E@{N\+O\+N\+E}}\item[{\em 
+\hypertarget{bitmfile_8c_a445295c57124cc31d4578339dbacb060ac157bdf0b85a40d2619cbc8bc1ae5fe2}{N\+O\+N\+E}\label{bitmfile_8c_a445295c57124cc31d4578339dbacb060ac157bdf0b85a40d2619cbc8bc1ae5fe2}
+}]\index{S\+O\+L\+I\+D0@{S\+O\+L\+I\+D0}!bitmfile.\+c@{bitmfile.\+c}}\index{bitmfile.\+c@{bitmfile.\+c}!S\+O\+L\+I\+D0@{S\+O\+L\+I\+D0}}\item[{\em 
+\hypertarget{bitmfile_8c_a445295c57124cc31d4578339dbacb060a257557664c7c2f861de9889134278540}{S\+O\+L\+I\+D0}\label{bitmfile_8c_a445295c57124cc31d4578339dbacb060a257557664c7c2f861de9889134278540}
+}]\index{S\+O\+L\+I\+D1@{S\+O\+L\+I\+D1}!bitmfile.\+c@{bitmfile.\+c}}\index{bitmfile.\+c@{bitmfile.\+c}!S\+O\+L\+I\+D1@{S\+O\+L\+I\+D1}}\item[{\em 
+\hypertarget{bitmfile_8c_a445295c57124cc31d4578339dbacb060aac8f082e584f79023eef1a8c765dec40}{S\+O\+L\+I\+D1}\label{bitmfile_8c_a445295c57124cc31d4578339dbacb060aac8f082e584f79023eef1a8c765dec40}
+}]\index{P\+A\+T\+R\+U\+N@{P\+A\+T\+R\+U\+N}!bitmfile.\+c@{bitmfile.\+c}}\index{bitmfile.\+c@{bitmfile.\+c}!P\+A\+T\+R\+U\+N@{P\+A\+T\+R\+U\+N}}\item[{\em 
+\hypertarget{bitmfile_8c_a445295c57124cc31d4578339dbacb060ae8243bfd5a1c15cc5fe0f461e98d08b7}{P\+A\+T\+R\+U\+N}\label{bitmfile_8c_a445295c57124cc31d4578339dbacb060ae8243bfd5a1c15cc5fe0f461e98d08b7}
+}]\index{B\+I\+T\+S\+T\+R@{B\+I\+T\+S\+T\+R}!bitmfile.\+c@{bitmfile.\+c}}\index{bitmfile.\+c@{bitmfile.\+c}!B\+I\+T\+S\+T\+R@{B\+I\+T\+S\+T\+R}}\item[{\em 
+\hypertarget{bitmfile_8c_a445295c57124cc31d4578339dbacb060a6bf87fe95736985f2fdd1eae8141f8f2}{B\+I\+T\+S\+T\+R}\label{bitmfile_8c_a445295c57124cc31d4578339dbacb060a6bf87fe95736985f2fdd1eae8141f8f2}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 35 of file bitmfile.\+c.
+
+
+\begin{DoxyCode}
+35 \{\hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060ac157bdf0b85a40d2619cbc8bc1ae5fe2}{NONE}, \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060a257557664c7c2f861de9889134278540}{SOLID0}, \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060aac8f082e584f79023eef1a8c765dec40}{SOLID1}, \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060ae8243bfd5a1c15cc5fe0f461e98d08b7}{PATRUN}, \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060a6bf87fe95736985f2fdd1eae8141f8f2}{BITSTR}\} \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060}{IMG\_MODE};
+\end{DoxyCode}
+\hypertarget{bitmfile_8c_af08f42f04fcb2073807ade62eef86121}{\index{bitmfile.\+c@{bitmfile.\+c}!X\+I\+M\+G\+\_\+\+C\+O\+L\+M\+O\+D\+E\+L@{X\+I\+M\+G\+\_\+\+C\+O\+L\+M\+O\+D\+E\+L}}
+\index{X\+I\+M\+G\+\_\+\+C\+O\+L\+M\+O\+D\+E\+L@{X\+I\+M\+G\+\_\+\+C\+O\+L\+M\+O\+D\+E\+L}!bitmfile.\+c@{bitmfile.\+c}}
+\subsubsection[{X\+I\+M\+G\+\_\+\+C\+O\+L\+M\+O\+D\+E\+L}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf X\+I\+M\+G\+\_\+\+C\+O\+L\+M\+O\+D\+E\+L}}}\label{bitmfile_8c_af08f42f04fcb2073807ade62eef86121}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{R\+G\+B@{R\+G\+B}!bitmfile.\+c@{bitmfile.\+c}}\index{bitmfile.\+c@{bitmfile.\+c}!R\+G\+B@{R\+G\+B}}\item[{\em 
+\hypertarget{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{R\+G\+B}\label{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}
+}]\index{C\+M\+Y@{C\+M\+Y}!bitmfile.\+c@{bitmfile.\+c}}\index{bitmfile.\+c@{bitmfile.\+c}!C\+M\+Y@{C\+M\+Y}}\item[{\em 
+\hypertarget{bitmfile_8c_af08f42f04fcb2073807ade62eef86121ab6bb900b0ea0b91d0f90662a2fa07357}{C\+M\+Y}\label{bitmfile_8c_af08f42f04fcb2073807ade62eef86121ab6bb900b0ea0b91d0f90662a2fa07357}
+}]\index{Pantone@{Pantone}!bitmfile.\+c@{bitmfile.\+c}}\index{bitmfile.\+c@{bitmfile.\+c}!Pantone@{Pantone}}\item[{\em 
+\hypertarget{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a3dc50ee42df048adbce33598c374253c}{Pantone}\label{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a3dc50ee42df048adbce33598c374253c}
+}]\end{description}
+\end{Desc}
+
+
+Definition at line 39 of file bitmfile.\+c.
+
+
+\begin{DoxyCode}
+39 \{ \hyperlink{structRGB}{RGB}=0, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121ab6bb900b0ea0b91d0f90662a2fa07357}{CMY}=1, \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a3dc50ee42df048adbce33598c374253c}{Pantone}=2 \} \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121}{XIMG\_COLMODEL};
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\hypertarget{bitmfile_8c_a6bc7283882df3d5b3b8d2bfa213601fb}{\index{bitmfile.\+c@{bitmfile.\+c}!bitmap\+\_\+to\+\_\+file@{bitmap\+\_\+to\+\_\+file}}
+\index{bitmap\+\_\+to\+\_\+file@{bitmap\+\_\+to\+\_\+file}!bitmfile.\+c@{bitmfile.\+c}}
+\subsubsection[{bitmap\+\_\+to\+\_\+file}]{\setlength{\rightskip}{0pt plus 5cm}int bitmap\+\_\+to\+\_\+file (
+\begin{DoxyParamCaption}
+\item[{{\bf F\+I\+L\+E\+\_\+\+T\+Y\+P}}]{typ, }
+\item[{int}]{ww, }
+\item[{int}]{wh, }
+\item[{unsigned int}]{pwx, }
+\item[{unsigned int}]{pwy, }
+\item[{unsigned int}]{planes, }
+\item[{unsigned int}]{colors, }
+\item[{{\bf const} char $\ast$}]{filename, }
+\item[{void($\ast$)(unsigned int colind, struct {\bf R\+G\+B} $\ast$rgb)}]{get\+\_\+color, }
+\item[{void($\ast$)(int x, int y, unsigned int $\ast$colind)}]{get\+\_\+pixel}
+\end{DoxyParamCaption}
+)}}\label{bitmfile_8c_a6bc7283882df3d5b3b8d2bfa213601fb}
+
+
+Definition at line 323 of file bitmfile.\+c.
+
+
+
+References bitmap\+\_\+to\+\_\+img(), get\+\_\+color(), get\+\_\+pixel(), I\+M\+G, and X\+I\+M\+G.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+329     \{
+330 
+331     \textcolor{keywordflow}{switch} (typ)
+332         \{
+333         \textcolor{keywordflow}{case} \hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06aa1e00c983d4be44226a3b1ba10382e3e9}{IMG}:
+334         \textcolor{keywordflow}{case} \hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06aa751c5502279504952b0f2ff9b0233e46}{XIMG}:
+335             \textcolor{keywordflow}{return}(\hyperlink{bitmfile_8c_af74e16aaea2b660ade10c564289bb89b}{bitmap\_to\_img}(typ,ww,wh,pwx,pwy,\hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes},colors,
+      \hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename},\hyperlink{tile2img_8c_a01af01497a1d61b28687de33d72f3f32}{get\_color},\hyperlink{tile2img_8c_a316727fc42e6c5bb7a61738bce7450d6}{get\_pixel}));
+336         \textcolor{keywordflow}{default}:
+337             \textcolor{keywordflow}{return}(-1);
+338         \};
+339 \}
+\end{DoxyCode}
+\hypertarget{bitmfile_8c_af74e16aaea2b660ade10c564289bb89b}{\index{bitmfile.\+c@{bitmfile.\+c}!bitmap\+\_\+to\+\_\+img@{bitmap\+\_\+to\+\_\+img}}
+\index{bitmap\+\_\+to\+\_\+img@{bitmap\+\_\+to\+\_\+img}!bitmfile.\+c@{bitmfile.\+c}}
+\subsubsection[{bitmap\+\_\+to\+\_\+img}]{\setlength{\rightskip}{0pt plus 5cm}int bitmap\+\_\+to\+\_\+img (
+\begin{DoxyParamCaption}
+\item[{{\bf F\+I\+L\+E\+\_\+\+T\+Y\+P}}]{typ, }
+\item[{int}]{ww, }
+\item[{int}]{wh, }
+\item[{unsigned int}]{pixw, }
+\item[{unsigned int}]{pixh, }
+\item[{unsigned int}]{planes, }
+\item[{unsigned int}]{colors, }
+\item[{{\bf const} char $\ast$}]{filename, }
+\item[{void($\ast$)(unsigned int colind, struct {\bf R\+G\+B} $\ast$rgb)}]{get\+\_\+color, }
+\item[{void($\ast$)(int x, int y, unsigned int $\ast$colind)}]{get\+\_\+pixel}
+\end{DoxyParamCaption}
+)}}\label{bitmfile_8c_af74e16aaea2b660ade10c564289bb89b}
+
+
+Definition at line 50 of file bitmfile.\+c.
+
+
+
+References B\+I\+T\+S\+T\+R, close(), count, errno, error(), free(), get\+\_\+color(), get\+\_\+pixel(), header, X\+I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+colmodel, I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+h, I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+headlen, I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+nplanes, I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+patlen, I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+pixh, I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+pixw, I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+version, I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+w, X\+I\+M\+G\+\_\+\+H\+E\+A\+D\+E\+R\+::img\+\_\+ximg, malloc(), N\+U\+L\+L, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+T\+R\+U\+N\+C, O\+\_\+\+W\+R\+O\+N\+L\+Y, open(), P\+A\+T\+R\+U\+N, planes, R\+G\+B, S\+O\+L\+I\+D0, S\+O\+L\+I\+D1, U\+B\+Y\+T\+E, U\+W\+O\+R\+D, write(), X\+I\+M\+G, and X\+I\+M\+G\+\_\+\+M\+A\+G\+I\+C.
+
+
+
+Referenced by bitmap\+\_\+to\+\_\+file().
+
+
+\begin{DoxyCode}
+56     \{
+57     \textcolor{keywordtype}{int} file, \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}, cnt;
+58     \hyperlink{structIMG__HEADER}{IMG\_HEADER} \hyperlink{tile2x11_8c_ad94872ec2c8137ae2497164e4263ed25}{header};
+59     \hyperlink{structXIMG__HEADER}{XIMG\_HEADER} xheader;
+60     \hyperlink{structRGB}{XIMG\_RGB} xrgb;
+61     \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060}{IMG\_MODE} mode;
+62     \hyperlink{bitmfile_8h_aa068c7f96c3fdd66282567bcb068db80}{UBYTE} *line\_buf, *write\_buf;
+63     \textcolor{keyword}{register} \hyperlink{bitmfile_8h_aa068c7f96c3fdd66282567bcb068db80}{UBYTE} *startpnt, *bufpnt;
+64     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} colind, line\_len, line, bit;
+65     \textcolor{keyword}{register} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} byte;
+66     \textcolor{keyword}{register} \hyperlink{bitmfile_8h_aa068c7f96c3fdd66282567bcb068db80}{UBYTE} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count};
+67 
+68     \textcolor{comment}{/* fill in (X) IMG-Header */}
+69 
+70     header.\hyperlink{structIMG__HEADER_a419b9ebcef3ef87315256318886eb60c}{img\_version} = 1;
+71     header.\hyperlink{structIMG__HEADER_ab069cc485851b9af26104d9618f14468}{img\_headlen} = (\hyperlink{bitmfile_8h_a0428171499a4ab7aebc2bf058ae337df}{UWORD}) \textcolor{keyword}{sizeof}(header) /2;
+72     \textcolor{keywordflow}{if} (typ == \hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06aa751c5502279504952b0f2ff9b0233e46}{XIMG})
+73         header.\hyperlink{structIMG__HEADER_ab069cc485851b9af26104d9618f14468}{img\_headlen} += (\hyperlink{bitmfile_8h_a0428171499a4ab7aebc2bf058ae337df}{UWORD})(\textcolor{keyword}{sizeof}(xheader)+colors*\textcolor{keyword}{sizeof}(xrgb))/2;
+74 
+75     header.\hyperlink{structIMG__HEADER_a0371340a9a26039949001413dde2b128}{img\_nplanes}   = \hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes};
+76     header.\hyperlink{structIMG__HEADER_a556c0023a2d062dbfde5d3a019eced72}{img\_patlen}     = 2;
+77     header.\hyperlink{structIMG__HEADER_a7d5c243cda9e3046c3da9421d0cc42c5}{img\_pixw}         = pixw;
+78     header.\hyperlink{structIMG__HEADER_a8cc61573c18a478c0675f78ba8241731}{img\_pixh}         = pixh;
+79     header.\hyperlink{structIMG__HEADER_acab9fca679b5827910e3c2a6e302e9f2}{img\_w}               = ww;
+80     header.\hyperlink{structIMG__HEADER_aeae05d69855fcda61b9d2e9f5e7aec32}{img\_h}               = wh;
+81 
+82     xheader.\hyperlink{structXIMG__HEADER_aaeba1879c57396ae9d15c097113b07c5}{img\_ximg}        = \hyperlink{bitmfile_8h_a68e33683675f23b90b65548fc805afa7}{XIMG\_MAGIC};
+83     xheader.\hyperlink{structXIMG__HEADER_afec6d437ff4d53ce565007675c4d6dfb}{img\_colmodel}= \hyperlink{bitmfile_8c_af08f42f04fcb2073807ade62eef86121a30447e9f6efa4afdd251f9afc1d5fb44}{RGB};
+84 
+85     \textcolor{comment}{/* calculate linelength, allocate buffer. */}
+86 
+87     line\_len    = (ww+7)/8;
+88 
+89     line\_buf    = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}((\textcolor{keywordtype}{size\_t})\hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes}*line\_len);
+90     \textcolor{keywordflow}{if} (line\_buf == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+91         \textcolor{keywordflow}{return}(ENOMEM);
+92 
+93     \textcolor{comment}{/* Worst case: the bufferd line could grow to max. 3 times the length */}
+94     \textcolor{comment}{/* of the original!                                                                 */}
+95 
+96     write\_buf = \hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}((\textcolor{keywordtype}{size\_t})3*line\_len);
+97     \textcolor{keywordflow}{if} (write\_buf == \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL})
+98         \{
+99         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(line\_buf);
+100         \textcolor{keywordflow}{return}(ENOMEM);
+101         \};
+102 
+103     \textcolor{comment}{/* open file */}
+104 
+105     file = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(\hyperlink{makedefs_8c_ac1ccfd52478f58f8d268ad6bb486bef0}{filename}, \hyperlink{fcntl_8h_a11b644a8526139c4cc1850dac1271ced}{O\_WRONLY} | \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT} | 
+      \hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC});
+106     \textcolor{keywordflow}{if} (file<0)
+107         \{
+108         error = \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno};
+109         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(line\_buf);
+110         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(write\_buf);
+111         \textcolor{keywordflow}{return}(error);
+112         \};
+113 
+114     \textcolor{comment}{/* write Header */}
+115 
+116     \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write} (file, &header, \textcolor{keyword}{sizeof}(header)) != \textcolor{keyword}{sizeof}(header) ||
+117           (typ == \hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06aa751c5502279504952b0f2ff9b0233e46}{XIMG} &&   \hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write} (file, &xheader, \textcolor{keyword}{sizeof}(xheader) ) != \textcolor{keyword}{sizeof}(xheader)))
+118             \{
+119             error = \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno};
+120             \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(file);
+121             \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(line\_buf);
+122             \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(write\_buf);
+123             \textcolor{keywordflow}{return}(error);
+124             \};
+125 
+126     \textcolor{comment}{/* save the colortable if possible */}
+127 
+128     \textcolor{keywordflow}{if} ( typ == \hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06aa751c5502279504952b0f2ff9b0233e46}{XIMG} )
+129     \textcolor{keywordflow}{for} (cnt=0; cnt<colors; cnt++)
+130         \{
+131         \hyperlink{tile2img_8c_a01af01497a1d61b28687de33d72f3f32}{get\_color}(cnt,&xrgb);
+132         \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(file,&xrgb,\textcolor{keyword}{sizeof}(xrgb)) != \textcolor{keyword}{sizeof}(xrgb))
+133             \{
+134             error = \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno};
+135             \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(file);
+136             \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(line\_buf);
+137             \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(write\_buf);
+138             \textcolor{keywordflow}{return}(error);
+139             \};
+140         \};
+141 
+142     \textcolor{comment}{/* And now line by line ... */}
+143 
+144     \textcolor{keywordflow}{for} (line=0; line<wh; line++)
+145         \{
+146         \textcolor{comment}{/* get pixel, split it up and */}
+147         \textcolor{comment}{/* store it as planes in buffer */}
+148 
+149         \textcolor{keywordflow}{for} (byte=0; byte<line\_len; byte++)
+150             \{
+151             \textcolor{keywordflow}{for} (cnt=0; cnt<\hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes}; cnt++)
+152                 line\_buf[cnt*line\_len+byte] = 0x00;
+153 
+154             \textcolor{keywordflow}{for} (bit=0; bit<8; bit++)
+155                 \{
+156                 \textcolor{keywordflow}{if} (8*byte+bit < ww)
+157                     \hyperlink{tile2img_8c_a316727fc42e6c5bb7a61738bce7450d6}{get\_pixel}(8*byte+bit, line, &colind);
+158 
+159                 \textcolor{keywordflow}{for} (cnt=0; cnt<\hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes}; cnt++)
+160                     \{
+161                     line\_buf[cnt*line\_len+byte] <<= 1;
+162                     line\_buf[cnt*line\_len+byte]  |= colind & 0x01;
+163                     colind >>= 1;
+164                     \};
+165                 \};
+166             \};
+167 
+168         \textcolor{comment}{/* compress bitstrings in buffer */}
+169         \textcolor{comment}{/* and write it to file        */}
+170 
+171         \textcolor{keywordflow}{for} (cnt=0; cnt<\hyperlink{xpm2iff_8c_a0887fed8a7ea2f98b2b12e8866bee719}{planes}; cnt++)
+172             \{
+173             \textcolor{comment}{/* Bitstringpointer to start of plane */}
+174 
+175             startpnt = &line\_buf[cnt*line\_len];
+176             bufpnt = write\_buf;
+177 
+178             \textcolor{keywordflow}{while} (startpnt < &line\_buf[(cnt+1)*line\_len])
+179                 \{
+180                 \textcolor{comment}{/*********************************************/}
+181                 \textcolor{comment}{/* Which \_new\_ compression-mode "fits" the  */}
+182                 \textcolor{comment}{/* the current byte?                                    */}
+183                 \textcolor{comment}{/* Note: the compressing modes get choosen  */}
+184                 \textcolor{comment}{/* "positive". The non compressing BITSTR-  */}
+185                 \textcolor{comment}{/* mode is choosen only if nothing else         */}
+186                 \textcolor{comment}{/* "fits" ...                                           */}
+187                 \textcolor{comment}{/*********************************************/}
+188 
+189                 \textcolor{keywordflow}{switch} (*startpnt)
+190                     \{
+191                     \textcolor{keywordflow}{case} 0x00:
+192                         mode = \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060a257557664c7c2f861de9889134278540}{SOLID0};
+193                         \textcolor{keywordflow}{break};
+194                     \textcolor{keywordflow}{case} 0xFF:
+195                         mode = \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060aac8f082e584f79023eef1a8c765dec40}{SOLID1};
+196                         \textcolor{keywordflow}{break};
+197                     \textcolor{keywordflow}{default}:
+198                         \textcolor{keywordflow}{if} ( startpnt   <  &line\_buf[(cnt+1)*line\_len-3] &&
+199                                 *(startpnt)   == *(startpnt+2)                       &&
+200                                 *(startpnt+1) == *(startpnt+3)                       )
+201                             mode = \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060ae8243bfd5a1c15cc5fe0f461e98d08b7}{PATRUN};
+202                         \textcolor{keywordflow}{else}
+203                             mode = \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060a6bf87fe95736985f2fdd1eae8141f8f2}{BITSTR};
+204                     \};
+205 
+206                 \textcolor{comment}{/************************************************/}
+207                 \textcolor{comment}{/* The mode is choosen, now work with it.           */}
+208                 \textcolor{comment}{/* The compressing modi stay current as long as */}
+209                 \textcolor{comment}{/* possible.                                                */}
+210                 \textcolor{comment}{/************************************************/}
+211 
+212                 count = 0;
+213 
+214                 \textcolor{keywordflow}{switch} (mode)
+215                     \{
+216                     \textcolor{keywordflow}{case} \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060a257557664c7c2f861de9889134278540}{SOLID0}:
+217                         \textcolor{keywordflow}{while} ( (startpnt < &line\_buf[(cnt+1)*line\_len])    &&
+218                                         (*(startpnt)==0x00)                                         &&
+219                                         (count < 0x7F)                                                      
+      )
+220                                     \{
+221                                     startpnt++;
+222                                     count++;
+223                                     \};
+224                         *(bufpnt++) = count;
+225                         \textcolor{keywordflow}{break};
+226 
+227                     \textcolor{keywordflow}{case} \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060aac8f082e584f79023eef1a8c765dec40}{SOLID1}:
+228                         \textcolor{keywordflow}{while} ( (startpnt < &line\_buf[(cnt+1)*line\_len])    &&
+229                                         (*(startpnt)==0xFF)                                         &&
+230                                         (count < 0x7F)                                                      
+      )
+231                                     \{
+232                                     startpnt++;
+233                                     count++;
+234                                     \};
+235                         *(bufpnt++) = 0x80 | count;
+236                         \textcolor{keywordflow}{break};
+237 
+238                     \textcolor{keywordflow}{case} \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060ae8243bfd5a1c15cc5fe0f461e98d08b7}{PATRUN}:
+239                         *(bufpnt++) = 0x00;
+240                         startpnt += 2;
+241                         count = 1;
+242                         \textcolor{keywordflow}{while} ( startpnt < &line\_buf[(cnt+1)*line\_len-1]    &&
+243                                         *(startpnt)     == *(startpnt-2)                        &&
+244                                         *(startpnt+1)   == *(startpnt-1)                        &&
+245                                         (count < 0xFF)                                                      
+      )
+246                                     \{
+247                                     count++;
+248                                     startpnt += 2;
+249                                     \};
+250                         *(bufpnt++) = count;
+251                         *(bufpnt++) = *(startpnt-2);
+252                         *(bufpnt++) = *(startpnt-1);
+253                         \textcolor{keywordflow}{break};
+254 
+255                     \textcolor{comment}{/************************************************/}
+256                     \textcolor{comment}{/* The while Condition is ment as follows:      */}
+257                     \textcolor{comment}{/*                                                                                          
+      */}
+258                     \textcolor{comment}{/* while ( NOT(2-Byte-Solidrun possible)    &&      */}
+259                     \textcolor{comment}{/*           NOT(6-Byte-Patternrun possible)    &&      */}
+260                     \textcolor{comment}{/*               count < 0xFF                                       &&      */}
+261                     \textcolor{comment}{/*           still Bytes remaining          )           */}
+262                     \textcolor{comment}{/*                                                                                          
+      */}
+263                     \textcolor{comment}{/* As soon as a \_compressing\_ alternative   shows   */}
+264                     \textcolor{comment}{/* up, BITSTR gets cancelled!                           */}
+265                     \textcolor{comment}{/************************************************/}
+266 
+267                     \textcolor{keywordflow}{case} \hyperlink{bitmfile_8c_a445295c57124cc31d4578339dbacb060a6bf87fe95736985f2fdd1eae8141f8f2}{BITSTR}:
+268                         *(bufpnt++) = 0x80;
+269                         \textcolor{keywordflow}{while} ( !(((startpnt+count)<&line\_buf[(cnt+1)*line\_len-1])&&
+270                                             (((*(startpnt+\hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count})==0xFF) && (*(startpnt+count+1)==0xFF)
+      )||
+271                                              ((*(startpnt+count)==0x00) && (*(startpnt+count+1)==0x00))))       
+      &&
+272                                         !(((startpnt+\hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count})<&line\_buf[(cnt+1)*line\_len-5])&&
+273                                             (*(startpnt+count)   == *(startpnt+count+2))&&
+274                                             (*(startpnt+count+1) == *(startpnt+count+3))&&
+275                                             (*(startpnt+count)   == *(startpnt+count+4))&&
+276                                             (*(startpnt+count+1) == *(startpnt+count+5)))                                               
+      &&
+277                                         (count < 0xFF)                                                                                                              
+      &&
+278                                         ((startpnt+count) < &line\_buf[(cnt+1)*line\_len])                                            
+      )
+279                                         count++;
+280                         *(bufpnt++) = count;
+281                         \textcolor{keywordflow}{for}(; count>0; count--)
+282                             *(bufpnt++) = *(startpnt++);
+283                         \textcolor{keywordflow}{break};
+284                     \};
+285                 \};
+286 
+287             \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(file,write\_buf,bufpnt-write\_buf) != (bufpnt-write\_buf))
+288                 \{
+289                 error = \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno};
+290                 \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(file);
+291                 \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(line\_buf);
+292                 \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(write\_buf);
+293                 \textcolor{keywordflow}{return}(error);
+294                 \};
+295 
+296             \};
+297         \};
+298 
+299     \textcolor{comment}{/*close file, free buffer. */}
+300 
+301     \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(file);
+302     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(line\_buf);
+303     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(write\_buf);
+304     \textcolor{keywordflow}{return}(0);
+305 
+306 \}
+\end{DoxyCode}
+\hypertarget{bitmfile_8c_ad5e49ece578194481d96f14df0df592e}{\index{bitmfile.\+c@{bitmfile.\+c}!get\+\_\+file\+\_\+ext@{get\+\_\+file\+\_\+ext}}
+\index{get\+\_\+file\+\_\+ext@{get\+\_\+file\+\_\+ext}!bitmfile.\+c@{bitmfile.\+c}}
+\subsubsection[{get\+\_\+file\+\_\+ext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char$\ast$ get\+\_\+file\+\_\+ext (
+\begin{DoxyParamCaption}
+\item[{{\bf F\+I\+L\+E\+\_\+\+T\+Y\+P}}]{typ}
+\end{DoxyParamCaption}
+)}}\label{bitmfile_8c_ad5e49ece578194481d96f14df0df592e}
+
+
+Definition at line 310 of file bitmfile.\+c.
+
+
+
+References I\+M\+G, and X\+I\+M\+G.
+
+
+\begin{DoxyCode}
+311     \{
+312     \textcolor{keywordflow}{switch} (typ)
+313         \{
+314         \textcolor{keywordflow}{case} \hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06aa1e00c983d4be44226a3b1ba10382e3e9}{IMG}:
+315         \textcolor{keywordflow}{case} \hyperlink{bitmfile_8h_ae92db6ab7eef0759b429b39b83e0b06aa751c5502279504952b0f2ff9b0233e46}{XIMG}:
+316             \textcolor{keywordflow}{return}(\textcolor{stringliteral}{"IMG"});
+317         \textcolor{keywordflow}{default}:
+318             \textcolor{keywordflow}{return}(\textcolor{stringliteral}{""});
+319         \};
+320 \}
+\end{DoxyCode}

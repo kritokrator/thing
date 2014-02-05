@@ -1,0 +1,644 @@
+\hypertarget{rumors_8c}{\section{nethack/src/rumors.c File Reference}
+\label{rumors_8c}\index{nethack/src/rumors.\+c@{nethack/src/rumors.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}lev.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{rumors_8c_a1c8b5738db219e99300afc4c329e715d}{F\+D\+E\+C\+L} (\hyperlink{rumors_8c_afaaa927359c704d91ace3c8138f2704d}{init\+\_\+rumors},(\hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{rumors_8c_ac1df8ec58e52827b02905f55da0d38cf}{F\+D\+E\+C\+L} (\hyperlink{rumors_8c_a794682eeb64567fa83e4b114eb267e26}{init\+\_\+oracles},(\hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} $\ast$))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{rumors_8c_afaaa927359c704d91ace3c8138f2704d}{init\+\_\+rumors} (\hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} $\ast$\hyperlink{tile2bmp_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp})
+\item 
+char $\ast$ \hyperlink{rumors_8c_afa6bc77b1953f79549033ba8e4059bbf}{getrumor} (int truth, char $\ast$rumor\+\_\+buf, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} exclude\+\_\+cookie)
+\item 
+void \hyperlink{rumors_8c_a35a462ff4b1d552287bc48dae10f6a2f}{outrumor} (int truth, int mechanism)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{rumors_8c_a794682eeb64567fa83e4b114eb267e26}{init\+\_\+oracles} (\hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb} $\ast$\hyperlink{tile2bmp_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp})
+\item 
+void \hyperlink{rumors_8c_a0d22964e3ed141d773028b68be51be0a}{save\+\_\+oracles} (int fd, int mode)
+\item 
+void \hyperlink{rumors_8c_a96cfd6fd2d52e377544c049fef561c3e}{restore\+\_\+oracles} (int fd)
+\item 
+void \hyperlink{rumors_8c_aa350658e776212a45890b381c4a76a92}{outoracle} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} special, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} delphi)
+\item 
+int \hyperlink{rumors_8c_a9e364c567c0a55811f244ceead934e92}{doconsult} (struct \hyperlink{structmonst}{monst} $\ast$oracl)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static long \hyperlink{rumors_8c_a4f671774221a386eda95671f543c0ac0}{true\+\_\+rumor\+\_\+start}
+\item 
+static long \hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\+\_\+rumor\+\_\+size}
+\item 
+static long \hyperlink{rumors_8c_a30f53765e5e4389b8b18f0d938193952}{true\+\_\+rumor\+\_\+end}
+\item 
+static long \hyperlink{rumors_8c_afe5ad0b1411ddd39d9e6674546e98f35}{false\+\_\+rumor\+\_\+start}
+\item 
+static long \hyperlink{rumors_8c_a78fc706126e107d8b5c7660fb4bc9877}{false\+\_\+rumor\+\_\+size}
+\item 
+static long \hyperlink{rumors_8c_aede05b4356921ec0de990ccdfe482191}{false\+\_\+rumor\+\_\+end}
+\item 
+static int \hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\+\_\+flg} = 0
+\item 
+static unsigned \hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\+\_\+cnt} = 0
+\item 
+static long $\ast$ \hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\+\_\+loc} = 0
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{rumors_8c_a9e364c567c0a55811f244ceead934e92}{\index{rumors.\+c@{rumors.\+c}!doconsult@{doconsult}}
+\index{doconsult@{doconsult}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{doconsult}]{\setlength{\rightskip}{0pt plus 5cm}int doconsult (
+\begin{DoxyParamCaption}
+\item[{struct {\bf monst} $\ast$}]{oracl}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_a9e364c567c0a55811f244ceead934e92}
+
+
+Definition at line 287 of file rumors.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, flag\+::botl, B\+Y\+\_\+\+O\+R\+A\+C\+L\+E, flags, invent, more\+\_\+experienced(), multi, newexplevel(), outoracle(), outrumor(), Q\+B\+U\+F\+S\+Z, Sprintf, T\+R\+U\+E, u, you\+::uevent, you\+::ugold, you\+::ulevel, yn, and ynq.
+
+
+\begin{DoxyCode}
+289 \{
+290 \textcolor{preprocessor}{#ifdef GOLDOBJ}
+291         \textcolor{keywordtype}{long} umoney = money\_cnt(\hyperlink{decl_8h_a65d03deeacf265a14fa3af961820b33f}{invent});
+292 \textcolor{preprocessor}{#endif}
+293     \textcolor{keywordtype}{int} u\_pay, minor\_cost = 50, major\_cost = 500 + 50 * \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a6c7263bb25b91825bf7ecaab470d771a}{ulevel};
+294     \textcolor{keywordtype}{int} add\_xpts;
+295     \textcolor{keywordtype}{char} qbuf[\hyperlink{global_8h_a1bb6bf3db7bf52ca1e9fa8fbcd6e9630}{QBUFSZ}];
+296 
+297     \hyperlink{decl_8h_a498406921f71695627a7107240f3ed7a}{multi} = 0;
+298 
+299     \textcolor{keywordflow}{if} (!oracl) \{
+300         There(\textcolor{stringliteral}{"is no one here to consult."});
+301         \textcolor{keywordflow}{return} 0;
+302     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!oracl->mpeaceful) \{
+303         pline(\textcolor{stringliteral}{"%s is in no mood for consultations."}, Monnam(oracl));
+304         \textcolor{keywordflow}{return} 0;
+305 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+306     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold}) \{
+307 \textcolor{preprocessor}{#else}
+308     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!umoney) \{
+309 \textcolor{preprocessor}{#endif}
+310         You(\textcolor{stringliteral}{"have no money."});
+311         \textcolor{keywordflow}{return} 0;
+312     \}
+313 
+314     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(qbuf,
+315         \textcolor{stringliteral}{"\(\backslash\)"Wilt thou settle for a minor consultation?\(\backslash\)" (%d %s)"},
+316         minor\_cost, currency((\textcolor{keywordtype}{long})minor\_cost));
+317     \textcolor{keywordflow}{switch} (\hyperlink{hack_8h_a104792d619a60e73407115c00499745e}{ynq}(qbuf)) \{
+318         \textcolor{keywordflow}{default}:
+319         \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:
+320         \textcolor{keywordflow}{return} 0;
+321         \textcolor{keywordflow}{case} \textcolor{charliteral}{'y'}:
+322 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+323         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold} < (\textcolor{keywordtype}{long})minor\_cost) \{
+324 \textcolor{preprocessor}{#else}
+325         \textcolor{keywordflow}{if} (umoney < (\textcolor{keywordtype}{long})minor\_cost) \{
+326 \textcolor{preprocessor}{#endif}
+327             You(\textcolor{stringliteral}{"don't even have enough money for that!"});
+328             \textcolor{keywordflow}{return} 0;
+329         \}
+330         u\_pay = minor\_cost;
+331         \textcolor{keywordflow}{break};
+332         \textcolor{keywordflow}{case} \textcolor{charliteral}{'n'}:
+333 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+334         \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold} <= (\textcolor{keywordtype}{long})minor\_cost ||    \textcolor{comment}{/* don't even ask */}
+335 #\textcolor{keywordflow}{else}
+336         if (umoney <= (\textcolor{keywordtype}{long})minor\_cost ||   \textcolor{comment}{/* don't even ask */}
+337 #endif
+338             (\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} == 1 || \hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\_flg} < 0)) \textcolor{keywordflow}{return} 0;
+339         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(qbuf,
+340             \textcolor{stringliteral}{"\(\backslash\)"Then dost thou desire a major one?\(\backslash\)" (%d %s)"},
+341             major\_cost, currency((\textcolor{keywordtype}{long})major\_cost));
+342         \textcolor{keywordflow}{if} (\hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(qbuf) != \textcolor{charliteral}{'y'}) \textcolor{keywordflow}{return} 0;
+343 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+344         u\_pay = (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold} < (long)major\_cost ? (\textcolor{keywordtype}{int})\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold}
+345                             : major\_cost);
+346 \textcolor{preprocessor}{#else}
+347         u\_pay = (umoney < (long)major\_cost ? (\textcolor{keywordtype}{int})umoney
+348                             : major\_cost);
+349 \textcolor{preprocessor}{#endif}
+350         \textcolor{keywordflow}{break};
+351     \}
+352 \textcolor{preprocessor}{#ifndef GOLDOBJ}
+353     \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_af666e1fd44c5efe34df9053aef068245}{ugold} -= (long)u\_pay;
+354     oracl->\hyperlink{structmonst_a06dbdd0ca7ee096216aa10f86beed533}{mgold} += (long)u\_pay;
+355 \textcolor{preprocessor}{#else}
+356         money2mon(oracl, (\textcolor{keywordtype}{long})u\_pay);
+357 \textcolor{preprocessor}{#endif}
+358     \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a51f16d01a910b52fdf0c05a44739f7d8}{botl} = 1;
+359     add\_xpts = 0;   \textcolor{comment}{/* first oracle of each type gives experience points */}
+360     \textcolor{keywordflow}{if} (u\_pay == minor\_cost) \{
+361         \hyperlink{rumors_8c_a35a462ff4b1d552287bc48dae10f6a2f}{outrumor}(1, \hyperlink{hack_8h_a1210847248024338cff17538c89deb80}{BY\_ORACLE});
+362         \textcolor{keywordflow}{if} (!\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.minor\_oracle)
+363             add\_xpts = u\_pay / (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.major\_oracle ? 25 : 10);
+364             \textcolor{comment}{/* 5 pts if very 1st, or 2 pts if major already done */}
+365         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.minor\_oracle = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+366     \} \textcolor{keywordflow}{else} \{
+367         \textcolor{keywordtype}{boolean} cheapskate = u\_pay < major\_cost;
+368         \hyperlink{rumors_8c_aa350658e776212a45890b381c4a76a92}{outoracle}(cheapskate, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+369         \textcolor{keywordflow}{if} (!cheapskate && !\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.major\_oracle)
+370             add\_xpts = u\_pay / (\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.minor\_oracle ? 25 : 10);
+371             \textcolor{comment}{/* ~100 pts if very 1st, ~40 pts if minor already done */}
+372         \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_aaa426b9f3053502028edbe45d2031208}{uevent}.major\_oracle = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+373         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, !cheapskate);
+374     \}
+375     \textcolor{keywordflow}{if} (add\_xpts) \{
+376         \hyperlink{exper_8c_a9329872dddc434fcb74c82d125b5d567}{more\_experienced}(add\_xpts, u\_pay/50);
+377         \hyperlink{exper_8c_a5faffa80cf70dbe30462874d67a3c582}{newexplevel}();
+378     \}
+379     \textcolor{keywordflow}{return} 1;
+380 \}
+\end{DoxyCode}
+\hypertarget{rumors_8c_a1c8b5738db219e99300afc4c329e715d}{\index{rumors.\+c@{rumors.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+rumors}}]{, }
+\item[{({\bf dlb} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_a1c8b5738db219e99300afc4c329e715d}
+\hypertarget{rumors_8c_ac1df8ec58e52827b02905f55da0d38cf}{\index{rumors.\+c@{rumors.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf init\+\_\+oracles}}]{, }
+\item[{({\bf dlb} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_ac1df8ec58e52827b02905f55da0d38cf}
+\hypertarget{rumors_8c_afa6bc77b1953f79549033ba8e4059bbf}{\index{rumors.\+c@{rumors.\+c}!getrumor@{getrumor}}
+\index{getrumor@{getrumor}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{getrumor}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ getrumor (
+\begin{DoxyParamCaption}
+\item[{int}]{truth, }
+\item[{char $\ast$}]{rumor\+\_\+buf, }
+\item[{{\bf boolean}}]{exclude\+\_\+cookie}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_afa6bc77b1953f79549033ba8e4059bbf}
+
+
+Definition at line 67 of file rumors.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, B\+U\+F\+S\+Z, count, dlb, dlb\+\_\+fclose, dlb\+\_\+fgets, dlb\+\_\+fopen, dlb\+\_\+fseek, dlb\+\_\+ftell, false\+\_\+rumor\+\_\+size, false\+\_\+rumor\+\_\+start, index(), init\+\_\+rumors(), Rand, R\+U\+M\+O\+R\+F\+I\+L\+E, S\+E\+E\+K\+\_\+\+S\+E\+T, Sprintf, Strcat, true\+\_\+rumor\+\_\+end, true\+\_\+rumor\+\_\+size, true\+\_\+rumor\+\_\+start, and xcrypt().
+
+
+
+Referenced by outrumor().
+
+
+\begin{DoxyCode}
+71 \{
+72     \hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb}  *rumors;
+73     \textcolor{keywordtype}{long} tidbit, beginning;
+74     \textcolor{keywordtype}{char}    *endp, line[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}], xbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+75 
+76     rumor\_buf[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+77     \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\_rumor\_size} < 0L)    \textcolor{comment}{/* we couldn't open RUMORFILE */}
+78         \textcolor{keywordflow}{return} rumor\_buf;
+79 
+80     rumors = \hyperlink{dlb_8h_a46a9ab27d1ae601750baeacc2c0a8d44}{dlb\_fopen}(\hyperlink{global_8h_a97df46301b2d90ae9960baf1dd1256b4}{RUMORFILE}, \textcolor{stringliteral}{"r"});
+81 
+82     \textcolor{keywordflow}{if} (rumors) \{
+83         \textcolor{keywordtype}{int} \hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count} = 0;
+84         \textcolor{keywordtype}{int} adjtruth;
+85 
+86         \textcolor{keywordflow}{do} \{
+87         rumor\_buf[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+88         \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\_rumor\_size} == 0L) \{ \textcolor{comment}{/* if this is 1st outrumor() */}
+89             \hyperlink{rumors_8c_afaaa927359c704d91ace3c8138f2704d}{init\_rumors}(rumors);
+90             \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\_rumor\_size} < 0L) \{  \textcolor{comment}{/* init failed */}
+91             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(rumor\_buf, \textcolor{stringliteral}{"Error reading \(\backslash\)"%.80s\(\backslash\)"."},
+92                 \hyperlink{global_8h_a97df46301b2d90ae9960baf1dd1256b4}{RUMORFILE});
+93             \textcolor{keywordflow}{return} rumor\_buf;
+94             \}
+95         \}
+96         \textcolor{comment}{/*}
+97 \textcolor{comment}{         *  input:      1    0   -1}
+98 \textcolor{comment}{         *   rn2 \(\backslash\) +1  2=T  1=T  0=F}
+99 \textcolor{comment}{         *   adj./ +0  1=T  0=F -1=F}
+100 \textcolor{comment}{         */}
+101         \textcolor{keywordflow}{switch} (adjtruth = truth + rn2(2)) \{
+102           \textcolor{keywordflow}{case}  2:  \textcolor{comment}{/*(might let a bogus input arg sneak thru)*/}
+103           \textcolor{keywordflow}{case}  1:  beginning = \hyperlink{rumors_8c_a4f671774221a386eda95671f543c0ac0}{true\_rumor\_start};
+104                 tidbit = \hyperlink{beconf_8h_a36a5f09f0d1d08cf8b570d13df52c810}{Rand}() % \hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\_rumor\_size};
+105             \textcolor{keywordflow}{break};
+106           \textcolor{keywordflow}{case}  0:  \textcolor{comment}{/* once here, 0 => false rather than "either"*/}
+107           \textcolor{keywordflow}{case} -1:  beginning = \hyperlink{rumors_8c_afe5ad0b1411ddd39d9e6674546e98f35}{false\_rumor\_start};
+108                 tidbit = \hyperlink{beconf_8h_a36a5f09f0d1d08cf8b570d13df52c810}{Rand}() % \hyperlink{rumors_8c_a78fc706126e107d8b5c7660fb4bc9877}{false\_rumor\_size};
+109             \textcolor{keywordflow}{break};
+110           \textcolor{keywordflow}{default}:
+111                 impossible(\textcolor{stringliteral}{"strange truth value for rumor"});
+112             \textcolor{keywordflow}{return} strcpy(rumor\_buf, \textcolor{stringliteral}{"Oops..."});
+113         \}
+114         (void) \hyperlink{dlb_8h_a3c65d33411ed198b8c061327bdefbc85}{dlb\_fseek}(rumors, beginning + tidbit, \hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET});
+115         (void) \hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \textcolor{keyword}{sizeof} line, rumors);
+116         \textcolor{keywordflow}{if} (!\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \textcolor{keyword}{sizeof} line, rumors) ||
+117             (adjtruth > 0 && \hyperlink{dlb_8h_a67c3ba4ec2f77b0f756b4d94dc550106}{dlb\_ftell}(rumors) > \hyperlink{rumors_8c_a30f53765e5e4389b8b18f0d938193952}{true\_rumor\_end})) \{
+118             \textcolor{comment}{/* reached end of rumors -- go back to beginning */}
+119             (void) \hyperlink{dlb_8h_a3c65d33411ed198b8c061327bdefbc85}{dlb\_fseek}(rumors, beginning, \hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET});
+120             (void) \hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \textcolor{keyword}{sizeof} line, rumors);
+121         \}
+122         \textcolor{keywordflow}{if} ((endp = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(line, \textcolor{charliteral}{'\(\backslash\)n'})) != 0) *endp = 0;
+123         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(rumor\_buf, \hyperlink{makedefs_8c_a7c42e69a2e02db9820c27498ee6367c1}{xcrypt}(line, xbuf));
+124         \} \textcolor{keywordflow}{while}(count++ < 50 && exclude\_cookie && (strstri(rumor\_buf, \textcolor{stringliteral}{"fortune"}) || strstri(rumor\_buf, \textcolor{stringliteral}{"
+      pity"})));
+125         (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(rumors);
+126         \textcolor{keywordflow}{if} (count >= 50)
+127         impossible(\textcolor{stringliteral}{"Can't find non-cookie rumor?"});
+128         \textcolor{keywordflow}{else}
+129         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, (adjtruth > 0));
+130     \} \textcolor{keywordflow}{else} \{
+131         pline(\textcolor{stringliteral}{"Can't open rumors file!"});
+132         \hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\_rumor\_size} = -1;    \textcolor{comment}{/* don't try to open it again */}
+133     \}
+134     \textcolor{keywordflow}{return} rumor\_buf;
+135 \}
+\end{DoxyCode}
+\hypertarget{rumors_8c_a794682eeb64567fa83e4b114eb267e26}{\index{rumors.\+c@{rumors.\+c}!init\+\_\+oracles@{init\+\_\+oracles}}
+\index{init\+\_\+oracles@{init\+\_\+oracles}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{init\+\_\+oracles}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void init\+\_\+oracles (
+\begin{DoxyParamCaption}
+\item[{{\bf dlb} $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_a794682eeb64567fa83e4b114eb267e26}
+
+
+Definition at line 183 of file rumors.\+c.
+
+
+
+References alloc(), B\+U\+F\+S\+Z, and dlb\+\_\+fgets.
+
+
+
+Referenced by outoracle().
+
+
+\begin{DoxyCode}
+185 \{
+186     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+187     \textcolor{keywordtype}{char} line[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+188     \textcolor{keywordtype}{int} cnt = 0;
+189 
+190     \textcolor{comment}{/* this assumes we're only called once */}
+191     (void) \hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \textcolor{keyword}{sizeof} line, \hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}); \textcolor{comment}{/* skip "don't edit" comment*/}
+192     (void) \hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \textcolor{keyword}{sizeof} line, \hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp});
+193     \textcolor{keywordflow}{if} (sscanf(line, \textcolor{stringliteral}{"%5d\(\backslash\)n"}, &cnt) == 1 && cnt > 0) \{
+194         \hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} = (unsigned) cnt;
+195         \hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc} = (\textcolor{keywordtype}{long} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((\textcolor{keywordtype}{unsigned})cnt * \textcolor{keyword}{sizeof} (long));
+196         \textcolor{keywordflow}{for} (i = 0; i < cnt; i++) \{
+197         (void) \hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \textcolor{keyword}{sizeof} line, \hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp});
+198         (void) sscanf(line, \textcolor{stringliteral}{"%5lx\(\backslash\)n"}, &\hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc}[i]);
+199         \}
+200     \}
+201     \textcolor{keywordflow}{return};
+202 \}
+\end{DoxyCode}
+\hypertarget{rumors_8c_afaaa927359c704d91ace3c8138f2704d}{\index{rumors.\+c@{rumors.\+c}!init\+\_\+rumors@{init\+\_\+rumors}}
+\index{init\+\_\+rumors@{init\+\_\+rumors}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{init\+\_\+rumors}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void init\+\_\+rumors (
+\begin{DoxyParamCaption}
+\item[{{\bf dlb} $\ast$}]{fp}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_afaaa927359c704d91ace3c8138f2704d}
+
+
+Definition at line 41 of file rumors.\+c.
+
+
+
+References B\+U\+F\+S\+Z, dlb\+\_\+fgets, dlb\+\_\+fseek, dlb\+\_\+ftell, false\+\_\+rumor\+\_\+start, S\+E\+E\+K\+\_\+\+C\+U\+R, S\+E\+E\+K\+\_\+\+E\+N\+D, true\+\_\+rumor\+\_\+end, and true\+\_\+rumor\+\_\+size.
+
+
+
+Referenced by getrumor().
+
+
+\begin{DoxyCode}
+43 \{
+44     \textcolor{keywordtype}{char} line[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+45 
+46     (void) \hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \textcolor{keyword}{sizeof} line, \hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}); \textcolor{comment}{/* skip "don't edit" comment */}
+47     (void) \hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \textcolor{keyword}{sizeof} line, \hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp});
+48     \textcolor{keywordflow}{if} (sscanf(line, \textcolor{stringliteral}{"%6lx\(\backslash\)n"}, &\hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\_rumor\_size}) == 1 &&
+49         \hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\_rumor\_size} > 0L) \{
+50         (void) \hyperlink{dlb_8h_a3c65d33411ed198b8c061327bdefbc85}{dlb\_fseek}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, 0L, \hyperlink{dlb_8h_a4c8d0b76b470ba65a43ca46a88320f39}{SEEK\_CUR});
+51         \hyperlink{rumors_8c_a4f671774221a386eda95671f543c0ac0}{true\_rumor\_start}  = \hyperlink{dlb_8h_a67c3ba4ec2f77b0f756b4d94dc550106}{dlb\_ftell}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp});
+52         \hyperlink{rumors_8c_a30f53765e5e4389b8b18f0d938193952}{true\_rumor\_end}    = \hyperlink{rumors_8c_a4f671774221a386eda95671f543c0ac0}{true\_rumor\_start} + 
+      \hyperlink{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{true\_rumor\_size};
+53         (void) \hyperlink{dlb_8h_a3c65d33411ed198b8c061327bdefbc85}{dlb\_fseek}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, 0L, \hyperlink{dlb_8h_ad2a2e6c114780c3071efd24f16c7f7d8}{SEEK\_END});
+54         \hyperlink{rumors_8c_aede05b4356921ec0de990ccdfe482191}{false\_rumor\_end}   = \hyperlink{dlb_8h_a67c3ba4ec2f77b0f756b4d94dc550106}{dlb\_ftell}(\hyperlink{tile2img_8c_aa065f30aa9f5f9a42132c82c787ee70b}{fp});
+55         \hyperlink{rumors_8c_afe5ad0b1411ddd39d9e6674546e98f35}{false\_rumor\_start} = \hyperlink{rumors_8c_a30f53765e5e4389b8b18f0d938193952}{true\_rumor\_end};  \textcolor{comment}{/* ok, so it's redundant... */}
+56         \hyperlink{rumors_8c_a78fc706126e107d8b5c7660fb4bc9877}{false\_rumor\_size}  = \hyperlink{rumors_8c_aede05b4356921ec0de990ccdfe482191}{false\_rumor\_end} - 
+      \hyperlink{rumors_8c_afe5ad0b1411ddd39d9e6674546e98f35}{false\_rumor\_start};
+57     \} \textcolor{keywordflow}{else}
+58         true\_rumor\_size = -1L;  \textcolor{comment}{/* init failed */}
+59 \}
+\end{DoxyCode}
+\hypertarget{rumors_8c_aa350658e776212a45890b381c4a76a92}{\index{rumors.\+c@{rumors.\+c}!outoracle@{outoracle}}
+\index{outoracle@{outoracle}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{outoracle}]{\setlength{\rightskip}{0pt plus 5cm}void outoracle (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{special, }
+\item[{{\bf boolean}}]{delphi}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_aa350658e776212a45890b381c4a76a92}
+
+
+Definition at line 234 of file rumors.\+c.
+
+
+
+References B\+U\+F\+S\+Z, C\+O\+L\+N\+O, create\+\_\+nhwindow, destroy\+\_\+nhwindow, display\+\_\+nhwindow, dlb, dlb\+\_\+fclose, dlb\+\_\+fgets, dlb\+\_\+fopen, dlb\+\_\+fseek, index(), init\+\_\+oracles(), N\+H\+W\+\_\+\+T\+E\+X\+T, oracle\+\_\+cnt, O\+R\+A\+C\+L\+E\+F\+I\+L\+E, putstr, S\+E\+E\+K\+\_\+\+S\+E\+T, T\+R\+U\+E, and xcrypt().
+
+
+
+Referenced by doconsult().
+
+
+\begin{DoxyCode}
+237 \{
+238     \textcolor{keywordtype}{char}    line[\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}];
+239     \textcolor{keywordtype}{char}    *endp;
+240     \hyperlink{dlb_8h_a2c91af84569791b69abdf2b4644b0ddd}{dlb}  *oracles;
+241     \textcolor{keywordtype}{int} oracle\_idx;
+242     \textcolor{keywordtype}{char} xbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+243 
+244     \textcolor{keywordflow}{if}(\hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\_flg} < 0 ||          \textcolor{comment}{/* couldn't open ORACLEFILE */}
+245        (\hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\_flg} > 0 && \hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} == 0)) \textcolor{comment}{/* oracles already exhausted */}
+246         \textcolor{keywordflow}{return};
+247 
+248     oracles = \hyperlink{dlb_8h_a46a9ab27d1ae601750baeacc2c0a8d44}{dlb\_fopen}(\hyperlink{global_8h_ae38fe6738b9b5f139849811cad5c21ca}{ORACLEFILE}, \textcolor{stringliteral}{"r"});
+249 
+250     \textcolor{keywordflow}{if} (oracles) \{
+251         \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} tmpwin;
+252         \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\_flg} == 0) \{    \textcolor{comment}{/* if this is the first outoracle() */}
+253             \hyperlink{rumors_8c_a794682eeb64567fa83e4b114eb267e26}{init\_oracles}(oracles);
+254             \hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\_flg} = 1;
+255             \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} == 0) \textcolor{keywordflow}{return};
+256         \}
+257         \textcolor{comment}{/* oracle\_loc[0] is the special oracle;     */}
+258         \textcolor{comment}{/* oracle\_loc[1..oracle\_cnt-1] are normal ones  */}
+259         \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} <= 1 && !special) \textcolor{keywordflow}{return};  \textcolor{comment}{/*(shouldn't happen)*/}
+260         oracle\_idx = special ? 0 : rnd((\textcolor{keywordtype}{int}) \hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} - 1);
+261         (void) \hyperlink{dlb_8h_a3c65d33411ed198b8c061327bdefbc85}{dlb\_fseek}(oracles, \hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc}[oracle\_idx], 
+      \hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET});
+262         \textcolor{keywordflow}{if} (!special) \hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc}[oracle\_idx] = \hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc}[--
+      \hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt}];
+263 
+264         tmpwin = \hyperlink{winprocs_8h_aa13fb35379049d1836397492d10b6b0c}{create\_nhwindow}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT});
+265         \textcolor{keywordflow}{if} (delphi)
+266             \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(tmpwin, 0, special ?
+267                   \textcolor{stringliteral}{"The Oracle scornfully takes all your money and says:"} :
+268                   \textcolor{stringliteral}{"The Oracle meditates for a moment and then intones:"});
+269         \textcolor{keywordflow}{else}
+270             \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(tmpwin, 0, \textcolor{stringliteral}{"The message reads:"});
+271         \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(tmpwin, 0, \textcolor{stringliteral}{""});
+272 
+273         \textcolor{keywordflow}{while}(\hyperlink{dlb_8h_a0c5a17bfc873332e8ef26262d8527e91}{dlb\_fgets}(line, \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}, oracles) && strcmp(line,\textcolor{stringliteral}{"---\(\backslash\)n"})) \{
+274             \textcolor{keywordflow}{if} ((endp = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(line, \textcolor{charliteral}{'\(\backslash\)n'})) != 0) *endp = 0;
+275             \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(tmpwin, 0, \hyperlink{makedefs_8c_a7c42e69a2e02db9820c27498ee6367c1}{xcrypt}(line, xbuf));
+276         \}
+277         \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(tmpwin, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+278         \hyperlink{winprocs_8h_a77ac4f50de0eedeaead791812762c6a0}{destroy\_nhwindow}(tmpwin);
+279         (void) \hyperlink{dlb_8h_a882e4d8dcdf2cd3d9eee2b94debe38e1}{dlb\_fclose}(oracles);
+280     \} \textcolor{keywordflow}{else} \{
+281         pline(\textcolor{stringliteral}{"Can't open oracles file!"});
+282         \hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\_flg} = -1;  \textcolor{comment}{/* don't try to open it again */}
+283     \}
+284 \}
+\end{DoxyCode}
+\hypertarget{rumors_8c_a35a462ff4b1d552287bc48dae10f6a2f}{\index{rumors.\+c@{rumors.\+c}!outrumor@{outrumor}}
+\index{outrumor@{outrumor}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{outrumor}]{\setlength{\rightskip}{0pt plus 5cm}void outrumor (
+\begin{DoxyParamCaption}
+\item[{int}]{truth, }
+\item[{int}]{mechanism}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_a35a462ff4b1d552287bc48dae10f6a2f}
+
+
+Definition at line 138 of file rumors.\+c.
+
+
+
+References A\+\_\+\+W\+I\+S, Blind, buf, B\+U\+F\+S\+Z, B\+Y\+\_\+\+C\+O\+O\+K\+I\+E, B\+Y\+\_\+\+O\+R\+A\+C\+L\+E, B\+Y\+\_\+\+P\+A\+P\+E\+R, F\+A\+L\+S\+E, getrumor(), and T\+R\+U\+E.
+
+
+
+Referenced by doconsult().
+
+
+\begin{DoxyCode}
+141 \{
+142     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} fortune\_msg[] =
+143         \textcolor{stringliteral}{"This cookie has a scrap of paper inside."};
+144     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *line;
+145     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+146     \textcolor{keywordtype}{boolean} reading = (mechanism == \hyperlink{hack_8h_ae0c542434221e805ea881a5b6f19d013}{BY\_COOKIE} ||
+147                mechanism == \hyperlink{hack_8h_aafda439b1d3c1d505189dde3a60a6431}{BY\_PAPER});
+148 
+149     \textcolor{keywordflow}{if} (reading) \{
+150         \textcolor{comment}{/* deal with various things that prevent reading */}
+151         \textcolor{keywordflow}{if} (is\_fainted() && mechanism == \hyperlink{hack_8h_ae0c542434221e805ea881a5b6f19d013}{BY\_COOKIE})
+152             \textcolor{keywordflow}{return};
+153         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{youprop_8h_a1b6e24068169af4177e15b48595c08c9}{Blind}) \{
+154         \textcolor{keywordflow}{if} (mechanism == \hyperlink{hack_8h_ae0c542434221e805ea881a5b6f19d013}{BY\_COOKIE})
+155             pline(fortune\_msg);
+156         pline(\textcolor{stringliteral}{"What a pity that you cannot read it!"});
+157             \textcolor{keywordflow}{return};
+158         \}
+159     \}
+160     line = \hyperlink{rumors_8c_afa6bc77b1953f79549033ba8e4059bbf}{getrumor}(truth, buf, reading ? \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE} : \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+161     \textcolor{keywordflow}{if} (!*line)
+162         line = \textcolor{stringliteral}{"NetHack rumors file closed for renovation."};
+163     \textcolor{keywordflow}{switch} (mechanism) \{
+164         \textcolor{keywordflow}{case} \hyperlink{hack_8h_a1210847248024338cff17538c89deb80}{BY\_ORACLE}:
+165         \textcolor{comment}{/* Oracle delivers the rumor */}
+166         pline(\textcolor{stringliteral}{"True to her word, the Oracle %ssays: "},
+167           (!rn2(4) ? \textcolor{stringliteral}{"offhandedly "} : (!rn2(3) ? \textcolor{stringliteral}{"casually "} :
+168           (rn2(2) ? \textcolor{stringliteral}{"nonchalantly "} : \textcolor{stringliteral}{""}))));
+169         verbalize(\textcolor{stringliteral}{"%s"}, line);
+170         exercise(\hyperlink{attrib_8h_a4206d6431732a698ede8a237d5c17142}{A\_WIS}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+171         \textcolor{keywordflow}{return};
+172         \textcolor{keywordflow}{case} \hyperlink{hack_8h_ae0c542434221e805ea881a5b6f19d013}{BY\_COOKIE}:
+173         pline(fortune\_msg);
+174         \textcolor{comment}{/* FALLTHRU */}
+175         \textcolor{keywordflow}{case} \hyperlink{hack_8h_aafda439b1d3c1d505189dde3a60a6431}{BY\_PAPER}:
+176         pline(\textcolor{stringliteral}{"It reads:"});
+177         \textcolor{keywordflow}{break};
+178     \}
+179     pline(\textcolor{stringliteral}{"%s"}, line);
+180 \}
+\end{DoxyCode}
+\hypertarget{rumors_8c_a96cfd6fd2d52e377544c049fef561c3e}{\index{rumors.\+c@{rumors.\+c}!restore\+\_\+oracles@{restore\+\_\+oracles}}
+\index{restore\+\_\+oracles@{restore\+\_\+oracles}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{restore\+\_\+oracles}]{\setlength{\rightskip}{0pt plus 5cm}void restore\+\_\+oracles (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_a96cfd6fd2d52e377544c049fef561c3e}
+
+
+Definition at line 222 of file rumors.\+c.
+
+
+
+References alloc(), and mread().
+
+
+
+Referenced by restgamestate().
+
+
+\begin{DoxyCode}
+224 \{
+225     \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt}, \textcolor{keyword}{sizeof} oracle\_cnt);
+226     \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt}) \{
+227         \hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc} = (\textcolor{keywordtype}{long} *) \hyperlink{txt2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} * \textcolor{keyword}{sizeof} (\textcolor{keywordtype}{long}));
+228         \hyperlink{restore_8c_a4ca409c62ced3355b984139d6499732c}{mread}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc}, 
+      \hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} * \textcolor{keyword}{sizeof} (\textcolor{keywordtype}{long}));
+229         \hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\_flg} = 1;   \textcolor{comment}{/* no need to call init\_oracles() */}
+230     \}
+231 \}
+\end{DoxyCode}
+\hypertarget{rumors_8c_a0d22964e3ed141d773028b68be51be0a}{\index{rumors.\+c@{rumors.\+c}!save\+\_\+oracles@{save\+\_\+oracles}}
+\index{save\+\_\+oracles@{save\+\_\+oracles}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{save\+\_\+oracles}]{\setlength{\rightskip}{0pt plus 5cm}void save\+\_\+oracles (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{int}]{mode}
+\end{DoxyParamCaption}
+)}}\label{rumors_8c_a0d22964e3ed141d773028b68be51be0a}
+
+
+Definition at line 205 of file rumors.\+c.
+
+
+
+References bwrite(), free(), perform\+\_\+bwrite, and release\+\_\+data.
+
+
+
+Referenced by savegamestate().
+
+
+\begin{DoxyCode}
+207 \{
+208     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a4bb5a4c92746bd81c40d1452ca38dda7}{perform\_bwrite}(mode)) \{
+209         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt}, \textcolor{keyword}{sizeof} oracle\_cnt);
+210         \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt})
+211         \hyperlink{save_8c_a2e7663422968049372dd9cc6b325a84a}{bwrite}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc}, 
+      \hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt}*\textcolor{keyword}{sizeof} (\textcolor{keywordtype}{long}));
+212     \}
+213     \textcolor{keywordflow}{if} (\hyperlink{lev_8h_a3d5ce4c0a0247545f80a66eadddc6273}{release\_data}(mode)) \{
+214         \textcolor{keywordflow}{if} (\hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt}) \{
+215         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})\hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc});
+216         \hyperlink{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{oracle\_loc} = 0,  \hyperlink{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{oracle\_cnt} = 0,  \hyperlink{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{oracle\_flg} = 0;
+217         \}
+218     \}
+219 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{rumors_8c_aede05b4356921ec0de990ccdfe482191}{\index{rumors.\+c@{rumors.\+c}!false\+\_\+rumor\+\_\+end@{false\+\_\+rumor\+\_\+end}}
+\index{false\+\_\+rumor\+\_\+end@{false\+\_\+rumor\+\_\+end}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{false\+\_\+rumor\+\_\+end}]{\setlength{\rightskip}{0pt plus 5cm}long false\+\_\+rumor\+\_\+end\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_aede05b4356921ec0de990ccdfe482191}
+
+
+Definition at line 34 of file rumors.\+c.
+
+\hypertarget{rumors_8c_a78fc706126e107d8b5c7660fb4bc9877}{\index{rumors.\+c@{rumors.\+c}!false\+\_\+rumor\+\_\+size@{false\+\_\+rumor\+\_\+size}}
+\index{false\+\_\+rumor\+\_\+size@{false\+\_\+rumor\+\_\+size}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{false\+\_\+rumor\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}long false\+\_\+rumor\+\_\+size\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_a78fc706126e107d8b5c7660fb4bc9877}
+
+
+Definition at line 34 of file rumors.\+c.
+
+
+
+Referenced by getrumor().
+
+\hypertarget{rumors_8c_afe5ad0b1411ddd39d9e6674546e98f35}{\index{rumors.\+c@{rumors.\+c}!false\+\_\+rumor\+\_\+start@{false\+\_\+rumor\+\_\+start}}
+\index{false\+\_\+rumor\+\_\+start@{false\+\_\+rumor\+\_\+start}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{false\+\_\+rumor\+\_\+start}]{\setlength{\rightskip}{0pt plus 5cm}long false\+\_\+rumor\+\_\+start\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_afe5ad0b1411ddd39d9e6674546e98f35}
+
+
+Definition at line 34 of file rumors.\+c.
+
+
+
+Referenced by getrumor(), and init\+\_\+rumors().
+
+\hypertarget{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}{\index{rumors.\+c@{rumors.\+c}!oracle\+\_\+cnt@{oracle\+\_\+cnt}}
+\index{oracle\+\_\+cnt@{oracle\+\_\+cnt}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{oracle\+\_\+cnt}]{\setlength{\rightskip}{0pt plus 5cm}unsigned oracle\+\_\+cnt = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_a1971aa28c6b6f1ae5141452eff00b708}
+
+
+Definition at line 37 of file rumors.\+c.
+
+
+
+Referenced by do\+\_\+oracles(), and outoracle().
+
+\hypertarget{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}{\index{rumors.\+c@{rumors.\+c}!oracle\+\_\+flg@{oracle\+\_\+flg}}
+\index{oracle\+\_\+flg@{oracle\+\_\+flg}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{oracle\+\_\+flg}]{\setlength{\rightskip}{0pt plus 5cm}int oracle\+\_\+flg = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_a562f6cb1483c7d2f1777ebff054c170d}
+
+
+Definition at line 36 of file rumors.\+c.
+
+\hypertarget{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}{\index{rumors.\+c@{rumors.\+c}!oracle\+\_\+loc@{oracle\+\_\+loc}}
+\index{oracle\+\_\+loc@{oracle\+\_\+loc}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{oracle\+\_\+loc}]{\setlength{\rightskip}{0pt plus 5cm}long$\ast$ oracle\+\_\+loc = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_adaf2ccf2b160d58c849e0932b55f5624}
+
+
+Definition at line 38 of file rumors.\+c.
+
+\hypertarget{rumors_8c_a30f53765e5e4389b8b18f0d938193952}{\index{rumors.\+c@{rumors.\+c}!true\+\_\+rumor\+\_\+end@{true\+\_\+rumor\+\_\+end}}
+\index{true\+\_\+rumor\+\_\+end@{true\+\_\+rumor\+\_\+end}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{true\+\_\+rumor\+\_\+end}]{\setlength{\rightskip}{0pt plus 5cm}long true\+\_\+rumor\+\_\+end\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_a30f53765e5e4389b8b18f0d938193952}
+
+
+Definition at line 34 of file rumors.\+c.
+
+
+
+Referenced by getrumor(), and init\+\_\+rumors().
+
+\hypertarget{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}{\index{rumors.\+c@{rumors.\+c}!true\+\_\+rumor\+\_\+size@{true\+\_\+rumor\+\_\+size}}
+\index{true\+\_\+rumor\+\_\+size@{true\+\_\+rumor\+\_\+size}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{true\+\_\+rumor\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}long true\+\_\+rumor\+\_\+size\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_a65a8063c0d746a9c3d5f03b8adfae689}
+
+
+Definition at line 34 of file rumors.\+c.
+
+
+
+Referenced by do\+\_\+rumors(), getrumor(), and init\+\_\+rumors().
+
+\hypertarget{rumors_8c_a4f671774221a386eda95671f543c0ac0}{\index{rumors.\+c@{rumors.\+c}!true\+\_\+rumor\+\_\+start@{true\+\_\+rumor\+\_\+start}}
+\index{true\+\_\+rumor\+\_\+start@{true\+\_\+rumor\+\_\+start}!rumors.\+c@{rumors.\+c}}
+\subsubsection[{true\+\_\+rumor\+\_\+start}]{\setlength{\rightskip}{0pt plus 5cm}long true\+\_\+rumor\+\_\+start\hspace{0.3cm}{\ttfamily [static]}}}\label{rumors_8c_a4f671774221a386eda95671f543c0ac0}
+
+
+Definition at line 34 of file rumors.\+c.
+
+
+
+Referenced by getrumor().
+

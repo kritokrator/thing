@@ -1,0 +1,520 @@
+\hypertarget{recover_8c}{\section{nethack/util/recover.c File Reference}
+\label{recover_8c}\index{nethack/util/recover.\+c@{nethack/util/recover.\+c}}
+}
+{\ttfamily \#include \char`\"{}config.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$fcntl.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}~(void)fprintf
+\item 
+\#define \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}~(void)\hyperlink{celib_8c_ac3b3a884a13f2c29c024deaecd85bfc8}{close}
+\item 
+\#define \hyperlink{recover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{S\+A\+V\+E\+S\+I\+Z\+E}~\hyperlink{wceconf_8h_a8de29f7c8bbf1a81cc6e71ac602032d3}{F\+I\+L\+E\+N\+A\+M\+E}	/$\ast$ from macconf.\+h or pcconf.\+h $\ast$/
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{recover_8c_a78ca2062469b5ee2d7a4c269e21180de}{F\+D\+E\+C\+L} (\hyperlink{recover_8c_a5e35d7e9cac61867ae5bd21981935754}{restore\+\_\+savefile},(char $\ast$))
+\item 
+void \hyperlink{recover_8c_adc9a745b23f130fe0bf4757078ee2b17}{F\+D\+E\+C\+L} (\hyperlink{recover_8c_ad22f3071a872460bae4fda1e0a6c1fdc}{set\+\_\+levelfile\+\_\+name},(int))
+\item 
+int \hyperlink{recover_8c_a8de607920b31e4dbac70fd0be49bc595}{F\+D\+E\+C\+L} (\hyperlink{recover_8c_a8a455816bd75b3f0ac9d947172d91972}{open\+\_\+levelfile},(int))
+\item 
+int \hyperlink{recover_8c_adbcd0ea5a67115ba5bf10d8ba60a2096}{N\+D\+E\+C\+L} (\hyperlink{recover_8c_a54e9d02eec6dc845fd6703209b09a1ab}{create\+\_\+savefile})
+\item 
+void \hyperlink{recover_8c_a717ffc8a7a33775bd2d313521dfdf862}{F\+D\+E\+C\+L} (\hyperlink{recover_8c_a3b01d98d7add1d8dcd4d08ee231e9505}{copy\+\_\+bytes},(int, int))
+\item 
+int \hyperlink{recover_8c_afced8478b91af5c169926dfa4426333d}{main} (int argc, argv)
+\item 
+void \hyperlink{recover_8c_ad22f3071a872460bae4fda1e0a6c1fdc}{set\+\_\+levelfile\+\_\+name} (int lev)
+\item 
+int \hyperlink{recover_8c_a8a455816bd75b3f0ac9d947172d91972}{open\+\_\+levelfile} (int lev)
+\item 
+int \hyperlink{recover_8c_a54e9d02eec6dc845fd6703209b09a1ab}{create\+\_\+savefile} ()
+\item 
+void \hyperlink{recover_8c_a3b01d98d7add1d8dcd4d08ee231e9505}{copy\+\_\+bytes} (int ifd, int ofd)
+\item 
+int \hyperlink{recover_8c_a5e35d7e9cac61867ae5bd21981935754}{restore\+\_\+savefile} (char $\ast$\hyperlink{winreq_8c_a817969c4fe20a121e99fda658e88fbc7}{basename})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{recover_8c_ae18f72b11c35cc78945f83fcad1cf8db}{savename} \mbox{[}\hyperlink{recover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{S\+A\+V\+E\+S\+I\+Z\+E}\mbox{]}
+\item 
+static char \hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock} \mbox{[}256\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{\index{recover.\+c@{recover.\+c}!Close@{Close}}
+\index{Close@{Close}!recover.\+c@{recover.\+c}}
+\subsubsection[{Close}]{\setlength{\rightskip}{0pt plus 5cm}\#define Close~(void){\bf close}}}\label{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}
+
+
+Definition at line 37 of file recover.\+c.
+
+
+
+Referenced by main(), Read\+Image\+Files(), restore\+\_\+savefile(), and unlock\+\_\+file().
+
+\hypertarget{recover_8c_afdc08699807b888a15fe28a2647ed466}{\index{recover.\+c@{recover.\+c}!Fprintf@{Fprintf}}
+\index{Fprintf@{Fprintf}!recover.\+c@{recover.\+c}}
+\subsubsection[{Fprintf}]{\setlength{\rightskip}{0pt plus 5cm}\#define Fprintf~(void)fprintf}}\label{recover_8c_afdc08699807b888a15fe28a2647ed466}
+
+
+Definition at line 31 of file recover.\+c.
+
+
+
+Referenced by copy\+\_\+bytes(), main(), and restore\+\_\+savefile().
+
+\hypertarget{recover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}{\index{recover.\+c@{recover.\+c}!S\+A\+V\+E\+S\+I\+Z\+E@{S\+A\+V\+E\+S\+I\+Z\+E}}
+\index{S\+A\+V\+E\+S\+I\+Z\+E@{S\+A\+V\+E\+S\+I\+Z\+E}!recover.\+c@{recover.\+c}}
+\subsubsection[{S\+A\+V\+E\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+A\+V\+E\+S\+I\+Z\+E~{\bf F\+I\+L\+E\+N\+A\+M\+E}	/$\ast$ from macconf.\+h or pcconf.\+h $\ast$/}}\label{recover_8c_a99d1e3d71b78b71f4f4346054fdbd72c}
+
+
+Definition at line 48 of file recover.\+c.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{recover_8c_a3b01d98d7add1d8dcd4d08ee231e9505}{\index{recover.\+c@{recover.\+c}!copy\+\_\+bytes@{copy\+\_\+bytes}}
+\index{copy\+\_\+bytes@{copy\+\_\+bytes}!recover.\+c@{recover.\+c}}
+\subsubsection[{copy\+\_\+bytes}]{\setlength{\rightskip}{0pt plus 5cm}void copy\+\_\+bytes (
+\begin{DoxyParamCaption}
+\item[{int}]{ifd, }
+\item[{int}]{ofd}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_a3b01d98d7add1d8dcd4d08ee231e9505}
+
+
+Definition at line 190 of file recover.\+c.
+
+
+
+References buf, B\+U\+F\+S\+I\+Z, exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, Fprintf, read(), and write().
+
+
+
+Referenced by restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+192 \{
+193     \textcolor{keywordtype}{char} \hyperlink{xpm2iff_8c_a6f4b9854141692d23b0d072176044ca6}{buf}[\hyperlink{wceconf_8h_a72a591cf0a96cf23c63df5c78712dabe}{BUFSIZ}];
+194     \textcolor{keywordtype}{int} nfrom, nto;
+195 
+196     \textcolor{keywordflow}{do} \{
+197         nfrom = \hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(ifd, buf, \hyperlink{wceconf_8h_a72a591cf0a96cf23c63df5c78712dabe}{BUFSIZ});
+198         nto = \hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(ofd, buf, nfrom);
+199         \textcolor{keywordflow}{if} (nto != nfrom) \{
+200             \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"file copy failed!\(\backslash\)n"});
+201             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+202         \}
+203     \} \textcolor{keywordflow}{while} (nfrom == \hyperlink{wceconf_8h_a72a591cf0a96cf23c63df5c78712dabe}{BUFSIZ});
+204 \}
+\end{DoxyCode}
+\hypertarget{recover_8c_a54e9d02eec6dc845fd6703209b09a1ab}{\index{recover.\+c@{recover.\+c}!create\+\_\+savefile@{create\+\_\+savefile}}
+\index{create\+\_\+savefile@{create\+\_\+savefile}!recover.\+c@{recover.\+c}}
+\subsubsection[{create\+\_\+savefile}]{\setlength{\rightskip}{0pt plus 5cm}int create\+\_\+savefile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_a54e9d02eec6dc845fd6703209b09a1ab}
+
+
+Definition at line 177 of file recover.\+c.
+
+
+
+References creat(), F\+C\+M\+A\+S\+K, O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+T\+R\+U\+N\+C, O\+\_\+\+W\+R\+O\+N\+L\+Y, and open().
+
+
+
+Referenced by restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+178 \{
+179     \textcolor{keywordtype}{int} fd;
+180 
+181 \textcolor{preprocessor}{#if defined(MICRO) || defined(WIN32) || defined(MSDOS)}
+182     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(\hyperlink{recover_8c_ae18f72b11c35cc78945f83fcad1cf8db}{savename}, \hyperlink{fcntl_8h_a11b644a8526139c4cc1850dac1271ced}{O\_WRONLY} | \hyperlink{amiconf_8h_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY} | 
+      \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT} | \hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+183 \textcolor{preprocessor}{#else}
+184     fd = \hyperlink{wceconf_8h_a8e3d15ba88c8177901cb71711b060b36}{creat}(\hyperlink{recover_8c_ae18f72b11c35cc78945f83fcad1cf8db}{savename}, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+185 \textcolor{preprocessor}{#endif}
+186     \textcolor{keywordflow}{return} fd;
+187 \}
+\end{DoxyCode}
+\hypertarget{recover_8c_a78ca2062469b5ee2d7a4c269e21180de}{\index{recover.\+c@{recover.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!recover.\+c@{recover.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf restore\+\_\+savefile}}]{, }
+\item[{(char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_a78ca2062469b5ee2d7a4c269e21180de}
+\hypertarget{recover_8c_adc9a745b23f130fe0bf4757078ee2b17}{\index{recover.\+c@{recover.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!recover.\+c@{recover.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf set\+\_\+levelfile\+\_\+name}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_adc9a745b23f130fe0bf4757078ee2b17}
+\hypertarget{recover_8c_a8de607920b31e4dbac70fd0be49bc595}{\index{recover.\+c@{recover.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!recover.\+c@{recover.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf open\+\_\+levelfile}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_a8de607920b31e4dbac70fd0be49bc595}
+\hypertarget{recover_8c_a717ffc8a7a33775bd2d313521dfdf862}{\index{recover.\+c@{recover.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!recover.\+c@{recover.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf copy\+\_\+bytes}}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_a717ffc8a7a33775bd2d313521dfdf862}
+\hypertarget{recover_8c_afced8478b91af5c169926dfa4426333d}{\index{recover.\+c@{recover.\+c}!main@{main}}
+\index{main@{main}!recover.\+c@{recover.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_afced8478b91af5c169926dfa4426333d}
+
+
+Definition at line 64 of file recover.\+c.
+
+
+
+References chdir(), exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, Fprintf, getcwd(), getenv, getuid(), H\+A\+C\+K\+D\+I\+R, and restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+67 \{
+68     \textcolor{keywordtype}{int} argno;
+69     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *dir = (\textcolor{keywordtype}{char} *)0;
+70 \textcolor{preprocessor}{#ifdef AMIGA}
+71     \textcolor{keywordtype}{char} *startdir = (\textcolor{keywordtype}{char} *)0;
+72 \textcolor{preprocessor}{#endif}
+73 
+74 
+75     \textcolor{keywordflow}{if} (!dir) dir = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"NETHACKDIR"});
+76     \textcolor{keywordflow}{if} (!dir) dir = \hyperlink{wceconf_8h_a83c38fc4fff128c27ecf1e12f593a676}{getenv}(\textcolor{stringliteral}{"HACKDIR"});
+77 \textcolor{preprocessor}{#if defined(EXEPATH)}
+78     \textcolor{keywordflow}{if} (!dir) dir = exepath(argv[0]);
+79 \textcolor{preprocessor}{#endif}
+80     \textcolor{keywordflow}{if} (argc == 1 || (argc == 2 && !strcmp(argv[1], \textcolor{stringliteral}{"-"}))) \{
+81         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+82         \textcolor{stringliteral}{"Usage: %s [ -d directory ] base1 [ base2 ... ]\(\backslash\)n"}, argv[0]);
+83 \textcolor{preprocessor}{#if defined(WIN32) || defined(MSDOS)}
+84         \textcolor{keywordflow}{if} (dir) \{
+85             \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"\(\backslash\)t(Unless you override it with -d, recover will look \(\backslash\)n"});
+86             \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"\(\backslash\)t in the %s directory on your system)\(\backslash\)n"}, dir);
+87         \}
+88 \textcolor{preprocessor}{#endif}
+89         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+90     \}
+91 
+92     argno = 1;
+93     \textcolor{keywordflow}{if} (!strncmp(argv[argno], \textcolor{stringliteral}{"-d"}, 2)) \{
+94         dir = argv[argno]+2;
+95         \textcolor{keywordflow}{if} (*dir == \textcolor{charliteral}{'='} || *dir == \textcolor{charliteral}{':'}) dir++;
+96         \textcolor{keywordflow}{if} (!*dir && argc > argno) \{
+97             argno++;
+98             dir = argv[argno];
+99         \}
+100         \textcolor{keywordflow}{if} (!*dir) \{
+101             \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+102             \textcolor{stringliteral}{"%s: flag -d must be followed by a directory name.\(\backslash\)n"},
+103             argv[0]);
+104             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+105         \}
+106         argno++;
+107     \}
+108 \textcolor{preprocessor}{#if defined(SECURE) && !defined(VMS)}
+109     \textcolor{keywordflow}{if} (dir
+110 # ifdef \hyperlink{config_8h_a335c50fb5c054415296fb087f2291268}{HACKDIR}
+111         && strcmp(dir, \hyperlink{config_8h_a335c50fb5c054415296fb087f2291268}{HACKDIR})
+112 # endif
+113         ) \{
+114         (void) setgid(getgid());
+115         (void) setuid(\hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}());
+116     \}
+117 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* SECURE && !VMS */}\textcolor{preprocessor}{}
+118 
+119 \textcolor{preprocessor}{#ifdef HACKDIR}
+120     \textcolor{keywordflow}{if} (!dir) dir = \hyperlink{config_8h_a335c50fb5c054415296fb087f2291268}{HACKDIR};
+121 \textcolor{preprocessor}{#endif}
+122 
+123 \textcolor{preprocessor}{#ifdef AMIGA}
+124     startdir = \hyperlink{wceconf_8h_af201f56d9c65abf2969d9b3371a054c6}{getcwd}(0,255);
+125 \textcolor{preprocessor}{#endif}
+126     \textcolor{keywordflow}{if} (dir && \hyperlink{wceconf_8h_ae6d5c38f8d7036c9010142bf4291d5ca}{chdir}((\textcolor{keywordtype}{char} *) dir) < 0) \{
+127         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"%s: cannot chdir to %s.\(\backslash\)n"}, argv[0], dir);
+128         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+129     \}
+130 
+131     \textcolor{keywordflow}{while} (argc > argno) \{
+132         \textcolor{keywordflow}{if} (\hyperlink{recover_8c_a5e35d7e9cac61867ae5bd21981935754}{restore\_savefile}(argv[argno]) == 0)
+133             \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"recovered \(\backslash\)"%s\(\backslash\)" to %s\(\backslash\)n"},
+134                 argv[argno], \hyperlink{recover_8c_ae18f72b11c35cc78945f83fcad1cf8db}{savename});
+135         argno++;
+136     \}
+137 \textcolor{preprocessor}{#ifdef AMIGA}
+138     \textcolor{keywordflow}{if} (startdir) (void)\hyperlink{wceconf_8h_ae6d5c38f8d7036c9010142bf4291d5ca}{chdir}(startdir);
+139 \textcolor{preprocessor}{#endif}
+140     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+141     \textcolor{comment}{/*NOTREACHED*/}
+142     \textcolor{keywordflow}{return} 0;
+143 \}
+\end{DoxyCode}
+\hypertarget{recover_8c_adbcd0ea5a67115ba5bf10d8ba60a2096}{\index{recover.\+c@{recover.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!recover.\+c@{recover.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}int N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf create\+\_\+savefile}}]{}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_adbcd0ea5a67115ba5bf10d8ba60a2096}
+\hypertarget{recover_8c_a8a455816bd75b3f0ac9d947172d91972}{\index{recover.\+c@{recover.\+c}!open\+\_\+levelfile@{open\+\_\+levelfile}}
+\index{open\+\_\+levelfile@{open\+\_\+levelfile}!recover.\+c@{recover.\+c}}
+\subsubsection[{open\+\_\+levelfile}]{\setlength{\rightskip}{0pt plus 5cm}int open\+\_\+levelfile (
+\begin{DoxyParamCaption}
+\item[{int}]{lev}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_a8a455816bd75b3f0ac9d947172d91972}
+
+
+Definition at line 162 of file recover.\+c.
+
+
+
+References O\+\_\+\+B\+I\+N\+A\+R\+Y, O\+\_\+\+R\+D\+O\+N\+L\+Y, open(), and set\+\_\+levelfile\+\_\+name().
+
+
+
+Referenced by restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+164 \{
+165     \textcolor{keywordtype}{int} fd;
+166 
+167     \hyperlink{recover_8c_ad22f3071a872460bae4fda1e0a6c1fdc}{set\_levelfile\_name}(lev);
+168 \textcolor{preprocessor}{#if defined(MICRO) || defined(WIN32) || defined(MSDOS)}
+169     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(\hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock}, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY} | \hyperlink{amiconf_8h_a36fa9b2e726512bc17a7a6d3e39002be}{O\_BINARY});
+170 \textcolor{preprocessor}{#else}
+171     fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(\hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock}, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY}, 0);
+172 \textcolor{preprocessor}{#endif}
+173     \textcolor{keywordflow}{return} fd;
+174 \}
+\end{DoxyCode}
+\hypertarget{recover_8c_a5e35d7e9cac61867ae5bd21981935754}{\index{recover.\+c@{recover.\+c}!restore\+\_\+savefile@{restore\+\_\+savefile}}
+\index{restore\+\_\+savefile@{restore\+\_\+savefile}!recover.\+c@{recover.\+c}}
+\subsubsection[{restore\+\_\+savefile}]{\setlength{\rightskip}{0pt plus 5cm}int restore\+\_\+savefile (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{basename}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_a5e35d7e9cac61867ae5bd21981935754}
+
+
+Definition at line 207 of file recover.\+c.
+
+
+
+References Close, close(), copy\+\_\+bytes(), create\+\_\+savefile(), errno, F\+I\+L\+E\+N\+A\+M\+E, Fprintf, hpid, in, O\+\_\+\+C\+R\+E\+A\+T, O\+\_\+\+R\+D\+O\+N\+L\+Y, O\+\_\+\+T\+R\+U\+N\+C, O\+\_\+\+W\+R\+O\+N\+L\+Y, open(), open\+\_\+levelfile(), read(), savelev(), set\+\_\+levelfile\+\_\+name(), unlink(), and write().
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+209 \{
+210     \textcolor{keywordtype}{int} gfd, lfd, sfd;
+211     \textcolor{keywordtype}{int} lev, \hyperlink{save_8c_a4f571c1f71c62a3eb08fb1db1319442e}{savelev}, \hyperlink{mrecover_8c_af61ffbf91b2fdcbd7780be638e9e2a6a}{hpid};
+212     \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} levc;
+213     \textcolor{keyword}{struct }\hyperlink{structversion__info}{version\_info} version\_data;
+214 
+215     \textcolor{comment}{/* level 0 file contains:}
+216 \textcolor{comment}{     *  pid of creating process (ignored here)}
+217 \textcolor{comment}{     *  level number for current level of save file}
+218 \textcolor{comment}{     *  name of save file nethack would have created}
+219 \textcolor{comment}{     *  and game state}
+220 \textcolor{comment}{     */}
+221     (void) strcpy(\hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock}, \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename});
+222     gfd = \hyperlink{recover_8c_a8a455816bd75b3f0ac9d947172d91972}{open\_levelfile}(0);
+223     \textcolor{keywordflow}{if} (gfd < 0) \{
+224 \textcolor{preprocessor}{#if defined(WIN32) && !defined(WIN\_CE)}
+225         \textcolor{keywordflow}{if}(\hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} == EACCES) \{
+226         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+227             \textcolor{stringliteral}{"\(\backslash\)nThere are files from a game in progress under your name."});
+228         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,\textcolor{stringliteral}{"\(\backslash\)nThe files are locked or inaccessible."});
+229         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,\textcolor{stringliteral}{"\(\backslash\)nPerhaps the other game is still running?\(\backslash\)n"});
+230         \} \textcolor{keywordflow}{else}
+231         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+232             \textcolor{stringliteral}{"\(\backslash\)nTrouble accessing level 0 (errno = %d).\(\backslash\)n"}, \hyperlink{files_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno});
+233 \textcolor{preprocessor}{#endif}
+234         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Cannot open level 0 for %s.\(\backslash\)n"}, \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename});
+235         \textcolor{keywordflow}{return}(-1);
+236     \}
+237     \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(gfd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &hpid, \textcolor{keyword}{sizeof} hpid) != \textcolor{keyword}{sizeof} hpid) \{
+238         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"%s\(\backslash\)n%s%s%s\(\backslash\)n"},
+239          \textcolor{stringliteral}{"Checkpoint data incompletely written or subsequently clobbered;"},
+240             \textcolor{stringliteral}{"recovery for \(\backslash\)""}, \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename}, \textcolor{stringliteral}{"\(\backslash\)" impossible."});
+241         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(gfd);
+242         \textcolor{keywordflow}{return}(-1);
+243     \}
+244     \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(gfd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &savelev, \textcolor{keyword}{sizeof}(savelev))
+245                             != \textcolor{keyword}{sizeof}(savelev)) \{
+246         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+247         \textcolor{stringliteral}{"Checkpointing was not in effect for %s -- recovery impossible.\(\backslash\)n"},
+248             \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename});
+249         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(gfd);
+250         \textcolor{keywordflow}{return}(-1);
+251     \}
+252     \textcolor{keywordflow}{if} ((\hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(gfd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) \hyperlink{recover_8c_ae18f72b11c35cc78945f83fcad1cf8db}{savename}, \textcolor{keyword}{sizeof} savename)
+253         != \textcolor{keyword}{sizeof} savename) ||
+254         (\hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(gfd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &version\_data, \textcolor{keyword}{sizeof} version\_data)
+255         != \textcolor{keyword}{sizeof} version\_data)) \{
+256         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Error reading %s -- can't recover.\(\backslash\)n"}, \hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock});
+257         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(gfd);
+258         \textcolor{keywordflow}{return}(-1);
+259     \}
+260 
+261     \textcolor{comment}{/* save file should contain:}
+262 \textcolor{comment}{     *  version info}
+263 \textcolor{comment}{     *  current level (including pets)}
+264 \textcolor{comment}{     *  (non-level-based) game state}
+265 \textcolor{comment}{     *  other levels}
+266 \textcolor{comment}{     */}
+267     sfd = \hyperlink{recover_8c_a54e9d02eec6dc845fd6703209b09a1ab}{create\_savefile}();
+268     \textcolor{keywordflow}{if} (sfd < 0) \{
+269         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Cannot create savefile %s.\(\backslash\)n"}, savename);
+270         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(gfd);
+271         \textcolor{keywordflow}{return}(-1);
+272     \}
+273 
+274     lfd = \hyperlink{recover_8c_a8a455816bd75b3f0ac9d947172d91972}{open\_levelfile}(savelev);
+275     \textcolor{keywordflow}{if} (lfd < 0) \{
+276         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Cannot open level of save for %s.\(\backslash\)n"}, \hyperlink{winproto_8h_a817969c4fe20a121e99fda658e88fbc7}{basename});
+277         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(gfd);
+278         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(sfd);
+279         \textcolor{keywordflow}{return}(-1);
+280     \}
+281 
+282     \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(sfd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &version\_data, \textcolor{keyword}{sizeof} version\_data)
+283         != \textcolor{keyword}{sizeof} version\_data) \{
+284         \hyperlink{recover_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Error writing %s; recovery failed.\(\backslash\)n"}, savename);
+285         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(gfd);
+286         \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(sfd);
+287         \textcolor{keywordflow}{return}(-1);
+288     \}
+289 
+290     \hyperlink{recover_8c_a3b01d98d7add1d8dcd4d08ee231e9505}{copy\_bytes}(lfd, sfd);
+291     \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(lfd);
+292     (void) \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(\hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock});
+293 
+294     \hyperlink{recover_8c_a3b01d98d7add1d8dcd4d08ee231e9505}{copy\_bytes}(gfd, sfd);
+295     \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(gfd);
+296     \hyperlink{recover_8c_ad22f3071a872460bae4fda1e0a6c1fdc}{set\_levelfile\_name}(0);
+297     (void) \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(\hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock});
+298 
+299     \textcolor{keywordflow}{for} (lev = 1; lev < 256; lev++) \{
+300         \textcolor{comment}{/* level numbers are kept in xchars in save.c, so the}
+301 \textcolor{comment}{         * maximum level number (for the endlevel) must be < 256}
+302 \textcolor{comment}{         */}
+303         \textcolor{keywordflow}{if} (lev != savelev) \{
+304             lfd = \hyperlink{recover_8c_a8a455816bd75b3f0ac9d947172d91972}{open\_levelfile}(lev);
+305             \textcolor{keywordflow}{if} (lfd >= 0) \{
+306                 \textcolor{comment}{/* any or all of these may not exist */}
+307                 levc = (\hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar}) lev;
+308                 \hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(sfd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &levc, \textcolor{keyword}{sizeof}(levc));
+309                 \hyperlink{recover_8c_a3b01d98d7add1d8dcd4d08ee231e9505}{copy\_bytes}(lfd, sfd);
+310                 \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(lfd);
+311                 (void) \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(\hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock});
+312             \}
+313         \}
+314     \}
+315 
+316     \hyperlink{recover_8c_aeb4c27181b0a078da15c91a44e51e1d5}{Close}(sfd);
+317 
+318 \textcolor{preprocessor}{#if 0 }\textcolor{comment}{/* OBSOLETE, HackWB is no longer in use */}\textcolor{preprocessor}{}
+319 \textcolor{preprocessor}{#ifdef AMIGA}
+320             \textcolor{comment}{/* we need to create an icon for the saved game}
+321 \textcolor{comment}{             * or HackWB won't notice the file.}
+322 \textcolor{comment}{             */}
+323     \{
+324     \textcolor{keywordtype}{char} iconfile[\hyperlink{ntconf_8h_a8de29f7c8bbf1a81cc6e71ac602032d3}{FILENAME}];
+325     \textcolor{keywordtype}{int} \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in}, out;
+326 
+327     (void) sprintf(iconfile, \textcolor{stringliteral}{"%s.info"}, savename);
+328     in = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(\textcolor{stringliteral}{"NetHack:default.icon"}, \hyperlink{fcntl_8h_a7a68c9ffaac7dbcd652225dd7c06a54b}{O\_RDONLY});
+329     out = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(iconfile, \hyperlink{fcntl_8h_a11b644a8526139c4cc1850dac1271ced}{O\_WRONLY} | \hyperlink{fcntl_8h_ad1d67e453fb3031f40f8cd3403773813}{O\_TRUNC} | \hyperlink{fcntl_8h_a1cf6b1de1fffedaa1d26b189e9a8d2cc}{O\_CREAT});
+330     \textcolor{keywordflow}{if}(in > -1 && out > -1)\{
+331         \hyperlink{recover_8c_a3b01d98d7add1d8dcd4d08ee231e9505}{copy\_bytes}(in,out);
+332     \}
+333     \textcolor{keywordflow}{if}(in > -1)\hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(in);
+334     \textcolor{keywordflow}{if}(out > -1)\hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(out);
+335     \}
+336 \textcolor{preprocessor}{#endif}
+337 \textcolor{preprocessor}{#endif}
+338     \textcolor{keywordflow}{return}(0);
+339 \}
+\end{DoxyCode}
+\hypertarget{recover_8c_ad22f3071a872460bae4fda1e0a6c1fdc}{\index{recover.\+c@{recover.\+c}!set\+\_\+levelfile\+\_\+name@{set\+\_\+levelfile\+\_\+name}}
+\index{set\+\_\+levelfile\+\_\+name@{set\+\_\+levelfile\+\_\+name}!recover.\+c@{recover.\+c}}
+\subsubsection[{set\+\_\+levelfile\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}void set\+\_\+levelfile\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{int}]{lev}
+\end{DoxyParamCaption}
+)}}\label{recover_8c_ad22f3071a872460bae4fda1e0a6c1fdc}
+
+
+Definition at line 148 of file recover.\+c.
+
+
+
+References rindex.
+
+
+
+Referenced by open\+\_\+levelfile(), and restore\+\_\+savefile().
+
+
+\begin{DoxyCode}
+150 \{
+151     \textcolor{keywordtype}{char} *tf;
+152 
+153     tf = \hyperlink{beconf_8h_a8c35ae4e83034731f6aecfb34c883ecf}{rindex}(\hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock}, \textcolor{charliteral}{'.'});
+154     \textcolor{keywordflow}{if} (!tf) tf = \hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock} + strlen(\hyperlink{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{lock});
+155     (void) sprintf(tf, \textcolor{stringliteral}{".%d"}, lev);
+156 \textcolor{preprocessor}{#ifdef VMS}
+157     (void) strcat(tf, \textcolor{stringliteral}{";1"});
+158 \textcolor{preprocessor}{#endif}
+159 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}{\index{recover.\+c@{recover.\+c}!lock@{lock}}
+\index{lock@{lock}!recover.\+c@{recover.\+c}}
+\subsubsection[{lock}]{\setlength{\rightskip}{0pt plus 5cm}char lock\mbox{[}256\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}}\label{recover_8c_ac1ddca623c3c2772b7798f4dded1aa88}
+
+
+Definition at line 145 of file recover.\+c.
+
+\hypertarget{recover_8c_ae18f72b11c35cc78945f83fcad1cf8db}{\index{recover.\+c@{recover.\+c}!savename@{savename}}
+\index{savename@{savename}!recover.\+c@{recover.\+c}}
+\subsubsection[{savename}]{\setlength{\rightskip}{0pt plus 5cm}char savename\mbox{[}{\bf S\+A\+V\+E\+S\+I\+Z\+E}\mbox{]}}}\label{recover_8c_ae18f72b11c35cc78945f83fcad1cf8db}
+
+
+Definition at line 60 of file recover.\+c.
+

@@ -1,0 +1,1790 @@
+\hypertarget{mhcmd_8c}{\section{nethack/sys/wince/mhcmd.c File Reference}
+\label{mhcmd_8c}\index{nethack/sys/wince/mhcmd.\+c@{nethack/sys/wince/mhcmd.\+c}}
+}
+{\ttfamily \#include \char`\"{}win\+M\+S.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}mhcmd.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhinput.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mhcolor.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structt__NHCmdPadCell}{t\+\_\+\+N\+H\+Cmd\+Pad\+Cell}
+\item 
+struct \hyperlink{structt__NHCmdLayout}{t\+\_\+\+N\+H\+Cmd\+Layout}
+\item 
+struct \hyperlink{structt__NHCmdSet}{t\+\_\+\+N\+H\+Cmd\+Set}
+\item 
+struct \hyperlink{structt__NHCmdSet_1_1t__NHCmdSetElem}{t\+\_\+\+N\+H\+Cmd\+Set\+::t\+\_\+\+N\+H\+Cmd\+Set\+Elem}
+\item 
+struct \hyperlink{structt__NHCmdPadLayoutCell}{t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell}
+\item 
+struct \hyperlink{structmswin__nethack__cmd__window}{mswin\+\_\+nethack\+\_\+cmd\+\_\+window}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mhcmd_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}(c)~(0x1f \& (c))
+\item 
+\#define \hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D}~1
+\item 
+\#define \hyperlink{mhcmd_8c_afdabfcf9a9889541e2b728ccd1cce189}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L}~0
+\item 
+\#define \hyperlink{mhcmd_8c_a85bf3f37ae0563a86d715a3fb7accaec}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X}~0
+\item 
+\#define \hyperlink{mhcmd_8c_a6f0002b1ea5e52e00a5461f2d5eee460}{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+R\+E\+G}~0
+\item 
+\#define \hyperlink{mhcmd_8c_a0b44981458354ff901c8f54d2bcdca27}{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L}~1
+\item 
+\#define \hyperlink{mhcmd_8c_aa8f771633ad4980bd9698980d2e7c963}{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P}~2
+\item 
+\#define \hyperlink{mhcmd_8c_a13f0ee83359f8bd16a9559463fb6bdbb}{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T}~3
+\item 
+\#define \hyperlink{mhcmd_8c_a5be4c8b180f1d7c7a01e8d5d5412866f}{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+N\+E\+W}~4
+\item 
+\#define \hyperlink{mhcmd_8c_a36488bb140570baeb620a0667e9dbe43}{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+M\+E\+N\+U}~5
+\item 
+\#define \hyperlink{mhcmd_8c_a45049a63e650b8163b3643a07d0fbf5b}{N\+H\+\_\+\+C\+M\+D\+S\+E\+T\+\_\+\+M\+A\+X\+S\+I\+Z\+E}~64
+\item 
+\#define \hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\+\_\+rows}(p)~((p)-\/$>$rows)
+\item 
+\#define \hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\+\_\+columns}(p)~((p)-\/$>$columns)
+\item 
+\#define \hyperlink{mhcmd_8c_a382c175a6fcb02002180174e186f016d}{nhcmdlayout\+\_\+row}(p, x)~(\&((p)-\/$>$cells\mbox{[}(p)-\/$>$columns$\ast$(x)\mbox{]}))
+\item 
+\#define \hyperlink{mhcmd_8c_a412c606520b376e7b056db86d15128dd}{nhcmdlayout\+\_\+cell}(p, x, y)~(\&((p)-\/$>$cells\mbox{[}(p)-\/$>$columns$\ast$(x)+(y)\mbox{]}))
+\item 
+\#define \hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\+\_\+cell\+\_\+direct}(p, i)~(\&((p)-\/$>$cells\mbox{[}(i)\mbox{]}))
+\item 
+\#define \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S}~4
+\item 
+\#define \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}~14
+\item 
+\#define \hyperlink{mhcmd_8c_af4505f4baac82e7cbc59acc2929725cc}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+E\+L\+L\+N\+U\+M}~(\hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}$\ast$\hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S})
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \hyperlink{structt__NHCmdPadCell}{t\+\_\+\+N\+H\+Cmd\+Pad\+Cell} \hyperlink{mhcmd_8c_aeacf95bad2d8f850c1e9d842f2ff2b49}{N\+H\+Cmd\+Pad\+Cell}
+\item 
+typedef struct \hyperlink{structt__NHCmdPadCell}{t\+\_\+\+N\+H\+Cmd\+Pad\+Cell} $\ast$ \hyperlink{mhcmd_8c_ae6e543a99f6c6df4e43d5e924d3207e6}{P\+N\+H\+Cmd\+Pad\+Cell}
+\item 
+typedef struct \hyperlink{structt__NHCmdLayout}{t\+\_\+\+N\+H\+Cmd\+Layout} \hyperlink{mhcmd_8c_a61257e69fef8d126ff32116713c81bf3}{N\+H\+Cmd\+Layout}
+\item 
+typedef struct \hyperlink{structt__NHCmdLayout}{t\+\_\+\+N\+H\+Cmd\+Layout} $\ast$ \hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{P\+N\+H\+Cmd\+Layout}
+\item 
+typedef struct \hyperlink{structt__NHCmdSet}{t\+\_\+\+N\+H\+Cmd\+Set} \hyperlink{mhcmd_8c_a2df0c7e801bf51928e51e62bc4d3782a}{N\+H\+Cmd\+Set}
+\item 
+typedef struct \hyperlink{structt__NHCmdSet}{t\+\_\+\+N\+H\+Cmd\+Set} $\ast$ \hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set}
+\item 
+typedef struct \hyperlink{structt__NHCmdPadLayoutCell}{t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell} \hyperlink{mhcmd_8c_acc4733cc23482638a48d40973cc4f736}{N\+H\+Cmd\+Pad\+Layout\+Cell}
+\item 
+typedef struct \\*
+\hyperlink{structt__NHCmdPadLayoutCell}{t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell} $\ast$ \hyperlink{mhcmd_8c_aaa8d2473a514ad73872a4cf1e1ce283b}{P\+N\+H\+Cmd\+Pad\+Layout\+Cell}
+\item 
+typedef struct \\*
+\hyperlink{structmswin__nethack__cmd__window}{mswin\+\_\+nethack\+\_\+cmd\+\_\+window} \hyperlink{mhcmd_8c_a5ca157c9b7bac154a6dca124a8b368f4}{N\+H\+Cmd\+Window}
+\item 
+typedef struct \\*
+\hyperlink{structmswin__nethack__cmd__window}{mswin\+\_\+nethack\+\_\+cmd\+\_\+window} $\ast$ \hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{P\+N\+H\+Cmd\+Window}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+L\+R\+E\+S\+U\+L\+T C\+A\+L\+L\+B\+A\+C\+K \hyperlink{mhcmd_8c_ac77be6601ba438e147802166be37536b}{N\+H\+Command\+Wnd\+Proc} (H\+W\+N\+D, \hyperlink{def__os2_8h_a36cb3b01d81ffd844bbbfb54003e06ec}{U\+I\+N\+T}, W\+P\+A\+R\+A\+M, L\+P\+A\+R\+A\+M)
+\item 
+static void \hyperlink{mhcmd_8c_a8df85e83a2ee7c554e66c2025a366c4d}{register\+\_\+command\+\_\+window\+\_\+class} ()
+\item 
+static void \hyperlink{mhcmd_8c_a3509b8390af27e4310e58c122a553df5}{Layout\+Cmd\+Window} (H\+W\+N\+D h\+Wnd)
+\item 
+static void \hyperlink{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{Set\+Cmd\+Window\+Layout} (H\+W\+N\+D h\+Wnd, \hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{P\+N\+H\+Cmd\+Layout} layout)
+\item 
+static int \hyperlink{mhcmd_8c_a810a82d71e5ff59e80daed82254312c5}{Cell\+From\+Point} (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{P\+N\+H\+Cmd\+Window} data, P\+O\+I\+N\+T pt)
+\item 
+static void \hyperlink{mhcmd_8c_a76dc727c6d3bcad629ae0aa6f614c866}{Calculate\+Cell\+Size} (H\+W\+N\+D h\+Wnd, L\+P\+S\+I\+Z\+E p\+Size, L\+P\+S\+I\+Z\+E window\+Size)
+\item 
+static void \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{Highlight\+Cell} (H\+W\+N\+D h\+Wnd, int cell, B\+O\+O\+L is\+Selected)
+\item 
+static void \hyperlink{mhcmd_8c_a8a4c2d6fe51fea7afc3e6fc694381314}{Activate\+Cell} (H\+W\+N\+D h\+Wnd, int cell)
+\item 
+static void \hyperlink{mhcmd_8c_af56b756992d567434d68b6b0322588c2}{Push\+Nethack\+Command} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$cmd\+\_\+char\+\_\+str, int is\+\_\+ctrl)
+\item 
+\hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{P\+N\+H\+Cmd\+Layout} \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\+\_\+create} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, int rows, int columns)
+\item 
+void \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\+\_\+init} (\hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{P\+N\+H\+Cmd\+Layout} p, \hyperlink{mhcmd_8c_ae6e543a99f6c6df4e43d5e924d3207e6}{P\+N\+H\+Cmd\+Pad\+Cell} cells)
+\item 
+void \hyperlink{mhcmd_8c_af70b92dde3dbfee66d44efb94b288740}{nhcmdlayout\+\_\+destroy} (\hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{P\+N\+H\+Cmd\+Layout} p)
+\item 
+\hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set} \hyperlink{mhcmd_8c_a2701c68f86aae9839c7a7d04d1c1a317}{nhcmdset\+\_\+create} ()
+\item 
+int \hyperlink{mhcmd_8c_a70625397842a7831ce865789e8470013}{nhcmdset\+\_\+count} (\hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set} p)
+\item 
+\hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{P\+N\+H\+Cmd\+Layout} \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\+\_\+get} (\hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set} p, int \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index})
+\item 
+\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$ \hyperlink{mhcmd_8c_a017b5e936795738775aee5c6d75baa40}{nhcmdset\+\_\+get\+\_\+name} (\hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set} p, int \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index})
+\item 
+void \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\+\_\+add} (\hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set} p, \hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{P\+N\+H\+Cmd\+Layout} layout)
+\item 
+void \hyperlink{mhcmd_8c_a13cf85ae1b97a0875282b2fd50676897}{nhcmdset\+\_\+destroy} (\hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set} p)
+\item 
+static void \hyperlink{mhcmd_8c_ad09a28d28eea324af31f4fdfa19a44b4}{on\+Paint} (H\+W\+N\+D h\+Wnd)
+\item 
+static void \hyperlink{mhcmd_8c_a8d537e532190de086a8d3636c37c57a9}{on\+Create} (H\+W\+N\+D h\+Wnd, W\+P\+A\+R\+A\+M w\+Param, L\+P\+A\+R\+A\+M l\+Param)
+\item 
+static void \hyperlink{mhcmd_8c_a107202aedd410094960c51ac10a16eb2}{on\+Mouse\+Down} (H\+W\+N\+D h\+Wnd, W\+P\+A\+R\+A\+M w\+Param, L\+P\+A\+R\+A\+M l\+Param)
+\item 
+static void \hyperlink{mhcmd_8c_ad406a5cebf329410c1f0bf1296c24aea}{on\+Mouse\+Move} (H\+W\+N\+D h\+Wnd, W\+P\+A\+R\+A\+M w\+Param, L\+P\+A\+R\+A\+M l\+Param)
+\item 
+static void \hyperlink{mhcmd_8c_a1962bcf2e970516acee76781f348c7b7}{on\+Mouse\+Up} (H\+W\+N\+D h\+Wnd, W\+P\+A\+R\+A\+M w\+Param, L\+P\+A\+R\+A\+M l\+Param)
+\item 
+H\+W\+N\+D \hyperlink{mhcmd_8c_aee2144b7c7b72d770fdff4bb0f957f50}{mswin\+\_\+init\+\_\+command\+\_\+window} ()
+\item 
+void \hyperlink{mhcmd_8c_afe4b902f057d00e6b697018057d286c6}{mswin\+\_\+command\+\_\+window\+\_\+size} (H\+W\+N\+D hwnd, L\+P\+S\+I\+Z\+E sz)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static T\+C\+H\+A\+R \hyperlink{mhcmd_8c_ac01ca5e9444edc0d2056c4cdf00db6b8}{sz\+N\+H\+Cmd\+Window\+Class} \mbox{[}$\,$\mbox{]} = T\+E\+X\+T(\char`\"{}M\+S\+Nethack\+Cmd\+Wnd\+Class\char`\"{})
+\item 
+static \hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set} \hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\+\_\+current} = 0
+\item 
+static \hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{P\+N\+H\+Cmd\+Set} \hyperlink{mhcmd_8c_aa3d1899ead5a19f09fca6828b76dc09b}{nhcmdset\+\_\+default} = 0
+\item 
+\hyperlink{mhcmd_8c_aeacf95bad2d8f850c1e9d842f2ff2b49}{N\+H\+Cmd\+Pad\+Cell} \hyperlink{mhcmd_8c_a5f3e5a2b016aebca324f0f12209bd316}{cells\+\_\+layout\+\_\+mod1} \mbox{[}\hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S} $\ast$\hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}\mbox{]}
+\item 
+\hyperlink{mhcmd_8c_aeacf95bad2d8f850c1e9d842f2ff2b49}{N\+H\+Cmd\+Pad\+Cell} \hyperlink{mhcmd_8c_aada132a3d47b05078fb71b62178a1aa1}{cells\+\_\+layout\+\_\+mod2} \mbox{[}-\/\hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S} $\ast$-\/\hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{mhcmd_8c_ad1368c2a0fa68385ecdd9f1016563c08}{\index{mhcmd.\+c@{mhcmd.\+c}!C@{C}}
+\index{C@{C}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{C}]{\setlength{\rightskip}{0pt plus 5cm}\#define C(
+\begin{DoxyParamCaption}
+\item[{}]{c}
+\end{DoxyParamCaption}
+)~(0x1f \& (c))}}\label{mhcmd_8c_ad1368c2a0fa68385ecdd9f1016563c08}
+
+
+Definition at line 12 of file mhcmd.\+c.
+
+
+
+Referenced by Push\+Nethack\+Command().
+
+\hypertarget{mhcmd_8c_aa8f771633ad4980bd9698980d2e7c963}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P}}
+\index{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P~2}}\label{mhcmd_8c_aa8f771633ad4980bd9698980d2e7c963}
+
+
+Definition at line 25 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell(), Layout\+Cmd\+Window(), and on\+Mouse\+Move().
+
+\hypertarget{mhcmd_8c_a0b44981458354ff901c8f54d2bcdca27}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L}}
+\index{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L~1}}\label{mhcmd_8c_a0b44981458354ff901c8f54d2bcdca27}
+
+
+Definition at line 24 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell(), Layout\+Cmd\+Window(), and on\+Mouse\+Move().
+
+\hypertarget{mhcmd_8c_a36488bb140570baeb620a0667e9dbe43}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+M\+E\+N\+U@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+M\+E\+N\+U}}
+\index{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+M\+E\+N\+U@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+M\+E\+N\+U}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+M\+E\+N\+U}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+M\+E\+N\+U~5}}\label{mhcmd_8c_a36488bb140570baeb620a0667e9dbe43}
+
+
+Definition at line 28 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell().
+
+\hypertarget{mhcmd_8c_a5be4c8b180f1d7c7a01e8d5d5412866f}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+N\+E\+W@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+N\+E\+W}}
+\index{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+N\+E\+W@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+N\+E\+W}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+N\+E\+W}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+N\+E\+W~4}}\label{mhcmd_8c_a5be4c8b180f1d7c7a01e8d5d5412866f}
+
+
+Definition at line 27 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell().
+
+\hypertarget{mhcmd_8c_a6f0002b1ea5e52e00a5461f2d5eee460}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+R\+E\+G@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+R\+E\+G}}
+\index{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+R\+E\+G@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+R\+E\+G}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+R\+E\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+R\+E\+G~0}}\label{mhcmd_8c_a6f0002b1ea5e52e00a5461f2d5eee460}
+
+
+Definition at line 23 of file mhcmd.\+c.
+
+\hypertarget{mhcmd_8c_a13f0ee83359f8bd16a9559463fb6bdbb}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T}}
+\index{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T@{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T~3}}\label{mhcmd_8c_a13f0ee83359f8bd16a9559463fb6bdbb}
+
+
+Definition at line 26 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell(), and Layout\+Cmd\+Window().
+
+\hypertarget{mhcmd_8c_af4505f4baac82e7cbc59acc2929725cc}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+E\+L\+L\+N\+U\+M@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+E\+L\+L\+N\+U\+M}}
+\index{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+E\+L\+L\+N\+U\+M@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+E\+L\+L\+N\+U\+M}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+E\+L\+L\+N\+U\+M}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+E\+L\+L\+N\+U\+M~({\bf N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}$\ast${\bf N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S})}}\label{mhcmd_8c_af4505f4baac82e7cbc59acc2929725cc}
+
+
+Definition at line 283 of file mhcmd.\+c.
+
+\hypertarget{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}}
+\index{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S~14}}\label{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}
+
+
+Definition at line 282 of file mhcmd.\+c.
+
+
+
+Referenced by register\+\_\+command\+\_\+window\+\_\+class().
+
+\hypertarget{mhcmd_8c_a85bf3f37ae0563a86d715a3fb7accaec}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X}}
+\index{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X~0}}\label{mhcmd_8c_a85bf3f37ae0563a86d715a3fb7accaec}
+
+
+Definition at line 20 of file mhcmd.\+c.
+
+
+
+Referenced by Layout\+Cmd\+Window(), and N\+H\+Command\+Wnd\+Proc().
+
+\hypertarget{mhcmd_8c_afdabfcf9a9889541e2b728ccd1cce189}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L}}
+\index{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L~0}}\label{mhcmd_8c_afdabfcf9a9889541e2b728ccd1cce189}
+
+
+Definition at line 19 of file mhcmd.\+c.
+
+
+
+Referenced by Layout\+Cmd\+Window(), nhcmdlayout\+\_\+create(), and on\+Paint().
+
+\hypertarget{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S}}
+\index{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S@{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S~4}}\label{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}
+
+
+Definition at line 281 of file mhcmd.\+c.
+
+
+
+Referenced by register\+\_\+command\+\_\+window\+\_\+class().
+
+\hypertarget{mhcmd_8c_a45049a63e650b8163b3643a07d0fbf5b}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+M\+D\+S\+E\+T\+\_\+\+M\+A\+X\+S\+I\+Z\+E@{N\+H\+\_\+\+C\+M\+D\+S\+E\+T\+\_\+\+M\+A\+X\+S\+I\+Z\+E}}
+\index{N\+H\+\_\+\+C\+M\+D\+S\+E\+T\+\_\+\+M\+A\+X\+S\+I\+Z\+E@{N\+H\+\_\+\+C\+M\+D\+S\+E\+T\+\_\+\+M\+A\+X\+S\+I\+Z\+E}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+M\+D\+S\+E\+T\+\_\+\+M\+A\+X\+S\+I\+Z\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+M\+D\+S\+E\+T\+\_\+\+M\+A\+X\+S\+I\+Z\+E~64}}\label{mhcmd_8c_a45049a63e650b8163b3643a07d0fbf5b}
+
+
+Definition at line 30 of file mhcmd.\+c.
+
+
+
+Referenced by nhcmdset\+\_\+add().
+
+\hypertarget{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D@{N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D}}
+\index{N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D@{N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D~1}}\label{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}
+
+
+Definition at line 16 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell(), Highlight\+Cell(), Layout\+Cmd\+Window(), on\+Mouse\+Down(), and on\+Paint().
+
+\hypertarget{mhcmd_8c_a412c606520b376e7b056db86d15128dd}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdlayout\+\_\+cell@{nhcmdlayout\+\_\+cell}}
+\index{nhcmdlayout\+\_\+cell@{nhcmdlayout\+\_\+cell}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdlayout\+\_\+cell}]{\setlength{\rightskip}{0pt plus 5cm}\#define nhcmdlayout\+\_\+cell(
+\begin{DoxyParamCaption}
+\item[{}]{p, }
+\item[{}]{x, }
+\item[{}]{y}
+\end{DoxyParamCaption}
+)~(\&((p)-\/$>$cells\mbox{[}(p)-\/$>$columns$\ast$(x)+(y)\mbox{]}))}}\label{mhcmd_8c_a412c606520b376e7b056db86d15128dd}
+
+
+Definition at line 120 of file mhcmd.\+c.
+
+\hypertarget{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdlayout\+\_\+cell\+\_\+direct@{nhcmdlayout\+\_\+cell\+\_\+direct}}
+\index{nhcmdlayout\+\_\+cell\+\_\+direct@{nhcmdlayout\+\_\+cell\+\_\+direct}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdlayout\+\_\+cell\+\_\+direct}]{\setlength{\rightskip}{0pt plus 5cm}\#define nhcmdlayout\+\_\+cell\+\_\+direct(
+\begin{DoxyParamCaption}
+\item[{}]{p, }
+\item[{}]{i}
+\end{DoxyParamCaption}
+)~(\&((p)-\/$>$cells\mbox{[}(i)\mbox{]}))}}\label{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}
+
+
+Definition at line 121 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell(), Cell\+From\+Point(), Highlight\+Cell(), Layout\+Cmd\+Window(), on\+Mouse\+Move(), and on\+Paint().
+
+\hypertarget{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdlayout\+\_\+columns@{nhcmdlayout\+\_\+columns}}
+\index{nhcmdlayout\+\_\+columns@{nhcmdlayout\+\_\+columns}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdlayout\+\_\+columns}]{\setlength{\rightskip}{0pt plus 5cm}\#define nhcmdlayout\+\_\+columns(
+\begin{DoxyParamCaption}
+\item[{}]{p}
+\end{DoxyParamCaption}
+)~((p)-\/$>$columns)}}\label{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}
+
+
+Definition at line 118 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell(), Calculate\+Cell\+Size(), Cell\+From\+Point(), Layout\+Cmd\+Window(), mswin\+\_\+command\+\_\+window\+\_\+size(), on\+Paint(), and Set\+Cmd\+Window\+Layout().
+
+\hypertarget{mhcmd_8c_a382c175a6fcb02002180174e186f016d}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdlayout\+\_\+row@{nhcmdlayout\+\_\+row}}
+\index{nhcmdlayout\+\_\+row@{nhcmdlayout\+\_\+row}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdlayout\+\_\+row}]{\setlength{\rightskip}{0pt plus 5cm}\#define nhcmdlayout\+\_\+row(
+\begin{DoxyParamCaption}
+\item[{}]{p, }
+\item[{}]{x}
+\end{DoxyParamCaption}
+)~(\&((p)-\/$>$cells\mbox{[}(p)-\/$>$columns$\ast$(x)\mbox{]}))}}\label{mhcmd_8c_a382c175a6fcb02002180174e186f016d}
+
+
+Definition at line 119 of file mhcmd.\+c.
+
+\hypertarget{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdlayout\+\_\+rows@{nhcmdlayout\+\_\+rows}}
+\index{nhcmdlayout\+\_\+rows@{nhcmdlayout\+\_\+rows}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdlayout\+\_\+rows}]{\setlength{\rightskip}{0pt plus 5cm}\#define nhcmdlayout\+\_\+rows(
+\begin{DoxyParamCaption}
+\item[{}]{p}
+\end{DoxyParamCaption}
+)~((p)-\/$>$rows)}}\label{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}
+
+
+Definition at line 117 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell(), Calculate\+Cell\+Size(), Cell\+From\+Point(), Layout\+Cmd\+Window(), mswin\+\_\+command\+\_\+window\+\_\+size(), on\+Paint(), and Set\+Cmd\+Window\+Layout().
+
+
+
+\subsection{Typedef Documentation}
+\hypertarget{mhcmd_8c_a61257e69fef8d126ff32116713c81bf3}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+Cmd\+Layout@{N\+H\+Cmd\+Layout}}
+\index{N\+H\+Cmd\+Layout@{N\+H\+Cmd\+Layout}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+Cmd\+Layout}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+\+N\+H\+Cmd\+Layout}  {\bf N\+H\+Cmd\+Layout}}}\label{mhcmd_8c_a61257e69fef8d126ff32116713c81bf3}
+\hypertarget{mhcmd_8c_aeacf95bad2d8f850c1e9d842f2ff2b49}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+Cmd\+Pad\+Cell@{N\+H\+Cmd\+Pad\+Cell}}
+\index{N\+H\+Cmd\+Pad\+Cell@{N\+H\+Cmd\+Pad\+Cell}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+Cmd\+Pad\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+\+N\+H\+Cmd\+Pad\+Cell}  {\bf N\+H\+Cmd\+Pad\+Cell}}}\label{mhcmd_8c_aeacf95bad2d8f850c1e9d842f2ff2b49}
+\hypertarget{mhcmd_8c_acc4733cc23482638a48d40973cc4f736}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+Cmd\+Pad\+Layout\+Cell@{N\+H\+Cmd\+Pad\+Layout\+Cell}}
+\index{N\+H\+Cmd\+Pad\+Layout\+Cell@{N\+H\+Cmd\+Pad\+Layout\+Cell}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+Cmd\+Pad\+Layout\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell}  {\bf N\+H\+Cmd\+Pad\+Layout\+Cell}}}\label{mhcmd_8c_acc4733cc23482638a48d40973cc4f736}
+\hypertarget{mhcmd_8c_a2df0c7e801bf51928e51e62bc4d3782a}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+Cmd\+Set@{N\+H\+Cmd\+Set}}
+\index{N\+H\+Cmd\+Set@{N\+H\+Cmd\+Set}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+Cmd\+Set}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+\+N\+H\+Cmd\+Set}  {\bf N\+H\+Cmd\+Set}}}\label{mhcmd_8c_a2df0c7e801bf51928e51e62bc4d3782a}
+\hypertarget{mhcmd_8c_a5ca157c9b7bac154a6dca124a8b368f4}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+Cmd\+Window@{N\+H\+Cmd\+Window}}
+\index{N\+H\+Cmd\+Window@{N\+H\+Cmd\+Window}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+Cmd\+Window}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mswin\+\_\+nethack\+\_\+cmd\+\_\+window}  {\bf N\+H\+Cmd\+Window}}}\label{mhcmd_8c_a5ca157c9b7bac154a6dca124a8b368f4}
+\hypertarget{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{\index{mhcmd.\+c@{mhcmd.\+c}!P\+N\+H\+Cmd\+Layout@{P\+N\+H\+Cmd\+Layout}}
+\index{P\+N\+H\+Cmd\+Layout@{P\+N\+H\+Cmd\+Layout}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{P\+N\+H\+Cmd\+Layout}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+\+N\+H\+Cmd\+Layout} $\ast$ {\bf P\+N\+H\+Cmd\+Layout}}}\label{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}
+\hypertarget{mhcmd_8c_ae6e543a99f6c6df4e43d5e924d3207e6}{\index{mhcmd.\+c@{mhcmd.\+c}!P\+N\+H\+Cmd\+Pad\+Cell@{P\+N\+H\+Cmd\+Pad\+Cell}}
+\index{P\+N\+H\+Cmd\+Pad\+Cell@{P\+N\+H\+Cmd\+Pad\+Cell}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{P\+N\+H\+Cmd\+Pad\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+\+N\+H\+Cmd\+Pad\+Cell} $\ast$ {\bf P\+N\+H\+Cmd\+Pad\+Cell}}}\label{mhcmd_8c_ae6e543a99f6c6df4e43d5e924d3207e6}
+\hypertarget{mhcmd_8c_aaa8d2473a514ad73872a4cf1e1ce283b}{\index{mhcmd.\+c@{mhcmd.\+c}!P\+N\+H\+Cmd\+Pad\+Layout\+Cell@{P\+N\+H\+Cmd\+Pad\+Layout\+Cell}}
+\index{P\+N\+H\+Cmd\+Pad\+Layout\+Cell@{P\+N\+H\+Cmd\+Pad\+Layout\+Cell}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{P\+N\+H\+Cmd\+Pad\+Layout\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell} $\ast$ {\bf P\+N\+H\+Cmd\+Pad\+Layout\+Cell}}}\label{mhcmd_8c_aaa8d2473a514ad73872a4cf1e1ce283b}
+\hypertarget{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{\index{mhcmd.\+c@{mhcmd.\+c}!P\+N\+H\+Cmd\+Set@{P\+N\+H\+Cmd\+Set}}
+\index{P\+N\+H\+Cmd\+Set@{P\+N\+H\+Cmd\+Set}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{P\+N\+H\+Cmd\+Set}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf t\+\_\+\+N\+H\+Cmd\+Set} $\ast$ {\bf P\+N\+H\+Cmd\+Set}}}\label{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}
+\hypertarget{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{\index{mhcmd.\+c@{mhcmd.\+c}!P\+N\+H\+Cmd\+Window@{P\+N\+H\+Cmd\+Window}}
+\index{P\+N\+H\+Cmd\+Window@{P\+N\+H\+Cmd\+Window}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{P\+N\+H\+Cmd\+Window}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf mswin\+\_\+nethack\+\_\+cmd\+\_\+window} $\ast$ {\bf P\+N\+H\+Cmd\+Window}}}\label{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}
+
+
+\subsection{Function Documentation}
+\hypertarget{mhcmd_8c_a8a4c2d6fe51fea7afc3e6fc694381314}{\index{mhcmd.\+c@{mhcmd.\+c}!Activate\+Cell@{Activate\+Cell}}
+\index{Activate\+Cell@{Activate\+Cell}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{Activate\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}void Activate\+Cell (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{int}]{cell}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a8a4c2d6fe51fea7afc3e6fc694381314}
+
+
+Definition at line 902 of file mhcmd.\+c.
+
+
+
+References any\+::a\+\_\+void, A\+T\+R\+\_\+\+N\+O\+N\+E, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cells, t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::data, t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::f\+\_\+char, F\+A\+L\+S\+E, Highlight\+Cell(), mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::is\+\_\+caps, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::is\+\_\+ctrl, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::is\+\_\+shift, mi\+::item, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+save, mswin\+\_\+add\+\_\+menu(), mswin\+\_\+create\+\_\+nhwindow(), mswin\+\_\+destroy\+\_\+nhwindow(), mswin\+\_\+end\+\_\+menu(), mswin\+\_\+start\+\_\+menu(), N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+M\+E\+N\+U, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+L\+A\+Y\+O\+U\+T\+\_\+\+N\+E\+W, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T, N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D, nhcmdlayout\+\_\+cell\+\_\+direct, nhcmdlayout\+\_\+columns, nhcmdlayout\+\_\+rows, nhcmdset\+\_\+count(), nhcmdset\+\_\+default, nhcmdset\+\_\+get(), nhcmdset\+\_\+get\+\_\+name(), N\+H\+W\+\_\+\+M\+E\+N\+U, N\+O\+\_\+\+G\+L\+Y\+P\+H, N\+U\+L\+L, P\+I\+C\+K\+\_\+\+O\+N\+E, Push\+Nethack\+Command(), select\+\_\+menu, Set\+Cmd\+Window\+Layout(), t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::state, T\+R\+U\+E, and t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::type.
+
+
+
+Referenced by on\+Mouse\+Up().
+
+
+\begin{DoxyCode}
+903 \{
+904     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+905     \hyperlink{structt__NHCmdPadCell}{PNHCmdPadCell} p\_cell\_data;
+906     \textcolor{keywordtype}{int} i;
+907 
+908     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+909     \textcolor{keywordflow}{if}( !data ) \textcolor{keywordflow}{return};
+910     p\_cell\_data = \hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\_cell\_direct}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}, cell);
+911 
+912     \textcolor{comment}{/* act depending on the cell type:}
+913 \textcolor{comment}{        CAPS - change layout }
+914 \textcolor{comment}{        CTRL - modify CTRL status}
+915 \textcolor{comment}{        REG  - place keyboard event on the nethack input queue}
+916 \textcolor{comment}{    */}
+917     \textcolor{keywordflow}{switch}( p\_cell\_data->\hyperlink{structt__NHCmdPadCell_a464e4e2f7bac75b51641f975a4e7d7c1}{type} ) \{
+918     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a6f0002b1ea5e52e00a5461f2d5eee460}{NH\_CELL\_REG}: 
+919         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl} ) \{
+920             \hyperlink{mhcmd_8c_af56b756992d567434d68b6b0322588c2}{PushNethackCommand}(p\_cell\_data->\hyperlink{structt__NHCmdPadCell_a03333f37c5d2acc1a4fd2b632526ceac}{f\_char}, 1);
+921 
+922             data->\hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl} = 0;
+923             \textcolor{keywordflow}{for}( i=0; i<\hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\_rows}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current})*
+      \hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\_columns}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}); i++ ) \{
+924                 \textcolor{keywordflow}{if}( \hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\_cell\_direct}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}, i)->type == \hyperlink{mhcmd_8c_a0b44981458354ff901c8f54d2bcdca27}{NH\_CELL\_CTRL} ) \{
+925                     \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, i, data->\hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl});
+926                 \}
+927             \}
+928         \} \textcolor{keywordflow}{else} \{
+929             \hyperlink{mhcmd_8c_af56b756992d567434d68b6b0322588c2}{PushNethackCommand}(p\_cell\_data->\hyperlink{structt__NHCmdPadCell_a03333f37c5d2acc1a4fd2b632526ceac}{f\_char}, 0);
+930         \}
+931         \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, cell, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+932 
+933         \textcolor{comment}{// select a new layout if present}
+934         i = (int)p\_cell\_data->\hyperlink{structt__NHCmdPadCell_afbd70b8dedd4bc61fcf142c8b673f02e}{data};
+935         \textcolor{keywordflow}{if}( i==-1 ) \{
+936             \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_a6ce098bf49ef1d66ca15487b0df1817a}{layout\_save} ) \hyperlink{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{SetCmdWindowLayout}(hWnd, data->
+      \hyperlink{structmswin__nethack__cmd__window_a6ce098bf49ef1d66ca15487b0df1817a}{layout\_save});
+937             data->\hyperlink{structmswin__nethack__cmd__window_a6ce098bf49ef1d66ca15487b0df1817a}{layout\_save} = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+938         \} \textcolor{keywordflow}{else} \{
+939             \textcolor{keywordflow}{if}( !data->\hyperlink{structmswin__nethack__cmd__window_a6ce098bf49ef1d66ca15487b0df1817a}{layout\_save} ) data->\hyperlink{structmswin__nethack__cmd__window_a6ce098bf49ef1d66ca15487b0df1817a}{layout\_save} = data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current};
+940             \hyperlink{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{SetCmdWindowLayout}(hWnd, \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\_get}(
+      \hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, i));
+941         \}
+942 
+943         \textcolor{keywordflow}{if}( !data->\hyperlink{structmswin__nethack__cmd__window_ad6fd9ac96bc191d831bbb6e73385af1e}{is\_shift} ) \textcolor{keywordflow}{break};
+944         \textcolor{comment}{// else fall through and reset the shift}
+945 
+946     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a13f0ee83359f8bd16a9559463fb6bdbb}{NH\_CELL\_SHIFT}:
+947         data->\hyperlink{structmswin__nethack__cmd__window_ad6fd9ac96bc191d831bbb6e73385af1e}{is\_shift} = !data->\hyperlink{structmswin__nethack__cmd__window_ad6fd9ac96bc191d831bbb6e73385af1e}{is\_shift};
+948         \hyperlink{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{SetCmdWindowLayout}(
+949             hWnd,
+950             (data->\hyperlink{structmswin__nethack__cmd__window_ad6fd9ac96bc191d831bbb6e73385af1e}{is\_shift} ^ data->\hyperlink{structmswin__nethack__cmd__window_a474681414472e8c3ea58b258af3abc42}{is\_caps})? \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\_get}(
+      \hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, 1) : \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\_get}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, 0)
+951         );
+952         data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} = data->\hyperlink{structmswin__nethack__cmd__window_ad6fd9ac96bc191d831bbb6e73385af1e}{is\_shift}? 
+      \hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{NH\_CST\_CHECKED} : 0;
+953         InvalidateRect(hWnd, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+954         \textcolor{keywordflow}{break};
+955 
+956     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a0b44981458354ff901c8f54d2bcdca27}{NH\_CELL\_CTRL}:
+957         data->\hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl} = !data->\hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl};
+958         \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, cell, data->\hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl});
+959         \textcolor{keywordflow}{break};
+960 
+961     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_aa8f771633ad4980bd9698980d2e7c963}{NH\_CELL\_CAP}:
+962         data->\hyperlink{structmswin__nethack__cmd__window_a474681414472e8c3ea58b258af3abc42}{is\_caps} = !data->\hyperlink{structmswin__nethack__cmd__window_a474681414472e8c3ea58b258af3abc42}{is\_caps};
+963         \hyperlink{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{SetCmdWindowLayout}(
+964             hWnd,
+965             (data->\hyperlink{structmswin__nethack__cmd__window_ad6fd9ac96bc191d831bbb6e73385af1e}{is\_shift} ^ data->\hyperlink{structmswin__nethack__cmd__window_a474681414472e8c3ea58b258af3abc42}{is\_caps})? \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\_get}(
+      \hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, 1) : \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\_get}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, 0)
+966         );
+967         data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} = data->\hyperlink{structmswin__nethack__cmd__window_a474681414472e8c3ea58b258af3abc42}{is\_caps}? \hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{NH\_CST\_CHECKED} : 0;
+968         InvalidateRect(hWnd, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+969         \textcolor{keywordflow}{break};
+970 
+971     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a5be4c8b180f1d7c7a01e8d5d5412866f}{NH\_CELL\_LAYOUT\_NEW}: \{
+972         \hyperlink{structt__NHCmdLayout}{PNHCmdLayout} pLayout;
+973 
+974         \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, cell, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+975 
+976         pLayout = (\hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{PNHCmdLayout})p\_cell\_data->\hyperlink{structt__NHCmdPadCell_afbd70b8dedd4bc61fcf142c8b673f02e}{data};
+977         \textcolor{keywordflow}{if}( pLayout ) \{
+978             \hyperlink{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{SetCmdWindowLayout}(hWnd, pLayout);
+979         \}
+980     \} \textcolor{keywordflow}{break};
+981     
+982     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a36488bb140570baeb620a0667e9dbe43}{NH\_CELL\_LAYOUT\_MENU}: \{
+983         \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} wid;
+984         \textcolor{keywordtype}{int} i;
+985         \hyperlink{unionany}{anything} \hyperlink{unionany}{any};
+986         \hyperlink{structmi}{menu\_item}* selected = 0;
+987         \hyperlink{structt__NHCmdSet}{PNHCmdSet} pSet;
+988 
+989         \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, cell, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+990 
+991         pSet = (\hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{PNHCmdSet})p\_cell\_data->\hyperlink{structt__NHCmdPadCell_afbd70b8dedd4bc61fcf142c8b673f02e}{data};
+992         \textcolor{keywordflow}{if}( !pSet ) pSet = \hyperlink{mhcmd_8c_aa3d1899ead5a19f09fca6828b76dc09b}{nhcmdset\_default};
+993 
+994         wid = \hyperlink{sys_2wince_2mswproc_8c_a56af9bae2a25aa5377615d61224b2dfb}{mswin\_create\_nhwindow}(\hyperlink{wintype_8h_a60a03e50aaeef35cd7cd3bf6f790791c}{NHW\_MENU});
+995         \hyperlink{sys_2wince_2mswproc_8c_ab474b066703e5fb1cf32ccb58ab4ab72}{mswin\_start\_menu}(wid);
+996         \textcolor{keywordflow}{for}( i=0; i<\hyperlink{mhcmd_8c_a70625397842a7831ce865789e8470013}{nhcmdset\_count}(pSet); i++ ) \{
+997             any.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} = \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\_get}(pSet, i);
+998             \hyperlink{sys_2wince_2mswproc_8c_a9e5aca57aa18e0bae3e0ffbd396eb094}{mswin\_add\_menu}(wid, \hyperlink{display_8h_ac36b9cc8436af3cf1f7f9919878d8354}{NO\_GLYPH}, &any, \textcolor{charliteral}{'a'}+i, 0, 
+      \hyperlink{wintype_8h_a20a20b74e8cf84ecfbf3c8665c059636}{ATR\_NONE}, 
+999                 \hyperlink{mhcmd_8c_a017b5e936795738775aee5c6d75baa40}{nhcmdset\_get\_name}(pSet, i), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+1000         \}
+1001         \hyperlink{sys_2wince_2mswproc_8c_ac6df26e561723e972cec44a0973f052a}{mswin\_end\_menu}(wid, \textcolor{stringliteral}{"Select keypad layout"});
+1002         i = \hyperlink{winprocs_8h_afdaac8ee2b6bdd0a0045b81a0cfbe1fc}{select\_menu}(wid, \hyperlink{wintype_8h_a53377e7b2fddfaf7cc2351dab3b2b139}{PICK\_ONE}, &selected);
+1003         \hyperlink{sys_2wince_2mswproc_8c_a32ff7e6d325974c10325282789d15e49}{mswin\_destroy\_nhwindow}(wid);
+1004 
+1005         \textcolor{keywordflow}{if}( i==1 ) \{
+1006 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+1007             data->layout\_selected = (\hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{PNHCmdLayout})selected[0].item.a\_void;
+1008 #endif
+1009             \hyperlink{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{SetCmdWindowLayout}(hWnd, (\hyperlink{structt__NHCmdLayout}{PNHCmdLayout})selected[0].
+      \hyperlink{structmi_a24f26cd1b01d3cf3ed16b1fd020d3a08}{item}.\hyperlink{unionany_a570c320f6790aab4b51733abc54827d7}{a\_void} );
+1010         \}
+1011     \} \textcolor{keywordflow}{break};
+1012     
+1013     \}
+1014 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a76dc727c6d3bcad629ae0aa6f614c866}{\index{mhcmd.\+c@{mhcmd.\+c}!Calculate\+Cell\+Size@{Calculate\+Cell\+Size}}
+\index{Calculate\+Cell\+Size@{Calculate\+Cell\+Size}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{Calculate\+Cell\+Size}]{\setlength{\rightskip}{0pt plus 5cm}void Calculate\+Cell\+Size (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{L\+P\+S\+I\+Z\+E}]{p\+Size, }
+\item[{L\+P\+S\+I\+Z\+E}]{window\+Size}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a76dc727c6d3bcad629ae0aa6f614c866}
+
+
+Definition at line 1030 of file mhcmd.\+c.
+
+
+
+References mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, min, nhcmdlayout\+\_\+columns, and nhcmdlayout\+\_\+rows.
+
+
+
+Referenced by Layout\+Cmd\+Window(), and mswin\+\_\+command\+\_\+window\+\_\+size().
+
+
+\begin{DoxyCode}
+1031 \{
+1032     HDC hdc;
+1033     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+1034     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+1035     \textcolor{keywordflow}{if}( !data ) \textcolor{keywordflow}{return};
+1036 
+1037     hdc = GetDC(hWnd);
+1038     
+1039     \textcolor{comment}{/* if windows size is specified - attempt ro stretch cells across }
+1040 \textcolor{comment}{       the the window size. If not - make default cell size based on }
+1041 \textcolor{comment}{       10 points font. Make sure that cell cesize does not exceeds 20 points */}
+1042     \textcolor{keywordflow}{if}( pWindowSize->cx>0 )
+1043         pSize->cx = pWindowSize->cx/\hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\_columns}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current});
+1044     \textcolor{keywordflow}{else} 
+1045         pSize->cx = 10*GetDeviceCaps(hdc, LOGPIXELSX)/72;
+1046     pSize->cx = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(pSize->cx, 20*GetDeviceCaps(hdc, LOGPIXELSX)/72 );
+1047 
+1048     \textcolor{keywordflow}{if}( pWindowSize->cy>0 )
+1049         pSize->cy = pWindowSize->cy/\hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\_rows}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current});
+1050     \textcolor{keywordflow}{else}                 
+1051         pSize->cy = 10*GetDeviceCaps(hdc, LOGPIXELSY)/72;
+1052     pSize->cy = \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(pSize->cy, 20*GetDeviceCaps(hdc, LOGPIXELSY)/72 );
+1053 
+1054     ReleaseDC(hWnd, hdc);
+1055 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a810a82d71e5ff59e80daed82254312c5}{\index{mhcmd.\+c@{mhcmd.\+c}!Cell\+From\+Point@{Cell\+From\+Point}}
+\index{Cell\+From\+Point@{Cell\+From\+Point}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{Cell\+From\+Point}]{\setlength{\rightskip}{0pt plus 5cm}int Cell\+From\+Point (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+N\+H\+Cmd\+Window}}]{data, }
+\item[{P\+O\+I\+N\+T}]{pt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a810a82d71e5ff59e80daed82254312c5}
+
+
+Definition at line 1016 of file mhcmd.\+c.
+
+
+
+References mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cell\+\_\+size, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cells, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, nhcmdlayout\+\_\+cell\+\_\+direct, nhcmdlayout\+\_\+columns, nhcmdlayout\+\_\+rows, and t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::orig.
+
+
+
+Referenced by on\+Mouse\+Down(), and on\+Mouse\+Move().
+
+
+\begin{DoxyCode}
+1017 \{
+1018     \textcolor{keywordtype}{int} i;
+1019     \textcolor{keywordflow}{for}( i=0; i<\hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\_rows}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current})*
+      \hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\_columns}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}); i++ ) \{
+1020         RECT cell\_rt;
+1021         cell\_rt.left = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[i].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.x;
+1022         cell\_rt.top = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[i].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.y;
+1023         cell\_rt.right = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[i].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.x + data->\hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cx*
+      \hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\_cell\_direct}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}, i)->mult;
+1024         cell\_rt.bottom = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[i].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.y + data->\hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cy;
+1025         \textcolor{keywordflow}{if}( PtInRect(&cell\_rt, pt) ) \textcolor{keywordflow}{return} i;
+1026     \}
+1027     \textcolor{keywordflow}{return} -1;
+1028 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{\index{mhcmd.\+c@{mhcmd.\+c}!Highlight\+Cell@{Highlight\+Cell}}
+\index{Highlight\+Cell@{Highlight\+Cell}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{Highlight\+Cell}]{\setlength{\rightskip}{0pt plus 5cm}void Highlight\+Cell (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{int}]{cell, }
+\item[{B\+O\+O\+L}]{is\+Selected}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}
+
+
+Definition at line 1057 of file mhcmd.\+c.
+
+
+
+References mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cell\+\_\+size, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cells, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D, nhcmdlayout\+\_\+cell\+\_\+direct, t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::orig, and t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::state.
+
+
+
+Referenced by Activate\+Cell(), on\+Mouse\+Down(), and on\+Mouse\+Move().
+
+
+\begin{DoxyCode}
+1058 \{
+1059     HDC hDC;
+1060     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+1061     \textcolor{keywordtype}{int} prevState;
+1062 
+1063     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+1064     prevState = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state};
+1065     data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} = (isSelected)? \hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{NH\_CST\_CHECKED} : 0;
+1066 
+1067     \textcolor{keywordflow}{if}( prevState!=data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} ) \{
+1068         hDC = GetDC(hWnd);
+1069         PatBlt( hDC, 
+1070             data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.x+1,
+1071             data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.y+1,
+1072             data->\hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cx*\hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\_cell\_direct}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}, cell)->mult - 2,
+1073             data->\hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cy - 2,
+1074             DSTINVERT
+1075             );
+1076         ReleaseDC(hWnd, hDC);
+1077     \}
+1078 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a3509b8390af27e4310e58c122a553df5}{\index{mhcmd.\+c@{mhcmd.\+c}!Layout\+Cmd\+Window@{Layout\+Cmd\+Window}}
+\index{Layout\+Cmd\+Window@{Layout\+Cmd\+Window}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{Layout\+Cmd\+Window}]{\setlength{\rightskip}{0pt plus 5cm}void Layout\+Cmd\+Window (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a3509b8390af27e4310e58c122a553df5}
+
+
+Definition at line 736 of file mhcmd.\+c.
+
+
+
+References Calculate\+Cell\+Size(), mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cell\+\_\+size, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cells, F\+A\+L\+S\+E, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::font, iflags, index(), mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::is\+\_\+caps, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::is\+\_\+ctrl, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::is\+\_\+shift, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, N\+H\+\_\+\+A2\+W, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+S\+H\+I\+F\+T, N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X, N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L, N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D, nhcmdlayout\+\_\+cell\+\_\+direct, nhcmdlayout\+\_\+columns, nhcmdlayout\+\_\+rows, N\+U\+L\+L, t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::orig, S\+I\+Z\+E, t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::state, T\+R\+U\+E, t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::type, and instance\+\_\+flags\+::wc\+\_\+font\+\_\+message.
+
+
+
+Referenced by N\+H\+Command\+Wnd\+Proc(), and Set\+Cmd\+Window\+Layout().
+
+
+\begin{DoxyCode}
+737 \{
+738     RECT clrt;
+739     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} windowSize;
+740     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+741     \textcolor{keywordtype}{int} i, j;
+742     \textcolor{keywordtype}{int} x, y;
+743     LOGFONT lgfnt;
+744     \textcolor{keywordtype}{int} \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index};
+745 
+746     GetClientRect(hWnd, &clrt);
+747     \textcolor{keywordflow}{if}( IsRectEmpty(&clrt) ) \textcolor{keywordflow}{return};
+748 
+749     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+750     \textcolor{keywordflow}{if}( !data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current} ) \textcolor{keywordflow}{return};
+751 
+752     \textcolor{comment}{/* calculate cell size */}
+753     windowSize.cx = clrt.right-clrt.left;
+754     windowSize.cy = clrt.bottom-clrt.top;
+755     \hyperlink{mhcmd_8c_a76dc727c6d3bcad629ae0aa6f614c866}{CalculateCellSize}(hWnd, &data->\hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}, &windowSize);
+756      
+757     \textcolor{comment}{/* initialize display cells aray */}
+758     x = 0;
+759     y = 0;
+760     \textcolor{keywordflow}{for}( i=0, index=0; i<\hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\_rows}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}); i++ ) \{
+761         \textcolor{keywordflow}{for}( j=0; j<\hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\_columns}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}); j++, index+
+      + ) \{
+762             data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.x = x;
+763             data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.y = y;
+764             data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdPadLayoutCell_a1c2a64952d42eae523db51f2fef5afcc}{type} = \hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\_cell\_direct}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}, index)->type;
+765 
+766             \textcolor{keywordflow}{switch}(data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[index].\hyperlink{structt__NHCmdPadLayoutCell_a1c2a64952d42eae523db51f2fef5afcc}{type}) \{
+767             \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a0b44981458354ff901c8f54d2bcdca27}{NH\_CELL\_CTRL}:
+768                 data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} = data->\hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl}? 
+      \hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{NH\_CST\_CHECKED} : 0;
+769                 \textcolor{keywordflow}{break};
+770             \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_aa8f771633ad4980bd9698980d2e7c963}{NH\_CELL\_CAP}:
+771                 data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} = data->\hyperlink{structmswin__nethack__cmd__window_a474681414472e8c3ea58b258af3abc42}{is\_caps}? 
+      \hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{NH\_CST\_CHECKED} : 0;
+772                 \textcolor{keywordflow}{break};
+773             \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a13f0ee83359f8bd16a9559463fb6bdbb}{NH\_CELL\_SHIFT}:
+774                 data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} = data->\hyperlink{structmswin__nethack__cmd__window_ad6fd9ac96bc191d831bbb6e73385af1e}{is\_shift}? 
+      \hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{NH\_CST\_CHECKED} : 0;
+775                 \textcolor{keywordflow}{break};
+776             \textcolor{keywordflow}{default}:
+777                 data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} = 0;
+778             \}
+779 
+780             x += data->\hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cx * \hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\_cell\_direct}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}, index)->mult;
+781         \}
+782         x = 0;
+783         y += data->\hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cy;
+784     \}
+785 
+786     \textcolor{comment}{/* create font for display cell text */}
+787     \textcolor{keywordflow}{for}(i=0; i<=\hyperlink{mhcmd_8c_a85bf3f37ae0563a86d715a3fb7accaec}{NH\_CMDPAD\_FONT\_MAX}; i++ )
+788         \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_a78cd956720dc8bbd93d177563c27a5d0}{font}[i] ) DeleteObject(data->\hyperlink{structmswin__nethack__cmd__window_a78cd956720dc8bbd93d177563c27a5d0}{font}[i]);
+789 
+790     ZeroMemory( &lgfnt, \textcolor{keyword}{sizeof}(lgfnt) );
+791     lgfnt.lfHeight          =   data->\hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cy; \textcolor{comment}{// height of font}
+792     lgfnt.lfWidth           =   0; \textcolor{comment}{// average character width}
+793     lgfnt.lfEscapement      =   0;                   \textcolor{comment}{// angle of escapement}
+794     lgfnt.lfOrientation     =   0;                   \textcolor{comment}{// base-line orientation angle}
+795     lgfnt.lfWeight          =   FW\_NORMAL;          \textcolor{comment}{// font weight}
+796     lgfnt.lfItalic          =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};              \textcolor{comment}{// italic attribute option}
+797     lgfnt.lfUnderline       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};             \textcolor{comment}{// underline attribute option}
+798     lgfnt.lfStrikeOut       =   \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};             \textcolor{comment}{// strikeout attribute option}
+799     lgfnt.lfCharSet         =   ANSI\_CHARSET;     \textcolor{comment}{// character set identifier}
+800     lgfnt.lfOutPrecision    =   OUT\_DEFAULT\_PRECIS;  \textcolor{comment}{// output precision}
+801     lgfnt.lfClipPrecision   =   CLIP\_CHARACTER\_PRECIS; \textcolor{comment}{// clipping precision}
+802     lgfnt.lfQuality         =   DEFAULT\_QUALITY;     \textcolor{comment}{// output quality}
+803     \textcolor{keywordflow}{if}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a1cd982dcf1dd4bebc211a2d38dc74eea}{wc\_font\_message} &&
+804         *\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a1cd982dcf1dd4bebc211a2d38dc74eea}{wc\_font\_message} ) \{
+805         lgfnt.lfPitchAndFamily  = DEFAULT\_PITCH;         \textcolor{comment}{// pitch and family}
+806         \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}( \hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a1cd982dcf1dd4bebc211a2d38dc74eea}{wc\_font\_message}, lgfnt.lfFaceName, LF\_FACESIZE);
+807     \} \textcolor{keywordflow}{else} \{
+808         lgfnt.lfPitchAndFamily  = VARIABLE\_PITCH;        \textcolor{comment}{// pitch and family}
+809     \}
+810     data->\hyperlink{structmswin__nethack__cmd__window_a78cd956720dc8bbd93d177563c27a5d0}{font}[\hyperlink{mhcmd_8c_afdabfcf9a9889541e2b728ccd1cce189}{NH\_CMDPAD\_FONT\_NORMAL}] = CreateFontIndirect(&lgfnt);
+811 
+812     InvalidateRect(hWnd, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+813 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_afe4b902f057d00e6b697018057d286c6}{\index{mhcmd.\+c@{mhcmd.\+c}!mswin\+\_\+command\+\_\+window\+\_\+size@{mswin\+\_\+command\+\_\+window\+\_\+size}}
+\index{mswin\+\_\+command\+\_\+window\+\_\+size@{mswin\+\_\+command\+\_\+window\+\_\+size}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{mswin\+\_\+command\+\_\+window\+\_\+size}]{\setlength{\rightskip}{0pt plus 5cm}void mswin\+\_\+command\+\_\+window\+\_\+size (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{hwnd, }
+\item[{L\+P\+S\+I\+Z\+E}]{sz}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_afe4b902f057d00e6b697018057d286c6}
+
+
+Definition at line 446 of file mhcmd.\+c.
+
+
+
+References Calculate\+Cell\+Size(), mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, max, nhcmdlayout\+\_\+columns, nhcmdlayout\+\_\+rows, and S\+I\+Z\+E.
+
+
+
+Referenced by mswin\+\_\+layout\+\_\+main\+\_\+window().
+
+
+\begin{DoxyCode}
+447 \{
+448     \hyperlink{global_8h_afd2537d19a3cb6556b0f727580ec6ee7}{SIZE} cell\_size;
+449     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+450     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hwnd, GWL\_USERDATA);
+451     \textcolor{keywordflow}{if}( !data ) \{
+452         sz->cx = sz->cy = 0;
+453     \} \textcolor{keywordflow}{else} \{
+454         \hyperlink{mhcmd_8c_a76dc727c6d3bcad629ae0aa6f614c866}{CalculateCellSize}(hwnd, &cell\_size, sz);
+455         sz->cx = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(
+456                     cell\_size.cx*\hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\_columns}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current})+2*GetSystemMetrics(SM\_CXBORDER),
+457                     sz->cx
+458                     );
+459         sz->cy = \hyperlink{hack_8h_affe776513b24d84b39af8ab0930fef7f}{max}(
+460                     cell\_size.cy*\hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\_rows}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current})+2*GetSystemMetrics(SM\_CYBORDER),
+461                     sz->cy
+462                     );
+463     \}
+464 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_aee2144b7c7b72d770fdff4bb0f957f50}{\index{mhcmd.\+c@{mhcmd.\+c}!mswin\+\_\+init\+\_\+command\+\_\+window@{mswin\+\_\+init\+\_\+command\+\_\+window}}
+\index{mswin\+\_\+init\+\_\+command\+\_\+window@{mswin\+\_\+init\+\_\+command\+\_\+window}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{mswin\+\_\+init\+\_\+command\+\_\+window}]{\setlength{\rightskip}{0pt plus 5cm}H\+W\+N\+D mswin\+\_\+init\+\_\+command\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_aee2144b7c7b72d770fdff4bb0f957f50}
+
+
+Definition at line 416 of file mhcmd.\+c.
+
+
+
+References Get\+N\+H\+App(), N\+U\+L\+L, panic(), register\+\_\+command\+\_\+window\+\_\+class(), and sz\+N\+H\+Cmd\+Window\+Class.
+
+
+
+Referenced by Main\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+416                                   \{
+417     \textcolor{keyword}{static} \textcolor{keywordtype}{int} run\_once = 0;
+418     HWND ret;
+419 
+420     \textcolor{comment}{/* register window class */}
+421     \textcolor{keywordflow}{if}( !run\_once ) \{
+422         \hyperlink{mhcmd_8c_a8df85e83a2ee7c554e66c2025a366c4d}{register\_command\_window\_class}();
+423         run\_once = 1;
+424     \}
+425 
+426     \textcolor{comment}{/* create window */}
+427     ret = CreateWindow(
+428             \hyperlink{mhcmd_8c_ac01ca5e9444edc0d2056c4cdf00db6b8}{szNHCmdWindowClass},       \textcolor{comment}{/* registered class name */}
+429             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},                   \textcolor{comment}{/* window name */}
+430             WS\_CHILD | WS\_CLIPSIBLINGS, \textcolor{comment}{/* window style */}
+431             0,  \textcolor{comment}{/* horizontal position of window - set it later */}
+432             0,  \textcolor{comment}{/* vertical position of window - set it later */}
+433             0,  \textcolor{comment}{/* window width - set it later */}
+434             0,  \textcolor{comment}{/* window height - set it later*/}
+435             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hMainWnd,   \textcolor{comment}{/* handle to parent or owner window */}
+436             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL},                   \textcolor{comment}{/* menu handle or child identifier */}
+437             \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp,       \textcolor{comment}{/* handle to application instance */}
+438             \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );                 \textcolor{comment}{/* window-creation data */}
+439     \textcolor{keywordflow}{if}( !ret ) \{
+440         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"Cannot create command window"});
+441     \}
+442     \textcolor{keywordflow}{return} ret;
+443 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdlayout\+\_\+create@{nhcmdlayout\+\_\+create}}
+\index{nhcmdlayout\+\_\+create@{nhcmdlayout\+\_\+create}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdlayout\+\_\+create}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+N\+H\+Cmd\+Layout} nhcmdlayout\+\_\+create (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{name, }
+\item[{int}]{rows, }
+\item[{int}]{columns}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}
+
+
+Definition at line 1092 of file mhcmd.\+c.
+
+
+
+References t\+\_\+\+N\+H\+Cmd\+Layout\+::cells, t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::cmd\+\_\+code, t\+\_\+\+N\+H\+Cmd\+Layout\+::columns, t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::image, malloc(), t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::mult, t\+\_\+\+N\+H\+Cmd\+Layout\+::name, N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L, t\+\_\+\+N\+H\+Cmd\+Layout\+::rows, and t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::type.
+
+
+
+Referenced by register\+\_\+command\+\_\+window\+\_\+class().
+
+
+\begin{DoxyCode}
+1093 \{
+1094     \hyperlink{structt__NHCmdLayout}{PNHCmdLayout} p;
+1095     \textcolor{keywordtype}{int} i;
+1096 
+1097     i = \textcolor{keyword}{sizeof}(\hyperlink{mhcmd_8c_a61257e69fef8d126ff32116713c81bf3}{NHCmdLayout})+rows*columns*\textcolor{keyword}{sizeof}(\hyperlink{structt__NHCmdPadCell}{NHCmdPadCell});
+1098     p = (\hyperlink{mhcmd_8c_aaff26e9507b2c94d8428960902cbaeb4}{PNHCmdLayout})\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(i);
+1099     ZeroMemory(p, i);
+1100     p->\hyperlink{structt__NHCmdLayout_a54b0e456d1ffceb26fd2d3e0b7085878}{rows} = rows;
+1101     p->\hyperlink{structt__NHCmdLayout_ae49b667aa9339a89e4bc0d15881506ca}{columns} = columns;
+1102     strncpy(p->\hyperlink{structt__NHCmdLayout_a0545015938cf16c21bb813d4fe075ed7}{name}, \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}, \textcolor{keyword}{sizeof}(p->\hyperlink{structt__NHCmdLayout_a0545015938cf16c21bb813d4fe075ed7}{name})-1);
+1103     \textcolor{keywordflow}{for}(i=0; i<rows*columns; i++) \{
+1104         p->\hyperlink{structt__NHCmdLayout_ae1dd5f14888dfb6c57eecc5f37759789}{cells}[i].\hyperlink{structt__NHCmdPadCell_a977ab851d103729606f7db806036c484}{cmd\_code} = -1;
+1105         p->\hyperlink{structt__NHCmdLayout_ae1dd5f14888dfb6c57eecc5f37759789}{cells}[i].\hyperlink{structt__NHCmdPadCell_aef91a1adf61e7b83fff7a4cf53b559a7}{image} = -\hyperlink{mhcmd_8c_afdabfcf9a9889541e2b728ccd1cce189}{NH\_CMDPAD\_FONT\_NORMAL};
+1106         p->\hyperlink{structt__NHCmdLayout_ae1dd5f14888dfb6c57eecc5f37759789}{cells}[i].\hyperlink{structt__NHCmdPadCell_a464e4e2f7bac75b51641f975a4e7d7c1}{type} = 1;
+1107         p->\hyperlink{structt__NHCmdLayout_ae1dd5f14888dfb6c57eecc5f37759789}{cells}[i].\hyperlink{structt__NHCmdPadCell_af9f8628557b1a7272f4422d218bd020f}{mult} = 1;
+1108     \}
+1109     \textcolor{keywordflow}{return} p;
+1110 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_af70b92dde3dbfee66d44efb94b288740}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdlayout\+\_\+destroy@{nhcmdlayout\+\_\+destroy}}
+\index{nhcmdlayout\+\_\+destroy@{nhcmdlayout\+\_\+destroy}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdlayout\+\_\+destroy}]{\setlength{\rightskip}{0pt plus 5cm}void nhcmdlayout\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+N\+H\+Cmd\+Layout}}]{p}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_af70b92dde3dbfee66d44efb94b288740}
+
+
+Definition at line 1117 of file mhcmd.\+c.
+
+
+
+References free().
+
+
+
+Referenced by nhcmdset\+\_\+destroy().
+
+
+\begin{DoxyCode}
+1118 \{
+1119     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(p);
+1120 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdlayout\+\_\+init@{nhcmdlayout\+\_\+init}}
+\index{nhcmdlayout\+\_\+init@{nhcmdlayout\+\_\+init}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdlayout\+\_\+init}]{\setlength{\rightskip}{0pt plus 5cm}void nhcmdlayout\+\_\+init (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+N\+H\+Cmd\+Layout}}]{p, }
+\item[{{\bf P\+N\+H\+Cmd\+Pad\+Cell}}]{cells}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}
+
+
+Definition at line 1112 of file mhcmd.\+c.
+
+
+
+References t\+\_\+\+N\+H\+Cmd\+Layout\+::cells, t\+\_\+\+N\+H\+Cmd\+Layout\+::columns, and t\+\_\+\+N\+H\+Cmd\+Layout\+::rows.
+
+
+
+Referenced by register\+\_\+command\+\_\+window\+\_\+class().
+
+
+\begin{DoxyCode}
+1113 \{
+1114     memcpy(p->\hyperlink{structt__NHCmdLayout_ae1dd5f14888dfb6c57eecc5f37759789}{cells}, cells, p->\hyperlink{structt__NHCmdLayout_a54b0e456d1ffceb26fd2d3e0b7085878}{rows}*p->\hyperlink{structt__NHCmdLayout_ae49b667aa9339a89e4bc0d15881506ca}{columns}*\textcolor{keyword}{sizeof}(
+      \hyperlink{structt__NHCmdPadCell}{NHCmdPadCell}));
+1115 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdset\+\_\+add@{nhcmdset\+\_\+add}}
+\index{nhcmdset\+\_\+add@{nhcmdset\+\_\+add}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdset\+\_\+add}]{\setlength{\rightskip}{0pt plus 5cm}void nhcmdset\+\_\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+N\+H\+Cmd\+Set}}]{p, }
+\item[{{\bf P\+N\+H\+Cmd\+Layout}}]{layout}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}
+
+
+Definition at line 1153 of file mhcmd.\+c.
+
+
+
+References assert, t\+\_\+\+N\+H\+Cmd\+Set\+::count, t\+\_\+\+N\+H\+Cmd\+Set\+::elements, t\+\_\+\+N\+H\+Cmd\+Set\+::t\+\_\+\+N\+H\+Cmd\+Set\+Elem\+::free\+\_\+on\+\_\+destroy, t\+\_\+\+N\+H\+Cmd\+Set\+::t\+\_\+\+N\+H\+Cmd\+Set\+Elem\+::layout, and N\+H\+\_\+\+C\+M\+D\+S\+E\+T\+\_\+\+M\+A\+X\+S\+I\+Z\+E.
+
+
+
+Referenced by register\+\_\+command\+\_\+window\+\_\+class().
+
+
+\begin{DoxyCode}
+1154 \{
+1155     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}(p);
+1156     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}(p->\hyperlink{structt__NHCmdSet_ae62ce8b45a5f163808244bc70efc21cc}{count}<\hyperlink{mhcmd_8c_a45049a63e650b8163b3643a07d0fbf5b}{NH\_CMDSET\_MAXSIZE});
+1157     p->\hyperlink{structt__NHCmdSet_a923145ebecc20823fd02173c7223fce3}{elements}[p->\hyperlink{structt__NHCmdSet_ae62ce8b45a5f163808244bc70efc21cc}{count}].\hyperlink{structt__NHCmdSet_1_1t__NHCmdSetElem_aea1a472ac29d2338226972e53b82a463}{layout} = layout;
+1158     p->\hyperlink{structt__NHCmdSet_a923145ebecc20823fd02173c7223fce3}{elements}[p->\hyperlink{structt__NHCmdSet_ae62ce8b45a5f163808244bc70efc21cc}{count}].\hyperlink{structt__NHCmdSet_1_1t__NHCmdSetElem_a6a68706040fcf42bc48b881d1cb47597}{free\_on\_destroy} = 0;
+1159     p->\hyperlink{structt__NHCmdSet_ae62ce8b45a5f163808244bc70efc21cc}{count}++;
+1160 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a70625397842a7831ce865789e8470013}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdset\+\_\+count@{nhcmdset\+\_\+count}}
+\index{nhcmdset\+\_\+count@{nhcmdset\+\_\+count}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdset\+\_\+count}]{\setlength{\rightskip}{0pt plus 5cm}int nhcmdset\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+N\+H\+Cmd\+Set}}]{p}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_a70625397842a7831ce865789e8470013}
+
+
+Definition at line 1133 of file mhcmd.\+c.
+
+
+
+References assert, and t\+\_\+\+N\+H\+Cmd\+Set\+::count.
+
+
+
+Referenced by Activate\+Cell().
+
+
+\begin{DoxyCode}
+1134 \{
+1135     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}(p);
+1136     \textcolor{keywordflow}{return} p->\hyperlink{structt__NHCmdSet_ae62ce8b45a5f163808244bc70efc21cc}{count};
+1137 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a2701c68f86aae9839c7a7d04d1c1a317}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdset\+\_\+create@{nhcmdset\+\_\+create}}
+\index{nhcmdset\+\_\+create@{nhcmdset\+\_\+create}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdset\+\_\+create}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+N\+H\+Cmd\+Set} nhcmdset\+\_\+create (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_a2701c68f86aae9839c7a7d04d1c1a317}
+
+
+Definition at line 1125 of file mhcmd.\+c.
+
+
+
+References malloc().
+
+
+
+Referenced by register\+\_\+command\+\_\+window\+\_\+class().
+
+
+\begin{DoxyCode}
+1126 \{
+1127     \hyperlink{structt__NHCmdSet}{PNHCmdSet} p;
+1128     p = (\hyperlink{mhcmd_8c_ade5620d2c1d652d6efb982365d92d542}{PNHCmdSet})\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(\textcolor{keyword}{sizeof}(\hyperlink{structt__NHCmdSet}{NHCmdSet}));
+1129     ZeroMemory(p, \textcolor{keyword}{sizeof}(\hyperlink{structt__NHCmdSet}{NHCmdSet}));
+1130     \textcolor{keywordflow}{return} p;
+1131 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a13cf85ae1b97a0875282b2fd50676897}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdset\+\_\+destroy@{nhcmdset\+\_\+destroy}}
+\index{nhcmdset\+\_\+destroy@{nhcmdset\+\_\+destroy}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdset\+\_\+destroy}]{\setlength{\rightskip}{0pt plus 5cm}void nhcmdset\+\_\+destroy (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+N\+H\+Cmd\+Set}}]{p}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_a13cf85ae1b97a0875282b2fd50676897}
+
+
+Definition at line 1162 of file mhcmd.\+c.
+
+
+
+References assert, t\+\_\+\+N\+H\+Cmd\+Set\+::count, t\+\_\+\+N\+H\+Cmd\+Set\+::elements, free(), t\+\_\+\+N\+H\+Cmd\+Set\+::t\+\_\+\+N\+H\+Cmd\+Set\+Elem\+::free\+\_\+on\+\_\+destroy, t\+\_\+\+N\+H\+Cmd\+Set\+::t\+\_\+\+N\+H\+Cmd\+Set\+Elem\+::layout, and nhcmdlayout\+\_\+destroy().
+
+
+\begin{DoxyCode}
+1163 \{
+1164     \textcolor{keywordtype}{int} i=0;
+1165     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}(p);
+1166     \textcolor{keywordflow}{for}(i=0; i<p->\hyperlink{structt__NHCmdSet_ae62ce8b45a5f163808244bc70efc21cc}{count}; i++) \{
+1167         \textcolor{keywordflow}{if}( p->\hyperlink{structt__NHCmdSet_a923145ebecc20823fd02173c7223fce3}{elements}[i].\hyperlink{structt__NHCmdSet_1_1t__NHCmdSetElem_a6a68706040fcf42bc48b881d1cb47597}{free\_on\_destroy} ) \{
+1168             \hyperlink{mhcmd_8c_af70b92dde3dbfee66d44efb94b288740}{nhcmdlayout\_destroy}( p->\hyperlink{structt__NHCmdSet_a923145ebecc20823fd02173c7223fce3}{elements}[i].
+      \hyperlink{structt__NHCmdSet_1_1t__NHCmdSetElem_aea1a472ac29d2338226972e53b82a463}{layout} );
+1169         \}
+1170     \}
+1171     \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(p);
+1172 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdset\+\_\+get@{nhcmdset\+\_\+get}}
+\index{nhcmdset\+\_\+get@{nhcmdset\+\_\+get}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdset\+\_\+get}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+N\+H\+Cmd\+Layout} nhcmdset\+\_\+get (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+N\+H\+Cmd\+Set}}]{p, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}
+
+
+Definition at line 1139 of file mhcmd.\+c.
+
+
+
+References assert, count, t\+\_\+\+N\+H\+Cmd\+Set\+::elements, index(), and t\+\_\+\+N\+H\+Cmd\+Set\+::t\+\_\+\+N\+H\+Cmd\+Set\+Elem\+::layout.
+
+
+
+Referenced by Activate\+Cell(), and on\+Create().
+
+
+\begin{DoxyCode}
+1140 \{
+1141     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}(p);
+1142     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}(\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}>=0 && index<p->\hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count});
+1143     \textcolor{keywordflow}{return} p->\hyperlink{structt__NHCmdSet_a923145ebecc20823fd02173c7223fce3}{elements}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdSet_1_1t__NHCmdSetElem_aea1a472ac29d2338226972e53b82a463}{layout};
+1144 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a017b5e936795738775aee5c6d75baa40}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdset\+\_\+get\+\_\+name@{nhcmdset\+\_\+get\+\_\+name}}
+\index{nhcmdset\+\_\+get\+\_\+name@{nhcmdset\+\_\+get\+\_\+name}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdset\+\_\+get\+\_\+name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf const} char $\ast$ nhcmdset\+\_\+get\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{{\bf P\+N\+H\+Cmd\+Set}}]{p, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_a017b5e936795738775aee5c6d75baa40}
+
+
+Definition at line 1146 of file mhcmd.\+c.
+
+
+
+References assert, count, t\+\_\+\+N\+H\+Cmd\+Set\+::elements, index(), t\+\_\+\+N\+H\+Cmd\+Set\+::t\+\_\+\+N\+H\+Cmd\+Set\+Elem\+::layout, and t\+\_\+\+N\+H\+Cmd\+Layout\+::name.
+
+
+
+Referenced by Activate\+Cell().
+
+
+\begin{DoxyCode}
+1147 \{
+1148     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}(p);
+1149     \hyperlink{assert_8h_a6f56363b38edbe2c8f3f447f891ee2c0}{assert}(\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}>=0 && index<p->\hyperlink{wingem1_8c_a66e3fedede6aa372e5196e55e5e8d5c1}{count});
+1150     \textcolor{keywordflow}{return} p->\hyperlink{structt__NHCmdSet_a923145ebecc20823fd02173c7223fce3}{elements}[\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}].\hyperlink{structt__NHCmdSet_1_1t__NHCmdSetElem_aea1a472ac29d2338226972e53b82a463}{layout}->\hyperlink{structt__NHCmdLayout_a0545015938cf16c21bb813d4fe075ed7}{name};
+1151 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_ac77be6601ba438e147802166be37536b}{\index{mhcmd.\+c@{mhcmd.\+c}!N\+H\+Command\+Wnd\+Proc@{N\+H\+Command\+Wnd\+Proc}}
+\index{N\+H\+Command\+Wnd\+Proc@{N\+H\+Command\+Wnd\+Proc}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{N\+H\+Command\+Wnd\+Proc}]{\setlength{\rightskip}{0pt plus 5cm}L\+R\+E\+S\+U\+L\+T C\+A\+L\+L\+B\+A\+C\+K N\+H\+Command\+Wnd\+Proc (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf U\+I\+N\+T}}]{message, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)}}\label{mhcmd_8c_ac77be6601ba438e147802166be37536b}
+
+
+Definition at line 526 of file mhcmd.\+c.
+
+
+
+References F\+A\+L\+S\+E, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::font, free(), Layout\+Cmd\+Window(), N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+M\+A\+X, on\+Create(), on\+Mouse\+Down(), on\+Mouse\+Move(), on\+Mouse\+Up(), and on\+Paint().
+
+
+
+Referenced by register\+\_\+command\+\_\+window\+\_\+class().
+
+
+\begin{DoxyCode}
+527 \{
+528     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+529     \textcolor{keywordtype}{int} i;
+530 
+531     \textcolor{keywordflow}{switch} (message) 
+532     \{
+533     \textcolor{keywordflow}{case} WM\_CREATE:
+534         \hyperlink{mhcmd_8c_a8d537e532190de086a8d3636c37c57a9}{onCreate}( hWnd, wParam, lParam );
+535         \textcolor{keywordflow}{break};
+536 
+537     \textcolor{keywordflow}{case} WM\_PAINT: 
+538         \hyperlink{mhcmd_8c_ad09a28d28eea324af31f4fdfa19a44b4}{onPaint}(hWnd);
+539         \textcolor{keywordflow}{break};
+540 
+541     \textcolor{keywordflow}{case} WM\_SIZE:
+542         \hyperlink{mhcmd_8c_a3509b8390af27e4310e58c122a553df5}{LayoutCmdWindow}(hWnd);
+543         \textcolor{keywordflow}{break};
+544 
+545     \textcolor{keywordflow}{case} WM\_LBUTTONDOWN:
+546         \hyperlink{mhcmd_8c_a107202aedd410094960c51ac10a16eb2}{onMouseDown}(hWnd, wParam, lParam);
+547         \textcolor{keywordflow}{return} 0;
+548 
+549     \textcolor{keywordflow}{case} WM\_MOUSEMOVE:
+550         \textcolor{comment}{/* proceed only if if have mouse focus (set in onMouseDown() - }
+551 \textcolor{comment}{           left mouse button is pressed) */}
+552         \textcolor{keywordflow}{if}( GetCapture()==hWnd ) \{ 
+553             \hyperlink{mhcmd_8c_ad406a5cebf329410c1f0bf1296c24aea}{onMouseMove}(hWnd, wParam, lParam);
+554             \textcolor{keywordflow}{return} 0;
+555         \} \textcolor{keywordflow}{else} \{
+556             \textcolor{keywordflow}{return} 1;
+557         \}
+558         \textcolor{keywordflow}{break};
+559         
+560     \textcolor{keywordflow}{case} WM\_LBUTTONUP:
+561         \textcolor{comment}{/* proceed only if if have mouse focus (set in onMouseDown()) */}
+562         \textcolor{keywordflow}{if}( GetCapture()==hWnd ) \{ 
+563             \hyperlink{mhcmd_8c_a1962bcf2e970516acee76781f348c7b7}{onMouseUp}(hWnd, wParam, lParam);
+564             \textcolor{keywordflow}{return} 0;
+565         \} \textcolor{keywordflow}{else} \{
+566             \textcolor{keywordflow}{return} 1;
+567         \}
+568         \textcolor{keywordflow}{break};
+569 
+570     \textcolor{keywordflow}{case} WM\_DESTROY:
+571         data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+572         \textcolor{keywordflow}{for}(i=0; i<=\hyperlink{mhcmd_8c_a85bf3f37ae0563a86d715a3fb7accaec}{NH\_CMDPAD\_FONT\_MAX}; i++ )
+573             \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_a78cd956720dc8bbd93d177563c27a5d0}{font}[i] ) DeleteObject(data->\hyperlink{structmswin__nethack__cmd__window_a78cd956720dc8bbd93d177563c27a5d0}{font}[i]);
+574         \hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}(data);
+575         SetWindowLong(hWnd, GWL\_USERDATA, (LONG)0);
+576         \textcolor{keywordflow}{break};
+577 
+578     \textcolor{keywordflow}{default}:
+579         \textcolor{keywordflow}{return} DefWindowProc(hWnd, message, wParam, lParam);
+580     \}
+581     \textcolor{keywordflow}{return} \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+582 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a8d537e532190de086a8d3636c37c57a9}{\index{mhcmd.\+c@{mhcmd.\+c}!on\+Create@{on\+Create}}
+\index{on\+Create@{on\+Create}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{on\+Create}]{\setlength{\rightskip}{0pt plus 5cm}void on\+Create (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a8d537e532190de086a8d3636c37c57a9}
+
+
+Definition at line 706 of file mhcmd.\+c.
+
+
+
+References Get\+N\+H\+App(), I\+D\+B\+\_\+\+K\+E\+Y\+P\+A\+D, malloc(), nhcmdset\+\_\+get(), panic(), and Set\+Cmd\+Window\+Layout().
+
+
+
+Referenced by N\+H\+Command\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+707 \{
+708     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+709 
+710     \textcolor{comment}{/* set window data */}
+711     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})\hyperlink{winproto_8h_ab028c02ac00afc0c1d3c568ccad68869}{malloc}(\textcolor{keyword}{sizeof}(\hyperlink{structmswin__nethack__cmd__window}{NHCmdWindow}));
+712     \textcolor{keywordflow}{if}( !data ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"out of memory"});
+713 
+714     ZeroMemory(data, \textcolor{keyword}{sizeof}(\hyperlink{structmswin__nethack__cmd__window}{NHCmdWindow}));
+715     SetWindowLong(hWnd, GWL\_USERDATA, (LONG)data);
+716 
+717     data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell} = -1;
+718 
+719     \textcolor{comment}{/* load images bitmap */}
+720     data->\hyperlink{structmswin__nethack__cmd__window_a5bd2743549a8fb8f1402eadf322beba1}{images} = LoadBitmap(\hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->hApp, MAKEINTRESOURCE(
+      \hyperlink{sys_2wince_2resource_8h_aaf08f54b47e67df88fc79f705bed1af5}{IDB\_KEYPAD}));
+721     \textcolor{keywordflow}{if}( !data->\hyperlink{structmswin__nethack__cmd__window_a5bd2743549a8fb8f1402eadf322beba1}{images} ) \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"cannot load keypad bitmap"});
+722 
+723     \textcolor{comment}{/* create default layouts */}
+724     data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current} = 0;
+725     data->\hyperlink{structmswin__nethack__cmd__window_a6ce098bf49ef1d66ca15487b0df1817a}{layout\_save} = 0;
+726     data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells} = 0;
+727 
+728 \textcolor{preprocessor}{#if defined(WIN\_CE\_SMARTPHONE)}
+729     data->layout\_selected = \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\_get}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, 0);
+730 \textcolor{preprocessor}{#endif}
+731 
+732     \textcolor{comment}{/* set default layout */}
+733     \hyperlink{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{SetCmdWindowLayout}(hWnd, \hyperlink{mhcmd_8c_a47457cc6bc033355e79e0472b8a3a1ec}{nhcmdset\_get}(
+      \hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, 0));
+734 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a107202aedd410094960c51ac10a16eb2}{\index{mhcmd.\+c@{mhcmd.\+c}!on\+Mouse\+Down@{on\+Mouse\+Down}}
+\index{on\+Mouse\+Down@{on\+Mouse\+Down}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{on\+Mouse\+Down}]{\setlength{\rightskip}{0pt plus 5cm}void on\+Mouse\+Down (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a107202aedd410094960c51ac10a16eb2}
+
+
+Definition at line 830 of file mhcmd.\+c.
+
+
+
+References mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::active\+\_\+cell, Cell\+From\+Point(), mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cells, Highlight\+Cell(), N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D, and t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::state.
+
+
+
+Referenced by N\+H\+Command\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+831 \{
+832     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+833     POINT mpt;
+834 
+835     \textcolor{comment}{/* get mouse coordinates */}
+836     mpt.x = LOWORD(lParam);
+837     mpt.y = HIWORD(lParam);
+838 
+839     \textcolor{comment}{/* map mouse coordinates to the display cell */}
+840     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+841     data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell} = \hyperlink{mhcmd_8c_a810a82d71e5ff59e80daed82254312c5}{CellFromPoint}(data, mpt);
+842     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell}==-1 ) \textcolor{keywordflow}{return};
+843 
+844     \textcolor{comment}{/* set mouse focus to the current window */}
+845     SetCapture(hWnd);
+846 
+847     \textcolor{comment}{/* invert the selection */}
+848     \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell}, (data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[data->
+      \hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell}].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state}!=\hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{NH\_CST\_CHECKED}) );
+849 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_ad406a5cebf329410c1f0bf1296c24aea}{\index{mhcmd.\+c@{mhcmd.\+c}!on\+Mouse\+Move@{on\+Mouse\+Move}}
+\index{on\+Mouse\+Move@{on\+Mouse\+Move}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{on\+Mouse\+Move}]{\setlength{\rightskip}{0pt plus 5cm}void on\+Mouse\+Move (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_ad406a5cebf329410c1f0bf1296c24aea}
+
+
+Definition at line 851 of file mhcmd.\+c.
+
+
+
+References mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::active\+\_\+cell, Cell\+From\+Point(), Highlight\+Cell(), mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::is\+\_\+caps, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::is\+\_\+ctrl, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+A\+P, N\+H\+\_\+\+C\+E\+L\+L\+\_\+\+C\+T\+R\+L, and nhcmdlayout\+\_\+cell\+\_\+direct.
+
+
+
+Referenced by N\+H\+Command\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+852 \{
+853     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+854     POINT mpt;
+855     \textcolor{keywordtype}{int} newActiveCell;
+856 
+857     \textcolor{comment}{/* get mouse coordinates */}
+858     mpt.x = LOWORD(lParam);
+859     mpt.y = HIWORD(lParam);
+860 
+861     \textcolor{comment}{/* map mouse coordinates to the display cell */}
+862     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+863     newActiveCell = \hyperlink{mhcmd_8c_a810a82d71e5ff59e80daed82254312c5}{CellFromPoint}(data, mpt);
+864     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell} == -1 ) \textcolor{keywordflow}{return};
+865 
+866     \textcolor{comment}{/* if mouse is within orginal display cell - select the cell otherwise}
+867 \textcolor{comment}{       clear the selection */}
+868     \textcolor{keywordflow}{switch}( \hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\_cell\_direct}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}, data->
+      \hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell})->type ) \{
+869     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a6f0002b1ea5e52e00a5461f2d5eee460}{NH\_CELL\_REG}: 
+870         \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell}, 
+871                    (newActiveCell==data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell}) );
+872         \textcolor{keywordflow}{break};
+873 
+874     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_a0b44981458354ff901c8f54d2bcdca27}{NH\_CELL\_CTRL}:
+875         \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell}, 
+876             ((newActiveCell==data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell})? !data->\hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl} : data->
+      \hyperlink{structmswin__nethack__cmd__window_aff2fb0876c6837b751726f8eea0c418f}{is\_ctrl}) );
+877         \textcolor{keywordflow}{break};
+878 
+879     \textcolor{keywordflow}{case} \hyperlink{mhcmd_8c_aa8f771633ad4980bd9698980d2e7c963}{NH\_CELL\_CAP}:
+880         \hyperlink{mhcmd_8c_a3179d3ca25154f8b54ea16faf8b95fec}{HighlightCell}(hWnd, data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell}, 
+881             ((newActiveCell==data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell})? !data->\hyperlink{structmswin__nethack__cmd__window_a474681414472e8c3ea58b258af3abc42}{is\_caps} : data->
+      \hyperlink{structmswin__nethack__cmd__window_a474681414472e8c3ea58b258af3abc42}{is\_caps}) );
+882         \textcolor{keywordflow}{break};
+883     \}
+884 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a1962bcf2e970516acee76781f348c7b7}{\index{mhcmd.\+c@{mhcmd.\+c}!on\+Mouse\+Up@{on\+Mouse\+Up}}
+\index{on\+Mouse\+Up@{on\+Mouse\+Up}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{on\+Mouse\+Up}]{\setlength{\rightskip}{0pt plus 5cm}void on\+Mouse\+Up (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{W\+P\+A\+R\+A\+M}]{w\+Param, }
+\item[{L\+P\+A\+R\+A\+M}]{l\+Param}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a1962bcf2e970516acee76781f348c7b7}
+
+
+Definition at line 886 of file mhcmd.\+c.
+
+
+
+References Activate\+Cell(), and mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::active\+\_\+cell.
+
+
+
+Referenced by N\+H\+Command\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+887 \{
+888     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+889 
+890     \textcolor{comment}{/* release mouse capture */}
+891     ReleaseCapture();
+892 
+893     \textcolor{comment}{/* get active display cell */}
+894     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+895     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell} == -1 ) \textcolor{keywordflow}{return};
+896 
+897     \hyperlink{mhcmd_8c_a8a4c2d6fe51fea7afc3e6fc694381314}{ActivateCell}(hWnd, data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell});
+898 
+899     data->\hyperlink{structmswin__nethack__cmd__window_a2ef0bcb1c4f8861efd01cf5dd57eb421}{active\_cell} = -1;
+900 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_ad09a28d28eea324af31f4fdfa19a44b4}{\index{mhcmd.\+c@{mhcmd.\+c}!on\+Paint@{on\+Paint}}
+\index{on\+Paint@{on\+Paint}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{on\+Paint}]{\setlength{\rightskip}{0pt plus 5cm}void on\+Paint (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_ad09a28d28eea324af31f4fdfa19a44b4}
+
+
+Definition at line 584 of file mhcmd.\+c.
+
+
+
+References B\+U\+F\+S\+Z, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cell\+\_\+size, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cells, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::font, t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::image, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::images, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, min, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+G, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+F\+G, mswin\+\_\+get\+\_\+color(), t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::mult, N\+H\+\_\+\+A2\+W, N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+F\+O\+N\+T\+\_\+\+N\+O\+R\+M\+A\+L, N\+H\+\_\+\+C\+S\+T\+\_\+\+C\+H\+E\+C\+K\+E\+D, nhcmdlayout\+\_\+cell\+\_\+direct, nhcmdlayout\+\_\+columns, nhcmdlayout\+\_\+rows, N\+H\+W\+\_\+\+K\+E\+Y\+P\+A\+D, N\+U\+L\+L, t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::orig, t\+\_\+\+N\+H\+Cmd\+Pad\+Layout\+Cell\+::state, and t\+\_\+\+N\+H\+Cmd\+Pad\+Cell\+::text.
+
+
+
+Referenced by N\+H\+Command\+Wnd\+Proc().
+
+
+\begin{DoxyCode}
+585 \{
+586     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+587     PAINTSTRUCT ps;
+588     HDC hDC;
+589     \textcolor{keywordtype}{int} x, y;
+590     TCHAR wbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+591     HGDIOBJ saveFont;
+592     BITMAP  bm;
+593     \textcolor{keywordtype}{int}  cell\_index;
+594 
+595     \textcolor{comment}{/* get window data */}
+596     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+597 
+598     hDC = BeginPaint(hWnd, &ps);
+599 
+600     \textcolor{keywordflow}{if}( !IsRectEmpty(&ps.rcPaint) ) \{
+601         HGDIOBJ oldBr;
+602         HBRUSH hbrPattern;
+603         COLORREF OldBg, OldFg;
+604         HPEN hPen;
+605         HGDIOBJ hOldPen;
+606 
+607         saveFont = SelectObject(hDC, data->\hyperlink{structmswin__nethack__cmd__window_a78cd956720dc8bbd93d177563c27a5d0}{font}[\hyperlink{mhcmd_8c_afdabfcf9a9889541e2b728ccd1cce189}{NH\_CMDPAD\_FONT\_NORMAL}]);
+608         OldBg = SetBkColor(hDC, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{sys_2wince_2winMS_8h_a1ac6eaf855c121d36bce951250a1f2b2}{NHW\_KEYPAD}, 
+      \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG}));
+609         OldFg = SetTextColor(hDC, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{sys_2wince_2winMS_8h_a1ac6eaf855c121d36bce951250a1f2b2}{NHW\_KEYPAD}, 
+      \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG})); 
+610 
+611         GetObject(data->\hyperlink{structmswin__nethack__cmd__window_a5bd2743549a8fb8f1402eadf322beba1}{images}, \textcolor{keyword}{sizeof}(BITMAP), (LPVOID)&bm);
+612 
+613         hbrPattern = CreatePatternBrush(data->\hyperlink{structmswin__nethack__cmd__window_a5bd2743549a8fb8f1402eadf322beba1}{images});
+614         hPen = CreatePen(PS\_SOLID, 1, \hyperlink{mhcolor_8c_ab1f83ed2725328b54f6d14fc76499f77}{mswin\_get\_color}(\hyperlink{sys_2wince_2winMS_8h_a1ac6eaf855c121d36bce951250a1f2b2}{NHW\_KEYPAD}, 
+      \hyperlink{mhcolor_8h_adebe97ec6aadf867c14e22370fffe9d8}{MSWIN\_COLOR\_FG}));
+615 
+616         \textcolor{keywordflow}{for}( x=0, cell\_index = 0; x<\hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\_rows}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}); x++ )
+617         \textcolor{keywordflow}{for}( y=0; y<\hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\_columns}(data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}); y++, 
+      cell\_index++ ) \{
+618             RECT cell\_rt;
+619             POINT pt[5];
+620             \hyperlink{structt__NHCmdPadCell}{PNHCmdPadCell} p\_cell\_data;
+621 
+622             p\_cell\_data = \hyperlink{mhcmd_8c_a97f7e60c32e0611376877d04ecdc6f68}{nhcmdlayout\_cell\_direct}(data->
+      \hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current}, cell\_index);
+623 
+624             \textcolor{comment}{/* calculate the cell rectangle */}
+625             cell\_rt.left = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell\_index].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.x;
+626             cell\_rt.top = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell\_index].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.y;
+627             cell\_rt.right = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell\_index].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.x + data->
+      \hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cx*p\_cell\_data->\hyperlink{structt__NHCmdPadCell_af9f8628557b1a7272f4422d218bd020f}{mult};
+628             cell\_rt.bottom = data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell\_index].\hyperlink{structt__NHCmdPadLayoutCell_ae226ccfb394ed92889552b07763ba2d9}{orig}.y + data->
+      \hyperlink{structmswin__nethack__cmd__window_aaf1f18d57dc3cf2e745df8fa84bbacc6}{cell\_size}.cy;
+629 
+630             \textcolor{comment}{/* draw border */}
+631             hOldPen = SelectObject(hDC, hPen);
+632             pt[0].x = cell\_rt.left;
+633             pt[0].y = cell\_rt.top;
+634             pt[1].x = cell\_rt.right;
+635             pt[1].y = cell\_rt.top;
+636             pt[2].x = cell\_rt.right;
+637             pt[2].y = cell\_rt.bottom;
+638             pt[3].x = cell\_rt.left;
+639             pt[3].y = cell\_rt.bottom;
+640             pt[4].x = cell\_rt.left;
+641             pt[4].y = cell\_rt.top;
+642             Polyline(hDC, pt, 5);
+643             SelectObject(hDC, hOldPen);
+644 
+645             \textcolor{comment}{/* calculate clipping rectangle for the text */}
+646             cell\_rt.left++;
+647             cell\_rt.top ++;
+648             cell\_rt.right--;
+649             cell\_rt.bottom--;
+650 
+651             \textcolor{comment}{/* draw the cell text */}
+652             \textcolor{keywordflow}{if}( p\_cell\_data->\hyperlink{structt__NHCmdPadCell_aef91a1adf61e7b83fff7a4cf53b559a7}{image}<=0 ) \{
+653                 SelectObject(hDC, data->\hyperlink{structmswin__nethack__cmd__window_a78cd956720dc8bbd93d177563c27a5d0}{font}[ -p\_cell\_data->\hyperlink{structt__NHCmdPadCell_aef91a1adf61e7b83fff7a4cf53b559a7}{image} ]);
+654                 DrawText(hDC, 
+655                         \hyperlink{wceconf_8h_a2ed36c9ee770dfe5f2d0e3088a62adad}{NH\_A2W}(p\_cell\_data->\hyperlink{structt__NHCmdPadCell_ac4dbb4412979fff9f460a05132632e22}{text}, wbuf, \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}), 
+656                         strlen(p\_cell\_data->\hyperlink{structt__NHCmdPadCell_ac4dbb4412979fff9f460a05132632e22}{text}),
+657                         &cell\_rt,
+658                         DT\_CENTER | DT\_VCENTER | DT\_SINGLELINE | DT\_NOPREFIX
+659                         );
+660             \} \textcolor{keywordflow}{else} \{
+661                 \textcolor{comment}{/* draw bitmap */}
+662                 \textcolor{keywordtype}{int} bmOffset;
+663                 RECT bitmap\_rt;
+664 
+665                 bmOffset = (p\_cell\_data->\hyperlink{structt__NHCmdPadCell_aef91a1adf61e7b83fff7a4cf53b559a7}{image} - 1)*bm.bmHeight;
+666 
+667                 bitmap\_rt.left = ((cell\_rt.left+cell\_rt.right) - \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(bm.bmHeight, (cell\_rt.right-cell\_rt
+      .left)))/2;
+668                 bitmap\_rt.top = ((cell\_rt.bottom+cell\_rt.top) - \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(bm.bmHeight, (cell\_rt.bottom-cell\_rt
+      .top)))/2;
+669                 bitmap\_rt.right = bitmap\_rt.left + \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(bm.bmHeight, (cell\_rt.right-cell\_rt.left));
+670                 bitmap\_rt.bottom = bitmap\_rt.top + \hyperlink{hack_8h_abb702d8b501669a23aa0ab3b281b9384}{min}(bm.bmHeight, (cell\_rt.bottom-cell\_rt.top));
+671 
+672                 SetBrushOrgEx(hDC, bitmap\_rt.left-bmOffset, bitmap\_rt.top, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+673                 oldBr = SelectObject(hDC, hbrPattern);
+674                 PatBlt( 
+675                     hDC, 
+676                     bitmap\_rt.left, 
+677                     bitmap\_rt.top, 
+678                     bitmap\_rt.right-bitmap\_rt.left, 
+679                     bitmap\_rt.bottom-bitmap\_rt.top,
+680                     PATCOPY);
+681                 SelectObject(hDC, oldBr);
+682             \}
+683 
+684             \textcolor{comment}{/* invert the cell if it is selected */}
+685             \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}[cell\_index].\hyperlink{structt__NHCmdPadLayoutCell_a9ed2eeb5f8a90c1517ebc2865a4890bb}{state} == \hyperlink{mhcmd_8c_a32e6285ebd08028d5d49b8ac682ce910}{NH\_CST\_CHECKED} ) \{
+686                 IntersectRect( &cell\_rt, &cell\_rt, &ps.rcPaint);
+687                 PatBlt( hDC, 
+688                         cell\_rt.left,
+689                         cell\_rt.top,
+690                         cell\_rt.right - cell\_rt.left,
+691                         cell\_rt.bottom - cell\_rt.top,
+692                         DSTINVERT
+693                         );
+694             \}
+695         \}
+696 
+697         SetTextColor(hDC, OldFg);
+698         SetBkColor(hDC, OldBg);
+699         SelectObject(hDC, saveFont);
+700         DeleteObject(hbrPattern);
+701         DeleteObject(hPen);
+702     \}
+703     EndPaint(hWnd, &ps);
+704 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_af56b756992d567434d68b6b0322588c2}{\index{mhcmd.\+c@{mhcmd.\+c}!Push\+Nethack\+Command@{Push\+Nethack\+Command}}
+\index{Push\+Nethack\+Command@{Push\+Nethack\+Command}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{Push\+Nethack\+Command}]{\setlength{\rightskip}{0pt plus 5cm}void Push\+Nethack\+Command (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{cmd\+\_\+char\+\_\+str, }
+\item[{int}]{is\+\_\+ctrl}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_af56b756992d567434d68b6b0322588c2}
+
+
+Definition at line 1080 of file mhcmd.\+c.
+
+
+
+References C, and N\+H\+E\+V\+E\+N\+T\+\_\+\+K\+B\+D.
+
+
+
+Referenced by Activate\+Cell().
+
+
+\begin{DoxyCode}
+1081 \{
+1082     \textcolor{keywordflow}{while}( *cmd\_char\_str ) \{
+1083         \textcolor{keywordflow}{if}( is\_ctrl ) \{ \hyperlink{sys_2wince_2mhinput_8h_ad452f038118c4ddd0a840d7c2288549f}{NHEVENT\_KBD}( \hyperlink{mhcmd_8c_ad1368c2a0fa68385ecdd9f1016563c08}{C}(*cmd\_char\_str) ); \}
+1084         \textcolor{keywordflow}{else}          \{ \hyperlink{sys_2wince_2mhinput_8h_ad452f038118c4ddd0a840d7c2288549f}{NHEVENT\_KBD}( *cmd\_char\_str ); \}
+1085         cmd\_char\_str++;
+1086     \}
+1087 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_a8df85e83a2ee7c554e66c2025a366c4d}{\index{mhcmd.\+c@{mhcmd.\+c}!register\+\_\+command\+\_\+window\+\_\+class@{register\+\_\+command\+\_\+window\+\_\+class}}
+\index{register\+\_\+command\+\_\+window\+\_\+class@{register\+\_\+command\+\_\+window\+\_\+class}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{register\+\_\+command\+\_\+window\+\_\+class}]{\setlength{\rightskip}{0pt plus 5cm}void register\+\_\+command\+\_\+window\+\_\+class (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a8df85e83a2ee7c554e66c2025a366c4d}
+
+
+Definition at line 466 of file mhcmd.\+c.
+
+
+
+References Get\+N\+H\+App(), mswin\+\_\+nhwindow\+\_\+app\+::h\+App, M\+S\+W\+I\+N\+\_\+\+C\+O\+L\+O\+R\+\_\+\+B\+G, mswin\+\_\+get\+\_\+brush(), N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S, N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S, nhcmdlayout\+\_\+create(), nhcmdlayout\+\_\+init(), nhcmdset\+\_\+add(), nhcmdset\+\_\+create(), N\+H\+Command\+Wnd\+Proc(), N\+H\+W\+\_\+\+K\+E\+Y\+P\+A\+D, N\+U\+L\+L, panic(), and sz\+N\+H\+Cmd\+Window\+Class.
+
+
+
+Referenced by mswin\+\_\+init\+\_\+command\+\_\+window().
+
+
+\begin{DoxyCode}
+467 \{
+468     WNDCLASS wcex;
+469     \hyperlink{structt__NHCmdLayout}{PNHCmdLayout} plt;
+470     ZeroMemory( &wcex, \textcolor{keyword}{sizeof}(wcex));
+471 
+472     \textcolor{comment}{/* window class */}
+473     wcex.style          = CS\_NOCLOSE;
+474     wcex.lpfnWndProc    = (WNDPROC)\hyperlink{mhcmd_8c_ac77be6601ba438e147802166be37536b}{NHCommandWndProc};
+475     wcex.cbClsExtra     = 0;
+476     wcex.cbWndExtra     = 0;
+477     wcex.hInstance      = \hyperlink{sys_2wince_2winhack_8c_ad72c8d80c9fc01eaf07a3c2463ab88bd}{GetNHApp}()->\hyperlink{structmswin__nhwindow__app_ae3a365ad66195c8e1d915242897c3f24}{hApp};
+478     wcex.hIcon          = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+479     wcex.hCursor        = LoadCursor(\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, IDC\_ARROW);
+480     wcex.hbrBackground  = \hyperlink{mhcolor_8c_ace6d2982c253de50f648605b5352e083}{mswin\_get\_brush}(\hyperlink{sys_2wince_2winMS_8h_a1ac6eaf855c121d36bce951250a1f2b2}{NHW\_KEYPAD}, 
+      \hyperlink{mhcolor_8h_a95a6bcc0be3a6670574883b5814f5b53}{MSWIN\_COLOR\_BG});
+481     wcex.lpszMenuName   = \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+482     wcex.lpszClassName  = \hyperlink{mhcmd_8c_ac01ca5e9444edc0d2056c4cdf00db6b8}{szNHCmdWindowClass};
+483 
+484     \textcolor{keywordflow}{if}( !RegisterClass(&wcex) ) \{
+485         \hyperlink{txt2iff_8c_ab0824b6f5eb51db9371d2e9a222249d3}{panic}(\textcolor{stringliteral}{"cannot register Map window class"});
+486     \}
+487 
+488     \textcolor{comment}{/* create default command set */}
+489     \hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current} = \hyperlink{mhcmd_8c_aa3d1899ead5a19f09fca6828b76dc09b}{nhcmdset\_default} = 
+      \hyperlink{mhcmd_8c_a2701c68f86aae9839c7a7d04d1c1a317}{nhcmdset\_create}();
+490 
+491 \textcolor{preprocessor}{#ifdef WIN\_CE\_SMARTPHONE}
+492     plt = \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\_create}(\textcolor{stringliteral}{"General"}, \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{NH\_CMDPAD\_ROWS}, 
+      \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{NH\_CMDPAD\_COLS});
+493     \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\_init}(plt, cells\_layout\_general);
+494     \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\_add}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, plt);
+495 
+496     plt = \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\_create}(\textcolor{stringliteral}{"Movement"}, \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{NH\_CMDPAD\_ROWS}, 
+      \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{NH\_CMDPAD\_COLS});
+497     \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\_init}(plt, cells\_layout\_movement);
+498     \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\_add}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, plt );
+499 
+500     plt = \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\_create}(\textcolor{stringliteral}{"Attack"}, \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{NH\_CMDPAD\_ROWS}, 
+      \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{NH\_CMDPAD\_COLS});
+501     \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\_init}(plt, cells\_layout\_attack);
+502     \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\_add}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, plt);
+503 
+504     plt = \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\_create}(\textcolor{stringliteral}{"Item Handling"}, \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{NH\_CMDPAD\_ROWS}, 
+      \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{NH\_CMDPAD\_COLS});
+505     \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\_init}(plt, cells\_layout\_item\_handling);
+506     \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\_add}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, plt);
+507 
+508     plt = \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\_create}(\textcolor{stringliteral}{"Game Controls"}, \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{NH\_CMDPAD\_ROWS}, 
+      \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{NH\_CMDPAD\_COLS});
+509     \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\_init}(plt, cells\_layout\_game);
+510     \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\_add}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, plt);
+511 
+512     plt = \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\_create}(\textcolor{stringliteral}{"Advanced Movement"}, 
+      \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{NH\_CMDPAD\_ROWS}, \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{NH\_CMDPAD\_COLS});
+513     \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\_init}(plt, cells\_layout\_adv\_movement);
+514     \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\_add}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, plt);
+515 \textcolor{preprocessor}{#else }\textcolor{comment}{/* ! WIN\_CE\_SMARTPHONE */}\textcolor{preprocessor}{}
+516     plt = \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\_create}(\textcolor{stringliteral}{"lowercase"}, \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{NH\_CMDPAD\_ROWS}, 
+      \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{NH\_CMDPAD\_COLS});
+517     \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\_init}(plt, \hyperlink{mhcmd_8c_a5f3e5a2b016aebca324f0f12209bd316}{cells\_layout\_mod1});
+518     \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\_add}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, plt);
+519 
+520     plt = \hyperlink{mhcmd_8c_aefaeffe896751c134ca092c6ba40f9ea}{nhcmdlayout\_create}(\textcolor{stringliteral}{"uppercase"}, \hyperlink{mhcmd_8c_a455685aa0ce9fe7d5ab14030306734a6}{NH\_CMDPAD\_ROWS}, 
+      \hyperlink{mhcmd_8c_abbe280077ab07d4d86ecd99486316363}{NH\_CMDPAD\_COLS});
+521     \hyperlink{mhcmd_8c_ac74aa8c8b381a57973186d957f300879}{nhcmdlayout\_init}(plt, \hyperlink{mhcmd_8c_aada132a3d47b05078fb71b62178a1aa1}{cells\_layout\_mod2});
+522     \hyperlink{mhcmd_8c_ab2073387202da708cdc9ff3c7e430195}{nhcmdset\_add}(\hyperlink{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{nhcmdset\_current}, plt);
+523 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* WIN\_CE\_SMARTPHONE */}\textcolor{preprocessor}{}
+524 \}
+\end{DoxyCode}
+\hypertarget{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}{\index{mhcmd.\+c@{mhcmd.\+c}!Set\+Cmd\+Window\+Layout@{Set\+Cmd\+Window\+Layout}}
+\index{Set\+Cmd\+Window\+Layout@{Set\+Cmd\+Window\+Layout}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{Set\+Cmd\+Window\+Layout}]{\setlength{\rightskip}{0pt plus 5cm}void Set\+Cmd\+Window\+Layout (
+\begin{DoxyParamCaption}
+\item[{H\+W\+N\+D}]{h\+Wnd, }
+\item[{{\bf P\+N\+H\+Cmd\+Layout}}]{layout}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_ac5e1ee3e271ed90d5925cf62cd005abf}
+
+
+Definition at line 815 of file mhcmd.\+c.
+
+
+
+References mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::cells, mswin\+\_\+nethack\+\_\+cmd\+\_\+window\+::layout\+\_\+current, Layout\+Cmd\+Window(), nhcmdlayout\+\_\+columns, and nhcmdlayout\+\_\+rows.
+
+
+
+Referenced by Activate\+Cell(), and on\+Create().
+
+
+\begin{DoxyCode}
+816 \{
+817     \hyperlink{structmswin__nethack__cmd__window}{PNHCmdWindow} data;
+818     \textcolor{keywordtype}{int} \hyperlink{structsize}{size};
+819 
+820     data = (\hyperlink{mhcmd_8c_aaa6c9699bf440e858b0a4d931c40f3dd}{PNHCmdWindow})GetWindowLong(hWnd, GWL\_USERDATA);
+821     \textcolor{keywordflow}{if}( data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current} == layout ) \textcolor{keywordflow}{return};
+822 
+823     data->\hyperlink{structmswin__nethack__cmd__window_a831bb0bd75e68f9481f2ee8b7c13bdf5}{layout\_current} = layout;
+824     size = \textcolor{keyword}{sizeof}(\hyperlink{mhcmd_8c_acc4733cc23482638a48d40973cc4f736}{NHCmdPadLayoutCell})*\hyperlink{mhcmd_8c_ab1174a192a55f22b5528f69d929fa595}{nhcmdlayout\_rows}(layout)*
+      \hyperlink{mhcmd_8c_a190c9459b9d2459bc3c994009053c8c6}{nhcmdlayout\_columns}(layout);
+825     data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells} = (\hyperlink{mhcmd_8c_aaa8d2473a514ad73872a4cf1e1ce283b}{PNHCmdPadLayoutCell})realloc(data->
+      \hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}, size);
+826     ZeroMemory(data->\hyperlink{structmswin__nethack__cmd__window_a3ed8b7eff746d3659dea5e100607bda4}{cells}, size);
+827     \hyperlink{mhcmd_8c_a3509b8390af27e4310e58c122a553df5}{LayoutCmdWindow}(hWnd);
+828 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{mhcmd_8c_a5f3e5a2b016aebca324f0f12209bd316}{\index{mhcmd.\+c@{mhcmd.\+c}!cells\+\_\+layout\+\_\+mod1@{cells\+\_\+layout\+\_\+mod1}}
+\index{cells\+\_\+layout\+\_\+mod1@{cells\+\_\+layout\+\_\+mod1}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{cells\+\_\+layout\+\_\+mod1}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+H\+Cmd\+Pad\+Cell} cells\+\_\+layout\+\_\+mod1\mbox{[}{\bf N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S} $\ast${\bf N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}\mbox{]}}}\label{mhcmd_8c_a5f3e5a2b016aebca324f0f12209bd316}
+
+
+Definition at line 286 of file mhcmd.\+c.
+
+\hypertarget{mhcmd_8c_aada132a3d47b05078fb71b62178a1aa1}{\index{mhcmd.\+c@{mhcmd.\+c}!cells\+\_\+layout\+\_\+mod2@{cells\+\_\+layout\+\_\+mod2}}
+\index{cells\+\_\+layout\+\_\+mod2@{cells\+\_\+layout\+\_\+mod2}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{cells\+\_\+layout\+\_\+mod2}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+H\+Cmd\+Pad\+Cell} cells\+\_\+layout\+\_\+mod2\mbox{[}-\/{\bf N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+R\+O\+W\+S} $\ast$-\/{\bf N\+H\+\_\+\+C\+M\+D\+P\+A\+D\+\_\+\+C\+O\+L\+S}\mbox{]}}}\label{mhcmd_8c_aada132a3d47b05078fb71b62178a1aa1}
+
+
+Definition at line 350 of file mhcmd.\+c.
+
+\hypertarget{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdset\+\_\+current@{nhcmdset\+\_\+current}}
+\index{nhcmdset\+\_\+current@{nhcmdset\+\_\+current}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdset\+\_\+current}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+N\+H\+Cmd\+Set} nhcmdset\+\_\+current = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_a55da58fa30338596c261800ca1d9db71}
+
+
+Definition at line 140 of file mhcmd.\+c.
+
+\hypertarget{mhcmd_8c_aa3d1899ead5a19f09fca6828b76dc09b}{\index{mhcmd.\+c@{mhcmd.\+c}!nhcmdset\+\_\+default@{nhcmdset\+\_\+default}}
+\index{nhcmdset\+\_\+default@{nhcmdset\+\_\+default}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{nhcmdset\+\_\+default}]{\setlength{\rightskip}{0pt plus 5cm}{\bf P\+N\+H\+Cmd\+Set} nhcmdset\+\_\+default = 0\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_aa3d1899ead5a19f09fca6828b76dc09b}
+
+
+Definition at line 141 of file mhcmd.\+c.
+
+
+
+Referenced by Activate\+Cell().
+
+\hypertarget{mhcmd_8c_ac01ca5e9444edc0d2056c4cdf00db6b8}{\index{mhcmd.\+c@{mhcmd.\+c}!sz\+N\+H\+Cmd\+Window\+Class@{sz\+N\+H\+Cmd\+Window\+Class}}
+\index{sz\+N\+H\+Cmd\+Window\+Class@{sz\+N\+H\+Cmd\+Window\+Class}!mhcmd.\+c@{mhcmd.\+c}}
+\subsubsection[{sz\+N\+H\+Cmd\+Window\+Class}]{\setlength{\rightskip}{0pt plus 5cm}T\+C\+H\+A\+R sz\+N\+H\+Cmd\+Window\+Class\mbox{[}$\,$\mbox{]} = T\+E\+X\+T(\char`\"{}M\+S\+Nethack\+Cmd\+Wnd\+Class\char`\"{})\hspace{0.3cm}{\ttfamily [static]}}}\label{mhcmd_8c_ac01ca5e9444edc0d2056c4cdf00db6b8}
+
+
+Definition at line 9 of file mhcmd.\+c.
+
+
+
+Referenced by mswin\+\_\+init\+\_\+command\+\_\+window(), and register\+\_\+command\+\_\+window\+\_\+class().
+

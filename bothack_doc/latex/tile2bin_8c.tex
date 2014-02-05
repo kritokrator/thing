@@ -1,0 +1,455 @@
+\hypertarget{tile2bin_8c}{\section{nethack/sys/msdos/tile2bin.c File Reference}
+\label{tile2bin_8c}\index{nethack/sys/msdos/tile2bin.\+c@{nethack/sys/msdos/tile2bin.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pcvideo.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}tile.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}pctiles.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$dos.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \hyperlink{tile2bin_8c_a97498d0c867575a5acc7263cb9320481}{F\+D\+E\+C\+L} (tilename,(int, int))
+\item 
+static void \hyperlink{tile2bin_8c_a815a9ca16edc21d4f7e3b1930ca7995e}{F\+D\+E\+C\+L} (\hyperlink{tile2bin_8c_a1e96f200faac6ce6c760fd065941c68b}{write\+\_\+tibtile},(int))
+\item 
+static void \hyperlink{tile2bin_8c_aedf93d98d84a288a1dbd8271e0a15945}{F\+D\+E\+C\+L} (\hyperlink{tile2bin_8c_a3263fbf5f7623aaf4e75386fb2ff875f}{write\+\_\+tibheader},(F\+I\+L\+E $\ast$, struct tibhdr\+\_\+struct $\ast$))
+\item 
+static void \hyperlink{tile2bin_8c_a240216dac89a7815c9194b8714d55876}{F\+D\+E\+C\+L} (\hyperlink{tile2bin_8c_a3e389d8746c174bbe1a82a6bc0d123c4}{build\+\_\+tibtile},(\hyperlink{structpixel}{pixel}($\ast$)\mbox{[}\hyperlink{win_2win32_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{T\+I\+L\+E\+\_\+\+X}\mbox{]}))
+\item 
+int \hyperlink{tile2bin_8c_afced8478b91af5c169926dfa4426333d}{main} (int argc, argv)
+\item 
+static void \hyperlink{tile2bin_8c_a3263fbf5f7623aaf4e75386fb2ff875f}{write\+\_\+tibheader} (F\+I\+L\+E $\ast$fileptr, struct tibhdr\+\_\+struct $\ast$tibhdr)
+\item 
+static void \hyperlink{tile2bin_8c_a3e389d8746c174bbe1a82a6bc0d123c4}{build\+\_\+tibtile} (\hyperlink{structpixel}{pixel} $\ast$\hyperlink{thintile_8c_ad8f8da6572831b2f4d59c3ac23043b69}{pixels})
+\item 
+static void \hyperlink{tile2bin_8c_a1e96f200faac6ce6c760fd065941c68b}{write\+\_\+tibtile} (int recnum)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}{num\+\_\+colors}
+\item 
+\hyperlink{structpixel}{pixel} \hyperlink{tile2bin_8c_a6313a761da46b29ba554302d6d36d116}{pixels} \mbox{[}\hyperlink{win_2win32_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{T\+I\+L\+E\+\_\+\+Y}\mbox{]}\mbox{[}\hyperlink{win_2win32_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{T\+I\+L\+E\+\_\+\+X}\mbox{]}
+\item 
+struct tibhdr\+\_\+struct \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}
+\item 
+char $\ast$ \hyperlink{tile2bin_8c_a9090421c00e86159a9ae368bda865721}{tilefiles} \mbox{[}$\,$\mbox{]}
+\item 
+int \hyperlink{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount}
+\item 
+int \hyperlink{tile2bin_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum}
+\item 
+int \hyperlink{tile2bin_8c_a4c5c7ca4fc7f8337c70dd092842711f9}{paletteflag}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{tile2bin_8c_a3e389d8746c174bbe1a82a6bc0d123c4}{\index{tile2bin.\+c@{tile2bin.\+c}!build\+\_\+tibtile@{build\+\_\+tibtile}}
+\index{build\+\_\+tibtile@{build\+\_\+tibtile}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{build\+\_\+tibtile}]{\setlength{\rightskip}{0pt plus 5cm}static void build\+\_\+tibtile (
+\begin{DoxyParamCaption}
+\item[{{\bf pixel} $\ast$}]{pixels}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2bin_8c_a3e389d8746c174bbe1a82a6bc0d123c4}
+
+
+Definition at line 217 of file tile2bin.\+c.
+
+
+
+References C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, Fprintf, num\+\_\+colors, T\+I\+L\+E\+\_\+\+X, and T\+I\+L\+E\+\_\+\+Y.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+219 \{
+220     \textcolor{keywordtype}{int} i, j, k, co\_off;
+221     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} co\_mask,tmp;
+222 
+223 \textcolor{preprocessor}{#ifndef OVERVIEW\_FILE}
+224     memset((\textcolor{keywordtype}{void} *)&planetile,0,\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} planar\_cell\_struct));
+225 \textcolor{preprocessor}{#else}
+226     memset((\textcolor{keywordtype}{void} *)&planetile,0,
+227         \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} overview\_planar\_cell\_struct));
+228 \textcolor{preprocessor}{#endif}
+229     \textcolor{keywordflow}{for} (j = 0; j < \hyperlink{sys_2wince_2winMS_8h_a4a62524a49a9be02996b8e667b45abc9}{TILE\_Y}; j++) \{
+230         \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{sys_2wince_2winMS_8h_a9f3fae6a9058d02850af5deba9be4544}{TILE\_X}; i++) \{
+231             \textcolor{keywordflow}{for} (k = 0; k < \hyperlink{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors}; k++) \{                
+232                 \textcolor{keywordflow}{if} (\hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][k] == pixels[j][i].r &&
+233                     \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][k] == pixels[j][i].g &&
+234                     \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][k] == pixels[j][i].b)
+235                     \textcolor{keywordflow}{break};
+236             \}
+237             \textcolor{keywordflow}{if} (k >= num\_colors)
+238                 \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"color not in colormap!\(\backslash\)n"});
+239 \textcolor{preprocessor}{#ifdef PACKED\_FILE}
+240             packtile[j][i] = k;
+241 \textcolor{preprocessor}{#endif}
+242 
+243 \textcolor{preprocessor}{#ifdef PLANAR\_FILE}
+244             \textcolor{keywordflow}{if} (i > 7) \{
+245                 co\_off = 1;
+246                 co\_mask = masktable[i - 8];
+247             \} \textcolor{keywordflow}{else} \{
+248                 co\_off = 0;
+249                 co\_mask = masktable[i];
+250             \}
+251 
+252             tmp  = planetile.plane[0].image[j][co\_off];
+253             planetile.plane[0].image[j][co\_off] = (k & 0x0008) ?
+254                 (tmp | co\_mask) :
+255                 (tmp & ~co\_mask);
+256 
+257             tmp  = planetile.plane[1].image[j][co\_off];
+258             planetile.plane[1].image[j][co\_off] = (k & 0x0004) ?
+259                 (tmp | co\_mask) :
+260                 (tmp & ~co\_mask);
+261 
+262             tmp  = planetile.plane[2].image[j][co\_off];
+263             planetile.plane[2].image[j][co\_off] = (k & 0x0002) ?
+264                 (tmp | co\_mask) :
+265                 (tmp & ~co\_mask);
+266 
+267             tmp  = planetile.plane[3].image[j][co\_off];
+268             planetile.plane[3].image[j][co\_off] = (k & 0x0001) ?
+269                 (tmp | co\_mask) :
+270                 (tmp & ~co\_mask);
+271 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* PLANAR\_FILE */}\textcolor{preprocessor}{}
+272         \}
+273     \}
+274 \}
+\end{DoxyCode}
+\hypertarget{tile2bin_8c_a97498d0c867575a5acc7263cb9320481}{\index{tile2bin.\+c@{tile2bin.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{tilename}]{, }
+\item[{(int, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{tile2bin_8c_a97498d0c867575a5acc7263cb9320481}
+\hypertarget{tile2bin_8c_a815a9ca16edc21d4f7e3b1930ca7995e}{\index{tile2bin.\+c@{tile2bin.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf write\+\_\+tibtile}}]{, }
+\item[{(int)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2bin_8c_a815a9ca16edc21d4f7e3b1930ca7995e}
+\hypertarget{tile2bin_8c_aedf93d98d84a288a1dbd8271e0a15945}{\index{tile2bin.\+c@{tile2bin.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf write\+\_\+tibheader}}]{, }
+\item[{(F\+I\+L\+E $\ast$, struct tibhdr\+\_\+struct $\ast$)}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2bin_8c_aedf93d98d84a288a1dbd8271e0a15945}
+\hypertarget{tile2bin_8c_a240216dac89a7815c9194b8714d55876}{\index{tile2bin.\+c@{tile2bin.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}static void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf build\+\_\+tibtile}}]{, }
+\item[{({\bf pixel}($\ast$)\mbox{[}{\bf T\+I\+L\+E\+\_\+\+X}\mbox{]})}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2bin_8c_a240216dac89a7815c9194b8714d55876}
+\hypertarget{tile2bin_8c_afced8478b91af5c169926dfa4426333d}{\index{tile2bin.\+c@{tile2bin.\+c}!main@{main}}
+\index{main@{main}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{argv}]{}
+\end{DoxyParamCaption}
+)}}\label{tile2bin_8c_afced8478b91af5c169926dfa4426333d}
+
+
+Definition at line 83 of file tile2bin.\+c.
+
+
+
+References build\+\_\+tibtile(), C\+M\+\_\+\+B\+L\+U\+E, C\+M\+\_\+\+G\+R\+E\+E\+N, C\+M\+\_\+\+R\+E\+D, Color\+Map, colorsinmap, exit(), E\+X\+I\+T\+\_\+\+F\+A\+I\+L\+U\+R\+E, E\+X\+I\+T\+\_\+\+S\+U\+C\+C\+E\+S\+S, fclose\+\_\+text\+\_\+file(), filenum, fopen\+\_\+text\+\_\+file(), Fprintf, localtime(), num\+\_\+colors, R\+D\+T\+M\+O\+D\+E, read\+\_\+text\+\_\+tile(), tibheader, tilecount, time, W\+R\+B\+M\+O\+D\+E, write\+\_\+tibheader(), and write\+\_\+tibtile().
+
+
+\begin{DoxyCode}
+86 \{
+87     \textcolor{keywordtype}{int} i;
+88     \textcolor{keyword}{struct }\hyperlink{structtm}{tm} *newtime;
+89     \hyperlink{wceconf_8h_ae314912f2d5fb5362d86efe017e755f4}{time\_t} aclock;
+90     \textcolor{keywordtype}{char} *paletteptr;
+91 
+92     \textcolor{keywordflow}{if} (argc != 1) \{
+93         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"usage: tile2bin (from the util directory)\(\backslash\)n"});
+94         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+95     \}
+96 
+97 \textcolor{preprocessor}{#ifdef PLANAR\_FILE}
+98 \textcolor{preprocessor}{# ifndef OVERVIEW\_FILE}
+99     tibfile1 = fopen(NETHACK\_PLANAR\_TILEFILE, \hyperlink{dlb_8h_a93f4c7a5c599b11c766523f930389684}{WRBMODE});
+100 \textcolor{preprocessor}{# else}
+101     tibfile1 = fopen(NETHACK\_OVERVIEW\_TILEFILE, \hyperlink{dlb_8h_a93f4c7a5c599b11c766523f930389684}{WRBMODE});
+102 \textcolor{preprocessor}{# endif}
+103     \textcolor{keywordflow}{if} (tibfile1 == (FILE *)0) \{
+104         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Unable to open output file %s\(\backslash\)n"},
+105 # ifndef OVERVIEW\_FILE
+106                 NETHACK\_PLANAR\_TILEFILE);
+107 \textcolor{preprocessor}{#else}
+108                 NETHACK\_OVERVIEW\_TILEFILE);
+109 \textcolor{preprocessor}{#endif}
+110         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+111     \}
+112 \textcolor{preprocessor}{#endif}
+113 
+114 \textcolor{preprocessor}{#ifdef PACKED\_FILE}
+115     \hyperlink{tile2img_8c_a1f334f32bb87dcdef615c205aee3a337}{tibfile2} = fopen(NETHACK\_PACKED\_TILEFILE, \hyperlink{dlb_8h_a93f4c7a5c599b11c766523f930389684}{WRBMODE});
+116     \textcolor{keywordflow}{if} (\hyperlink{tile2img_8c_a1f334f32bb87dcdef615c205aee3a337}{tibfile2} == (FILE *)0) \{
+117         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Unable to open output file %s\(\backslash\)n"},
+118                 NETHACK\_PACKED\_TILEFILE);
+119         \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+120     \}
+121 \textcolor{preprocessor}{#endif}
+122     \hyperlink{gnglyph_8h_a5d72d5591b475bbde164dc8f0095eb2d}{time}(&aclock);
+123     newtime = \hyperlink{wceconf_8h_a6ea06fb812d59a5d00b046db5dd8b840}{localtime}(&aclock);
+124 
+125     \hyperlink{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount} = 0;
+126     \hyperlink{tile2bin_8c_a4c5c7ca4fc7f8337c70dd092842711f9}{paletteflag} = 0; 
+127     \hyperlink{tile2bin_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum} = 0;
+128     \textcolor{keywordflow}{while} (\hyperlink{tile2bin_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum} < 3) \{
+129         \textcolor{keywordflow}{if} (!\hyperlink{tiletext_8c_afd96856d9b9d8dd587b735c54e9c2765}{fopen\_text\_file}(\hyperlink{tile2bin_8c_a9090421c00e86159a9ae368bda865721}{tilefiles}[\hyperlink{tile2bin_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum}], 
+      \hyperlink{dlb_8h_a52b55e796a44079bc56afab59e8c0c89}{RDTMODE})) \{
+130             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr,
+131              \textcolor{stringliteral}{"usage: tile2bin (from the util or src directory)\(\backslash\)n"});
+132             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+133         \}
+134         \hyperlink{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors} = \hyperlink{txt2iff_8c_aff516215666b583bb7940b37a907fb6d}{colorsinmap};
+135         \textcolor{keywordflow}{if} (\hyperlink{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors} > 62) \{
+136             \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"too many colors (%d)\(\backslash\)n"}, \hyperlink{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors});
+137             \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a73efe787c131b385070f25d18b7c9aa4}{EXIT\_FAILURE});
+138         \}
+139 
+140         \textcolor{keywordflow}{if} (!\hyperlink{tile2bin_8c_a4c5c7ca4fc7f8337c70dd092842711f9}{paletteflag}) \{
+141             paletteptr = \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.palette;
+142             \textcolor{keywordflow}{for} (i = 0; i < \hyperlink{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors}; i++) \{
+143                 *paletteptr++ = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a0704a976b5a1827d9a560581409000a0}{CM\_RED}][i],
+144                 *paletteptr++ = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_aae81d11012fc6e1d32b3adda0d8b9ba9}{CM\_GREEN}][i],
+145                 *paletteptr++ = \hyperlink{txt2iff_8c_ac98705c791dbc9a1ce4ed91dbf5ae5bf}{ColorMap}[\hyperlink{tile_8h_a28a45eb8e065997866d101928d36d1bc}{CM\_BLUE}][i];
+146             \}
+147             \hyperlink{tile2bin_8c_a4c5c7ca4fc7f8337c70dd092842711f9}{paletteflag}++;
+148         \}
+149 
+150                 
+151         \textcolor{keywordflow}{while} (\hyperlink{tiletext_8c_a8bfc171583fff7761a8ae79103b6aa89}{read\_text\_tile}(\hyperlink{tile2bin_8c_a6313a761da46b29ba554302d6d36d116}{pixels})) \{
+152             \hyperlink{tile2bin_8c_a3e389d8746c174bbe1a82a6bc0d123c4}{build\_tibtile}(\hyperlink{tile2bin_8c_a6313a761da46b29ba554302d6d36d116}{pixels});
+153             \hyperlink{tile2bin_8c_a1e96f200faac6ce6c760fd065941c68b}{write\_tibtile}(\hyperlink{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount});
+154             \hyperlink{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount}++;
+155         \}
+156 
+157         (void) \hyperlink{tiletext_8c_a52166aa84ff4882399d7699bb074b55b}{fclose\_text\_file}();
+158         ++\hyperlink{tile2bin_8c_abe68cf66428f1e3a981ada366cfd3f07}{filenum};
+159     \}
+160 
+161 \textcolor{preprocessor}{#  if defined(\_MSC\_VER)}
+162     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.compiler = MSC\_COMP;
+163 \textcolor{preprocessor}{#  elif defined(\_\_BORLANDC\_\_)}
+164     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.compiler = BC\_COMP;
+165 \textcolor{preprocessor}{#  elif defined(\_\_GO32\_\_)}
+166     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.compiler = DJGPP\_COMP;
+167 \textcolor{preprocessor}{#  else}
+168     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.compiler = OTHER\_COMP;
+169 \textcolor{preprocessor}{#  endif}
+170     
+171     strncpy(\hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.ident,
+172         \textcolor{stringliteral}{"NetHack 3.4 MSDOS Port binary tile file"}, 80);
+173     strncpy(\hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.timestamp, asctime(newtime), 24);
+174     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.timestamp[25] = \textcolor{charliteral}{'\(\backslash\)0'};
+175     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.tilecount = \hyperlink{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount};
+176     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.numcolors = \hyperlink{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}{num\_colors};
+177 \textcolor{preprocessor}{# ifdef PLANAR\_FILE}
+178     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.tilestyle = PLANAR\_STYLE;
+179     \hyperlink{tile2bin_8c_a3263fbf5f7623aaf4e75386fb2ff875f}{write\_tibheader}(tibfile1, &\hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader});
+180     (void) fclose(tibfile1);
+181 \textcolor{preprocessor}{#  ifndef OVERVIEW\_FILE}
+182     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Total of %d planar tiles written to %s.\(\backslash\)n"}, 
+183         \hyperlink{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount}, NETHACK\_PLANAR\_TILEFILE);
+184 \textcolor{preprocessor}{#  else}
+185     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Total of %d planar tiles written to %s.\(\backslash\)n"}, 
+186         \hyperlink{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount}, NETHACK\_OVERVIEW\_TILEFILE);
+187 \textcolor{preprocessor}{#  endif}
+188 \textcolor{preprocessor}{# endif}
+189 
+190 \textcolor{preprocessor}{# ifdef PACKED\_FILE}
+191     \hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader}.tilestyle = PACKED\_STYLE;
+192     \hyperlink{tile2bin_8c_a3263fbf5f7623aaf4e75386fb2ff875f}{write\_tibheader}(\hyperlink{tile2img_8c_a1f334f32bb87dcdef615c205aee3a337}{tibfile2}, &\hyperlink{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{tibheader});
+193     \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Total of %d packed tiles written to %s.\(\backslash\)n"}, 
+194         \hyperlink{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{tilecount}, NETHACK\_PACKED\_TILEFILE);
+195     (void) fclose(\hyperlink{tile2img_8c_a1f334f32bb87dcdef615c205aee3a337}{tibfile2});
+196 \textcolor{preprocessor}{# endif}
+197 
+198     \hyperlink{vmsmisc_8c_a358d2e2397ca11ccd17553e3c40e7901}{exit}(\hyperlink{global_8h_a687984f47d8cce148d1b914d2b79612a}{EXIT\_SUCCESS});
+199     \textcolor{comment}{/*NOTREACHED*/}
+200     \textcolor{keywordflow}{return} 0;
+201 \}
+\end{DoxyCode}
+\hypertarget{tile2bin_8c_a3263fbf5f7623aaf4e75386fb2ff875f}{\index{tile2bin.\+c@{tile2bin.\+c}!write\+\_\+tibheader@{write\+\_\+tibheader}}
+\index{write\+\_\+tibheader@{write\+\_\+tibheader}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{write\+\_\+tibheader}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+tibheader (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{fileptr, }
+\item[{struct tibhdr\+\_\+struct $\ast$}]{tibhdr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2bin_8c_a3263fbf5f7623aaf4e75386fb2ff875f}
+
+
+Definition at line 205 of file tile2bin.\+c.
+
+
+
+References Fprintf, and S\+E\+E\+K\+\_\+\+S\+E\+T.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+208 \{
+209 
+210     \textcolor{keywordflow}{if} (fseek(fileptr,0L,\hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET})) \{
+211         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Error writing header to tile file\(\backslash\)n"});
+212     \}
+213     fwrite(tibhdr, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} tibhdr\_struct), 1, fileptr);
+214 \}
+\end{DoxyCode}
+\hypertarget{tile2bin_8c_a1e96f200faac6ce6c760fd065941c68b}{\index{tile2bin.\+c@{tile2bin.\+c}!write\+\_\+tibtile@{write\+\_\+tibtile}}
+\index{write\+\_\+tibtile@{write\+\_\+tibtile}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{write\+\_\+tibtile}]{\setlength{\rightskip}{0pt plus 5cm}static void write\+\_\+tibtile (
+\begin{DoxyParamCaption}
+\item[{int}]{recnum}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{tile2bin_8c_a1e96f200faac6ce6c760fd065941c68b}
+
+
+Definition at line 277 of file tile2bin.\+c.
+
+
+
+References Fprintf, and S\+E\+E\+K\+\_\+\+S\+E\+T.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+279 \{
+280     \textcolor{keywordtype}{long} fpos;
+281 
+282 \textcolor{preprocessor}{#ifdef PLANAR\_FILE}
+283 \textcolor{preprocessor}{# ifndef OVERVIEW\_FILE}
+284     fpos = ((long)(recnum) * (long)\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} planar\_cell\_struct)) +
+285         (\textcolor{keywordtype}{long})TIBHEADER\_SIZE;
+286 \textcolor{preprocessor}{# else}
+287     fpos = ((long)(recnum) * 
+288             (long)\textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} overview\_planar\_cell\_struct)) +
+289             (\textcolor{keywordtype}{long})TIBHEADER\_SIZE;
+290 \textcolor{preprocessor}{# endif}
+291     \textcolor{keywordflow}{if} (fseek(tibfile1,fpos,\hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET})) \{
+292         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Error seeking before planar tile write %d\(\backslash\)n"},
+293             recnum);
+294     \}
+295 \textcolor{preprocessor}{# ifndef OVERVIEW\_FILE}
+296     fwrite(&planetile, \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} planar\_cell\_struct), 1, tibfile1);
+297 \textcolor{preprocessor}{# else}
+298     fwrite(&planetile,
+299         \textcolor{keyword}{sizeof}(\textcolor{keyword}{struct} overview\_planar\_cell\_struct), 1, tibfile1);
+300 \textcolor{preprocessor}{# endif}
+301 \textcolor{preprocessor}{#endif}
+302 
+303 \textcolor{preprocessor}{#ifdef PACKED\_FILE}
+304     fpos = ((long)(recnum) * (long)\textcolor{keyword}{sizeof}(packtile)) +
+305         (\textcolor{keywordtype}{long})TIBHEADER\_SIZE;
+306     \textcolor{keywordflow}{if} (fseek(\hyperlink{tile2img_8c_a1f334f32bb87dcdef615c205aee3a337}{tibfile2},fpos,\hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET})) \{
+307         \hyperlink{dgn__main_8c_afdc08699807b888a15fe28a2647ed466}{Fprintf}(stderr, \textcolor{stringliteral}{"Error seeking before packed tile write %d\(\backslash\)n"},
+308             recnum);
+309     \}
+310     fwrite(&packtile, \textcolor{keyword}{sizeof}(packtile), 1, \hyperlink{tile2img_8c_a1f334f32bb87dcdef615c205aee3a337}{tibfile2});
+311 \textcolor{preprocessor}{#endif}
+312 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{tile2bin_8c_abe68cf66428f1e3a981ada366cfd3f07}{\index{tile2bin.\+c@{tile2bin.\+c}!filenum@{filenum}}
+\index{filenum@{filenum}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{filenum}]{\setlength{\rightskip}{0pt plus 5cm}int filenum}}\label{tile2bin_8c_abe68cf66428f1e3a981ada366cfd3f07}
+
+
+Definition at line 79 of file tile2bin.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}{\index{tile2bin.\+c@{tile2bin.\+c}!num\+\_\+colors@{num\+\_\+colors}}
+\index{num\+\_\+colors@{num\+\_\+colors}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{num\+\_\+colors}]{\setlength{\rightskip}{0pt plus 5cm}int num\+\_\+colors}}\label{tile2bin_8c_a5dd47736942141b628a52481f0f37ab4}
+
+
+Definition at line 60 of file tile2bin.\+c.
+
+
+
+Referenced by build\+\_\+tibtile(), and main().
+
+\hypertarget{tile2bin_8c_a4c5c7ca4fc7f8337c70dd092842711f9}{\index{tile2bin.\+c@{tile2bin.\+c}!paletteflag@{paletteflag}}
+\index{paletteflag@{paletteflag}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{paletteflag}]{\setlength{\rightskip}{0pt plus 5cm}int paletteflag}}\label{tile2bin_8c_a4c5c7ca4fc7f8337c70dd092842711f9}
+
+
+Definition at line 80 of file tile2bin.\+c.
+
+\hypertarget{tile2bin_8c_a6313a761da46b29ba554302d6d36d116}{\index{tile2bin.\+c@{tile2bin.\+c}!pixels@{pixels}}
+\index{pixels@{pixels}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{pixels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pixel} pixels\mbox{[}{\bf T\+I\+L\+E\+\_\+\+Y}\mbox{]}\mbox{[}{\bf T\+I\+L\+E\+\_\+\+X}\mbox{]}}}\label{tile2bin_8c_a6313a761da46b29ba554302d6d36d116}
+
+
+Definition at line 61 of file tile2bin.\+c.
+
+\hypertarget{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}{\index{tile2bin.\+c@{tile2bin.\+c}!tibheader@{tibheader}}
+\index{tibheader@{tibheader}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{tibheader}]{\setlength{\rightskip}{0pt plus 5cm}struct tibhdr\+\_\+struct tibheader}}\label{tile2bin_8c_afdabfaf11b1fa26fc4fb54461c5c14c5}
+
+
+Definition at line 62 of file tile2bin.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}{\index{tile2bin.\+c@{tile2bin.\+c}!tilecount@{tilecount}}
+\index{tilecount@{tilecount}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{tilecount}]{\setlength{\rightskip}{0pt plus 5cm}int tilecount}}\label{tile2bin_8c_acdb51e97098c918a8dbf4b45e77e0b43}
+
+
+Definition at line 78 of file tile2bin.\+c.
+
+
+
+Referenced by main().
+
+\hypertarget{tile2bin_8c_a9090421c00e86159a9ae368bda865721}{\index{tile2bin.\+c@{tile2bin.\+c}!tilefiles@{tilefiles}}
+\index{tilefiles@{tilefiles}!tile2bin.\+c@{tile2bin.\+c}}
+\subsubsection[{tilefiles}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ tilefiles\mbox{[}$\,$\mbox{]}}}\label{tile2bin_8c_a9090421c00e86159a9ae368bda865721}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{ \textcolor{stringliteral}{"../win/share/monsters.txt"},
+            \textcolor{stringliteral}{"../win/share/objects.txt"},
+            \textcolor{stringliteral}{"../win/share/other.txt"}\}
+\end{DoxyCode}
+
+
+Definition at line 69 of file tile2bin.\+c.
+

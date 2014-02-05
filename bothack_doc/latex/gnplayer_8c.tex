@@ -1,0 +1,206 @@
+\hypertarget{gnplayer_8c}{\section{nethack/win/gnome/gnplayer.c File Reference}
+\label{gnplayer_8c}\index{nethack/win/gnome/gnplayer.\+c@{nethack/win/gnome/gnplayer.\+c}}
+}
+{\ttfamily \#include $<$gnome.\+h$>$}\\*
+{\ttfamily \#include $<$ctype.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}gnplayer.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}gnmain.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{gnplayer_8c_a4c81febd7be01b823b07788e8a7e9582}{player\+\_\+sel\+\_\+key\+\_\+hit} (Gtk\+Widget $\ast$widget, Gdk\+Event\+Key $\ast$event, gpointer data)
+\item 
+static void \hyperlink{gnplayer_8c_a5fdc0083594cad43287306747c32298b}{player\+\_\+sel\+\_\+row\+\_\+selected} (Gtk\+C\+List $\ast$\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}, int row, int col, Gdk\+Event $\ast$event)
+\item 
+int \hyperlink{gnplayer_8c_a13a83887b785a38be7c6a34a14e01456}{ghack\+\_\+player\+\_\+sel\+\_\+dialog} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$$\ast$choices, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} gchar $\ast$title, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} gchar $\ast$prompt)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static gint \hyperlink{gnplayer_8c_aef2cbcf4694a658497e259a29d406f2b}{role\+\_\+number}
+\item 
+static Gtk\+Widget $\ast$ \hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gnplayer_8c_a13a83887b785a38be7c6a34a14e01456}{\index{gnplayer.\+c@{gnplayer.\+c}!ghack\+\_\+player\+\_\+sel\+\_\+dialog@{ghack\+\_\+player\+\_\+sel\+\_\+dialog}}
+\index{ghack\+\_\+player\+\_\+sel\+\_\+dialog@{ghack\+\_\+player\+\_\+sel\+\_\+dialog}!gnplayer.\+c@{gnplayer.\+c}}
+\subsubsection[{ghack\+\_\+player\+\_\+sel\+\_\+dialog}]{\setlength{\rightskip}{0pt plus 5cm}int ghack\+\_\+player\+\_\+sel\+\_\+dialog (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$$\ast$}]{choices, }
+\item[{{\bf const} gchar $\ast$}]{title, }
+\item[{{\bf const} gchar $\ast$}]{prompt}
+\end{DoxyParamCaption}
+)}}\label{gnplayer_8c_a13a83887b785a38be7c6a34a14e01456}
+
+
+Definition at line 37 of file gnplayer.\+c.
+
+
+
+References B\+U\+F\+S\+Z, clist, F\+A\+L\+S\+E, ghack\+\_\+get\+\_\+main\+\_\+window(), N\+U\+L\+L, player\+\_\+sel\+\_\+key\+\_\+hit(), player\+\_\+sel\+\_\+row\+\_\+selected(), R\+O\+L\+E\+\_\+\+N\+O\+N\+E, role\+\_\+number, R\+O\+L\+E\+\_\+\+R\+A\+N\+D\+O\+M, and T\+R\+U\+E.
+
+
+
+Referenced by gnome\+\_\+player\+\_\+selection().
+
+
+\begin{DoxyCode}
+40 \{
+41     \textcolor{keywordtype}{int} i;
+42     \textcolor{keyword}{static} GtkWidget* dialog;
+43     \textcolor{keyword}{static} GtkWidget* swin;
+44     \textcolor{keyword}{static} GtkWidget* frame1;
+45 
+46     dialog = gnome\_dialog\_new(title,
+47                 GNOME\_STOCK\_BUTTON\_OK,
+48                 \_(\textcolor{stringliteral}{"Random"}),
+49                 GNOME\_STOCK\_BUTTON\_CANCEL,
+50                 \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+51     gnome\_dialog\_close\_hides (GNOME\_DIALOG (dialog), \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+52     gtk\_signal\_connect (GTK\_OBJECT (dialog), \textcolor{stringliteral}{"key\_press\_event"},
+53                       GTK\_SIGNAL\_FUNC (\hyperlink{gnplayer_8c_a4c81febd7be01b823b07788e8a7e9582}{player\_sel\_key\_hit}), choices );
+54 
+55     frame1 = gtk\_frame\_new(prompt);
+56     gtk\_object\_set\_data (GTK\_OBJECT (dialog), \textcolor{stringliteral}{"frame1"}, frame1);
+57     gtk\_widget\_show (frame1);
+58     gtk\_container\_border\_width (GTK\_CONTAINER (frame1), 3);
+59 
+60     swin = gtk\_scrolled\_window\_new (\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+61     \hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist} = gtk\_clist\_new (2);
+62     gtk\_clist\_column\_titles\_hide (GTK\_CLIST (\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}));
+63     gtk\_widget\_set\_usize (GTK\_WIDGET (\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), 100, 180);
+64     gtk\_container\_add (GTK\_CONTAINER (swin), \hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist});
+65     gtk\_scrolled\_window\_set\_policy (GTK\_SCROLLED\_WINDOW (swin),
+66         GTK\_POLICY\_AUTOMATIC, GTK\_POLICY\_AUTOMATIC);
+67 
+68     gtk\_signal\_connect (GTK\_OBJECT (\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), \textcolor{stringliteral}{"select\_row"},
+69             GTK\_SIGNAL\_FUNC (\hyperlink{gnplayer_8c_a5fdc0083594cad43287306747c32298b}{player\_sel\_row\_selected}), 
+      \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} );
+70 
+71     gtk\_container\_add (GTK\_CONTAINER (frame1), swin);
+72     gtk\_box\_pack\_start\_defaults (GTK\_BOX (GNOME\_DIALOG (dialog)->vbox), frame1);
+73 
+74     \textcolor{comment}{/* Add the roles into the list here... */}
+75     \textcolor{keywordflow}{for} (i=0; choices[i]; i++) \{
+76         gchar accelBuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+77         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *text[3]=\{accelBuf, choices[i],\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL}\};
+78         sprintf( accelBuf, \textcolor{stringliteral}{"%c "}, tolower(choices[i][0]));
+79         gtk\_clist\_insert (GTK\_CLIST (\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), i, (\textcolor{keywordtype}{char}**)text);
+80     \}
+81 
+82     gtk\_clist\_columns\_autosize (GTK\_CLIST (\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}));
+83     gtk\_widget\_show\_all (swin);
+84 
+85     \textcolor{comment}{/* Center the dialog over over parent */}
+86     gnome\_dialog\_set\_default( GNOME\_DIALOG(dialog), 0);
+87     gtk\_window\_set\_modal( GTK\_WINDOW(dialog), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+88     gnome\_dialog\_set\_parent (GNOME\_DIALOG (dialog),
+89         GTK\_WINDOW (\hyperlink{gnmain_8c_a103200f2f57b9258dfa18159191ea650}{ghack\_get\_main\_window} ()) );
+90 
+91     \textcolor{comment}{/* Run the dialog -- returning whichever button was pressed */}
+92     i = gnome\_dialog\_run\_and\_close(GNOME\_DIALOG(dialog));
+93 
+94     \textcolor{comment}{/* Quit on button 2 or error */}
+95     \textcolor{keywordflow}{if} (i < 0  || i > 1) \{
+96     \textcolor{keywordflow}{return}(\hyperlink{you_8h_a2ebee97eaa15f8971117c3aa8e40126c}{ROLE\_NONE});
+97     \}
+98     \textcolor{comment}{/* Random is button 1*/}
+99     \textcolor{keywordflow}{if} (i == 1 ) \{
+100     \textcolor{keywordflow}{return}(\hyperlink{you_8h_a7ddd1e4a9a55365ad9e36cd524be0480}{ROLE\_RANDOM});
+101     \}
+102     \textcolor{keywordflow}{return} ( \hyperlink{gnplayer_8c_aef2cbcf4694a658497e259a29d406f2b}{role\_number});
+103 \}
+\end{DoxyCode}
+\hypertarget{gnplayer_8c_a4c81febd7be01b823b07788e8a7e9582}{\index{gnplayer.\+c@{gnplayer.\+c}!player\+\_\+sel\+\_\+key\+\_\+hit@{player\+\_\+sel\+\_\+key\+\_\+hit}}
+\index{player\+\_\+sel\+\_\+key\+\_\+hit@{player\+\_\+sel\+\_\+key\+\_\+hit}!gnplayer.\+c@{gnplayer.\+c}}
+\subsubsection[{player\+\_\+sel\+\_\+key\+\_\+hit}]{\setlength{\rightskip}{0pt plus 5cm}static void player\+\_\+sel\+\_\+key\+\_\+hit (
+\begin{DoxyParamCaption}
+\item[{Gtk\+Widget $\ast$}]{widget, }
+\item[{Gdk\+Event\+Key $\ast$}]{event, }
+\item[{gpointer}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gnplayer_8c_a4c81febd7be01b823b07788e8a7e9582}
+
+
+Definition at line 15 of file gnplayer.\+c.
+
+
+
+References clist, role\+\_\+number, and roles.
+
+
+
+Referenced by ghack\+\_\+player\+\_\+sel\+\_\+dialog().
+
+
+\begin{DoxyCode}
+16 \{
+17     \textcolor{keyword}{const} \textcolor{keywordtype}{char}** \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles} = data;
+18     \textcolor{keywordtype}{int} i;
+19     \textcolor{keywordflow}{for} (i = 0; roles[i] != 0; ++i) \{
+20     \textcolor{keywordflow}{if} (tolower(roles[i][0]) == tolower(event->keyval)) \{
+21         \hyperlink{gnplayer_8c_aef2cbcf4694a658497e259a29d406f2b}{role\_number} = i;
+22         gtk\_clist\_select\_row( GTK\_CLIST (\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), i, 0);
+23         \textcolor{keywordflow}{if} (gtk\_clist\_row\_is\_visible(GTK\_CLIST(\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}),
+24                      i) != GTK\_VISIBILITY\_FULL)
+25         gtk\_clist\_moveto(GTK\_CLIST(\hyperlink{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{clist}), i, 0, 0.5, 0);
+26     \}
+27     \}
+28 \}
+\end{DoxyCode}
+\hypertarget{gnplayer_8c_a5fdc0083594cad43287306747c32298b}{\index{gnplayer.\+c@{gnplayer.\+c}!player\+\_\+sel\+\_\+row\+\_\+selected@{player\+\_\+sel\+\_\+row\+\_\+selected}}
+\index{player\+\_\+sel\+\_\+row\+\_\+selected@{player\+\_\+sel\+\_\+row\+\_\+selected}!gnplayer.\+c@{gnplayer.\+c}}
+\subsubsection[{player\+\_\+sel\+\_\+row\+\_\+selected}]{\setlength{\rightskip}{0pt plus 5cm}static void player\+\_\+sel\+\_\+row\+\_\+selected (
+\begin{DoxyParamCaption}
+\item[{Gtk\+C\+List $\ast$}]{clist, }
+\item[{int}]{row, }
+\item[{int}]{col, }
+\item[{Gdk\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{gnplayer_8c_a5fdc0083594cad43287306747c32298b}
+
+
+Definition at line 31 of file gnplayer.\+c.
+
+
+
+References role\+\_\+number.
+
+
+
+Referenced by ghack\+\_\+player\+\_\+sel\+\_\+dialog().
+
+
+\begin{DoxyCode}
+32 \{
+33     \hyperlink{gnplayer_8c_aef2cbcf4694a658497e259a29d406f2b}{role\_number} = row;
+34 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}{\index{gnplayer.\+c@{gnplayer.\+c}!clist@{clist}}
+\index{clist@{clist}!gnplayer.\+c@{gnplayer.\+c}}
+\subsubsection[{clist}]{\setlength{\rightskip}{0pt plus 5cm}Gtk\+Widget$\ast$ clist\hspace{0.3cm}{\ttfamily [static]}}}\label{gnplayer_8c_aaacfa1e004c6c39fcee7664eb1b0ae9d}
+
+
+Definition at line 12 of file gnplayer.\+c.
+
+
+
+Referenced by ghack\+\_\+player\+\_\+sel\+\_\+dialog(), and player\+\_\+sel\+\_\+key\+\_\+hit().
+
+\hypertarget{gnplayer_8c_aef2cbcf4694a658497e259a29d406f2b}{\index{gnplayer.\+c@{gnplayer.\+c}!role\+\_\+number@{role\+\_\+number}}
+\index{role\+\_\+number@{role\+\_\+number}!gnplayer.\+c@{gnplayer.\+c}}
+\subsubsection[{role\+\_\+number}]{\setlength{\rightskip}{0pt plus 5cm}gint role\+\_\+number\hspace{0.3cm}{\ttfamily [static]}}}\label{gnplayer_8c_aef2cbcf4694a658497e259a29d406f2b}
+
+
+Definition at line 11 of file gnplayer.\+c.
+
+
+
+Referenced by ghack\+\_\+player\+\_\+sel\+\_\+dialog(), player\+\_\+sel\+\_\+key\+\_\+hit(), and player\+\_\+sel\+\_\+row\+\_\+selected().
+

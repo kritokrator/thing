@@ -1,0 +1,174 @@
+\hypertarget{macsnd_8c}{\section{nethack/sys/mac/macsnd.c File Reference}
+\label{macsnd_8c}\index{nethack/sys/mac/macsnd.\+c@{nethack/sys/mac/macsnd.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}mactty.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}macwin.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$Sound.\+h$>$}\\*
+{\ttfamily \#include $<$Resources.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{macsnd_8c_a5ee1cab3797cbd5ff2559c435273978d}{S\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R}(s)~(\&($\ast$s)\mbox{[}20\mbox{]})
+\item 
+\#define \hyperlink{macsnd_8c_a7a46f117e5e0122d9cd54d87a179ee07}{S\+N\+D\+\_\+\+L\+E\+N}(s)~(Get\+Handle\+Size(s)-\/42)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{macsnd_8c_a335c4f425c7088e8b4a2652c46299f05}{mac\+\_\+speaker} (struct \hyperlink{structobj}{obj} $\ast$instr, char $\ast$melody)
+\item 
+void \hyperlink{macsnd_8c_acb974e3fa20038738217138d7239787d}{tty\+\_\+nhbell} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{macsnd_8c_a5ee1cab3797cbd5ff2559c435273978d}{\index{macsnd.\+c@{macsnd.\+c}!S\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R@{S\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R}}
+\index{S\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R@{S\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R}!macsnd.\+c@{macsnd.\+c}}
+\subsubsection[{S\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R(
+\begin{DoxyParamCaption}
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~(\&($\ast$s)\mbox{[}20\mbox{]})}}\label{macsnd_8c_a5ee1cab3797cbd5ff2559c435273978d}
+
+
+Definition at line 27 of file macsnd.\+c.
+
+
+
+Referenced by mac\+\_\+speaker().
+
+\hypertarget{macsnd_8c_a7a46f117e5e0122d9cd54d87a179ee07}{\index{macsnd.\+c@{macsnd.\+c}!S\+N\+D\+\_\+\+L\+E\+N@{S\+N\+D\+\_\+\+L\+E\+N}}
+\index{S\+N\+D\+\_\+\+L\+E\+N@{S\+N\+D\+\_\+\+L\+E\+N}!macsnd.\+c@{macsnd.\+c}}
+\subsubsection[{S\+N\+D\+\_\+\+L\+E\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+N\+D\+\_\+\+L\+E\+N(
+\begin{DoxyParamCaption}
+\item[{}]{s}
+\end{DoxyParamCaption}
+)~(Get\+Handle\+Size(s)-\/42)}}\label{macsnd_8c_a7a46f117e5e0122d9cd54d87a179ee07}
+
+
+Definition at line 28 of file macsnd.\+c.
+
+
+
+Referenced by mac\+\_\+speaker().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{macsnd_8c_a335c4f425c7088e8b4a2652c46299f05}{\index{macsnd.\+c@{macsnd.\+c}!mac\+\_\+speaker@{mac\+\_\+speaker}}
+\index{mac\+\_\+speaker@{mac\+\_\+speaker}!macsnd.\+c@{macsnd.\+c}}
+\subsubsection[{mac\+\_\+speaker}]{\setlength{\rightskip}{0pt plus 5cm}void mac\+\_\+speaker (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{instr, }
+\item[{char $\ast$}]{melody}
+\end{DoxyParamCaption}
+)}}\label{macsnd_8c_a335c4f425c7088e8b4a2652c46299f05}
+
+
+Definition at line 32 of file macsnd.\+c.
+
+
+
+References flags, O\+B\+J\+\_\+\+N\+A\+M\+E, objects, obj\+::otyp, flag\+::silent, S\+N\+D\+\_\+\+B\+U\+F\+F\+E\+R, and S\+N\+D\+\_\+\+L\+E\+N.
+
+
+
+Referenced by do\+\_\+improvisation(), and do\+\_\+play\+\_\+instrument().
+
+
+\begin{DoxyCode}
+32                                               \{
+33     SndChannelPtr theChannel = (SndChannelPtr) 0;
+34     SndCommand theCmd;
+35     Handle theSound;
+36     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} theName [32];
+37     \textcolor{keywordtype}{char} *n = (\textcolor{keywordtype}{char} *) &theName [1];
+38     \textcolor{keywordtype}{int} typ = instr->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp};
+39     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *actualn = \hyperlink{objclass_8h_aaa71280f2bfe02894ab8c39af548d6ae}{OBJ\_NAME} (\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects} [typ]);
+40 
+41     \textcolor{comment}{/*}
+42 \textcolor{comment}{     * First: are we in the library ?}
+43 \textcolor{comment}{     */}
+44     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a12a28da243338f8c34e9c1d51a5a58bf}{silent}) \{
+45         \textcolor{keywordflow}{return};
+46     \}
+47 
+48     \textcolor{comment}{/*}
+49 \textcolor{comment}{     * Is this a known instrument ?}
+50 \textcolor{comment}{     */}
+51     strcpy (n, actualn);
+52     theName [0] = strlen (n);
+53     theSound = GetNamedResource (\textcolor{stringliteral}{'snd '}, theName);
+54     \textcolor{keywordflow}{if} (! theSound) \{
+55         \textcolor{keywordflow}{return};
+56     \}
+57     HLock (theSound);
+58 
+59     \textcolor{comment}{/*}
+60 \textcolor{comment}{     * Set up the synth}
+61 \textcolor{comment}{     */}
+62     \textcolor{keywordflow}{if} (SndNewChannel(&theChannel, sampledSynth, initMono +
+63         initNoInterp, (\textcolor{keywordtype}{void} *) 0) == noErr) \{
+64         \textcolor{keywordtype}{char} midi\_note [] = \{57, 59, 60, 62, 64, 65, 67\};
+65 
+66         \textcolor{keywordtype}{short} err;
+67         \textcolor{keywordtype}{short} snd\_len = \hyperlink{macsnd_8c_a7a46f117e5e0122d9cd54d87a179ee07}{SND\_LEN} (theSound) / 18;
+68 
+69         theCmd.cmd = soundCmd;
+70         theCmd.param1 = 0;
+71         theCmd.param2 = (long) \hyperlink{macsnd_8c_a5ee1cab3797cbd5ff2559c435273978d}{SND\_BUFFER} (theSound);
+72         err = SndDoCommand (theChannel, &theCmd, \textcolor{keyword}{false});
+73 
+74     \textcolor{comment}{/*}
+75 \textcolor{comment}{     * We rack 'em up all in a row}
+76 \textcolor{comment}{     * The mac will play them correctly and then end, since}
+77 \textcolor{comment}{     * we do a sync close below.}
+78 \textcolor{comment}{     *}
+79 \textcolor{comment}{     */}
+80         \textcolor{keywordflow}{while} (*melody && ! err) \{
+81             \textcolor{keywordflow}{while} (*melody > \textcolor{charliteral}{'G'}) \{
+82                 *melody -= 8;
+83             \}
+84             \textcolor{keywordflow}{while} (*melody < \textcolor{charliteral}{'A'}) \{
+85                 *melody += 8;
+86             \}
+87             theCmd.cmd = freqDurationCmd;
+88             theCmd.param1 = snd\_len;
+89             theCmd.param2 = midi\_note [*melody - \textcolor{charliteral}{'A'}];
+90             err = SndDoCommand (theChannel, &theCmd, \textcolor{keyword}{false});
+91             melody ++;
+92         \}
+93         SndDisposeChannel (theChannel, \textcolor{keyword}{false});  \textcolor{comment}{/* Sync wait for completion */}
+94         ReleaseResource (theSound);
+95     \}
+96 \}
+\end{DoxyCode}
+\hypertarget{macsnd_8c_acb974e3fa20038738217138d7239787d}{\index{macsnd.\+c@{macsnd.\+c}!tty\+\_\+nhbell@{tty\+\_\+nhbell}}
+\index{tty\+\_\+nhbell@{tty\+\_\+nhbell}!macsnd.\+c@{macsnd.\+c}}
+\subsubsection[{tty\+\_\+nhbell}]{\setlength{\rightskip}{0pt plus 5cm}void tty\+\_\+nhbell (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{macsnd_8c_acb974e3fa20038738217138d7239787d}
+
+
+Definition at line 98 of file macsnd.\+c.
+
+
+
+Referenced by do\+\_\+control().
+
+
+\begin{DoxyCode}
+98                        \{
+99     Handle h = GetNamedResource (\textcolor{stringliteral}{'snd '}, \textcolor{stringliteral}{"\(\backslash\)pNetHack Bell"});
+100 
+101     \textcolor{keywordflow}{if} (h) \{
+102         HLock (h);
+103         SndPlay ((SndChannelPtr) 0, (SndListHandle) h, 0);
+104         ReleaseResource (h);
+105     \} \textcolor{keywordflow}{else}
+106         SysBeep (30);
+107 \}
+\end{DoxyCode}

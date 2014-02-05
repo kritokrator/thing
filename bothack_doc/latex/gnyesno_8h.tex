@@ -1,0 +1,100 @@
+\hypertarget{gnyesno_8h}{\section{nethack/win/gnome/gnyesno.h File Reference}
+\label{gnyesno_8h}\index{nethack/win/gnome/gnyesno.\+h@{nethack/win/gnome/gnyesno.\+h}}
+}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{gnyesno_8h_a7332fcdfe8d759134afbb428d2ddcdde}{ghack\+\_\+yes\+\_\+no\+\_\+dialog} (\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$sz\+Question\+Str, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$sz\+Choices\+Str, int n\+Default)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{gnyesno_8h_a7332fcdfe8d759134afbb428d2ddcdde}{\index{gnyesno.\+h@{gnyesno.\+h}!ghack\+\_\+yes\+\_\+no\+\_\+dialog@{ghack\+\_\+yes\+\_\+no\+\_\+dialog}}
+\index{ghack\+\_\+yes\+\_\+no\+\_\+dialog@{ghack\+\_\+yes\+\_\+no\+\_\+dialog}!gnyesno.\+h@{gnyesno.\+h}}
+\subsubsection[{ghack\+\_\+yes\+\_\+no\+\_\+dialog}]{\setlength{\rightskip}{0pt plus 5cm}int ghack\+\_\+yes\+\_\+no\+\_\+dialog (
+\begin{DoxyParamCaption}
+\item[{{\bf const} char $\ast$}]{sz\+Question\+Str, }
+\item[{{\bf const} char $\ast$}]{sz\+Choices\+Str, }
+\item[{int}]{n\+Default}
+\end{DoxyParamCaption}
+)}}\label{gnyesno_8h_a7332fcdfe8d759134afbb428d2ddcdde}
+
+
+Definition at line 10 of file gnyesno.\+c.
+
+
+
+References B\+U\+F\+S\+Z, ghack\+\_\+get\+\_\+main\+\_\+window(), N\+U\+L\+L, and T\+R\+U\+E.
+
+
+
+Referenced by gnome\+\_\+yn\+\_\+function().
+
+
+\begin{DoxyCode}
+12 \{
+13     \textcolor{keywordtype}{int} i=0, ret;
+14     gchar button\_name[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+15     GtkWidget *box;
+16     GtkWidget* mainWnd=\hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL};
+17 
+18     box = gnome\_message\_box\_new ( question, GNOME\_MESSAGE\_BOX\_QUESTION, \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL});
+19     \textcolor{comment}{/* add buttons for each choice */}
+20     \textcolor{keywordflow}{if} (!strcmp(GNOME\_STOCK\_BUTTON\_OK, choices)) \{
+21     gnome\_dialog\_append\_button ( GNOME\_DIALOG(box), GNOME\_STOCK\_BUTTON\_OK);
+22     gnome\_dialog\_set\_default( GNOME\_DIALOG(box), 0);
+23     gnome\_dialog\_set\_accelerator( GNOME\_DIALOG(box), 0, \textcolor{charliteral}{'o'}, 0);
+24 \textcolor{preprocessor}{#if 0}
+25     g\_print(\textcolor{stringliteral}{"Setting accelerator '%c' for button %d\(\backslash\)n"}, \textcolor{charliteral}{'o'}, 0);
+26 \textcolor{preprocessor}{#endif}
+27     \}
+28     \textcolor{keywordflow}{else} \{
+29     \textcolor{keywordflow}{for}( ; choices[i]!=\textcolor{charliteral}{'\(\backslash\)0'}; i++) \{
+30         \textcolor{keywordflow}{if} (choices[i]==\textcolor{charliteral}{'y'}) \{
+31         sprintf( button\_name, GNOME\_STOCK\_BUTTON\_YES);
+32         \}
+33         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (choices[i]==\textcolor{charliteral}{'n'}) \{
+34         sprintf( button\_name, GNOME\_STOCK\_BUTTON\_NO);
+35         \}
+36         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (choices[i] == \textcolor{charliteral}{'q'}) \{
+37             sprintf( button\_name, \textcolor{stringliteral}{"Quit"});
+38         \} \textcolor{keywordflow}{else} \{
+39         sprintf( button\_name, \textcolor{stringliteral}{"%c"}, choices[i]);
+40         \}
+41         \textcolor{keywordflow}{if} (def==choices[i])
+42         gnome\_dialog\_set\_default( GNOME\_DIALOG(box), i);
+43         gnome\_dialog\_append\_button ( GNOME\_DIALOG(box), button\_name);
+44         gnome\_dialog\_set\_accelerator( GNOME\_DIALOG(box), i, choices[i], 0);
+45 \textcolor{preprocessor}{#if 0}
+46         g\_print(\textcolor{stringliteral}{"Setting accelerator '%c' for button %d\(\backslash\)n"}, choices[i], i);
+47 \textcolor{preprocessor}{#endif}
+48     \}
+49     \}
+50 \textcolor{preprocessor}{#if 0}
+51     \textcolor{comment}{/* Perhaps add in a quit game button, like this... */}
+52     gnome\_dialog\_append\_button ( GNOME\_DIALOG(box), GNOME\_STOCK\_BUTTON\_CLOSE);
+53     gnome\_dialog\_set\_accelerator( GNOME\_DIALOG(box), i, choices[i], 0);
+54     g\_print(\textcolor{stringliteral}{"Setting accelerator '%c' for button %d\(\backslash\)n"}, \textcolor{charliteral}{'Q'}, i);
+55 \textcolor{preprocessor}{#endif}
+56 
+57     gnome\_dialog\_set\_close(GNOME\_DIALOG (box), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+58     mainWnd = \hyperlink{gnmain_8c_a103200f2f57b9258dfa18159191ea650}{ghack\_get\_main\_window} ();
+59     gtk\_window\_set\_modal( GTK\_WINDOW(box), \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+60     gtk\_window\_set\_title( GTK\_WINDOW(box), \textcolor{stringliteral}{"GnomeHack"});
+61     \textcolor{keywordflow}{if} ( mainWnd != \hyperlink{windefs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4}{NULL} ) \{
+62     gnome\_dialog\_set\_parent (GNOME\_DIALOG (box), 
+63         GTK\_WINDOW ( mainWnd) );
+64     \}
+65 
+66     ret=gnome\_dialog\_run\_and\_close ( GNOME\_DIALOG (box));
+67     
+68 \textcolor{preprocessor}{#if 0}
+69     g\_print(\textcolor{stringliteral}{"You selected button %d\(\backslash\)n"}, ret);
+70 \textcolor{preprocessor}{#endif}
+71     
+72     \textcolor{keywordflow}{if} (ret==-1)
+73     \textcolor{keywordflow}{return}( \textcolor{charliteral}{'\(\backslash\)033'});
+74     \textcolor{keywordflow}{else}
+75     \textcolor{keywordflow}{return}( choices[ret]);
+76 \}
+\end{DoxyCode}

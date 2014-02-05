@@ -1,0 +1,1447 @@
+\hypertarget{topten_8c}{\section{nethack/src/topten.c File Reference}
+\label{topten_8c}\index{nethack/src/topten.\+c@{nethack/src/topten.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dlb.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}patchlevel.\+h\char`\"{}}\\*
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtoptenentry}{toptenentry}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{topten_8c_a395d73fe0b0ae9b7167dfabde4454d15}{done\+\_\+stopprint}~program\+\_\+state.\+stopprint
+\item 
+\#define \hyperlink{topten_8c_ab4afc5fce371b7a80e90bdafeb432ab0}{newttentry}()~(struct \hyperlink{structtoptenentry}{toptenentry} $\ast$) \hyperlink{xpm2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}(sizeof(struct \hyperlink{structtoptenentry}{toptenentry}))
+\item 
+\#define \hyperlink{topten_8c_a3c1c81a3402e6cb648e91360a2392df9}{dealloc\+\_\+ttentry}(ttent)~\hyperlink{winproto_8h_a4bbec68d324de17b99fecede64b383ba}{free}((\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\+\_\+t}) (ttent))
+\item 
+\#define \hyperlink{topten_8c_a8a9f53e88ab074d064538861f55d1f78}{N\+A\+M\+S\+Z}~10
+\item 
+\#define \hyperlink{topten_8c_a04f0d79bd659186506d88c4710898bea}{D\+T\+H\+S\+Z}~100
+\item 
+\#define \hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{R\+O\+L\+E\+S\+Z}~3
+\item 
+\#define \hyperlink{topten_8c_a41aaa49181454f513c416b1c3f6bcb0b}{P\+E\+R\+S\+M\+A\+X}~3		/$\ast$ entries per \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}/uid per char. allowed $\ast$/
+\item 
+\#define \hyperlink{topten_8c_aa12275f94dc8298f6fb52f7a051cd6e1}{P\+O\+I\+N\+T\+S\+M\+I\+N}~1	/$\ast$ must be $>$ 0 $\ast$/
+\item 
+\#define \hyperlink{topten_8c_a8246ec0b88bb81337959322941692e1e}{E\+N\+T\+R\+Y\+M\+A\+X}~100	/$\ast$ must be $>$= 10 $\ast$/
+\item 
+\#define \hyperlink{topten_8c_ac04ed2f519b6af04d5ccb02ebc326923}{P\+E\+R\+S\+\_\+\+I\+S\+\_\+\+U\+I\+D}~/$\ast$ delete for \hyperlink{topten_8c_a41aaa49181454f513c416b1c3f6bcb0b}{P\+E\+R\+S\+M\+A\+X} per \hyperlink{lev__main_8c_a8f8f80d37794cde9472343e4487ba3eb}{name}; now per uid $\ast$/
+\item 
+\#define \hyperlink{topten_8c_ab69803f585e379ea62c472f43c789f4a}{T\+T\+F\+I\+E\+L\+D\+S}~13
+\item 
+\#define \hyperlink{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}{H\+U\+P}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{topten_8c_a49276eac24a5c685610fa2f0034713ca}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\+\_\+print},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{topten_8c_a42b13bb2edddc4b8766bcf8029f7e24c}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_a9741bcf81d2334f2233f3a7f8faaca86}{topten\+\_\+print\+\_\+bold},(\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} \hyperlink{topten_8c_a03915f972b310e60f3da132967959b22}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_a21b023f92f017e33206eb6e45d96d2df}{observable\+\_\+depth},(\hyperlink{structd__level}{d\+\_\+level} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{topten_8c_aa9faeb66126574c5e11f530b55b5abd8}{N\+D\+E\+C\+L} (\hyperlink{topten_8c_acc83f7391c50f3b2142a3862e97f9ca3}{outheader})
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{topten_8c_a0bee9f7d81558502bc8686b1416bf0be}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{outentry},(int, struct \hyperlink{structtoptenentry}{toptenentry} $\ast$, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{topten_8c_a8fd7d28f58ea7a1858417c253e155ee3}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_a4bb996a31e5ce4c2d33ff8c9c9b36758}{readentry},(F\+I\+L\+E $\ast$, struct \hyperlink{structtoptenentry}{toptenentry} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{topten_8c_ae5fd30afc9a958e9338e91e23196f096}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_a46ada004037821e5cd67c7b412462b0d}{writeentry},(F\+I\+L\+E $\ast$, struct \hyperlink{structtoptenentry}{toptenentry} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void \hyperlink{topten_8c_a16d9d61b4836331730c7f72eb10ff9bf}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_adba089d4fb2b435a5579dd2d9e2c5bfb}{free\+\_\+ttlist},(struct \hyperlink{structtoptenentry}{toptenentry} $\ast$))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{topten_8c_adc4befeed8c26328633d85ddd7e0b17a}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_af338613e3f4eb1860df21f7c0282077b}{classmon},(char $\ast$, \hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}))
+\item 
+\hyperlink{hack_8h_a0c2ce0eef98596c51b3a10e50a29dd5e}{S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int \hyperlink{topten_8c_af7f78d0dec7dee9985b891c8ca17a91d}{F\+D\+E\+C\+L} (\hyperlink{topten_8c_ad6188dc7541a9d9e57edaf01a23f75aa}{score\+\_\+wanted},(\hyperlink{wingem1_8c_aa2723cc3af18a5199ab4ce7cca84d82b}{B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, int, struct \hyperlink{structtoptenentry}{toptenentry} $\ast$, int, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$$\ast$, int))
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\+\_\+print} (char $\ast$x) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{topten_8c_a9741bcf81d2334f2233f3a7f8faaca86}{topten\+\_\+print\+\_\+bold} (char $\ast$x) \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const}
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} \hyperlink{global_8h_a2043b7d01ce89f4ee2fa6c345a752d32}{xchar} \hyperlink{topten_8c_a21b023f92f017e33206eb6e45d96d2df}{observable\+\_\+depth} (\hyperlink{structd__level}{d\+\_\+level} $\ast$lev)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{topten_8c_a4bb996a31e5ce4c2d33ff8c9c9b36758}{readentry} (F\+I\+L\+E $\ast$rfile, struct \hyperlink{structtoptenentry}{toptenentry} $\ast$tt)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{topten_8c_a46ada004037821e5cd67c7b412462b0d}{writeentry} (F\+I\+L\+E $\ast$rfile, struct \hyperlink{structtoptenentry}{toptenentry} $\ast$tt)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{topten_8c_adba089d4fb2b435a5579dd2d9e2c5bfb}{free\+\_\+ttlist} (struct \hyperlink{structtoptenentry}{toptenentry} $\ast$tt)
+\item 
+void \hyperlink{topten_8c_a0d5a4dbc8c9ff2d3e344247889e9a182}{topten} (int how)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{topten_8c_acc83f7391c50f3b2142a3862e97f9ca3}{outheader} ()
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void \hyperlink{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{outentry} (int rank, struct \hyperlink{structtoptenentry}{toptenentry} $\ast$t1, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} so)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{topten_8c_ad6188dc7541a9d9e57edaf01a23f75aa}{score\+\_\+wanted} (\hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} current\+\_\+ver, int rank, struct \hyperlink{structtoptenentry}{toptenentry} $\ast$t1, int playerct, \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$$\ast$players, int uid)
+\item 
+void \hyperlink{topten_8c_a1c335dc4cd97e311acb93aa30107ceaa}{prscore} (int argc, char $\ast$$\ast$argv)
+\item 
+\hyperlink{hack_8h_a6584b0687fb4e0040a85bbcdaa3e0ee1}{S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int \hyperlink{topten_8c_af338613e3f4eb1860df21f7c0282077b}{classmon} (char $\ast$plch, \hyperlink{global_8h_a531b10dd351aa162d7dcccd1966308b8}{boolean} fem)
+\item 
+struct \hyperlink{structobj}{obj} $\ast$ \hyperlink{topten_8c_aacf906dc77af3eca740c0a87ca0b68a1}{tt\+\_\+oname} (struct \hyperlink{structobj}{obj} $\ast$\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structtoptenentry}{toptenentry} $\ast$ \hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\+\_\+head}
+\item 
+\hyperlink{config1_8h_a9987bf629301f5fe76ddd96aa2717ca1}{N\+E\+A\+R\+D\+A\+T\+A} \hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} char $\ast$\hyperlink{tradstdc_8h_a2c212835823e3c54a8ab6d95c652660e}{const} \hyperlink{topten_8c_ad89dab11a0a195fad4d67ced55961eaa}{killed\+\_\+by\+\_\+prefix} \mbox{[}$\,$\mbox{]}
+\item 
+static \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin} = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{W\+I\+N\+\_\+\+E\+R\+R}
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{topten_8c_a3c1c81a3402e6cb648e91360a2392df9}{\index{topten.\+c@{topten.\+c}!dealloc\+\_\+ttentry@{dealloc\+\_\+ttentry}}
+\index{dealloc\+\_\+ttentry@{dealloc\+\_\+ttentry}!topten.\+c@{topten.\+c}}
+\subsubsection[{dealloc\+\_\+ttentry}]{\setlength{\rightskip}{0pt plus 5cm}\#define dealloc\+\_\+ttentry(
+\begin{DoxyParamCaption}
+\item[{}]{ttent}
+\end{DoxyParamCaption}
+)~{\bf free}(({\bf genericptr\+\_\+t}) (ttent))}}\label{topten_8c_a3c1c81a3402e6cb648e91360a2392df9}
+
+
+Definition at line 32 of file topten.\+c.
+
+
+
+Referenced by free\+\_\+ttlist(), and topten().
+
+\hypertarget{topten_8c_a395d73fe0b0ae9b7167dfabde4454d15}{\index{topten.\+c@{topten.\+c}!done\+\_\+stopprint@{done\+\_\+stopprint}}
+\index{done\+\_\+stopprint@{done\+\_\+stopprint}!topten.\+c@{topten.\+c}}
+\subsubsection[{done\+\_\+stopprint}]{\setlength{\rightskip}{0pt plus 5cm}\#define done\+\_\+stopprint~program\+\_\+state.\+stopprint}}\label{topten_8c_a395d73fe0b0ae9b7167dfabde4454d15}
+
+
+Definition at line 29 of file topten.\+c.
+
+
+
+Referenced by topten().
+
+\hypertarget{topten_8c_a04f0d79bd659186506d88c4710898bea}{\index{topten.\+c@{topten.\+c}!D\+T\+H\+S\+Z@{D\+T\+H\+S\+Z}}
+\index{D\+T\+H\+S\+Z@{D\+T\+H\+S\+Z}!topten.\+c@{topten.\+c}}
+\subsubsection[{D\+T\+H\+S\+Z}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+T\+H\+S\+Z~100}}\label{topten_8c_a04f0d79bd659186506d88c4710898bea}
+
+
+Definition at line 34 of file topten.\+c.
+
+
+
+Referenced by topten().
+
+\hypertarget{topten_8c_a8246ec0b88bb81337959322941692e1e}{\index{topten.\+c@{topten.\+c}!E\+N\+T\+R\+Y\+M\+A\+X@{E\+N\+T\+R\+Y\+M\+A\+X}}
+\index{E\+N\+T\+R\+Y\+M\+A\+X@{E\+N\+T\+R\+Y\+M\+A\+X}!topten.\+c@{topten.\+c}}
+\subsubsection[{E\+N\+T\+R\+Y\+M\+A\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define E\+N\+T\+R\+Y\+M\+A\+X~100	/$\ast$ must be $>$= 10 $\ast$/}}\label{topten_8c_a8246ec0b88bb81337959322941692e1e}
+
+
+Definition at line 38 of file topten.\+c.
+
+
+
+Referenced by topten().
+
+\hypertarget{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}{\index{topten.\+c@{topten.\+c}!H\+U\+P@{H\+U\+P}}
+\index{H\+U\+P@{H\+U\+P}!topten.\+c@{topten.\+c}}
+\subsubsection[{H\+U\+P}]{\setlength{\rightskip}{0pt plus 5cm}\#define H\+U\+P}}\label{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}
+
+
+Referenced by topten().
+
+\hypertarget{topten_8c_a8a9f53e88ab074d064538861f55d1f78}{\index{topten.\+c@{topten.\+c}!N\+A\+M\+S\+Z@{N\+A\+M\+S\+Z}}
+\index{N\+A\+M\+S\+Z@{N\+A\+M\+S\+Z}!topten.\+c@{topten.\+c}}
+\subsubsection[{N\+A\+M\+S\+Z}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+A\+M\+S\+Z~10}}\label{topten_8c_a8a9f53e88ab074d064538861f55d1f78}
+
+
+Definition at line 33 of file topten.\+c.
+
+
+
+Referenced by score\+\_\+wanted(), and topten().
+
+\hypertarget{topten_8c_ab4afc5fce371b7a80e90bdafeb432ab0}{\index{topten.\+c@{topten.\+c}!newttentry@{newttentry}}
+\index{newttentry@{newttentry}!topten.\+c@{topten.\+c}}
+\subsubsection[{newttentry}]{\setlength{\rightskip}{0pt plus 5cm}\#define newttentry(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~(struct {\bf toptenentry} $\ast$) {\bf alloc}(sizeof(struct {\bf toptenentry}))}}\label{topten_8c_ab4afc5fce371b7a80e90bdafeb432ab0}
+
+
+Definition at line 31 of file topten.\+c.
+
+
+
+Referenced by prscore(), and topten().
+
+\hypertarget{topten_8c_ac04ed2f519b6af04d5ccb02ebc326923}{\index{topten.\+c@{topten.\+c}!P\+E\+R\+S\+\_\+\+I\+S\+\_\+\+U\+I\+D@{P\+E\+R\+S\+\_\+\+I\+S\+\_\+\+U\+I\+D}}
+\index{P\+E\+R\+S\+\_\+\+I\+S\+\_\+\+U\+I\+D@{P\+E\+R\+S\+\_\+\+I\+S\+\_\+\+U\+I\+D}!topten.\+c@{topten.\+c}}
+\subsubsection[{P\+E\+R\+S\+\_\+\+I\+S\+\_\+\+U\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+E\+R\+S\+\_\+\+I\+S\+\_\+\+U\+I\+D~/$\ast$ delete for {\bf P\+E\+R\+S\+M\+A\+X} per {\bf name}; now per uid $\ast$/}}\label{topten_8c_ac04ed2f519b6af04d5ccb02ebc326923}
+
+
+Definition at line 41 of file topten.\+c.
+
+
+
+Referenced by topten().
+
+\hypertarget{topten_8c_a41aaa49181454f513c416b1c3f6bcb0b}{\index{topten.\+c@{topten.\+c}!P\+E\+R\+S\+M\+A\+X@{P\+E\+R\+S\+M\+A\+X}}
+\index{P\+E\+R\+S\+M\+A\+X@{P\+E\+R\+S\+M\+A\+X}!topten.\+c@{topten.\+c}}
+\subsubsection[{P\+E\+R\+S\+M\+A\+X}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+E\+R\+S\+M\+A\+X~3		/$\ast$ entries per {\bf name}/uid per char. allowed $\ast$/}}\label{topten_8c_a41aaa49181454f513c416b1c3f6bcb0b}
+
+
+Definition at line 36 of file topten.\+c.
+
+
+
+Referenced by topten().
+
+\hypertarget{topten_8c_aa12275f94dc8298f6fb52f7a051cd6e1}{\index{topten.\+c@{topten.\+c}!P\+O\+I\+N\+T\+S\+M\+I\+N@{P\+O\+I\+N\+T\+S\+M\+I\+N}}
+\index{P\+O\+I\+N\+T\+S\+M\+I\+N@{P\+O\+I\+N\+T\+S\+M\+I\+N}!topten.\+c@{topten.\+c}}
+\subsubsection[{P\+O\+I\+N\+T\+S\+M\+I\+N}]{\setlength{\rightskip}{0pt plus 5cm}\#define P\+O\+I\+N\+T\+S\+M\+I\+N~1	/$\ast$ must be $>$ 0 $\ast$/}}\label{topten_8c_aa12275f94dc8298f6fb52f7a051cd6e1}
+
+
+Definition at line 37 of file topten.\+c.
+
+
+
+Referenced by topten().
+
+\hypertarget{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{\index{topten.\+c@{topten.\+c}!R\+O\+L\+E\+S\+Z@{R\+O\+L\+E\+S\+Z}}
+\index{R\+O\+L\+E\+S\+Z@{R\+O\+L\+E\+S\+Z}!topten.\+c@{topten.\+c}}
+\subsubsection[{R\+O\+L\+E\+S\+Z}]{\setlength{\rightskip}{0pt plus 5cm}\#define R\+O\+L\+E\+S\+Z~3}}\label{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}
+
+
+Definition at line 35 of file topten.\+c.
+
+
+
+Referenced by classmon(), and topten().
+
+\hypertarget{topten_8c_ab69803f585e379ea62c472f43c789f4a}{\index{topten.\+c@{topten.\+c}!T\+T\+F\+I\+E\+L\+D\+S@{T\+T\+F\+I\+E\+L\+D\+S}}
+\index{T\+T\+F\+I\+E\+L\+D\+S@{T\+T\+F\+I\+E\+L\+D\+S}!topten.\+c@{topten.\+c}}
+\subsubsection[{T\+T\+F\+I\+E\+L\+D\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define T\+T\+F\+I\+E\+L\+D\+S~13}}\label{topten_8c_ab69803f585e379ea62c472f43c789f4a}
+
+
+Referenced by readentry().
+
+
+
+\subsection{Function Documentation}
+\hypertarget{topten_8c_af338613e3f4eb1860df21f7c0282077b}{\index{topten.\+c@{topten.\+c}!classmon@{classmon}}
+\index{classmon@{classmon}!topten.\+c@{topten.\+c}}
+\subsubsection[{classmon}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int classmon (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{plch, }
+\item[{{\bf boolean}}]{fem}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_af338613e3f4eb1860df21f7c0282077b}
+
+
+Definition at line 885 of file topten.\+c.
+
+
+
+References Role\+::femalenum, Role\+Name\+::m, Role\+::malenum, Role\+::name, N\+O\+N\+\_\+\+P\+M, roles, and R\+O\+L\+E\+S\+Z.
+
+
+
+Referenced by tt\+\_\+oname().
+
+
+\begin{DoxyCode}
+888 \{
+889     \textcolor{keywordtype}{int} i;
+890 
+891     \textcolor{comment}{/* Look for this role in the role table */}
+892     \textcolor{keywordflow}{for} (i = 0; \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_aca88aa13366db080d9a996e0c8a6c767}{name}.\hyperlink{structRoleName_a264d1ed0d4715edaaad295e8ab4c1002}{m}; i++)
+893         \textcolor{keywordflow}{if} (!strncmp(plch, \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].filecode, \hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ})) \{
+894         \textcolor{keywordflow}{if} (fem && \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].femalenum != \hyperlink{permonst_8h_a6485376b5cfc1627d2c68fcb98432cb0}{NON\_PM})
+895             \textcolor{keywordflow}{return} \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_a3df6c34453ea826bb3bad15d174765d1}{femalenum};
+896         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].malenum != \hyperlink{permonst_8h_a6485376b5cfc1627d2c68fcb98432cb0}{NON\_PM})
+897             \textcolor{keywordflow}{return} \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_aa88f771ec189bdfc9d50fd7e9a9800df}{malenum};
+898         \textcolor{keywordflow}{else}
+899             \textcolor{keywordflow}{return} PM\_HUMAN;
+900         \}
+901     \textcolor{comment}{/* this might be from a 3.2.x score for former Elf class */}
+902     \textcolor{keywordflow}{if} (!strcmp(plch, \textcolor{stringliteral}{"E"})) \textcolor{keywordflow}{return} PM\_RANGER;
+903 
+904     impossible(\textcolor{stringliteral}{"What weird role is this? (%s)"}, plch);
+905     \textcolor{keywordflow}{return} (PM\_HUMAN\_MUMMY);
+906 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_a49276eac24a5c685610fa2f0034713ca}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf topten\+\_\+print}}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a49276eac24a5c685610fa2f0034713ca}
+\hypertarget{topten_8c_a42b13bb2edddc4b8766bcf8029f7e24c}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf topten\+\_\+print\+\_\+bold}}]{, }
+\item[{({\bf const} char $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a42b13bb2edddc4b8766bcf8029f7e24c}
+\hypertarget{topten_8c_a03915f972b310e60f3da132967959b22}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} {\bf xchar} F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf observable\+\_\+depth}}]{, }
+\item[{({\bf d\+\_\+level} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a03915f972b310e60f3da132967959b22}
+\hypertarget{topten_8c_a0bee9f7d81558502bc8686b1416bf0be}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf outentry}}]{, }
+\item[{(int, struct {\bf toptenentry} $\ast$, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a0bee9f7d81558502bc8686b1416bf0be}
+\hypertarget{topten_8c_a8fd7d28f58ea7a1858417c253e155ee3}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf readentry}}]{, }
+\item[{(F\+I\+L\+E $\ast$, struct {\bf toptenentry} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a8fd7d28f58ea7a1858417c253e155ee3}
+\hypertarget{topten_8c_ae5fd30afc9a958e9338e91e23196f096}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf writeentry}}]{, }
+\item[{(F\+I\+L\+E $\ast$, struct {\bf toptenentry} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_ae5fd30afc9a958e9338e91e23196f096}
+\hypertarget{topten_8c_a16d9d61b4836331730c7f72eb10ff9bf}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf free\+\_\+ttlist}}]{, }
+\item[{(struct {\bf toptenentry} $\ast$)}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a16d9d61b4836331730c7f72eb10ff9bf}
+\hypertarget{topten_8c_adc4befeed8c26328633d85ddd7e0b17a}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf classmon}}]{, }
+\item[{(char $\ast$, {\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P})}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_adc4befeed8c26328633d85ddd7e0b17a}
+\hypertarget{topten_8c_af7f78d0dec7dee9985b891c8ca17a91d}{\index{topten.\+c@{topten.\+c}!F\+D\+E\+C\+L@{F\+D\+E\+C\+L}}
+\index{F\+D\+E\+C\+L@{F\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{F\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} int F\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf score\+\_\+wanted}}]{, }
+\item[{({\bf B\+O\+O\+L\+E\+A\+N\+\_\+\+P}, int, struct {\bf toptenentry} $\ast$, int, {\bf const} char $\ast$$\ast$, int)}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_af7f78d0dec7dee9985b891c8ca17a91d}
+\hypertarget{topten_8c_adba089d4fb2b435a5579dd2d9e2c5bfb}{\index{topten.\+c@{topten.\+c}!free\+\_\+ttlist@{free\+\_\+ttlist}}
+\index{free\+\_\+ttlist@{free\+\_\+ttlist}!topten.\+c@{topten.\+c}}
+\subsubsection[{free\+\_\+ttlist}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void free\+\_\+ttlist (
+\begin{DoxyParamCaption}
+\item[{struct {\bf toptenentry} $\ast$}]{tt}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_adba089d4fb2b435a5579dd2d9e2c5bfb}
+
+
+Definition at line 230 of file topten.\+c.
+
+
+
+References dealloc\+\_\+ttentry, and toptenentry\+::tt\+\_\+next.
+
+
+
+Referenced by prscore(), and topten().
+
+
+\begin{DoxyCode}
+232 \{
+233     \textcolor{keyword}{struct }\hyperlink{structtoptenentry}{toptenentry} *ttnext;
+234 
+235     \textcolor{keywordflow}{while} (tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} > 0) \{
+236         ttnext = tt->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next};
+237         \hyperlink{topten_8c_a3c1c81a3402e6cb648e91360a2392df9}{dealloc\_ttentry}(tt);
+238         tt = ttnext;
+239     \}
+240     \hyperlink{topten_8c_a3c1c81a3402e6cb648e91360a2392df9}{dealloc\_ttentry}(tt);
+241 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_aa9faeb66126574c5e11f530b55b5abd8}{\index{topten.\+c@{topten.\+c}!N\+D\+E\+C\+L@{N\+D\+E\+C\+L}}
+\index{N\+D\+E\+C\+L@{N\+D\+E\+C\+L}!topten.\+c@{topten.\+c}}
+\subsubsection[{N\+D\+E\+C\+L}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+D\+C\+L} void N\+D\+E\+C\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf outheader}}]{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_aa9faeb66126574c5e11f530b55b5abd8}
+\hypertarget{topten_8c_a21b023f92f017e33206eb6e45d96d2df}{\index{topten.\+c@{topten.\+c}!observable\+\_\+depth@{observable\+\_\+depth}}
+\index{observable\+\_\+depth@{observable\+\_\+depth}!topten.\+c@{topten.\+c}}
+\subsubsection[{observable\+\_\+depth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} {\bf xchar} observable\+\_\+depth (
+\begin{DoxyParamCaption}
+\item[{{\bf d\+\_\+level} $\ast$}]{lev}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a21b023f92f017e33206eb6e45d96d2df}
+
+
+Definition at line 108 of file topten.\+c.
+
+
+
+References In\+\_\+endgame, Is\+\_\+airlevel, Is\+\_\+astralevel, Is\+\_\+earthlevel, Is\+\_\+firelevel, and Is\+\_\+waterlevel.
+
+
+
+Referenced by topten().
+
+
+\begin{DoxyCode}
+110 \{
+111 \textcolor{preprocessor}{#if 0   }\textcolor{comment}{/* if we ever randomize the order of the elemental planes, we}
+112 \textcolor{comment}{       must use a constant external representation in the record file */}\textcolor{preprocessor}{}
+113     \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ae85486e6a752224948478a6e9dab0329}{In\_endgame}(lev)) \{
+114         \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_af69a19c1eec378c1cebe9143febbe2b5}{Is\_astralevel}(lev))     \textcolor{keywordflow}{return} -5;
+115         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a9fd7b21db47607a73332aa75ba8f4832}{Is\_waterlevel}(lev)) \textcolor{keywordflow}{return} -4;
+116         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_ab8c9d0d5de964b295e56e2763f970ac8}{Is\_firelevel}(lev))  \textcolor{keywordflow}{return} -3;
+117         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_a2d9a2dcb88ded033c3305c7798f81c24}{Is\_airlevel}(lev))    \textcolor{keywordflow}{return} -2;
+118         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\hyperlink{dungeon_8h_aa4eaf851320108eeaacde06ca61fe041}{Is\_earthlevel}(lev)) \textcolor{keywordflow}{return} -1;
+119         \textcolor{keywordflow}{else}             \textcolor{keywordflow}{return} 0;  \textcolor{comment}{/* ? */}
+120     \} \textcolor{keywordflow}{else}
+121 \textcolor{preprocessor}{#endif}
+122         \textcolor{keywordflow}{return} depth(lev);
+123 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{\index{topten.\+c@{topten.\+c}!outentry@{outentry}}
+\index{outentry@{outentry}!topten.\+c@{topten.\+c}}
+\subsubsection[{outentry}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void outentry (
+\begin{DoxyParamCaption}
+\item[{int}]{rank, }
+\item[{struct {\bf toptenentry} $\ast$}]{t1, }
+\item[{{\bf boolean}}]{so}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a7553f711909c732ec61780db1ccc6c4c}
+
+
+Definition at line 554 of file topten.\+c.
+
+
+
+References astral\+\_\+level, B\+U\+F\+S\+Z, C\+O\+L\+N\+O, dungeon\+::dname, dungeons, eos(), F\+A\+L\+S\+E, index(), knox\+\_\+level, Sprintf, Strcat, Strcpy, topten\+\_\+print(), topten\+\_\+print\+\_\+bold(), and T\+R\+U\+E.
+
+
+
+Referenced by prscore(), and topten().
+
+
+\begin{DoxyCode}
+558 \{
+559     \textcolor{keywordtype}{boolean} second\_line = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+560     \textcolor{keywordtype}{char} linebuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+561     \textcolor{keywordtype}{char} *bp, hpbuf[24], linebuf3[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+562     \textcolor{keywordtype}{int} hppos, lngr;
+563 
+564 
+565     linebuf[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+566     \textcolor{keywordflow}{if} (rank) \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"%3d"}, rank);
+567     \textcolor{keywordflow}{else} \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{"   "});
+568 
+569     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{" %10ld  %.10s"}, t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points}, t1->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name});
+570     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"-%s"}, t1->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole});
+571     \textcolor{keywordflow}{if} (t1->\hyperlink{structtoptenentry_ad8638f544271de3f5d3e21d745fee726}{plrace}[0] != \textcolor{charliteral}{'?'})
+572         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"-%s"}, t1->\hyperlink{structtoptenentry_ad8638f544271de3f5d3e21d745fee726}{plrace});
+573     \textcolor{comment}{/* Printing of gender and alignment is intentional.  It has been}
+574 \textcolor{comment}{     * part of the NetHack Geek Code, and illustrates a proper way to}
+575 \textcolor{comment}{     * specify a character from the command line.}
+576 \textcolor{comment}{     */}
+577     \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"-%s"}, t1->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend});
+578     \textcolor{keywordflow}{if} (t1->\hyperlink{structtoptenentry_aee7d9d1fb9de83e94cca805b837079f4}{plalign}[0] != \textcolor{charliteral}{'?'})
+579         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"-%s "}, t1->\hyperlink{structtoptenentry_aee7d9d1fb9de83e94cca805b837079f4}{plalign});
+580     \textcolor{keywordflow}{else}
+581         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{" "});
+582     \textcolor{keywordflow}{if} (!strncmp(\textcolor{stringliteral}{"escaped"}, t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, 7)) \{
+583         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"escaped the dungeon %s[max level %d]"},
+584             !strncmp(\textcolor{stringliteral}{" ("}, t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death} + 7, 2) ? t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death} + 7 + 2 : \textcolor{stringliteral}{""},
+585             t1->\hyperlink{structtoptenentry_a7584f5f58a62ce331c87c6751581e8b0}{maxlvl});
+586         \textcolor{comment}{/* fixup for closing paren in "escaped... with...Amulet)[max..." */}
+587         \textcolor{keywordflow}{if} ((bp = \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(linebuf, \textcolor{charliteral}{')'})) != 0)
+588         *bp = (t1->\hyperlink{structtoptenentry_a505b721116a47adbd7ccfaf8a58bad96}{deathdnum} == \hyperlink{decl_8h_a462602292e864000ee1ccbb0fa809cb4}{astral\_level}.dnum) ? \textcolor{charliteral}{'\(\backslash\)0'} : \textcolor{charliteral}{' '};
+589         second\_line = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+590     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(\textcolor{stringliteral}{"ascended"}, t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, 8)) \{
+591         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"ascended to demigod%s-hood"},
+592             (t1->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}[0] == \textcolor{charliteral}{'F'}) ? \textcolor{stringliteral}{"dess"} : \textcolor{stringliteral}{""});
+593         second\_line = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+594     \} \textcolor{keywordflow}{else} \{
+595         \textcolor{keywordflow}{if} (!strncmp(t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \textcolor{stringliteral}{"quit"}, 4)) \{
+596         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{"quit"});
+597         second\_line = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+598         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \textcolor{stringliteral}{"died of st"}, 10)) \{
+599         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{"starved to death"});
+600         second\_line = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+601         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \textcolor{stringliteral}{"choked"}, 6)) \{
+602         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"choked on h%s food"},
+603             (t1->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}[0] == \textcolor{charliteral}{'F'}) ? \textcolor{stringliteral}{"er"} : \textcolor{stringliteral}{"is"});
+604         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \textcolor{stringliteral}{"poisoned"}, 8)) \{
+605         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{"was poisoned"});
+606         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \textcolor{stringliteral}{"crushed"}, 7)) \{
+607         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{"was crushed to death"});
+608         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (!strncmp(t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \textcolor{stringliteral}{"petrified by "}, 13)) \{
+609         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{"turned to stone"});
+610         \} \textcolor{keywordflow}{else} \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{"died"});
+611 
+612         \textcolor{keywordflow}{if} (t1->\hyperlink{structtoptenentry_a505b721116a47adbd7ccfaf8a58bad96}{deathdnum} == \hyperlink{decl_8h_a462602292e864000ee1ccbb0fa809cb4}{astral\_level}.dnum) \{
+613         \textcolor{keyword}{const} \textcolor{keywordtype}{char} *arg, *fmt = \textcolor{stringliteral}{" on the Plane of %s"};
+614 
+615         \textcolor{keywordflow}{switch} (t1->\hyperlink{structtoptenentry_a61b1f3fa6f066f1ca962c34e4c4e48af}{deathlev}) \{
+616         \textcolor{keywordflow}{case} -5:
+617             fmt = \textcolor{stringliteral}{" on the %s Plane"};
+618             arg = \textcolor{stringliteral}{"Astral"}; \textcolor{keywordflow}{break};
+619         \textcolor{keywordflow}{case} -4:
+620             arg = \textcolor{stringliteral}{"Water"};  \textcolor{keywordflow}{break};
+621         \textcolor{keywordflow}{case} -3:
+622             arg = \textcolor{stringliteral}{"Fire"};   \textcolor{keywordflow}{break};
+623         \textcolor{keywordflow}{case} -2:
+624             arg = \textcolor{stringliteral}{"Air"};    \textcolor{keywordflow}{break};
+625         \textcolor{keywordflow}{case} -1:
+626             arg = \textcolor{stringliteral}{"Earth"};  \textcolor{keywordflow}{break};
+627         \textcolor{keywordflow}{default}:
+628             arg = \textcolor{stringliteral}{"Void"};   \textcolor{keywordflow}{break};
+629         \}
+630         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), fmt, arg);
+631         \} \textcolor{keywordflow}{else} \{
+632         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{" in %s"}, \hyperlink{decl_8h_ac5ded4d65e561a90b475dc626c392a18}{dungeons}[t1->\hyperlink{structtoptenentry_a505b721116a47adbd7ccfaf8a58bad96}{deathdnum}].
+      \hyperlink{structdungeon_a802ae61c0d552cf15d77175a8d5b7c5c}{dname});
+633         \textcolor{keywordflow}{if} (t1->\hyperlink{structtoptenentry_a505b721116a47adbd7ccfaf8a58bad96}{deathdnum} != \hyperlink{decl_8h_a70cef4760238b669bde4148c9653d774}{knox\_level}.dnum)
+634             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{" on level %d"}, t1->\hyperlink{structtoptenentry_a61b1f3fa6f066f1ca962c34e4c4e48af}{deathlev});
+635         \textcolor{keywordflow}{if} (t1->\hyperlink{structtoptenentry_a61b1f3fa6f066f1ca962c34e4c4e48af}{deathlev} != t1->\hyperlink{structtoptenentry_a7584f5f58a62ce331c87c6751581e8b0}{maxlvl})
+636             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{" [max %d]"}, t1->\hyperlink{structtoptenentry_a7584f5f58a62ce331c87c6751581e8b0}{maxlvl});
+637         \}
+638 
+639         \textcolor{comment}{/* kludge for "quit while already on Charon's boat" */}
+640         \textcolor{keywordflow}{if} (!strncmp(t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \textcolor{stringliteral}{"quit "}, 5))
+641         \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death} + 4);
+642     \}
+643     \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(linebuf, \textcolor{stringliteral}{"."});
+644 
+645     \textcolor{comment}{/* Quit, starved, ascended, and escaped contain no second line */}
+646     \textcolor{keywordflow}{if} (second\_line)
+647         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf), \textcolor{stringliteral}{"  %c%s."}, highc(*(t1->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death})), t1->
+      \hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}+1);
+648 
+649     lngr = (int)strlen(linebuf);
+650     \textcolor{keywordflow}{if} (t1->\hyperlink{structtoptenentry_a6190d60218b470dbdbe6952f0f8f3748}{hp} <= 0) hpbuf[0] = \textcolor{charliteral}{'-'}, hpbuf[1] = \textcolor{charliteral}{'\(\backslash\)0'};
+651     \textcolor{keywordflow}{else} \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(hpbuf, \textcolor{stringliteral}{"%d"}, t1->\hyperlink{structtoptenentry_a6190d60218b470dbdbe6952f0f8f3748}{hp});
+652     \textcolor{comment}{/* beginning of hp column after padding (not actually padded yet) */}
+653     hppos = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} - (\textcolor{keyword}{sizeof}(\textcolor{stringliteral}{"  Hp [max]"})-1); \textcolor{comment}{/* sizeof(str) includes \(\backslash\)0 */}
+654     \textcolor{keywordflow}{while} (lngr >= hppos) \{
+655         \textcolor{keywordflow}{for}(bp = \hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf);
+656             !(*bp == \textcolor{charliteral}{' '} && (bp-linebuf < hppos));
+657             bp--)
+658         ;
+659         \textcolor{comment}{/* special case: if about to wrap in the middle of maximum}
+660 \textcolor{comment}{           dungeon depth reached, wrap in front of it instead */}
+661         \textcolor{keywordflow}{if} (bp > linebuf + 5 && !strncmp(bp - 5, \textcolor{stringliteral}{" [max"}, 5)) bp -= 5;
+662         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(linebuf3, bp+1);
+663         *bp = 0;
+664         \textcolor{keywordflow}{if} (so) \{
+665         \textcolor{keywordflow}{while} (bp < linebuf + (\hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1)) *bp++ = \textcolor{charliteral}{' '};
+666         *bp = 0;
+667         \hyperlink{topten_8c_a9741bcf81d2334f2233f3a7f8faaca86}{topten\_print\_bold}(linebuf);
+668         \} \textcolor{keywordflow}{else}
+669         \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(linebuf);
+670         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(linebuf, \textcolor{stringliteral}{"%15s %s"}, \textcolor{stringliteral}{""}, linebuf3);
+671         lngr = strlen(linebuf);
+672     \}
+673     \textcolor{comment}{/* beginning of hp column not including padding */}
+674     hppos = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} - 7 - (int)strlen(hpbuf);
+675     bp = \hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf);
+676 
+677     \textcolor{keywordflow}{if} (bp <= linebuf + hppos) \{
+678         \textcolor{comment}{/* pad any necessary blanks to the hit point entry */}
+679         \textcolor{keywordflow}{while} (bp < linebuf + hppos) *bp++ = \textcolor{charliteral}{' '};
+680         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(bp, hpbuf);
+681         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(\hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(bp), \textcolor{stringliteral}{" %s[%d]"},
+682             (t1->\hyperlink{structtoptenentry_af73023379d229a55babd99cbe7c10c2a}{maxhp} < 10) ? \textcolor{stringliteral}{"  "} : (t1->\hyperlink{structtoptenentry_af73023379d229a55babd99cbe7c10c2a}{maxhp} < 100) ? \textcolor{stringliteral}{" "} : \textcolor{stringliteral}{""},
+683             t1->\hyperlink{structtoptenentry_af73023379d229a55babd99cbe7c10c2a}{maxhp});
+684     \}
+685 
+686     \textcolor{keywordflow}{if} (so) \{
+687         bp = \hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf);
+688         \textcolor{keywordflow}{if} (so >= \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}) so = \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO}-1;
+689         \textcolor{keywordflow}{while} (bp < linebuf + so) *bp++ = \textcolor{charliteral}{' '};
+690         *bp = 0;
+691         \hyperlink{topten_8c_a9741bcf81d2334f2233f3a7f8faaca86}{topten\_print\_bold}(linebuf);
+692     \} \textcolor{keywordflow}{else}
+693         \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(linebuf);
+694 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_acc83f7391c50f3b2142a3862e97f9ca3}{\index{topten.\+c@{topten.\+c}!outheader@{outheader}}
+\index{outheader@{outheader}!topten.\+c@{topten.\+c}}
+\subsubsection[{outheader}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void outheader (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_acc83f7391c50f3b2142a3862e97f9ca3}
+
+
+Definition at line 540 of file topten.\+c.
+
+
+
+References B\+U\+F\+S\+Z, C\+O\+L\+N\+O, eos(), Strcpy, and topten\+\_\+print().
+
+
+
+Referenced by prscore(), and topten().
+
+
+\begin{DoxyCode}
+541 \{
+542     \textcolor{keywordtype}{char} linebuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+543     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *bp;
+544 
+545     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(linebuf, \textcolor{stringliteral}{" No  Points     Name"});
+546     bp = \hyperlink{makedefs_8c_a72563303ed4b67f2a7dd9f2d15a01558}{eos}(linebuf);
+547     \textcolor{keywordflow}{while}(bp < linebuf + \hyperlink{global_8h_a308dbfcc29f5a427c0315f3cbf03c3ed}{COLNO} - 9) *bp++ = \textcolor{charliteral}{' '};
+548     \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(bp, \textcolor{stringliteral}{"Hp [max]"});
+549     \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(linebuf);
+550 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_a1c335dc4cd97e311acb93aa30107ceaa}{\index{topten.\+c@{topten.\+c}!prscore@{prscore}}
+\index{prscore@{prscore}!topten.\+c@{topten.\+c}}
+\subsubsection[{prscore}]{\setlength{\rightskip}{0pt plus 5cm}void prscore (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a1c335dc4cd97e311acb93aa30107ceaa}
+
+
+Definition at line 744 of file topten.\+c.
+
+
+
+References amii\+\_\+rawprwin, B\+U\+F\+S\+Z, create\+\_\+nhwindow, destroy\+\_\+nhwindow, display\+\_\+nhwindow, dlb\+\_\+cleanup, dlb\+\_\+init, F\+A\+L\+S\+E, fopen\+\_\+datafile(), free\+\_\+dungeons(), free\+\_\+ttlist(), getuid(), hname, index(), init\+\_\+nhwindows, newttentry, N\+H\+W\+\_\+\+T\+E\+X\+T, outentry(), outheader(), plname, toptenentry\+::points, raw\+\_\+print, readentry(), R\+E\+C\+O\+R\+D, score\+\_\+wanted(), S\+C\+O\+R\+E\+P\+R\+E\+F\+I\+X, Sprintf, Strcat, Strcpy, T\+R\+U\+E, tt\+\_\+head, toptenentry\+::tt\+\_\+next, toptenentry\+::uid, W\+I\+N\+\_\+\+E\+R\+R, and wiz1\+\_\+level.
+
+
+
+Referenced by main().
+
+
+\begin{DoxyCode}
+747 \{
+748     \textcolor{keyword}{const} \textcolor{keywordtype}{char} **players;
+749     \textcolor{keywordtype}{int} playerct, rank;
+750     \textcolor{keywordtype}{boolean} current\_ver = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE}, init\_done = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+751     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structtoptenentry}{toptenentry} *t1;
+752     FILE *rfile;
+753     \textcolor{keywordtype}{boolean} match\_found = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+754     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+755     \textcolor{keywordtype}{char} pbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+756     \textcolor{keywordtype}{int} \hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid} = -1;
+757 \textcolor{preprocessor}{#ifndef PERS\_IS\_UID}
+758     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *player0;
+759 \textcolor{preprocessor}{#endif}
+760 
+761     \textcolor{keywordflow}{if} (argc < 2 || strncmp(argv[1], \textcolor{stringliteral}{"-s"}, 2)) \{
+762         raw\_printf(\textcolor{stringliteral}{"prscore: bad arguments (%d)"}, argc);
+763         \textcolor{keywordflow}{return};
+764     \}
+765 
+766     rfile = \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\_datafile}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \textcolor{stringliteral}{"r"}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX});
+767     \textcolor{keywordflow}{if} (!rfile) \{
+768         \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{"Cannot open record file!"});
+769         \textcolor{keywordflow}{return};
+770     \}
+771 
+772 \textcolor{preprocessor}{#ifdef  AMIGA}
+773     \{
+774         \textcolor{keyword}{extern} \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{winext_8h_adfe028fce2921a7a5f7713029ad51769}{amii\_rawprwin};
+775         \hyperlink{winprocs_8h_a613c5d847a2df7d7ddca4a1308014964}{init\_nhwindows}(&argc, argv);
+776         amii\_rawprwin = \hyperlink{winprocs_8h_aa13fb35379049d1836397492d10b6b0c}{create\_nhwindow}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT});
+777     \}
+778 \textcolor{preprocessor}{#endif}
+779 
+780     \textcolor{comment}{/* If the score list isn't after a game, we never went through}
+781 \textcolor{comment}{     * initialization. */}
+782     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_abdaabae046b547407ef448fac3dcc922}{wiz1\_level}.dlevel == 0) \{
+783         \hyperlink{dlb_8h_af25f20c0b4f30c2b124fbe4f2e54ad3c}{dlb\_init}();
+784         init\_dungeons();
+785         init\_done = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+786     \}
+787 
+788     \textcolor{keywordflow}{if} (!argv[1][2])\{   \textcolor{comment}{/* plain "-s" */}
+789         argc--;
+790         argv++;
+791     \} \textcolor{keywordflow}{else}  argv[1] += 2;
+792 
+793     \textcolor{keywordflow}{if} (argc > 1 && !strcmp(argv[1], \textcolor{stringliteral}{"-v"})) \{
+794         current\_ver = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+795         argc--;
+796         argv++;
+797     \}
+798 
+799     \textcolor{keywordflow}{if} (argc <= 1) \{
+800 \textcolor{preprocessor}{#ifdef PERS\_IS\_UID}
+801         uid = \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}();
+802         playerct = 0;
+803         players = (\textcolor{keyword}{const} \textcolor{keywordtype}{char} **)0;
+804 \textcolor{preprocessor}{#else}
+805         player0 = \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname};
+806         \textcolor{keywordflow}{if} (!*player0)
+807 \textcolor{preprocessor}{# ifdef AMIGA}
+808             player0 = \textcolor{stringliteral}{"all"};    \textcolor{comment}{/* single user system */}
+809 \textcolor{preprocessor}{# else}
+810             player0 = \textcolor{stringliteral}{"hackplayer"};
+811 \textcolor{preprocessor}{# endif}
+812         playerct = 1;
+813         players = &player0;
+814 \textcolor{preprocessor}{#endif}
+815     \} \textcolor{keywordflow}{else} \{
+816         playerct = --argc;
+817         players = (\textcolor{keyword}{const} \textcolor{keywordtype}{char} **)++argv;
+818     \}
+819     \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{""});
+820 
+821     t1 = \hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\_head} = \hyperlink{topten_8c_ab4afc5fce371b7a80e90bdafeb432ab0}{newttentry}();
+822     \textcolor{keywordflow}{for} (rank = 1; ; rank++) \{
+823         \hyperlink{topten_8c_a4bb996a31e5ce4c2d33ff8c9c9b36758}{readentry}(rfile, t1);
+824         \textcolor{keywordflow}{if} (t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} == 0) \textcolor{keywordflow}{break};
+825         \textcolor{keywordflow}{if} (!match\_found &&
+826             \hyperlink{topten_8c_ad6188dc7541a9d9e57edaf01a23f75aa}{score\_wanted}(current\_ver, rank, t1, playerct, players, uid))
+827         match\_found = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+828         t1->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next} = \hyperlink{topten_8c_ab4afc5fce371b7a80e90bdafeb432ab0}{newttentry}();
+829         t1 = t1->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next};
+830     \}
+831 
+832     (void) fclose(rfile);
+833     \textcolor{keywordflow}{if} (init\_done) \{
+834         \hyperlink{save_8c_a140273d59f77e33b38883b02904c2682}{free\_dungeons}();
+835         \hyperlink{dlb_8h_a7affb22a15ff96189d7bfb23a12ab146}{dlb\_cleanup}();
+836     \}
+837 
+838     \textcolor{keywordflow}{if} (match\_found) \{
+839         \hyperlink{topten_8c_acc83f7391c50f3b2142a3862e97f9ca3}{outheader}();
+840         t1 = \hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\_head};
+841         \textcolor{keywordflow}{for} (rank = 1; t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} != 0; rank++, t1 = t1->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next}) \{
+842         \textcolor{keywordflow}{if} (\hyperlink{topten_8c_ad6188dc7541a9d9e57edaf01a23f75aa}{score\_wanted}(current\_ver, rank, t1, playerct, players, uid))
+843             (void) \hyperlink{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{outentry}(rank, t1, 0);
+844         \}
+845     \} \textcolor{keywordflow}{else} \{
+846         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(pbuf, \textcolor{stringliteral}{"Cannot find any %sentries for "},
+847                 current\_ver ? \textcolor{stringliteral}{"current "} : \textcolor{stringliteral}{""});
+848         \textcolor{keywordflow}{if} (playerct < 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(pbuf, \textcolor{stringliteral}{"you."});
+849         \textcolor{keywordflow}{else} \{
+850         \textcolor{keywordflow}{if} (playerct > 1) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(pbuf, \textcolor{stringliteral}{"any of "});
+851         \textcolor{keywordflow}{for} (i = 0; i < playerct; i++) \{
+852             \textcolor{comment}{/* stop printing players if there are too many to fit */}
+853             \textcolor{keywordflow}{if} (strlen(pbuf) + strlen(players[i]) + 2 >= \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}) \{
+854             \textcolor{keywordflow}{if} (strlen(pbuf) < \hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}-4) \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(pbuf, \textcolor{stringliteral}{"..."});
+855             \textcolor{keywordflow}{else} \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(pbuf+strlen(pbuf)-4, \textcolor{stringliteral}{"..."});
+856             \textcolor{keywordflow}{break};
+857             \}
+858             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(pbuf, players[i]);
+859             \textcolor{keywordflow}{if} (i < playerct-1) \{
+860             \textcolor{keywordflow}{if} (players[i][0] == \textcolor{charliteral}{'-'} &&
+861                 \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\textcolor{stringliteral}{"pr"}, players[i][1]) && players[i][2] == 0)
+862                 \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(pbuf, \textcolor{stringliteral}{" "});
+863             \textcolor{keywordflow}{else} \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(pbuf, \textcolor{stringliteral}{":"});
+864             \}
+865         \}
+866         \}
+867         \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(pbuf);
+868         raw\_printf(\textcolor{stringliteral}{"Usage: %s -s [-v] <playertypes> [maxrank] [playernames]"},
+869 
+870              \hyperlink{decl_8h_a723eae5bf45a5d8ecb28dbf26d05bc98}{hname});
+871         raw\_printf(\textcolor{stringliteral}{"Player types are: [-p role] [-r race]"});
+872     \}
+873     \hyperlink{topten_8c_adba089d4fb2b435a5579dd2d9e2c5bfb}{free\_ttlist}(\hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\_head});
+874 \textcolor{preprocessor}{#ifdef  AMIGA}
+875     \{
+876         \textcolor{keyword}{extern} \hyperlink{wintype_8h_adc2de956a3f084b1691cf080e1d1412b}{winid} \hyperlink{winext_8h_adfe028fce2921a7a5f7713029ad51769}{amii\_rawprwin};
+877         \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(amii\_rawprwin, 1);
+878         \hyperlink{winprocs_8h_a77ac4f50de0eedeaead791812762c6a0}{destroy\_nhwindow}(amii\_rawprwin);
+879         amii\_rawprwin = \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+880     \}
+881 \textcolor{preprocessor}{#endif}
+882 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_a4bb996a31e5ce4c2d33ff8c9c9b36758}{\index{topten.\+c@{topten.\+c}!readentry@{readentry}}
+\index{readentry@{readentry}!topten.\+c@{topten.\+c}}
+\subsubsection[{readentry}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void readentry (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{rfile, }
+\item[{struct {\bf toptenentry} $\ast$}]{tt}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a4bb996a31e5ce4c2d33ff8c9c9b36758}
+
+
+Definition at line 126 of file topten.\+c.
+
+
+
+References toptenentry\+::birthdate, toptenentry\+::death, toptenentry\+::deathdate, toptenentry\+::deathdnum, toptenentry\+::deathlev, toptenentry\+::deaths, Role\+::filecode, toptenentry\+::hp, toptenentry\+::maxhp, toptenentry\+::maxlvl, toptenentry\+::name, toptenentry\+::patchlevel, toptenentry\+::plalign, toptenentry\+::plgend, toptenentry\+::plrace, toptenentry\+::plrole, toptenentry\+::points, roles, str2role(), Strcpy, T\+T\+F\+I\+E\+L\+D\+S, toptenentry\+::uid, toptenentry\+::ver\+\_\+major, and toptenentry\+::ver\+\_\+minor.
+
+
+
+Referenced by prscore(), topten(), and tt\+\_\+oname().
+
+
+\begin{DoxyCode}
+129 \{
+130 \textcolor{preprocessor}{#ifdef NO\_SCAN\_BRACK }\textcolor{comment}{/* Version\_ Pts DgnLevs\_ Hp\_\_\_ Died\_\_Born id */}\textcolor{preprocessor}{}
+131     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} fmt[] = \textcolor{stringliteral}{"%d %d %d %ld %d %d %d %d %d %d %ld %ld %d%*c"};
+132     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} fmt32[] = \textcolor{stringliteral}{"%c%c %s %s%*c"};
+133     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} fmt33[] = \textcolor{stringliteral}{"%s %s %s %s %s %s%*c"};
+134 \textcolor{preprocessor}{#else}
+135     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} fmt[] = \textcolor{stringliteral}{"%d.%d.%d %ld %d %d %d %d %d %d %ld %ld %d "};
+136     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} fmt32[] = \textcolor{stringliteral}{"%c%c %[^,],%[^\(\backslash\)n]%*c"};
+137     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} fmt33[] = \textcolor{stringliteral}{"%s %s %s %s %[^,],%[^\(\backslash\)n]%*c"};
+138 \textcolor{preprocessor}{#endif}
+139 
+140 \textcolor{preprocessor}{#ifdef UPDATE\_RECORD\_IN\_PLACE}
+141     \textcolor{comment}{/* note: fscanf() below must read the record's terminating newline */}
+142     final\_fpos = tt->fpos = ftell(rfile);
+143 \textcolor{preprocessor}{#endif}
+144 \textcolor{preprocessor}{#define TTFIELDS 13}
+145     \textcolor{keywordflow}{if}(fscanf(rfile, fmt,
+146             &tt->\hyperlink{structtoptenentry_a91bee7d2843edbebe8e9c140c7117ce2}{ver\_major}, &tt->\hyperlink{structtoptenentry_a13b543c05d6cca789358c7d9e12e517d}{ver\_minor}, &tt->\hyperlink{structtoptenentry_a0b8165c6cd4ec2865b0974cc7a0a849f}{patchlevel},
+147             &tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points}, &tt->\hyperlink{structtoptenentry_a505b721116a47adbd7ccfaf8a58bad96}{deathdnum}, &tt->\hyperlink{structtoptenentry_a61b1f3fa6f066f1ca962c34e4c4e48af}{deathlev},
+148             &tt->\hyperlink{structtoptenentry_a7584f5f58a62ce331c87c6751581e8b0}{maxlvl}, &tt->\hyperlink{structtoptenentry_a6190d60218b470dbdbe6952f0f8f3748}{hp}, &tt->\hyperlink{structtoptenentry_af73023379d229a55babd99cbe7c10c2a}{maxhp}, &tt->\hyperlink{structtoptenentry_a831da8fec0aa7c228c73bfdedfb4500b}{deaths},
+149             &tt->\hyperlink{structtoptenentry_a4f6b60626cd0c1fac745178de2c5a6c9}{deathdate}, &tt->\hyperlink{structtoptenentry_a3c03a444fb83e6d57b50ad60e178f6d8}{birthdate},
+150             &tt->\hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid}) != \hyperlink{topten_8c_ab69803f585e379ea62c472f43c789f4a}{TTFIELDS})
+151 \textcolor{preprocessor}{#undef TTFIELDS}
+152         tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} = 0;
+153     \textcolor{keywordflow}{else} \{
+154         \textcolor{comment}{/* Check for backwards compatibility */}
+155         \textcolor{keywordflow}{if} (tt->\hyperlink{structtoptenentry_a91bee7d2843edbebe8e9c140c7117ce2}{ver\_major} < 3 ||
+156                 (tt->\hyperlink{structtoptenentry_a91bee7d2843edbebe8e9c140c7117ce2}{ver\_major} == 3 && tt->\hyperlink{structtoptenentry_a13b543c05d6cca789358c7d9e12e517d}{ver\_minor} < 3)) \{
+157             \textcolor{keywordtype}{int} i;
+158 
+159             \textcolor{keywordflow}{if} (fscanf(rfile, fmt32,
+160                 tt->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}, tt->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend},
+161                 tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, tt->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}) != 4)
+162             tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} = 0;
+163             tt->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}[1] = \textcolor{charliteral}{'\(\backslash\)0'};
+164             \textcolor{keywordflow}{if} ((i = \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(tt->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole})) >= 0)
+165             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(tt->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}, \hyperlink{you_8h_ae6c97706d31bdeff4786e51b96747db0}{roles}[i].\hyperlink{structRole_a34fefa6544afd2b36d6deeb9b6fa054f}{filecode});
+166             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(tt->\hyperlink{structtoptenentry_ad8638f544271de3f5d3e21d745fee726}{plrace}, \textcolor{stringliteral}{"?"});
+167             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(tt->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}, (tt->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}[0] == \textcolor{charliteral}{'M'}) ? \textcolor{stringliteral}{"Mal"} : \textcolor{stringliteral}{"Fem"});
+168             \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(tt->\hyperlink{structtoptenentry_aee7d9d1fb9de83e94cca805b837079f4}{plalign}, \textcolor{stringliteral}{"?"});
+169         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (fscanf(rfile, fmt33,
+170                 tt->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}, tt->\hyperlink{structtoptenentry_ad8638f544271de3f5d3e21d745fee726}{plrace}, tt->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend},
+171                 tt->\hyperlink{structtoptenentry_aee7d9d1fb9de83e94cca805b837079f4}{plalign}, tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, tt->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}) != 6)
+172             tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} = 0;
+173 \textcolor{preprocessor}{#ifdef NO\_SCAN\_BRACK}
+174         \textcolor{keywordflow}{if}(tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} > 0) \{
+175             nsb\_unmung\_line(tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name});
+176             nsb\_unmung\_line(tt->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death});
+177         \}
+178 \textcolor{preprocessor}{#endif}
+179     \}
+180 
+181     \textcolor{comment}{/* check old score entries for Y2K problem and fix whenever found */}
+182     \textcolor{keywordflow}{if} (tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} > 0) \{
+183         \textcolor{keywordflow}{if} (tt->\hyperlink{structtoptenentry_a3c03a444fb83e6d57b50ad60e178f6d8}{birthdate} < 19000000L) tt->\hyperlink{structtoptenentry_a3c03a444fb83e6d57b50ad60e178f6d8}{birthdate} += 19000000L;
+184         \textcolor{keywordflow}{if} (tt->\hyperlink{structtoptenentry_a4f6b60626cd0c1fac745178de2c5a6c9}{deathdate} < 19000000L) tt->\hyperlink{structtoptenentry_a4f6b60626cd0c1fac745178de2c5a6c9}{deathdate} += 19000000L;
+185     \}
+186 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_ad6188dc7541a9d9e57edaf01a23f75aa}{\index{topten.\+c@{topten.\+c}!score\+\_\+wanted@{score\+\_\+wanted}}
+\index{score\+\_\+wanted@{score\+\_\+wanted}!topten.\+c@{topten.\+c}}
+\subsubsection[{score\+\_\+wanted}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} int score\+\_\+wanted (
+\begin{DoxyParamCaption}
+\item[{{\bf boolean}}]{current\+\_\+ver, }
+\item[{int}]{rank, }
+\item[{struct {\bf toptenentry} $\ast$}]{t1, }
+\item[{int}]{playerct, }
+\item[{{\bf const} char $\ast$$\ast$}]{players, }
+\item[{int}]{uid}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_ad6188dc7541a9d9e57edaf01a23f75aa}
+
+
+Definition at line 697 of file topten.\+c.
+
+
+
+References index(), toptenentry\+::name, N\+A\+M\+S\+Z, P\+A\+T\+C\+H\+L\+E\+V\+E\+L, toptenentry\+::patchlevel, toptenentry\+::plrace, toptenentry\+::plrole, str2race(), str2role(), toptenentry\+::uid, toptenentry\+::ver\+\_\+major, toptenentry\+::ver\+\_\+minor, V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+A\+J\+O\+R, and V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+I\+N\+O\+R.
+
+
+
+Referenced by prscore().
+
+
+\begin{DoxyCode}
+704 \{
+705     \textcolor{keywordtype}{int} i;
+706 
+707     \textcolor{keywordflow}{if} (current\_ver && (t1->\hyperlink{structtoptenentry_a91bee7d2843edbebe8e9c140c7117ce2}{ver\_major} != \hyperlink{patchlevel_8h_a1a53b724b6de666faa8a9e0d06d1055f}{VERSION\_MAJOR} ||
+708                 t1->\hyperlink{structtoptenentry_a13b543c05d6cca789358c7d9e12e517d}{ver\_minor} != \hyperlink{patchlevel_8h_ae0cb52afb79b185b1bf82c7e235f682b}{VERSION\_MINOR} ||
+709                 t1->\hyperlink{structtoptenentry_a0b8165c6cd4ec2865b0974cc7a0a849f}{patchlevel} != \hyperlink{patchlevel_8h_a0e36fabb240fb841cc1df19b076f45c9}{PATCHLEVEL}))
+710         \textcolor{keywordflow}{return} 0;
+711 
+712 \textcolor{preprocessor}{#ifdef PERS\_IS\_UID}
+713     \textcolor{keywordflow}{if} (!playerct && t1->\hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid} == \hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid})
+714         \textcolor{keywordflow}{return} 1;
+715 \textcolor{preprocessor}{#endif}
+716 
+717     \textcolor{keywordflow}{for} (i = 0; i < playerct; i++) \{
+718         \textcolor{keywordflow}{if} (players[i][0] == \textcolor{charliteral}{'-'} && \hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(\textcolor{stringliteral}{"pr"}, players[i][1]) &&
+719                 players[i][2] == 0 && i + 1 < playerct) \{
+720         \textcolor{keywordtype}{char} *arg = (\textcolor{keywordtype}{char} *)players[i + 1];
+721         \textcolor{keywordflow}{if} ((players[i][1] == \textcolor{charliteral}{'p'} &&
+722              \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(arg) == \hyperlink{role_8c_a2de30162987e6e96565ef4f40e4b6287}{str2role}(t1->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole})) ||
+723             (players[i][1] == \textcolor{charliteral}{'r'} &&
+724              \hyperlink{role_8c_a53f7288b95e8681fa29297e9a569dedd}{str2race}(arg) == \hyperlink{role_8c_a53f7288b95e8681fa29297e9a569dedd}{str2race}(t1->\hyperlink{structtoptenentry_ad8638f544271de3f5d3e21d745fee726}{plrace})))
+725             \textcolor{keywordflow}{return} 1;
+726         i++;
+727         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (strcmp(players[i], \textcolor{stringliteral}{"all"}) == 0 ||
+728             strncmp(t1->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, players[i], \hyperlink{topten_8c_a8a9f53e88ab074d064538861f55d1f78}{NAMSZ}) == 0 ||
+729             (players[i][0] == \textcolor{charliteral}{'-'} &&
+730              players[i][1] == t1->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}[0] &&
+731              players[i][2] == 0) ||
+732             (digit(players[i][0]) && rank <= atoi(players[i])))
+733         \textcolor{keywordflow}{return} 1;
+734     \}
+735     \textcolor{keywordflow}{return} 0;
+736 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_a0d5a4dbc8c9ff2d3e344247889e9a182}{\index{topten.\+c@{topten.\+c}!topten@{topten}}
+\index{topten@{topten}!topten.\+c@{topten.\+c}}
+\subsubsection[{topten}]{\setlength{\rightskip}{0pt plus 5cm}void topten (
+\begin{DoxyParamCaption}
+\item[{int}]{how}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a0d5a4dbc8c9ff2d3e344247889e9a182}
+
+
+Definition at line 244 of file topten.\+c.
+
+
+
+References aligns, toptenentry\+::birthdate, B\+U\+F\+S\+Z, create\+\_\+nhwindow, dealloc\+\_\+ttentry, toptenentry\+::death, toptenentry\+::deathdate, toptenentry\+::deathdnum, toptenentry\+::deathlev, toptenentry\+::deaths, destroy\+\_\+nhwindow, discover, display\+\_\+nhwindow, d\+\_\+level\+::dnum, done\+\_\+stopprint, D\+T\+H\+S\+Z, flag\+::end\+\_\+around, flag\+::end\+\_\+own, flag\+::end\+\_\+top, E\+N\+T\+R\+Y\+M\+A\+X, F\+A\+L\+S\+E, flag\+::female, Role\+::filecode, Race\+::filecode, Gender\+::filecode, Align\+::filecode, flags, fopen\+\_\+datafile(), free\+\_\+ttlist(), genders, getuid(), toptenentry\+::hp, H\+U\+P, K\+I\+L\+L\+E\+D\+\_\+\+B\+Y, K\+I\+L\+L\+E\+D\+\_\+\+B\+Y\+\_\+\+A\+N, killer, killer\+\_\+format, lock\+\_\+file(), L\+O\+G\+F\+I\+L\+E, toptenentry\+::maxhp, toptenentry\+::maxlvl, toptenentry\+::name, N\+A\+M\+S\+Z, newttentry, N\+H\+W\+\_\+\+T\+E\+X\+T, N\+O\+\_\+\+K\+I\+L\+L\+E\+R\+\_\+\+P\+R\+E\+F\+I\+X, observable\+\_\+depth(), outentry(), outheader(), P\+A\+N\+I\+C\+K\+E\+D, sinfo\+::panicking, P\+A\+T\+C\+H\+L\+E\+V\+E\+L, toptenentry\+::patchlevel, P\+E\+R\+S\+\_\+\+I\+S\+\_\+\+U\+I\+D, P\+E\+R\+S\+M\+A\+X, toptenentry\+::plalign, toptenentry\+::plgend, plname, toptenentry\+::plrace, toptenentry\+::plrole, toptenentry\+::points, P\+O\+I\+N\+T\+S\+M\+I\+N, program\+\_\+state, raw\+\_\+print, readentry(), R\+E\+C\+O\+R\+D, R\+O\+L\+E\+S\+Z, S\+C\+O\+R\+E\+P\+R\+E\+F\+I\+X, S\+E\+E\+K\+\_\+\+S\+E\+T, Sprintf, Strcat, Strcpy, topten\+\_\+print(), flag\+::toptenwin, T\+R\+U\+E, tt\+\_\+head, toptenentry\+::tt\+\_\+next, align\+::type, u, you\+::ualign, you\+::ubirthday, you\+::uhp, you\+::uhpmax, toptenentry\+::uid, you\+::umortality, unlock\+\_\+file(), urace, you\+::urexp, urole, you\+::uz, toptenentry\+::ver\+\_\+major, toptenentry\+::ver\+\_\+minor, V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+A\+J\+O\+R, V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+I\+N\+O\+R, W\+I\+N\+\_\+\+E\+R\+R, wizard, and writeentry().
+
+
+
+Referenced by done().
+
+
+\begin{DoxyCode}
+246 \{
+247     \textcolor{keywordtype}{int} \hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid} = \hyperlink{amidos_8c_adfeaff1e1a26bb8deae36cc9807d09f2}{getuid}();
+248     \textcolor{keywordtype}{int} rank, rank0 = -1, rank1 = 0;
+249     \textcolor{keywordtype}{int} occ\_cnt = \hyperlink{topten_8c_a41aaa49181454f513c416b1c3f6bcb0b}{PERSMAX};
+250     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structtoptenentry}{toptenentry} *t0, *tprev;
+251     \textcolor{keyword}{struct }\hyperlink{structtoptenentry}{toptenentry} *t1;
+252     FILE *rfile;
+253     \textcolor{keyword}{register} \textcolor{keywordtype}{int} flg = 0;
+254     \textcolor{keywordtype}{boolean} t0\_used;
+255 \textcolor{preprocessor}{#ifdef LOGFILE}
+256     FILE *lfile;
+257 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* LOGFILE */}\textcolor{preprocessor}{}
+258 
+259 \textcolor{comment}{/* Under DICE 3.0, this crashes the system consistently, apparently due to}
+260 \textcolor{comment}{ * corruption of *rfile somewhere.  Until I figure this out, just cut out}
+261 \textcolor{comment}{ * topten support entirely - at least then the game exits cleanly.  --AC}
+262 \textcolor{comment}{ */}
+263 \textcolor{preprocessor}{#ifdef \_DCC}
+264     \textcolor{keywordflow}{return};
+265 \textcolor{preprocessor}{#endif}
+266 
+267 \textcolor{comment}{/* If we are in the midst of a panic, cut out topten entirely.}
+268 \textcolor{comment}{ * topten uses alloc() several times, which will lead to}
+269 \textcolor{comment}{ * problems if the panic was the result of an alloc() failure.}
+270 \textcolor{comment}{ */}
+271     \textcolor{keywordflow}{if} (\hyperlink{decl_8h_a91c51d44f2b6e70f8a5d42a5b5218dcd}{program\_state}.\hyperlink{structsinfo_abf3b0c7bbd74f57595e53ab0eadd30e9}{panicking})
+272         \textcolor{keywordflow}{return};
+273 
+274     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a82cef9011b510b91ae45af332672fcc6}{toptenwin}) \{
+275         \hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin} = \hyperlink{winprocs_8h_aa13fb35379049d1836397492d10b6b0c}{create\_nhwindow}(\hyperlink{wintype_8h_a7e2bcc8531c4c62e8d8f1c5279c5789b}{NHW\_TEXT});
+276     \}
+277 
+278 \textcolor{preprocessor}{#if defined(UNIX) || defined(VMS) || defined(\_\_EMX\_\_)}
+279 \textcolor{preprocessor}{#define HUP if (!program\_state.done\_hup)}
+280 \textcolor{preprocessor}{#else}
+281 \textcolor{preprocessor}{#define HUP}
+282 \textcolor{preprocessor}{#endif}
+283 
+284 \textcolor{preprocessor}{#ifdef TOS}
+285     restore\_colors();   \textcolor{comment}{/* make sure the screen is black on white */}
+286 \textcolor{preprocessor}{#endif}
+287     \textcolor{comment}{/* create a new 'topten' entry */}
+288     t0\_used = \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE};
+289     t0 = \hyperlink{topten_8c_ab4afc5fce371b7a80e90bdafeb432ab0}{newttentry}();
+290     \textcolor{comment}{/* deepest\_lev\_reached() is in terms of depth(), and reporting the}
+291 \textcolor{comment}{     * deepest level reached in the dungeon death occurred in doesn't}
+292 \textcolor{comment}{     * seem right, so we have to report the death level in depth() terms}
+293 \textcolor{comment}{     * as well (which also seems reasonable since that's all the player}
+294 \textcolor{comment}{     * sees on the screen anyway)}
+295 \textcolor{comment}{     */}
+296     t0->\hyperlink{structtoptenentry_a91bee7d2843edbebe8e9c140c7117ce2}{ver\_major} = \hyperlink{patchlevel_8h_a1a53b724b6de666faa8a9e0d06d1055f}{VERSION\_MAJOR};
+297     t0->\hyperlink{structtoptenentry_a13b543c05d6cca789358c7d9e12e517d}{ver\_minor} = \hyperlink{patchlevel_8h_ae0cb52afb79b185b1bf82c7e235f682b}{VERSION\_MINOR};
+298     t0->\hyperlink{structtoptenentry_a0b8165c6cd4ec2865b0974cc7a0a849f}{patchlevel} = \hyperlink{patchlevel_8h_a0e36fabb240fb841cc1df19b076f45c9}{PATCHLEVEL};
+299     t0->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ac096bd7eef66e6d79962d6e9848071df}{urexp};
+300     t0->\hyperlink{structtoptenentry_a505b721116a47adbd7ccfaf8a58bad96}{deathdnum} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz}.\hyperlink{structd__level_a035d301f0a8cafc6c757fbbda2b6935e}{dnum};
+301     t0->\hyperlink{structtoptenentry_a61b1f3fa6f066f1ca962c34e4c4e48af}{deathlev} = \hyperlink{topten_8c_a21b023f92f017e33206eb6e45d96d2df}{observable\_depth}(&\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a89878490db5d54221f04b3fb44ebdaa2}{uz});
+302     t0->\hyperlink{structtoptenentry_a7584f5f58a62ce331c87c6751581e8b0}{maxlvl} = deepest\_lev\_reached(\hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+303     t0->\hyperlink{structtoptenentry_a6190d60218b470dbdbe6952f0f8f3748}{hp} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a94468a400f14da123d5160f8eefd7641}{uhp};
+304     t0->\hyperlink{structtoptenentry_af73023379d229a55babd99cbe7c10c2a}{maxhp} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_ade36670a142a7d38051c74740d02002b}{uhpmax};
+305     t0->\hyperlink{structtoptenentry_a831da8fec0aa7c228c73bfdedfb4500b}{deaths} = \hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a2d62ea3354111911f4afc839b0d8621b}{umortality};
+306     t0->\hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid} = \hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid};
+307     (void) strncpy(t0->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}, \hyperlink{you_8h_a5e8177648a9df85179098399b7ce2c66}{urole}.\hyperlink{structRole_a34fefa6544afd2b36d6deeb9b6fa054f}{filecode}, \hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ});
+308     t0->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}[\hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ}] = \textcolor{charliteral}{'\(\backslash\)0'};
+309     (void) strncpy(t0->\hyperlink{structtoptenentry_ad8638f544271de3f5d3e21d745fee726}{plrace}, \hyperlink{you_8h_adaecc633890bd84d5cfceaf4a513bbaa}{urace}.\hyperlink{structRace_a897f9034ff9163ef0ebcc9ebee43e3c3}{filecode}, \hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ});
+310     t0->\hyperlink{structtoptenentry_ad8638f544271de3f5d3e21d745fee726}{plrace}[\hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ}] = \textcolor{charliteral}{'\(\backslash\)0'};
+311     (void) strncpy(t0->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}, \hyperlink{you_8h_a054315bd2a7d5525da7f008b40c3a6bf}{genders}[\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ae3f866c572c50c676ecadf8acccf0c50}{female}].
+      \hyperlink{structGender_ad52dd3790c3551d8c3f4c169e8cb9f75}{filecode}, \hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ});
+312     t0->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}[\hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ}] = \textcolor{charliteral}{'\(\backslash\)0'};
+313     (void) strncpy(t0->\hyperlink{structtoptenentry_aee7d9d1fb9de83e94cca805b837079f4}{plalign}, \hyperlink{you_8h_abbb6c9f0c6fc7aa532b2ed8dec7ffb29}{aligns}[1-\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a3f202dd89a837a9772a9eb1f1965f30c}{ualign}.\hyperlink{structalign_a0dadfa91b9ff06447f91ea8a2b898827}{type}].
+      \hyperlink{structAlign_aea4daca6016229d80d97c0e8fe349cd7}{filecode}, \hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ});
+314     t0->\hyperlink{structtoptenentry_aee7d9d1fb9de83e94cca805b837079f4}{plalign}[\hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ}] = \textcolor{charliteral}{'\(\backslash\)0'};
+315     (void) strncpy(t0->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, \hyperlink{decl_8h_a362b24d8378ea9e5a611cc50d66e354b}{plname}, \hyperlink{topten_8c_a8a9f53e88ab074d064538861f55d1f78}{NAMSZ});
+316     t0->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}[\hyperlink{topten_8c_a8a9f53e88ab074d064538861f55d1f78}{NAMSZ}] = \textcolor{charliteral}{'\(\backslash\)0'};
+317     t0->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}[0] = \textcolor{charliteral}{'\(\backslash\)0'};
+318     \textcolor{keywordflow}{switch} (\hyperlink{decl_8h_a0a94810d03a0bf68b371c6b1a1a4a905}{killer\_format}) \{
+319         \textcolor{keywordflow}{default}: impossible(\textcolor{stringliteral}{"bad killer format?"});
+320         \textcolor{keywordflow}{case} \hyperlink{decl_8h_af4e54910b730baa32b2dfbe4dd2942c1}{KILLED\_BY\_AN}:
+321             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(t0->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \hyperlink{topten_8c_ad89dab11a0a195fad4d67ced55961eaa}{killed\_by\_prefix}[how]);
+322             (void) strncat(t0->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, an(\hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer}),
+323                         \hyperlink{topten_8c_a04f0d79bd659186506d88c4710898bea}{DTHSZ}-strlen(t0->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}));
+324             \textcolor{keywordflow}{break};
+325         \textcolor{keywordflow}{case} \hyperlink{decl_8h_a0b77d6f094070ee1d9900156357f6f62}{KILLED\_BY}:
+326             \hyperlink{global_8h_a6d985a6c569a61be75fcacf7623f0988}{Strcat}(t0->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \hyperlink{topten_8c_ad89dab11a0a195fad4d67ced55961eaa}{killed\_by\_prefix}[how]);
+327             (void) strncat(t0->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer},
+328                         \hyperlink{topten_8c_a04f0d79bd659186506d88c4710898bea}{DTHSZ}-strlen(t0->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}));
+329             \textcolor{keywordflow}{break};
+330         \textcolor{keywordflow}{case} \hyperlink{decl_8h_aa2ea21bcf7bdd470bd96936d5b80e0ba}{NO\_KILLER\_PREFIX}:
+331             (void) strncat(t0->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death}, \hyperlink{decl_8h_af7d2dea3996fe6d20ea8ec329726e8f9}{killer}, \hyperlink{topten_8c_a04f0d79bd659186506d88c4710898bea}{DTHSZ});
+332             \textcolor{keywordflow}{break};
+333     \}
+334     t0->\hyperlink{structtoptenentry_a3c03a444fb83e6d57b50ad60e178f6d8}{birthdate} = yyyymmdd(\hyperlink{decl_8h_a342ae6d3415cd569bcea437201040743}{u}.\hyperlink{structyou_a45b76395357b04e8d437260eb1d5f9f3}{ubirthday});
+335     t0->\hyperlink{structtoptenentry_a4f6b60626cd0c1fac745178de2c5a6c9}{deathdate} = yyyymmdd((\hyperlink{wceconf_8h_ae314912f2d5fb5362d86efe017e755f4}{time\_t})0L);
+336     t0->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next} = 0;
+337 \textcolor{preprocessor}{#ifdef UPDATE\_RECORD\_IN\_PLACE}
+338     t0->fpos = -1L;
+339 \textcolor{preprocessor}{#endif}
+340 
+341 \textcolor{preprocessor}{#ifdef LOGFILE      }\textcolor{comment}{/* used for debugging (who dies of what, where) */}\textcolor{preprocessor}{}
+342     \textcolor{keywordflow}{if} (\hyperlink{files_8c_a991dbc9dc86b6aa9673a7bed36802728}{lock\_file}(\hyperlink{config_8h_a6d3fef197146b932f5ad01fce683a66b}{LOGFILE}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX}, 10)) \{
+343         \textcolor{keywordflow}{if}(!(lfile = \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\_datafile}(\hyperlink{config_8h_a6d3fef197146b932f5ad01fce683a66b}{LOGFILE}, \textcolor{stringliteral}{"a"}, 
+      \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX}))) \{
+344         \hyperlink{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{"Cannot open log file!"});
+345         \} \textcolor{keywordflow}{else} \{
+346         \hyperlink{topten_8c_a46ada004037821e5cd67c7b412462b0d}{writeentry}(lfile, t0);
+347         (void) fclose(lfile);
+348         \}
+349         \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{config_8h_a6d3fef197146b932f5ad01fce683a66b}{LOGFILE});
+350     \}
+351 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* LOGFILE */}\textcolor{preprocessor}{}
+352 
+353     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} || \hyperlink{flag_8h_adb6a5941e60dcb9dff8f2230d31180f9}{discover}) \{
+354         \textcolor{keywordflow}{if} (how != \hyperlink{hack_8h_a42112655d0a453f721ba58c5510dae55}{PANICKED}) \hyperlink{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \{
+355         \textcolor{keywordtype}{char} pbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+356         \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(\textcolor{stringliteral}{""});
+357         \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(pbuf,
+358           \textcolor{stringliteral}{"Since you were in %s mode, the score list will not be checked."},
+359             \hyperlink{flag_8h_a5f48dc2f029e22c05489fb20a491db4b}{wizard} ? \textcolor{stringliteral}{"wizard"} : \textcolor{stringliteral}{"discover"});
+360         \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(pbuf);
+361         \}
+362         \textcolor{keywordflow}{goto} showwin;
+363     \}
+364 
+365     \textcolor{keywordflow}{if} (!\hyperlink{files_8c_a991dbc9dc86b6aa9673a7bed36802728}{lock\_file}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX}, 60))
+366         \textcolor{keywordflow}{goto} destroywin;
+367 
+368 \textcolor{preprocessor}{#ifdef UPDATE\_RECORD\_IN\_PLACE}
+369     rfile = \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\_datafile}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \textcolor{stringliteral}{"r+"}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX});
+370 \textcolor{preprocessor}{#else}
+371     rfile = \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\_datafile}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \textcolor{stringliteral}{"r"}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX});
+372 \textcolor{preprocessor}{#endif}
+373 
+374     \textcolor{keywordflow}{if} (!rfile) \{
+375         \hyperlink{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{"Cannot open record file!"});
+376         \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD});
+377         \textcolor{keywordflow}{goto} destroywin;
+378     \}
+379 
+380     \hyperlink{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(\textcolor{stringliteral}{""});
+381 
+382     \textcolor{comment}{/* assure minimum number of points */}
+383     \textcolor{keywordflow}{if}(t0->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} < \hyperlink{topten_8c_aa12275f94dc8298f6fb52f7a051cd6e1}{POINTSMIN}) t0->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} = 0;
+384 
+385     t1 = \hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\_head} = \hyperlink{topten_8c_ab4afc5fce371b7a80e90bdafeb432ab0}{newttentry}();
+386     tprev = 0;
+387     \textcolor{comment}{/* rank0: -1 undefined, 0 not\_on\_list, n n\_th on list */}
+388     \textcolor{keywordflow}{for}(rank = 1; ; ) \{
+389         \hyperlink{topten_8c_a4bb996a31e5ce4c2d33ff8c9c9b36758}{readentry}(rfile, t1);
+390         \textcolor{keywordflow}{if} (t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} < \hyperlink{topten_8c_aa12275f94dc8298f6fb52f7a051cd6e1}{POINTSMIN}) t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} = 0;
+391         \textcolor{keywordflow}{if}(rank0 < 0 && t1->points < t0->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points}) \{
+392         rank0 = rank++;
+393         \textcolor{keywordflow}{if}(tprev == 0)
+394             \hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\_head} = t0;
+395         \textcolor{keywordflow}{else}
+396             tprev->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next} = t0;
+397         t0->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next} = t1;
+398 \textcolor{preprocessor}{#ifdef UPDATE\_RECORD\_IN\_PLACE}
+399         t0->fpos = t1->fpos;    \textcolor{comment}{/* insert here */}
+400 \textcolor{preprocessor}{#endif}
+401         t0\_used = \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE};
+402         occ\_cnt--;
+403         flg++;      \textcolor{comment}{/* ask for a rewrite */}
+404         \} \textcolor{keywordflow}{else} tprev = t1;
+405 
+406         \textcolor{keywordflow}{if}(t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} == 0) \textcolor{keywordflow}{break};
+407         \textcolor{keywordflow}{if}(
+408 #ifdef \hyperlink{topten_8c_ac04ed2f519b6af04d5ccb02ebc326923}{PERS\_IS\_UID}
+409         t1->\hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid} == t0->\hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid} &&
+410 #\textcolor{keywordflow}{else}
+411         strncmp(t1->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, t0->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, \hyperlink{topten_8c_a8a9f53e88ab074d064538861f55d1f78}{NAMSZ}) == 0 &&
+412 #endif
+413         !strncmp(t1->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}, t0->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}, \hyperlink{topten_8c_a2765a7987f7f846aa68856bd97b44ffb}{ROLESZ}) &&
+414         --occ\_cnt <= 0) \{
+415             \textcolor{keywordflow}{if}(rank0 < 0) \{
+416             rank0 = 0;
+417             rank1 = rank;
+418             \hyperlink{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \{
+419                 \textcolor{keywordtype}{char} pbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+420                 \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(pbuf,
+421               \textcolor{stringliteral}{"You didn't beat your previous score of %ld points."},
+422                     t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points});
+423                 \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(pbuf);
+424                 \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(\textcolor{stringliteral}{""});
+425             \}
+426             \}
+427             \textcolor{keywordflow}{if}(occ\_cnt < 0) \{
+428             flg++;
+429             \textcolor{keywordflow}{continue};
+430             \}
+431         \}
+432         \textcolor{keywordflow}{if}(rank <= \hyperlink{topten_8c_a8246ec0b88bb81337959322941692e1e}{ENTRYMAX}) \{
+433         t1->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next} = \hyperlink{topten_8c_ab4afc5fce371b7a80e90bdafeb432ab0}{newttentry}();
+434         t1 = t1->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next};
+435         rank++;
+436         \}
+437         \textcolor{keywordflow}{if}(rank > \hyperlink{topten_8c_a8246ec0b88bb81337959322941692e1e}{ENTRYMAX}) \{
+438         t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} = 0;
+439         \textcolor{keywordflow}{break};
+440         \}
+441     \}
+442     \textcolor{keywordflow}{if}(flg) \{   \textcolor{comment}{/* rewrite record file */}
+443 \textcolor{preprocessor}{#ifdef UPDATE\_RECORD\_IN\_PLACE}
+444         (void) fseek(rfile, (t0->fpos >= 0 ?
+445                      t0->fpos : final\_fpos), \hyperlink{dlb_8h_a0d112bae8fd35be772185b6ec6bcbe64}{SEEK\_SET});
+446 \textcolor{preprocessor}{#else}
+447         (void) fclose(rfile);
+448         \textcolor{keywordflow}{if}(!(rfile = \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\_datafile}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \textcolor{stringliteral}{"w"}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX})))\{
+449             \hyperlink{topten_8c_a2f54c5dda256d2d988d4085eb4375c9b}{HUP} \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(\textcolor{stringliteral}{"Cannot write record file"});
+450             \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD});
+451             \hyperlink{topten_8c_adba089d4fb2b435a5579dd2d9e2c5bfb}{free\_ttlist}(\hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\_head});
+452             \textcolor{keywordflow}{goto} destroywin;
+453         \}
+454 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* UPDATE\_RECORD\_IN\_PLACE */}\textcolor{preprocessor}{}
+455         \textcolor{keywordflow}{if}(!\hyperlink{topten_8c_a395d73fe0b0ae9b7167dfabde4454d15}{done\_stopprint}) \textcolor{keywordflow}{if}(rank0 > 0)\{
+456             \textcolor{keywordflow}{if}(rank0 <= 10)
+457             \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(\textcolor{stringliteral}{"You made the top ten list!"});
+458             \textcolor{keywordflow}{else} \{
+459             \textcolor{keywordtype}{char} pbuf[\hyperlink{global_8h_ab26c26cbf7a0c97d8960c3cfb413f882}{BUFSZ}];
+460             \hyperlink{global_8h_aa55ba8f4e3c82fe00035e6b51d6c7dee}{Sprintf}(pbuf,
+461               \textcolor{stringliteral}{"You reached the %d%s place on the top %d list."},
+462                 rank0, ordin(rank0), \hyperlink{topten_8c_a8246ec0b88bb81337959322941692e1e}{ENTRYMAX});
+463             \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(pbuf);
+464             \}
+465             \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(\textcolor{stringliteral}{""});
+466         \}
+467     \}
+468     \textcolor{keywordflow}{if}(rank0 == 0) rank0 = rank1;
+469     \textcolor{keywordflow}{if}(rank0 <= 0) rank0 = rank;
+470     \textcolor{keywordflow}{if}(!\hyperlink{topten_8c_a395d73fe0b0ae9b7167dfabde4454d15}{done\_stopprint}) \hyperlink{topten_8c_acc83f7391c50f3b2142a3862e97f9ca3}{outheader}();
+471     t1 = \hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\_head};
+472     \textcolor{keywordflow}{for}(rank = 1; t1->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} != 0; rank++, t1 = t1->\hyperlink{structtoptenentry_ae73ae2ba838b18d1c8744f6c4735c768}{tt\_next}) \{
+473         \textcolor{keywordflow}{if}(flg
+474 #ifdef UPDATE\_RECORD\_IN\_PLACE
+475             && rank >= rank0
+476 #endif
+477         ) \hyperlink{topten_8c_a46ada004037821e5cd67c7b412462b0d}{writeentry}(rfile, t1);
+478         \textcolor{keywordflow}{if} (\hyperlink{topten_8c_a395d73fe0b0ae9b7167dfabde4454d15}{done\_stopprint}) \textcolor{keywordflow}{continue};
+479         \textcolor{keywordflow}{if} (rank > \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a67a8b5adfb6745bca1cd79fd0165bf91}{end\_top} &&
+480             (rank < rank0 - \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad980590820b88f01125262991dc438be}{end\_around} ||
+481              rank > rank0 + \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad980590820b88f01125262991dc438be}{end\_around}) &&
+482             (!\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a2fcee44ffb7da2cbd895e94fe4c44395}{end\_own} ||
+483 #ifdef \hyperlink{topten_8c_ac04ed2f519b6af04d5ccb02ebc326923}{PERS\_IS\_UID}
+484                     t1->uid != t0->\hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid}
+485 #\textcolor{keywordflow}{else}
+486                     strncmp(t1->name, t0->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, \hyperlink{topten_8c_a8a9f53e88ab074d064538861f55d1f78}{NAMSZ})
+487 #endif
+488         )) \textcolor{keywordflow}{continue};
+489         \textcolor{keywordflow}{if} (rank == rank0 - \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad980590820b88f01125262991dc438be}{end\_around} &&
+490             rank0 > \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a67a8b5adfb6745bca1cd79fd0165bf91}{end\_top} + \hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_ad980590820b88f01125262991dc438be}{end\_around} + 1 &&
+491             !\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a2fcee44ffb7da2cbd895e94fe4c44395}{end\_own})
+492         \hyperlink{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{topten\_print}(\textcolor{stringliteral}{""});
+493         \textcolor{keywordflow}{if}(rank != rank0)
+494         \hyperlink{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{outentry}(rank, t1, \hyperlink{global_8h_aa93f0eb578d23995850d61f7d61c55c1}{FALSE});
+495         \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(!rank1)
+496         \hyperlink{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{outentry}(rank, t1, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+497         \textcolor{keywordflow}{else} \{
+498         \hyperlink{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{outentry}(rank, t1, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+499         \hyperlink{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{outentry}(0, t0, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+500         \}
+501     \}
+502     \textcolor{keywordflow}{if}(rank0 >= rank) \textcolor{keywordflow}{if}(!\hyperlink{topten_8c_a395d73fe0b0ae9b7167dfabde4454d15}{done\_stopprint})
+503         \hyperlink{topten_8c_a7553f711909c732ec61780db1ccc6c4c}{outentry}(0, t0, \hyperlink{global_8h_aa8cecfc5c5c054d2875c03e77b7be15d}{TRUE});
+504 \textcolor{preprocessor}{#ifdef UPDATE\_RECORD\_IN\_PLACE}
+505     \textcolor{keywordflow}{if} (flg) \{
+506 \textcolor{preprocessor}{# ifdef TRUNCATE\_FILE}
+507         \textcolor{comment}{/* if a reasonable way to truncate a file exists, use it */}
+508         truncate\_file(rfile);
+509 \textcolor{preprocessor}{# else}
+510         \textcolor{comment}{/* use sentinel record rather than relying on truncation */}
+511         t1->points = 0L;    \textcolor{comment}{/* terminates file when read back in */}
+512         t1->ver\_major = t1->ver\_minor = t1->patchlevel = 0;
+513         t1->uid = t1->deathdnum = t1->deathlev = 0;
+514         t1->maxlvl = t1->hp = t1->maxhp = t1->deaths = 0;
+515         t1->plrole[0] = t1->plrace[0] = t1->plgend[0] = t1->plalign[0] = \textcolor{charliteral}{'-'};
+516         t1->plrole[1] = t1->plrace[1] = t1->plgend[1] = t1->plalign[1] = 0;
+517         t1->birthdate = t1->deathdate = yyyymmdd((\hyperlink{wceconf_8h_ae314912f2d5fb5362d86efe017e755f4}{time\_t})0L);
+518         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(t1->name, \textcolor{stringliteral}{"@"});
+519         \hyperlink{global_8h_add22f733d1f2c380499f495068e42b7c}{Strcpy}(t1->death, \textcolor{stringliteral}{"<eod>\(\backslash\)n"});
+520         \hyperlink{topten_8c_a46ada004037821e5cd67c7b412462b0d}{writeentry}(rfile, t1);
+521         (void) fflush(rfile);
+522 \textcolor{preprocessor}{# endif }\textcolor{comment}{/* TRUNCATE\_FILE */}\textcolor{preprocessor}{}
+523     \}
+524 \textcolor{preprocessor}{#endif  }\textcolor{comment}{/* UPDATE\_RECORD\_IN\_PLACE */}\textcolor{preprocessor}{}
+525     (void) fclose(rfile);
+526     \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD});
+527     \hyperlink{topten_8c_adba089d4fb2b435a5579dd2d9e2c5bfb}{free\_ttlist}(\hyperlink{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{tt\_head});
+528 
+529   showwin:
+530     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a82cef9011b510b91ae45af332672fcc6}{toptenwin} && !\hyperlink{topten_8c_a395d73fe0b0ae9b7167dfabde4454d15}{done\_stopprint}) 
+      \hyperlink{winprocs_8h_ac8e74d03fbb65b9f5651e63d79bebc60}{display\_nhwindow}(\hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin}, 1);
+531   destroywin:
+532     \textcolor{keywordflow}{if} (!t0\_used) \hyperlink{topten_8c_a3c1c81a3402e6cb648e91360a2392df9}{dealloc\_ttentry}(t0);
+533     \textcolor{keywordflow}{if} (\hyperlink{flag_8h_a997133526e0c6bed44ebc0116a48b50a}{flags}.\hyperlink{structflag_a82cef9011b510b91ae45af332672fcc6}{toptenwin}) \{
+534         \hyperlink{winprocs_8h_a77ac4f50de0eedeaead791812762c6a0}{destroy\_nhwindow}(\hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin});
+535         \hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin}=\hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR};
+536     \}
+537 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}{\index{topten.\+c@{topten.\+c}!topten\+\_\+print@{topten\+\_\+print}}
+\index{topten\+\_\+print@{topten\+\_\+print}!topten.\+c@{topten.\+c}}
+\subsubsection[{topten\+\_\+print}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void topten\+\_\+print (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{x}
+\end{DoxyParamCaption}
+) const}}\label{topten_8c_a1d96c18be34f4caa419c4a6bb05b31aa}
+
+
+Definition at line 88 of file topten.\+c.
+
+
+
+References A\+T\+R\+\_\+\+N\+O\+N\+E, putstr, raw\+\_\+print, and W\+I\+N\+\_\+\+E\+R\+R.
+
+
+
+Referenced by outentry(), outheader(), and topten().
+
+
+\begin{DoxyCode}
+90 \{
+91     \textcolor{keywordflow}{if} (\hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin} == \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+92         \hyperlink{winprocs_8h_a49dffdcae248bae8b370f76b434ce744}{raw\_print}(x);
+93     \textcolor{keywordflow}{else}
+94         \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(\hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin}, \hyperlink{wintype_8h_a20a20b74e8cf84ecfbf3c8665c059636}{ATR\_NONE}, x);
+95 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_a9741bcf81d2334f2233f3a7f8faaca86}{\index{topten.\+c@{topten.\+c}!topten\+\_\+print\+\_\+bold@{topten\+\_\+print\+\_\+bold}}
+\index{topten\+\_\+print\+\_\+bold@{topten\+\_\+print\+\_\+bold}!topten.\+c@{topten.\+c}}
+\subsubsection[{topten\+\_\+print\+\_\+bold}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void topten\+\_\+print\+\_\+bold (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{x}
+\end{DoxyParamCaption}
+) const}}\label{topten_8c_a9741bcf81d2334f2233f3a7f8faaca86}
+
+
+Definition at line 98 of file topten.\+c.
+
+
+
+References A\+T\+R\+\_\+\+B\+O\+L\+D, putstr, raw\+\_\+print\+\_\+bold, and W\+I\+N\+\_\+\+E\+R\+R.
+
+
+
+Referenced by outentry().
+
+
+\begin{DoxyCode}
+100 \{
+101     \textcolor{keywordflow}{if} (\hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin} == \hyperlink{wintype_8h_a56d1f4f2e517a4e81be0b7593e35e681}{WIN\_ERR})
+102         \hyperlink{winprocs_8h_aa619af6993ada20934a1c0b07792eb3b}{raw\_print\_bold}(x);
+103     \textcolor{keywordflow}{else}
+104         \hyperlink{winprocs_8h_a2ab348888957358569f859127c0bc474}{putstr}(\hyperlink{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{toptenwin}, \hyperlink{wintype_8h_a3bdd83c2b946e860e76de6aac6a4edfe}{ATR\_BOLD}, x);
+105 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_aacf906dc77af3eca740c0a87ca0b68a1}{\index{topten.\+c@{topten.\+c}!tt\+\_\+oname@{tt\+\_\+oname}}
+\index{tt\+\_\+oname@{tt\+\_\+oname}!topten.\+c@{topten.\+c}}
+\subsubsection[{tt\+\_\+oname}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf obj}$\ast$ tt\+\_\+oname (
+\begin{DoxyParamCaption}
+\item[{struct {\bf obj} $\ast$}]{otmp}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_aacf906dc77af3eca740c0a87ca0b68a1}
+
+
+Definition at line 913 of file topten.\+c.
+
+
+
+References classmon(), fopen\+\_\+datafile(), toptenentry\+::name, otmp, toptenentry\+::plgend, toptenentry\+::plrole, toptenentry\+::points, readentry(), R\+E\+C\+O\+R\+D, rewind, and S\+C\+O\+R\+E\+P\+R\+E\+F\+I\+X.
+
+
+\begin{DoxyCode}
+915 \{
+916     \textcolor{keywordtype}{int} rank;
+917     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+918     \textcolor{keyword}{register} \textcolor{keyword}{struct }\hyperlink{structtoptenentry}{toptenentry} *tt;
+919     FILE *rfile;
+920     \textcolor{keyword}{struct }\hyperlink{structtoptenentry}{toptenentry} tt\_buf;
+921 
+922     \textcolor{keywordflow}{if} (!otmp) \textcolor{keywordflow}{return}((\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *) 0);
+923 
+924     rfile = \hyperlink{files_8c_a3915b8bf365d51aefc92d7739f5ea4e7}{fopen\_datafile}(\hyperlink{global_8h_aca609c607883cb683bbb741e221fb299}{RECORD}, \textcolor{stringliteral}{"r"}, \hyperlink{decl_8h_ac5ac21e81aec0f108b58ce4ceac20a15}{SCOREPREFIX});
+925     \textcolor{keywordflow}{if} (!rfile) \{
+926         impossible(\textcolor{stringliteral}{"Cannot open record file!"});
+927         \textcolor{keywordflow}{return} (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0;
+928     \}
+929 
+930     tt = &tt\_buf;
+931     rank = rnd(10);
+932 pickentry:
+933     \textcolor{keywordflow}{for}(i = rank; i; i--) \{
+934         \hyperlink{topten_8c_a4bb996a31e5ce4c2d33ff8c9c9b36758}{readentry}(rfile, tt);
+935         \textcolor{keywordflow}{if}(tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} == 0) \textcolor{keywordflow}{break};
+936     \}
+937 
+938     \textcolor{keywordflow}{if}(tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points} == 0) \{
+939         \textcolor{keywordflow}{if}(rank > 1) \{
+940             rank = 1;
+941             \hyperlink{wceconf_8h_a86902ea8a7ab08315282c0e5472611f7}{rewind}(rfile);
+942             \textcolor{keywordflow}{goto} pickentry;
+943         \}
+944         otmp = (\textcolor{keyword}{struct }\hyperlink{structobj}{obj} *) 0;
+945     \} \textcolor{keywordflow}{else} \{
+946         \textcolor{comment}{/* reset timer in case corpse started out as lizard or troll */}
+947         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == CORPSE) obj\_stop\_timers(otmp);
+948         otmp->\hyperlink{structobj_ad5db7220e2b815d06c3c80027ab9924f}{corpsenm} = \hyperlink{topten_8c_af338613e3f4eb1860df21f7c0282077b}{classmon}(tt->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}, (tt->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}[0] == \textcolor{charliteral}{'F'}));
+949         otmp->\hyperlink{structobj_a606b1d5b273b814049cc1b1991adfeec}{owt} = weight(otmp);
+950         otmp = oname(otmp, tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name});
+951         \textcolor{keywordflow}{if} (otmp->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == CORPSE) start\_corpse\_timeout(otmp);
+952     \}
+953 
+954     (void) fclose(rfile);
+955     \textcolor{keywordflow}{return} \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp};
+956 \}
+\end{DoxyCode}
+\hypertarget{topten_8c_a46ada004037821e5cd67c7b412462b0d}{\index{topten.\+c@{topten.\+c}!writeentry@{writeentry}}
+\index{writeentry@{writeentry}!topten.\+c@{topten.\+c}}
+\subsubsection[{writeentry}]{\setlength{\rightskip}{0pt plus 5cm}{\bf S\+T\+A\+T\+I\+C\+\_\+\+O\+V\+L} void writeentry (
+\begin{DoxyParamCaption}
+\item[{F\+I\+L\+E $\ast$}]{rfile, }
+\item[{struct {\bf toptenentry} $\ast$}]{tt}
+\end{DoxyParamCaption}
+)}}\label{topten_8c_a46ada004037821e5cd67c7b412462b0d}
+
+
+Definition at line 189 of file topten.\+c.
+
+
+
+References toptenentry\+::birthdate, toptenentry\+::death, toptenentry\+::deathdate, toptenentry\+::deathdnum, toptenentry\+::deathlev, toptenentry\+::deaths, toptenentry\+::hp, toptenentry\+::maxhp, toptenentry\+::maxlvl, toptenentry\+::name, toptenentry\+::patchlevel, toptenentry\+::plalign, toptenentry\+::plgend, toptenentry\+::plrace, toptenentry\+::plrole, toptenentry\+::points, toptenentry\+::uid, toptenentry\+::ver\+\_\+major, and toptenentry\+::ver\+\_\+minor.
+
+
+
+Referenced by topten().
+
+
+\begin{DoxyCode}
+192 \{
+193 \textcolor{preprocessor}{#ifdef NO\_SCAN\_BRACK}
+194     nsb\_mung\_line(tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name});
+195     nsb\_mung\_line(tt->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death});
+196                        \textcolor{comment}{/* Version\_ Pts DgnLevs\_ Hp\_\_\_ Died\_\_Born id */}
+197     (void) fprintf(rfile,\textcolor{stringliteral}{"%d %d %d %ld %d %d %d %d %d %d %ld %ld %d "},
+198 #\textcolor{keywordflow}{else}
+199     (\textcolor{keywordtype}{void}) fprintf(rfile,\textcolor{stringliteral}{"%d.%d.%d %ld %d %d %d %d %d %d %ld %ld %d "},
+200 #endif
+201         tt->\hyperlink{structtoptenentry_a91bee7d2843edbebe8e9c140c7117ce2}{ver\_major}, tt->\hyperlink{structtoptenentry_a13b543c05d6cca789358c7d9e12e517d}{ver\_minor}, tt->\hyperlink{structtoptenentry_a0b8165c6cd4ec2865b0974cc7a0a849f}{patchlevel},
+202         tt->\hyperlink{structtoptenentry_a6d848e2af2fe840605e707e914395584}{points}, tt->\hyperlink{structtoptenentry_a505b721116a47adbd7ccfaf8a58bad96}{deathdnum}, tt->\hyperlink{structtoptenentry_a61b1f3fa6f066f1ca962c34e4c4e48af}{deathlev},
+203         tt->\hyperlink{structtoptenentry_a7584f5f58a62ce331c87c6751581e8b0}{maxlvl}, tt->\hyperlink{structtoptenentry_a6190d60218b470dbdbe6952f0f8f3748}{hp}, tt->\hyperlink{structtoptenentry_af73023379d229a55babd99cbe7c10c2a}{maxhp}, tt->\hyperlink{structtoptenentry_a831da8fec0aa7c228c73bfdedfb4500b}{deaths},
+204         tt->\hyperlink{structtoptenentry_a4f6b60626cd0c1fac745178de2c5a6c9}{deathdate}, tt->\hyperlink{structtoptenentry_a3c03a444fb83e6d57b50ad60e178f6d8}{birthdate}, tt->\hyperlink{structtoptenentry_a95aa1dca4fdf2bdc4650909b3f0d1012}{uid});
+205     \textcolor{keywordflow}{if} (tt->\hyperlink{structtoptenentry_a91bee7d2843edbebe8e9c140c7117ce2}{ver\_major} < 3 ||
+206             (tt->\hyperlink{structtoptenentry_a91bee7d2843edbebe8e9c140c7117ce2}{ver\_major} == 3 && tt->\hyperlink{structtoptenentry_a13b543c05d6cca789358c7d9e12e517d}{ver\_minor} < 3))
+207 \textcolor{preprocessor}{#ifdef NO\_SCAN\_BRACK}
+208         (void) fprintf(rfile,\textcolor{stringliteral}{"%c%c %s %s\(\backslash\)n"},
+209 #\textcolor{keywordflow}{else}
+210         (\textcolor{keywordtype}{void}) fprintf(rfile,\textcolor{stringliteral}{"%c%c %s,%s\(\backslash\)n"},
+211 #endif
+212             tt->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}[0], tt->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}[0],
+213             onlyspace(tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}) ? \textcolor{stringliteral}{"\_"} : tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, tt->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death});
+214     \textcolor{keywordflow}{else}
+215 \textcolor{preprocessor}{#ifdef NO\_SCAN\_BRACK}
+216         (void) fprintf(rfile,\textcolor{stringliteral}{"%s %s %s %s %s %s\(\backslash\)n"},
+217 #\textcolor{keywordflow}{else}
+218         (\textcolor{keywordtype}{void}) fprintf(rfile,\textcolor{stringliteral}{"%s %s %s %s %s,%s\(\backslash\)n"},
+219 #endif
+220             tt->\hyperlink{structtoptenentry_acd6a0949037e46d3e20d2d2965327fa6}{plrole}, tt->\hyperlink{structtoptenentry_ad8638f544271de3f5d3e21d745fee726}{plrace}, tt->\hyperlink{structtoptenentry_aac92919a77981b5b61e9dee719c38333}{plgend}, tt->\hyperlink{structtoptenentry_aee7d9d1fb9de83e94cca805b837079f4}{plalign},
+221             onlyspace(tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}) ? \textcolor{stringliteral}{"\_"} : tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name}, tt->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death});
+222 
+223 \textcolor{preprocessor}{#ifdef NO\_SCAN\_BRACK}
+224     nsb\_unmung\_line(tt->\hyperlink{structtoptenentry_ae979ed735fbaba2080cd14248c9f8641}{name});
+225     nsb\_unmung\_line(tt->\hyperlink{structtoptenentry_a43fc6492872785e69a78219501d83bb7}{death});
+226 \textcolor{preprocessor}{#endif}
+227 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{topten_8c_ad89dab11a0a195fad4d67ced55961eaa}{\index{topten.\+c@{topten.\+c}!killed\+\_\+by\+\_\+prefix@{killed\+\_\+by\+\_\+prefix}}
+\index{killed\+\_\+by\+\_\+prefix@{killed\+\_\+by\+\_\+prefix}!topten.\+c@{topten.\+c}}
+\subsubsection[{killed\+\_\+by\+\_\+prefix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf N\+E\+A\+R\+D\+A\+T\+A} {\bf const} char$\ast$ {\bf const} killed\+\_\+by\+\_\+prefix\mbox{[}$\,$\mbox{]}}}\label{topten_8c_ad89dab11a0a195fad4d67ced55961eaa}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \textcolor{stringliteral}{"killed by "}, \textcolor{stringliteral}{"choked on "}, \textcolor{stringliteral}{"poisoned by "}, \textcolor{stringliteral}{"died of "}, \textcolor{stringliteral}{"drowned in "},
+    \textcolor{stringliteral}{"burned by "}, \textcolor{stringliteral}{"dissolved in "}, \textcolor{stringliteral}{"crushed to death by "}, \textcolor{stringliteral}{"petrified by "},
+    \textcolor{stringliteral}{"turned to slime by "}, \textcolor{stringliteral}{"killed by "}, \textcolor{stringliteral}{""}, \textcolor{stringliteral}{""}, \textcolor{stringliteral}{""}, \textcolor{stringliteral}{""}, \textcolor{stringliteral}{""}
+\}
+\end{DoxyCode}
+
+
+Definition at line 79 of file topten.\+c.
+
+
+
+Referenced by gnome\+\_\+outrip(), and mswin\+\_\+outrip().
+
+\hypertarget{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}{\index{topten.\+c@{topten.\+c}!toptenwin@{toptenwin}}
+\index{toptenwin@{toptenwin}!topten.\+c@{topten.\+c}}
+\subsubsection[{toptenwin}]{\setlength{\rightskip}{0pt plus 5cm}{\bf winid} toptenwin = {\bf W\+I\+N\+\_\+\+E\+R\+R}\hspace{0.3cm}{\ttfamily [static]}}}\label{topten_8c_a139acceadfd86249d2a74f8fa35fce7f}
+
+
+Definition at line 85 of file topten.\+c.
+
+\hypertarget{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}{\index{topten.\+c@{topten.\+c}!tt\+\_\+head@{tt\+\_\+head}}
+\index{tt\+\_\+head@{tt\+\_\+head}!topten.\+c@{topten.\+c}}
+\subsubsection[{tt\+\_\+head}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf toptenentry} $\ast$ tt\+\_\+head}}\label{topten_8c_a1f9d2ed9d857f3c4fa9224315a7d7834}
+
+
+Referenced by prscore(), and topten().
+

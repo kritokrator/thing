@@ -1,0 +1,1474 @@
+\hypertarget{obj_8h}{\section{nethack/include/obj.h File Reference}
+\label{obj_8h}\index{nethack/include/obj.\+h@{nethack/include/obj.\+h}}
+}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+union \hyperlink{unionvptrs}{vptrs}
+\item 
+struct \hyperlink{structobj}{obj}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{obj_8h_a48857f39d27ea25589dd447836c1d50b}{nexthere}~v.\+v\+\_\+nexthere
+\item 
+\#define \hyperlink{obj_8h_a31e28d13f27aca0aa60a5d761481abba}{ocontainer}~v.\+v\+\_\+ocontainer
+\item 
+\#define \hyperlink{obj_8h_a917b215f5f91a4317e893907bc9ae278}{ocarry}~v.\+v\+\_\+ocarry
+\item 
+\#define \hyperlink{obj_8h_ab8c7f1852485c1923c294d5f345148de}{S\+T\+A\+T\+U\+E\+\_\+\+H\+I\+S\+T\+O\+R\+I\+C}~0x01
+\item 
+\#define \hyperlink{obj_8h_abc9d63f999c3042c0608431127b20ebc}{S\+T\+A\+T\+U\+E\+\_\+\+M\+A\+L\+E}~0x02
+\item 
+\#define \hyperlink{obj_8h_af0c336ded6d62e02c26f6d86f95e4a53}{S\+T\+A\+T\+U\+E\+\_\+\+F\+E\+M\+A\+L\+E}~0x04
+\item 
+\#define \hyperlink{obj_8h_a1a30035b131908457d0b16db1d194eaa}{O\+B\+J\+\_\+\+F\+R\+E\+E}~0		/$\ast$ \hyperlink{structobject}{object} not attached to \hyperlink{wintype_8h_a49720928e6af182ee38aa332d0483b2a}{anything} $\ast$/
+\item 
+\#define \hyperlink{obj_8h_acd464620d577477e63a63b1c3ff62367}{O\+B\+J\+\_\+\+F\+L\+O\+O\+R}~1		/$\ast$ \hyperlink{structobject}{object} on floor $\ast$/
+\item 
+\#define \hyperlink{obj_8h_a39c3d0d393a48d77d7f09b967a96df99}{O\+B\+J\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D}~2		/$\ast$ \hyperlink{structobject}{object} \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} a \hyperlink{structcontainer}{container} $\ast$/
+\item 
+\#define \hyperlink{obj_8h_af1a65072bbaff49e63dd0e724e205067}{O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T}~3		/$\ast$ \hyperlink{structobject}{object} \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} the hero's inventory $\ast$/
+\item 
+\#define \hyperlink{obj_8h_a792736145f7692fad0785cb93f618e73}{O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T}~4		/$\ast$ \hyperlink{structobject}{object} \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} a \hyperlink{structmonster}{monster} inventory $\ast$/
+\item 
+\#define \hyperlink{obj_8h_a570f92543afddd47a693d23b71aea4fb}{O\+B\+J\+\_\+\+M\+I\+G\+R\+A\+T\+I\+N\+G}~5		/$\ast$ \hyperlink{structobject}{object} sent off to another \hyperlink{decl_8c_a721c99bfa099c4225215ba102e91fa39}{level} $\ast$/
+\item 
+\#define \hyperlink{obj_8h_a153e4aa09f3a44def03dc5d882c6ade0}{O\+B\+J\+\_\+\+B\+U\+R\+I\+E\+D}~6		/$\ast$ \hyperlink{structobject}{object} buried $\ast$/
+\item 
+\#define \hyperlink{obj_8h_ac6f78697d45a71f7dfd6935971146eb3}{O\+B\+J\+\_\+\+O\+N\+B\+I\+L\+L}~7		/$\ast$ \hyperlink{structobject}{object} on shk bill $\ast$/
+\item 
+\#define \hyperlink{obj_8h_a84c1ed9e11aa7fd6d2a37717d0e5139b}{N\+O\+B\+J\+\_\+\+S\+T\+A\+T\+E\+S}~8
+\item 
+\#define \hyperlink{obj_8h_ac240beb25ae6ec398ee270cdf4c79155}{greatest\+\_\+erosion}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})~(int)((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})-\/$>$oeroded $>$ (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})-\/$>$oeroded2 ? (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})-\/$>$oeroded \+: (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})-\/$>$oeroded2)
+\item 
+\#define \hyperlink{obj_8h_a560969716d5322448dbe570b13154aca}{M\+A\+X\+\_\+\+E\+R\+O\+D\+E}~3
+\item 
+\#define \hyperlink{obj_8h_a6e7ee6861770450e0117f03d9e2a6d4e}{orotten}~oeroded		/$\ast$ rotten food $\ast$/
+\item 
+\#define \hyperlink{obj_8h_a23de69cb130aabbae4ff7e5cca04b7f8}{odiluted}~oeroded	/$\ast$ diluted potions $\ast$/
+\item 
+\#define \hyperlink{obj_8h_aec96474486e16dd844508c36ef0fe43f}{norevive}~oeroded2
+\item 
+\#define \hyperlink{obj_8h_ac432c29b4100df9d596b3520981b6415}{opoisoned}~otrapped	/$\ast$ \hyperlink{structobject}{object} (weapon) is coated with poison $\ast$/
+\item 
+\#define \hyperlink{obj_8h_ae6be3b34b4d46dc3492b06239cdbe318}{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+N\+O\+T\+H\+I\+N\+G}~0
+\item 
+\#define \hyperlink{obj_8h_a64392331b2d143b80be3262b52bb62c4}{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+O\+N\+S\+T}~1	/$\ast$ \hyperlink{structmonst}{monst} struct \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} oextra $\ast$/
+\item 
+\#define \hyperlink{obj_8h_aa6949a85687215d5dde09de5ce86e3cd}{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+\_\+\+I\+D}~2	/$\ast$ \hyperlink{structmonst}{monst} id \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} oextra $\ast$/
+\item 
+\#define \hyperlink{obj_8h_aa9d5611543cea9d9a2aa96ecdbdc140f}{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+U\+N\+U\+S\+E\+D3}~3
+\item 
+\#define \hyperlink{obj_8h_a746e7a913c248cc34e486c56decdd93a}{leashmon}~corpsenm	/$\ast$ gets m\+\_\+id of attached pet $\ast$/
+\item 
+\#define \hyperlink{obj_8h_a93c26e932e82807e0a3498e394278964}{spestudied}~corpsenm	/$\ast$ \# of times a spellbook has been studied $\ast$/
+\item 
+\#define \hyperlink{obj_8h_af9e79e9e3fb7c67ea717b3d4b2e2c405}{fromsink}~corpsenm	/$\ast$ a potion from a \hyperlink{structsink}{sink} $\ast$/
+\item 
+\#define \hyperlink{obj_8h_a6cf2ea5aec5dd17cb5d055477a91426a}{newobj}(xl)~(struct \hyperlink{structobj}{obj} $\ast$)\hyperlink{xpm2iff_8c_ae273cbdce4cd64a076220ad06c41a5a1}{alloc}((unsigned)(xl) + sizeof(struct \hyperlink{structobj}{obj}))
+\item 
+\#define \hyperlink{obj_8h_a1cbe5aea8be676f47a4597882a411c37}{O\+N\+A\+M\+E}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})~(((char $\ast$)(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})-\/$>$oextra) + (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})-\/$>$oxlth)
+\item 
+\#define \hyperlink{obj_8h_ae095cd55314db1984d81e3b0103007ca}{is\+\_\+blade}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a95ab5df324e5463a58cbea3326784ea2}{is\+\_\+axe}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a260a5afdeeb55f7207d5db68ae939e21}{is\+\_\+pick}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_ae284b60ec8919e5fb325f5a7b39a093c}{is\+\_\+sword}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a29685da5fad6a22d02355fb61bbf234b}{is\+\_\+pole}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a4d68a7f098c241310fbc80ea8e29232a}{is\+\_\+spear}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a1e24f22788f0b91381a52c8fb38850bd}{is\+\_\+launcher}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a17d7bf4a6f8336a314c0825cf5848c54}{is\+\_\+ammo}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a766dc63537673239906c55a19f384b1d}{ammo\+\_\+and\+\_\+launcher}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}, ltmp)
+\item 
+\#define \hyperlink{obj_8h_a8f997086cdf86ba7eb98102f6e7d4b90}{is\+\_\+missile}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a5f347f7456e4da8284a9bc369bc32d45}{is\+\_\+weptool}(o)
+\item 
+\#define \hyperlink{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{bimanual}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a88c7371ac2645909775e2be20d8e7fea}{is\+\_\+multigen}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a6c9b07c199b118761a2675a3826d12c4}{is\+\_\+poisonable}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a2adb148f9956bf79f1825fed308ce583}{uslinging}()~(\hyperlink{decl_8c_a8b6b3c285b489f1c0016ea9c45c3daa3}{uwep} \&\& \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}\mbox{[}\hyperlink{decl_8c_a8b6b3c285b489f1c0016ea9c45c3daa3}{uwep}-\/$>$otyp\mbox{]}.\hyperlink{objclass_8h_ab595ada1a513270255a2311ffc43c2ab}{oc\+\_\+skill} == \hyperlink{skills_8h_ab846b30f6bc0e1fa47cf5811bfdf90eb}{P\+\_\+\+S\+L\+I\+N\+G})
+\item 
+\#define \hyperlink{obj_8h_a19ea1dc07bf84b8a73c76a7ec871c9d4}{is\+\_\+shield}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_ac319cdf71bb42b783da10680b2e8a3bf}{is\+\_\+helmet}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a1a3fe473d2d0a10c897156e3b13fc0c6}{is\+\_\+boots}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a99515fd3635a22bb6a9a41412d8ab172}{is\+\_\+gloves}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_ad201bb666a33dcbecfe3293c2be06cc9}{is\+\_\+cloak}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a96ac846294b8ac0ebf562c7887d8516d}{is\+\_\+shirt}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a0aefa948a424ee03e424efb3b8a198a1}{is\+\_\+suit}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a48a6133fb34208096017be32b0af9237}{is\+\_\+elven\+\_\+armor}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_af614ae1b1e600bc922ab6094091de61c}{is\+\_\+orcish\+\_\+armor}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a1daa502e33f6e378496e96fdd15a453a}{is\+\_\+dwarvish\+\_\+armor}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a2acabadeeca9a3a725717dc551ab2e3b}{is\+\_\+gnomish\+\_\+armor}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})~(\hyperlink{xpm2img_8c_aa93f0eb578d23995850d61f7d61c55c1}{F\+A\+L\+S\+E})
+\item 
+\#define \hyperlink{obj_8h_a1f56f639ab2647c0f2f51ea09d55b44a}{M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E}~200	/$\ast$ longest an egg can remain unhatched $\ast$/
+\item 
+\#define \hyperlink{obj_8h_aa960c14bde9549163592a6d8a2472499}{stale\+\_\+egg}(egg)~((\hyperlink{decl_8c_a34185fdd8c6b99293037406134a3dbea}{monstermoves} -\/ (egg)-\/$>$age) $>$ (2$\ast$\hyperlink{obj_8h_a1f56f639ab2647c0f2f51ea09d55b44a}{M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E}))
+\item 
+\#define \hyperlink{obj_8h_a13f5182f2c3ddc37b3072870ec4a5c16}{ofood}(o)~((o)-\/$>$otyp == C\+O\+R\+P\+S\+E $\vert$$\vert$ (o)-\/$>$otyp == E\+G\+G $\vert$$\vert$ (o)-\/$>$otyp == T\+I\+N)
+\item 
+\#define \hyperlink{obj_8h_a2b98ae56649f0982302ddba00b9f8be5}{polyfodder}(\hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{obj_8h_a6a91da9912d356d8cbca4333834fc66d}{mlevelgain}(\hyperlink{structobj}{obj})~(\hyperlink{obj_8h_a13f5182f2c3ddc37b3072870ec4a5c16}{ofood}(\hyperlink{structobj}{obj}) \&\& (\hyperlink{structobj}{obj})-\/$>$corpsenm == P\+M\+\_\+\+W\+R\+A\+I\+T\+H)
+\item 
+\#define \hyperlink{obj_8h_aeca8c681083fd7ee47f88b725c58af51}{mhealup}(\hyperlink{structobj}{obj})~(\hyperlink{obj_8h_a13f5182f2c3ddc37b3072870ec4a5c16}{ofood}(\hyperlink{structobj}{obj}) \&\& (\hyperlink{structobj}{obj})-\/$>$corpsenm == P\+M\+\_\+\+N\+U\+R\+S\+E)
+\item 
+\#define \hyperlink{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{carried}(o)~((o)-\/$>$\hyperlink{detect_8c_a8201fc0bfa35306851be2a25ab2d6263}{where} == \hyperlink{obj_8h_af1a65072bbaff49e63dd0e724e205067}{O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T})
+\item 
+\#define \hyperlink{obj_8h_a35bc29b64e990f1dca2dcb5c627917ce}{mcarried}(o)~((o)-\/$>$\hyperlink{detect_8c_a8201fc0bfa35306851be2a25ab2d6263}{where} == \hyperlink{obj_8h_a792736145f7692fad0785cb93f618e73}{O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T})
+\item 
+\#define \hyperlink{obj_8h_ae2e47c7280efe98de2333e8078f8ce71}{Has\+\_\+contents}(o)
+\item 
+\#define \hyperlink{obj_8h_a588d9420d81612a88940b1522e279527}{Is\+\_\+container}(o)~((o)-\/$>$otyp $>$= L\+A\+R\+G\+E\+\_\+\+B\+O\+X \&\& (o)-\/$>$otyp $<$= B\+A\+G\+\_\+\+O\+F\+\_\+\+T\+R\+I\+C\+K\+S)
+\item 
+\#define \hyperlink{obj_8h_a670bbe6ea7092fc0194149cc57131af9}{Is\+\_\+box}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})~(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}-\/$>$otyp == L\+A\+R\+G\+E\+\_\+\+B\+O\+X $\vert$$\vert$ \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}-\/$>$otyp == C\+H\+E\+S\+T)
+\item 
+\#define \hyperlink{obj_8h_a65c82dd474ed0d93e446ac4870fd3c35}{Is\+\_\+mbag}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_ac74e03bc58e77a20c6478ad7061e0198}{Is\+\_\+dragon\+\_\+scales}(\hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{obj_8h_a73558b304aee9d9803e5e71d1ca5fa60}{Is\+\_\+dragon\+\_\+mail}(\hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{obj_8h_add4c67d03f8cbdeef9fffe3a9f63942b}{Is\+\_\+dragon\+\_\+armor}(\hyperlink{structobj}{obj})~(\hyperlink{obj_8h_ac74e03bc58e77a20c6478ad7061e0198}{Is\+\_\+dragon\+\_\+scales}(\hyperlink{structobj}{obj}) $\vert$$\vert$ \hyperlink{obj_8h_a73558b304aee9d9803e5e71d1ca5fa60}{Is\+\_\+dragon\+\_\+mail}(\hyperlink{structobj}{obj}))
+\item 
+\#define \hyperlink{obj_8h_a02b387f55e41d65f41c2f4430352cba7}{Dragon\+\_\+scales\+\_\+to\+\_\+pm}(\hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{obj_8h_a143816c96e8c90f4d541dc6a4490fe90}{Dragon\+\_\+mail\+\_\+to\+\_\+pm}(\hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{obj_8h_a6f0d6b71e220b49886067c8a94f17a35}{Dragon\+\_\+to\+\_\+scales}(pm)~(G\+R\+A\+Y\+\_\+\+D\+R\+A\+G\+O\+N\+\_\+\+S\+C\+A\+L\+E\+S + (pm -\/ \hyperlink{monst_8c_ab96e7c4682ea5ae4f83339a15c06f676}{mons}))
+\item 
+\#define \hyperlink{obj_8h_a430f2a311c2810f6403fcfcc96a58ad0}{is\+\_\+elven\+\_\+weapon}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a5642b40a58937d236d9592ce1b575f40}{is\+\_\+elven\+\_\+obj}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})~(\hyperlink{obj_8h_a48a6133fb34208096017be32b0af9237}{is\+\_\+elven\+\_\+armor}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}) $\vert$$\vert$ \hyperlink{obj_8h_a430f2a311c2810f6403fcfcc96a58ad0}{is\+\_\+elven\+\_\+weapon}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}))
+\item 
+\#define \hyperlink{obj_8h_afc8e837ffa73bf800db5cbc4c8f5e467}{is\+\_\+orcish\+\_\+obj}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a38eb43d37202a6386350f0c996f4297a}{is\+\_\+dwarvish\+\_\+obj}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a871e0c40ed5f9c06565bd8be0a166c39}{is\+\_\+gnomish\+\_\+obj}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})~(\hyperlink{obj_8h_a2acabadeeca9a3a725717dc551ab2e3b}{is\+\_\+gnomish\+\_\+armor}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}))
+\item 
+\#define \hyperlink{obj_8h_aa8be2658dcc21c76e202fd717e829bda}{Is\+\_\+candle}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a972916b1d63dd1ea029dbf9ca80f505d}{M\+A\+X\+\_\+\+O\+I\+L\+\_\+\+I\+N\+\_\+\+F\+L\+A\+S\+K}~400	/$\ast$ maximum amount of oil \hyperlink{mrecover_8c_a9ea2e00e47c9215b7502040089d8e601}{in} a potion of oil $\ast$/
+\item 
+\#define \hyperlink{obj_8h_aab158d4d170eadd4e9307f92834eaa32}{age\+\_\+is\+\_\+relative}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a7da54fffa607498653933e5dbb7918f5}{ignitable}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})
+\item 
+\#define \hyperlink{obj_8h_a741bccdd8332aa7fb8ce949da7bf78b2}{is\+\_\+graystone}(\hyperlink{structobj}{obj})
+\item 
+\#define \hyperlink{obj_8h_abddc351efe0b64d02040a3ae8c320c19}{is\+\_\+flimsy}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})~(\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}\mbox{[}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})-\/$>$otyp\mbox{]}.oc\+\_\+material $<$= \hyperlink{objclass_8h_aa4d308df39cbc748df5f89602bf74cf1}{L\+E\+A\+T\+H\+E\+R})
+\item 
+\#define \hyperlink{obj_8h_a8bebd62ba942159b2b8888847cd2df99}{is\+\_\+plural}(o)
+\item 
+\#define \hyperlink{obj_8h_add5bed3a0ee881347cf7332deac584ff}{C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+T\+O\+O}~0x1
+\item 
+\#define \hyperlink{obj_8h_ac695aff5e0fa6bf92f49b07b7a2053c5}{B\+U\+R\+I\+E\+D\+\_\+\+T\+O\+O}~0x2
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\hypertarget{obj_8h_aab158d4d170eadd4e9307f92834eaa32}{\index{obj.\+h@{obj.\+h}!age\+\_\+is\+\_\+relative@{age\+\_\+is\+\_\+relative}}
+\index{age\+\_\+is\+\_\+relative@{age\+\_\+is\+\_\+relative}!obj.\+h@{obj.\+h}}
+\subsubsection[{age\+\_\+is\+\_\+relative}]{\setlength{\rightskip}{0pt plus 5cm}\#define age\+\_\+is\+\_\+relative(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_aab158d4d170eadd4e9307f92834eaa32}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == BRASS\_LANTERN\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == OIL\_LAMP\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == CANDELABRUM\_OF\_INVOCATION\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == TALLOW\_CANDLE\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == WAX\_CANDLE\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == POT\_OIL)
+\end{DoxyCode}
+
+
+Definition at line 270 of file obj.\+h.
+
+
+
+Referenced by in\+\_\+container(), out\+\_\+container(), and restobjchn().
+
+\hypertarget{obj_8h_a766dc63537673239906c55a19f384b1d}{\index{obj.\+h@{obj.\+h}!ammo\+\_\+and\+\_\+launcher@{ammo\+\_\+and\+\_\+launcher}}
+\index{ammo\+\_\+and\+\_\+launcher@{ammo\+\_\+and\+\_\+launcher}!obj.\+h@{obj.\+h}}
+\subsubsection[{ammo\+\_\+and\+\_\+launcher}]{\setlength{\rightskip}{0pt plus 5cm}\#define ammo\+\_\+and\+\_\+launcher(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}, }
+\item[{}]{ltmp}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a766dc63537673239906c55a19f384b1d}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{obj_8h_a17d7bf4a6f8336a314c0825cf5848c54}{is\_ammo}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}) && (ltmp) && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp].oc\_skill == -\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[(ltmp)->otyp].
+      \hyperlink{objclass_8h_ab595ada1a513270255a2311ffc43c2ab}{oc\_skill})
+\end{DoxyCode}
+
+
+Definition at line 153 of file obj.\+h.
+
+
+
+Referenced by autoquiver(), hmon\+\_\+hitmon(), thitmonst(), throw\+\_\+obj(), and throwit().
+
+\hypertarget{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}{\index{obj.\+h@{obj.\+h}!bimanual@{bimanual}}
+\index{bimanual@{bimanual}!obj.\+h@{obj.\+h}}
+\subsubsection[{bimanual}]{\setlength{\rightskip}{0pt plus 5cm}\#define bimanual(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a6cd644088e281f2bcc78f1d94dc91476}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} || \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{\(\backslash\)}
+\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{             otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}) && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_bimanual)
+\end{DoxyCode}
+
+
+Definition at line 162 of file obj.\+h.
+
+
+
+Referenced by can\+\_\+twoweapon(), hmon\+\_\+hitmon(), m\+\_\+dowear(), ready\+\_\+weapon(), use\+\_\+misc(), weldmsg(), wield\+\_\+tool(), and worst\+\_\+cursed\+\_\+item().
+
+\hypertarget{obj_8h_ac695aff5e0fa6bf92f49b07b7a2053c5}{\index{obj.\+h@{obj.\+h}!B\+U\+R\+I\+E\+D\+\_\+\+T\+O\+O@{B\+U\+R\+I\+E\+D\+\_\+\+T\+O\+O}}
+\index{B\+U\+R\+I\+E\+D\+\_\+\+T\+O\+O@{B\+U\+R\+I\+E\+D\+\_\+\+T\+O\+O}!obj.\+h@{obj.\+h}}
+\subsubsection[{B\+U\+R\+I\+E\+D\+\_\+\+T\+O\+O}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+U\+R\+I\+E\+D\+\_\+\+T\+O\+O~0x2}}\label{obj_8h_ac695aff5e0fa6bf92f49b07b7a2053c5}
+
+
+Definition at line 304 of file obj.\+h.
+
+\hypertarget{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}{\index{obj.\+h@{obj.\+h}!carried@{carried}}
+\index{carried@{carried}!obj.\+h@{obj.\+h}}
+\subsubsection[{carried}]{\setlength{\rightskip}{0pt plus 5cm}\#define carried(
+\begin{DoxyParamCaption}
+\item[{}]{o}
+\end{DoxyParamCaption}
+)~((o)-\/$>${\bf where} == {\bf O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T})}}\label{obj_8h_a4adde9a5428fde9b6faf64253a1507e8}
+
+
+Definition at line 216 of file obj.\+h.
+
+
+
+Referenced by ballfall(), bc\+\_\+order(), carry\+\_\+count(), consume\+\_\+offering(), dosacrifice(), drag\+\_\+ball(), drag\+\_\+down(), erode\+\_\+obj(), feel\+\_\+location(), hurtle(), in\+\_\+container(), move\+\_\+bc(), out\+\_\+container(), passive\+\_\+obj(), placebc(), set\+\_\+bc(), teleds(), and unplacebc().
+
+\hypertarget{obj_8h_add5bed3a0ee881347cf7332deac584ff}{\index{obj.\+h@{obj.\+h}!C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+T\+O\+O@{C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+T\+O\+O}}
+\index{C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+T\+O\+O@{C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+T\+O\+O}!obj.\+h@{obj.\+h}}
+\subsubsection[{C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+T\+O\+O}]{\setlength{\rightskip}{0pt plus 5cm}\#define C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+T\+O\+O~0x1}}\label{obj_8h_add5bed3a0ee881347cf7332deac584ff}
+
+
+Definition at line 303 of file obj.\+h.
+
+\hypertarget{obj_8h_a143816c96e8c90f4d541dc6a4490fe90}{\index{obj.\+h@{obj.\+h}!Dragon\+\_\+mail\+\_\+to\+\_\+pm@{Dragon\+\_\+mail\+\_\+to\+\_\+pm}}
+\index{Dragon\+\_\+mail\+\_\+to\+\_\+pm@{Dragon\+\_\+mail\+\_\+to\+\_\+pm}!obj.\+h@{obj.\+h}}
+\subsubsection[{Dragon\+\_\+mail\+\_\+to\+\_\+pm}]{\setlength{\rightskip}{0pt plus 5cm}\#define Dragon\+\_\+mail\+\_\+to\+\_\+pm(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a143816c96e8c90f4d541dc6a4490fe90}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_GRAY\_DRAGON + (\hyperlink{structobj}{obj})->otyp \(\backslash\)
+                      - GRAY\_DRAGON\_SCALE\_MAIL]
+\end{DoxyCode}
+
+
+Definition at line 233 of file obj.\+h.
+
+
+
+Referenced by mon\+\_\+break\+\_\+armor(), and muse\+\_\+newcham\+\_\+mon().
+
+\hypertarget{obj_8h_a02b387f55e41d65f41c2f4430352cba7}{\index{obj.\+h@{obj.\+h}!Dragon\+\_\+scales\+\_\+to\+\_\+pm@{Dragon\+\_\+scales\+\_\+to\+\_\+pm}}
+\index{Dragon\+\_\+scales\+\_\+to\+\_\+pm@{Dragon\+\_\+scales\+\_\+to\+\_\+pm}!obj.\+h@{obj.\+h}}
+\subsubsection[{Dragon\+\_\+scales\+\_\+to\+\_\+pm}]{\setlength{\rightskip}{0pt plus 5cm}\#define Dragon\+\_\+scales\+\_\+to\+\_\+pm(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a02b387f55e41d65f41c2f4430352cba7}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+&\hyperlink{permonst_8h_ab96e7c4682ea5ae4f83339a15c06f676}{mons}[PM\_GRAY\_DRAGON + (\hyperlink{structobj}{obj})->otyp \(\backslash\)
+                       - GRAY\_DRAGON\_SCALES]
+\end{DoxyCode}
+
+
+Definition at line 231 of file obj.\+h.
+
+
+
+Referenced by mon\+\_\+break\+\_\+armor(), and muse\+\_\+newcham\+\_\+mon().
+
+\hypertarget{obj_8h_a6f0d6b71e220b49886067c8a94f17a35}{\index{obj.\+h@{obj.\+h}!Dragon\+\_\+to\+\_\+scales@{Dragon\+\_\+to\+\_\+scales}}
+\index{Dragon\+\_\+to\+\_\+scales@{Dragon\+\_\+to\+\_\+scales}!obj.\+h@{obj.\+h}}
+\subsubsection[{Dragon\+\_\+to\+\_\+scales}]{\setlength{\rightskip}{0pt plus 5cm}\#define Dragon\+\_\+to\+\_\+scales(
+\begin{DoxyParamCaption}
+\item[{}]{pm}
+\end{DoxyParamCaption}
+)~(G\+R\+A\+Y\+\_\+\+D\+R\+A\+G\+O\+N\+\_\+\+S\+C\+A\+L\+E\+S + (pm -\/ {\bf mons}))}}\label{obj_8h_a6f0d6b71e220b49886067c8a94f17a35}
+
+
+Definition at line 235 of file obj.\+h.
+
+\hypertarget{obj_8h_af9e79e9e3fb7c67ea717b3d4b2e2c405}{\index{obj.\+h@{obj.\+h}!fromsink@{fromsink}}
+\index{fromsink@{fromsink}!obj.\+h@{obj.\+h}}
+\subsubsection[{fromsink}]{\setlength{\rightskip}{0pt plus 5cm}\#define fromsink~corpsenm	/$\ast$ a potion from a {\bf sink} $\ast$/}}\label{obj_8h_af9e79e9e3fb7c67ea717b3d4b2e2c405}
+
+
+Definition at line 99 of file obj.\+h.
+
+\hypertarget{obj_8h_ac240beb25ae6ec398ee270cdf4c79155}{\index{obj.\+h@{obj.\+h}!greatest\+\_\+erosion@{greatest\+\_\+erosion}}
+\index{greatest\+\_\+erosion@{greatest\+\_\+erosion}!obj.\+h@{obj.\+h}}
+\subsubsection[{greatest\+\_\+erosion}]{\setlength{\rightskip}{0pt plus 5cm}\#define greatest\+\_\+erosion(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)~(int)(({\bf otmp})-\/$>$oeroded $>$ ({\bf otmp})-\/$>$oeroded2 ? ({\bf otmp})-\/$>$oeroded \+: ({\bf otmp})-\/$>$oeroded2)}}\label{obj_8h_ac240beb25ae6ec398ee270cdf4c79155}
+
+
+Definition at line 68 of file obj.\+h.
+
+
+
+Referenced by hmon\+\_\+hitmon(), and thitmonst().
+
+\hypertarget{obj_8h_ae2e47c7280efe98de2333e8078f8ce71}{\index{obj.\+h@{obj.\+h}!Has\+\_\+contents@{Has\+\_\+contents}}
+\index{Has\+\_\+contents@{Has\+\_\+contents}!obj.\+h@{obj.\+h}}
+\subsubsection[{Has\+\_\+contents}]{\setlength{\rightskip}{0pt plus 5cm}\#define Has\+\_\+contents(
+\begin{DoxyParamCaption}
+\item[{}]{o}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_ae2e47c7280efe98de2333e8078f8ce71}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\textcolor{comment}{/* (Is\_container(o) || (o)->otyp == STATUE) && */} \(\backslash\)
+             (o)->cobj != (\textcolor{keyword}{struct} \hyperlink{structobj}{obj} *)0)
+\end{DoxyCode}
+
+
+Definition at line 218 of file obj.\+h.
+
+
+
+Referenced by artifact\+\_\+score(), do\+\_\+dknown\+\_\+of(), get\+\_\+valuables(), impact\+\_\+drop(), mbag\+\_\+explodes(), o\+\_\+in(), o\+\_\+material(), restobjchn(), saveobjchn(), and ship\+\_\+object().
+
+\hypertarget{obj_8h_a7da54fffa607498653933e5dbb7918f5}{\index{obj.\+h@{obj.\+h}!ignitable@{ignitable}}
+\index{ignitable@{ignitable}!obj.\+h@{obj.\+h}}
+\subsubsection[{ignitable}]{\setlength{\rightskip}{0pt plus 5cm}\#define ignitable(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a7da54fffa607498653933e5dbb7918f5}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == BRASS\_LANTERN\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == OIL\_LAMP\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == CANDELABRUM\_OF\_INVOCATION\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == TALLOW\_CANDLE\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == WAX\_CANDLE\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == POT\_OIL)
+\end{DoxyCode}
+
+
+Definition at line 277 of file obj.\+h.
+
+\hypertarget{obj_8h_a17d7bf4a6f8336a314c0825cf5848c54}{\index{obj.\+h@{obj.\+h}!is\+\_\+ammo@{is\+\_\+ammo}}
+\index{is\+\_\+ammo@{is\+\_\+ammo}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+ammo}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+ammo(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a17d7bf4a6f8336a314c0825cf5848c54}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} || \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{\(\backslash\)}
+\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{             otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_afc09c51ea922e9928f86a51177244796}{GEM\_CLASS}) && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill >= -\hyperlink{skills_8h_a9ed71acb2e491078644f3762ef692ad2}{P\_CROSSBOW} && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill <= -\hyperlink{skills_8h_ae3368e14592ff82ba5eb63193943f445}{P\_BOW})
+\end{DoxyCode}
+
+
+Definition at line 149 of file obj.\+h.
+
+
+
+Referenced by autoquiver(), hmon\+\_\+hitmon(), ini\+\_\+inv(), setuwep(), thitmonst(), and throwit().
+
+\hypertarget{obj_8h_a95ab5df324e5463a58cbea3326784ea2}{\index{obj.\+h@{obj.\+h}!is\+\_\+axe@{is\+\_\+axe}}
+\index{is\+\_\+axe@{is\+\_\+axe}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+axe}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+axe(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a95ab5df324e5463a58cbea3326784ea2}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} || \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{\(\backslash\)}
+\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{             otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}) && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill == \hyperlink{skills_8h_a87eaad0f7666084f5f4894baaf1f4d84}{P\_AXE})
+\end{DoxyCode}
+
+
+Definition at line 130 of file obj.\+h.
+
+\hypertarget{obj_8h_ae095cd55314db1984d81e3b0103007ca}{\index{obj.\+h@{obj.\+h}!is\+\_\+blade@{is\+\_\+blade}}
+\index{is\+\_\+blade@{is\+\_\+blade}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+blade}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+blade(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_ae095cd55314db1984d81e3b0103007ca}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill >= \hyperlink{skills_8h_a1665c75745e5e46d0188a5f7250a7cd5}{P\_DAGGER} && 
+      \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill <= \hyperlink{skills_8h_a252cf1a0c08c6c5d74a24d28f20d9d9e}{P\_SABER})
+\end{DoxyCode}
+
+
+Definition at line 127 of file obj.\+h.
+
+
+
+Referenced by cutworm(), and throwing\+\_\+weapon().
+
+\hypertarget{obj_8h_a1a3fe473d2d0a10c897156e3b13fc0c6}{\index{obj.\+h@{obj.\+h}!is\+\_\+boots@{is\+\_\+boots}}
+\index{is\+\_\+boots@{is\+\_\+boots}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+boots}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+boots(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a1a3fe473d2d0a10c897156e3b13fc0c6}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a038c650e790f05f72fa9204b1b82660b}{ARMOR\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_armcat == \hyperlink{objclass_8h_aee3fc7ba8c189a765d3c74f3259f2947}{ARM\_BOOTS})
+\end{DoxyCode}
+
+
+Definition at line 178 of file obj.\+h.
+
+
+
+Referenced by ini\+\_\+inv(), and m\+\_\+dowear\+\_\+type().
+
+\hypertarget{obj_8h_a670bbe6ea7092fc0194149cc57131af9}{\index{obj.\+h@{obj.\+h}!Is\+\_\+box@{Is\+\_\+box}}
+\index{Is\+\_\+box@{Is\+\_\+box}!obj.\+h@{obj.\+h}}
+\subsubsection[{Is\+\_\+box}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+box(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)~({\bf otmp}-\/$>$otyp == L\+A\+R\+G\+E\+\_\+\+B\+O\+X $\vert$$\vert$ {\bf otmp}-\/$>$otyp == C\+H\+E\+S\+T)}}\label{obj_8h_a670bbe6ea7092fc0194149cc57131af9}
+
+
+Definition at line 221 of file obj.\+h.
+
+
+
+Referenced by dosit(), in\+\_\+container(), kick\+\_\+object(), and openone().
+
+\hypertarget{obj_8h_aa8be2658dcc21c76e202fd717e829bda}{\index{obj.\+h@{obj.\+h}!Is\+\_\+candle@{Is\+\_\+candle}}
+\index{Is\+\_\+candle@{Is\+\_\+candle}!obj.\+h@{obj.\+h}}
+\subsubsection[{Is\+\_\+candle}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+candle(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_aa8be2658dcc21c76e202fd717e829bda}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == TALLOW\_CANDLE || \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{\(\backslash\)}
+\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{             otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == WAX\_CANDLE)
+\end{DoxyCode}
+
+
+Definition at line 264 of file obj.\+h.
+
+\hypertarget{obj_8h_ad201bb666a33dcbecfe3293c2be06cc9}{\index{obj.\+h@{obj.\+h}!is\+\_\+cloak@{is\+\_\+cloak}}
+\index{is\+\_\+cloak@{is\+\_\+cloak}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+cloak}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+cloak(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_ad201bb666a33dcbecfe3293c2be06cc9}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a038c650e790f05f72fa9204b1b82660b}{ARMOR\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_armcat == \hyperlink{objclass_8h_ac94f9edc8d7943735cc56988a40434d5}{ARM\_CLOAK})
+\end{DoxyCode}
+
+
+Definition at line 182 of file obj.\+h.
+
+
+
+Referenced by ini\+\_\+inv(), and m\+\_\+dowear\+\_\+type().
+
+\hypertarget{obj_8h_a588d9420d81612a88940b1522e279527}{\index{obj.\+h@{obj.\+h}!Is\+\_\+container@{Is\+\_\+container}}
+\index{Is\+\_\+container@{Is\+\_\+container}!obj.\+h@{obj.\+h}}
+\subsubsection[{Is\+\_\+container}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+container(
+\begin{DoxyParamCaption}
+\item[{}]{o}
+\end{DoxyParamCaption}
+)~((o)-\/$>$otyp $>$= L\+A\+R\+G\+E\+\_\+\+B\+O\+X \&\& (o)-\/$>$otyp $<$= B\+A\+G\+\_\+\+O\+F\+\_\+\+T\+R\+I\+C\+K\+S)}}\label{obj_8h_a588d9420d81612a88940b1522e279527}
+
+
+Definition at line 220 of file obj.\+h.
+
+
+
+Referenced by container\+\_\+at(), container\+\_\+contents(), container\+\_\+impact\+\_\+dmg(), and doloot().
+
+\hypertarget{obj_8h_add4c67d03f8cbdeef9fffe3a9f63942b}{\index{obj.\+h@{obj.\+h}!Is\+\_\+dragon\+\_\+armor@{Is\+\_\+dragon\+\_\+armor}}
+\index{Is\+\_\+dragon\+\_\+armor@{Is\+\_\+dragon\+\_\+armor}!obj.\+h@{obj.\+h}}
+\subsubsection[{Is\+\_\+dragon\+\_\+armor}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+dragon\+\_\+armor(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)~({\bf Is\+\_\+dragon\+\_\+scales}({\bf obj}) $\vert$$\vert$ {\bf Is\+\_\+dragon\+\_\+mail}({\bf obj}))}}\label{obj_8h_add4c67d03f8cbdeef9fffe3a9f63942b}
+
+
+Definition at line 230 of file obj.\+h.
+
+\hypertarget{obj_8h_a73558b304aee9d9803e5e71d1ca5fa60}{\index{obj.\+h@{obj.\+h}!Is\+\_\+dragon\+\_\+mail@{Is\+\_\+dragon\+\_\+mail}}
+\index{Is\+\_\+dragon\+\_\+mail@{Is\+\_\+dragon\+\_\+mail}!obj.\+h@{obj.\+h}}
+\subsubsection[{Is\+\_\+dragon\+\_\+mail}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+dragon\+\_\+mail(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a73558b304aee9d9803e5e71d1ca5fa60}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{structobj}{obj})->otyp >= GRAY\_DRAGON\_SCALE\_MAIL && \(\backslash\)
+                 (\hyperlink{structobj}{obj})->otyp <= YELLOW\_DRAGON\_SCALE\_MAIL)
+\end{DoxyCode}
+
+
+Definition at line 228 of file obj.\+h.
+
+
+
+Referenced by mon\+\_\+break\+\_\+armor(), and muse\+\_\+newcham\+\_\+mon().
+
+\hypertarget{obj_8h_ac74e03bc58e77a20c6478ad7061e0198}{\index{obj.\+h@{obj.\+h}!Is\+\_\+dragon\+\_\+scales@{Is\+\_\+dragon\+\_\+scales}}
+\index{Is\+\_\+dragon\+\_\+scales@{Is\+\_\+dragon\+\_\+scales}!obj.\+h@{obj.\+h}}
+\subsubsection[{Is\+\_\+dragon\+\_\+scales}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+dragon\+\_\+scales(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_ac74e03bc58e77a20c6478ad7061e0198}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{structobj}{obj})->otyp >= GRAY\_DRAGON\_SCALES && \(\backslash\)
+                 (\hyperlink{structobj}{obj})->otyp <= YELLOW\_DRAGON\_SCALES)
+\end{DoxyCode}
+
+
+Definition at line 226 of file obj.\+h.
+
+
+
+Referenced by mon\+\_\+break\+\_\+armor(), and muse\+\_\+newcham\+\_\+mon().
+
+\hypertarget{obj_8h_a1daa502e33f6e378496e96fdd15a453a}{\index{obj.\+h@{obj.\+h}!is\+\_\+dwarvish\+\_\+armor@{is\+\_\+dwarvish\+\_\+armor}}
+\index{is\+\_\+dwarvish\+\_\+armor@{is\+\_\+dwarvish\+\_\+armor}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+dwarvish\+\_\+armor}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+dwarvish\+\_\+armor(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a1daa502e33f6e378496e96fdd15a453a}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == DWARVISH\_IRON\_HELM\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == DWARVISH\_MITHRIL\_COAT\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == DWARVISH\_CLOAK\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == DWARVISH\_ROUNDSHIELD)
+\end{DoxyCode}
+
+
+Definition at line 199 of file obj.\+h.
+
+\hypertarget{obj_8h_a38eb43d37202a6386350f0c996f4297a}{\index{obj.\+h@{obj.\+h}!is\+\_\+dwarvish\+\_\+obj@{is\+\_\+dwarvish\+\_\+obj}}
+\index{is\+\_\+dwarvish\+\_\+obj@{is\+\_\+dwarvish\+\_\+obj}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+dwarvish\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+dwarvish\+\_\+obj(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a38eb43d37202a6386350f0c996f4297a}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{obj_8h_a1daa502e33f6e378496e96fdd15a453a}{is\_dwarvish\_armor}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == DWARVISH\_SPEAR\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == DWARVISH\_SHORT\_SWORD\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == DWARVISH\_MATTOCK)
+\end{DoxyCode}
+
+
+Definition at line 255 of file obj.\+h.
+
+\hypertarget{obj_8h_a48a6133fb34208096017be32b0af9237}{\index{obj.\+h@{obj.\+h}!is\+\_\+elven\+\_\+armor@{is\+\_\+elven\+\_\+armor}}
+\index{is\+\_\+elven\+\_\+armor@{is\+\_\+elven\+\_\+armor}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+elven\+\_\+armor}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+elven\+\_\+armor(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a48a6133fb34208096017be32b0af9237}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_LEATHER\_HELM\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_MITHRIL\_COAT\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_CLOAK\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_SHIELD\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_BOOTS)
+\end{DoxyCode}
+
+
+Definition at line 188 of file obj.\+h.
+
+
+
+Referenced by racial\+\_\+exception().
+
+\hypertarget{obj_8h_a5642b40a58937d236d9592ce1b575f40}{\index{obj.\+h@{obj.\+h}!is\+\_\+elven\+\_\+obj@{is\+\_\+elven\+\_\+obj}}
+\index{is\+\_\+elven\+\_\+obj@{is\+\_\+elven\+\_\+obj}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+elven\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+elven\+\_\+obj(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)~({\bf is\+\_\+elven\+\_\+armor}({\bf otmp}) $\vert$$\vert$ {\bf is\+\_\+elven\+\_\+weapon}({\bf otmp}))}}\label{obj_8h_a5642b40a58937d236d9592ce1b575f40}
+
+
+Definition at line 244 of file obj.\+h.
+
+\hypertarget{obj_8h_a430f2a311c2810f6403fcfcc96a58ad0}{\index{obj.\+h@{obj.\+h}!is\+\_\+elven\+\_\+weapon@{is\+\_\+elven\+\_\+weapon}}
+\index{is\+\_\+elven\+\_\+weapon@{is\+\_\+elven\+\_\+weapon}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+elven\+\_\+weapon}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+elven\+\_\+weapon(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a430f2a311c2810f6403fcfcc96a58ad0}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_ARROW\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_SPEAR\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_DAGGER\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_SHORT\_SWORD\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_BROADSWORD\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ELVEN\_BOW)
+\end{DoxyCode}
+
+
+Definition at line 238 of file obj.\+h.
+
+
+
+Referenced by chwepon().
+
+\hypertarget{obj_8h_abddc351efe0b64d02040a3ae8c320c19}{\index{obj.\+h@{obj.\+h}!is\+\_\+flimsy@{is\+\_\+flimsy}}
+\index{is\+\_\+flimsy@{is\+\_\+flimsy}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+flimsy}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+flimsy(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)~({\bf objects}\mbox{[}({\bf otmp})-\/$>$otyp\mbox{]}.oc\+\_\+material $<$= {\bf L\+E\+A\+T\+H\+E\+R})}}\label{obj_8h_abddc351efe0b64d02040a3ae8c320c19}
+
+
+Definition at line 295 of file obj.\+h.
+
+
+
+Referenced by hmon\+\_\+hitmon(), m\+\_\+dowear\+\_\+type(), and mon\+\_\+break\+\_\+armor().
+
+\hypertarget{obj_8h_a99515fd3635a22bb6a9a41412d8ab172}{\index{obj.\+h@{obj.\+h}!is\+\_\+gloves@{is\+\_\+gloves}}
+\index{is\+\_\+gloves@{is\+\_\+gloves}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+gloves}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+gloves(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a99515fd3635a22bb6a9a41412d8ab172}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a038c650e790f05f72fa9204b1b82660b}{ARMOR\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_armcat == \hyperlink{objclass_8h_a919d04830bf74d6be7c5c37eca2e30f7}{ARM\_GLOVES})
+\end{DoxyCode}
+
+
+Definition at line 180 of file obj.\+h.
+
+
+
+Referenced by ini\+\_\+inv(), and m\+\_\+dowear\+\_\+type().
+
+\hypertarget{obj_8h_a2acabadeeca9a3a725717dc551ab2e3b}{\index{obj.\+h@{obj.\+h}!is\+\_\+gnomish\+\_\+armor@{is\+\_\+gnomish\+\_\+armor}}
+\index{is\+\_\+gnomish\+\_\+armor@{is\+\_\+gnomish\+\_\+armor}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+gnomish\+\_\+armor}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+gnomish\+\_\+armor(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)~({\bf F\+A\+L\+S\+E})}}\label{obj_8h_a2acabadeeca9a3a725717dc551ab2e3b}
+
+
+Definition at line 203 of file obj.\+h.
+
+\hypertarget{obj_8h_a871e0c40ed5f9c06565bd8be0a166c39}{\index{obj.\+h@{obj.\+h}!is\+\_\+gnomish\+\_\+obj@{is\+\_\+gnomish\+\_\+obj}}
+\index{is\+\_\+gnomish\+\_\+obj@{is\+\_\+gnomish\+\_\+obj}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+gnomish\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+gnomish\+\_\+obj(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)~({\bf is\+\_\+gnomish\+\_\+armor}({\bf otmp}))}}\label{obj_8h_a871e0c40ed5f9c06565bd8be0a166c39}
+
+
+Definition at line 261 of file obj.\+h.
+
+\hypertarget{obj_8h_a741bccdd8332aa7fb8ce949da7bf78b2}{\index{obj.\+h@{obj.\+h}!is\+\_\+graystone@{is\+\_\+graystone}}
+\index{is\+\_\+graystone@{is\+\_\+graystone}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+graystone}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+graystone(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a741bccdd8332aa7fb8ce949da7bf78b2}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{structobj}{obj})->otyp == LUCKSTONE || \(\backslash\)
+                 (\hyperlink{structobj}{obj})->otyp == LOADSTONE || \(\backslash\)
+                 (\hyperlink{structobj}{obj})->otyp == FLINT     || \(\backslash\)
+                 (\hyperlink{structobj}{obj})->otyp == TOUCHSTONE)
+\end{DoxyCode}
+
+
+Definition at line 285 of file obj.\+h.
+
+
+
+Referenced by ini\+\_\+inv().
+
+\hypertarget{obj_8h_ac319cdf71bb42b783da10680b2e8a3bf}{\index{obj.\+h@{obj.\+h}!is\+\_\+helmet@{is\+\_\+helmet}}
+\index{is\+\_\+helmet@{is\+\_\+helmet}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+helmet}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+helmet(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_ac319cdf71bb42b783da10680b2e8a3bf}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a038c650e790f05f72fa9204b1b82660b}{ARMOR\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_armcat == \hyperlink{objclass_8h_aef83afe8f2de2b9dc1a1371050f528c9}{ARM\_HELM})
+\end{DoxyCode}
+
+
+Definition at line 176 of file obj.\+h.
+
+
+
+Referenced by ini\+\_\+inv(), and m\+\_\+dowear\+\_\+type().
+
+\hypertarget{obj_8h_a1e24f22788f0b91381a52c8fb38850bd}{\index{obj.\+h@{obj.\+h}!is\+\_\+launcher@{is\+\_\+launcher}}
+\index{is\+\_\+launcher@{is\+\_\+launcher}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+launcher}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+launcher(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a1e24f22788f0b91381a52c8fb38850bd}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill >= \hyperlink{skills_8h_ae3368e14592ff82ba5eb63193943f445}{P\_BOW} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill <= \hyperlink{skills_8h_a9ed71acb2e491078644f3762ef692ad2}{P\_CROSSBOW})
+\end{DoxyCode}
+
+
+Definition at line 146 of file obj.\+h.
+
+
+
+Referenced by hmon\+\_\+hitmon(), and setuwep().
+
+\hypertarget{obj_8h_a65c82dd474ed0d93e446ac4870fd3c35}{\index{obj.\+h@{obj.\+h}!Is\+\_\+mbag@{Is\+\_\+mbag}}
+\index{Is\+\_\+mbag@{Is\+\_\+mbag}!obj.\+h@{obj.\+h}}
+\subsubsection[{Is\+\_\+mbag}]{\setlength{\rightskip}{0pt plus 5cm}\#define Is\+\_\+mbag(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a65c82dd474ed0d93e446ac4870fd3c35}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == BAG\_OF\_HOLDING || \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{\(\backslash\)}
+\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{             otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp} == BAG\_OF\_TRICKS)
+\end{DoxyCode}
+
+
+Definition at line 222 of file obj.\+h.
+
+
+
+Referenced by container\+\_\+impact\+\_\+dmg(), in\+\_\+container(), mbag\+\_\+explodes(), and use\+\_\+container().
+
+\hypertarget{obj_8h_a8f997086cdf86ba7eb98102f6e7d4b90}{\index{obj.\+h@{obj.\+h}!is\+\_\+missile@{is\+\_\+missile}}
+\index{is\+\_\+missile@{is\+\_\+missile}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+missile}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+missile(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a8f997086cdf86ba7eb98102f6e7d4b90}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} || \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{\(\backslash\)}
+\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{             otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}) && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill >= -\hyperlink{skills_8h_a7b38b34ad3b0a32f56abaa122c23d9d2}{P\_BOOMERANG} && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill <= -\hyperlink{skills_8h_a44f013c38db36883390dfbdc9d0f09a7}{P\_DART})
+\end{DoxyCode}
+
+
+Definition at line 156 of file obj.\+h.
+
+
+
+Referenced by autoquiver(), hmon\+\_\+hitmon(), ini\+\_\+inv(), setuwep(), and throwing\+\_\+weapon().
+
+\hypertarget{obj_8h_a88c7371ac2645909775e2be20d8e7fea}{\index{obj.\+h@{obj.\+h}!is\+\_\+multigen@{is\+\_\+multigen}}
+\index{is\+\_\+multigen@{is\+\_\+multigen}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+multigen}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+multigen(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a88c7371ac2645909775e2be20d8e7fea}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill >= -\hyperlink{skills_8h_adbffa0a0e879c7d3285f8a0393a212ef}{P\_SHURIKEN} && 
+      \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill <= -\hyperlink{skills_8h_ae3368e14592ff82ba5eb63193943f445}{P\_BOW})
+\end{DoxyCode}
+
+
+Definition at line 165 of file obj.\+h.
+
+\hypertarget{obj_8h_af614ae1b1e600bc922ab6094091de61c}{\index{obj.\+h@{obj.\+h}!is\+\_\+orcish\+\_\+armor@{is\+\_\+orcish\+\_\+armor}}
+\index{is\+\_\+orcish\+\_\+armor@{is\+\_\+orcish\+\_\+armor}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+orcish\+\_\+armor}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+orcish\+\_\+armor(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_af614ae1b1e600bc922ab6094091de61c}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_HELM\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_CHAIN\_MAIL\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_RING\_MAIL\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_CLOAK\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == URUK\_HAI\_SHIELD\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_SHIELD)
+\end{DoxyCode}
+
+
+Definition at line 193 of file obj.\+h.
+
+\hypertarget{obj_8h_afc8e837ffa73bf800db5cbc4c8f5e467}{\index{obj.\+h@{obj.\+h}!is\+\_\+orcish\+\_\+obj@{is\+\_\+orcish\+\_\+obj}}
+\index{is\+\_\+orcish\+\_\+obj@{is\+\_\+orcish\+\_\+obj}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+orcish\+\_\+obj}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+orcish\+\_\+obj(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_afc8e837ffa73bf800db5cbc4c8f5e467}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{obj_8h_af614ae1b1e600bc922ab6094091de61c}{is\_orcish\_armor}(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_ARROW\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_SPEAR\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_DAGGER\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_SHORT\_SWORD\(\backslash\)
+                || (\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp})->otyp == ORCISH\_BOW)
+\end{DoxyCode}
+
+
+Definition at line 247 of file obj.\+h.
+
+\hypertarget{obj_8h_a260a5afdeeb55f7207d5db68ae939e21}{\index{obj.\+h@{obj.\+h}!is\+\_\+pick@{is\+\_\+pick}}
+\index{is\+\_\+pick@{is\+\_\+pick}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+pick}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+pick(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a260a5afdeeb55f7207d5db68ae939e21}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} || \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{\(\backslash\)}
+\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{             otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}) && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill == \hyperlink{skills_8h_a650981122d95276550302e1070ada1b4}{P\_PICK\_AXE})
+\end{DoxyCode}
+
+
+Definition at line 133 of file obj.\+h.
+
+
+
+Referenced by out\+\_\+container(), and throwit().
+
+\hypertarget{obj_8h_a8bebd62ba942159b2b8888847cd2df99}{\index{obj.\+h@{obj.\+h}!is\+\_\+plural@{is\+\_\+plural}}
+\index{is\+\_\+plural@{is\+\_\+plural}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+plural}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+plural(
+\begin{DoxyParamCaption}
+\item[{}]{o}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a8bebd62ba942159b2b8888847cd2df99}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((o)->quan > 1 || \(\backslash\)
+             (o)->oartifact == ART\_EYES\_OF\_THE\_OVERWORLD)
+\end{DoxyCode}
+
+
+Definition at line 299 of file obj.\+h.
+
+
+
+Referenced by can\+\_\+twoweapon(), dokick(), dowieldquiver(), and use\+\_\+misc().
+
+\hypertarget{obj_8h_a6c9b07c199b118761a2675a3826d12c4}{\index{obj.\+h@{obj.\+h}!is\+\_\+poisonable@{is\+\_\+poisonable}}
+\index{is\+\_\+poisonable@{is\+\_\+poisonable}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+poisonable}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+poisonable(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a6c9b07c199b118761a2675a3826d12c4}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill >= -\hyperlink{skills_8h_adbffa0a0e879c7d3285f8a0393a212ef}{P\_SHURIKEN} && 
+      \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill <= -\hyperlink{skills_8h_ae3368e14592ff82ba5eb63193943f445}{P\_BOW})
+\end{DoxyCode}
+
+
+Definition at line 168 of file obj.\+h.
+
+
+
+Referenced by hmon\+\_\+hitmon().
+
+\hypertarget{obj_8h_a29685da5fad6a22d02355fb61bbf234b}{\index{obj.\+h@{obj.\+h}!is\+\_\+pole@{is\+\_\+pole}}
+\index{is\+\_\+pole@{is\+\_\+pole}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+pole}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+pole(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a29685da5fad6a22d02355fb61bbf234b}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} || \hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{\(\backslash\)}
+\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{            otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS}) && \(\backslash\)
+             (\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill == \hyperlink{skills_8h_a2490c153ee2ab0e38eea3aada4392064}{P\_POLEARMS} || \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill == \hyperlink{skills_8h_a79d6d31d98c7b76f6d5690bd0ea4e055}{P\_LANCE}))
+\end{DoxyCode}
+
+
+Definition at line 139 of file obj.\+h.
+
+
+
+Referenced by hmon\+\_\+hitmon(), and setuwep().
+
+\hypertarget{obj_8h_a19ea1dc07bf84b8a73c76a7ec871c9d4}{\index{obj.\+h@{obj.\+h}!is\+\_\+shield@{is\+\_\+shield}}
+\index{is\+\_\+shield@{is\+\_\+shield}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+shield}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+shield(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a19ea1dc07bf84b8a73c76a7ec871c9d4}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a038c650e790f05f72fa9204b1b82660b}{ARMOR\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_armcat == \hyperlink{objclass_8h_a528282688d83607f4edb355c49d92481}{ARM\_SHIELD})
+\end{DoxyCode}
+
+
+Definition at line 174 of file obj.\+h.
+
+
+
+Referenced by ini\+\_\+inv(), and m\+\_\+dowear\+\_\+type().
+
+\hypertarget{obj_8h_a96ac846294b8ac0ebf562c7887d8516d}{\index{obj.\+h@{obj.\+h}!is\+\_\+shirt@{is\+\_\+shirt}}
+\index{is\+\_\+shirt@{is\+\_\+shirt}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+shirt}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+shirt(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a96ac846294b8ac0ebf562c7887d8516d}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a038c650e790f05f72fa9204b1b82660b}{ARMOR\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_armcat == \hyperlink{objclass_8h_ad6b38765b551f5e07a2c9643e5f84454}{ARM\_SHIRT})
+\end{DoxyCode}
+
+
+Definition at line 184 of file obj.\+h.
+
+
+
+Referenced by ini\+\_\+inv(), and m\+\_\+dowear\+\_\+type().
+
+\hypertarget{obj_8h_a4d68a7f098c241310fbc80ea8e29232a}{\index{obj.\+h@{obj.\+h}!is\+\_\+spear@{is\+\_\+spear}}
+\index{is\+\_\+spear@{is\+\_\+spear}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+spear}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+spear(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a4d68a7f098c241310fbc80ea8e29232a}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill >= \hyperlink{skills_8h_a5d5404ef6cc052199b1f3e0b6547254f}{P\_SPEAR} && 
+      \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill <= \hyperlink{skills_8h_af8031c1cdcddb9f7ab13b182762029bd}{P\_JAVELIN})
+\end{DoxyCode}
+
+
+Definition at line 143 of file obj.\+h.
+
+
+
+Referenced by throwing\+\_\+weapon().
+
+\hypertarget{obj_8h_a0aefa948a424ee03e424efb3b8a198a1}{\index{obj.\+h@{obj.\+h}!is\+\_\+suit@{is\+\_\+suit}}
+\index{is\+\_\+suit@{is\+\_\+suit}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+suit}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+suit(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a0aefa948a424ee03e424efb3b8a198a1}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a038c650e790f05f72fa9204b1b82660b}{ARMOR\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_armcat == \hyperlink{objclass_8h_a7517d7ec844ac3197657e4d914e3affe}{ARM\_SUIT})
+\end{DoxyCode}
+
+
+Definition at line 186 of file obj.\+h.
+
+
+
+Referenced by ini\+\_\+inv(), and m\+\_\+dowear\+\_\+type().
+
+\hypertarget{obj_8h_ae284b60ec8919e5fb325f5a7b39a093c}{\index{obj.\+h@{obj.\+h}!is\+\_\+sword@{is\+\_\+sword}}
+\index{is\+\_\+sword@{is\+\_\+sword}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+sword}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+sword(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_ae284b60ec8919e5fb325f5a7b39a093c}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a716ba3ee00602dede9ea5c68c74d45bd}{oclass} == \hyperlink{objclass_8h_a615c2dc6d3501d6b5e14c3373bc37ec1}{WEAPON\_CLASS} && \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill >= \hyperlink{skills_8h_a58ef6309b1feed6715f4a6e4aaff240e}{P\_SHORT\_SWORD} && 
+      \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{\(\backslash\)}
+\hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{             objects}[\hyperlink{mhitu_8c_a8cf94e09e1a72daf7050a2817ba70974}{otmp}->\hyperlink{structobj_a95eb282afebd3599996035e8aab71751}{otyp}].oc\_skill <= \hyperlink{skills_8h_a252cf1a0c08c6c5d74a24d28f20d9d9e}{P\_SABER})
+\end{DoxyCode}
+
+
+Definition at line 136 of file obj.\+h.
+
+
+
+Referenced by ready\+\_\+weapon(), and throwing\+\_\+weapon().
+
+\hypertarget{obj_8h_a5f347f7456e4da8284a9bc369bc32d45}{\index{obj.\+h@{obj.\+h}!is\+\_\+weptool@{is\+\_\+weptool}}
+\index{is\+\_\+weptool@{is\+\_\+weptool}!obj.\+h@{obj.\+h}}
+\subsubsection[{is\+\_\+weptool}]{\setlength{\rightskip}{0pt plus 5cm}\#define is\+\_\+weptool(
+\begin{DoxyParamCaption}
+\item[{}]{o}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a5f347f7456e4da8284a9bc369bc32d45}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+((o)->oclass == \hyperlink{objclass_8h_ad8e3b1b1f1bd8dff660c15840a3f2b03}{TOOL\_CLASS} && \(\backslash\)
+             \hyperlink{objclass_8h_a6fc960ca847bc1bef7559abb7bf29209}{objects}[(o)->otyp].oc\_skill != \hyperlink{skills_8h_a85d9ffb730a902e2dc0e7a90621b2144}{P\_NONE})
+\end{DoxyCode}
+
+
+Definition at line 160 of file obj.\+h.
+
+
+
+Referenced by chwepon(), dowield(), hmon\+\_\+hitmon(), ini\+\_\+inv(), known\+\_\+hitum(), omon\+\_\+adj(), pleased(), setuwep(), setworn(), and thitmonst().
+
+\hypertarget{obj_8h_a746e7a913c248cc34e486c56decdd93a}{\index{obj.\+h@{obj.\+h}!leashmon@{leashmon}}
+\index{leashmon@{leashmon}!obj.\+h@{obj.\+h}}
+\subsubsection[{leashmon}]{\setlength{\rightskip}{0pt plus 5cm}\#define leashmon~corpsenm	/$\ast$ gets m\+\_\+id of attached pet $\ast$/}}\label{obj_8h_a746e7a913c248cc34e486c56decdd93a}
+
+
+Definition at line 97 of file obj.\+h.
+
+\hypertarget{obj_8h_a1f56f639ab2647c0f2f51ea09d55b44a}{\index{obj.\+h@{obj.\+h}!M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E@{M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E}}
+\index{M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E@{M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E}!obj.\+h@{obj.\+h}}
+\subsubsection[{M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E~200	/$\ast$ longest an egg can remain unhatched $\ast$/}}\label{obj_8h_a1f56f639ab2647c0f2f51ea09d55b44a}
+
+
+Definition at line 207 of file obj.\+h.
+
+\hypertarget{obj_8h_a560969716d5322448dbe570b13154aca}{\index{obj.\+h@{obj.\+h}!M\+A\+X\+\_\+\+E\+R\+O\+D\+E@{M\+A\+X\+\_\+\+E\+R\+O\+D\+E}}
+\index{M\+A\+X\+\_\+\+E\+R\+O\+D\+E@{M\+A\+X\+\_\+\+E\+R\+O\+D\+E}!obj.\+h@{obj.\+h}}
+\subsubsection[{M\+A\+X\+\_\+\+E\+R\+O\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+E\+R\+O\+D\+E~3}}\label{obj_8h_a560969716d5322448dbe570b13154aca}
+
+
+Definition at line 69 of file obj.\+h.
+
+
+
+Referenced by cursed\+\_\+book(), and erode\+\_\+obj().
+
+\hypertarget{obj_8h_a972916b1d63dd1ea029dbf9ca80f505d}{\index{obj.\+h@{obj.\+h}!M\+A\+X\+\_\+\+O\+I\+L\+\_\+\+I\+N\+\_\+\+F\+L\+A\+S\+K@{M\+A\+X\+\_\+\+O\+I\+L\+\_\+\+I\+N\+\_\+\+F\+L\+A\+S\+K}}
+\index{M\+A\+X\+\_\+\+O\+I\+L\+\_\+\+I\+N\+\_\+\+F\+L\+A\+S\+K@{M\+A\+X\+\_\+\+O\+I\+L\+\_\+\+I\+N\+\_\+\+F\+L\+A\+S\+K}!obj.\+h@{obj.\+h}}
+\subsubsection[{M\+A\+X\+\_\+\+O\+I\+L\+\_\+\+I\+N\+\_\+\+F\+L\+A\+S\+K}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+A\+X\+\_\+\+O\+I\+L\+\_\+\+I\+N\+\_\+\+F\+L\+A\+S\+K~400	/$\ast$ maximum amount of oil {\bf in} a potion of oil $\ast$/}}\label{obj_8h_a972916b1d63dd1ea029dbf9ca80f505d}
+
+
+Definition at line 266 of file obj.\+h.
+
+\hypertarget{obj_8h_a35bc29b64e990f1dca2dcb5c627917ce}{\index{obj.\+h@{obj.\+h}!mcarried@{mcarried}}
+\index{mcarried@{mcarried}!obj.\+h@{obj.\+h}}
+\subsubsection[{mcarried}]{\setlength{\rightskip}{0pt plus 5cm}\#define mcarried(
+\begin{DoxyParamCaption}
+\item[{}]{o}
+\end{DoxyParamCaption}
+)~((o)-\/$>${\bf where} == {\bf O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T})}}\label{obj_8h_a35bc29b64e990f1dca2dcb5c627917ce}
+
+
+Definition at line 217 of file obj.\+h.
+
+
+
+Referenced by erode\+\_\+obj().
+
+\hypertarget{obj_8h_aeca8c681083fd7ee47f88b725c58af51}{\index{obj.\+h@{obj.\+h}!mhealup@{mhealup}}
+\index{mhealup@{mhealup}!obj.\+h@{obj.\+h}}
+\subsubsection[{mhealup}]{\setlength{\rightskip}{0pt plus 5cm}\#define mhealup(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)~({\bf ofood}({\bf obj}) \&\& ({\bf obj})-\/$>$corpsenm == P\+M\+\_\+\+N\+U\+R\+S\+E)}}\label{obj_8h_aeca8c681083fd7ee47f88b725c58af51}
+
+
+Definition at line 213 of file obj.\+h.
+
+\hypertarget{obj_8h_a6a91da9912d356d8cbca4333834fc66d}{\index{obj.\+h@{obj.\+h}!mlevelgain@{mlevelgain}}
+\index{mlevelgain@{mlevelgain}!obj.\+h@{obj.\+h}}
+\subsubsection[{mlevelgain}]{\setlength{\rightskip}{0pt plus 5cm}\#define mlevelgain(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)~({\bf ofood}({\bf obj}) \&\& ({\bf obj})-\/$>$corpsenm == P\+M\+\_\+\+W\+R\+A\+I\+T\+H)}}\label{obj_8h_a6a91da9912d356d8cbca4333834fc66d}
+
+
+Definition at line 212 of file obj.\+h.
+
+\hypertarget{obj_8h_a6cf2ea5aec5dd17cb5d055477a91426a}{\index{obj.\+h@{obj.\+h}!newobj@{newobj}}
+\index{newobj@{newobj}!obj.\+h@{obj.\+h}}
+\subsubsection[{newobj}]{\setlength{\rightskip}{0pt plus 5cm}\#define newobj(
+\begin{DoxyParamCaption}
+\item[{}]{xl}
+\end{DoxyParamCaption}
+)~(struct {\bf obj} $\ast$){\bf alloc}((unsigned)(xl) + sizeof(struct {\bf obj}))}}\label{obj_8h_a6cf2ea5aec5dd17cb5d055477a91426a}
+
+
+Definition at line 112 of file obj.\+h.
+
+
+
+Referenced by restobjchn().
+
+\hypertarget{obj_8h_a48857f39d27ea25589dd447836c1d50b}{\index{obj.\+h@{obj.\+h}!nexthere@{nexthere}}
+\index{nexthere@{nexthere}!obj.\+h@{obj.\+h}}
+\subsubsection[{nexthere}]{\setlength{\rightskip}{0pt plus 5cm}\#define nexthere~v.\+v\+\_\+nexthere}}\label{obj_8h_a48857f39d27ea25589dd447836c1d50b}
+
+
+Definition at line 20 of file obj.\+h.
+
+\hypertarget{obj_8h_a84c1ed9e11aa7fd6d2a37717d0e5139b}{\index{obj.\+h@{obj.\+h}!N\+O\+B\+J\+\_\+\+S\+T\+A\+T\+E\+S@{N\+O\+B\+J\+\_\+\+S\+T\+A\+T\+E\+S}}
+\index{N\+O\+B\+J\+\_\+\+S\+T\+A\+T\+E\+S@{N\+O\+B\+J\+\_\+\+S\+T\+A\+T\+E\+S}!obj.\+h@{obj.\+h}}
+\subsubsection[{N\+O\+B\+J\+\_\+\+S\+T\+A\+T\+E\+S}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+O\+B\+J\+\_\+\+S\+T\+A\+T\+E\+S~8}}\label{obj_8h_a84c1ed9e11aa7fd6d2a37717d0e5139b}
+
+
+Definition at line 54 of file obj.\+h.
+
+\hypertarget{obj_8h_aec96474486e16dd844508c36ef0fe43f}{\index{obj.\+h@{obj.\+h}!norevive@{norevive}}
+\index{norevive@{norevive}!obj.\+h@{obj.\+h}}
+\subsubsection[{norevive}]{\setlength{\rightskip}{0pt plus 5cm}\#define norevive~oeroded2}}\label{obj_8h_aec96474486e16dd844508c36ef0fe43f}
+
+
+Definition at line 72 of file obj.\+h.
+
+\hypertarget{obj_8h_aa6949a85687215d5dde09de5ce86e3cd}{\index{obj.\+h@{obj.\+h}!O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+\_\+\+I\+D@{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+\_\+\+I\+D}}
+\index{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+\_\+\+I\+D@{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+\_\+\+I\+D}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+\_\+\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+\_\+\+I\+D~2	/$\ast$ {\bf monst} id {\bf in} oextra $\ast$/}}\label{obj_8h_aa6949a85687215d5dde09de5ce86e3cd}
+
+
+Definition at line 89 of file obj.\+h.
+
+
+
+Referenced by reset\+\_\+oattached\+\_\+mids().
+
+\hypertarget{obj_8h_a64392331b2d143b80be3262b52bb62c4}{\index{obj.\+h@{obj.\+h}!O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+O\+N\+S\+T@{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+O\+N\+S\+T}}
+\index{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+O\+N\+S\+T@{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+O\+N\+S\+T}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+O\+N\+S\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+M\+O\+N\+S\+T~1	/$\ast$ {\bf monst} struct {\bf in} oextra $\ast$/}}\label{obj_8h_a64392331b2d143b80be3262b52bb62c4}
+
+
+Definition at line 88 of file obj.\+h.
+
+
+
+Referenced by dosacrifice(), and reset\+\_\+oattached\+\_\+mids().
+
+\hypertarget{obj_8h_ae6be3b34b4d46dc3492b06239cdbe318}{\index{obj.\+h@{obj.\+h}!O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+N\+O\+T\+H\+I\+N\+G@{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+N\+O\+T\+H\+I\+N\+G}}
+\index{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+N\+O\+T\+H\+I\+N\+G@{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+N\+O\+T\+H\+I\+N\+G}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+N\+O\+T\+H\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+N\+O\+T\+H\+I\+N\+G~0}}\label{obj_8h_ae6be3b34b4d46dc3492b06239cdbe318}
+
+
+Definition at line 87 of file obj.\+h.
+
+
+
+Referenced by reset\+\_\+oattached\+\_\+mids().
+
+\hypertarget{obj_8h_aa9d5611543cea9d9a2aa96ecdbdc140f}{\index{obj.\+h@{obj.\+h}!O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+U\+N\+U\+S\+E\+D3@{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+U\+N\+U\+S\+E\+D3}}
+\index{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+U\+N\+U\+S\+E\+D3@{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+U\+N\+U\+S\+E\+D3}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+U\+N\+U\+S\+E\+D3}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+A\+T\+T\+A\+C\+H\+E\+D\+\_\+\+U\+N\+U\+S\+E\+D3~3}}\label{obj_8h_aa9d5611543cea9d9a2aa96ecdbdc140f}
+
+
+Definition at line 90 of file obj.\+h.
+
+\hypertarget{obj_8h_a153e4aa09f3a44def03dc5d882c6ade0}{\index{obj.\+h@{obj.\+h}!O\+B\+J\+\_\+\+B\+U\+R\+I\+E\+D@{O\+B\+J\+\_\+\+B\+U\+R\+I\+E\+D}}
+\index{O\+B\+J\+\_\+\+B\+U\+R\+I\+E\+D@{O\+B\+J\+\_\+\+B\+U\+R\+I\+E\+D}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+B\+J\+\_\+\+B\+U\+R\+I\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+\_\+\+B\+U\+R\+I\+E\+D~6		/$\ast$ {\bf object} buried $\ast$/}}\label{obj_8h_a153e4aa09f3a44def03dc5d882c6ade0}
+
+
+Definition at line 52 of file obj.\+h.
+
+\hypertarget{obj_8h_a39c3d0d393a48d77d7f09b967a96df99}{\index{obj.\+h@{obj.\+h}!O\+B\+J\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D@{O\+B\+J\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D}}
+\index{O\+B\+J\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D@{O\+B\+J\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+B\+J\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D~2		/$\ast$ {\bf object} {\bf in} a {\bf container} $\ast$/}}\label{obj_8h_a39c3d0d393a48d77d7f09b967a96df99}
+
+
+Definition at line 48 of file obj.\+h.
+
+\hypertarget{obj_8h_acd464620d577477e63a63b1c3ff62367}{\index{obj.\+h@{obj.\+h}!O\+B\+J\+\_\+\+F\+L\+O\+O\+R@{O\+B\+J\+\_\+\+F\+L\+O\+O\+R}}
+\index{O\+B\+J\+\_\+\+F\+L\+O\+O\+R@{O\+B\+J\+\_\+\+F\+L\+O\+O\+R}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+B\+J\+\_\+\+F\+L\+O\+O\+R}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+\_\+\+F\+L\+O\+O\+R~1		/$\ast$ {\bf object} on floor $\ast$/}}\label{obj_8h_acd464620d577477e63a63b1c3ff62367}
+
+
+Definition at line 47 of file obj.\+h.
+
+\hypertarget{obj_8h_a1a30035b131908457d0b16db1d194eaa}{\index{obj.\+h@{obj.\+h}!O\+B\+J\+\_\+\+F\+R\+E\+E@{O\+B\+J\+\_\+\+F\+R\+E\+E}}
+\index{O\+B\+J\+\_\+\+F\+R\+E\+E@{O\+B\+J\+\_\+\+F\+R\+E\+E}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+B\+J\+\_\+\+F\+R\+E\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+\_\+\+F\+R\+E\+E~0		/$\ast$ {\bf object} not attached to {\bf anything} $\ast$/}}\label{obj_8h_a1a30035b131908457d0b16db1d194eaa}
+
+
+Definition at line 46 of file obj.\+h.
+
+
+
+Referenced by find\+\_\+lev\+\_\+obj(), saveobjchn(), and teleds().
+
+\hypertarget{obj_8h_af1a65072bbaff49e63dd0e724e205067}{\index{obj.\+h@{obj.\+h}!O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T@{O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T}}
+\index{O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T@{O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+\_\+\+I\+N\+V\+E\+N\+T~3		/$\ast$ {\bf object} {\bf in} the hero's inventory $\ast$/}}\label{obj_8h_af1a65072bbaff49e63dd0e724e205067}
+
+
+Definition at line 49 of file obj.\+h.
+
+
+
+Referenced by steal\+\_\+it().
+
+\hypertarget{obj_8h_a570f92543afddd47a693d23b71aea4fb}{\index{obj.\+h@{obj.\+h}!O\+B\+J\+\_\+\+M\+I\+G\+R\+A\+T\+I\+N\+G@{O\+B\+J\+\_\+\+M\+I\+G\+R\+A\+T\+I\+N\+G}}
+\index{O\+B\+J\+\_\+\+M\+I\+G\+R\+A\+T\+I\+N\+G@{O\+B\+J\+\_\+\+M\+I\+G\+R\+A\+T\+I\+N\+G}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+B\+J\+\_\+\+M\+I\+G\+R\+A\+T\+I\+N\+G}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+\_\+\+M\+I\+G\+R\+A\+T\+I\+N\+G~5		/$\ast$ {\bf object} sent off to another {\bf level} $\ast$/}}\label{obj_8h_a570f92543afddd47a693d23b71aea4fb}
+
+
+Definition at line 51 of file obj.\+h.
+
+
+
+Referenced by kick\+\_\+object().
+
+\hypertarget{obj_8h_a792736145f7692fad0785cb93f618e73}{\index{obj.\+h@{obj.\+h}!O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T@{O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T}}
+\index{O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T@{O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+\_\+\+M\+I\+N\+V\+E\+N\+T~4		/$\ast$ {\bf object} {\bf in} a {\bf monster} inventory $\ast$/}}\label{obj_8h_a792736145f7692fad0785cb93f618e73}
+
+
+Definition at line 50 of file obj.\+h.
+
+
+
+Referenced by kick\+\_\+object(), and throwit().
+
+\hypertarget{obj_8h_ac6f78697d45a71f7dfd6935971146eb3}{\index{obj.\+h@{obj.\+h}!O\+B\+J\+\_\+\+O\+N\+B\+I\+L\+L@{O\+B\+J\+\_\+\+O\+N\+B\+I\+L\+L}}
+\index{O\+B\+J\+\_\+\+O\+N\+B\+I\+L\+L@{O\+B\+J\+\_\+\+O\+N\+B\+I\+L\+L}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+B\+J\+\_\+\+O\+N\+B\+I\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+B\+J\+\_\+\+O\+N\+B\+I\+L\+L~7		/$\ast$ {\bf object} on shk bill $\ast$/}}\label{obj_8h_ac6f78697d45a71f7dfd6935971146eb3}
+
+
+Definition at line 53 of file obj.\+h.
+
+\hypertarget{obj_8h_a917b215f5f91a4317e893907bc9ae278}{\index{obj.\+h@{obj.\+h}!ocarry@{ocarry}}
+\index{ocarry@{ocarry}!obj.\+h@{obj.\+h}}
+\subsubsection[{ocarry}]{\setlength{\rightskip}{0pt plus 5cm}\#define ocarry~v.\+v\+\_\+ocarry}}\label{obj_8h_a917b215f5f91a4317e893907bc9ae278}
+
+
+Definition at line 22 of file obj.\+h.
+
+\hypertarget{obj_8h_a31e28d13f27aca0aa60a5d761481abba}{\index{obj.\+h@{obj.\+h}!ocontainer@{ocontainer}}
+\index{ocontainer@{ocontainer}!obj.\+h@{obj.\+h}}
+\subsubsection[{ocontainer}]{\setlength{\rightskip}{0pt plus 5cm}\#define ocontainer~v.\+v\+\_\+ocontainer}}\label{obj_8h_a31e28d13f27aca0aa60a5d761481abba}
+
+
+Definition at line 21 of file obj.\+h.
+
+\hypertarget{obj_8h_a23de69cb130aabbae4ff7e5cca04b7f8}{\index{obj.\+h@{obj.\+h}!odiluted@{odiluted}}
+\index{odiluted@{odiluted}!obj.\+h@{obj.\+h}}
+\subsubsection[{odiluted}]{\setlength{\rightskip}{0pt plus 5cm}\#define odiluted~oeroded	/$\ast$ diluted potions $\ast$/}}\label{obj_8h_a23de69cb130aabbae4ff7e5cca04b7f8}
+
+
+Definition at line 71 of file obj.\+h.
+
+\hypertarget{obj_8h_a13f5182f2c3ddc37b3072870ec4a5c16}{\index{obj.\+h@{obj.\+h}!ofood@{ofood}}
+\index{ofood@{ofood}!obj.\+h@{obj.\+h}}
+\subsubsection[{ofood}]{\setlength{\rightskip}{0pt plus 5cm}\#define ofood(
+\begin{DoxyParamCaption}
+\item[{}]{o}
+\end{DoxyParamCaption}
+)~((o)-\/$>$otyp == C\+O\+R\+P\+S\+E $\vert$$\vert$ (o)-\/$>$otyp == E\+G\+G $\vert$$\vert$ (o)-\/$>$otyp == T\+I\+N)}}\label{obj_8h_a13f5182f2c3ddc37b3072870ec4a5c16}
+
+
+Definition at line 209 of file obj.\+h.
+
+\hypertarget{obj_8h_a1cbe5aea8be676f47a4597882a411c37}{\index{obj.\+h@{obj.\+h}!O\+N\+A\+M\+E@{O\+N\+A\+M\+E}}
+\index{O\+N\+A\+M\+E@{O\+N\+A\+M\+E}!obj.\+h@{obj.\+h}}
+\subsubsection[{O\+N\+A\+M\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define O\+N\+A\+M\+E(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf otmp}}
+\end{DoxyParamCaption}
+)~(((char $\ast$)({\bf otmp})-\/$>$oextra) + ({\bf otmp})-\/$>$oxlth)}}\label{obj_8h_a1cbe5aea8be676f47a4597882a411c37}
+
+
+Definition at line 113 of file obj.\+h.
+
+
+
+Referenced by chwepon(), and resetobjs().
+
+\hypertarget{obj_8h_ac432c29b4100df9d596b3520981b6415}{\index{obj.\+h@{obj.\+h}!opoisoned@{opoisoned}}
+\index{opoisoned@{opoisoned}!obj.\+h@{obj.\+h}}
+\subsubsection[{opoisoned}]{\setlength{\rightskip}{0pt plus 5cm}\#define opoisoned~otrapped	/$\ast$ {\bf object} (weapon) is coated with poison $\ast$/}}\label{obj_8h_ac432c29b4100df9d596b3520981b6415}
+
+
+Definition at line 78 of file obj.\+h.
+
+\hypertarget{obj_8h_a6e7ee6861770450e0117f03d9e2a6d4e}{\index{obj.\+h@{obj.\+h}!orotten@{orotten}}
+\index{orotten@{orotten}!obj.\+h@{obj.\+h}}
+\subsubsection[{orotten}]{\setlength{\rightskip}{0pt plus 5cm}\#define orotten~oeroded		/$\ast$ rotten food $\ast$/}}\label{obj_8h_a6e7ee6861770450e0117f03d9e2a6d4e}
+
+
+Definition at line 70 of file obj.\+h.
+
+\hypertarget{obj_8h_a2b98ae56649f0982302ddba00b9f8be5}{\index{obj.\+h@{obj.\+h}!polyfodder@{polyfodder}}
+\index{polyfodder@{polyfodder}!obj.\+h@{obj.\+h}}
+\subsubsection[{polyfodder}]{\setlength{\rightskip}{0pt plus 5cm}\#define polyfodder(
+\begin{DoxyParamCaption}
+\item[{}]{{\bf obj}}
+\end{DoxyParamCaption}
+)}}\label{obj_8h_a2b98ae56649f0982302ddba00b9f8be5}
+{\bfseries Value\+:}
+\begin{DoxyCode}
+(\hyperlink{obj_8h_a13f5182f2c3ddc37b3072870ec4a5c16}{ofood}(\hyperlink{structobj}{obj}) && \(\backslash\)
+             pm\_to\_cham((\hyperlink{structobj}{obj})->corpsenm) != \hyperlink{monst_8h_aa5d87eb24bb6295bb77589479298629a}{CHAM\_ORDINARY})
+\end{DoxyCode}
+
+
+Definition at line 210 of file obj.\+h.
+
+\hypertarget{obj_8h_a93c26e932e82807e0a3498e394278964}{\index{obj.\+h@{obj.\+h}!spestudied@{spestudied}}
+\index{spestudied@{spestudied}!obj.\+h@{obj.\+h}}
+\subsubsection[{spestudied}]{\setlength{\rightskip}{0pt plus 5cm}\#define spestudied~corpsenm	/$\ast$ \# of times a spellbook has been studied $\ast$/}}\label{obj_8h_a93c26e932e82807e0a3498e394278964}
+
+
+Definition at line 98 of file obj.\+h.
+
+\hypertarget{obj_8h_aa960c14bde9549163592a6d8a2472499}{\index{obj.\+h@{obj.\+h}!stale\+\_\+egg@{stale\+\_\+egg}}
+\index{stale\+\_\+egg@{stale\+\_\+egg}!obj.\+h@{obj.\+h}}
+\subsubsection[{stale\+\_\+egg}]{\setlength{\rightskip}{0pt plus 5cm}\#define stale\+\_\+egg(
+\begin{DoxyParamCaption}
+\item[{}]{egg}
+\end{DoxyParamCaption}
+)~(({\bf monstermoves} -\/ (egg)-\/$>$age) $>$ (2$\ast${\bf M\+A\+X\+\_\+\+E\+G\+G\+\_\+\+H\+A\+T\+C\+H\+\_\+\+T\+I\+M\+E}))}}\label{obj_8h_aa960c14bde9549163592a6d8a2472499}
+
+
+Definition at line 208 of file obj.\+h.
+
+
+
+Referenced by hmon\+\_\+hitmon().
+
+\hypertarget{obj_8h_af0c336ded6d62e02c26f6d86f95e4a53}{\index{obj.\+h@{obj.\+h}!S\+T\+A\+T\+U\+E\+\_\+\+F\+E\+M\+A\+L\+E@{S\+T\+A\+T\+U\+E\+\_\+\+F\+E\+M\+A\+L\+E}}
+\index{S\+T\+A\+T\+U\+E\+\_\+\+F\+E\+M\+A\+L\+E@{S\+T\+A\+T\+U\+E\+\_\+\+F\+E\+M\+A\+L\+E}!obj.\+h@{obj.\+h}}
+\subsubsection[{S\+T\+A\+T\+U\+E\+\_\+\+F\+E\+M\+A\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+U\+E\+\_\+\+F\+E\+M\+A\+L\+E~0x04}}\label{obj_8h_af0c336ded6d62e02c26f6d86f95e4a53}
+
+
+Definition at line 40 of file obj.\+h.
+
+\hypertarget{obj_8h_ab8c7f1852485c1923c294d5f345148de}{\index{obj.\+h@{obj.\+h}!S\+T\+A\+T\+U\+E\+\_\+\+H\+I\+S\+T\+O\+R\+I\+C@{S\+T\+A\+T\+U\+E\+\_\+\+H\+I\+S\+T\+O\+R\+I\+C}}
+\index{S\+T\+A\+T\+U\+E\+\_\+\+H\+I\+S\+T\+O\+R\+I\+C@{S\+T\+A\+T\+U\+E\+\_\+\+H\+I\+S\+T\+O\+R\+I\+C}!obj.\+h@{obj.\+h}}
+\subsubsection[{S\+T\+A\+T\+U\+E\+\_\+\+H\+I\+S\+T\+O\+R\+I\+C}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+U\+E\+\_\+\+H\+I\+S\+T\+O\+R\+I\+C~0x01}}\label{obj_8h_ab8c7f1852485c1923c294d5f345148de}
+
+
+Definition at line 38 of file obj.\+h.
+
+\hypertarget{obj_8h_abc9d63f999c3042c0608431127b20ebc}{\index{obj.\+h@{obj.\+h}!S\+T\+A\+T\+U\+E\+\_\+\+M\+A\+L\+E@{S\+T\+A\+T\+U\+E\+\_\+\+M\+A\+L\+E}}
+\index{S\+T\+A\+T\+U\+E\+\_\+\+M\+A\+L\+E@{S\+T\+A\+T\+U\+E\+\_\+\+M\+A\+L\+E}!obj.\+h@{obj.\+h}}
+\subsubsection[{S\+T\+A\+T\+U\+E\+\_\+\+M\+A\+L\+E}]{\setlength{\rightskip}{0pt plus 5cm}\#define S\+T\+A\+T\+U\+E\+\_\+\+M\+A\+L\+E~0x02}}\label{obj_8h_abc9d63f999c3042c0608431127b20ebc}
+
+
+Definition at line 39 of file obj.\+h.
+
+\hypertarget{obj_8h_a2adb148f9956bf79f1825fed308ce583}{\index{obj.\+h@{obj.\+h}!uslinging@{uslinging}}
+\index{uslinging@{uslinging}!obj.\+h@{obj.\+h}}
+\subsubsection[{uslinging}]{\setlength{\rightskip}{0pt plus 5cm}\#define uslinging(
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)~({\bf uwep} \&\& {\bf objects}\mbox{[}{\bf uwep}-\/$>$otyp\mbox{]}.{\bf oc\+\_\+skill} == {\bf P\+\_\+\+S\+L\+I\+N\+G})}}\label{obj_8h_a2adb148f9956bf79f1825fed308ce583}
+
+
+Definition at line 171 of file obj.\+h.
+
+
+
+Referenced by autoquiver(), dothrow(), and dowieldquiver().
+

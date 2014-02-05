@@ -1,0 +1,313 @@
+\hypertarget{unixunix_8c}{\section{nethack/sys/unix/unixunix.c File Reference}
+\label{unixunix_8c}\index{nethack/sys/unix/unixunix.\+c@{nethack/sys/unix/unixunix.\+c}}
+}
+{\ttfamily \#include \char`\"{}hack.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$errno.\+h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\+h$>$}\\*
+{\ttfamily \#include $<$signal.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \hyperlink{unixunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}{veryold} (int fd)
+\item 
+static int \hyperlink{unixunix_8c_adfb2280562113b5c1e01fee89c8a1ded}{eraseoldlocks} ()
+\item 
+void \hyperlink{unixunix_8c_a26fa619107ec2ebabf6ffe345da1fcc4}{getlock} ()
+\item 
+void \hyperlink{unixunix_8c_a8937ede58517f812b44a36c286f504b4}{regularize} (char $\ast$s)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{unixunix_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno}
+\item 
+static struct stat \hyperlink{unixunix_8c_a69ecf571a24e1f0227e484b18a3ac3e3}{buf}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{unixunix_8c_adfb2280562113b5c1e01fee89c8a1ded}{\index{unixunix.\+c@{unixunix.\+c}!eraseoldlocks@{eraseoldlocks}}
+\index{eraseoldlocks@{eraseoldlocks}!unixunix.\+c@{unixunix.\+c}}
+\subsubsection[{eraseoldlocks}]{\setlength{\rightskip}{0pt plus 5cm}static int eraseoldlocks (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixunix_8c_adfb2280562113b5c1e01fee89c8a1ded}
+
+
+Definition at line 70 of file unixunix.\+c.
+
+
+
+References fqname(), L\+E\+V\+E\+L\+P\+R\+E\+F\+I\+X, lock, M\+A\+X\+D\+U\+N\+G\+E\+O\+N, M\+A\+X\+L\+E\+V\+E\+L, set\+\_\+levelfile\+\_\+name(), and unlink().
+
+
+
+Referenced by getlock().
+
+
+\begin{DoxyCode}
+71 \{
+72     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i;
+73 
+74     \textcolor{comment}{/* cannot use maxledgerno() here, because we need to find a lock name}
+75 \textcolor{comment}{     * before starting everything (including the dungeon initialization}
+76 \textcolor{comment}{     * that sets astral\_level, needed for maxledgerno()) up}
+77 \textcolor{comment}{     */}
+78     \textcolor{keywordflow}{for}(i = 1; i <= \hyperlink{global_8h_a1a21793acfe9387a78ebc2a03178cf02}{MAXDUNGEON}*\hyperlink{global_8h_a7cdfb44bf10c2e268d7a04a48a1ae6c0}{MAXLEVEL} + 1; i++) \{
+79         \textcolor{comment}{/* try to remove all */}
+80         \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, i);
+81         (void) \hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \hyperlink{decl_8h_a3927e6e5163851a0485f8e8adba6f784}{LEVELPREFIX}, 0));
+82     \}
+83     \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, 0);
+84     \textcolor{keywordflow}{if} (\hyperlink{wceconf_8h_aaa6f9697fa5339b751a4394678403892}{unlink}(\hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \hyperlink{decl_8h_a3927e6e5163851a0485f8e8adba6f784}{LEVELPREFIX}, 0)))
+85         \textcolor{keywordflow}{return}(0);              \textcolor{comment}{/* cannot remove it */}
+86     \textcolor{keywordflow}{return}(1);                  \textcolor{comment}{/* success! */}
+87 \}
+\end{DoxyCode}
+\hypertarget{unixunix_8c_a26fa619107ec2ebabf6ffe345da1fcc4}{\index{unixunix.\+c@{unixunix.\+c}!getlock@{getlock}}
+\index{getlock@{getlock}!unixunix.\+c@{unixunix.\+c}}
+\subsubsection[{getlock}]{\setlength{\rightskip}{0pt plus 5cm}void getlock (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}}\label{unixunix_8c_a26fa619107ec2ebabf6ffe345da1fcc4}
+
+
+Definition at line 90 of file unixunix.\+c.
+
+
+
+References close(), creat(), eraseoldlocks(), errno, error(), F\+C\+M\+A\+S\+K, fqname(), hackpid, H\+L\+O\+C\+K, iflags, isatty(), L\+E\+V\+E\+L\+P\+R\+E\+F\+I\+X, lock, lock\+\_\+file(), L\+O\+C\+K\+P\+R\+E\+F\+I\+X, window\+\_\+procs\+::name, open(), perror, printf, regularize(), set\+\_\+levelfile\+\_\+name(), stdout, unlock\+\_\+file(), veryold(), wait\+\_\+synch, instance\+\_\+flags\+::window\+\_\+inited, windowprocs, write(), and yn.
+
+
+\begin{DoxyCode}
+91 \{
+92     \textcolor{keyword}{register} \textcolor{keywordtype}{int} i = 0, fd, c;
+93     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fq\_lock;
+94 
+95 \textcolor{preprocessor}{#ifdef TTY\_GRAPHICS}
+96     \textcolor{comment}{/* idea from rpick%ucqais@uccba.uc.edu}
+97 \textcolor{comment}{     * prevent automated rerolling of characters}
+98 \textcolor{comment}{     * test input (fd0) so that tee'ing output to get a screen dump still}
+99 \textcolor{comment}{     * works}
+100 \textcolor{comment}{     * also incidentally prevents development of any hack-o-matic programs}
+101 \textcolor{comment}{     */}
+102     \textcolor{comment}{/* added check for window-system type -dlc */}
+103     \textcolor{keywordflow}{if} (!strcmp(\hyperlink{winprocs_8h_a166c17ce426a1c495296575938a60f9c}{windowprocs}.\hyperlink{structwindow__procs_a3c3f9beba0ac50aabe7ce172f042e917}{name}, \textcolor{stringliteral}{"tty"}))
+104         \textcolor{keywordflow}{if} (!\hyperlink{wceconf_8h_ab4155ffea05dab2dafae68fd88a0517f}{isatty}(0))
+105         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"You must play from a terminal."});
+106 \textcolor{preprocessor}{#endif}
+107 
+108     \textcolor{comment}{/* we ignore QUIT and INT at this point */}
+109     \textcolor{keywordflow}{if} (!\hyperlink{files_8c_a991dbc9dc86b6aa9673a7bed36802728}{lock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK}, \hyperlink{decl_8h_ab34725ee75fd5fcf782cd33cfffa8601}{LOCKPREFIX}, 10)) \{
+110         \hyperlink{winprocs_8h_ab3dda14337c8ebd4fe496eab265a8483}{wait\_synch}();
+111         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"%s"}, \textcolor{stringliteral}{""});
+112     \}
+113 
+114     \hyperlink{unixunix_8c_a8937ede58517f812b44a36c286f504b4}{regularize}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock});
+115     \hyperlink{files_8c_afcc4febcf4dd9d86ba3cc3df34f5a588}{set\_levelfile\_name}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, 0);
+116 
+117     \textcolor{keywordflow}{if}(locknum) \{
+118         \textcolor{keywordflow}{if}(locknum > 25) locknum = 25;
+119 
+120         \textcolor{keywordflow}{do} \{
+121             \hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}[0] = \textcolor{charliteral}{'a'} + i++;
+122             fq\_lock = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \hyperlink{decl_8h_a3927e6e5163851a0485f8e8adba6f784}{LEVELPREFIX}, 0);
+123 
+124             \textcolor{keywordflow}{if}((fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_lock, 0)) == -1) \{
+125                 \textcolor{keywordflow}{if}(\hyperlink{unixunix_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} == ENOENT) \textcolor{keywordflow}{goto} gotlock; \textcolor{comment}{/* no such file */}
+126                 \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(fq\_lock);
+127                 \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+128                 \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Cannot open %s"}, fq\_lock);
+129             \}
+130 
+131             \textcolor{keywordflow}{if}(\hyperlink{unixunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}{veryold}(fd) \textcolor{comment}{/* closes fd if true */}
+132                             && \hyperlink{unixunix_8c_adfb2280562113b5c1e01fee89c8a1ded}{eraseoldlocks}())
+133                 \textcolor{keywordflow}{goto} gotlock;
+134             (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+135         \} \textcolor{keywordflow}{while}(i < locknum);
+136 
+137         \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+138         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Too many hacks running now."});
+139     \} \textcolor{keywordflow}{else} \{
+140         fq\_lock = \hyperlink{files_8c_a8059f77bb89e5ed0c3bf6ff939a21fc1}{fqname}(\hyperlink{decl_8h_a8b16c414738de372bc32500c786b4942}{lock}, \hyperlink{decl_8h_a3927e6e5163851a0485f8e8adba6f784}{LEVELPREFIX}, 0);
+141         \textcolor{keywordflow}{if}((fd = \hyperlink{wceconf_8h_a06cb3578c7c2e0259fdb09e63f992af3}{open}(fq\_lock, 0)) == -1) \{
+142             \textcolor{keywordflow}{if}(\hyperlink{unixunix_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} == ENOENT) \textcolor{keywordflow}{goto} gotlock;    \textcolor{comment}{/* no such file */}
+143             \hyperlink{wceconf_8h_ac6610b0dbcff578ebff16b325fbaa69b}{perror}(fq\_lock);
+144             \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+145             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Cannot open %s"}, fq\_lock);
+146         \}
+147 
+148         \textcolor{keywordflow}{if}(\hyperlink{unixunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}{veryold}(fd) \textcolor{comment}{/* closes fd if true */} && \hyperlink{unixunix_8c_adfb2280562113b5c1e01fee89c8a1ded}{eraseoldlocks}())
+149             \textcolor{keywordflow}{goto} gotlock;
+150         (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+151 
+152         \textcolor{keywordflow}{if}(\hyperlink{flag_8h_ae9cd54937dcb00432131e49e5e324075}{iflags}.\hyperlink{structinstance__flags_a2fc6c78c4c5f6e1d0027ac575135426f}{window\_inited}) \{
+153             c = \hyperlink{hack_8h_a22ffd7fa35549db318337a497c38a1ae}{yn}(\textcolor{stringliteral}{"There is already a game in progress under your name.  Destroy old game?"});
+154         \} \textcolor{keywordflow}{else} \{
+155             (void) \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"\(\backslash\)nThere is already a game in progress under your name."});
+156             (void) \hyperlink{sound_8c_a3cb9f0894fab1c8fbb0753c9c7c2a8d9}{printf}(\textcolor{stringliteral}{"  Destroy old game? [yn] "});
+157             (void) fflush(\hyperlink{lev__lex_8h_a0c0ef221f95f64e8632451312fd18cc8}{stdout});
+158             c = getchar();
+159             (void) putchar(c);
+160             (void) fflush(\hyperlink{lev__lex_8h_a0c0ef221f95f64e8632451312fd18cc8}{stdout});
+161             \textcolor{keywordflow}{while} (getchar() != \textcolor{charliteral}{'\(\backslash\)n'}) ; \textcolor{comment}{/* eat rest of line and newline */}
+162         \}
+163         \textcolor{keywordflow}{if}(c == \textcolor{charliteral}{'y'} || c == \textcolor{charliteral}{'Y'})
+164             \textcolor{keywordflow}{if}(\hyperlink{unixunix_8c_adfb2280562113b5c1e01fee89c8a1ded}{eraseoldlocks}())
+165                 \textcolor{keywordflow}{goto} gotlock;
+166             \textcolor{keywordflow}{else} \{
+167                 \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+168                 \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"Couldn't destroy old game."});
+169             \}
+170         \textcolor{keywordflow}{else} \{
+171             \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+172             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"%s"}, \textcolor{stringliteral}{""});
+173         \}
+174     \}
+175 
+176 gotlock:
+177     fd = \hyperlink{wceconf_8h_a8e3d15ba88c8177901cb71711b060b36}{creat}(fq\_lock, \hyperlink{beconf_8h_abf4be38c8e5fb2c8a7c719d08e2178ac}{FCMASK});
+178     \hyperlink{files_8c_a84521e5fe9e1e74c551af4ea9441cbe7}{unlock\_file}(\hyperlink{ntconf_8h_ac9a24df010a94943b265c1b23f14f8bc}{HLOCK});
+179     \textcolor{keywordflow}{if}(fd == -1) \{
+180         \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot creat lock file (%s)."}, fq\_lock);
+181     \} \textcolor{keywordflow}{else} \{
+182         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_a0c029374a95b1e46ea446a2b958bae95}{write}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t}) &\hyperlink{decl_8h_a8ce342978cf711fcf79e4f9027bff80b}{hackpid}, \textcolor{keyword}{sizeof}(hackpid))
+183             != \textcolor{keyword}{sizeof}(hackpid))\{
+184             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot write lock (%s)"}, fq\_lock);
+185         \}
+186         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd) == -1) \{
+187             \hyperlink{txt2iff_8c_a64e632a682e311bde915784e6a17da31}{error}(\textcolor{stringliteral}{"cannot close lock (%s)"}, fq\_lock);
+188         \}
+189     \}
+190 \}
+\end{DoxyCode}
+\hypertarget{unixunix_8c_a8937ede58517f812b44a36c286f504b4}{\index{unixunix.\+c@{unixunix.\+c}!regularize@{regularize}}
+\index{regularize@{regularize}!unixunix.\+c@{unixunix.\+c}}
+\subsubsection[{regularize}]{\setlength{\rightskip}{0pt plus 5cm}void regularize (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{s}
+\end{DoxyParamCaption}
+)}}\label{unixunix_8c_a8937ede58517f812b44a36c286f504b4}
+
+
+Definition at line 193 of file unixunix.\+c.
+
+
+
+References C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+E\+X\+T\+E\+N\+S\+I\+O\+N, and index().
+
+
+
+Referenced by getlock().
+
+
+\begin{DoxyCode}
+195 \{
+196     \textcolor{keyword}{register} \textcolor{keywordtype}{char} *lp;
+197 
+198     \textcolor{keywordflow}{while}((lp=\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(s, \textcolor{charliteral}{'.'})) || (lp=\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(s, \textcolor{charliteral}{'/'})) || (lp=\hyperlink{uudecode_8c_ac82f3cc16110a05458f2b2483236afb7}{index}(s,\textcolor{charliteral}{' '})))
+199         *lp = \textcolor{charliteral}{'\_'};
+200 \textcolor{preprocessor}{#if defined(SYSV) && !defined(AIX\_31) && !defined(SVR4) && !defined(LINUX) && !defined(\_\_APPLE\_\_)}
+201     \textcolor{comment}{/* avoid problems with 14 character file name limit */}
+202 \textcolor{preprocessor}{# ifdef COMPRESS}
+203     \textcolor{comment}{/* leave room for .e from error and .Z from compress appended to}
+204 \textcolor{comment}{     * save files */}
+205     \{
+206 \textcolor{preprocessor}{#  ifdef COMPRESS\_EXTENSION}
+207         \textcolor{keywordtype}{int} i = 12 - strlen(\hyperlink{config_8h_a11f2b3390a829661fb6a4786f21d7f42}{COMPRESS\_EXTENSION});
+208 \textcolor{preprocessor}{#  else}
+209         \textcolor{keywordtype}{int} i = 10;     \textcolor{comment}{/* should never happen... */}
+210 \textcolor{preprocessor}{#  endif}
+211         \textcolor{keywordflow}{if}(strlen(s) > i)
+212         s[i] = \textcolor{charliteral}{'\(\backslash\)0'};
+213     \}
+214 \textcolor{preprocessor}{# else}
+215     \textcolor{keywordflow}{if}(strlen(s) > 11)
+216         \textcolor{comment}{/* leave room for .nn appended to level files */}
+217         s[11] = \textcolor{charliteral}{'\(\backslash\)0'};
+218 \textcolor{preprocessor}{# endif}
+219 \textcolor{preprocessor}{#endif}
+220 \}
+\end{DoxyCode}
+\hypertarget{unixunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}{\index{unixunix.\+c@{unixunix.\+c}!veryold@{veryold}}
+\index{veryold@{veryold}!unixunix.\+c@{unixunix.\+c}}
+\subsubsection[{veryold}]{\setlength{\rightskip}{0pt plus 5cm}static int veryold (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{unixunix_8c_a450f72c0cd7502d2ae806bb8a35bcf0b}
+
+
+Definition at line 33 of file unixunix.\+c.
+
+
+
+References buf, close(), errno, read(), and time.
+
+
+
+Referenced by getlock().
+
+
+\begin{DoxyCode}
+35 \{
+36     \hyperlink{wceconf_8h_ae314912f2d5fb5362d86efe017e755f4}{time\_t} date;
+37 
+38     \textcolor{keywordflow}{if}(fstat(fd, &\hyperlink{unixunix_8c_a69ecf571a24e1f0227e484b18a3ac3e3}{buf})) \textcolor{keywordflow}{return}(0);           \textcolor{comment}{/* cannot get status */}
+39 \textcolor{preprocessor}{#ifndef INSURANCE}
+40     \textcolor{keywordflow}{if}(\hyperlink{unixunix_8c_a69ecf571a24e1f0227e484b18a3ac3e3}{buf}.st\_size != \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})) \textcolor{keywordflow}{return}(0);    \textcolor{comment}{/* not an xlock file */}
+41 \textcolor{preprocessor}{#endif}
+42 \textcolor{preprocessor}{#if defined(BSD) && !defined(POSIX\_TYPES)}
+43     (void) \hyperlink{gnglyph_8h_a5d72d5591b475bbde164dc8f0095eb2d}{time}((\textcolor{keywordtype}{long} *)(&date));
+44 \textcolor{preprocessor}{#else}
+45     (void) \hyperlink{gnglyph_8h_a5d72d5591b475bbde164dc8f0095eb2d}{time}(&date);
+46 \textcolor{preprocessor}{#endif}
+47     \textcolor{keywordflow}{if}(date - \hyperlink{unixunix_8c_a69ecf571a24e1f0227e484b18a3ac3e3}{buf}.st\_mtime < 3L*24L*60L*60L) \{   \textcolor{comment}{/* recent */}
+48         \textcolor{keywordtype}{int} lockedpid;  \textcolor{comment}{/* should be the same size as hackpid */}
+49 
+50         \textcolor{keywordflow}{if}(\hyperlink{wceconf_8h_aac1b5ad836febcfd883ead1dd92e40bf}{read}(fd, (\hyperlink{tradstdc_8h_ad4a7dab7269b4b00e3c7c7d2e66f31cd}{genericptr\_t})&lockedpid, \textcolor{keyword}{sizeof}(lockedpid)) !=
+51             \textcolor{keyword}{sizeof}(lockedpid))
+52             \textcolor{comment}{/* strange ... */}
+53             \textcolor{keywordflow}{return}(0);
+54 
+55         \textcolor{comment}{/* From: Rick Adams <seismo!rick> */}
+56         \textcolor{comment}{/* This will work on 4.1cbsd, 4.2bsd and system 3? & 5. */}
+57         \textcolor{comment}{/* It will do nothing on V7 or 4.1bsd. */}
+58 \textcolor{preprocessor}{#ifndef NETWORK}
+59         \textcolor{comment}{/* It will do a VERY BAD THING if the playground is shared}
+60 \textcolor{comment}{           by more than one machine! -pem */}
+61         \textcolor{keywordflow}{if}(!(kill(lockedpid, 0) == -1 && \hyperlink{unixunix_8c_ad65a8842cc674e3ddf69355898c0ecbf}{errno} == ESRCH))
+62 \textcolor{preprocessor}{#endif}
+63             \textcolor{keywordflow}{return}(0);
+64     \}
+65     (void) \hyperlink{wceconf_8h_aaf66f9bf47dbed159bf1a600f11c785e}{close}(fd);
+66     \textcolor{keywordflow}{return}(1);
+67 \}
+\end{DoxyCode}
+
+
+\subsection{Variable Documentation}
+\hypertarget{unixunix_8c_a69ecf571a24e1f0227e484b18a3ac3e3}{\index{unixunix.\+c@{unixunix.\+c}!buf@{buf}}
+\index{buf@{buf}!unixunix.\+c@{unixunix.\+c}}
+\subsubsection[{buf}]{\setlength{\rightskip}{0pt plus 5cm}struct stat buf\hspace{0.3cm}{\ttfamily [static]}}}\label{unixunix_8c_a69ecf571a24e1f0227e484b18a3ac3e3}
+
+
+Definition at line 29 of file unixunix.\+c.
+
+
+
+Referenced by veryold().
+
+\hypertarget{unixunix_8c_ad65a8842cc674e3ddf69355898c0ecbf}{\index{unixunix.\+c@{unixunix.\+c}!errno@{errno}}
+\index{errno@{errno}!unixunix.\+c@{unixunix.\+c}}
+\subsubsection[{errno}]{\setlength{\rightskip}{0pt plus 5cm}int errno}}\label{unixunix_8c_ad65a8842cc674e3ddf69355898c0ecbf}
+
+
+Definition at line 345 of file celib.\+c.
+
+
+
+Referenced by getlock(), and veryold().
+
