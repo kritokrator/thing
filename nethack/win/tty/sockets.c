@@ -16,7 +16,7 @@ void *get_in_addr(struct sockaddr *sa)
 	}
 }
 
-void socket_init(int window_socket,struct socket_connection_data data, char* port_number)
+void *socket_init(int window_socket,struct socket_connection_data data, char* port_number)
 {
 
 	int rv;
